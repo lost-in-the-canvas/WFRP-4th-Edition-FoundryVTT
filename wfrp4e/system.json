@@ -1,0 +1,47 @@
+{
+  "name": "wfrp4e",
+  "title": "WFRP 4e",
+  "description": "A comprehensive game system for running games of WFRP 4th Edition in the Foundry VTT environment.",
+  "version": 0.4,
+  "author": "CatoThe1stElder and ya boy Hooking",
+  "scripts": ["dnd5e.js"],
+  "styles": ["./css/wfrp4e.css"],
+  "packs": [
+    {
+      "name": "monsters",
+      "label": "Monsters (SRD)",
+      "system": "dnd5e",
+      "module": "dnd5e",
+      "path": "./packs/monsters.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "items",
+      "label": "Items (SRD)",
+      "system": "dnd5e",
+      "module": "dnd5e",
+      "path": "./packs/items.db",
+      "entity": "Item"
+    },
+    {
+      "name": "spells",
+      "label": "Spells (SRD)",
+      "system": "dnd5e",
+      "module": "dnd5e",
+      "path": "./packs/spells.db",
+      "entity": "Item"
+    },
+    {
+      "name": "srdspells",
+      "label": "SRD Spells 2",
+      "system": "dnd5e",
+      "module": "dnd5e",
+      "path": "./packs/srdspells.db",
+      "entity": "Item"
+    }
+  ],
+  "languages": ["en"],
+  "initiative": "1d20 + @abilities.dex.mod + @attributes.init.value + (@abilities.dex.value / 100)",
+  "gridDistance": 5,
+  "gridUnits": "ft"
+}
