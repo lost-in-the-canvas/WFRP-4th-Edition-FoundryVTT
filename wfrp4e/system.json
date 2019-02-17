@@ -4,7 +4,7 @@
   "description": "A comprehensive game system for running games of WFRP 4th Edition in the Foundry VTT environment.",
   "version": 0.4,
   "author": "CatoThe1stElder and ya boy Hooking",
-  "scripts": ["dnd5e.js"],
+  "scripts": ["wfrp4e.js"],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
     {

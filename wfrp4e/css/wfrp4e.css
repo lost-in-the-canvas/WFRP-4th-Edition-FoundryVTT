@@ -1062,7 +1062,7 @@ body {
 
 #chat-log .message .message-header {
   line-height: 20px;
-  color: #444;
+  color: #6d1400;
 }
 #chat-log .message .message-header .message-sender {
   flex: 3;
@@ -1070,10 +1070,12 @@ body {
 }
 #chat-log .message .message-header .message-metadata {
   flex: 2;
+  color: #444;
   text-align: right;
   font-size: 12px;
 }
 #chat-log .message.ic .message-content {
+  color: rgb(0, 0, 0);
   font-style: italic;
 }
 #chat-log .message.whisper {
