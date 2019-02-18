@@ -180,7 +180,7 @@ Hooks.on("ready", () => {
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("dnd5e", "diagonalMovement", {
+  game.settings.register("wfrp4e", "diagonalMovement", {
     name: "Diagonal Movement Rule",
     hint: "Configure which diagonal movement rule should be used for games within this system.",
     scope: "world",
