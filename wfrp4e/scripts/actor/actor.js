@@ -104,7 +104,7 @@ class Actor5e extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollSkill(skillName) {
+  rollSkill(event, skillName) {
     let skl = this.data.data.skills[skillName],
       parts = ["@mod"],
       flavor = `${skl.label} Skill Check`;
@@ -212,6 +212,135 @@ class Actor5e extends Actor {
         });
       }
     }).render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a hit die of the appropriate type, gaining hit points equal to the die roll plus your CON modifier
+   * @param {String} formula    The hit die type to roll
+   */
+  rollHitDie(formula) {
+
+    // Prepare roll data
+    let parts = [formula, "@abilities.con.mod"],
+        title = `Roll Hit Die`,
+        rollData = duplicate(this.data.data);
+
+    // Confirm the actor has HD available
+    if ( rollData.attributes.hd.value === 0 ) throw new Error(`${this.name} has no Hit Dice remaining!`);
+
+    // Call the roll helper utility
+    return Dice5e.damageRoll({
+      event: new Event("hitDie"),
+      parts: parts,
+      data: rollData,
+      title: title,
+      alias: this.name,
+      critical: false,
+      dialogOptions: {width: 350}
+    }).then(roll => {
+      let hp = this.data.data.attributes.hp,
+          dhp = Math.min(hp.max - hp.value, roll.total),
+          hd = Math.max(this.data.data.attributes.hd.value - 1, 0);
+      this.update({"data.attributes.hp.value": hp.value + dhp, "data.attributes.hd.value": hd});
+    })
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a short rest, recovering resources and possibly rolling Hit Dice
+   */
+  shortRest() {
+    const data = this.data.data,
+          update = {};
+
+    // Recover resources
+    for ( let r of ["primary", "secondary"] ) {
+      let res = data.resources[r];
+      if ( res.max && res.sr ) {
+        update[`data.resources.${r}.value`] = res.max;
+      }
+    }
+
+    // Update the actor
+    this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a long rest, recovering HP, HD, resources, and spell slots
+   */
+  longRest() {
+    const data = this.data.data,
+          update = {};
+
+    // Recover hit points
+    let dhp = data.attributes.hp.max - data.attributes.hp.value;
+    update["data.attributes.hp.value"] = data.attributes.hp.max;
+
+    // Recover hit dice
+    let dhd = Math.min(Math.floor(data.details.level.value / 2), data.details.level.value - data.attributes.hd.value);
+    update["data.attributes.hd.value"] = data.attributes.hd.value + dhd;
+
+    // Recover resources
+    for ( let r of ["primary", "secondary"] ) {
+      let res = data.resources[r];
+      if ( res.max && (res.lr || res.sr ) ) {
+        update[`data.resources.${r}.value`] = res.max;
+      }
+    }
+
+    // Recover spell slots
+    for ( let [k, v] of Object.entries(data.spells) ) {
+      if ( !v.max ) continue;
+      update[`data.spells.${k}.value`] = v.max;
+    }
+
+    // Update the actor
+    this.update(update);
+
+    // Return some update data for logging
+    return {
+      dhp: dhp,
+      dhd: dhd
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply rolled dice damage to the token or tokens which are currently controlled.
+   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+   *
+   * @param {HTMLElement} roll    The chat entry which contains the roll data
+   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
+   */
+  static applyDamage(roll, multiplier) {
+    let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+
+    // Filter tokens to which damage can be applied
+    canvas.tokens.controlledTokens.filter(t => {
+      if ( t.actor && t.data.actorLink ) return true;
+      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
+      return false;
+    }).forEach(t => {
+
+      // Linked Tokens - update Actor
+      if ( t.actor && t.data.actorLink ) {
+        let hp = parseInt(t.actor.data.data.attributes.hp.value),
+            max = parseInt(t.actor.data.data.attributes.hp.max);
+        t.actor.update({"data.attributes.hp.value": Math.clamped(hp - value, 0, max)});
+      }
+
+      // Unlinked Tokens - update Token directly
+      else {
+        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
+        t.update(canvas.id, {[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)});
+      }
+    });
   }
 }
 

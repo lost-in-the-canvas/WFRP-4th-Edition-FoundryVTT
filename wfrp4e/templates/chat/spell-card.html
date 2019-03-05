@@ -13,9 +13,9 @@
     </div>
 
     <div class="card-buttons">
-        {{#if data.isSave}}<span>Save DC {{actor.data.data.attributes.spelldc.value}} ({{data.save.str}})</span>{{/if}}
+        {{#if data.isSave}}<span>Save DC {{data.save.dc}} ({{data.save.str}})</span>{{/if}}
         {{#if data.isAttack}}<button data-action="spellAttack">Attack</button>{{/if}}
-        {{#if data.damage.value}}<button data-action="spellDamage">Damage</button>{{/if}}
+        {{#if data.damage.value}}<button data-action="spellDamage">{{data.damageLabel}}</button>{{/if}}
     </div>
 
     <footer class="card-footer">

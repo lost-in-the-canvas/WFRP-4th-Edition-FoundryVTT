@@ -1,28 +1,3 @@
-#sidebar {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  position: fixed;
-  right: 5px;
-  top: 0px;
-  width: 330px;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  padding-left: 16px
-}
-
-body {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-  background: url(../ui/backdrop.png) repeat;
-  font-family: "Signika", "Palatino Linotype", serif;
-  font-size: 14px;
-}
-
 @font-face {
   font-family: "Nodesto";
   src: url('../fonts/NodestoCapsCondensed.otf');
@@ -51,45 +26,13 @@ body {
 .flexcol > * {
   flex: 1;
 }
-
-/* ----------------------------------------- */
-/*  Sidebar Pop-out                          */
-/* ----------------------------------------- */
-.app.sidebar-popout {
-  background: url(../ui/denim075.png) repeat;
-  max-height: 90%;
-  margin: 3px 0;
-}
-.app.sidebar-popout .window-content {
-  background: url(../ui/denim075.png) repeat;
-  background: none;
-  color: #EEE;
-  padding: 0;
-  margin: 3px 0;
-}
-.app.sidebar-popout .directory-list {
-  background: url(../ui/denim075.png) repeat;
-  max-height: calc(90vh - 150px);
-  overflow-y: scroll;
-  margin: 3px 0;
-}
-.app {
-  background: url(../ui/sidebar.png) repeat;
-  border-radius: 5px;
-  box-shadow: 0 0 20px #000;
-  margin: 3px 0;
-  padding: 0.5em;
-  color: #EEE;
-  z-index: 30;
-}
-
-
 /* ----------------------------------------- */
 /*  Actor Sheet
 /* ----------------------------------------- */
 .dnd5e.sheet .window-content {
   padding: 5px;
   font-size: 13px;
+  overflow-y: hidden;
 }
 .dnd5e.sheet form {
   display: flex;
@@ -182,7 +125,7 @@ body {
   border-bottom: 1px solid #666;
 }
 .dnd5e.sheet form .sheet-tabs > .item {
-  line-height: 28px;
+  line-height: 26px;
   padding: 0 10px;
   border-radius: 5px 5px 0 0;
 }
@@ -410,7 +353,8 @@ body {
 }
 /* Status Effects */
 .dnd5e.actor-sheet .statuses {
-  flex: 0 0 27px;
+  flex: 0 0 29px;
+  margin: 0;
   border-bottom: 1px solid #CCC;
   display: flex;
   flex-direction: row;
@@ -424,7 +368,7 @@ body {
   padding: 0 6px;
   border-right: 1px solid #CCC;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 28px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -468,45 +412,11 @@ body {
 /* ----------------------------------------- */
 .dnd5e.actor-sheet .biography .editor {
   height: 380px;
-  padding: 0 8px;
+  padding-left: 8px;
 }
 .dnd5e.npc-sheet .biography .editor {
   height: 465px;
 }
-
-
-/* ----------------------------------------- */
-/* Sidebar Tabs
-/* ----------------------------------------- */
-#sidebar-tabs {
-  flex: 0 0 32px;
-  box-sizing: border-box;
-  margin: 0 0 5px;
-  /* margin-left: 10px; */
-  border-bottom: 1px solid #ff6400;
-  box-shadow: 0 0 10px red;
-}
-#sidebar-tabs > .item {
-  position: relative;
-  flex: 0 0 32px;
-  line-height: 32px;
-  padding: 0 8px;
-  border-radius: 5px 5px 0 0;
-}
-#sidebar-tabs > .item.active {
-  color: #FFF;
-  border: 1px solid red;
-  border-bottom: none;
-  box-shadow: 0 0 6px inset #ff6400;
-}
-#sidebar-tabs > .item i.fas {
-  margin-right: 0;
-}
-#sidebar .tab {
-  max-height: calc(100% - 48px);
-}
-
-
 /* ----------------------------------------- */
 /* Abilities Sidebar Tab
 /* ----------------------------------------- */
@@ -891,12 +801,27 @@ body {
   color: #999;
 }
 /* ----------------------------------------- */
+/* Rest Buttons
+/* ----------------------------------------- */
+#short-rest-hd label {
+  flex: 0 0 60px;
+  line-height: 24px;
+}
+#short-rest-hd #roll-hd {
+  line-height: 24px;
+  margin-left: 6px;
+}
+/* ----------------------------------------- */
 /*  Item Sheet
 /* ----------------------------------------- */
+.dnd5e.item-sheet .item-details,
+.dnd5e.item-sheet .sheet-tabs {
+  flex: 0 0 30px;
+  padding: 5px 0;
+  margin: 0;
+}
 .dnd5e.item-sheet .item-details {
   list-style: none;
-  margin: 5px 0;
-  padding: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -927,7 +852,6 @@ body {
   text-align: center;
 }
 .dnd5e.item-sheet .sheet-tabs {
-  padding: 5px 0;
   border-top: 1px solid #CCC;
   border-bottom: 1px solid #CCC;
   font-size: 14px;
@@ -938,7 +862,6 @@ body {
 }
 .dnd5e.item-sheet .editor {
   height: 300px;
-  overflow-y: scroll;
 }
 /* ----------------------------------------- */
 /*  Chat Cards
@@ -987,163 +910,4 @@ body {
 .dnd5e.chat-card .card-footer span:last-child {
   border-right: none;
   padding-right: 0;
-}
-
-/* ----------------------------------------- */
-/* Chat Panel
-/* ----------------------------------------- */
-#chat-notification {
-  display: none;
-  color: #ff6400;
-  text-shadow: 0 0 5px #000;
-  position: absolute;
-  top: -2px;
-  right: -5px;
-}
-#chat-controls {
-  height: 28px;
-  margin: 0 8px;
-}
-#chat-controls i.fas {
-  font-size: 16px;
-  line-height: 28px;
-}
-#chat-controls div.roll-type-select select {
-  position: relative;
-  height: 24px;
-  top: -3px;
-}
-#chat-controls div.roll-type-select i.fas {
-  margin-right: 5px;
-}
-#chat-controls .control-buttons {
-  flex: 0 0 48px;
-}
-#chat-controls .control-buttons a {
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-}
-#chat-log {
-  flex: 1;
-  height: calc(100% - 140px);
-  margin: 0 0 10px;
-  padding: 0;
-  overflow-y: scroll;
-  list-style: none;
-}
-
-#chat-log .message {
-
-
-  /* margin: 30px; */
-
-
-  background-color: none;
-
-  padding: 15px 20px 15px 10px;
-
-  border-image: url(../ui/chat-message-border.png) 30 repeat;
-  border-image-width: 30px;
-  border-image-outset: 17px 17px 17px 24px;
-  box-shadow: 8px 8px 5px #000;
-
-
-  background: url(../ui/chat-message.png) repeat;
-  /* border: 1px solid #000;
-  border-radius: 0px; */
-  margin: 25px 16px 25px 16px;
-  color: #111;
-  font-size: 14px;
-  box-shadow: none;
-
-  border: 20px transparent rgb(187, 36, 36);
-}
-
-#chat-log .message .message-header {
-  line-height: 20px;
-  color: #6d1400;
-}
-#chat-log .message .message-header .message-sender {
-  flex: 3;
-  margin: 0;
-}
-#chat-log .message .message-header .message-metadata {
-  flex: 2;
-  color: #444;
-  text-align: right;
-  font-size: 12px;
-}
-#chat-log .message.ic .message-content {
-  color: rgb(0, 0, 0);
-  font-style: italic;
-}
-#chat-log .message.whisper {
-  background: url(../ui/parchmentBlue.jpg) repeat;
-}
-#chat-log .message.whisper span.whisper-to {
-  flex: 0 0 100%;
-  font-size: 12px;
-}
-#chat-log .message.blind {
-  background: url(../ui/parchmentPurple.jpg) repeat;
-}
-#chat-form {
-  height: 100px;
-  flex: 0 0 100px;
-}
-/* #chat-form textarea {
-  width: 96%;
-  height: 100%;
-  margin: 0 2%;
-  resize: none;
-  background: url(../ui/parchment.jpg) repeat;
-} */
-
-
-/* Applications */
-/* ----------------------------------------- */
-/*  Connected Players UI
-/* ----------------------------------------- */
-#players {
-
-    /* outline: 1px dashed red; */
-    border: solid transparent;
-    margin: 30px;
-    padding: 17px 20px 14px 20px;
-    /* text-align: center; */
-    background-color: white;
-    border-image: url(../ui/players-list-border.png) 19 repeat;
-    border-image-width: 17px;
-    border-image-outset: 9px;
-    box-shadow: 8px 8px 5px #000;
-
-    background: url(../ui/paper-parchment-background.png) repeat;
-
-
-    position: fixed;
-    bottom: 12px;
-    left: 15px;
-    width: 220px;
-}
-
-#players ol {
-  list-style: none;
-  margin: 0;
-  margin-left: 3px;
-  margin-right: 2px;
-  padding: 0;
-}
-
-#players ol .player-name {
-  overflow-x: hidden;
-  overflow-y: hidden;
-  white-space: wrap;
-  word-break: break-all;
-
-  right: 15px;
-}
-
-#players ol .player-active.active {
-  box-shadow: 0 0 5px #000;
 }

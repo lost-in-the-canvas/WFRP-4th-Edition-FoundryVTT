@@ -2,20 +2,37 @@
  * Override and extend the basic :class:`Item` implementation
  */
 class Item5e extends Item {
-  roll() {
-    const data = {
-      template: `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`,
+
+  /**
+   * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
+   * @return {Promise}
+   */
+  async roll() {
+
+    // Basic template rendering data
+    const template = `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`;
+    const templateData = {
       actor: this.actor,
       item: this.data,
       data: this[this.data.type+"ChatData"]()
     };
-    renderTemplate(data.template, data).then(html => {
-      ChatMessage.create({
-        user: game.user._id,
-        alias: this.actor.name,
-        content: html
-      }, {displaySheet: false});
-    });
+
+    // Basic chat message data
+    const chatData = {
+      user: game.user._id,
+      alias: this.actor.name,
+    };
+
+    // Toggle default roll mode
+    let rollMode = game.settings.get("core", "rollMode");
+    if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( rollMode === "blindroll" ) chatData["blind"] = true;
+
+    // Render the template
+    chatData["content"] = await renderTemplate(template, templateData);
+
+    // Create the chat message
+    return ChatMessage.create(chatData, {displaySheet: false});
   }
 
   /* -------------------------------------------- */
@@ -52,8 +69,9 @@ class Item5e extends Item {
 
   toolChatData() {
     const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label;
-    const properties = [abl, data.proficient.value ? "Proficient" : null];
+    let abl = this.actor.data.data.abilities[data.ability.value].label,
+        prof = data.proficient.value || 0;
+    const properties = [abl, CONFIG.proficiencyLevels[prof]];
     data.properties = properties.filter(p => p !== null);
     return data;
   }
@@ -67,10 +85,20 @@ class Item5e extends Item {
   /* -------------------------------------------- */
 
   spellChatData() {
-    const data = duplicate(this.data.data);
-    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    const data = duplicate(this.data.data),
+          ad = this.actor.data.data;
+
+    // Spell saving throw text and DC
     data.isSave = data.spellType.value === "save";
+    if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
+    else data.save.dc = ad.attributes.spelldc.value;
+    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+
+    // Spell attack labels
+    data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
     data.isAttack = data.spellType.value === "attack";
+
+    // Combine properties
     const props = [
       CONFIG.spellSchools[data.school.value],
       CONFIG.spellLevels[data.level.value],
@@ -220,7 +248,7 @@ class Item5e extends Item {
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         parts = [itemData.damage.value],
-        title = `${this.name} - Damage Roll`;
+        title = this.name + (itemData.spellType.value === "heal" ? " - Healing Amount" : " - Damage Roll");
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
@@ -300,10 +328,10 @@ class Item5e extends Item {
     let rollData = duplicate(this.actor.data.data),
       abl = this.data.data.ability.value || "int",
       ability = rollData.abilities[abl],
-      parts = [`@abilities.${abl}.mod`, "@attributes.prof.value"],
+      parts = [`@abilities.${abl}.mod`, "@proficiency"],
       title = `${this.name} - Tool Check`;
     rollData["ability"] = abl;
-    if ( !this.data.data.proficient.value ) parts.pop();
+    rollData["proficiency"] = (this.data.data.proficient.value || 0) * rollData.attributes.prof.value;
 
     // Call the roll helper utility
     Dice5e.d20Roll({
@@ -446,63 +474,46 @@ class Item5e extends Item {
       // Tool usage
       else if ( action === "toolCheck" ) item.rollToolCheck(ev);
     });
-
-    // Dice roll context
-    new ContextMenu(html, ".dice-roll", {
-      "Apply Damage": {
-        icon: '<i class="fas fa-user-minus"></i>',
-        callback: li => this.applyDamage(li, 1)
-      },
-      "Apply Healing": {
-        icon: '<i class="fas fa-user-plus"></i>',
-        callback: li => this.applyDamage(li, -1)
-      },
-      "Double Damage": {
-        icon: '<i class="fas fa-user-injured"></i>',
-        callback: li => this.applyDamage(li, 2)
-
-      },
-      "Half Damage": {
-        icon: '<i class="fas fa-user-shield"></i>',
-        callback: li => this.applyDamage(li, 0.5)
-      }
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply rolled dice damage to the token or tokens which are currently controlled.
-   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-   *
-   * @param {HTMLElement} roll    The chat entry which contains the roll data
-   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-   */
-  static applyDamage(roll, multiplier) {
-    let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-
-    // Get tokens to which damage can be applied
-    const tokens = canvas.tokens.controlledTokens.filter(t => {
-      if ( t.actor && t.data.actorLink ) return true;
-      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
-      return false;
-    });
-    if ( tokens.length === 0 ) return;
-
-    // Apply damage to all tokens
-    for ( let t of tokens ) {
-      if ( t.actor && t.data.actorLink ) {
-        let hp = parseInt(t.actor.data.data.attributes.hp.value),
-            max = parseInt(t.actor.data.data.attributes.hp.max);
-        t.actor.update({"data.attributes.hp.value": Math.clamped(hp - value, 0, max)}, true);
-      }
-      else {
-        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
-        t.update({[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)}, true);
-      }
-    }
   }
 }
 
 // Assign Item5e class to CONFIG
 CONFIG.Item.entityClass = Item5e;
+
+
+/**
+ * Hook into chat log context menu to add damage application options
+ */
+Hooks.on("getChatLogEntryContext", (html, options) => {
+
+  // Condition
+  let canApply = li => canvas.tokens.controlledTokens.length && li.find(".dice-roll").length;
+
+  // Apply Damage to Token
+  options["Apply Damage"] = {
+    icon: '<i class="fas fa-user-minus"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 1)
+  };
+
+  // Apply Healing to Token
+  options["Apply Healing"] = {
+    icon: '<i class="fas fa-user-plus"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, -1)
+  };
+
+  // Apply Double-Damage
+  options["Double Damage"] = {
+    icon: '<i class="fas fa-user-injured"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 2)
+  };
+
+  // Apply Half-Damage
+  options["Half Damage"] = {
+    icon: '<i class="fas fa-user-shield"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 0.5)
+  }
+});
