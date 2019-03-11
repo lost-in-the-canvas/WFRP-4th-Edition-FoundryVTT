@@ -550,6 +550,43 @@
   position: relative;
   top: 2px;
 }
+
+/* ----------------------------------------- */
+/* Sidebar Tabs
+/* ----------------------------------------- */
+#sidebar-tabs {
+  flex: 0 0 54px;
+  box-sizing: border-box;
+  margin: 0px -10px 0px -125px;
+  border-bottom: none; 
+  box-shadow: none;
+  
+  background: url(../ui/sidebar-border.png) repeat;
+  background-position: 40px 0px;
+
+  padding: 10px 0px 0px 134px;
+}
+#sidebar-tabs > .item {
+  position: relative;
+  flex: 0 0 32px;
+  line-height: 32px;
+  padding: 0 8px;
+  border-radius: 5px 5px 0 0;
+}
+#sidebar-tabs > .item.active {
+  color: #FFF;
+  border: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+#sidebar-tabs > .item i.fas {
+  margin-right: 0;
+}
+#sidebar .tab {
+  max-height: calc(100% - 48px);
+}
+
+
 /* ----------------------------------------- */
 /* Biography Tab
 /* ----------------------------------------- */
@@ -1063,29 +1100,61 @@
 /* Chat Panel
 /* ----------------------------------------- */
 
+#chat-notification {
+  display: none;
+  color: #ff6400;
+  text-shadow: 0 0 5px #000;
+  position: absolute;
+  top: -2px;
+  right: -5px;
+}
+#chat-controls {
+  height: 28px;
+  margin: 0px 0px 15px 10px;
+}
+#chat-controls i.fas {
+  font-size: 16px;
+  line-height: 28px;
+}
+#chat-controls div.roll-type-select select {
+  position: relative;
+  height: 24px;
+  top: -3px;
+
+  background: url(../ui/chat-controls-background.png) repeat;
+
+  border-image: url(../ui/chat-controls-border.png) 4 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+}
+#chat-controls div.roll-type-select i.fas {
+  margin-right: 5px;
+}
+#chat-controls .control-buttons {
+  flex: 0 0 48px;
+}
+#chat-controls .control-buttons a {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
 #chat-log {
   flex: 1;
-  height: calc(100% - 140px);
-  margin: 0 0 10px;
+  height: calc(100% - 180px);
+  margin: -5px 0 5px 0;
   padding: 0px 15px 0px 0px;
   overflow-y: scroll;
   list-style: none;
 }
 
 #chat-log .message {
-
-
-  /* margin: 30px; */
-
-
   background-color: none;
-
   padding: 10px 13px 10px 13px;
+
   border-image: url(../ui/chat-message-border.png) 20 repeat;
   border-image-width: 18px;
   border-image-outset: 10px 10px 10px 10px;
-  
-  /* box-shadow: 8px 8px 5px #000; */
   
   background: url(../ui/chat-message.png) repeat;
   margin: 25px 16px 25px 16px;
@@ -1093,5 +1162,20 @@
   font-size: 14px;
   box-shadow: none;
 
-  border: 20px transparent rgb(187, 36, 36);
+  /* border: 20px transparent rgb(187, 36, 36);  */
+}
+
+
+#chat-form textarea {
+  width: 90%;
+  height: 110%;
+  margin: 0 4.5%;
+  resize: none;
+  background: url(../ui/chat-form.png) repeat;
+  
+  border-image: url(../ui/chat-form-border.png) 10 repeat;
+  border-image-width: 10px;
+  border-image-outset: 8px 8px;
+  
+  box-shadow: inset 0 0 20px #000000;
 }
