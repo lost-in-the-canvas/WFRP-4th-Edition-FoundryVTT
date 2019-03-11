@@ -1,3 +1,146 @@
+/* ----------------------------------------- */
+/* User Interface Framework
+/* ----------------------------------------- */
+  #sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 450px;
+    height: 100vh;
+    overflow: hidden;
+
+    margin: 0px 0px 0px 0px;
+    padding: 0px 5px 0px 85px;
+    
+
+    /* border-image: url(../ui/sidebar-border.png) 40; */
+    /* border: 3px rgb(8, 136, 40); */
+    /* border-width: 15px;
+    border-style: solid; */
+    
+    /* background: red; */
+    background: url(../ui/sidebar.png) repeat;
+    border-radius: 0px;
+    box-shadow: 0 0 0px #000;
+  }
+ 
+  body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: url(../ui/background.png) repeat;
+    font-family: "Signika", "Palatino Linotype", serif;
+    font-size: 14px;
+  }
+
+
+/* ----------------------------------------- */
+/*  Sidebar Pop-out                          */
+/* ----------------------------------------- */
+  .app.sidebar-popout {
+    max-height: 90%;
+  }
+  .app.sidebar-popout .window-content {
+    background: none;
+    color: #EEE;
+    padding: 0;
+  }
+  .app.sidebar-popout .directory-list {
+    max-height: calc(90vh - 150px);
+    overflow-y: scroll;
+  }
+  .app {
+    background: url(../ui/denim075.png) repeat;
+    border-radius: 5px;
+    box-shadow: 0 0 20px #000;
+    margin: 3px 0;
+    padding: 0.5em;
+    color: #EEE;
+    z-index: 30;
+  }
+  .window-app {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    position: absolute;
+    box-shadow: 0 0 20px #000;
+    padding: 0;
+    z-index: 100;
+  }
+  .window-app > * {
+    flex: 1;
+  }
+  .window-app .window-header {
+    flex: 0 0 30px;
+    padding: 0 8px;
+    line-height: 30px;
+    border-bottom: 1px solid #000;
+  }
+  .window-app .window-header .window-title {
+    margin: 0;
+  }
+  .window-app .window-header a {
+    flex: none;
+    margin: 0 0 0 8px;
+  }
+  .window-app .window-header i.fas {
+    margin-right: 3px;
+  }
+  .window-app .window-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: calc(100% - 30px);
+    max-height: 90vh;
+    background: url("../ui/parchment.jpg") repeat;
+    padding: 8px;
+    color: #111;
+  }
+  .window-app .window-content > * {
+    flex: 1;
+  }
+  .window-app.zhover {
+    z-index: 101;
+  }
+  #context-menu {
+    width: 100%;
+    min-width: 150px;
+    max-width: 360px;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    background: #333;
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #EEE;
+    z-index: 31;
+  }
+  #context-menu ol.context-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #context-menu li.context-item {
+    padding: 0 5px;
+    line-height: 32px;
+  }
+  #context-menu li.context-item:hover {
+    color: #FFF;
+    text-shadow: 0 0 4px red;
+  }
+  #context-menu li.context-item > i {
+    margin-right: 10px;
+  }
+  .window-app #context-menu {
+    z-index: 101;
+  }
+
+
+
 @font-face {
   font-family: "Nodesto";
   src: url('../fonts/NodestoCapsCondensed.otf');
@@ -910,4 +1053,45 @@
 .dnd5e.chat-card .card-footer span:last-child {
   border-right: none;
   padding-right: 0;
+}
+
+
+
+
+
+/* ----------------------------------------- */
+/* Chat Panel
+/* ----------------------------------------- */
+
+#chat-log {
+  flex: 1;
+  height: calc(100% - 140px);
+  margin: 0 0 10px;
+  padding: 0px 15px 0px 0px;
+  overflow-y: scroll;
+  list-style: none;
+}
+
+#chat-log .message {
+
+
+  /* margin: 30px; */
+
+
+  background-color: none;
+
+  padding: 10px 13px 10px 13px;
+  border-image: url(../ui/chat-message-border.png) 20 repeat;
+  border-image-width: 18px;
+  border-image-outset: 10px 10px 10px 10px;
+  
+  /* box-shadow: 8px 8px 5px #000; */
+  
+  background: url(../ui/chat-message.png) repeat;
+  margin: 25px 16px 25px 16px;
+  color: #111;
+  font-size: 14px;
+  box-shadow: none;
+
+  border: 20px transparent rgb(187, 36, 36);
 }
