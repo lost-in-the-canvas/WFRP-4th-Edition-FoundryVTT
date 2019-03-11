@@ -24,7 +24,7 @@ class Dice5e {
                   highlight=true, fastForward=true, onClose, dialogOptions}) {
 
     // Inner roll function
-    let rollMode = "roll";
+    let rollMode = game.settings.get("core", "rollMode");
     let roll = () => {
       let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
       if (adv === 1) {
@@ -68,6 +68,7 @@ class Dice5e {
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
+      rollMode: rollMode,
       rollModes: CONFIG.rollModes
     };
     renderTemplate(template, dialogData).then(dlg => {
@@ -123,6 +124,7 @@ class Dice5e {
                      fastForward=true, onClose, dialogOptions}) {
 
     // Inner roll function
+    let rollMode = game.settings.get("core", "rollMode");
     let roll = () => {
       let roll = new Roll(parts.join("+"), data),
           flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
@@ -134,8 +136,12 @@ class Dice5e {
       // Execute the roll and send it to chat
       roll.toMessage({
         alias: alias,
-        flavor: flav
+        flavor: flav,
+        rollMode: rollMode
       });
+
+      // Return the Roll object
+      return roll;
     };
 
     // Modify the roll and handle fast-forwarding
@@ -147,40 +153,53 @@ class Dice5e {
     }
     else parts = parts.concat(["@bonus"]);
 
-    // Render modal dialog
+    // Construct dialog data
     template = template || "public/systems/dnd5e/templates/chat/roll-dialog.html";
-    renderTemplate(template, {formula: parts.join(" + "), data: data}).then(dlg => {
-      new Dialog({
+    let dialogData = {
+      formula: parts.join(" + "),
+      data: data,
+      rollMode: rollMode,
+      rollModes: CONFIG.rollModes
+    };
+
+    // Render modal dialog
+    return new Promise(resolve => {
+      renderTemplate(template, dialogData).then(dlg => {
+        new Dialog({
           title: title,
           content: dlg,
           buttons: {
             critical: {
+              condition: critical,
               label: "Critical Hit",
               callback: () => crit = 1
             },
             normal: {
-              label: "Normal",
+              label: critical ? "Normal" : "Roll",
             },
           },
           default: "normal",
           close: html => {
-            if ( onClose ) onClose(html, parts, data);
+            if (onClose) onClose(html, parts, data);
+            rollMode = html.find('[name="rollMode"]').val();
             data['bonus'] = html.find('[name="bonus"]').val();
-            roll()
+            resolve(roll());
           }
         }, dialogOptions).render(true);
+      });
     });
   }
 }
+
 /**
  * Activate certain behaviors on FVTT ready hook
  */
-Hooks.on("ready", () => {
+Hooks.on("init", () => {
 
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("wfrp4e", "diagonalMovement", {
+  game.settings.register("dnd5e", "diagonalMovement", {
     name: "Diagonal Movement Rule",
     hint: "Configure which diagonal movement rule should be used for games within this system.",
     scope: "world",
@@ -193,13 +212,22 @@ Hooks.on("ready", () => {
     },
     onChange: rule => canvas.grid.diagonalRule = rule
   });
-  if ( canvas.ready ) canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+});
+
+
+/**
+ * Activate certain behaviors on Canvas Initialization hook
+ */
+Hooks.on("canvasInit", () => {
+
+  // Apply the current setting
+  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
 
   /**
    * Override default Grid measurement
    */
   GridLayer.prototype.measureDistance = function(p0, p1) {
-    let gs = this.dimensions.size,
+    let gs = canvas.dimensions.size,
         ray = new Ray(p0, p1),
         nx = Math.abs(Math.ceil(ray.dx / gs)),
         ny = Math.abs(Math.ceil(ray.dy / gs));
@@ -325,7 +353,7 @@ class Actor5e extends Actor {
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
    * @param skill {String}    The skill id
    */
-  rollSkill(skillName) {
+  rollSkill(event, skillName) {
     let skl = this.data.data.skills[skillName],
       parts = ["@mod"],
       flavor = `${skl.label} Skill Check`;
@@ -433,6 +461,135 @@ class Actor5e extends Actor {
         });
       }
     }).render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Roll a hit die of the appropriate type, gaining hit points equal to the die roll plus your CON modifier
+   * @param {String} formula    The hit die type to roll
+   */
+  rollHitDie(formula) {
+
+    // Prepare roll data
+    let parts = [formula, "@abilities.con.mod"],
+        title = `Roll Hit Die`,
+        rollData = duplicate(this.data.data);
+
+    // Confirm the actor has HD available
+    if ( rollData.attributes.hd.value === 0 ) throw new Error(`${this.name} has no Hit Dice remaining!`);
+
+    // Call the roll helper utility
+    return Dice5e.damageRoll({
+      event: new Event("hitDie"),
+      parts: parts,
+      data: rollData,
+      title: title,
+      alias: this.name,
+      critical: false,
+      dialogOptions: {width: 350}
+    }).then(roll => {
+      let hp = this.data.data.attributes.hp,
+          dhp = Math.min(hp.max - hp.value, roll.total),
+          hd = Math.max(this.data.data.attributes.hd.value - 1, 0);
+      this.update({"data.attributes.hp.value": hp.value + dhp, "data.attributes.hd.value": hd});
+    })
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a short rest, recovering resources and possibly rolling Hit Dice
+   */
+  shortRest() {
+    const data = this.data.data,
+          update = {};
+
+    // Recover resources
+    for ( let r of ["primary", "secondary"] ) {
+      let res = data.resources[r];
+      if ( res.max && res.sr ) {
+        update[`data.resources.${r}.value`] = res.max;
+      }
+    }
+
+    // Update the actor
+    this.update(update);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a long rest, recovering HP, HD, resources, and spell slots
+   */
+  longRest() {
+    const data = this.data.data,
+          update = {};
+
+    // Recover hit points
+    let dhp = data.attributes.hp.max - data.attributes.hp.value;
+    update["data.attributes.hp.value"] = data.attributes.hp.max;
+
+    // Recover hit dice
+    let dhd = Math.min(Math.floor(data.details.level.value / 2), data.details.level.value - data.attributes.hd.value);
+    update["data.attributes.hd.value"] = data.attributes.hd.value + dhd;
+
+    // Recover resources
+    for ( let r of ["primary", "secondary"] ) {
+      let res = data.resources[r];
+      if ( res.max && (res.lr || res.sr ) ) {
+        update[`data.resources.${r}.value`] = res.max;
+      }
+    }
+
+    // Recover spell slots
+    for ( let [k, v] of Object.entries(data.spells) ) {
+      if ( !v.max ) continue;
+      update[`data.spells.${k}.value`] = v.max;
+    }
+
+    // Update the actor
+    this.update(update);
+
+    // Return some update data for logging
+    return {
+      dhp: dhp,
+      dhd: dhd
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply rolled dice damage to the token or tokens which are currently controlled.
+   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+   *
+   * @param {HTMLElement} roll    The chat entry which contains the roll data
+   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
+   */
+  static applyDamage(roll, multiplier) {
+    let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+
+    // Filter tokens to which damage can be applied
+    canvas.tokens.controlledTokens.filter(t => {
+      if ( t.actor && t.data.actorLink ) return true;
+      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
+      return false;
+    }).forEach(t => {
+
+      // Linked Tokens - update Actor
+      if ( t.actor && t.data.actorLink ) {
+        let hp = parseInt(t.actor.data.data.attributes.hp.value),
+            max = parseInt(t.actor.data.data.attributes.hp.max);
+        t.actor.update({"data.attributes.hp.value": Math.clamped(hp - value, 0, max)});
+      }
+
+      // Unlinked Tokens - update Token directly
+      else {
+        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
+        t.update(canvas.id, {[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)});
+      }
+    });
   }
 }
 
@@ -731,19 +888,14 @@ class Actor5eSheet extends ActorSheet {
     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
-      this.actor.rollSkill(skl);
+      this.actor.rollSkill(ev, skl);
     });
 
     /* -------------------------------------------- */
     /*  Rollable Items                              */
     /* -------------------------------------------- */
 
-    html.find('.item .rollable').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
-        Item = CONFIG.Item.entityClass,
-        item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
-      item.roll();
-    });
+    html.find('.item .rollable').click(event => this._onRollItemCard(event));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -776,16 +928,10 @@ class Actor5eSheet extends ActorSheet {
     /* -------------------------------------------- */
 
     /* Short Rest */
-    html.find('.short-rest').click(ev => {
-      ev.preventDefault();
-      ui.notifications.info("Short Rest functionality not yet implemented, just testing the button!");
-    });
+    html.find('.short-rest').click(ev => this._onShortRest(ev));
 
-    /* Short Rest */
-    html.find('.long-rest').click(ev => {
-      ev.preventDefault();
-      ui.notifications.info("Long Rest functionality not yet implemented, just testing the button!");
-    });
+    // Long Rest
+    html.find('.long-rest').click(ev => this._onLongRest(ev));
 
     /* Roll NPC HP */
     html.find('.npc-roll-hp').click(ev => {
@@ -828,7 +974,7 @@ class Actor5eSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-  /*  Drag and Drop                               */
+  /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   _onDragItemStart(event) {
@@ -838,6 +984,123 @@ class Actor5eSheet extends ActorSheet {
       actorId: this.actor._id,
       id: itemId
     }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
+   * @private
+   */
+  _onRollItemCard(event) {
+    event.preventDefault();
+    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+        Item = CONFIG.Item.entityClass,
+        item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
+    item.roll();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a short rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onShortRest(event) {
+    event.preventDefault();
+    let hd0 = this.actor.data.data.attributes.hd.value,
+        hp0 = this.actor.data.data.attributes.hp.value;
+    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
+      new ShortRestDialog(this.actor, {
+        title: "Short Rest",
+        content: html,
+        buttons: {
+          rest: {
+            icon: '<i class="fas fa-bed"></i>',
+            label: "Rest",
+            callback: dlg => {
+              this.actor.shortRest();
+              let dhd = hd0 - this.actor.data.data.attributes.hd.value,
+                  dhp = this.actor.data.data.attributes.hp.value - hp0;
+              let msg = `${this.actor.name} takes a short rest spending ${dhd} Hit Dice to recover ${dhp} Hit Points.`;
+              ChatMessage.create({
+                user: game.user._id,
+                alias: this.actor.name,
+                content: msg
+              });
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel"
+          },
+        },
+        default: 'rest'
+      }).render(true);
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a long rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onLongRest(event) {
+    event.preventDefault();
+    new Dialog({
+      title: "Long Rest",
+      content: '<p>Take a long rest?</p><p>On a long rest you will recover hit points, half your maximum hit dice, ' +
+        'primary or secondary resources, and spell slots per day.</p>',
+      buttons: {
+        rest: {
+          icon: '<i class="fas fa-bed"></i>',
+          label: "Rest",
+          callback: dlg => {
+            let update = this.actor.longRest();
+            let msg = `${this.actor.name} takes a long rest and recovers ${update.dhp} Hit Points and ${update.dhd} Hit Dice.`;
+            ChatMessage.create({
+              user: game.user._id,
+              alias: this.actor.name,
+              content: msg
+            });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel"
+        },
+      },
+      default: 'rest'
+    }).render(true);
+  }
+}
+
+
+/* -------------------------------------------- */
+
+
+/**
+ * A helper Dialog subclass for rolling Hit Dice on short rest
+ * @type {Dialog}
+ */
+class ShortRestDialog extends Dialog {
+  constructor(actor, dialogData, options) {
+    super(dialogData, options);
+    this.actor = actor;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    let btn = html.find("#roll-hd");
+    if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+    btn.click(ev => {
+      event.preventDefault();
+      let fml = ev.target.form.hd.value;
+      this.actor.rollHitDie(fml).then(roll => {
+        if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+      });
+    })
   }
 }
 
@@ -865,20 +1128,37 @@ CONFIG.proficiencyLevels = {
  * Override and extend the basic :class:`Item` implementation
  */
 class Item5e extends Item {
-  roll() {
-    const data = {
-      template: `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`,
+
+  /**
+   * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
+   * @return {Promise}
+   */
+  async roll() {
+
+    // Basic template rendering data
+    const template = `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`;
+    const templateData = {
       actor: this.actor,
       item: this.data,
       data: this[this.data.type+"ChatData"]()
     };
-    renderTemplate(data.template, data).then(html => {
-      ChatMessage.create({
-        user: game.user._id,
-        alias: this.actor.name,
-        content: html
-      }, {displaySheet: false});
-    });
+
+    // Basic chat message data
+    const chatData = {
+      user: game.user._id,
+      alias: this.actor.name,
+    };
+
+    // Toggle default roll mode
+    let rollMode = game.settings.get("core", "rollMode");
+    if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( rollMode === "blindroll" ) chatData["blind"] = true;
+
+    // Render the template
+    chatData["content"] = await renderTemplate(template, templateData);
+
+    // Create the chat message
+    return ChatMessage.create(chatData, {displaySheet: false});
   }
 
   /* -------------------------------------------- */
@@ -915,8 +1195,9 @@ class Item5e extends Item {
 
   toolChatData() {
     const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label;
-    const properties = [abl, data.proficient.value ? "Proficient" : null];
+    let abl = this.actor.data.data.abilities[data.ability.value].label,
+        prof = data.proficient.value || 0;
+    const properties = [abl, CONFIG.proficiencyLevels[prof]];
     data.properties = properties.filter(p => p !== null);
     return data;
   }
@@ -930,10 +1211,20 @@ class Item5e extends Item {
   /* -------------------------------------------- */
 
   spellChatData() {
-    const data = duplicate(this.data.data);
-    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    const data = duplicate(this.data.data),
+          ad = this.actor.data.data;
+
+    // Spell saving throw text and DC
     data.isSave = data.spellType.value === "save";
+    if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
+    else data.save.dc = ad.attributes.spelldc.value;
+    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+
+    // Spell attack labels
+    data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
     data.isAttack = data.spellType.value === "attack";
+
+    // Combine properties
     const props = [
       CONFIG.spellSchools[data.school.value],
       CONFIG.spellLevels[data.level.value],
@@ -1083,7 +1374,7 @@ class Item5e extends Item {
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         parts = [itemData.damage.value],
-        title = `${this.name} - Damage Roll`;
+        title = this.name + (itemData.spellType.value === "heal" ? " - Healing Amount" : " - Damage Roll");
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
@@ -1163,10 +1454,10 @@ class Item5e extends Item {
     let rollData = duplicate(this.actor.data.data),
       abl = this.data.data.ability.value || "int",
       ability = rollData.abilities[abl],
-      parts = [`@abilities.${abl}.mod`, "@attributes.prof.value"],
+      parts = [`@abilities.${abl}.mod`, "@proficiency"],
       title = `${this.name} - Tool Check`;
     rollData["ability"] = abl;
-    if ( !this.data.data.proficient.value ) parts.pop();
+    rollData["proficiency"] = (this.data.data.proficient.value || 0) * rollData.attributes.prof.value;
 
     // Call the roll helper utility
     Dice5e.d20Roll({
@@ -1309,66 +1600,49 @@ class Item5e extends Item {
       // Tool usage
       else if ( action === "toolCheck" ) item.rollToolCheck(ev);
     });
-
-    // Dice roll context
-    new ContextMenu(html, ".dice-roll", {
-      "Apply Damage": {
-        icon: '<i class="fas fa-user-minus"></i>',
-        callback: li => this.applyDamage(li, 1)
-      },
-      "Apply Healing": {
-        icon: '<i class="fas fa-user-plus"></i>',
-        callback: li => this.applyDamage(li, -1)
-      },
-      "Double Damage": {
-        icon: '<i class="fas fa-user-injured"></i>',
-        callback: li => this.applyDamage(li, 2)
-
-      },
-      "Half Damage": {
-        icon: '<i class="fas fa-user-shield"></i>',
-        callback: li => this.applyDamage(li, 0.5)
-      }
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply rolled dice damage to the token or tokens which are currently controlled.
-   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-   *
-   * @param {HTMLElement} roll    The chat entry which contains the roll data
-   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-   */
-  static applyDamage(roll, multiplier) {
-    let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-
-    // Get tokens to which damage can be applied
-    const tokens = canvas.tokens.controlledTokens.filter(t => {
-      if ( t.actor && t.data.actorLink ) return true;
-      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
-      return false;
-    });
-    if ( tokens.length === 0 ) return;
-
-    // Apply damage to all tokens
-    for ( let t of tokens ) {
-      if ( t.actor && t.data.actorLink ) {
-        let hp = parseInt(t.actor.data.data.attributes.hp.value),
-            max = parseInt(t.actor.data.data.attributes.hp.max);
-        t.actor.update({"data.attributes.hp.value": Math.clamped(hp - value, 0, max)}, true);
-      }
-      else {
-        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
-        t.update({[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)}, true);
-      }
-    }
   }
 }
 
 // Assign Item5e class to CONFIG
 CONFIG.Item.entityClass = Item5e;
+
+
+/**
+ * Hook into chat log context menu to add damage application options
+ */
+Hooks.on("getChatLogEntryContext", (html, options) => {
+
+  // Condition
+  let canApply = li => canvas.tokens.controlledTokens.length && li.find(".dice-roll").length;
+
+  // Apply Damage to Token
+  options["Apply Damage"] = {
+    icon: '<i class="fas fa-user-minus"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 1)
+  };
+
+  // Apply Healing to Token
+  options["Apply Healing"] = {
+    icon: '<i class="fas fa-user-plus"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, -1)
+  };
+
+  // Apply Double-Damage
+  options["Double Damage"] = {
+    icon: '<i class="fas fa-user-injured"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 2)
+  };
+
+  // Apply Half-Damage
+  options["Half Damage"] = {
+    icon: '<i class="fas fa-user-shield"></i>',
+    condition: canApply,
+    callback: li => Actor5e.applyDamage(li, 0.5)
+  }
+});
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation

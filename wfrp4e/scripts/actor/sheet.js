@@ -290,19 +290,14 @@ class Actor5eSheet extends ActorSheet {
     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
       let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
-      this.actor.rollSkill(skl);
+      this.actor.rollSkill(ev, skl);
     });
 
     /* -------------------------------------------- */
     /*  Rollable Items                              */
     /* -------------------------------------------- */
 
-    html.find('.item .rollable').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
-        Item = CONFIG.Item.entityClass,
-        item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
-      item.roll();
-    });
+    html.find('.item .rollable').click(event => this._onRollItemCard(event));
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -335,16 +330,10 @@ class Actor5eSheet extends ActorSheet {
     /* -------------------------------------------- */
 
     /* Short Rest */
-    html.find('.short-rest').click(ev => {
-      ev.preventDefault();
-      ui.notifications.info("Short Rest functionality not yet implemented, just testing the button!");
-    });
+    html.find('.short-rest').click(ev => this._onShortRest(ev));
 
-    /* Short Rest */
-    html.find('.long-rest').click(ev => {
-      ev.preventDefault();
-      ui.notifications.info("Long Rest functionality not yet implemented, just testing the button!");
-    });
+    // Long Rest
+    html.find('.long-rest').click(ev => this._onLongRest(ev));
 
     /* Roll NPC HP */
     html.find('.npc-roll-hp').click(ev => {
@@ -387,7 +376,7 @@ class Actor5eSheet extends ActorSheet {
   }
 
   /* -------------------------------------------- */
-  /*  Drag and Drop                               */
+  /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
   _onDragItemStart(event) {
@@ -397,6 +386,123 @@ class Actor5eSheet extends ActorSheet {
       actorId: this.actor._id,
       id: itemId
     }));
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
+   * @private
+   */
+  _onRollItemCard(event) {
+    event.preventDefault();
+    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+        Item = CONFIG.Item.entityClass,
+        item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
+    item.roll();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a short rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onShortRest(event) {
+    event.preventDefault();
+    let hd0 = this.actor.data.data.attributes.hd.value,
+        hp0 = this.actor.data.data.attributes.hp.value;
+    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
+      new ShortRestDialog(this.actor, {
+        title: "Short Rest",
+        content: html,
+        buttons: {
+          rest: {
+            icon: '<i class="fas fa-bed"></i>',
+            label: "Rest",
+            callback: dlg => {
+              this.actor.shortRest();
+              let dhd = hd0 - this.actor.data.data.attributes.hd.value,
+                  dhp = this.actor.data.data.attributes.hp.value - hp0;
+              let msg = `${this.actor.name} takes a short rest spending ${dhd} Hit Dice to recover ${dhp} Hit Points.`;
+              ChatMessage.create({
+                user: game.user._id,
+                alias: this.actor.name,
+                content: msg
+              });
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel"
+          },
+        },
+        default: 'rest'
+      }).render(true);
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a long rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onLongRest(event) {
+    event.preventDefault();
+    new Dialog({
+      title: "Long Rest",
+      content: '<p>Take a long rest?</p><p>On a long rest you will recover hit points, half your maximum hit dice, ' +
+        'primary or secondary resources, and spell slots per day.</p>',
+      buttons: {
+        rest: {
+          icon: '<i class="fas fa-bed"></i>',
+          label: "Rest",
+          callback: dlg => {
+            let update = this.actor.longRest();
+            let msg = `${this.actor.name} takes a long rest and recovers ${update.dhp} Hit Points and ${update.dhd} Hit Dice.`;
+            ChatMessage.create({
+              user: game.user._id,
+              alias: this.actor.name,
+              content: msg
+            });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel"
+        },
+      },
+      default: 'rest'
+    }).render(true);
+  }
+}
+
+
+/* -------------------------------------------- */
+
+
+/**
+ * A helper Dialog subclass for rolling Hit Dice on short rest
+ * @type {Dialog}
+ */
+class ShortRestDialog extends Dialog {
+  constructor(actor, dialogData, options) {
+    super(dialogData, options);
+    this.actor = actor;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    let btn = html.find("#roll-hd");
+    if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+    btn.click(ev => {
+      event.preventDefault();
+      let fml = ev.target.form.hd.value;
+      this.actor.rollHitDie(fml).then(roll => {
+        if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+      });
+    })
   }
 }
 
