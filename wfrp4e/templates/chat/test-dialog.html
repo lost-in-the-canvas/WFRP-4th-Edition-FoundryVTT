@@ -1,0 +1,54 @@
+<form>
+               
+    <div class="form-group">
+        <label>Difficulty</label>
+        <select name="difficulty">
+            <option value=60>(+60) Very Easy</option>
+            <option value=40>(+40) Easy </option>
+            <option value=20>(+20) Average</option>
+            <option value=0 selected>(+0) Challenging</option>
+            <option value=-10>(-10) Difficult</option>
+            <option value=-20>(-20) Hard</option>
+            <option value=-30>(-30) Very Hard</option>
+        </select>
+    </div>
+    <!--<div class="form-group">
+        <label>Talent Bonus</label>
+        <select name="talentBonus">
+              {{#each data.data.attributes as |attribute id|}}
+                <option value="1">Test</option>
+                {{/each}}  
+
+                {{#each talentlist as |section career|}}
+                <option value="1">Test</option>                    
+
+                    {{#each section.talents as |item i|}}
+                        <option value="1">Test</option>                    
+                    {{/each}}
+                {{/each}}
+        </select>
+    </div>-->
+    <div class="form-group">
+        <label>Modifier</label>
+        <input type="number" name="rollModifier">
+    </div>
+
+    <div class="form-group">
+        <label>SL Bonus</label>
+        <input type="number" name="slBonus">
+    </div>
+
+    <div class="form-group">
+        <label>Success Bonus</label>
+        <input type="number" name="successBonus">
+    </div>
+
+    <div class="form-group">
+        <label>Roll Mode</label>
+        <select name="rollMode">
+        {{#each rollModes as |label mode|}}
+            <option value="{{mode}}">{{label}}</option>
+        {{/each}}
+        </select>
+    </div>
+</form>
