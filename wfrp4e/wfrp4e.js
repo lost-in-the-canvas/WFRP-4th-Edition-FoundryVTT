@@ -607,8 +607,8 @@ class Actor5eSheet extends ActorSheet {
 	static get defaultOptions() {
 	  const options = super.defaultOptions;
 	  options.classes = options.classes.concat(["dnd5e", "actor-sheet"]);
-    options.width = 650;
-    options.height = 720;
+    options.width = 670;
+    options.height = 740;
 	  return options;
   }
 
