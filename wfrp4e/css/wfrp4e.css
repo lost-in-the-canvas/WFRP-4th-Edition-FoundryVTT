@@ -27,6 +27,35 @@
     box-shadow: 0 0 0px #000;
   }
  
+  #sidebar .directory-list {
+    height: calc(100% - 110px);
+    overflow-y: scroll;
+  }
+
+  .directory-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 32px;
+    margin-top: 38px;
+  }
+
+  .directory-footer button {
+    width: 96%;
+    margin: 0 2%;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    
+    /* box-shadow: inset 0 0 20px #000000; */
+    
+    background: url(../ui/sidebar_button-background.png) repeat;
+    background-origin: padding-box;
+    
+    color: #dcdcdc;
+  }
+
   body {
     width: 100vw;
     height: 100vh;
@@ -82,6 +111,7 @@
   }
   .window-app .window-header .window-title {
     margin: 0;
+    visibility: hidden;
   }
   .window-app .window-header a {
     flex: none;
@@ -169,6 +199,54 @@
 .flexcol > * {
   flex: 1;
 }
+
+
+
+/***************************************************/
+/*--------- Edmund's Custom CSS Additions ---------*/
+/***************************************************/
+  .app.window-app.sheet.dnd5e.actor-sheet {
+    width: 670px;
+    height: 740px;
+    top: 0px;
+    left: 0px;
+    z-index: 102;
+    
+    background: url(../ui/charsheet.png) no-repeat;
+    box-shadow: none;
+  }
+
+  .app.window-app.sheet.dnd5e.actor-sheet .window-header {    
+    flex: 0 0 52px;
+    padding: 8px;
+    line-height: 30px;
+    border-bottom: none;
+    background: rgba(135, 85, 35, 0.35);
+  }
+
+  .dnd5e.sheet .window-content {
+    padding: 5px;
+    font-size: 13px;
+    overflow-y: hidden;
+
+    margin: 12px 28px 65px 8px;
+    box-shadow: inset 0 0 10px #000000;
+    background: url(../ui/background.png) repeat;
+  }
+
+  /*
+  .dnd5e.sheet form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }  */
+/***************************************************/
+/*-------------------------------------------------*/
+/***************************************************/
+
+
+
 /* ----------------------------------------- */
 /*  Actor Sheet
 /* ----------------------------------------- */
@@ -1121,7 +1199,8 @@
   height: 24px;
   top: -3px;
 
-  background: url(../ui/chat-controls-background.png) repeat;
+  background: url(../ui/chat-message.png) repeat;
+  box-shadow: inset 0 0 20px #000000;
 
   border-image: url(../ui/chat-controls-border.png) 4 repeat;
   border-image-width: 4px;
