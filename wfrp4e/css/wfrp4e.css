@@ -28,7 +28,7 @@
   }
  
   #sidebar .directory-list {
-    height: calc(100% - 110px);
+    height: calc(100% - 74px);
     overflow-y: scroll;
   }
 
@@ -38,7 +38,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     height: 32px;
-    margin-top: 38px;
+    margin-top: 20px;
   }
 
   .directory-footer button {
@@ -50,7 +50,7 @@
     
     /* box-shadow: inset 0 0 20px #000000; */
     
-    background: url(../ui/sidebar_button-background.png) repeat;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
     background-origin: padding-box;
     
     color: #dcdcdc;
@@ -234,6 +234,55 @@
     box-shadow: none;
     background: none;
     /* background: rgba(255, 0, 0, 0.1); */
+  }
+
+  #settings .modules {
+    height: auto;
+    overflow-y: hidden;
+  }
+
+  #settings button {
+    margin: 0.5em 0;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    /* box-shadow: inset 0 0 20px #000000; */
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+    color: #dcdcdc;
+  }
+
+  #navigation #scene-list .scene {
+    float: left;
+    padding: 0 8px;
+    margin-right: 10px;
+    /* background: url(../ui/denim.png) repeat; */
+    /* border: 1px solid #111; */
+    /* border-radius: 3px; */
+    background: url(../ui/sidebar_button-background_cyan.png) repeat;
+    background-origin: padding-box;
+
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+
+    box-shadow: 0 0 4px #000;
+    cursor: pointer;
+    position: relative;
+  }
+
+  #navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
+    cursor: default;
+    color: #FFF;
+
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+
+    box-shadow: 0 0 10px #ff6400;
   }
 
   /*
@@ -1297,7 +1346,7 @@
 #chat-form textarea {
   width: 90%;
   height: 110%;
-  margin: 0 4.5%;
+  margin: 0 4.5% 50px 4.5%;
   resize: none;
   background: url(../ui/chat-form.png) repeat;
   
