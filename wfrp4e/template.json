@@ -370,6 +370,10 @@
           "value": 0
         }
       }
+    },
+    "character" : {
+    },
+    "npc": {
     }
   },
   "item": {

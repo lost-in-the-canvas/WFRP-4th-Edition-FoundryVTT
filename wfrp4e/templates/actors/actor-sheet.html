@@ -90,7 +90,6 @@
 
         <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="inventory">Inventory</a>
-            <a class="item" data-tab="feats">Feats</a>
             <a class="item active" data-tab="biography">Biography</a>
         </nav>
 
@@ -145,10 +144,8 @@
             <ol class="feats-list inventory-list directory-list">
                 <li class="item inventory-header">
                     <div class="item-name flexrow">
-                        <h3>Ability Name</h3>
+                        <h3>Talent Name</h3>
                     </div>
-                    <div class="ability-req">Requirements</div>
-
                     {{#if owner}}
                     <div class="item-controls">
                         <a class="item-control item-create" title="Create Talent" data-item-type="feat">
@@ -183,14 +180,14 @@
 
     <!-- SIDEBAR -->
     <section class="sheet-sidebar">
-        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="220" width="220" data-edit="img"/>
+        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
 
         <nav class="sheet-tabs tabs" data-group="sidebar">
             <a class="item active" data-tab="abilities">Characteristics</a>
             <a class="item" data-tab="skills">Skills</a>
         </nav>
 
-        <!-- ABILITY SCORES -->
+        <!-- Characteristics -->
         <div class="tab abilities" data-group="sidebar" data-tab="abilities">
             <ol class="abilities-list">
             {{#each data.characteristics as |characteristic id|}}

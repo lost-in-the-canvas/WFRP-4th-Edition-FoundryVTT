@@ -394,7 +394,7 @@ class Actor5eSheet extends ActorSheet {
    * The actor sheet template comes packaged with the system
    */
   get template() {
-    const path = "public/systems/dnd5e/templates/actors/";
+    const path = "public/systems/wfrp4e/templates/actors/";
     if ( this.actor.data.type === "character" ) return path + "actor-sheet.html";
     else if ( this.actor.data.type === "npc" ) return path + "npc-sheet.html";
     else throw "Unrecognized Actor type " + this.actor.data.type;
