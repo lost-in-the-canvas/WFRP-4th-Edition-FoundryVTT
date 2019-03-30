@@ -199,7 +199,7 @@ Hooks.on("init", () => {
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("dnd5e", "diagonalMovement", {
+  game.settings.register("wfrp4e", "diagonalMovement", {
     name: "Diagonal Movement Rule",
     hint: "Configure which diagonal movement rule should be used for games within this system.",
     scope: "world",
@@ -221,7 +221,7 @@ Hooks.on("init", () => {
 Hooks.on("canvasInit", () => {
 
   // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("wfrp4e", "diagonalMovement");
 
   /**
    * Override default Grid measurement

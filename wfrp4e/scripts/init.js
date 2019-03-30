@@ -29,7 +29,7 @@ Hooks.on("init", () => {
 Hooks.on("canvasInit", () => {
 
   // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("wfrp4e", "diagonalMovement");
 
   /**
    * Override default Grid measurement
