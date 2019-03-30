@@ -51,7 +51,7 @@ class Dice5e {
    * A standardized helper function for managing core wfrp tests
    *
    *
-   * @param {Object} parts          parts contains the main values needed to completely determine a Test result - Target number,
+   * @param {int} initial           Target target number before modifiers
    * @param {Object} data           Actor or item data against which to parse the roll
    * @param {String} template       The HTML template used to render the roll dialog
    * @param {String} title          The dice roll UI window title
@@ -59,16 +59,24 @@ class Dice5e {
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static d100Roll({parts, template, title, alias, onClose, dialogOptions}) {
+  static d100Roll(initialTarget, template, title, alias, onClose, dialogOptions) {
 
     let rollMode = "roll";
+    let parts = 
+    {
+      target : initialTarget,
+      slBonus : 0,
+      successBonus: 0
+    }
+
     // Inner roll function
     let roll = () => {
       // Execute the roll and send it to chat
       let roll = Dice5e.Test(parts.target, parts.slBonus, parts.successBonus);      
       let chatOptions = {
         user: game.user._id,
-        alias: alias,      
+        alias: alias, 
+        title: title,     
         template: "public/systems/wfrp4e/templates/chat/test-result-card.html",
         };
         Dice5e.renderRollCard(chatOptions, roll);
@@ -111,8 +119,15 @@ class Dice5e {
 
 
   static renderRollCard(chatOptions, rollData) {
+
+    let cardData = 
+    {
+      rollData : rollData,
+      title : chatOptions.title
+    }
+
     // Generate HTML from the requested chat template
-    return renderTemplate(chatOptions.template, rollData).then(html => {
+    return renderTemplate(chatOptions.template, cardData).then(html => {
       
       // Emit the HTML as a chat message
       chatOptions["content"] = html;
@@ -244,22 +259,9 @@ class Actor5e extends Actor {
    * Prompt the user for input on which variety of roll they want to do.
    * @param abilityId {String}    The ability id (e.g. "str")
    */
-  rollAbility(abilityId) {
-    let abl = this.data.data.abilities[abilityId];
-    new Dialog({
-      title: `${abl.label} Ability Check`,
-      content: `<p>What type of ${abl.label} check?</p>`,
-      buttons: {
-        test: {
-          label: "Ability Test",
-          callback: () => this.rollAbilityTest(abilityId)
-        },
-        save: {
-          label: "Saving Throw",
-          callback: () => this.rollAbilitySave(abilityId)
-        }
-      }
-    }).render(true);
+  rollCharacteristic(chId) {
+    let ch = this.data.data.characteristics[chId];
+    Dice5e.d100Roll( ch.value, null, `${ch.label} Test`, this.data.name)
   }
 
   /* -------------------------------------------- */
@@ -538,8 +540,8 @@ class Actor5eSheet extends ActorSheet {
 
     // Ability Checks
     html.find('.ability-name').click(ev => {
-      let abl = ev.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(abl);
+      let ch = ev.currentTarget.parentElement.getAttribute("data-ability");
+      this.actor.rollCharacteristic(ch);
     });
 
     // Roll Skill Checks
