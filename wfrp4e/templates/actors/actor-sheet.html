@@ -63,7 +63,7 @@
             <div class="attribute">
                     <h4 class="attribute-name">Resolve/Resilience</h4>
                     <div class="attribute-value">
-                            <input name="data.status.Resolve.value" type="text" value="{{data.status.resolve.value}}"
+                            <input name="data.status.resolve.value" type="text" value="{{data.status.resolve.value}}"
                                    data-dtype="{{data.status.resolve.type}}" placeholder="10"/>
                             <span class="flex0"> / </span>
                             <input name="data.status.resilience.value" type="text" value="{{data.status.resilience.value}}"
@@ -81,8 +81,7 @@
                     </div>
 
                 <footer class="attribute-footer">
-                        <input type="text" class="speed" name="data.details.move" placeholder="Walk / Run"
-                           data-dtype="{{data.details.move.type}}" value="{{data.details.move.type}}"/>                               
+                        <input type="text" class="speed" placeholder="Walk / Run">                         
                 </footer>
             </div>
             
@@ -194,7 +193,7 @@
                 <li class="ability" data-ability="{{id}}">
                     <h4 class="ability-name rollable">{{characteristic.label}}</h4>
                     <span class="ability-score" title="Ability Score">
-                        <input name="data.characteristic.{{id}}.value" type="text" value="{{characteristic.value}}"
+                        <input name="data.characteristics.{{id}}.value" type="text" value="{{characteristic.value}}"
                                data-dtype="Number" placeholder="10"/>
                     </span>
                 </li>

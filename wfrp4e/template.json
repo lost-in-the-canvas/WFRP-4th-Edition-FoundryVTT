@@ -132,224 +132,224 @@
           "type": "Number",
           "label": "Art",
           "ability": "dex",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "athletics": {
           "type": "Number",
           "label": "Athletics",
           "ability": "ag",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
-        "bribary": {
+        "bribery": {
           "type": "Number",
-          "label": "Bribary",
+          "label": "Bribery",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "charm": {
           "type": "Number",
           "label": "Charm",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "charmAnimal": {
           "type": "Number",
           "label": "Charm Animal",
           "ability": "wp",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "climb": {
           "type": "Number",
           "label": "Climb",
           "ability": "s",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "cool": {
           "type": "Number",
           "label": "Cool",
           "ability": "wp",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "consumeAlcohol": {
           "type": "Number",
           "label": "Consume Alcohol",
           "ability": "t",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "dodge": {
           "type": "Number",
           "label": "Dodge",
           "ability": "ag",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "drive": {
           "type": "Number",
           "label": "Drive",
           "ability": "ag",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "endurance": {
           "type": "Number",
           "label": "Endurance",
           "ability": "t",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "entertain": {
           "type": "Number",
           "label": "Entertain",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "gamble": {
           "type": "Number",
           "label": "Gamble",
           "ability": "int",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "gossip": {
           "type": "Number",
           "label": "Gossip",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "haggle": {
           "type": "Number",
           "label": "Haggle",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "intimidate": {
           "type": "Number",
           "label": "Intimidate",
           "ability": "s",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "intuition": {
           "type": "Number",
           "label": "Intuition",
           "ability": "i",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "leadership": {
           "type": "Number",
           "label": "Leadership",
           "ability": "fel",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "meleeBasic": {
           "type": "Number",
           "label": "Melee (Basic)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeBrawling": {
           "type": "Number",
           "label": "Melee (Brawling)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeCavalry": {
           "type": "Number",
           "label": "Melee (Cavalry)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeFencing": {
           "type": "Number",
           "label": "Melee (Fencing)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeFlail": {
           "type": "Number",
           "label": "Melee (Flail)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeParry": {
           "type": "Number",
           "label": "Melee (Parry)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleePoleArm": {
           "type": "Number",
           "label": "Melee (Polearm)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "meleeTwoHanded": {
           "type": "Number",
           "label": "Melee (Two-Handed)",
           "ability": "ws",
-          "advanced": false,
+          "advances": 0,
           "combat": true
         },
         "navigation": {
           "type": "Number",
           "label": "Navigation",
           "ability": "i",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "outdoorSurvival": {
           "type": "Number",
           "label": "Outdoor Survival",
           "ability": "int",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "perception": {
           "type": "Number",
           "label": "Perception",
           "ability": "i",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "ride": {
           "type": "Number",
           "label": "Ride",
           "ability": "ag",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "row": {
           "type": "Number",
           "label": "Row",
           "ability": "s",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         },
         "stealth": {
           "type": "Number",
           "label": "Stealth",
           "ability": "ag",
-          "advanced": false,
+          "advances": 0,
           "combat": false
         }
       },
