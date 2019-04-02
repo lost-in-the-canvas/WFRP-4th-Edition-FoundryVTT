@@ -1,192 +1,142 @@
 class Dice5e {
 
+
+   /**
+   * Bare bones Test computation
+   *
+   * @param {Integer} targetNum     The number that's compared to the d100 roll.
+   * @param {Integer} slBonus       Success level bonus that is always applied
+   * @param {Integer} successBonus  Success level bonus that is only applied when the test succeeds (e.g. talents)
+   */
+  static Test(targetNum, slBonus, successBonus) {
+    let roll = new Roll("1d100").roll();
+    
+    let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let description;
+
+    if (SL > 0){
+      description = "Success"
+      SL = SL + successBonus;
+      SL = "+" + SL.toString()
+
+    }
+    else if(SL < 0){
+      description = "Failure"
+      SL = SL.toString()
+    }
+    else { // SL == 0,
+      if (targetNum <= roll.total){
+        description = "Success"
+        SL = SL + successBonus;
+        SL = "+" + SL.toString()
+      }
+      else {
+        description = "Failure"
+        SL = "-" + SL.toString() // Should result in -0
+      }
+    }
+
+    let rollResults={
+      target: targetNum,
+      SL: SL,
+      description: description
+    }
+
+    Object.assign(roll, rollResults);
+
+    return roll;
+  }
+
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing core wfrp tests
    *
-   * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
-   * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
    *
-   * @param {Event} event           The triggering event which initiated the roll
-   * @param {Array} parts           The dice roll component parts, excluding the initial d20
+   * @param {int} initial           Target target number before modifiers
    * @param {Object} data           Actor or item data against which to parse the roll
    * @param {String} template       The HTML template used to render the roll dialog
    * @param {String} title          The dice roll UI window title
    * @param {String} alias          The alias with which to post to chat
-   * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-   * @param {Boolean} advantage     Allow rolling with advantage (and therefore also with disadvantage)
-   * @param {Boolean} situational   Allow for an arbitrary situational bonus field
-   * @param {Boolean} highlight     Highlight critical successes and failures
-   * @param {Boolean} fastForward   Allow fast-forward advantage selection
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static d20Roll({event, parts, data, template, title, alias, flavor, advantage=true, situational=true,
-                  highlight=true, fastForward=true, onClose, dialogOptions}) {
+  static d100Roll(initialTarget, template, title, alias, onClose, dialogOptions) {
+
+    let rollMode = "roll";
+    let parts = 
+    {
+      target : initialTarget,
+      slBonus : 0,
+      successBonus: 0
+    }
 
     // Inner roll function
-    let rollMode = game.settings.get("core", "rollMode");
     let roll = () => {
-      let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if (adv === 1) {
-        parts[0] = ["2d20kh"];
-        flav = `${title} (Advantage)`;
-      }
-      else if (adv === -1) {
-        parts[0] = ["2d20kl"];
-        flav = `${title} (Disadvantage)`;
-      }
-
-      // Don't include situational bonus unless it is defined
-      if (!data.bonus && parts.indexOf("@bonus") !== -1) parts.pop();
-
       // Execute the roll and send it to chat
-      let roll = new Roll(parts.join("+"), data).roll();
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode,
-        highlightSuccess: roll.parts[0].total === 20,
-        highlightFailure: roll.parts[0].total === 1
-      });
-    };
+      let roll = Dice5e.Test(parts.target, parts.slBonus, parts.successBonus);      
+      let chatOptions = {
+        user: game.user._id,
+        alias: alias, 
+        title: title,     
+        template: "public/systems/wfrp4e/templates/chat/test-result-card.html",
+        };
+        Dice5e.renderRollCard(chatOptions, roll);
+    }; 
 
-    // Modify the roll and handle fast-forwarding
-    let adv = 0;
-    parts = ["1d20"].concat(parts);
-    if ( event.shiftKey ) return roll();
-    else if ( event.altKey ) {
-      adv = 1;
-      return roll();
-    }
-    else if ( event.ctrlKey || event.metaKey ) {
-      adv = -1;
-      return roll();
-    } else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
-    template = template || "public/systems/dnd5e/templates/chat/roll-dialog.html";
+    template = template || "public/systems/wfrp4e/templates/chat/test-dialog.html";
     let dialogData = {
-      formula: parts.join(" + "),
-      data: data,
-      rollMode: rollMode,
       rollModes: CONFIG.rollModes
     };
     renderTemplate(template, dialogData).then(dlg => {
       new Dialog({
-          title: title,
-          content: dlg,
-          buttons: {
-            advantage: {
-              label: "Advantage",
-              callback: () => adv = 1
-            },
-            normal: {
-              label: "Normal",
-            },
-            disadvantage: {
-              label: "Disadvantage",
-              callback: () => adv = -1
+        title: title,
+        content: dlg,
+        buttons: {
+          roll: {
+            label: "Roll",
+            callback: dlg => {
+              parts.targetNum += dlg.find('[name="rollModifier"]').val() || 0;
+              parts.slBonus = dlg.find('[name="slBonus"]').val() || 0;
+              parts.successBonus = dlg.find('[name="successBonus"]').val() || 0;
+              rollMode = dlg.find('[name="rollMode"]').val();
+              roll();
             }
           },
-          default: "normal",
-          close: html => {
-            if ( onClose ) onClose(html, parts, data);
-            rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            roll()
+          cancel: {
+            label: "Cancel",
           }
-        }, dialogOptions).render(true);
+        },
+        close: html => {
+          if (onClose) onClose(html, parts);
+
+        }
+      }, dialogOptions).render(true);
     });
+    
+   
   }
 
-  /* -------------------------------------------- */
 
-  /**
-   * A standardized helper function for managing core 5e "d20 rolls"
-   *
-   * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
-   * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
-   *
-   * @param {Event} event           The triggering event which initiated the roll
-   * @param {Array} parts           The dice roll component parts, excluding the initial d20
-   * @param {Object} data           Actor or item data against which to parse the roll
-   * @param {String} template       The HTML template used to render the roll dialog
-   * @param {String} title          The dice roll UI window title
-   * @param {String} alias          The alias with which to post to chat
-   * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-   * @param {Boolean} critical      Allow critical hits to be chosen
-   * @param {Boolean} situational   Allow for an arbitrary situational bonus field
-   * @param {Boolean} fastForward   Allow fast-forward advantage selection
-   * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-   * @param {Object} dialogOptions  Modal dialog options
-   */
-  static damageRoll({event, parts, data, template, title, alias, flavor, critical=true, situational=true,
-                     fastForward=true, onClose, dialogOptions}) {
+  static renderRollCard(chatOptions, rollData) {
 
-    // Inner roll function
-    let rollMode = game.settings.get("core", "rollMode");
-    let roll = () => {
-      let roll = new Roll(parts.join("+"), data),
-          flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if ( crit ) {
-        roll.alter(0, 2);
-        flav = `${title} (Critical)`;
-      }
-
-      // Execute the roll and send it to chat
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode
-      });
-
-      // Return the Roll object
-      return roll;
-    };
-
-    // Modify the roll and handle fast-forwarding
-    let crit = 0;
-    if ( event.shiftKey || event.ctrlKey || event.metaKey )  return roll();
-    else if ( event.altKey ) {
-      crit = 1;
-      return roll();
+    let cardData = 
+    {
+      rollData : rollData,
+      title : chatOptions.title
     }
-    else parts = parts.concat(["@bonus"]);
 
-    // Construct dialog data
-    template = template || "public/systems/dnd5e/templates/chat/roll-dialog.html";
-    let dialogData = {
-      formula: parts.join(" + "),
-      data: data,
-      rollMode: rollMode,
-      rollModes: CONFIG.rollModes
-    };
-
-    // Render modal dialog
-    return new Promise(resolve => {
-      renderTemplate(template, dialogData).then(dlg => {
-        new Dialog({
-          title: title,
-          content: dlg,
-          buttons: {
-            critical: {
-              condition: critical,
-              label: "Critical Hit",
-              callback: () => crit = 1
-            },
-            normal: {
-              label: critical ? "Normal" : "Roll",
-            },
-          },
-          default: "normal",
-          close: html => {
-            if (onClose) onClose(html, parts, data);
-            rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            resolve(roll());
-          }
-        }, dialogOptions).render(true);
-      });
+    // Generate HTML from the requested chat template
+    return renderTemplate(chatOptions.template, cardData).then(html => {
+      
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+      ChatMessage.create({
+        user: game.user._id,
+        alias: chatOptions.alias,
+        content: html
+      }, false);
+      return html;
     });
   }
 }
@@ -194,7 +144,7 @@ class Dice5e {
 /**
  * Activate certain behaviors on FVTT ready hook
  */
-Hooks.on("init", () => {
+Hooks.on("ready", () => {
 
   /**
    * Register diagonal movement rule setting
@@ -227,7 +177,7 @@ Hooks.on("canvasInit", () => {
    * Override default Grid measurement
    */
   GridLayer.prototype.measureDistance = function(p0, p1) {
-    let gs = canvas.dimensions.size,
+    let gs = this.dimensions.size,
         ray = new Ray(p0, p1),
         nx = Math.abs(Math.ceil(ray.dx / gs)),
         ny = Math.abs(Math.ceil(ray.dy / gs));
@@ -263,25 +213,7 @@ class Actor5e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
-    // Ability modifiers and saves
-    for (let abl of Object.values(data.abilities)) {
-      abl.mod = Math.floor((abl.value - 10) / 2);
-      abl.save = abl.mod + ((abl.proficient || 0) * data.attributes.prof.value);
-    }
-
-    // Skill modifiers
-    for (let skl of Object.values(data.skills)) {
-      skl.value = parseFloat(skl.value || 0);
-      skl.mod = data.abilities[skl.ability].mod + Math.floor(skl.value * data.attributes.prof.value);
-    }
-
-    // Attributes
-    data.attributes.init.mod = data.abilities.dex.mod + (data.attributes.init.value || 0);
-    data.attributes.ac.min = 10 + data.abilities.dex.mod;
-
-    // Spell DC
-    let spellAbl = data.attributes.spellcasting.value || "int";
-    data.attributes.spelldc.value = 8 + data.attributes.prof.value + data.abilities[spellAbl].mod;
+    data.status.wounds.max = 2 * Math.floor(data.characteristics.t.value/10) + Math.floor(data.characteristics.s.value/10) + Math.floor(data.characteristics.wp.value/10)
 
     // Return the prepared Actor data
     return actorData;
@@ -294,13 +226,6 @@ class Actor5e extends Actor {
    */
   _prepareCharacterData(data) {
 
-    // Level, experience, and proficiency
-    data.details.level.value = parseInt(data.details.level.value);
-    data.details.xp.max = this.getLevelExp(data.details.level.value || 1);
-    let prior = this.getLevelExp(data.details.level.value - 1 || 0),
-          req = data.details.xp.max - prior;
-    data.details.xp.pct = Math.min(Math.round((data.details.xp.value -prior) * 100 / req), 99.5);
-    data.attributes.prof.value = Math.floor((data.details.level.value + 7) / 4);
   }
 
   /* -------------------------------------------- */
@@ -310,38 +235,6 @@ class Actor5e extends Actor {
    */
   _prepareNPCData(data) {
 
-    // CR, kill exp, and proficiency
-    data.details.cr.value = parseFloat(data.details.cr.value) || 0;
-    data.details.xp.value = this.getCRExp(data.details.cr.value);
-    data.attributes.prof.value = Math.floor((Math.max(data.details.cr.value, 1) + 7) / 4);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Return the amount of experience required to gain a certain character level.
-   * @param level {Number}  The desired level
-   * @return {Number}       The XP required
-   */
-  getLevelExp(level) {
-    const levels = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000,
-      120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
-    return levels[Math.min(level, levels.length - 1)];
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Return the amount of experience granted by killing a creature of a certain CR.
-   * @param cr {Number}     The creature's challenge rating
-   * @return {Number}       The amount of experience granted per kill
-   */
-  getCRExp(cr) {
-    if (cr < 1.0) return Math.max(200 * cr, 10);
-    let _ = undefined;
-    const xps = [10, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 18000, 20000, 22000,
-        25000, 27500, 30000, 32500, 36500, _, _, _, _, _, 155000];
-    return xps[cr];
   }
 
   /* -------------------------------------------- */
@@ -375,22 +268,9 @@ class Actor5e extends Actor {
    * Prompt the user for input on which variety of roll they want to do.
    * @param abilityId {String}    The ability id (e.g. "str")
    */
-  rollAbility(abilityId) {
-    let abl = this.data.data.abilities[abilityId];
-    new Dialog({
-      title: `${abl.label} Ability Check`,
-      content: `<p>What type of ${abl.label} check?</p>`,
-      buttons: {
-        test: {
-          label: "Ability Test",
-          callback: () => this.rollAbilityTest(abilityId)
-        },
-        save: {
-          label: "Saving Throw",
-          callback: () => this.rollAbilitySave(abilityId)
-        }
-      }
-    }).render(true);
+  rollCharacteristic(chId) {
+    let ch = this.data.data.characteristics[chId];
+    Dice5e.d100Roll( ch.value, null, `${ch.label} Test`, this.data.name)
   }
 
   /* -------------------------------------------- */
@@ -466,101 +346,6 @@ class Actor5e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Roll a hit die of the appropriate type, gaining hit points equal to the die roll plus your CON modifier
-   * @param {String} formula    The hit die type to roll
-   */
-  rollHitDie(formula) {
-
-    // Prepare roll data
-    let parts = [formula, "@abilities.con.mod"],
-        title = `Roll Hit Die`,
-        rollData = duplicate(this.data.data);
-
-    // Confirm the actor has HD available
-    if ( rollData.attributes.hd.value === 0 ) throw new Error(`${this.name} has no Hit Dice remaining!`);
-
-    // Call the roll helper utility
-    return Dice5e.damageRoll({
-      event: new Event("hitDie"),
-      parts: parts,
-      data: rollData,
-      title: title,
-      alias: this.name,
-      critical: false,
-      dialogOptions: {width: 350}
-    }).then(roll => {
-      let hp = this.data.data.attributes.hp,
-          dhp = Math.min(hp.max - hp.value, roll.total),
-          hd = Math.max(this.data.data.attributes.hd.value - 1, 0);
-      this.update({"data.attributes.hp.value": hp.value + dhp, "data.attributes.hd.value": hd});
-    })
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a short rest, recovering resources and possibly rolling Hit Dice
-   */
-  shortRest() {
-    const data = this.data.data,
-          update = {};
-
-    // Recover resources
-    for ( let r of ["primary", "secondary"] ) {
-      let res = data.resources[r];
-      if ( res.max && res.sr ) {
-        update[`data.resources.${r}.value`] = res.max;
-      }
-    }
-
-    // Update the actor
-    this.update(update);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a long rest, recovering HP, HD, resources, and spell slots
-   */
-  longRest() {
-    const data = this.data.data,
-          update = {};
-
-    // Recover hit points
-    let dhp = data.attributes.hp.max - data.attributes.hp.value;
-    update["data.attributes.hp.value"] = data.attributes.hp.max;
-
-    // Recover hit dice
-    let dhd = Math.min(Math.floor(data.details.level.value / 2), data.details.level.value - data.attributes.hd.value);
-    update["data.attributes.hd.value"] = data.attributes.hd.value + dhd;
-
-    // Recover resources
-    for ( let r of ["primary", "secondary"] ) {
-      let res = data.resources[r];
-      if ( res.max && (res.lr || res.sr ) ) {
-        update[`data.resources.${r}.value`] = res.max;
-      }
-    }
-
-    // Recover spell slots
-    for ( let [k, v] of Object.entries(data.spells) ) {
-      if ( !v.max ) continue;
-      update[`data.spells.${k}.value`] = v.max;
-    }
-
-    // Update the actor
-    this.update(update);
-
-    // Return some update data for logging
-    return {
-      dhp: dhp,
-      dhd: dhd
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Apply rolled dice damage to the token or tokens which are currently controlled.
    * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
    *
@@ -593,12 +378,14 @@ class Actor5e extends Actor {
   }
 }
 
+
 // Assign the actor class to the CONFIG
 CONFIG.Actor.entityClass = Actor5e;
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
  */
+
 class Actor5eSheet extends ActorSheet {
 
   /**
@@ -618,7 +405,7 @@ class Actor5eSheet extends ActorSheet {
    * The actor sheet template comes packaged with the system
    */
   get template() {
-    const path = "public/systems/dnd5e/templates/actors/";
+    const path = "public/systems/wfrp4e/templates/actors/";
     if ( this.actor.data.type === "character" ) return path + "actor-sheet.html";
     else if ( this.actor.data.type === "npc" ) return path + "npc-sheet.html";
     else throw "Unrecognized Actor type " + this.actor.data.type;
@@ -638,36 +425,6 @@ class Actor5eSheet extends ActorSheet {
   getData() {
     const sheetData = super.getData();
 
-    // Level and CR
-    if ( sheetData.actor.type === "npc" ) {
-      let cr = sheetData.data.details.cr;
-      let crs = {0: "0", 0.125: "1/8", 0.25: "1/4", 0.5: "1/2"};
-      cr.str = (cr.value >= 1) ? String(cr.value) : crs[cr.value] || 0;
-    }
-
-    // Ability proficiency
-    for ( let abl of Object.values(sheetData.data.abilities)) {
-      abl.icon = this._getProficiencyIcon(abl.proficient);
-      abl.hover = CONFIG.proficiencyLevels[abl.proficient];
-    }
-
-    // Update skill labels
-    for ( let skl of Object.values(sheetData.data.skills)) {
-      skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-      skl.icon = this._getProficiencyIcon(skl.value);
-      skl.hover = CONFIG.proficiencyLevels[skl.value];
-    }
-
-    // Clear some values
-    let res = sheetData.data.resources;
-    if ( res.primary && res.primary.value === 0 ) delete res.primary.value;
-    if ( res.primary && res.primary.max === 0 ) delete res.primary.max;
-    if ( res.secondary && res.secondary.value === 0 ) delete res.secondary.value;
-    if ( res.secondary && res.secondary.max === 0 ) delete res.secondary.max;
-    let hp = sheetData.data.attributes.hp;
-    if ( hp.temp === 0 ) delete hp.temp;
-    if ( hp.tempmax === 0 ) delete hp.tempmax;
-
     // Prepare owned items
     if ( this.actorType === "character" ) this._prepareCharacterItems(sheetData.actor);
     else if ( this.actorType === "npc" ) this._prepareNPCItems(sheetData.actor);
@@ -685,7 +442,7 @@ class Actor5eSheet extends ActorSheet {
   _prepareCharacterItems(actorData) {
 
     // Inventory
-    const inventory = {
+  /*  const inventory = {
       weapon: { label: "Weapons", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
@@ -753,82 +510,7 @@ class Actor5eSheet extends ActorSheet {
       value: Math.round(totalWeight * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    actorData.data.attributes.encumbrance = enc;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Organize and classify Items for NPC sheets
-   * @private
-   */
-  _prepareNPCItems(actorData) {
-
-    // Actions
-    const features = {
-      weapons: {label: "Weapons", items: [], type: "weapon" },
-      actions: { label: "Actions", items: [], type: "feat" },
-      passive: { label: "Features", items: [], type: "feat" },
-      equipment: { label: "Equipment", items: [], type: "armor" }
-    };
-
-    // Spellbook
-    const spellbook = {};
-
-    // Iterate through items, allocating to containers
-    for ( let i of actorData.items ) {
-      i.img = i.img || DEFAULT_TOKEN;
-
-      // Spells
-      if ( i.type === "spell" ) {
-        let lvl = i.data.level.value || 0;
-        spellbook[lvl] = spellbook[lvl] || {
-          isCantrip: lvl === 0,
-          label: CONFIG.spellLevels[lvl],
-          spells: [],
-          uses: actorData.data.spells["spell"+lvl].value || 0,
-          slots: actorData.data.spells["spell"+lvl].max || 0
-        };
-        i.data.school.str = CONFIG.spellSchools[i.data.school.value];
-        spellbook[lvl].spells.push(i);
-      }
-
-      // Features
-      else if ( i.type === "weapon" ) features.weapons.items.push(i);
-      else if ( i.type === "feat" ) {
-        if ( i.data.featType.value === "passive" ) features.passive.items.push(i);
-        else features.actions.items.push(i);
-      }
-      else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
-    }
-
-    // Assign and return
-    actorData.features = features;
-    actorData.spellbook = spellbook;
-  }
-
-  /* -------------------------------------------- */
-
-  _cycleSkillProficiency(level) {
-    const levels = [0, 1, 0.5, 2];
-    let idx = levels.indexOf(level);
-    return levels[(idx === levels.length - 1) ? 0 : idx + 1]
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Get the font-awesome icon used to display a certain level of skill proficiency
-   * @private
-   */
-  _getProficiencyIcon(level) {
-    const icons = {
-      0: '<i class="far fa-circle"></i>',
-      0.5: '<i class="fas fa-adjust"></i>',
-      1: '<i class="fas fa-check"></i>',
-      2: '<i class="fas fa-check-double"></i>'
-    };
-    return icons[level];
+    actorData.data.attributes.encumbrance = enc;*/
   }
 
   /* -------------------------------------------- */
@@ -865,24 +547,10 @@ class Actor5eSheet extends ActorSheet {
     /*  Abilities and Skills
      /* -------------------------------------------- */
 
-    // Ability Proficiency
-    html.find('.ability-proficiency').click(ev => {
-      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
-      this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
-    });
-
     // Ability Checks
     html.find('.ability-name').click(ev => {
-      let abl = ev.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(abl);
-    });
-
-    // Toggle Skill Proficiency
-    html.find('.skill-proficiency').click(ev => {
-      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
-      field.val(this._cycleSkillProficiency(parseFloat(field.val())));
-      let formData = validateForm(field.parents('form')[0]);
-      this.actor.update(formData, true);
+      let ch = ev.currentTarget.parentElement.getAttribute("data-ability");
+      this.actor.rollCharacteristic(ch);
     });
 
     // Roll Skill Checks
@@ -927,20 +595,6 @@ class Actor5eSheet extends ActorSheet {
     /*  Miscellaneous
     /* -------------------------------------------- */
 
-    /* Short Rest */
-    html.find('.short-rest').click(ev => this._onShortRest(ev));
-
-    // Long Rest
-    html.find('.long-rest').click(ev => this._onLongRest(ev));
-
-    /* Roll NPC HP */
-    html.find('.npc-roll-hp').click(ev => {
-      let ad = this.actor.data.data;
-      let hp = new Roll(ad.attributes.hp.formula).roll().total;
-      AudioHelper.play({src: CONFIG.sounds.dice, volume: 0.8});
-      this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp}, true);
-    });
-
     /* Item Dragging */
     let handler = ev => this._onDragItemStart(ev);
     html.find('.item').each((i, li) => {
@@ -960,14 +614,6 @@ class Actor5eSheet extends ActorSheet {
    * @private
    */
   _updateObject(event, formData) {
-
-    // Format NPC Challenge Rating
-    if (this.actor.data.type === "npc") {
-      let cr = this.form["data.details.cr.value"],
-      val = cr.value,
-      crs = {"1/8": 0.125, "1/4": 0.25, "1/2": 0.5};
-      cr.value = crs[val] || val;
-    }
 
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
@@ -999,127 +645,12 @@ class Actor5eSheet extends ActorSheet {
         item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
     item.roll();
   }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a short rest, calling the relevant function on the Actor instance
-   * @private
-   */
-  _onShortRest(event) {
-    event.preventDefault();
-    let hd0 = this.actor.data.data.attributes.hd.value,
-        hp0 = this.actor.data.data.attributes.hp.value;
-    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
-      new ShortRestDialog(this.actor, {
-        title: "Short Rest",
-        content: html,
-        buttons: {
-          rest: {
-            icon: '<i class="fas fa-bed"></i>',
-            label: "Rest",
-            callback: dlg => {
-              this.actor.shortRest();
-              let dhd = hd0 - this.actor.data.data.attributes.hd.value,
-                  dhp = this.actor.data.data.attributes.hp.value - hp0;
-              let msg = `${this.actor.name} takes a short rest spending ${dhd} Hit Dice to recover ${dhp} Hit Points.`;
-              ChatMessage.create({
-                user: game.user._id,
-                alias: this.actor.name,
-                content: msg
-              });
-            }
-          },
-          cancel: {
-            icon: '<i class="fas fa-times"></i>',
-            label: "Cancel"
-          },
-        },
-        default: 'rest'
-      }).render(true);
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Take a long rest, calling the relevant function on the Actor instance
-   * @private
-   */
-  _onLongRest(event) {
-    event.preventDefault();
-    new Dialog({
-      title: "Long Rest",
-      content: '<p>Take a long rest?</p><p>On a long rest you will recover hit points, half your maximum hit dice, ' +
-        'primary or secondary resources, and spell slots per day.</p>',
-      buttons: {
-        rest: {
-          icon: '<i class="fas fa-bed"></i>',
-          label: "Rest",
-          callback: dlg => {
-            let update = this.actor.longRest();
-            let msg = `${this.actor.name} takes a long rest and recovers ${update.dhp} Hit Points and ${update.dhd} Hit Dice.`;
-            ChatMessage.create({
-              user: game.user._id,
-              alias: this.actor.name,
-              content: msg
-            });
-          }
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: "Cancel"
-        },
-      },
-      default: 'rest'
-    }).render(true);
-  }
 }
-
-
-/* -------------------------------------------- */
-
-
-/**
- * A helper Dialog subclass for rolling Hit Dice on short rest
- * @type {Dialog}
- */
-class ShortRestDialog extends Dialog {
-  constructor(actor, dialogData, options) {
-    super(dialogData, options);
-    this.actor = actor;
-  }
-
-  activateListeners(html) {
-    super.activateListeners(html);
-    let btn = html.find("#roll-hd");
-    if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
-    btn.click(ev => {
-      event.preventDefault();
-      let fml = ev.target.form.hd.value;
-      this.actor.rollHitDie(fml).then(roll => {
-        if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
-      });
-    })
-  }
-}
-
 
 /* -------------------------------------------- */
 
 
 CONFIG.Actor.sheetClass = Actor5eSheet;
-
-
-/**
- * Skill Proficiency Levels
- */
-CONFIG.proficiencyLevels = {
-  0: "Not Proficient",
-  1: "Proficient",
-  0.5: "Jack of all Trades",
-  2: "Expertise"
-};
 
 
 /* -------------------------------------------- */
@@ -1128,37 +659,20 @@ CONFIG.proficiencyLevels = {
  * Override and extend the basic :class:`Item` implementation
  */
 class Item5e extends Item {
-
-  /**
-   * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
-   * @return {Promise}
-   */
-  async roll() {
-
-    // Basic template rendering data
-    const template = `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`;
-    const templateData = {
+  roll() {
+    const data = {
+      template: `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`,
       actor: this.actor,
       item: this.data,
       data: this[this.data.type+"ChatData"]()
     };
-
-    // Basic chat message data
-    const chatData = {
-      user: game.user._id,
-      alias: this.actor.name,
-    };
-
-    // Toggle default roll mode
-    let rollMode = game.settings.get("core", "rollMode");
-    if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( rollMode === "blindroll" ) chatData["blind"] = true;
-
-    // Render the template
-    chatData["content"] = await renderTemplate(template, templateData);
-
-    // Create the chat message
-    return ChatMessage.create(chatData, {displaySheet: false});
+    renderTemplate(data.template, data).then(html => {
+      ChatMessage.create({
+        user: game.user._id,
+        alias: this.actor.name,
+        content: html
+      }, {displaySheet: false});
+    });
   }
 
   /* -------------------------------------------- */
@@ -1195,9 +709,8 @@ class Item5e extends Item {
 
   toolChatData() {
     const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label,
-        prof = data.proficient.value || 0;
-    const properties = [abl, CONFIG.proficiencyLevels[prof]];
+    let abl = this.actor.data.data.abilities[data.ability.value].label;
+    const properties = [abl, data.proficient.value ? "Proficient" : null];
     data.properties = properties.filter(p => p !== null);
     return data;
   }
@@ -1211,20 +724,10 @@ class Item5e extends Item {
   /* -------------------------------------------- */
 
   spellChatData() {
-    const data = duplicate(this.data.data),
-          ad = this.actor.data.data;
-
-    // Spell saving throw text and DC
-    data.isSave = data.spellType.value === "save";
-    if ( data.ability.value ) data.save.dc = 8 + ad.abilities[data.ability.value].mod + ad.attributes.prof.value;
-    else data.save.dc = ad.attributes.spelldc.value;
+    const data = duplicate(this.data.data);
     data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
-
-    // Spell attack labels
-    data.damageLabel = data.spellType.value === "heal" ? "Healing" : "Damage";
+    data.isSave = data.spellType.value === "save";
     data.isAttack = data.spellType.value === "attack";
-
-    // Combine properties
     const props = [
       CONFIG.spellSchools[data.school.value],
       CONFIG.spellLevels[data.level.value],
@@ -1374,7 +877,7 @@ class Item5e extends Item {
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         parts = [itemData.damage.value],
-        title = this.name + (itemData.spellType.value === "heal" ? " - Healing Amount" : " - Damage Roll");
+        title = `${this.name} - Damage Roll`;
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
@@ -1454,10 +957,10 @@ class Item5e extends Item {
     let rollData = duplicate(this.actor.data.data),
       abl = this.data.data.ability.value || "int",
       ability = rollData.abilities[abl],
-      parts = [`@abilities.${abl}.mod`, "@proficiency"],
+      parts = [`@abilities.${abl}.mod`, "@attributes.prof.value"],
       title = `${this.name} - Tool Check`;
     rollData["ability"] = abl;
-    rollData["proficiency"] = (this.data.data.proficient.value || 0) * rollData.attributes.prof.value;
+    if ( !this.data.data.proficient.value ) parts.pop();
 
     // Call the roll helper utility
     Dice5e.d20Roll({
@@ -1600,49 +1103,66 @@ class Item5e extends Item {
       // Tool usage
       else if ( action === "toolCheck" ) item.rollToolCheck(ev);
     });
+
+    // Dice roll context
+    new ContextMenu(html, ".dice-roll", {
+      "Apply Damage": {
+        icon: '<i class="fas fa-user-minus"></i>',
+        callback: li => this.applyDamage(li, 1)
+      },
+      "Apply Healing": {
+        icon: '<i class="fas fa-user-plus"></i>',
+        callback: li => this.applyDamage(li, -1)
+      },
+      "Double Damage": {
+        icon: '<i class="fas fa-user-injured"></i>',
+        callback: li => this.applyDamage(li, 2)
+
+      },
+      "Half Damage": {
+        icon: '<i class="fas fa-user-shield"></i>',
+        callback: li => this.applyDamage(li, 0.5)
+      }
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Apply rolled dice damage to the token or tokens which are currently controlled.
+   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
+   *
+   * @param {HTMLElement} roll    The chat entry which contains the roll data
+   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
+   */
+  static applyDamage(roll, multiplier) {
+    let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
+
+    // Get tokens to which damage can be applied
+    const tokens = canvas.tokens.controlledTokens.filter(t => {
+      if ( t.actor && t.data.actorLink ) return true;
+      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
+      return false;
+    });
+    if ( tokens.length === 0 ) return;
+
+    // Apply damage to all tokens
+    for ( let t of tokens ) {
+      if ( t.actor && t.data.actorLink ) {
+        let hp = parseInt(t.actor.data.data.attributes.hp.value),
+            max = parseInt(t.actor.data.data.attributes.hp.max);
+        t.actor.update({"data.attributes.hp.value": Math.clamped(hp - value, 0, max)}, true);
+      }
+      else {
+        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
+        t.update({[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)}, true);
+      }
+    }
   }
 }
 
 // Assign Item5e class to CONFIG
 CONFIG.Item.entityClass = Item5e;
-
-
-/**
- * Hook into chat log context menu to add damage application options
- */
-Hooks.on("getChatLogEntryContext", (html, options) => {
-
-  // Condition
-  let canApply = li => canvas.tokens.controlledTokens.length && li.find(".dice-roll").length;
-
-  // Apply Damage to Token
-  options["Apply Damage"] = {
-    icon: '<i class="fas fa-user-minus"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 1)
-  };
-
-  // Apply Healing to Token
-  options["Apply Healing"] = {
-    icon: '<i class="fas fa-user-plus"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, -1)
-  };
-
-  // Apply Double-Damage
-  options["Double Damage"] = {
-    icon: '<i class="fas fa-user-injured"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 2)
-  };
-
-  // Apply Half-Damage
-  options["Half Damage"] = {
-    icon: '<i class="fas fa-user-shield"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 0.5)
-  }
-});
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation

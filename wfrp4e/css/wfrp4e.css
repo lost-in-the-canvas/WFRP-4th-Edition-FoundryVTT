@@ -430,7 +430,7 @@
   flex: 1;
 }
 .dnd5e.sheet form .sheet-sidebar img.sheet-profile {
-  flex: 0 0 220px;
+  flex: 0 0 110;
   border: none;
   border-bottom: 1px solid #CCC;
 }
