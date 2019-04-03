@@ -528,7 +528,8 @@
     "talent": {
       "max": {
         "type": "String",
-        "label": "Max Advances"
+        "label": "Max Advances",
+        "value": "1"
       },
       "advances": {
         "type": "Number",
@@ -539,9 +540,11 @@
         "type": "String",
         "label": "Career"
       },
-      "test": {
+      "tests": {
         "type": "String",
-        "label": "Test"
+        "label": "Tests",
+        "value": null
+
       }
     },
     "skill": {
