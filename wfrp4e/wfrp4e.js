@@ -1171,7 +1171,7 @@ class Item5eSheet extends ItemSheet {
    */
   get template() {
     let type = this.item.type;
-    return `public/systems/dnd5e/templates/items/item-${type}-sheet.html`;
+    return `public/systems/wfrp4e/templates/items/item-${type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
