@@ -14,7 +14,7 @@ class Item5e extends Item {
     const templateData = {
       actor: this.actor,
       item: this.data,
-      data: this[this.data.type+"ChatData"]()
+      data: this.getChatData()
     };
 
     // Basic chat message data
@@ -36,8 +36,18 @@ class Item5e extends Item {
   }
 
   /* -------------------------------------------- */
+  /*  Chat Card Data
+  /* -------------------------------------------- */
 
-  equipmentChatData() {
+  getChatData(htmlOptions) {
+    const data = this[`_${this.data.type}ChatData`]();
+    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    return data;
+  }
+
+  /* -------------------------------------------- */
+
+  _equipmentChatData() {
     const data = duplicate(this.data.data);
     const properties = [
       CONFIG.armorTypes[data.armorType.value],
@@ -51,13 +61,20 @@ class Item5e extends Item {
 
   /* -------------------------------------------- */
 
-  weaponChatData() {
-    return this.data.data;
+  _weaponChatData() {
+    const data = duplicate(this.data.data);
+    const properties = [
+      data.range.value,
+      CONFIG.weaponTypes[data.weaponType.value],
+      data.proficient.value ? "" : "Not Proficient"
+    ];
+    data.properties = properties.filter(p => !!p);
+    return data;
   }
 
   /* -------------------------------------------- */
 
-  consumableChatData() {
+  _consumableChatData() {
     const data = duplicate(this.data.data);
     data.consumableType.str = CONFIG.consumableTypes[data.consumableType.value];
     data.properties = [data.consumableType.str, data.charges.value + "/" + data.charges.max + " Charges"];
@@ -67,7 +84,7 @@ class Item5e extends Item {
 
   /* -------------------------------------------- */
 
-  toolChatData() {
+  _toolChatData() {
     const data = duplicate(this.data.data);
     let abl = this.actor.data.data.abilities[data.ability.value].label,
         prof = data.proficient.value || 0;
@@ -78,13 +95,15 @@ class Item5e extends Item {
 
   /* -------------------------------------------- */
 
-  backpackChatData() {
-    return duplicate(this.data.data);
+  _backpackChatData() {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
   }
 
   /* -------------------------------------------- */
 
-  spellChatData() {
+  _spellChatData() {
     const data = duplicate(this.data.data),
           ad = this.actor.data.data;
 
@@ -118,12 +137,19 @@ class Item5e extends Item {
   /**
    * Prepare chat card data for items of the "Feat" type
    */
-  featChatData() {
-    const data = duplicate(this.data.data);
+  _featChatData() {
+    const data = duplicate(this.data.data),
+          ad = this.actor.data.data;
 
     // Feat button actions
     data.isSave = data.save.value !== "";
-    data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    if ( data.isSave ) {
+      let abl = data.ability.value || ad.attributes.spellcasting.value || "str";
+      data.save.dc = 8 + ad.abilities[abl].mod + ad.attributes.prof.value;
+      data.save.str = data.save.value ? this.actor.data.data.abilities[data.save.value].label : "";
+    }
+
+    // Feat attack attributes
     data.isAttack = data.featType.value === "attack";
 
     // Feat properties
@@ -138,6 +164,8 @@ class Item5e extends Item {
     return data;
   }
 
+  /* -------------------------------------------- */
+  /*  Roll Attacks
   /* -------------------------------------------- */
 
   /**
@@ -185,10 +213,14 @@ class Item5e extends Item {
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         parts = [alternate ? itemData.damage2.value : itemData.damage.value, `@abilities.${abl}.mod`],
-        title = `${this.name} - Damage Roll`;
-    rollData.item = itemData;
+        dtype = CONFIG.damageTypes[alternate ? itemData.damage2Type.value : itemData.damageType.value];
+
+    // Append damage type to title
+    let title = `${this.name} - Damage`;
+    if ( dtype ) title += ` (${dtype})`;
 
     // Call the roll helper utility
+    rollData.item = itemData;
     Dice5e.damageRoll({
       event: event,
       parts: parts,
@@ -246,9 +278,16 @@ class Item5e extends Item {
     // Get data
     let itemData = this.data.data,
         rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || "str",
+        abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
         parts = [itemData.damage.value],
-        title = this.name + (itemData.spellType.value === "heal" ? " - Healing Amount" : " - Damage Roll");
+        isHeal = itemData.spellType.value === "heal",
+        dtype = CONFIG.damageTypes[itemData.damageType.value];
+
+    // Append damage type to title
+    let title = this.name + (isHeal ? " - Healing" : " - Damage");
+    if ( dtype && !isHeal ) title += ` (${dtype})`;
+
+    // Add item to roll data
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
 
@@ -292,20 +331,18 @@ class Item5e extends Item {
       let qty = itemData['quantity'],
           chg = itemData['charges'];
 
-      // No charges are remaining
-      if ( itemData['autoDestroy'] && chg.value <= 1 ) {
+      // Deduct an item quantity
+      if ( chg.value <= 1 && qty.value > 1 ) {
+        this.actor.updateOwnedItem({
+          id: this.data.id,
+          'data.quantity.value': Math.max(qty.value - 1, 0),
+          'data.charges.value': chg.max
+        }, true);
+      }
 
-        // Deduct an item quantity
-        if ( qty.value > 1 ) {
-          this.actor.updateOwnedItem({
-            id: this.data.id,
-            'data.quantity.value': qty.value - 1,
-            'data.charges.value': chg.max
-          }, true);
-        }
-
-        // Destroy the item
-        else this.actor.deleteOwnedItem(this.data.id);
+      // Optionally destroy the item
+      else if ( chg.value <= 1 && qty.value <= 1 && itemData['autoDestroy'].value ) {
+        this.actor.deleteOwnedItem(this.data.id);
       }
 
       // Deduct the remaining charges
@@ -408,7 +445,13 @@ class Item5e extends Item {
         rollData = duplicate(this.actor.data.data),
         abl = itemData.ability.value || "str",
         parts = [itemData.damage.value],
-        title = `${this.name} - Damage Roll`;
+        dtype = CONFIG.damageTypes[itemData.damageType.value];
+
+    // Append damage type to title
+    let title = `${this.name} - Damage`;
+    if ( dtype ) title += ` (${dtype})`;
+
+    // Add item data to roll
     rollData["mod"] = rollData.abilities[abl].mod;
     rollData.item = itemData;
 

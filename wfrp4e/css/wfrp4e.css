@@ -205,7 +205,7 @@
 /***************************************************/
 /*--------- Edmund's Custom CSS Additions ---------*/
 /***************************************************/
-  .app.window-app.sheet.dnd5e.actor-sheet {
+  .app.window-app.sheet.dnd5e.actor.character-sheet {
     width: 670px;
     height: 740px;
     top: 0px;
@@ -216,24 +216,26 @@
     box-shadow: none;
   }
 
-  .app.window-app.sheet.dnd5e.actor-sheet .window-header {    
-    flex: 0 0 52px;
-    padding: 8px;
+  .app.window-app.sheet.dnd5e.actor.character-sheet .window-header {
+    flex: 0 0 61px;
+    padding: 8px 8px 8px 8px;
     line-height: 30px;
     border-bottom: none;
     background: none;
+    margin: 0px 20px 0px 0px;
     /* background: rgba(135, 85, 35, 0.35); */
   }
 
   .dnd5e.sheet .window-content {
-    padding: 40px 40px 60px 40px;;
+    padding: 0px 0px 0px 0px;
     font-size: 13px;
     overflow-y: hidden;
-
-    margin: 12px 28px 65px 8px;
+    margin: 10px 57px 65px 37px;
     box-shadow: none;
     background: none;
+    overflow-y: hidden;
     /* background: rgba(255, 0, 0, 0.1); */
+    border: none;
   }
 
   #settings .modules {
@@ -284,6 +286,8 @@
 
     box-shadow: 0 0 10px #ff6400;
   }
+
+
 
   /*
   .dnd5e.sheet form {
@@ -343,6 +347,49 @@
     background-size: 9px 110px;
     box-shadow: 0 0 17px rgb(0,0,0);
   }
+  /* -------------------------------------------------------- */
+ 
+  .control-tools > li {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    /* background: rgba(0, 0, 0, 0.5); */
+    /* box-shadow: 0 0 10px #000; */
+    margin: 0 0 8px;
+    color: #BBB;
+    text-align: center;
+    
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: url(../ui/sidebar_button-background_grey.png) repeat;
+    background-origin: padding-box;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 2px;
+    
+    box-shadow: 0 0 10px #ff6400;
+    cursor: pointer;
+  }
+
+  .control-tools > li.active, .control-tools > li:hover {
+    color: #FFF;
+
+    border: none;
+    border-bottom: none;
+
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 2px;
+    
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff6400;
+  }
+
+
 /***************************************************/
 /*-------------------------------------------------*/
 /***************************************************/
@@ -353,11 +400,19 @@
 /*  Actor Sheet
 /* ----------------------------------------- */
 
+.dnd5e.actor-sheet section.window-content {
+  overflow-y: hidden;
+}
+
 .dnd5e.sheet form {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  border: none;
+  /* border-width: 2px;
+  border-style: solid; */
+  overflow-y: hidden;
   /* Form Elements */
 }
 .dnd5e.sheet form > * {
@@ -418,13 +473,13 @@
   flex-wrap: nowrap;
 }
 .dnd5e.sheet form .sheet-sidebar {
-  flex: 0 0 220px;
-  height: calc(100% - 44px);
-  order: 2;
-  border-right: 1px solid #AAA;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+    /* flex: 0 0 220px; */
+    height: calc(100% - 44px);
+    order: 2;
+    /* border-right: 1px solid #AAA; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 .dnd5e.sheet form .sheet-sidebar > * {
   flex: 1;
@@ -438,10 +493,20 @@
   padding-right: 3px;
 }
 .dnd5e.sheet form .sheet-tabs {
-  flex: 0 0 28px;
-  margin-top: 2px;
-  padding: 0 2px;
-  border-bottom: 1px solid #666;
+  flex: 0 1 25px;
+  /* width: 20px; */
+  /* flex-direction: column-reverse; */
+  /* margin-top: 85px; */
+  color: #cecece;
+  /* margin-left: 492px; */
+  padding: 0px 0px 0px 0px;
+  /* border-bottom: 1px solid #666; */
+  /* transform: rotate(90deg); */
+  font-weight: 100;
+  /* direction: rtl; */
+  /* width: 80px; */
+  /* height: 200px; */
+  /* overflow: hidden; */
 }
 .dnd5e.sheet form .sheet-tabs > .item {
   line-height: 26px;
@@ -449,13 +514,14 @@
   border-radius: 5px 5px 0 0;
 }
 .dnd5e.sheet form .sheet-tabs > .item.active {
-  color: #000;
-  font-weight: 700;
-  border: 1px solid #666;
-  border-bottom: none;
-  box-shadow: 0 0 10px inset #ff6400;
-  text-shadow: none;
+    color: #000;
+    /* font-weight: 700; */
+    border: 1px solid #666;
+    border-bottom: none;
+    box-shadow: 0 0 10px inset #ff6400;
+    text-shadow: none;
 }
+
 .dnd5e.sheet form .tab {
   flex: 1 0 380px;
   overflow: hidden;
@@ -726,7 +792,10 @@
   position: relative;
   top: 2px;
 }
-
+.dnd5e.sheet form .sheet-sidebar .tab {
+  padding-right: 73px;
+  margin-top: -120px;
+}
 /* ----------------------------------------- */
 /* Sidebar Tabs
 /* ----------------------------------------- */

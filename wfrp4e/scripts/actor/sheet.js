@@ -2,15 +2,24 @@
  * Extend the basic ActorSheet class to do all the D&D5e things!
  */
 class Actor5eSheet extends ActorSheet {
+  constructor(...args) {
+    super(...args);
+
+    // Add additional class options
+    this.options.classes.push(`${this.actorType}-sheet`);
+  }
+
+	/* -------------------------------------------- */
 
   /**
    * Extend and override the default options used by the 5e Actor Sheet
    */
 	static get defaultOptions() {
 	  const options = super.defaultOptions;
-	  options.classes = options.classes.concat(["dnd5e", "actor-sheet"]);
+	  options.classes = options.classes.concat(["dnd5e", "actor"]);
     options.width = 670;
     options.height = 740;
+    options.showUnpreparedSpells = true;
 	  return options;
   }
 
@@ -40,6 +49,42 @@ class Actor5eSheet extends ActorSheet {
   getData() {
     const sheetData = super.getData();
 
+    // Config data
+    sheetData["actorSizes"] = CONFIG.actorSizes;
+
+    // Level and CR
+    if ( sheetData.actor.type === "npc" ) {
+      let cr = sheetData.data.details.cr;
+      let crs = {0: "0", 0.125: "1/8", 0.25: "1/4", 0.5: "1/2"};
+      cr["str"] = (cr.value >= 1) ? String(cr.value) : crs[cr.value] || 0;
+    }
+
+    // Ability proficiency
+    for ( let abl of Object.values(sheetData.data.abilities)) {
+      abl.icon = this._getProficiencyIcon(abl.proficient);
+      abl.hover = CONFIG.proficiencyLevels[abl.proficient];
+    }
+
+    // Update skill labels
+    for ( let skl of Object.values(sheetData.data.skills)) {
+      skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
+      skl.icon = this._getProficiencyIcon(skl.value);
+      skl.hover = CONFIG.proficiencyLevels[skl.value];
+    }
+
+    // Update traits
+    this._prepareTraits(sheetData.data["traits"]);
+
+    // Clear some values
+    let res = sheetData.data.resources;
+    if ( res.primary && res.primary.value === 0 ) delete res.primary.value;
+    if ( res.primary && res.primary.max === 0 ) delete res.primary.max;
+    if ( res.secondary && res.secondary.value === 0 ) delete res.secondary.value;
+    if ( res.secondary && res.secondary.max === 0 ) delete res.secondary.max;
+    let hp = sheetData.data.attributes.hp;
+    if ( hp.temp === 0 ) delete hp.temp;
+    if ( hp.tempmax === 0 ) delete hp.tempmax;
+
     // Prepare owned items
     if ( this.actorType === "character" ) this._prepareCharacterItems(sheetData.actor);
     else if ( this.actorType === "npc" ) this._prepareNPCItems(sheetData.actor);
@@ -57,7 +102,7 @@ class Actor5eSheet extends ActorSheet {
   _prepareCharacterItems(actorData) {
 
     // Inventory
-  /*  const inventory = {
+    const inventory = {
       weapon: { label: "Weapons", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
@@ -90,18 +135,7 @@ class Actor5eSheet extends ActorSheet {
       }
 
       // Spells
-      else if ( i.type === "spell" ) {
-        let lvl = i.data.level.value || 0;
-        spellbook[lvl] = spellbook[lvl] || {
-          isCantrip: lvl === 0,
-          label: CONFIG.spellLevels[lvl],
-          spells: [],
-          uses: actorData.data.spells["spell"+lvl].value || 0,
-          slots: actorData.data.spells["spell"+lvl].max || 0
-        };
-        i.data.school.str = CONFIG.spellSchools[i.data.school.value];
-        spellbook[lvl].spells.push(i);
-      }
+      else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
       // Classes
       else if ( i.type === "class" ) {
@@ -119,15 +153,154 @@ class Actor5eSheet extends ActorSheet {
     actorData.feats = feats;
     actorData.classes = classes;
 
+    // Currency weight
+    if ( game.settings.get("dnd5e", "currencyWeight") ) {
+      totalWeight += this._computeCurrencyWeight(actorData.data.currency);
+    }
+
     // Inventory encumbrance
     let enc = {
       max: actorData.data.abilities.str.value * 15,
       value: Math.round(totalWeight * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    actorData.data.attributes.encumbrance = enc;*/
+    actorData.data.attributes.encumbrance = enc;
   }
 
+  /* -------------------------------------------- */
+
+  /**
+   * Compute the weight of carried currency across all denominations by applying the standard rule from the
+   * PHB pg. 143
+   *
+   * @param {Object} currency   An object describing the amount of currency carried by denomination
+   * @return {Number}           The total weight of carried currency
+   * @private
+   */
+  _computeCurrencyWeight(currency) {
+    const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
+    return numCoins / 50;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Organize and classify Items for NPC sheets
+   * @private
+   */
+  _prepareNPCItems(actorData) {
+
+    // Actions
+    const features = {
+      weapons: {label: "Weapons", items: [], type: "weapon" },
+      actions: { label: "Actions", items: [], type: "feat" },
+      passive: { label: "Features", items: [], type: "feat" },
+      equipment: { label: "Equipment", items: [], type: "equipment" }
+    };
+
+    // Spellbook
+    const spellbook = {};
+
+    // Iterate through items, allocating to containers
+    for ( let i of actorData.items ) {
+      i.img = i.img || DEFAULT_TOKEN;
+
+      // Spells
+      if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
+
+      // Features
+      else if ( i.type === "weapon" ) features.weapons.items.push(i);
+      else if ( i.type === "feat" ) {
+        if ( i.data.featType.value === "passive" ) features.passive.items.push(i);
+        else features.actions.items.push(i);
+      }
+      else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
+    }
+
+    // Assign and return
+    actorData.features = features;
+    actorData.spellbook = spellbook;
+  }
+
+  /* -------------------------------------------- */
+
+  _prepareTraits(traits) {
+    const map = {
+      "dr": CONFIG.damageTypes,
+      "di": CONFIG.damageTypes,
+      "dv": CONFIG.damageTypes,
+      "ci": CONFIG.conditionTypes,
+      "languages": CONFIG.languages
+    };
+    for ( let [t, choices] of Object.entries(map) ) {
+      const trait = traits[t];
+      trait.selected = trait.value.reduce((obj, t) => {
+        obj[t] = choices[t];
+        return obj;
+      }, {});
+
+      // Add custom entry
+      if ( trait.custom ) trait.selected["custom"] = trait.custom;
+    }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Insert a spell into the spellbook object when rendering the character sheet
+   * @param {Object} actorData    The Actor data being prepared
+   * @param {Object} spellbook    The spellbook data being prepared
+   * @param {Object} spell        The spell data being prepared
+   * @private
+   */
+  _prepareSpell(actorData, spellbook, spell) {
+    let lvl = spell.data.level.value || 0,
+        isNPC = this.actorType === "npc";
+
+    // Determine whether to show the spell
+    let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
+    if ( !showSpell ) return;
+
+    // Extend the Spellbook level
+    spellbook[lvl] = spellbook[lvl] || {
+      isCantrip: lvl === 0,
+      label: CONFIG.spellLevels[lvl],
+      spells: [],
+      uses: actorData.data.spells["spell"+lvl].value || 0,
+      slots: actorData.data.spells["spell"+lvl].max || 0
+    };
+
+    // Add the spell to the spellbook at the appropriate level
+    spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
+    spellbook[lvl].spells.push(spell);
+  }
+
+  /* -------------------------------------------- */
+
+  _cycleSkillProficiency(level) {
+    const levels = [0, 1, 0.5, 2];
+    let idx = levels.indexOf(level);
+    return levels[(idx === levels.length - 1) ? 0 : idx + 1]
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the font-awesome icon used to display a certain level of skill proficiency
+   * @private
+   */
+  _getProficiencyIcon(level) {
+    const icons = {
+      0: '<i class="far fa-circle"></i>',
+      0.5: '<i class="fas fa-adjust"></i>',
+      1: '<i class="fas fa-check"></i>',
+      2: '<i class="fas fa-check-double"></i>'
+    };
+    return icons[level];
+  }
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers
   /* -------------------------------------------- */
 
   /**
@@ -155,6 +328,9 @@ class Actor5eSheet extends ActorSheet {
       });
     });
 
+    // Item summaries
+    html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -162,10 +338,25 @@ class Actor5eSheet extends ActorSheet {
     /*  Abilities and Skills
      /* -------------------------------------------- */
 
+    // Ability Proficiency
+    html.find('.ability-proficiency').click(ev => {
+      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
+      this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
+    });
+
     // Ability Checks
-    html.find('.ability-name').click(ev => {
-      let abl = ev.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(abl);
+    html.find('.ability-name').click(event => {
+      event.preventDefault();
+      let ability = event.currentTarget.parentElement.getAttribute("data-ability");
+      this.actor.rollAbility(ability, {event: event});
+    });
+
+    // Toggle Skill Proficiency
+    html.find('.skill-proficiency').click(ev => {
+      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
+      field.val(this._cycleSkillProficiency(parseFloat(field.val())));
+      let formData = validateForm(field.parents('form')[0]);
+      this.actor.update(formData, true);
     });
 
     // Roll Skill Checks
@@ -178,17 +369,14 @@ class Actor5eSheet extends ActorSheet {
     /*  Rollable Items                              */
     /* -------------------------------------------- */
 
-    html.find('.item .rollable').click(event => this._onRollItemCard(event));
+    html.find('.item .item-image').click(event => this._onItemRoll(event));
 
     /* -------------------------------------------- */
     /*  Inventory
     /* -------------------------------------------- */
 
     // Create New Item
-    html.find('.item-create').click(ev => {
-      let type = ev.currentTarget.getAttribute("data-item-type");
-      this.actor.createOwnedItem({name: "New " + type.capitalize(), type: type}, true, {renderSheet: true});
-    });
+    html.find('.item-create').click(ev => this._onItemCreate(ev));
 
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
@@ -206,9 +394,43 @@ class Actor5eSheet extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
+    // Toggle Spell prepared value
+    html.find('.item-prepare').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
+          item = this.actor.items.find(i => { return i.id === itemId });
+      item.data['prepared'].value = !item.data['prepared'].value;
+      this.actor.updateOwnedItem(item, true);
+    });
+
+    // Re-render the sheet when toggling visibility of spells
+    html.find('.prepared-toggle').click(ev => {
+      this.options.showUnpreparedSpells = !this.options.showUnpreparedSpells;
+      this.render()
+    });
+
+    /* -------------------------------------------- */
+    /*  Traits
+    /* -------------------------------------------- */
+
+    html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
+
     /* -------------------------------------------- */
     /*  Miscellaneous
     /* -------------------------------------------- */
+
+    /* Short Rest */
+    html.find('.short-rest').click(ev => this._onShortRest(ev));
+
+    // Long Rest
+    html.find('.long-rest').click(ev => this._onLongRest(ev));
+
+    /* Roll NPC HP */
+    html.find('.npc-roll-hp').click(ev => {
+      let ad = this.actor.data.data;
+      let hp = new Roll(ad.attributes.hp.formula).roll().total;
+      AudioHelper.play({src: CONFIG.sounds.dice});
+      this.actor.update({"data.attributes.hp.value": hp, "data.attributes.hp.max": hp}, true);
+    });
 
     /* Item Dragging */
     let handler = ev => this._onDragItemStart(ev);
@@ -229,6 +451,13 @@ class Actor5eSheet extends ActorSheet {
    * @private
    */
   _updateObject(event, formData) {
+
+    // Format NPC Challenge Rating
+    if (this.actor.data.type === "npc") {
+      let cr = this.form["data.details.cr.value"],
+         crs = {"1/8": 0.125, "1/4": 0.25, "1/2": 0.5};
+      formData["data.details.cr.value"] = crs[cr.value] || parseInt(cr.value);
+    }
 
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
@@ -253,17 +482,170 @@ class Actor5eSheet extends ActorSheet {
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
    * @private
    */
-  _onRollItemCard(event) {
+  _onItemRoll(event) {
     event.preventDefault();
     let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
-        Item = CONFIG.Item.entityClass,
-        item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
+        item = this.actor.getOwnedItem(itemId);
     item.roll();
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
+   * @private
+   */
+  _onItemSummary(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parents(".item"),
+        item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
+        chatData = item.getChatData();
+
+    // Toggle summary
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${item.data.data.description.value}</div>`);
+      let props = $(`<div class="item-properties"></div>`);
+      chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      div.append(props);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a short rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onShortRest(event) {
+    event.preventDefault();
+    let hd0 = this.actor.data.data.attributes.hd.value,
+        hp0 = this.actor.data.data.attributes.hp.value;
+    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
+      new ShortRestDialog(this.actor, {
+        title: "Short Rest",
+        content: html,
+        buttons: {
+          rest: {
+            icon: '<i class="fas fa-bed"></i>',
+            label: "Rest",
+            callback: dlg => {
+              this.actor.shortRest();
+              let dhd = hd0 - this.actor.data.data.attributes.hd.value,
+                  dhp = this.actor.data.data.attributes.hp.value - hp0;
+              let msg = `${this.actor.name} takes a short rest spending ${dhd} Hit Dice to recover ${dhp} Hit Points.`;
+              ChatMessage.create({
+                user: game.user._id,
+                alias: this.actor.name,
+                content: msg
+              });
+            }
+          },
+          cancel: {
+            icon: '<i class="fas fa-times"></i>',
+            label: "Cancel"
+          },
+        },
+        default: 'rest'
+      }).render(true);
+    });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Take a long rest, calling the relevant function on the Actor instance
+   * @private
+   */
+  _onLongRest(event) {
+    event.preventDefault();
+    new Dialog({
+      title: "Long Rest",
+      content: '<p>Take a long rest?</p><p>On a long rest you will recover hit points, half your maximum hit dice, ' +
+        'primary or secondary resources, and spell slots per day.</p>',
+      buttons: {
+        rest: {
+          icon: '<i class="fas fa-bed"></i>',
+          label: "Rest",
+          callback: dlg => {
+            let update = this.actor.longRest();
+            let msg = `${this.actor.name} takes a long rest and recovers ${update.dhp} Hit Points and ${update.dhd} Hit Dice.`;
+            ChatMessage.create({
+              user: game.user._id,
+              alias: this.actor.name,
+              content: msg
+            });
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: "Cancel"
+        },
+      },
+      default: 'rest'
+    }).render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+   * @private
+   */
+  _onItemCreate(event) {
+    event.preventDefault();
+    let header = event.currentTarget,
+        data = duplicate(header.dataset);
+    data["name"] = `New ${data.type.capitalize()}`;
+    this.actor.createOwnedItem(data, true, {renderSheet: true});
+  }
+
+  /* -------------------------------------------- */
+
+  _onTraitSelector(event) {
+    event.preventDefault();
+    let a = $(event.currentTarget);
+    const options = {
+      name: a.parents("label").attr("for"),
+      title: a.parent().text().trim(),
+      choices: CONFIG[a.attr("data-options")]
+    };
+    new TraitSelector5e(this.actor, options).render(true)
   }
 }
 
 
+/* -------------------------------------------- */
+
+
+/**
+ * A helper Dialog subclass for rolling Hit Dice on short rest
+ * @type {Dialog}
+ */
+class ShortRestDialog extends Dialog {
+  constructor(actor, dialogData, options) {
+    super(dialogData, options);
+    this.actor = actor;
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    let btn = html.find("#roll-hd");
+    if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+    btn.click(ev => {
+      event.preventDefault();
+      let fml = ev.target.form.hd.value;
+      this.actor.rollHitDie(fml).then(roll => {
+        if ( this.actor.data.data.attributes.hd.value === 0 ) btn[0].disabled = true;
+      });
+    })
+  }
+}
+
 CONFIG.Actor.sheetClass = Actor5eSheet;
 
-
-/* -------------------------------------------- */

@@ -2,7 +2,7 @@
 /**
  * Activate certain behaviors on FVTT ready hook
  */
-Hooks.on("init", () => {
+Hooks.once("init", () => {
 
   /**
    * Register diagonal movement rule setting
@@ -20,6 +20,59 @@ Hooks.on("init", () => {
     },
     onChange: rule => canvas.grid.diagonalRule = rule
   });
+
+  /**
+   * Register Initiative formula setting
+   */
+  function _set5eInitiative(tiebreaker) {
+    const base = "1d20 + @abilities.dex.mod + @attributes.init.value",
+          dex = "1d20 + @abilities.dex.mod + @attributes.init.value + (@abilities.dex.value / 100)";
+    if ( tiebreaker ) {
+      CONFIG.initiative = {
+        formula: dex,
+        decimals: 2
+      }
+    } else {
+      CONFIG.initiative = {
+        formula: base,
+        decimals: 0
+      }
+    }
+  }
+  game.settings.register("dnd5e", "initiativeDexTiebreaker", {
+    name: "Initiative Dexterity Tiebreaker",
+    hint: "Append the raw Dexterity ability score to break ties in Initiative.",
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: enable => _set5eInitiative(enable)
+  });
+  _set5eInitiative(game.settings.get("dnd5e", "initiativeDexTiebreaker"));
+
+  /**
+   * Require Currency Carrying Weight
+   */
+  game.settings.register("dnd5e", "currencyWeight", {
+    name: "Apply Currency Weight",
+    hint: "Carried currency affects character encumbrance following the rules on PHB pg. 143.",
+    scope: "world",
+    config: true,
+    default: true,
+    type: Boolean
+  });
+
+  // Pre-load templates
+  loadTemplates([
+    "public/systems/dnd5e/templates/actors/actor-attributes.html",
+    "public/systems/dnd5e/templates/actors/actor-abilities.html",
+    "public/systems/dnd5e/templates/actors/actor-biography.html",
+    "public/systems/dnd5e/templates/actors/actor-skills.html",
+    "public/systems/dnd5e/templates/actors/actor-traits.html",
+    "public/systems/dnd5e/templates/actors/actor-classes.html",
+    "public/systems/dnd5e/templates/items/item-header.html",
+    "public/systems/dnd5e/templates/items/item-description.html",
+  ]);
 });
 
 
@@ -29,12 +82,14 @@ Hooks.on("init", () => {
 Hooks.on("canvasInit", () => {
 
   // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("wfrp4e", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+
+  /* -------------------------------------------- */
 
   /**
    * Override default Grid measurement
    */
-  GridLayer.prototype.measureDistance = function(p0, p1) {
+  SquareGrid.prototype.measureDistance = function(p0, p1) {
     let gs = canvas.dimensions.size,
         ray = new Ray(p0, p1),
         nx = Math.abs(Math.ceil(ray.dx / gs)),
@@ -45,9 +100,10 @@ Hooks.on("canvasInit", () => {
         nStraight = Math.abs(ny - nx);
 
     // Alternative DMG Movement
-    if ( this.diagonalRule === "5105" ) {
-      let nd10 = Math.floor((nDiagonal + 1) / 3);
-      return ((nd10 * 2) + nDiagonal - nd10 + nStraight) * canvas.dimensions.distance;
+    if ( this.parent.diagonalRule === "5105" ) {
+      let nd10 = Math.floor(nDiagonal / 2);
+      let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
+      return spaces * canvas.dimensions.distance;
     }
 
     // Standard PHB Movement
