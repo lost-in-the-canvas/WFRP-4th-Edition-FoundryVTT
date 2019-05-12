@@ -238,7 +238,7 @@ class Dice5e {
     } else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
-    template = template || "public/systems/dnd5e/templates/chat/roll-dialog.html";
+    template = template || "public/systems/wfrp4e/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -325,7 +325,7 @@ class Dice5e {
     else parts = parts.concat(["@bonus"]);
 
     // Construct dialog data
-    template = template || "public/systems/dnd5e/templates/chat/roll-dialog.html";
+    template = template || "public/systems/wfrp4e/templates/chat/roll-dialog.html";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -381,7 +381,7 @@ Hooks.once("init", () => {
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("dnd5e", "diagonalMovement", {
+  game.settings.register("wfrp4e", "diagonalMovement", {
     name: "Diagonal Movement Rule",
     hint: "Configure which diagonal movement rule should be used for games within this system.",
     scope: "world",
@@ -413,7 +413,7 @@ Hooks.once("init", () => {
       }
     }
   }
-  game.settings.register("dnd5e", "initiativeDexTiebreaker", {
+  game.settings.register("wfrp4e", "initiativeDexTiebreaker", {
     name: "Initiative Dexterity Tiebreaker",
     hint: "Append the raw Dexterity ability score to break ties in Initiative.",
     scope: "world",
@@ -422,12 +422,12 @@ Hooks.once("init", () => {
     type: Boolean,
     onChange: enable => _set5eInitiative(enable)
   });
-  _set5eInitiative(game.settings.get("dnd5e", "initiativeDexTiebreaker"));
+  _set5eInitiative(game.settings.get("wfrp4e", "initiativeDexTiebreaker"));
 
   /**
    * Require Currency Carrying Weight
    */
-  game.settings.register("dnd5e", "currencyWeight", {
+  game.settings.register("wfrp4e", "currencyWeight", {
     name: "Apply Currency Weight",
     hint: "Carried currency affects character encumbrance following the rules on PHB pg. 143.",
     scope: "world",
@@ -438,14 +438,14 @@ Hooks.once("init", () => {
 
   // Pre-load templates
   loadTemplates([
-    "public/systems/dnd5e/templates/actors/actor-attributes.html",
-    "public/systems/dnd5e/templates/actors/actor-abilities.html",
-    "public/systems/dnd5e/templates/actors/actor-biography.html",
-    "public/systems/dnd5e/templates/actors/actor-skills.html",
-    "public/systems/dnd5e/templates/actors/actor-traits.html",
-    "public/systems/dnd5e/templates/actors/actor-classes.html",
-    "public/systems/dnd5e/templates/items/item-header.html",
-    "public/systems/dnd5e/templates/items/item-description.html",
+    "public/systems/wfrp4e/templates/actors/actor-attributes.html",
+    "public/systems/wfrp4e/templates/actors/actor-abilities.html",
+    "public/systems/wfrp4e/templates/actors/actor-biography.html",
+    "public/systems/wfrp4e/templates/actors/actor-skills.html",
+    "public/systems/wfrp4e/templates/actors/actor-traits.html",
+    "public/systems/wfrp4e/templates/actors/actor-classes.html",
+    "public/systems/wfrp4e/templates/items/item-header.html",
+    "public/systems/wfrp4e/templates/items/item-description.html",
   ]);
 });
 
@@ -456,7 +456,7 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", () => {
 
   // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("wfrp4e", "diagonalMovement");
 
   /* -------------------------------------------- */
 
@@ -547,13 +547,6 @@ class Actor5e extends Actor {
    */
   _prepareCharacterData(data) {
 
-    // Level, experience, and proficiency
-    data.details.level.value = parseInt(data.details.level.value);
-    data.details.xp.max = this.getLevelExp(data.details.level.value || 1);
-    let prior = this.getLevelExp(data.details.level.value - 1 || 0),
-          req = data.details.xp.max - prior;
-    data.details.xp.pct = Math.min(Math.round((data.details.xp.value -prior) * 100 / req), 99.5);
-    data.attributes.prof.value = Math.floor((data.details.level.value + 7) / 4);
   }
 
   /* -------------------------------------------- */
@@ -853,14 +846,14 @@ Token.prototype._drawBar = function(number, bar, data) {
  * @type {FormApplication}
  */
 class TraitSelector5e extends FormApplication {
-	static get defaultOptions() {
-	  const options = super.defaultOptions;
-	  options.id = "trait-selector";
-	  options.classes = ["dnd5e"];
-	  options.title = "Actor Trait Selection";
-	  options.template = "public/systems/dnd5e/templates/actors/trait-selector.html";
-	  options.width = 200;
-	  return options;
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    options.id = "trait-selector";
+    options.classes = ["wfrp4e"];
+    options.title = "Actor Trait Selection";
+    options.template = "public/systems/wfrp4e/templates/actors/trait-selector.html";
+    options.width = 200;
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -870,7 +863,7 @@ class TraitSelector5e extends FormApplication {
    * @type {String}
    */
   get attribute() {
-	  return this.options.name;
+    return this.options.name;
   }
 
   /* -------------------------------------------- */
@@ -883,9 +876,9 @@ class TraitSelector5e extends FormApplication {
 
     // Get current values
     let attr = getProperty(this.object.data, this.attribute);
-	  if ( typeof attr.value === "string" ) attr.value = this.constructor._backCompat(attr.value, this.options.choices);
+    if ( typeof attr.value === "string" ) attr.value = this.constructor._backCompat(attr.value, this.options.choices);
 
-	  // Populate choices
+    // Populate choices
     const choices = duplicate(this.options.choices);
     for ( let [k, v] of Object.entries(choices) ) {
       choices[k] = {
@@ -895,8 +888,8 @@ class TraitSelector5e extends FormApplication {
     }
 
     // Return data
-	  return {
-	    choices: choices,
+    return {
+      choices: choices,
       custom: attr.custom
     }
   }
@@ -909,7 +902,7 @@ class TraitSelector5e extends FormApplication {
    */
   static _backCompat(current, choices) {
     if ( !current || current.length === 0 ) return [];
-	  current = current.split(/[\s,]/).filter(t => !!t);
+    current = current.split(/[\s,]/).filter(t => !!t);
     return current.map(val => {
       for ( let [k, v] of Object.entries(choices) ) {
         if ( val === v ) return k;
@@ -948,7 +941,7 @@ class Item5e extends Item {
   async roll() {
 
     // Basic template rendering data
-    const template = `public/systems/dnd5e/templates/chat/${this.data.type}-card.html`;
+    const template = `public/systems/wfrp4e/templates/chat/${this.data.type}-card.html`;
     const templateData = {
       actor: this.actor,
       item: this.data,
@@ -1313,7 +1306,7 @@ class Item5e extends Item {
       event: event,
       parts: parts,
       data: rollData,
-      template: "public/systems/dnd5e/templates/chat/tool-roll-dialog.html",
+      template: "public/systems/wfrp4e/templates/chat/tool-roll-dialog.html",
       title: title,
       alias: this.actor.name,
       flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,
@@ -1515,7 +1508,7 @@ class ItemSheet5e extends ItemSheet {
    */
   get template() {
     let type = this.item.type;
-    return `public/systems/dnd5e/templates/items/item-${type}-sheet.html`;
+    return `public/systems/wfrp4e/templates/items/item-${type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -1582,8 +1575,8 @@ class ActorSheet5e extends ActorSheet {
    * Return the type of the current Actor
    * @type {String}
    */
-	get actorType() {
-	  return this.actor.data.type;
+  get actorType() {
+    return this.actor.data.type;
   }
 
   /* -------------------------------------------- */
@@ -1695,7 +1688,7 @@ class ActorSheet5e extends ActorSheet {
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
 
     // Pad field width
@@ -1824,7 +1817,7 @@ class ActorSheet5e extends ActorSheet {
 
   _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-	  event.dataTransfer.setData("text/plain", JSON.stringify({
+    event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
       id: itemId
@@ -1935,15 +1928,15 @@ class ShortRestDialog extends Dialog {
 
 
 class ActorSheet5eCharacter extends ActorSheet5e {
-	static get defaultOptions() {
-	  const options = super.defaultOptions;
-	  mergeObject(options, {
-      classes: options.classes.concat(["dnd5e", "actor", "character-sheet"]),
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    mergeObject(options, {
+      classes: options.classes.concat(["wfrp4e", "actor", "character-sheet"]),
       width: 670,
       height: 740,
       showUnpreparedSpells: true
     });
-	  return options;
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -1953,7 +1946,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/dnd5e/templates/actors/";
+    const path = "public/systems/wfrp4e/templates/actors/";
     if ( this.actor.limited ) return path + "limited-sheet.html";
     return path + "actor-sheet.html";
   }
@@ -2043,7 +2036,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     actorData.classes = classes;
 
     // Currency weight
-    if ( game.settings.get("dnd5e", "currencyWeight") ) {
+    if ( game.settings.get("wfrp4e", "currencyWeight") ) {
       totalWeight += this._computeCurrencyWeight(actorData.data.currency);
     }
 
@@ -2079,7 +2072,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
     if ( !this.options.editable ) return;
 
@@ -2101,7 +2094,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
     event.preventDefault();
     let hd0 = this.actor.data.data.attributes.hd.value,
         hp0 = this.actor.data.data.attributes.hp.value;
-    renderTemplate("public/systems/dnd5e/templates/chat/short-rest.html").then(html => {
+    renderTemplate("public/systems/wfrp4e/templates/chat/short-rest.html").then(html => {
       new ShortRestDialog(this.actor, {
         title: "Short Rest",
         content: html,
@@ -2168,7 +2161,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
 }
 
 // Register Character Sheet
-Actors.registerSheet("dnd5e", ActorSheet5eCharacter, {
+Actors.registerSheet("wfrp4e", ActorSheet5eCharacter, {
   types: ["character"],
   makeDefault: true
 });
@@ -2178,15 +2171,15 @@ Actors.registerSheet("dnd5e", ActorSheet5eCharacter, {
 
 
 class ActorSheet5eNPC extends ActorSheet5e {
-	static get defaultOptions() {
-	  const options = super.defaultOptions;
-	  mergeObject(options, {
-      classes: options.classes.concat(["dnd5e", "actor", "npc-sheet"]),
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    mergeObject(options, {
+      classes: options.classes.concat(["wfrp4e", "actor", "npc-sheet"]),
       width: 670,
       height: 740,
       showUnpreparedSpells: true
     });
-	  return options;
+    return options;
   }
 
   /* -------------------------------------------- */
@@ -2196,7 +2189,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/dnd5e/templates/actors/";
+    const path = "public/systems/wfrp4e/templates/actors/";
     if ( this.actor.limited ) return path + "limited-sheet.html";
     return path + "npc-sheet.html";
   }
@@ -2267,7 +2260,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
    * Activate event listeners using the prepared sheet HTML
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
-	activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
     if ( !this.options.editable ) return;
 
@@ -2305,7 +2298,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
 }
 
 // Register NPC Sheet
-Actors.registerSheet("dnd5e", ActorSheet5eNPC, {
+Actors.registerSheet("wfrp4e", ActorSheet5eNPC, {
   types: ["npc"],
   makeDefault: true
 });

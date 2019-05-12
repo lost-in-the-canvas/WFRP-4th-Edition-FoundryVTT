@@ -1,3 +1,40 @@
+/* ------------------------------------ */
+/* WFRP Stuff
+/* ------------------------------------ */
+
+.wfrp4e.actor .general {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.wfrp4e.actor .general .charimg {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .general .items {
+  display: flex;
+  flex-direction: row;
+  height: 18px;
+  flex-wrap: wrap;
+}
+
+.wfrp4e.actor .general .items .status {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+}
+
+.wfrp4e.actor .general .items .status .tier {
+  display: flex;
+  flex-direction: row;
+  width: 60px;
+}
+
+
+
+
 /* ----------------------------------------- */
 /* User Interface Framework
 /* ----------------------------------------- */
