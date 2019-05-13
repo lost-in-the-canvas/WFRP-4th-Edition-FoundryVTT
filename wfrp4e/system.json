@@ -33,7 +33,7 @@
     }
   ],
   "languages": ["en"],
-  "initiative": "1d20 + @abilities.dex.mod + @attributes.init.value + (@abilities.dex.value / 100)",
+  "initiative": "1d100",
   "gridDistance": 2,
   "gridUnits": "yd"
 }

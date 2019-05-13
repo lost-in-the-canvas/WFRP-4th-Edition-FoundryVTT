@@ -40,9 +40,9 @@
 
       </section>
 
-    <!-- SIDEBAR -->
-    <section class="sheet-sidebar">
-        <nav class="sheet-tabs tabs" data-group="sidebar">
+    <!-- TABS -->
+    <section>
+        <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item active" data-tab="main">Main</a>
             <a class="item" data-tab="skills">Skills</a>
             <a class="item" data-tab="talents">Talents</a>
@@ -51,4 +51,12 @@
             <a class="item" data-tab="magic">Magic</a>
             <a class="item" data-tab="notes">Notes</a>
         </nav>
+
+        <div data-group="primary" data-tab="main">
+                {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
+        </div>
+    </section>
+
+
+
 </form>
