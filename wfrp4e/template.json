@@ -111,6 +111,10 @@
           "type": "String",
           "label": "Career"
         },
+        "status" : {
+          "standing" : "String",
+          "tier" : "Number"
+        },
         "species": {
           "type": "String",
           "label": "Species"
@@ -123,7 +127,7 @@
         "xp": {
           "type": "Number",
           "label": "Xp",
-          "value": 0,
+          "total": 0,
           "spent": 0        
         }
       },

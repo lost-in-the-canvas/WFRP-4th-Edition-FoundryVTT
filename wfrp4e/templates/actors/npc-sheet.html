@@ -1,4 +1,4 @@
-<form class="dnd5e actor-sheet npc-sheet {{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
 
     <!-- HEADER -->
     <header class="sheet-header">
@@ -10,7 +10,7 @@
             <div class="level">
                 <label>CR</label>
                 <input name="data.details.cr.value" type="text" value="{{data.details.cr.str}}"
-                       data-dtype="Number" placeholder="1"/>
+                       data-dtype="String" placeholder="1"/>
             </div>
             <div class="experience">
                 <span>{{data.details.xp.value}} XP</span>
@@ -23,10 +23,6 @@
 
         <!-- DETAILS -->
         <ul class="details">
-            <li class="character-detail">
-                <input type="text" name="data.traits.size.value" data-dtype="{{data.traits.size.type}}"
-                       value="{{data.traits.size.value}}" placeholder="Medium"/>
-            </li>
             <li class="character-detail">
                 <input name="data.details.type.value" type="text" value="{{data.details.type.value}}" placeholder="Type"/>
             </li>
@@ -43,7 +39,9 @@
             <div class="attribute">
                 <h4 class="attribute-name">
                     Health
+                    {{# if editable}}
                     <a class="npc-roll-hp" title="Roll Health"><i class="fas fa-dice-d20"></i></a>
+                    {{/if}}
                 </h4>
                 <div class="attribute-value">
                     <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
@@ -53,7 +51,7 @@
                            data-dtype="{{data.attributes.hp.type}}" placeholder="10"/>
                 </div>
                 <footer class="attribute-footer">
-                    <input name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Forumla"
+                    <input name="data.attributes.hp.formula" class="hpformula" type="text" placeholder="Formula"
                            value="{{data.attributes.hp.formula}}"/>
                 </footer>
             </div>
@@ -135,7 +133,7 @@
                     <h3 class="item-name">{{section.label}}</h3>
                     {{#if ../owner}}
                     <div class="item-controls">
-                        <a class="item-control item-create" title="Create Item" data-item-type="{{section.type}}">
+                        <a class="item-control item-create" title="Create Item" data-type="{{section.type}}">
                             <i class="fas fa-plus"></i> Add
                         </a>
                     </div>
@@ -144,9 +142,9 @@
 
                 {{#each section.items as |item iid|}}
                 <li class="item" data-item-id="{{item.id}}">
-                    <div class="item-name">
-                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                        <h4 class="rollable">{{item.name}}</h4>
+                    <div class="item-name rollable">
+                        <div class="item-image" style="background-image: url({{item.img}})"></div>
+                        <h4>{{item.name}}</h4>
                     </div>
                     {{#if ../../owner}}
                     <div class="item-controls">
@@ -200,17 +198,17 @@
 
                     {{#if ../owner}}
                     <div class="item-controls">
-                        <a class="item-control item-create" title="Create Spell" data-item-type="spell"
-                           data-spell-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
+                        <a class="item-control item-create" title="Create Spell" data-type="spell"
+                           data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
                     </div>
                     {{/if}}
                 </li>
 
                 {{#each section.spells as |item i|}}
                 <li class="item" data-item-id="{{item.id}}">
-                    <div class="item-name">
-                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                        <h4 class="rollable">{{item.name}}</h4>
+                    <div class="item-name rollable">
+                        <div class="item-image" style="background-image: url({{item.img}})"></div>
+                        <h4>{{item.name}}</h4>
                     </div>
 
                     <div class="spell-school">{{item.data.school.str}}</div>
@@ -228,8 +226,8 @@
                 <li class="item inventory-header spellbook-header spellbook-empty">
                     {{#if owner}}
                     <div class="item-controls">
-                        <a class="item-control item-create" title="Create Spell" data-item-type="spell"
-                           data-spell-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spell</a>
+                        <a class="item-control item-create" title="Create Spell" data-type="spell"
+                           data-level="{{lvl}}"><i class="fas fa-plus"></i> Add Spell</a>
                     </div>
                     {{/if}}
                 </li>
@@ -238,9 +236,7 @@
        </div>
 
         <!-- BIOGRAPHY -->
-        <div class="tab biography" data-group="primary" data-tab="biography">
-            {{editor content=data.details.biography.value target="data.details.biography.value" button=true}}
-        </div>
+        {{> public/systems/dnd5e/templates/actors/actor-biography.html}}
     </section>
 
     <!-- SIDEBAR -->
@@ -255,81 +251,17 @@
 
         <!-- ABILITY SCORES -->
         <div class="tab abilities" data-group="sidebar" data-tab="abilities">
-            <ol class="abilities-list directory-list">
-            {{#each data.abilities as |ability id|}}
-                <li class="ability" data-ability="{{id}}">
-                    <input type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.proficient}}"/>
-                    <a class="ability-proficiency" title="{{ability.hover}}">{{{ability.icon}}}</a>
-                    <h4 class="ability-name rollable">{{ability.label}}</h4>
-                    <span class="ability-mod" title="Modifier">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-                    <span class="ability-score" title="Ability Score">
-                        <input name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}" placeholder="10"/>
-                    </span>
-                    <span class="ability-save" title="Saving Throw">{{numberFormat ability.save decimals=0 sign=true}}</span>
-                </li>
-            {{/each}}
-            </ol>
+            {{> public/systems/dnd5e/templates/actors/actor-abilities.html}}
         </div>
 
         <!-- SKILLS -->
         <div class="tab skills" data-group="sidebar" data-tab="skills">
-            <ol class="directory-list">
-            {{#each data.skills as |skill s|}}
-                <li class="skill" data-skill="{{s}}">
-                    <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
-                    <a class="skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
-                    <h4 class="skill-name rollable">{{skill.label}}</h4>
-                    <span class="skill-ability">{{skill.ability}}</span>
-                    <span class="skill-mod">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-                </li>
-            {{/each}}
-            </ol>
+            {{> public/systems/dnd5e/templates/actors/actor-skills.html}}
         </div>
 
         <!-- TRAITS -->
         <div class="tab traits" data-group="sidebar" data-tab="traits">
-
-            <div class="form-group-stacked">
-                <label>{{data.traits.perception.label}}</label>
-                <input type="text" name="data.traits.perception.value" data-dtype="{{data.traits.perception.type}}"
-                       value="{{data.traits.perception.value}}" placeholder="Value"/>
-            </div>
-
-            <div class="form-group-stacked">
-                <label>{{data.traits.senses.label}}</label>
-                <input type="text" name="data.traits.senses.value" data-dtype="{{data.traits.senses.type}}"
-                       value="{{data.traits.senses.value}}" placeholder="None"/>
-            </div>
-
-            <div class="form-group-stacked">
-                <label>{{data.traits.languages.label}}</label>
-                <input type="text" name="data.traits.languages.value" data-dtype="{{data.traits.languages.type}}"
-                       value="{{data.traits.languages.value}}" placeholder="Common"/>
-            </div>
-
-            <div class="form-group-stacked">
-                <label>{{data.traits.di.label}}</label>
-                <input type="text" name="data.traits.di.value" data-dtype="{{data.traits.di.type}}"
-                       value="{{data.traits.di.value}}" placeholder="None"/>
-            </div>
-            
-            <div class="form-group-stacked">
-                <label>{{data.traits.dr.label}}</label>
-                <input type="text" name="data.traits.dr.value" data-dtype="{{data.traits.dr.type}}"
-                       value="{{data.traits.dr.value}}" placeholder="None"/>
-            </div>
-            
-            <div class="form-group-stacked">
-                <label>{{data.traits.dv.label}}</label>
-                <input type="text" name="data.traits.dv.value" data-dtype="{{data.traits.dv.type}}"
-                       value="{{data.traits.dv.value}}" placeholder="None"/>
-            </div>
-            
-            <div class="form-group-stacked">
-                <label>{{data.traits.ci.label}}</label>
-                <input type="text" name="data.traits.ci.value" data-dtype="{{data.traits.ci.type}}"
-                       value="{{data.traits.ci.value}}" placeholder="None"/>
-            </div>
+            {{> public/systems/dnd5e/templates/actors/actor-traits.html}}
         </div>
     </section>
 </form>
