@@ -505,7 +505,10 @@ class ActorWfrp4e extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(data) {
-
+    for (let ch of Object.values(data.characteristics))
+    {
+      ch.value = ch.initial + ch.advances;
+    }
   }
 
   /* -------------------------------------------- */

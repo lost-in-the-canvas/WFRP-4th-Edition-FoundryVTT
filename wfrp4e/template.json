@@ -5,61 +5,91 @@
         "ws": {
           "type": "Number",
           "label": "Weapon Skill",
-          "value": 20,
+          "abrev": "WS",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "bs": {
           "type": "Number",
           "label": "Ballistic Skill",
-          "value": 20,
+          "abrev": "BS",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "s": {
           "type": "Number",
           "label": "Strength",
-          "value": 20,
+          "abrev": "S",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "t": {
           "type": "Number",
           "label": "Toughness",
-          "value": 20,
+          "abrev": "T",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "i": {
           "type": "Number",
           "label": "Initiative",
-          "value": 20,
+          "abrev": "I",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },        
         "ag": {
           "type": "Number",
           "label": "Agility",
-          "value": 20,
+          "abrev": "Ag",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         }, 
         "dex": {
           "type": "Number",
           "label": "Dexterity",
-          "value": 20,
+          "abrev": "Dex",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "int": {
           "type": "Number",
           "label": "Intellegence",
-          "value": 20,
+          "abrev": "Int",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },
         "wp": {
           "type": "Number",
           "label": "Willpower",
-          "value": 20,
+          "abrev": "WP",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         },       
         "fel": {
           "type": "Number",
           "label": "Fellowship",
-          "value": 20,
+          "abrev": "Fel",
+          "initial": 20,
+          "advances": 0,
+          "value": 0,
           "career": 0
         }
       },
@@ -67,6 +97,7 @@
         "wounds": {
           "type": "Number",
           "label": "Wounds",
+          "abrev": "W",
           "value": 12,
           "min": 0,
           "max": 12,

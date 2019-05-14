@@ -1,5 +1,43 @@
-<tr>
+<table class ="characteristics-table" >
+<tr class = "table-header">
+<th></th>
+
     {{#each actor.data.characteristics as |ch c|}}
-        <th>{{c}}</th>
+    <th class = "table-header">
+        {{ch.abrev}}
+    </th>
     {{/each}}
 </tr>
+
+<tr class = "table-row">
+        <td class = "row-type">
+        Initial
+    </td>
+{{#each actor.data.characteristics as |ch c|}}
+<td class = "table-data">
+    <input name = "data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
+</td>
+{{/each}}
+</tr>
+
+<tr class = "table-row">
+        <td class = "row-type">
+                Advances
+            </td>
+    {{#each actor.data.characteristics as |ch c|}}
+    <td class = "table-data">
+            <input name = "data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
+        </td>
+    {{/each}}
+</tr>
+
+<tr class = "table-row">
+        <td class = "row-type">
+            Current
+            </td>
+    {{#each actor.data.characteristics as |ch c|}}
+    <td class = "table-data">{{ch.value}}</td>
+    {{/each}}
+</tr>
+
+</table>
