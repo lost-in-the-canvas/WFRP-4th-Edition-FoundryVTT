@@ -153,7 +153,9 @@
         "move": {
           "type": "Number",
           "label": "Movement",
-          "value": 4
+          "value": 4,
+          "walk": 0,
+          "run": 0
         },
         "xp": {
           "type": "Number",

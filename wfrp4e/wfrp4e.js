@@ -509,6 +509,10 @@ class ActorWfrp4e extends Actor {
     {
       ch.value = ch.initial + ch.advances;
     }
+
+    data.details.move.walk = data.details.move.value * 2;
+    data.details.move.run = data.details.move.value * 4;
+
   }
 
   /* -------------------------------------------- */
