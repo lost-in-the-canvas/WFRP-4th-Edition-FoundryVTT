@@ -513,6 +513,15 @@ class ActorWfrp4e extends Actor {
     data.details.move.walk = data.details.move.value * 2;
     data.details.move.run = data.details.move.value * 4;
 
+    if (data.status.fate.value < data.status.fortune.value)
+    {
+      data.status.fortune.value = data.status.fate.value
+    }
+    if (data.status.resilience.value < data.status.resolve.value)
+    {
+      data.status.resolve.value = data.status.resilience.value
+    }
+
   }
 
   /* -------------------------------------------- */

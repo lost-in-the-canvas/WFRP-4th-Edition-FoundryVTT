@@ -177,11 +177,65 @@
 
 .wfrp4e.actor .movement .move-name {
   font-family: CaslonAntique;
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: normal;
+  font-size: 16px;
   border-top: 1px solid #ccc;
   text-align: center;
 }
+
+.wfrp4e.actor .second-row {
+  display: flex;
+}
+
+.wfrp4e.actor .fate-resilience {
+  display: flex;
+  margin: 10px;
+  width: auto;
+}
+
+.wfrp4e.actor .fate-resilience .type {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5px;
+  width: auto;
+}
+
+.wfrp4e.actor .fate-resilience .type .upper{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
+.wfrp4e.actor .fate-resilience .type .upper > input{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  width: 20px;
+  height: 30px;
+  float: right;
+  margin: 0 0 0 5px;
+
+}
+
+.wfrp4e.actor .fate-resilience .type .lower{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.wfrp4e.actor .fate-resilience .type .lower > input{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  width: 20px;
+  height: 30px;
+  float: right;
+  margin: 0 0 0 10px;
+}
+
 
 
 
