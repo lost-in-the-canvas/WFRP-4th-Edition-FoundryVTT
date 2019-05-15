@@ -163,7 +163,18 @@
           "label": "Xp",
           "total": 0,
           "spent": 0        
+        },
+        "personal-amibitions": {
+          "short-term":"",
+          "long-term":""
+        },
+
+        "party-amibitions": {
+          "name":"",
+          "short-term":"",
+          "long-term":""
         }
+
       },
       "skills": {
         "art": {

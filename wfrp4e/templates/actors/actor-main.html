@@ -1,100 +1,127 @@
 <div class="characteristics">
     <table class ="characteristics-table" >
-        <tr class = "table-header">
-        <th></th>
-        {{#each actor.data.characteristics as |ch c|}}
-        <th class = "table-header">
-            {{ch.abrev}}
-        </th>
-        {{/each}}
-        </tr>
-        <tr class = "table-row">
-        <td class = "row-type">
-            Initial
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class = "table-data">
-            <input name = "data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
-        </td>
-        {{/each}}
-        </tr>
-        <tr class = "table-row">
-        <td class = "row-type">
-            Advances
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class = "table-data">
-            <input name = "data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
-        </td>
-        {{/each}}
-        </tr>
-        <tr class = "table-row-bottom">
-        <td class = "row-type">
-            Current
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class = "table-data">{{ch.value}}</td>
-        {{/each}}
-        </tr>
+       <tr class = "table-header">
+          <th></th>
+          {{#each actor.data.characteristics as |ch c|}}
+          <th class = "table-header">
+             {{ch.abrev}}
+          </th>
+          {{/each}}
+       </tr>
+       <tr class = "table-row">
+          <td class = "row-type">
+             Initial
+          </td>
+          {{#each actor.data.characteristics as |ch c|}}
+          <td class = "table-data">
+             <input name = "data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
+          </td>
+          {{/each}}
+       </tr>
+       <tr class = "table-row">
+          <td class = "row-type">
+             Advances
+          </td>
+          {{#each actor.data.characteristics as |ch c|}}
+          <td class = "table-data">
+             <input name = "data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
+          </td>
+          {{/each}}
+       </tr>
+       <tr class = "table-row-bottom">
+          <td class = "row-type">
+             Current
+          </td>
+          {{#each actor.data.characteristics as |ch c|}}
+          <td class = "table-data">{{ch.value}}</td>
+          {{/each}}
+       </tr>
     </table>
-</div>
-
-<div class = "second-row">
-<div class="movement">
-    <div class = "move-section">
-        <div class ="move-value">
-            <input name = "data.details.move.value" type = "text" value = "{{data.details.move.value}}" data-dtype ="Number">
-        </div>
-        <div class = "move-name">
-            <h4>Move</h4>
-        </div>
+ </div>
+ <div class = "second-row">
+    <div class="movement">
+       <div class = "move-section">
+          <div class ="move-value">
+             <input name = "data.details.move.value" type = "text" value = "{{data.details.move.value}}" data-dtype ="Number">
+          </div>
+          <div class = "move-name">
+             <h4>Move</h4>
+          </div>
+       </div>
+       <div class = "move-section">
+          <div class ="move-value">
+             {{actor.data.details.move.walk}} yds
+          </div>
+          <div class = "move-name">
+             <h4>Walk</h4>
+          </div>
+       </div>
+       <div class = "move-section">
+          <div class ="move-value">
+             {{actor.data.details.move.run}} yds
+          </div>
+          <div class = "move-name">
+             <h4>Run</h4>
+          </div>
+       </div>
     </div>
-    <div class = "move-section">
-            <div class ="move-value">
-                {{actor.data.details.move.walk}} yds
+    <div class = "fate-resilience">
+       <div class = "type">
+          <div class = "upper">
+             Fortune: 
+             <input name="data.status.fortune.value" type ="text" value= {{data.status.fortune.value}} data-dtype="Number">
+          </div>
+          <div class = "lower">
+             Fate: 
+             <input name="data.status.fate.value" type ="text" value= {{data.status.fate.value}} data-dtype="Number">
+          </div>
+       </div>
+       <div class = "type">
+          <div class = "upper">
+             Resolve: 
+             <input name="data.status.resolve.value" type ="text" value= {{data.status.resolve.value}} data-dtype="Number">
+          </div>
+          <div class = "lower">
+             Resilience: 
+             <input name="data.status.resilience.value" type ="text" value= {{data.status.resilience.value}} data-dtype="Number">
+          </div>
+       </div>
+    </div>
+    <div class = "motivation">
+       <h3>Motivation:</h3>
+       <div class = "motivation-text">
+          <input name ="data.details.motivation.value" type = "text" value ="{{data.details.motivation.value}}" data-dtype = "String">
+       </div>
+    </div>
+ </div>
+
+<div class = "ambitions">
+    <h3>Ambitions</h2>
+    
+    <div class = "ambition-sections">
+        <div class="ambition-section">
+            <h4>Personal</h4>
+            <h5>Short Term</h5>
+            <div class="ambition-editor">
+                {{editor content=data.details.personal-ambitions.short-term target="data.details.personal-ambitions.short-term" button=true owner=owner editable=editable}}
             </div>
-            <div class = "move-name">
-                <h4>Walk</h4>
-            </div>
-        </div>
-        <div class = "move-section">
-                <div class ="move-value">
-                    {{actor.data.details.move.run}} yds
+            <h5>Long Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.personal-ambitions.long-term target="data.details.personal-ambitions.long-term" button=true owner=owner editable=editable}}
                 </div>
-                <div class = "move-name">
-                    <h4>Run</h4>
-                </div>
-            </div>
-</div>
-
-<div class = "fate-resilience">
-    <div class = "type">
-        <div class = "upper">
-                Fortune: 
-                <input name="data.status.fortune.value" type ="text" value= {{data.status.fortune.value}} data-dtype="Number">
-            </div>
-            <div class = "lower">
-                Fate: 
-                <input name="data.status.fate.value" type ="text" value= {{data.status.fate.value}} data-dtype="Number">
         </div>
-    </div>
-    <div class = "type">
-        <div class = "upper">
-                Resolve: 
-                <input name="data.status.resolve.value" type ="text" value= {{data.status.resolve.value}} data-dtype="Number">
+
+        
+        <div class="ambition-section">
+            <h4>Party</h4>
+            <h5>Short Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.party-ambitions.short-term target="data.details.party-ambitions.short-term" button=true owner=owner editable=editable}}
             </div>
-            <div class = "lower">
-                Resilience: 
-                <input name="data.status.resilience.value" type ="text" value= {{data.status.resilience.value}} data-dtype="Number">
+            <h5>Long Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.party-ambitions.long-term target="data.details.party-ambitions.long-term" button=true owner=owner editable=editable}}
+            </div>
         </div>
     </div>
 </div>
-
-<div class = "motivation">
-<h3>Motivation:</h3>
-<div class = "motivation-text">
-    <input name ="data.details.motivation.value" type = "text" value ="{{data.details.motivation.value}}" data-dtype = "String">
-</div>
-</div>
-</div>
-

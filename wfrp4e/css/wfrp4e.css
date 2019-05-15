@@ -185,6 +185,8 @@
 
 .wfrp4e.actor .second-row {
   display: flex;
+  height: 80px;
+  border-bottom: 1px solid #CCC;
 }
 
 .wfrp4e.actor .fate-resilience {
@@ -260,6 +262,47 @@
 .wfrp4e.actor .motivation .motivation-text > input{
   width: 100%;
 }
+
+.wfrp4e.actor .ambitions{
+  margin-top: 5px;
+  width: 100%;
+}
+
+.wfrp4e.actor .ambitions > h3{
+  font-family: CaslonAntique;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .ambitions .ambition-sections{
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .ambitions .ambition-section{
+  width: 50%;
+}
+
+.wfrp4e.actor .ambitions .ambition-section > h4{
+  font-family: CaslonAntique;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .ambitions .ambition-section > h5{
+  text-align: left;
+  font-size: 14px;
+  margin: 0px;
+}
+
+
+.wfrp4e.actor .ambitions .ambition-section .editor {
+  height: 90px;
+  width:auto;
+}
+
 
 
 
