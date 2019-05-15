@@ -127,7 +127,8 @@
       "details": {
         "biography": {
           "type": "String",
-          "label": "Biography"
+          "label": "Biography",
+          "value": ""
         },
         "motivation": {
           "type": "String",
