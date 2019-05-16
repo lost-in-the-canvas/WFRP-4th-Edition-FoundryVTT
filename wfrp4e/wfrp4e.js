@@ -515,12 +515,16 @@ class ActorWfrp4e extends Actor {
 
     if (data.status.fate.value < data.status.fortune.value)
     {
-      data.status.fortune.value = data.status.fate.value
+      data.status.fortune.value = data.status.fate.value;
     }
     if (data.status.resilience.value < data.status.resolve.value)
     {
-      data.status.resolve.value = data.status.resilience.value
+      data.status.resolve.value = data.status.resilience.value;
     }
+
+    data.details.xp.total = data.details.xp.current + data.details.xp.spent;
+
+
 
   }
 
@@ -1307,14 +1311,7 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-    /*// Pad field width
-    html.find('[data-wpad]').each((i, e) => {
-      let text = e.tagName === "INPUT" ? e.value : e.innerText,
-        w = text.length * parseInt(e.getAttribute("data-wpad")) / 2;
-      e.setAttribute("style", "flex: 0 0 " + w + "px");
-    });
-
+    
     // Activate tabs
     html.find('.tabs').each((_, el) => {
       let tabs = $(el),
@@ -1325,13 +1322,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
       });
     });
-
+/*
     // Item summaries
     html.find('.item .item-name h4').click(event => this._onItemSummary(event));
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
-*/
+
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */

@@ -8,34 +8,74 @@
 
 
 
-
     <section class="general">
         <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img"/>
         <div class="items">
-          <a>Class: </a>
-          <input name="class" type="text" value="{{actor.details.class}}" />
 
-          <a>Career: </a>
-          <input name="career" type="text" value="{{actor.details.career}}" />
 
-          <a>Status: </a>
-          <div class ="status">
-              <input name="name" type="text" value="{{actor.details.status.standing}}" placeholder="Standing"/>
-              <input class = "tier" name="name" type="text" value="{{actor.details.status.tier}}" placeholder="Tier"/>
+        <div class = "row">
+        <div class="item">
+            <input name="actor.details.class" type="text" value="{{actor.details.class}}" />
+            <a>Class</a>
+        </div>
+        
+        <div class="item">
+                <input name="actor.details.career" type="text" value="{{actor.details.class}}" />
+                <a>Career</a>
+            </div>
+
+
+          <div class ="item-status">
+              <div class ="item">
+                <input name="actor.details.status.tier" type="text" value="{{actor.details.status.tier}}" placeholder="Tier"/>
+                <input name="actor.details.status.standing" type="text" value="{{actor.details.status.standing}}" placeholder="Standing"/>
+            </div>
+              <a>Status </a>
           </div>
 
-          <a>Age: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Height: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Hair: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Eyes: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
         </div>
+
+        <div class = "row">
+            <div class = "row small">   
+            <div class="item small">
+                <input name="" type="text" value="{{actor.details.class}}" />
+                <a>Age</a>
+            </div>
+
+            <div class="item small">
+                <input name="" type="text" value="{{actor.details.class}}" />
+                <a>Height</a>
+            </div>
+
+            <div class="item small">
+                <input name="" type="text" value="{{actor.details.class}}" />
+                <a>Hair</a>
+            </div>
+
+            <div class="item small">
+                <input name="" type="text" value="{{actor.details.class}}" />
+                <a>Eyes</a>
+            </div>
+            </div>
+        <div class ="experience">
+            <a>EXP</a>
+    
+            <div class = "experience-section">
+                  <input name = "data.details.xp.current" type ="text" value ="{{data.details.xp.current}}" data-dtype = "Number"/>
+                  <a>Current</a>
+            </div>
+            <div class = "experience-section">
+                  <input name = "data.details.xp.spent" type ="text" value ="{{data.details.xp.spent}}" data-dtype = "Number"/>
+                  <a>Spent</a>
+              </div>
+              <div class = "experience-section">
+                  <input name = "data.details.xp.total" type ="text" value ="{{data.details.xp.total}}" data-dtype = "Number" readonly/>
+                  <a>Total</a>
+              </div>
+    </div>
+        </div>
+
+    
 
       </section>
 
@@ -51,8 +91,11 @@
             <a class="item" data-tab="notes">Notes</a>
         </nav>
 
-        <div class="main" data-group= "primary" data-tab="main">
+        <div class = "tab main" data-tab="main" data-group="primary">
                 {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
+        </div>
+
+        <div class = "tab skills" data-tab="skills" data-group="primary">
         </div>
     </section>
 

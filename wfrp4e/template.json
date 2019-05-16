@@ -162,6 +162,7 @@
           "type": "Number",
           "label": "Xp",
           "total": 0,
+          "current": 0,
           "spent": 0        
         },
         "personal-amibitions": {
@@ -586,6 +587,7 @@
         "value": 1
       },
       "career": {
+        "value":"",
         "type": "String",
         "label": "Career"
       },

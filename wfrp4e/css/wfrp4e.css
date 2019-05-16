@@ -32,9 +32,113 @@
   border: 1px solid transparent;
 }
 
+
+.wfrp4e.sheet .header {
+display: flex;
+}
+
+.wfrp4e.sheet form .sheet-header {
+  height: 44px;
+  order: 0;
+}
+
+.wfrp4e.actor-sheet .sheet-header {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #CCC;
+  
+}
+.wfrp4e.actor-sheet .sheet-header{
+  flex: 1;
+}
+
+
+.wfrp4e.actor-sheet .sheet-header .charname {
+  height: 44px;
+  padding: 5px 5px 5px 0;
+  border: none;
+}
+.wfrp4e.actor-sheet .sheet-header .charname > input {
+  width: 100%;
+  margin: 0;
+  font-family: CaslonAntique;
+  font-size: 18px;
+  color: #444;
+  border: none;
+}
+
+
+.wfrp4e.actor .experience{
+  display: flex;
+  flex-direction: row;
+  margin-top: -15px;
+  margin-left: 30px;
+  align-content: flex-end;
+}
+
+.wfrp4e.actor .experience > a{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.wfrp4e.actor  .experience > *{
+  margin: 5px;
+}
+
+.wfrp4e.actor  .experience .experience-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.wfrp4e.actor .experience .experience-section > a{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.wfrp4e.actor .experience .experience-section > input{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+  height: 30px;
+  width: 60px;
+  text-align: center;
+  margin-bottom: -5px;
+}
+
+
+.wfrp4e.sheet form .sheet-tabs {
+  flex: 0 0 28px;
+  margin-top: 2px;
+  padding: 2px 2px 0;
+}
+
+.wfrp4e.sheet form .sheet-tabs > .item.active {
+  color: #000;
+  font-weight: 700;
+  border: 1px solid #666;
+  border-bottom: none;
+  box-shadow: 0 0 10px inset #ff6400;
+  text-shadow: none;
+}
+
+.wfrp4e.sheet form .tab {
+  flex: 1 0 380px;
+  overflow: hidden;
+}
+
+
+
 .wfrp4e.actor .general {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .wfrp4e.actor .general .charimg {
@@ -44,27 +148,74 @@
 }
 
 .wfrp4e.actor .general .items {
-  display: flex;
-  flex-direction: row;
+
   height: 18px;
   flex-wrap: wrap;
 }
 
-.wfrp4e.actor .general .items > *{
-  margin: 3px;
-}
-
-.wfrp4e.actor .general .items .status {
+.wfrp4e.actor .general .row{
   display: flex;
   flex-direction: row;
-  width: 100px;
+  flex-wrap: nowrap;
 }
 
-.wfrp4e.actor .general .items .status .tier {
+
+.wfrp4e.actor .general .row .small{
+  height: 40px;
+  margin-top: -3px;
+}
+
+.wfrp4e.actor .general .item {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.wfrp4e.actor .general .item > input {
+  height: 30px;
+  width: 120px;
+  text-align: center;
+}
+
+
+.wfrp4e.actor .general .small > input {
+  width: 30px;
+}
+
+.wfrp4e.actor .general .item-status > .item  {
   display: flex;
   flex-direction: row;
+}
+
+.wfrp4e.actor .general .item-status .item > input  {
   width: 60px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 1px;
+  margin-bottom: -4px;
 }
+
+.wfrp4e.actor .general .item-status > a  {
+  font-family: CaslonAntique;
+  font-size: 18px;
+  margin-left: 50px;
+}
+
+.wfrp4e.actor .general .item > a {
+  font-family: CaslonAntique;
+  font-size: 18px;
+  text-align: center;
+  height: 30px;
+  border-top: 1px solid #ccc;
+}
+
+.wfrp4e.actor .general .small > a {
+  font-size: 16px;
+}
+
 
 .wfrp4e.actor .characteristics {
   border-top: 1px solid #ccc;
@@ -303,6 +454,11 @@
   width:auto;
 }
 
+
+.wfrp4e.actor .ambition-section{
+  margin: 0;
+  padding: 3px 3px 0;
+}
 
 
 
@@ -837,14 +993,14 @@
 /* ---------------------------------------- */
 /*  Sheet Header                            */
 /* ---------------------------------------- */
-.dnd5e.actor-sheet .sheet-header {
+/*(.dnd5e.actor-sheet .sheet-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .sheet-header > * {
+.dnd5e.actor-sheet .sheet-header{
   flex: 1;
 }
 .dnd5e.actor-sheet .sheet-header .charname {
@@ -923,7 +1079,7 @@
   flex: 1;
   text-align: right;
   height: 16px;
-}
+}*/
 /* ---------------------------------------- */
 /*  Sheet Body                              */
 /* ---------------------------------------- */
