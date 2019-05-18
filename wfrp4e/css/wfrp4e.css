@@ -461,6 +461,153 @@ display: flex;
 }
 
 
+/* ----------------------------------------- */
+/* Skills Tab
+/* ----------------------------------------- */
+
+
+.wfrp4e .skill-section{
+  display:flex;
+  flex-direction: row;
+}
+
+.wfrp4e .skill-section .skill-type {
+  width: 50%;
+}
+
+
+
+.wfrp4e .skill-section .skill-type > h3{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  color: #444;
+}
+
+
+.wfrp4e .skills .skill-table{
+  background: none;
+  border: none;
+  margin: 5px;
+}
+
+.wfrp4e .skills .skill-table .table-header > th{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+}
+
+
+.wfrp4e .skill-table .skill > * {
+  border: 1px solid #000;
+  border-bottom: none;
+}
+
+.wfrp4e .skill-table .skill >*:last-child {
+  border-right: none;
+}
+.wfrp4e .skill-table .skill >*:first-child {
+  border-left: none;
+}
+
+.wfrp4e .skill-section .skill-list .skill > * {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  
+}
+
+
+
+/* ----------------------------------------- */
+/*  Item Sheet
+/* ----------------------------------------- */
+.wfrp4e.item-sheet .item-details,
+.wfrp4e.item-sheet .sheet-tabs {
+  flex: 0 0 30px;
+  padding: 5px 0;
+  margin: 0;
+}
+.wfrp4e.item-sheet .item-details {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  justify-content: space-between;
+}
+.wfrp4e.item-sheet .item-details > * {
+  flex: 1;
+}
+.wfrp4e.item-sheet .item-details > li {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  font-size: 14px;
+  text-align: center;
+}
+.wfrp4e.item-sheet .item-details > li > * {
+  flex: 1;
+}
+.wfrp4e.item-sheet .item-details label {
+  line-height: 20px;
+}
+.wfrp4e.item-sheet .consumable-charges input {
+  flex: 0 0 64px;
+  margin-left: 5px;
+  text-align: center;
+}
+.wfrp4e.item-sheet .sheet-tabs {
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  font-size: 14px;
+  font-weight: bold;
+}
+.wfrp4e.item-sheet .sheet-tabs .active {
+  text-decoration: underline;
+}
+.wfrp4e.item-sheet .editor {
+  height: 300px;
+}
+
+/*
+.wfrp4e .skills li.skill {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  height: 21px;
+  line-height: 21px;
+  border-bottom: 1px solid #CCC;
+  font-size: 13px;
+}
+.wfrp4e .skills li.skill > * {
+  flex: 1;
+}
+.wfrp4e .skills li.skill .skill-name {
+  margin: 0;
+}
+.wfrp4e .skills li.skill .skill-proficiency {
+  flex: 0 0 24px;
+}
+.wfrp4e .skills li.skill .skill-proficiency i.fa-circle {
+  font-size: 10px;
+}
+.wfrp4e .skills li.skill .skill-ability {
+  flex: 0 0 36px;
+  color: #666;
+  text-align: left;
+  margin-right: 4px;
+}
+.wfrp4e .skills li.skill .skill-mod {
+  flex: 0 0 28px;
+  text-align: center;
+}
+*/
 
 /* ----------------------------------------- */
 /* User Interface Framework
@@ -1371,41 +1518,7 @@ display: flex;
 .dnd5e .abilities .ability .ability-save {
   border-left: 1px solid #CCC;
 }
-/* ----------------------------------------- */
-/* Skills Tab
-/* ----------------------------------------- */
-.dnd5e .skills li.skill {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 21px;
-  line-height: 21px;
-  border-bottom: 1px solid #CCC;
-  font-size: 13px;
-}
-.dnd5e .skills li.skill > * {
-  flex: 1;
-}
-.dnd5e .skills li.skill .skill-name {
-  margin: 0;
-}
-.dnd5e .skills li.skill .skill-proficiency {
-  flex: 0 0 24px;
-}
-.dnd5e .skills li.skill .skill-proficiency i.fa-circle {
-  font-size: 10px;
-}
-.dnd5e .skills li.skill .skill-ability {
-  flex: 0 0 36px;
-  color: #666;
-  text-align: right;
-  margin-right: 4px;
-}
-.dnd5e .skills li.skill .skill-mod {
-  flex: 0 0 28px;
-  text-align: center;
-}
+
 .dnd5e.locked .ability-proficiency,
 .dnd5e.locked .skill-proficiency {
   text-shadow: none;

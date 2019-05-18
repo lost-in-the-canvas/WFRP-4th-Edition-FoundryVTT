@@ -101,12 +101,44 @@ CONFIG.spellLevels = {
   9: "9th Level"
 };
 
-// Feat Types
-CONFIG.featTypes = {
-  "passive": "Passive Ability",
-  "attack": "Ability Attack",
-  "ability": "Generic Action"
+// 
+CONFIG.characteristics = {
+  "ws": "Weapon Skill",
+  "bs": "Ballistic Skill",
+  "s": "Strength",
+  "t": "Toughness",
+  "i": "Initiative",
+  "ag": "Agility",
+  "dex": "Dexterity",
+  "int": "Intelligence",
+  "wp": "Willpower",
+  "fel": "Fellowship"
 };
+
+CONFIG.characteristicsAbrev = {
+  "ws": "WS",
+  "bs": "BS",
+  "s": "S",
+  "t": "T",
+  "i": "I",
+  "ag": "Ag",
+  "dex": "Dex",
+  "int": "Int",
+  "wp": "WP",
+  "fel": "Fel"
+};
+
+
+CONFIG.skillTypes = {
+  "bsc" : "Basic",
+  "adv" : "Advanced"
+};
+
+CONFIG.skillGroup = {
+  "isSpec" : "Is Specialization",
+  "noSpec" : "Not Specialization"
+};
+
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
@@ -523,6 +555,7 @@ class ActorWfrp4e extends Actor {
     }
 
     data.details.xp.total = data.details.xp.current + data.details.xp.spent;
+
 
 
 
@@ -1155,6 +1188,13 @@ class ItemSheetWfrp4e extends ItemSheet {
    */
   getData() {
     const data = super.getData();
+
+    if (this.item.type === "skill")
+    {
+      data['characteristics'] = CONFIG.characteristics;
+      data['skillGroup'] = CONFIG.skillGroup;
+      data['skillTypes'] = CONFIG.skillTypes;
+    } 
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1222,7 +1262,6 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   getData() {
     const sheetData = super.getData();
-    sheetData['characteristics'] = game.system.template.actor.data.characteristics;
 
     /*// Ability proficiency
     for ( let abl of Object.values(sheetData.data.abilities)) {
@@ -1242,8 +1281,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     this._prepareTraits(sheetData.data["traits"]);
 
     // Prepare owned items
-    this._prepareItems(sheetData.actor);
 */
+
+  this._prepareItems(sheetData.actor);
+
     // Return data to the sheet
     return sheetData;
   }
@@ -1301,6 +1342,17 @@ class ActorSheetWfrp4e extends ActorSheet {
     spellbook[lvl].spells.push(spell);*/
   }
 
+  _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
+    skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
+    skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
+    skill.data.characteristic.value = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
+    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
+      advOrGrpSkills.push(skill)
+    else
+      basicSkills.push(skill);
+    
+   }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -1325,9 +1377,17 @@ class ActorSheetWfrp4e extends ActorSheet {
 /*
     // Item summaries
     html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+*/
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
+
+    html.find('.skill-advances').focusout(event => {
+      let itemId = Number(event.target.attributes[1].value);
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      console.log(itemToEdit);
+      itemToEdit.data.advances.value = Number(event.target.value);
+    });
 
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
@@ -1541,30 +1601,30 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-    /*
+    
     // Inventory
-    const inventory = {
+  /*  const inventory = {
       weapon: { label: "Weapons", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
       tool: { label: "Tools", items: [] },
       backpack: { label: "Backpack", items: [] },
-    };
+    };*/
 
-    // Spellbook
-    const spellbook = {};
+    // Skills
+    const basicSkills = [];
+    const advancedOrGroupedSkills = [];
 
-    // Feats
-    const feats = [];
-
-    // Classes
-    const classes = [];
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
+    if (false) //placeholder
+    {
 
+    }
+/*
       // Inventory
       if ( Object.keys(inventory).includes(i.type) ) {
         i.data.quantity.value = i.data.quantity.value || 1;
@@ -1573,28 +1633,31 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
         inventory[i.type].items.push(i);
         totalWeight += i.totalWeight;
-      }
+      }*/
 
-      // Spells
+     /* // Spells
       else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
       // Classes
       else if ( i.type === "class" ) {
         classes.push(i);
-        classes.sort((a, b) => b.levels > a.levels);
-      }
+        classes.sort((a, b) => b.levels > a.levels);}*/
 
       // Feats
-      else if ( i.type === "feat" ) feats.push(i);
+      else if ( i.type === "skill" )
+      {
+        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+      }
     }
 
     // Assign and return
-    actorData.inventory = inventory;
-    actorData.spellbook = spellbook;
-    actorData.feats = feats;
-    actorData.classes = classes;
+    //actorData.inventory = inventory;
+    //actorData.spellbook = spellbook;
+    actorData.basicSkills = basicSkills;
+    actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+    //actorData.classes = classes;
 
-    // Currency weight
+   /* // Currency weight
     if ( game.settings.get("wfrp4e", "currencyWeight") ) {
       totalWeight += this._computeCurrencyWeight(actorData.data.currency);
     }
@@ -1605,7 +1668,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       value: Math.round(totalWeight * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    actorData.data.attributes.encumbrance = enc;*/
+    actorData.data.attributes.encumbrance = enc;**/
   }
 
   /* -------------------------------------------- */
@@ -1679,15 +1742,15 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-/*
-    // Actions
-    const features = {
-      weapons: {label: "Weapons", items: [], type: "weapon" },
-      actions: { label: "Actions", items: [], type: "feat" },
-      passive: { label: "Features", items: [], type: "feat" },
-      equipment: { label: "Equipment", items: [], type: "equipment" }
-    };
 
+    // Actions
+   // const features = {
+      //weapons: {label: "Weapons", items: [], type: "weapon" },
+     // actions: { label: "Actions", items: [], type: "feat" },
+     // passive: { label: "Features", items: [], type: "feat" },
+   //   equipment: { label: "Equipment", items: [], type: "equipment" }
+   //};
+/*
     // Spellbook
     const spellbook = {};
 

@@ -1,11 +1,54 @@
-<ol>
-{{#each data.skills as |skill s|}}
-    <li class="skill" data-skill="{{s}}">
-        <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.value}}" data-dtype="Number"/>
-        <a class="skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
-        <h4 class="skill-name rollable">{{skill.label}}</h4>
-        <span class="skill-ability">{{skill.ability}}</span>
-        <span class="skill-mod">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-    </li>
+
+
+<div class = "skill-section">
+
+    <div class = "skill-type">
+
+ <h3>Basic Skills</h3>
+<table class="skill-table">
+    <tr class = "table-header">
+       <th>Skill</th>
+       <th colspan="2">Characteristic</th>
+       <th>Adv</th>
+       <th>Total</th>
+    </tr>
+
+{{#each actor.basicSkills as |skill s|}}
+<tr class="skill" data-skill="{{s}}">
+    <td class="skill-name">{{skill.name}}</td>
+    <td class="skill-characteristic">{{skill.data.characteristic.value}}</td>
+    <td class="skill-characteristic">{{skill.data.characteristic.num}}</td>
+    <td  class="skill-advances">
+    <input name = "skill.data.advances.value" data-item-id = "{{skill.id}}" type= "text" data-dtype="{{skill.data.advances.type}}" value ="{{skill.data.advances.value}}"/>
+</td>
+    <td class="skill-total">{{skill.data.total.value}}</td>
+</tr>
 {{/each}}
-</ol>
+</table>
+</div>
+
+<div class = "skill-type">
+
+        <h3>Basic Skills</h3>
+       <table class="skill-table">
+           <tr class = "table-header">
+              <th>Skill</th>
+              <th colspan="2">Characteristic</th>
+              <th>Adv</th>
+              <th>Total</th>
+           </tr>
+       
+       {{#each data.skills as |skill s|}}
+       <tr class="skill" data-skill="{{s}}">
+           <td class="skill-name">{{skill.label}}</td>
+           <td class="skill-characteristic">{{skill.ability}}</td>
+           <td class="skill-characteristic">{{skill.ability}}</td>
+           <td class="skill-advances">{{skill.advances}}</td>
+           <td class="skill-total">{{skill.total}}</td>
+       </tr>
+       {{/each}}
+       </table>
+       </div>
+        
+</div>
+

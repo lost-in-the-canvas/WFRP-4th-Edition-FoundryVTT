@@ -599,9 +599,18 @@
       }
     },
     "skill": {
-      "attribute": {
+
+      "advanced": {
+        "value": false,
+        "type" : "Boolean"
+      },
+      "grouped":{
+        "value": false,
+        "type" : "Boolean"
+      },
+      "characteristic": {
         "type": "String",
-        "label": "Attribute",
+        "label": "Characteristic",
         "value": "ws"
       },
       "advances": {
@@ -613,6 +622,7 @@
         "type": "Number",
         "label": "Total"
       },
+
       "icon": {
         "type": "String",
         "label": "Icon",

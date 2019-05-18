@@ -1,0 +1,34 @@
+
+
+<div class = "skill-section">
+
+    <div class = "skill-type">
+
+ <h3>Basic Skills</h3>
+<ol class = "skill-list">
+{{#each data.skills as |skill s|}}
+<li class="skill" data-skill="{{s}}">
+        <h4 class="skill-name">{{skill.label}}</h4>
+        <a class="skill-characteristic">{{actor.data.characteristics.ws.initial}}</span>
+    </li>
+{{/each}}
+</ol>
+</div>
+
+
+<div class = "skill-type">
+
+        <h3>Advanced & Grouped Skills</h3>
+<ol class = "skill-list">
+        {{#each data.skills as |skill s|}}
+            <li class="skill" data-skill="{{s}}">
+                <h4 class="skill-name">{{skill.label}}</h4>
+                <a class="skill-characteristic">{{actor.data.characteristics.ws.initial}}</span>
+            </li>
+        {{/each}}
+</ol>
+
+</div>
+        
+</div>
+
