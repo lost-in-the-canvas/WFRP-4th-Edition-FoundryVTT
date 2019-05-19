@@ -139,6 +139,22 @@ CONFIG.skillGroup = {
   "noSpec" : "Not Specialization"
 };
 
+CONFIG.talentMax = {
+  "1":"1",
+  "2":"2",
+  "none":"None",
+  "ws":" Weapon Skill Bonus",
+  "bs":"Ballistic Skill Bonus",
+  "s": "Strength Bonus",
+  "t": "Toughness Bonus",
+  "i": "Initiative Bonus",
+  "ag": "Agility Bonus",
+  "dex": "Dexterity Bonus",
+  "int": "Intelligence Bonus",
+  "wp": "Willpower Bonus",
+  "fel": "Fellowship Bonus"
+}
+
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
@@ -468,10 +484,11 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-main.html",
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
-    "public/systems/wfrp4e/templates/actors/actor-traits.html",
+    "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
+
   ]);
 });
 
@@ -527,6 +544,8 @@ class ActorWfrp4e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
+    data.details.move.walk = data.details.move.value * 2;
+    data.details.move.run = data.details.move.value * 4;
 
     return actorData;
   }
@@ -541,9 +560,6 @@ class ActorWfrp4e extends Actor {
     {
       ch.value = ch.initial + ch.advances;
     }
-
-    data.details.move.walk = data.details.move.value * 2;
-    data.details.move.run = data.details.move.value * 4;
 
     if (data.status.fate.value < data.status.fortune.value)
     {
@@ -1194,8 +1210,11 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['characteristics'] = CONFIG.characteristics;
       data['skillGroup'] = CONFIG.skillGroup;
       data['skillTypes'] = CONFIG.skillTypes;
-      console.log(data.data.grouped.value);
     } 
+    else if (this.item.type === "talent")
+    {
+      data['talentMaxs'] = CONFIG.talentMax;
+    }
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1344,14 +1363,48 @@ class ActorSheetWfrp4e extends ActorSheet {
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
+
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
     skill.data.characteristic.value = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
+
     if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
       advOrGrpSkills.push(skill)
     else
       basicSkills.push(skill);
-    
+   }
+
+  _prepareTalent(actorData, talentList, talent) {
+    let existingTalent = talentList.find(t => t.name == talent.name)
+    if (existingTalent){
+      if (!existingTalent.numMax){
+        talent["numMax"]= Math.floor(actorData.data.characteristics[talent.data.max.value].value / 10);
+      }
+      if (existingTalent.data.advances.value < existingTalent.numMax){
+        existingTalent.data.advances.value++;
+      }
+    }
+    else{
+      switch(talent.data.max.value){
+        case '1':
+        talent["numMax"] = 1;
+        break;
+
+        case '2':
+        talent["numMax"] = 2;
+        break;
+
+        case 'none':
+        talent["numMax"] = null;
+        break;
+
+        default:
+        talent["numMax"]= Math.floor(actorData.data.characteristics[talent.data.max.value].value / 10);
+      }
+      talentList.push(talent);
+    }
+
+
    }
 
   /* -------------------------------------------- */
@@ -1615,15 +1668,16 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     // Skills
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
+    const talents = [];
 
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
-    if (false) //placeholder
+    if (i.type === "talent")
     {
-
+      this._prepareTalent(actorData, talents, i);
     }
 /*
       // Inventory
@@ -1656,6 +1710,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     //actorData.spellbook = spellbook;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+    actorData.talents = talents;
     //actorData.classes = classes;
 
    /* // Currency weight

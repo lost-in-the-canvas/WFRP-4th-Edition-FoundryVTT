@@ -1,0 +1,24 @@
+<div class="tab talents" data-group="primary" data-tab="talents">
+    <ol class="talent-list">
+        <li class="talent-header">
+            <div class="talent-descriptor">
+                Talent Name
+            </div>
+            <div class="talent-descriptor">Times Taken / Max</div>
+            <div class="talent-descriptor">Tests</div>
+        </li>
+
+        {{#each actor.talents as |item i|}}
+        <li class="talents" data-item-id="{{item.id}}">
+            <div class="item-name">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <h4>{{item.name}}</h4>
+            </div>
+
+            <div>{{item.data.advances.value}} / {{item.numMax}}</div>
+
+            <div>{{item.data.tests.value}}</div>
+        </li>
+        {{/each}}
+    </ol>
+</div>

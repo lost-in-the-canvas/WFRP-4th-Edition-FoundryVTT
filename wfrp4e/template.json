@@ -599,7 +599,6 @@
       }
     },
     "skill": {
-
       "advanced": {
         "value": "",
         "type" : "String"
