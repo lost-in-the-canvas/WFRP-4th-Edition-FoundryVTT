@@ -38,7 +38,7 @@
        </tr>
     </table>
  </div>
- <div class = "second-row">
+ <div class="main-row">
     <div class="movement">
        <div class = "move-section">
           <div class ="move-value">
@@ -94,34 +94,19 @@
        </div>
     </div>
  </div>
+<div class="main-row">
+   <div class="injury">
+      <div class ="wounds">
+         <a>Wounds</a>
+         <a>{{data.status.wounds.max}}</a>
+      </div>
+      <div class ="crit-wounds">
+         <a>Critical Wounds</a>
+      {{editor content=data.status.critical-wounds.value target="data.status.critical-wounds.value" button=true owner=owner editable=editable}}
+   </div>
+   </div>
 
-<div class = "ambitions">
-    <h3>Ambitions</h2>
-    
-    <div class = "ambition-sections">
-        <div class="ambition-section">
-            <h4>Personal</h4>
-            <h5>Short Term</h5>
-            <div class="ambition-editor">
-                {{editor content=data.details.personal-ambitions.short-term target="data.details.personal-ambitions.short-term" button=true owner=owner editable=editable}}
-            </div>
-            <h5>Long Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.personal-ambitions.long-term target="data.details.personal-ambitions.long-term" button=true owner=owner editable=editable}}
-                </div>
-        </div>
-
-        
-        <div class="ambition-section">
-            <h4>Party</h4>
-            <h5>Short Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.party-ambitions.short-term target="data.details.party-ambitions.short-term" button=true owner=owner editable=editable}}
-            </div>
-            <h5>Long Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.party-ambitions.long-term target="data.details.party-ambitions.long-term" button=true owner=owner editable=editable}}
-            </div>
-        </div>
-    </div>
+   <div class="careers">
+      <a>Careers</a>
+   </div>
 </div>

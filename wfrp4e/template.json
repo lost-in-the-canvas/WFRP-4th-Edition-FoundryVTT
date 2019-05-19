@@ -99,9 +99,12 @@
           "label": "Wounds",
           "abrev": "W",
           "value": 12,
-          "min": 0,
-          "max": 12,
-          "mod": 0
+          "max": 12
+        },
+        "critical-wounds": {
+          "type": "String",
+          "label": "Critical Wounds",
+          "value": ""
         },
         "fate": {
           "type": "Number",
@@ -125,6 +128,11 @@
         }
       },
       "details": {
+        "size": {
+         "type": "String",
+         "label": "Size",
+         "value": "avg"
+        },
         "biography": {
           "type": "String",
           "label": "Biography",
@@ -445,15 +453,48 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value": 0
       },
       "price": {
         "type": "String",
-        "label": "Price"
+        "label": "Price",
+        "value": ""
       },
-      "weaponType": {
+      "availability": {
         "type": "String",
-        "label": "Weapon Type"
+        "label": "Availability",
+        "value": ""
+      },
+      "reach": {
+        "type": "String",
+        "label": "Reach",
+        "value": ""
+      },
+      "range":{
+        "type": "String",
+        "label": "Range",
+        "value": "0"
+      },
+      "weaponGroup": {
+        "type": "String",
+        "label": "Weapon Group",
+        "value": ""
+      },
+      "qualities":{
+        "type": "String",
+        "label": "Qualities",
+        "value": ""
+      },
+      "flaws":{
+        "type": "String",
+        "label": "Flaws",
+        "value": ""
+      },
+      "special": {
+        "type": "String",
+        "label": "Special",
+        "value": ""
       }
     },
     "armour": {
@@ -470,9 +511,38 @@
         "type": "String",
         "label": "Price"
       },
-      "armourType": {
+      "availability": {
         "type": "String",
-        "label": "Armour Type"
+        "label": "Availability",
+        "value": ""
+      },
+      "armourGroup": {
+        "type": "String",
+        "label": "Armour Group",
+        "value": ""
+      },
+      "penalty": {
+        "type": "String",
+        "label": "Penalty",
+        "value": ""
+      },
+      "qualities":{
+        "type": "String",
+        "label": "Qualities",
+        "value": ""
+      },
+      "flaws":{
+        "type": "String",
+        "label": "Flaws",
+        "value": ""
+      },
+      "AP":{
+        "head": 0,
+        "lArm": 0,
+        "rArm": 0,
+        "lLeg": 0,
+        "rLeg": 0,
+        "body": 0
       }
     },
     "container": {
@@ -492,37 +562,6 @@
       "carries": {
         "type": "Number",
         "label": "Carries"
-      }
-    },
-    "equipment": {
-      "quantity": {
-        "type": "Number",
-        "label": "Quantity",
-        "value": 1
-      },
-      "encumbrance": {
-        "type": "Number",
-        "label": "Encumbrance"
-      },
-      "price": {
-        "type": "String",
-        "label": "Price"
-      },
-      "armor": {
-        "type": "Number",
-        "label": "Armor Value"
-      },
-      "armorType": {
-        "type": "String",
-        "label": "Armor Type"
-      },
-      "strength": {
-        "type": "String",
-        "label": "Required Strength"
-      },
-      "worn": {
-        "type": "Boolean",
-        "label": "Worn"
       }
     },
     "consumable": {

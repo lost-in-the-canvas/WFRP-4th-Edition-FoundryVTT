@@ -167,11 +167,12 @@ CONFIG.proficiencyLevels = {
 // Creature Sizes
 CONFIG.actorSizes = {
   "tiny": "Tiny",
-  "sm": "Small",
-  "med": "Medium",
-  "lg": "Large",
-  "huge": "Huge",
-  "grg": "Gargantuan"
+  "ltl": "Little",
+  "sml": "Small",
+  "avg": "Average",
+  "lrg": "Large",
+  "enor": "Enormous",
+  "mnst": "Monstrous"
 };
 
 // Condition Types
@@ -486,6 +487,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
+    "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
 
@@ -546,6 +548,7 @@ class ActorWfrp4e extends Actor {
 
     data.details.move.walk = data.details.move.value * 2;
     data.details.move.run = data.details.move.value * 4;
+
 
     return actorData;
   }
@@ -720,6 +723,11 @@ class ActorWfrp4e extends Actor {
       }
     });*/
   }
+
+  static getBonus(value) {
+    return Math.floor(value / 10)
+  }
+
 }
 
 // Assign the actor class to the CONFIG
@@ -1303,8 +1311,50 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Prepare owned items
 */
 
-  this._prepareItems(sheetData.actor);
+    this._prepareItems(sheetData.actor);
 
+    let isSmall = sheetData.actor.talents.find(x=>x.name == "Small");
+    if (isSmall)
+      sheetData.actor.data.details.size.value="sml";
+
+
+    let sb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.s.value);
+    let tb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.t.value);
+    let wpb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.wp.value);
+   
+    switch (sheetData.actor.data.details.size.value){
+    
+      case "tiny":
+      sheetData.actor.data.status.wounds.max = 1;
+      break;
+
+      case "ltl":
+      sheetData.actor.data.status.wounds.max = tb;
+      break;
+    
+      case "sml":
+      sheetData.actor.data.status.wounds.max = 2 * tb + wpb
+      break;
+
+      case "avg":
+      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb
+      break;
+
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb)
+      break;
+
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb)
+      break;
+
+      
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb)
+      break;
+
+    }
+                                        
     // Return data to the sheet
     return sheetData;
   }

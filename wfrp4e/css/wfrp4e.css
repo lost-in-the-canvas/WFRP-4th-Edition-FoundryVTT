@@ -334,7 +334,7 @@ display: flex;
   text-align: center;
 }
 
-.wfrp4e.actor .second-row {
+.wfrp4e.actor .main-row {
   display: flex;
   height: 80px;
   border-bottom: 1px solid #CCC;
@@ -414,6 +414,53 @@ display: flex;
   width: 100%;
 }
 
+.wfrp4e.actor .careers{
+  width: 60%;
+  text-align: center;
+
+}
+
+.wfrp4e.actor .careers > a{
+  font-family: CaslonAntique;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury{
+  width: 40%;
+}
+
+.wfrp4e.actor .injury .wounds{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+
+.wfrp4e.actor .injury .wounds > * {
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury .crit-wounds > a{
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury .crit-wounds{
+  text-align: center;
+}
+
+
+.wfrp4e.actor .crit-wounds .editor {
+  height: 120px;
+  width: auto;
+}
+
+
 .wfrp4e.actor .ambitions{
   margin-top: 5px;
   width: 100%;
@@ -433,6 +480,7 @@ display: flex;
 
 .wfrp4e.actor .ambitions .ambition-section{
   width: 50%;
+  margin: 10px;
 }
 
 .wfrp4e.actor .ambitions .ambition-section > h4{
@@ -934,7 +982,7 @@ display: flex;
   /* ----------------------------------------- */
   /* Scrollbar
   /* ----------------------------------------- */
-  ::-webkit-scrollbar {
+  /*::-webkit-scrollbar {
     width: 14px;
   }
   ::-webkit-scrollbar-track {
@@ -945,7 +993,7 @@ display: flex;
     outline: none;
     border-radius: 3px;
     background: none;
-    /* background: url(../ui/scrollbar.png) no-repeat; */
+    /* background: url(../ui/scrollbar.png) no-repeat; 
     border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
     border-image-width: 25px;
     border-image-outset: 0px;
@@ -962,16 +1010,16 @@ display: flex;
     background-position: center;
     box-shadow: none;
 
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
   } 
   ::-webkit-scrollbar-button:vertical:increment {
     background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
 
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
   } 
 
   ::-webkit-scrollbar-track {
@@ -980,14 +1028,14 @@ display: flex;
     background-size: 9px 110px;
     box-shadow: 0 0 17px rgb(0,0,0);
   }
-  /* -------------------------------------------------------- */
+  /* -------------------------------------------------------- 
  
   .control-tools > li {
     width: 36px;
     height: 36px;
     line-height: 36px;
     /* background: rgba(0, 0, 0, 0.5); */
-    /* box-shadow: 0 0 10px #000; */
+    /* box-shadow: 0 0 10px #000; 
     margin: 0 0 8px;
     color: #BBB;
     text-align: center;
@@ -1020,7 +1068,7 @@ display: flex;
     
     cursor: pointer;
     box-shadow: 0 0 10px #ff6400;
-  }
+  }*/
 
 
 /***************************************************/

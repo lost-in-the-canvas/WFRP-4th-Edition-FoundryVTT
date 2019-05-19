@@ -1,0 +1,29 @@
+<div class = "ambitions">
+    <h3>Ambitions</h2>
+    
+    <div class = "ambition-sections">
+        <div class="ambition-section">
+            <h4>Personal</h4>
+            <h5>Short Term</h5>
+            <div class="ambition-editor">
+                {{editor content=data.details.personal-ambitions.short-term target="data.details.personal-ambitions.short-term" button=true owner=owner editable=editable}}
+            </div>
+            <h5>Long Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.personal-ambitions.long-term target="data.details.personal-ambitions.long-term" button=true owner=owner editable=editable}}
+                </div>
+        </div>
+
+        
+        <div class="ambition-section">
+            <h4>Party</h4>
+            <h5>Short Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.party-ambitions.short-term target="data.details.party-ambitions.short-term" button=true owner=owner editable=editable}}
+            </div>
+            <h5>Long Term</h5>
+            <div class="ambition-editor">
+                    {{editor content=data.details.party-ambitions.long-term target="data.details.party-ambitions.long-term" button=true owner=owner editable=editable}}
+            </div>
+        </div>
+    </div>
