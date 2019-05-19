@@ -26,6 +26,7 @@
                 <label>Skill Type</label>
                 <select name="data.advanced.value" data-dtype="{{data.advanced.type}}">
                     {{#select data.advanced.value}}
+                    <option value=""></option>
                     {{#each skillTypes as |type sktype|}}
                     <option value="{{sktype}}">{{type}}</option>
                     {{/each}}
@@ -37,6 +38,7 @@
                 <label>Specialization</label>
                 <select name="data.grouped.value" data-dtype="{{data.grouped.type}}">
                     {{#select data.grouped.value}}
+                    <option value=""></option>
                     {{#each skillGroup as |grouped skgroup|}}
                     <option value="{{skgroup}}">{{grouped}}</option>
                     {{/each}}

@@ -503,7 +503,6 @@ display: flex;
 
 .wfrp4e .skill-table .skill > * {
   border: 1px solid #000;
-  border-bottom: none;
 }
 
 .wfrp4e .skill-table .skill >*:last-child {
@@ -515,9 +514,35 @@ display: flex;
 
 .wfrp4e .skill-section .skill-list .skill > * {
   font-family: CaslonAntique;
-  font-size: 16px;
-  
+  font-size: 16px; 
 }
+
+.wfrp4e .skill .skill-name{
+  width: 55%;
+}
+
+.wfrp4e .skill .skill-characteristic{
+  text-align: center;
+  width: 15%;
+}
+  
+
+.wfrp4e .skill .skill-advances {
+  text-align: center;
+  width: 15%
+}
+
+
+.wfrp4e .skill .skill-advances >input{
+  text-align: center;
+  width: 100%;
+}
+
+.wfrp4e .skill .skill-total{
+  text-align: center;
+  width: 15%;
+}
+  
 
 
 

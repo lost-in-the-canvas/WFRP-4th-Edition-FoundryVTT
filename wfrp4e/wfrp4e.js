@@ -1194,6 +1194,7 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['characteristics'] = CONFIG.characteristics;
       data['skillGroup'] = CONFIG.skillGroup;
       data['skillTypes'] = CONFIG.skillTypes;
+      console.log(data.data.grouped.value);
     } 
     /*data['abilities'] = game.system.template.actor.data.abilities;
 

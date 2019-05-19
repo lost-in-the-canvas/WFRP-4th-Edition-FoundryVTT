@@ -601,12 +601,12 @@
     "skill": {
 
       "advanced": {
-        "value": false,
-        "type" : "Boolean"
+        "value": "",
+        "type" : "String"
       },
       "grouped":{
-        "value": false,
-        "type" : "Boolean"
+        "value": "",
+        "type" : "String"
       },
       "characteristic": {
         "type": "String",
