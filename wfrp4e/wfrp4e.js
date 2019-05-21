@@ -1,60 +1,108 @@
-// Damage Types
-CONFIG.damageTypes = {
-  "acid": "Acid",
-  "bludgeoning": "Bludgeoning",
-  "cold": "Cold",
-  "fire": "Fire",
-  "force": "Force",
-  "lightning": "Lightning",
-  "necrotic": "Necrotic",
-  "piercing": "Piercing",
-  "poison": "Poison",
-  "psychic": "Psychic",
-  "radiant": "Radiant",
-  "slashing": "Slashing",
-  "thunder": "Thunder"
+// Species
+CONFIG.species = {
+  "human": "Human",
+  "dwarf": "Dwarf",
+  "halfling": "Halfling",
+  "helf": "High Elf",
+  "welf": "Wood Elf",
+  "gnome": "Gnome"
 };
 
-// Healing Types
-CONFIG.healingTypes = {
-  "healing": "Healing",
-  "temphp": "Healing (Temporary)"
+// Weapon Groups
+CONFIG.weaponGroups = {
+  "basic": "Basic",
+  "cavalry": "Cavalry",
+  "fencing": "Fencing",
+  "brawling": "Brawling",
+  "flail": "Flail",
+  "parry": "Parry",
+  "polearm": "Polearm",
+  "twohanded": "Two-Handed",
+  "blackpowder": "Blackpowder",
+  "bow": "Bow",
+  "crossbow": "Crossbow",
+  "entangling": "Entangling",
+  "engineering": "Engineering",
+  "explosives": "Explosives",
+  "sling": "Sling",
+  "throwing": "Throwing",
 };
 
-// Weapon Types
-CONFIG.weaponTypes = {
-  "simpleM": "Simple Melee",
-  "simpleR": "Simple Ranged",
-  "martialM": "Martial Melee",
-  "martialR": "Martial Ranged",
-  "natural": "Natural",
-  "improv": "Improvised",
-  "ammo": "Ammunition"
+// Ammo Groups
+CONFIG.ammunitionGroups = {
+  "BPandEng": "Blackpowder and Engineering",
+  "bow": "Bow",
+  "crossbow": "Crossbow",
+  "sling": "Sling",
 };
 
-// Weapon Properties
-CONFIG.weaponProperties = {
-  "thr": "Thrown",
-  "amm": "Ammunition",
-  "fir": "Firearm",
-  "rel": "Reload",
-  "two": "Two-Handed",
-  "fin": "Finesse",
-  "lgt": "Light",
-  "ver": "Versatile",
-  "hvy": "Heavy",
-  "rch": "Reach"
+// Item Qualities
+CONFIG.itemQualities ={
+  "durable": "Durable",
+  "fine": "Fine",
+  "lightweight": "Lightweight",
+  "practical": "Practical",
+};
+
+// Item Flaws
+CONFIG.itemFlaws = {
+  "ugly": "Ugly",
+  "shoddy": "Shoddy",
+  "unreliable": "Unreliable",
+  "bulky": "Bulky",
+}
+
+
+// Weapon Qualities
+CONFIG.weaponQualities = {
+  "accurate": "Accurate",
+  "blackpowder": "Blackpowder",
+  "blast": "Blast",
+  "damaging": "Damaging",
+  "defensive": "Defensive",
+  "entangle": "Entangle",
+  "fast": "Fast",
+  "hack": "Hack",
+  "impact": "Impact",
+  "penetrating": "Penetrating",
+  "pistol": "Pistol",
+  "precise": "Precise",
+  "pummel": "Pummel",
+  "repeater": "Repater",
+  "shield": "Shield",
+  "trapblade": "Trap Blade",
+  "unbreakable": "Unbreakable",
+  "wrap": "Wrap"
+};
+
+// Weapon Flaws
+CONFIG.weaponFlaws = {
+  "dangerous": "Dangerous",
+  "imprecise": "Imprecise",
+  "reload": "reload",
+  "slow": "Slow",
+  "tiring": "Tiring",
+  "undamaging": "Undamaging"
+};
+
+// Armor Qualities
+CONFIG.armorQualities = {
+  "flexible": "Flexible",
+  "Impenetrable": "impenetrable",
+};
+
+// Armor Flaws
+CONFIG.armorFlaws = {
+  "partial": "Partial",
+  "weakpoints": "Weakpoints",
 };
 
 // Equipment Types
 CONFIG.armorTypes = {
-  "clothing": "Clothing",
-  "light": "Light Armor",
-  "medium": "Medium Armor",
-  "heavy": "Heavy Armor",
-  "bonus": "Magical Bonus",
-  "natural": "Natural Armor",
-  "shield": "Shield"
+  "softLeather": "Soft Leather",
+  "boiledLeather": "Boiled Leather",
+  "mail": "Mail",
+  "plate": "Plate",
 };
 
 // Consumable Types
@@ -127,7 +175,6 @@ CONFIG.characteristicsAbrev = {
   "wp": "WP",
   "fel": "Fel"
 };
-
 
 CONFIG.skillTypes = {
   "bsc" : "Basic",
@@ -550,6 +597,19 @@ class ActorWfrp4e extends Actor {
     data.details.move.run = data.details.move.value * 4;
 
 
+    // If user enters a species that does not exist, remove it.
+    let speciesExist = false;
+    for (let s of Object.values(CONFIG.species))
+    {
+      if (data.details.species.value == s)
+      {
+        speciesExist = true;
+        break;
+      }
+    }
+    if (!speciesExist)
+      data.details.species.value = "";
+    
     return actorData;
   }
 
@@ -562,6 +622,7 @@ class ActorWfrp4e extends Actor {
     for (let ch of Object.values(data.characteristics))
     {
       ch.value = ch.initial + ch.advances;
+      ch.bonus = Math.floor(ch.value / 10)
     }
 
     if (data.status.fate.value < data.status.fortune.value)
@@ -1291,6 +1352,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   getData() {
     const sheetData = super.getData();
 
+
     /*// Ability proficiency
     for ( let abl of Object.values(sheetData.data.abilities)) {
       abl.icon = this._getProficiencyIcon(abl.proficient);
@@ -1313,15 +1375,19 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     this._prepareItems(sheetData.actor);
 
+
     let isSmall = sheetData.actor.talents.find(x=>x.name == "Small");
     if (isSmall)
       sheetData.actor.data.details.size.value="sml";
 
 
-    let sb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.s.value);
-    let tb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.t.value);
-    let wpb = ActorWfrp4e.getBonus(sheetData.actor.data.characteristics.wp.value);
-   
+    let sb = sheetData.actor.data.characteristics.s.bonus;
+    let tb = sheetData.actor.data.characteristics.t.bonus;
+    let wpb =sheetData.actor.data.characteristics.wp.bonus;
+
+    sheetData.actor.data.status.criticalWounds.max = tb;
+
+
     switch (sheetData.actor.data.details.size.value){
     
       case "tiny":
@@ -1333,28 +1399,28 @@ class ActorSheetWfrp4e extends ActorSheet {
       break;
     
       case "sml":
-      sheetData.actor.data.status.wounds.max = 2 * tb + wpb
+      sheetData.actor.data.status.wounds.max = 2 * tb + wpb;
       break;
 
       case "avg":
-      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb
+      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb;
       break;
 
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb)
+      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
       break;
 
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb)
+      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
       break;
-
       
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb)
+      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
       break;
 
     }
-                                        
+          
+    
     // Return data to the sheet
     return sheetData;
   }
@@ -1428,7 +1494,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let existingTalent = talentList.find(t => t.name == talent.name)
     if (existingTalent){
       if (!existingTalent.numMax){
-        talent["numMax"]= Math.floor(actorData.data.characteristics[talent.data.max.value].value / 10);
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
       if (existingTalent.data.advances.value < existingTalent.numMax){
         existingTalent.data.advances.value++;
@@ -1449,7 +1515,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         break;
 
         default:
-        talent["numMax"]= Math.floor(actorData.data.characteristics[talent.data.max.value].value / 10);
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
       talentList.push(talent);
     }

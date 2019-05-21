@@ -9,6 +9,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },
         "bs": {
@@ -18,6 +19,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },
         "s": {
@@ -27,6 +29,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,        
           "career": 0
         },
         "t": {
@@ -36,6 +39,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },
         "i": {
@@ -45,6 +49,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },        
         "ag": {
@@ -54,6 +59,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         }, 
         "dex": {
@@ -63,6 +69,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },
         "int": {
@@ -72,6 +79,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },
         "wp": {
@@ -81,6 +89,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         },       
         "fel": {
@@ -90,6 +99,7 @@
           "initial": 20,
           "advances": 0,
           "value": 0,
+          "bonus" : 0,
           "career": 0
         }
       },
@@ -101,9 +111,11 @@
           "value": 12,
           "max": 12
         },
-        "critical-wounds": {
+        "criticalWounds": {
           "type": "String",
           "label": "Critical Wounds",
+          "number": 0,
+          "max" : 0,
           "value": ""
         },
         "fate": {
@@ -152,12 +164,13 @@
           "label": "Career"
         },
         "status" : {
-          "standing" : "String",
-          "tier" : "Number"
+          "standing" : "",
+          "tier" : 0
         },
         "species": {
           "type": "String",
-          "label": "Species"
+          "label": "Species",
+          "value": ""
         },
         "move": {
           "type": "Number",
@@ -443,6 +456,31 @@
       "source": {
         "type": "String",
         "label": "Source"
+      }
+    },
+    "career": {
+      "class":{
+        "type":"String",
+        "value":""
+      },
+      "current":{
+        "type": "Boolean",
+        "value": false
+      },
+      "tier" : {
+        "type":"Number",
+        "value": 1
+      },
+      "status":{
+        "tier":"",
+        "standing":0
+      },     
+      "skills": [],
+      "talents":[],
+      "trappings":[],
+      "incomeSkill" : {
+        "type": "String",
+        "value": ""
       }
     },
     "weapon": {

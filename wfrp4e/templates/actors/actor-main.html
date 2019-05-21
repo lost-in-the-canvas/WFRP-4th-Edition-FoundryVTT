@@ -102,7 +102,10 @@
       </div>
       <div class ="crit-wounds">
          <a>Critical Wounds</a>
-      {{editor content=data.status.critical-wounds.value target="data.status.critical-wounds.value" button=true owner=owner editable=editable}}
+      {{editor content=data.status.criticalWounds.value target="data.status.criticalWounds.value" button=true owner=owner editable=editable}}
+      <a>Number Received:
+      <input name="data.status.criticalWounds.number" type="number" value="{{data.status.criticalWounds.number}}" />
+      / {{data.status.criticalWounds.max}}</a>
    </div>
    </div>
 
