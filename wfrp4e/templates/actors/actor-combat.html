@@ -1,0 +1,35 @@
+<div class="combat-section">
+        <div class="weapons-armor">
+           <div class="weapons">
+                <ol class="weapon-list">
+                        <li class="weapon-header">
+                           <div class="weapon-descriptor">
+                              Weapon
+                           </div>
+                           <div class="weapon-descriptor">Weapon Group</div>
+                           <div class="weapon-descriptor">Damage</div>
+                           <div class="weapon-descriptor">Reach/Range</div>
+                           <div class="weapon-descriptor">Qualities/Flaws</div>
+                        </li>
+                        {{#each actor.weapons as |item i|}}
+                        <li class="weapon-list-item" data-item-id="{{item.id}}">
+                           <div class="item-name">
+                              <div class="item-image" style="background-image: url({{item.img}})"></div>
+                              <h4>{{item.name}}</h4>
+                           </div>
+                           <div>{{item.data.weaponGroup.value}}</div>
+                           <div>{{item.data.damage.value}}</div>
+                           <div>{{item.data.reach.value}}</div>
+                           <div>
+                              {{#each item.properties as |property p|}}
+                              <a>{{property}}</a>
+                              {{/each}}
+                           </div>
+                        </li>
+                        {{/each}}
+                     </ol>
+           </div>
+           <div class="armor">
+           </div>
+        </div>
+     </div>

@@ -115,13 +115,32 @@ CONFIG.consumableTypes = {
   "trinket": "Trinket"
 };
 
-// Spell Types
-CONFIG.spellTypes = {
-  "attack": "Spell Attack",
-  "save": "Saving Throw",
-  "heal": "Healing",
-  "utility": "Utility"
-};
+CONFIG.weaponReaches={
+ "personal":"Personal",
+ "vshort":"Very Short",
+ "short":"Short",
+ "average": "Average",
+ "long":"Long",
+ "vLong":"Very Long",
+ "massive":"Massive",
+}
+
+CONFIG.reachDescription={
+  "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
+  "vshort":"Less than a foot in length.",
+  "short":"Up to 2 feet in length.",
+  "average": "Up to 3 feet long.",
+  "long":"Up to 6 feet long.",
+  "vLong":"Up to 10 feet in length; can Engage enemies up to 4 yards away, rather than just 2.",
+  "massive":"Anything over 10 feet long; can Engage enemies up to 6 yards away, rather than just 2",
+ }
+ 
+ CONFIG.availability = {
+   "common": "Common",
+   "scarce": "Scarce",
+   "rare": "Rare",
+   "exotic": "Exotic",
+ }
 
 // Spell Schools
 CONFIG.spellSchools = {
@@ -530,6 +549,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-attributes.html",
     "public/systems/wfrp4e/templates/actors/actor-abilities.html",
     "public/systems/wfrp4e/templates/actors/actor-main.html",
+    "public/systems/wfrp4e/templates/actors/actor-combat.html",
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
@@ -1284,6 +1304,13 @@ class ItemSheetWfrp4e extends ItemSheet {
     {
       data['talentMaxs'] = CONFIG.talentMax;
     }
+    else if (this.item.type == "weapon")
+    {
+      data['weaponGroups'] = CONFIG.weaponGroups;
+      data['availability'] = CONFIG.availability;
+      data['weaponReaches'] = CONFIG.weaponReaches
+    }
+
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1781,10 +1808,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       backpack: { label: "Backpack", items: [] },
     };*/
 
+
+
     // Skills
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
+    const weapons = [];
 
 
     // Iterate through items, allocating to containers
@@ -1795,16 +1825,25 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     {
       this._prepareTalent(actorData, talents, i);
     }
-/*
-      // Inventory
-      if ( Object.keys(inventory).includes(i.type) ) {
-        i.data.quantity.value = i.data.quantity.value || 1;
-        i.data.weight.value = i.data.weight.value || 0;
-        i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
-        i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
-        inventory[i.type].items.push(i);
-        totalWeight += i.totalWeight;
-      }*/
+
+    else if (i.type === "weapon")
+    {
+      i["properties"] = this._prepareQualitiesFlaws(i);
+      i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
+      i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
+      weapons.push(i);
+    }
+
+    /*
+    // Inventory
+    if ( Object.keys(inventory).includes(i.type) ) {
+      i.data.quantity.value = i.data.quantity.value || 1;
+      i.data.weight.value = i.data.weight.value || 0;
+      i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+      i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
+      inventory[i.type].items.push(i);
+      totalWeight += i.totalWeight;
+    }
 
      /* // Spells
       else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
@@ -1827,6 +1866,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
+    actorData.weapons = weapons;
     //actorData.classes = classes;
 
    /* // Currency weight
@@ -1842,6 +1882,45 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     actorData.data.attributes.encumbrance = enc;**/
   }
+
+
+  _prepareQualitiesFlaws(item){
+    let qualities = item.data.qualities.value.split(",").map(function(item) {
+      return item.trim();
+    });
+    let flaws = item.data.flaws.value.split(",").map(function(item) {
+      return item.trim();
+    });
+
+    // Commented code is part of process of removing unrecognized qualities/flaws
+    // Unsure if this should even be done (it won't allow people to make up their own)
+    /*let invalidQualities = [];
+    let invalidFlaws = [];
+    for (let q in Object.values(qualities))
+    {
+      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
+      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
+      {
+        invalidQualities.push(q)
+      }
+    }
+
+    for (let f in Object.values(flaws))
+    {
+      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
+      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
+      {
+        invalidFlaws.push(f)
+      }
+    } */
+
+    // Remove Invalid qualities/flaws
+
+
+    return qualities.concat(flaws).sort();
+
+  }
+
 
   /* -------------------------------------------- */
 

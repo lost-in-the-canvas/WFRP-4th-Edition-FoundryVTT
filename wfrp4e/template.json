@@ -504,6 +504,11 @@
         "label": "Availability",
         "value": ""
       },
+      "damage": {
+        "type": "String",
+        "label": "Damage",
+        "value": ""
+      },
       "reach": {
         "type": "String",
         "label": "Reach",

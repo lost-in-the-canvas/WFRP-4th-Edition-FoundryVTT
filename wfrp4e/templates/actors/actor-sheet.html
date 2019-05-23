@@ -20,12 +20,12 @@
                 <a>Species</a>
             </div>
         <div class="item">
-            <input name="data.details.class" type="text" value="{{data.details.class}}" />
+            <input name="data.details.class" type="text" value="" />
             <a>Class</a>
         </div>
         
         <div class="item">
-                <input name="data.details.career" type="text" value="{{data.details.class}}" />
+                <input name="data.details.career" type="text" value="" />
                 <a>Career</a>
             </div>
 
@@ -42,22 +42,22 @@
         <div class = "row">
             <div class = "row small">   
             <div class="item small">
-                <input name="" type="text" value="{{actor.details.class}}" />
+                <input name="" type="text" value="" />
                 <a>Age</a>
             </div>
 
             <div class="item small">
-                <input name="" type="text" value="{{actor.details.class}}" />
+                <input name="" type="text" value="" />
                 <a>Height</a>
             </div>
 
             <div class="item small">
-                <input name="" type="text" value="{{actor.details.class}}" />
+                <input name="" type="text" value="" />
                 <a>Hair</a>
             </div>
 
             <div class="item small">
-                <input name="" type="text" value="{{actor.details.class}}" />
+                <input name="" type="text" value="" />
                 <a>Eyes</a>
             </div>
             </div>
@@ -105,6 +105,10 @@
 
         <div class = "tab talents" data-tab="talents" data-group="primary">
             {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
+    </div>
+    
+    <div class="tab combat" data-tab="combat" data-group="primary">
+            {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
     </div>
     
     <div class = "tab notes" data-tab="notes" data-group="primary">

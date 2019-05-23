@@ -717,6 +717,42 @@ font-weight: bold;
   width: 33%;
 }
 
+
+/* ----------------------------------------- */
+/* Weapon List
+/* ----------------------------------------- */
+
+.wfr4e.actor .weapons{
+  width: 50%;
+}
+
+.wfrp4e.actor .weapon-list {
+  list-style: none;
+}
+
+.wfrp4e.actor .weapon-list .weapon-header {
+  line-height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: row;
+}
+
+
+.wfrp4e.actor .weapon-list .weapon-header .weapon-descriptor {
+  width: 33%;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.wfrp4e.actor .weapon-list .weapon-list-item{
+  display: flex;
+}
+
+
+.wfrp4e.actor .weapon-list .weapon-list-item > * {
+  width: 33%;
+}
 /* ----------------------------------------- */
 /* User Interface Framework
 /* ----------------------------------------- */
