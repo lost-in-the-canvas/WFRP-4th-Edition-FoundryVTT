@@ -1,24 +1,23 @@
 <div class="combat-section">
-        <div class="weapons-armor">
-           <div class="weapons">
+        <div class="weapons">
+           <div class="weapon-type">
                 <ol class="weapon-list">
                         <li class="weapon-header">
-                           <div class="weapon-descriptor">
-                              Weapon
-                           </div>
+                           <div class="weapon-descriptor">Weapon</div>
                            <div class="weapon-descriptor">Weapon Group</div>
                            <div class="weapon-descriptor">Damage</div>
-                           <div class="weapon-descriptor">Reach/Range</div>
+                           <div class="weapon-descriptor">Reach</div>
                            <div class="weapon-descriptor">Qualities/Flaws</div>
                         </li>
                         {{#each actor.weapons as |item i|}}
+                        {{#if item.meleeWeaponType}}
                         <li class="weapon-list-item" data-item-id="{{item.id}}">
                            <div class="item-name">
                               <div class="item-image" style="background-image: url({{item.img}})"></div>
                               <h4>{{item.name}}</h4>
                            </div>
                            <div>{{item.data.weaponGroup.value}}</div>
-                           <div>{{item.data.damage.value}}</div>
+                           <div>+{{item.data.damage.value}}</div>
                            <div>{{item.data.reach.value}}</div>
                            <div>
                               {{#each item.properties as |property p|}}
@@ -26,10 +25,149 @@
                               {{/each}}
                            </div>
                         </li>
+                        {{/if}}
                         {{/each}}
                      </ol>
            </div>
-           <div class="armor">
-           </div>
+
+           <div class="weapons">
+               <ol class="weapon-list">
+                       <li class="weapon-header">
+                          <div class="weapon-descriptor">
+                             Weapon
+                          </div>
+                          <div class="weapon-descriptor">Weapon Group</div>
+                          <div class="weapon-descriptor">Damage</div>
+                          <div class="weapon-descriptor">Range (yds)</div>
+                          <div class="weapon-descriptor">Qualities/Flaws</div>
+                       </li>
+                       {{#each actor.weapons as |item i|}}
+                       {{#if item.rangedWeaponType}}
+                       <li class="weapon-list-item" data-item-id="{{item.id}}">
+                          <div class="item-name">
+                             <div class="item-image" style="background-image: url({{item.img}})"></div>
+                             <h4>{{item.name}}</h4>
+                          </div>
+                          <div>{{item.data.weaponGroup.value}}</div>
+                          <div>+{{item.data.damage.value}}</div>
+                          <div>{{item.data.range.value}}</div>
+                          <div>
+                             {{#each item.properties as |property p|}}
+                             <a>{{property}}</a>
+                             {{/each}}
+                          </div>
+                       </li>
+                       {{/if}}
+                       {{/each}}
+                    </ol>
+          </div>
         </div>
-     </div>
+
+        <div class= "row">
+        <div class="armor">
+           <a>Armor</a>
+
+            <div class = "armor-row">
+           <div class="armor-box">
+              <a>Head: {{AP.head}}</a>
+              <div class="location-values">
+                 <ol class = "armor-list">
+                     <li class="armor-header">
+                        <div class="armor-descriptor">Armor</div>
+                        <div class="armor-descriptor">AP</div>
+                     </li>
+                     {{#each actor.armour as |item i|}}
+                     {{#if item.protectsHead}}
+                     <li class="armor-list-item" data-item-id="{{item.id}}">
+                           <div class="item-name">
+                              <div class="item-image" style="background-image: url({{item.img}})"></div>
+                              <h4>{{item.name}}</h4>
+                           </div>
+                           <div>{{item.data.currentAP.head}}</div>
+                     </li>
+                     {{/if}}
+                     {{/each}}
+                 </ol>
+              </div>
+           </div>
+         </div>
+
+         <div class = "armor-row">
+               <div class="armor-box">
+                  <a>Left Arm: {{AP.lArm}}</a>
+                  <div class="location-values">
+                     <ol class = "armor-list">
+                         <li class="armor-header">
+                            <div class="armor-descriptor">Armor</div>
+                            <div class="armor-descriptor">AP</div>
+                         </li>
+                     </ol>
+                  </div>
+               </div>
+               <div class="armor-box">
+                     <a>Body: {{AP.body}}</a>
+                     <div class="location-values">
+                        <ol class = "armor-list">
+                            <li class="armor-header">
+                               <div class="armor-descriptor">Armor</div>
+                               <div class="armor-descriptor">AP</div>
+                            </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <div class="armor-box">
+                        <a>Right Arm: {{AP.rArm}}</a>
+                        <div class="location-values">
+                           <ol class = "armor-list">
+                               <li class="armor-header">
+                                  <div class="armor-descriptor">Armor</div>
+                                  <div class="armor-descriptor">AP</div>
+                               </li>
+                           </ol>
+                        </div>
+                     </div>
+             </div>
+
+             <div class = "armor-row">
+                  <div class="armor-box">
+                     <a>Left Leg: {{AP.lLeg}}</a>
+                     <div class="location-values">
+                        <ol class = "armor-list">
+                            <li class="armor-header">
+                               <div class="armor-descriptor">Armor</div>
+                               <div class="armor-descriptor">AP</div>
+                            </li>
+                        </ol>
+                     </div>
+                  </div>
+                  <div class="armor-box">
+                        <a>Right Leg: {{AP.rLeg}}</a>
+                        <div class="location-values">
+                           <ol class = "armor-list">
+                               <li class="armor-header">
+                                  <div class="armor-descriptor">Armor</div>
+                                  <div class="armor-descriptor">AP</div>
+                               </li>
+                           </ol>
+                        </div>
+                     </div>
+                </div>
+      </div>
+
+         <div class="injury">
+            <div class ="wounds">
+               <a>Wounds:</a>
+               <a>{{data.status.wounds.max}}</a>
+            </div>
+            <div class="crit-wounds">
+               <a>Critical Wounds: </a>
+               <input name="data.status.criticalWounds.number" type="number" value="{{data.status.criticalWounds.number}}" />
+               <a>/ {{data.status.criticalWounds.max}}</a>
+      
+         </div>
+         <div class="crit-wounds-editor">
+               {{editor content=data.status.criticalWounds.value target="data.status.criticalWounds.value" button=true owner=owner editable=editable}}
+            </div>
+         </div>
+</div>
+</div>

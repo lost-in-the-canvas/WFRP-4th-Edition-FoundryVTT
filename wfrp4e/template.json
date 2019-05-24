@@ -164,8 +164,8 @@
           "label": "Career"
         },
         "status" : {
-          "standing" : "",
-          "tier" : 0
+          "tier" : "",
+          "standing" : ""
         },
         "species": {
           "type": "String",
@@ -517,7 +517,7 @@
       "range":{
         "type": "String",
         "label": "Range",
-        "value": "0"
+        "value": ""
       },
       "weaponGroup": {
         "type": "String",
@@ -559,9 +559,9 @@
         "label": "Availability",
         "value": ""
       },
-      "armourGroup": {
+      "armorType": {
         "type": "String",
-        "label": "Armour Group",
+        "label": "Armour Type",
         "value": ""
       },
       "penalty": {
@@ -579,7 +579,15 @@
         "label": "Flaws",
         "value": ""
       },
-      "AP":{
+      "maxAP":{
+        "head": 0,
+        "lArm": 0,
+        "rArm": 0,
+        "lLeg": 0,
+        "rLeg": 0,
+        "body": 0
+      },
+      "currentAP":{
         "head": 0,
         "lArm": 0,
         "rArm": 0,

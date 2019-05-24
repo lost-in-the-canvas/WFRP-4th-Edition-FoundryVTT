@@ -8,6 +8,14 @@ CONFIG.species = {
   "gnome": "Gnome"
 };
 
+
+// Weapon Types
+CONFIG.weaponTypes = {
+  "melee" : "Melee Weapon",
+  "ranged" : "Ranged Weapon",
+  "both" : "Both"
+};
+
 // Weapon Groups
 CONFIG.weaponGroups = {
   "basic": "Basic",
@@ -1153,7 +1161,7 @@ class ItemWfrp4e extends Item {
       data: rollData,
       template: "public/systems/wfrp4e/templates/chat/tool-roll-dialog.html",
       title: title,
-      alias: this.actor.name,
+      alias: this.actor.name
       flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,
       dialogOptions: {
         width: 400,
@@ -1310,6 +1318,11 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['availability'] = CONFIG.availability;
       data['weaponReaches'] = CONFIG.weaponReaches
     }
+    else if (this.item.type == "armour")
+    {
+      data['armorTypes'] = CONFIG.armorTypes;
+      data['availability'] = CONFIG.availability;
+    }
 
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
@@ -1348,6 +1361,9 @@ class ItemSheetWfrp4e extends ItemSheet {
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
+
+
+    html.find('.weapon-type').change(event => {console.log(event)});
   }
 }
 
@@ -1815,6 +1831,16 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const advancedOrGroupedSkills = [];
     const talents = [];
     const weapons = [];
+    const armour = [];
+    const AP = {
+      head: 0,
+      body: 0,
+      rArm: 0,
+      lArm: 0,
+      rLeg: 0,
+      lLeg: 0
+    };
+
 
 
     // Iterate through items, allocating to containers
@@ -1831,7 +1857,54 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       i["properties"] = this._prepareQualitiesFlaws(i);
       i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
       i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
+
+      i.data.range.value = this._calculateRangeOrDamage(actorData, i.data.range.value);
+      i.data.damage.value = this._calculateRangeOrDamage(actorData, i.data.damage.value);
+
+      if (Number(i.data.range.value) > 0)
+          i["rangedWeaponType"] = true;
+      if (i.data.reach.value)
+        i["meleeWeaponType"] = true;
+
       weapons.push(i);
+    }
+
+    else if (i.type === "armour")
+    {
+      if (i.data.maxAP.head > 0)
+      {
+        i["protectsHead"] = true;
+        AP.head += i.data.currentAP.head;
+      }
+      if (i.data.maxAP.body > 0)
+      {
+        i["protectsBody"] = true;
+        AP.body += i.data.currentAP.body;
+      }
+      if (i.data.maxAP.lArm > 0)
+      {
+        i["protectslArm"] = true;
+        AP.lArm += i.data.currentAP.lArm;
+      }      
+      if (i.data.maxAP.rArm > 0)
+      {
+        i["protectsrArm"] = true;
+        AP.rArm += i.data.currentAP.rArm;
+      }
+      if (i.data.maxAP.lLeg > 0)
+      {
+        i["protectslLeg"] = true;
+        AP.lLeg += i.data.currentAP.lLeg;
+      }
+      if (i.data.maxAP.rLeg > 0)
+      {
+        i["protectsrLeg"] = true
+        AP.rLeg += i.data.currentAP.head;
+      }
+
+      armour.push(i);
+
+      
     }
 
     /*
@@ -1867,6 +1940,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
     actorData.weapons = weapons;
+    actorData.armour = armour;
+    actorData.AP = AP;
     //actorData.classes = classes;
 
    /* // Currency weight
@@ -1921,6 +1996,22 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
   }
 
+
+  
+  _calculateRangeOrDamage(actorData, formula){    
+    formula = formula.toLowerCase();
+
+    for(let ch in actorData.data.characteristics)
+    {
+      if (formula.includes(ch.concat('b')))
+      {
+        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+      }
+    }
+    formula = formula.replace('x', '*');
+    
+    return eval(formula);
+  }
 
   /* -------------------------------------------- */
 

@@ -43,8 +43,6 @@
   background: none;
   border: none;
   padding: 0;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
   color: #444;
   border: 1px solid transparent;
 }
@@ -463,9 +461,14 @@ display: flex;
 
 .wfrp4e.actor .injury .wounds{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align: center;
 }
+
+.wfrp4e.actor .injury .wounds >* {
+  margin: 5px;
+}
+
 
 
 
@@ -475,14 +478,16 @@ display: flex;
   font-weight: bold;
 }
 
-.wfrp4e.actor .injury .crit-wounds > a{
+.wfrp4e.actor .injury .crit-wounds > *{
   font-family: CaslonAntique;
   font-size: 20px;
   font-weight: bold;
 }
 
 .wfrp4e.actor .injury .crit-wounds{
-  text-align: center;
+  margin: 5px;
+  display: flex;
+  flex-direction: row; 
 }
 
 
@@ -491,12 +496,16 @@ display: flex;
   width: auto;
 }
 
-.wfrp4e.actor .crit-wounds a > input {
-width: 10%;
+.wfrp4e.actor .crit-wounds > input {
+width: 30px;
+height: 30px;
 font-family: CaslonAntique;
-font-size: 20px;
+font-size: 30px;
 font-weight: bold;
+margin-left: 5px;
+margin-right: -5px;
 }
+
 
 
 .wfrp4e.actor .ambitions{
@@ -722,16 +731,17 @@ font-weight: bold;
 /* Weapon List
 /* ----------------------------------------- */
 
-.wfr4e.actor .weapons{
-  width: 50%;
+.wfr4e.actor .combat-section .weapons >*{
 }
+
 
 .wfrp4e.actor .weapon-list {
   list-style: none;
+  height: 80px;
+  overflow: auto;
 }
 
 .wfrp4e.actor .weapon-list .weapon-header {
-  line-height: 20px;
   background: rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: row;
@@ -753,6 +763,112 @@ font-weight: bold;
 .wfrp4e.actor .weapon-list .weapon-list-item > * {
   width: 33%;
 }
+
+.wfrp4e.actor .weapon-list-item .item-name {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .weapon-list .item-name img {
+  flex: 0 0 24px;
+  margin-right: 6px;
+}
+
+
+.wfrp4e.actor .combat-section .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .row .armor {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wfrp4e.actor .row .armor > a{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+
+.wfrp4e.actor .combat-section .crit-wounds-editor .editor{
+  width: 200px;
+  height: 200px;
+}
+
+.wfrp4e.actor .armor{
+ text-align: center;
+}
+
+.wfrp4e.actor .combat-section .armor .armor-box{
+  text-align: center;
+  display: inline-block;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.wfrp4e.actor .armor-list {
+  list-style: none;
+  padding: 0px;
+}
+
+.wfrp4e.actor .armor-list > li{
+  width: 100%;
+  margin-top: -10px;
+}
+
+.wfrp4e.actor .location-values{
+  border: 1px solid #000;
+  padding: 0px;
+  height: 70px;
+  width: 100px;
+  overflow: auto;
+}
+
+.wfrp4e.actor .armor-list .armor-header {
+  line-height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: row;
+}
+
+
+.wfrp4e.actor .armor-list .armor-header .armor-descriptor {
+  width: 50%;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.wfrp4e.actor .armor-list .armor-list-item{
+  display: flex;
+}
+
+
+.wfrp4e.actor .armor-list .armor-list-item > * {
+  width: 50%;
+  font-size: 14px;
+  margin: 2px;
+}
+
+.wfrp4e.actor .armor-list-item .armor-name {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .armor-list .item-name img {
+  flex: 0 0 24px;
+  margin-right: 6px;
+}
+
+
+
+
 /* ----------------------------------------- */
 /* User Interface Framework
 /* ----------------------------------------- */

@@ -97,16 +97,18 @@
 <div class="main-row">
    <div class="injury">
       <div class ="wounds">
-         <a>Wounds</a>
+         <a>Wounds:</a>
          <a>{{data.status.wounds.max}}</a>
       </div>
-      <div class ="crit-wounds">
-         <a>Critical Wounds</a>
-      {{editor content=data.status.criticalWounds.value target="data.status.criticalWounds.value" button=true owner=owner editable=editable}}
-      <a>Number Received:
-      <input name="data.status.criticalWounds.number" type="number" value="{{data.status.criticalWounds.number}}" />
-      / {{data.status.criticalWounds.max}}</a>
+      <div class="crit-wounds">
+         <a>Critical Wounds: </a>
+         <input name="data.status.criticalWounds.number" type="number" value="{{data.status.criticalWounds.number}}" />
+         <a>/ {{data.status.criticalWounds.max}}</a>
+
    </div>
+   <div class="crit-wounds-editor">
+         {{editor content=data.status.criticalWounds.value target="data.status.criticalWounds.value" button=true owner=owner editable=editable}}
+      </div>
    </div>
 
    <div class="careers">

@@ -41,17 +41,6 @@
         </div>
 -->
 
-        <div class="form-group">
-            <label>{{data.weaponGroup.label}}</label>
-            <select name="data.weaponGroup.value" data-dtype="{{data.weaponGroup.type}}">
-                {{#select data.weaponGroup.value}}
-                <option value=""></option>
-                {{#each weaponGroups as |name type|}}
-                <option value="{{type}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
 
         <div class="form-group">
             <label>{{data.availability.label}}</label>
@@ -65,25 +54,46 @@
         </div>
 
         <div class="form-group">
-            <label>{{data.damage.label}}</label>
-            <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
-        </div>
+                <label>{{data.armorType.label}}</label>
+                <select name ="data.armorType.value" data-dtype={{data.armorType.type}}>
+                    {{#select data.armorGroup.value}}
+                    {{#each armorTypes as |type t|}}
+                    <option value="{{t}}">{{type}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            
+        <div class="form-group">
+                <label>Head: </label>
+                <input type="text" name="data.maxAP.head" value="{{data.maxAP.head}}" data-dtype="Number"/>
+            </div>
 
         <div class="form-group">
-            <label>{{data.range.label}}</label>
-            <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
-        </div>
+                <label>Body: </label>
+                <input type="text" name="data.maxAP.body" value="{{data.maxAP.body}}" data-dtype="Number"/>
+            </div>
+        <div class="form-group">
+                <label>Left Arm: </label>
+                <input type="text" name="data.maxAP.lArm" value="{{data.maxAP.lArm}}" data-dtype="Number"/>
+            </div>
+        <div class="form-group">
+                <label>Right Arm: </label>
+                <input type="text" name="data.maxAP.rArm" value="{{data.maxAP.rArm}}" data-dtype="Number"/>
+            </div>
+        <div class="form-group">
+                <label>Left Leg: </label>
+                <input type="text" name="data.maxAP.lLeg" value="{{data.maxAP.lLeg}}" data-dtype="Number"/>
+            </div>
+        <div class="form-group">
+                <label>Right Leg: </label>
+                <input type="text" name="data.maxAP.rLeg" value="{{data.maxAP.rLeg}}" data-dtype="Number"/>
+            </div>
 
         <div class="form-group">
-            <label>{{data.reach.label}}</label>
-            <select name="data.reach.value" data-dtype="{{data.reach.type}}">
-                {{#select data.reach.value}}
-                <option value=""></option>
-                {{#each weaponReaches as |reach r|}}
-                <option value="{{r}}">{{reach}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
+            <label>{{data.penalty.label}}</label>
+            <input type="text" name="data.penalty.value" value="{{data.penalty.value}}" data-dtype="{{data.penalty.type}}"/>
         </div>
 
         <div class="form-group-stacked">
