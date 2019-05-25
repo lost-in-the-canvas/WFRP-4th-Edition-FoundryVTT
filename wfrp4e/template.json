@@ -112,11 +112,9 @@
           "max": 12
         },
         "criticalWounds": {
-          "type": "String",
           "label": "Critical Wounds",
           "number": 0,
-          "max" : 0,
-          "value": ""
+          "max" : 0
         },
         "fate": {
           "type": "Number",
@@ -479,8 +477,8 @@
       "talents":[],
       "trappings":[],
       "incomeSkill" : {
-        "type": "String",
-        "value": ""
+        "type": "Number",
+        "value": -1
       }
     },
     "weapon": {
@@ -557,7 +555,8 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value" : 0
       },
       "price": {
         "type": "String",
@@ -766,13 +765,40 @@
       "total": {
         "type": "Number",
         "label": "Total"
+      }
+    },
+
+      "mutation" : {
+        "type" : {
+          "value": "",
+          "type" : "string"
+        },
+        "description" : {
+          "value": "",
+          "type" : "string"
+        }
       },
 
-      "icon": {
-        "type": "String",
-        "label": "Icon",
-        "value": "<i class=\"far fa-circle\"></i>"
+      
+      "criticalWound" : {
+        "description" : {
+          "value": "",
+          "type" : "string"
+        }
+      },
+
+      "disease" : {
+        "description" : {
+          "value": "",
+          "type" : "string"
+        }
+      },
+
+      "pyschology" : {
+        "description" : {
+          "value": "",
+          "type" : "string"
+        }
       }
     }
-  }
   }

@@ -559,6 +559,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-main.html",
     "public/systems/wfrp4e/templates/actors/actor-combat.html",
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
+    "public/systems/wfrp4e/templates/actors/actor-inventory.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
@@ -1854,6 +1855,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       lLeg: 0
     };
 
+    const critWounds = [];
+
 
 
     // Iterate through items, allocating to containers
@@ -1864,6 +1867,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     {
       this._prepareTalent(actorData, talents, i);
     }
+
+    else if ( i.type === "skill" )
+    {
+      this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+    }
+
 
     else if (i.type === "ammunition")
     {
@@ -1953,6 +1962,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       
     }
 
+    else if (i.type == "criticalWound")
+    {
+      critWounds.push(i);
+    }
+
     /*
     // Inventory
     if ( Object.keys(inventory).includes(i.type) ) {
@@ -1973,10 +1987,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         classes.sort((a, b) => b.levels > a.levels);}*/
 
       // Feats
-      else if ( i.type === "skill" )
-      {
-        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
-      }
+
     }
 
     // Assign and return
@@ -1988,6 +1999,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.weapons = weapons;
     actorData.armour = armour;
     actorData.AP = AP;
+    actorData.critWounds = critWounds;
     //actorData.classes = classes;
 
    /* // Currency weight

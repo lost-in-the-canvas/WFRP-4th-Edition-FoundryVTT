@@ -1,117 +1,124 @@
-<div class="characteristics">
-    <table class ="characteristics-table" >
-       <tr class = "table-header">
-          <th></th>
-          {{#each actor.data.characteristics as |ch c|}}
-          <th class = "table-header">
-             {{ch.abrev}}
-          </th>
-          {{/each}}
-       </tr>
-       <tr class = "table-row">
-          <td class = "row-type">
-             Initial
-          </td>
-          {{#each actor.data.characteristics as |ch c|}}
-          <td class = "table-data">
-             <input name = "data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
-          </td>
-          {{/each}}
-       </tr>
-       <tr class = "table-row">
-          <td class = "row-type">
-             Advances
-          </td>
-          {{#each actor.data.characteristics as |ch c|}}
-          <td class = "table-data">
-             <input name = "data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
-          </td>
-          {{/each}}
-       </tr>
-       <tr class = "table-row-bottom">
-          <td class = "row-type">
-             Current
-          </td>
-          {{#each actor.data.characteristics as |ch c|}}
-          <td class = "table-data">{{ch.value}}</td>
-          {{/each}}
-       </tr>
-    </table>
- </div>
- <div class="main-row">
-    <div class="movement">
-       <div class = "move-section">
-          <div class ="move-value">
-             <input name = "data.details.move.value" type = "text" value = "{{data.details.move.value}}" data-dtype ="Number">
-          </div>
-          <div class = "move-name">
-             <h4>Move</h4>
-          </div>
-       </div>
-       <div class = "move-section">
-          <div class ="move-value">
-             {{actor.data.details.move.walk}} yds
-          </div>
-          <div class = "move-name">
-             <h4>Walk</h4>
-          </div>
-       </div>
-       <div class = "move-section">
-          <div class ="move-value">
-             {{actor.data.details.move.run}} yds
-          </div>
-          <div class = "move-name">
-             <h4>Run</h4>
-          </div>
-       </div>
-    </div>
-    <div class = "fate-resilience">
-       <div class = "type">
-          <div class = "upper">
-             Fortune: 
-             <input name="data.status.fortune.value" type ="text" value= {{data.status.fortune.value}} data-dtype="Number">
-          </div>
-          <div class = "lower">
-             Fate: 
-             <input name="data.status.fate.value" type ="text" value= {{data.status.fate.value}} data-dtype="Number">
-          </div>
-       </div>
-       <div class = "type">
-          <div class = "upper">
-             Resolve: 
-             <input name="data.status.resolve.value" type ="text" value= {{data.status.resolve.value}} data-dtype="Number">
-          </div>
-          <div class = "lower">
-             Resilience: 
-             <input name="data.status.resilience.value" type ="text" value= {{data.status.resilience.value}} data-dtype="Number">
-          </div>
-       </div>
-    </div>
-    <div class = "motivation">
-       <h3>Motivation:</h3>
-       <div class = "motivation-text">
-          <input name ="data.details.motivation.value" type = "text" value ="{{data.details.motivation.value}}" data-dtype = "String">
-       </div>
-    </div>
- </div>
-<div class="main-row">
-   <div class="injury">
-      <div class ="wounds">
-         <a>Wounds:</a>
-         <a>{{data.status.wounds.max}}</a>
-      </div>
-      <div class="crit-wounds">
-         <a>Critical Wounds: </a>
-         <input name="data.status.criticalWounds.number" type="number" value="{{data.status.criticalWounds.number}}" />
-         <a>/ {{data.status.criticalWounds.max}}</a>
 
-   </div>
-   <div class="crit-wounds-editor">
-         {{editor content=data.status.criticalWounds.value target="data.status.criticalWounds.value" button=true owner=owner editable=editable}}
+      <div class="characteristics">
+         <table class ="characteristics-table" >
+            <tr class = "table-header">
+               <th></th>
+               {{#each actor.data.characteristics as |ch c|}}
+               <th class = "table-header">
+                  {{ch.abrev}}
+               </th>
+               {{/each}}
+            </tr>
+            <tr class = "table-row">
+               <td class = "row-type">
+                  Initial
+               </td>
+               {{#each actor.data.characteristics as |ch c|}}
+               <td class = "table-data">
+                  <input name = "data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
+               </td>
+               {{/each}}
+            </tr>
+            <tr class = "table-row">
+               <td class = "row-type">
+                  Advances
+               </td>
+               {{#each actor.data.characteristics as |ch c|}}
+               <td class = "table-data">
+                  <input name = "data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
+               </td>
+               {{/each}}
+            </tr>
+            <tr class = "table-row-bottom">
+               <td class = "row-type">
+                  Current
+               </td>
+               {{#each actor.data.characteristics as |ch c|}}
+               <td class = "table-data">{{ch.value}}</td>
+               {{/each}}
+            </tr>
+         </table>
       </div>
-   </div>
+      <div class="main-row">
+         <div class="movement">
+            <div class = "move-section">
+               <div class ="move-value">
+                  <input name = "data.details.move.value" type = "text" value = "{{data.details.move.value}}" data-dtype ="Number">
+               </div>
+               <div class = "move-name">
+                  <h4>Move</h4>
+               </div>
+            </div>
+            <div class = "move-section">
+               <div class ="move-value">
+                  {{actor.data.details.move.walk}} yds
+               </div>
+               <div class = "move-name">
+                  <h4>Walk</h4>
+               </div>
+            </div>
+            <div class = "move-section">
+               <div class ="move-value">
+                  {{actor.data.details.move.run}} yds
+               </div>
+               <div class = "move-name">
+                  <h4>Run</h4>
+               </div>
+            </div>
+         </div>
+         <div class = "fate-resilience">
+            <div class = "type">
+               <div class = "upper">
+                  Fortune: 
+                  <input name="data.status.fortune.value" type ="text" value= {{data.status.fortune.value}} data-dtype="Number">
+               </div>
+               <div class = "lower">
+                  Fate: 
+                  <input name="data.status.fate.value" type ="text" value= {{data.status.fate.value}} data-dtype="Number">
+               </div>
+            </div>
+            <div class = "type">
+               <div class = "upper">
+                  Resolve: 
+                  <input name="data.status.resolve.value" type ="text" value= {{data.status.resolve.value}} data-dtype="Number">
+               </div>
+               <div class = "lower">
+                  Resilience: 
+                  <input name="data.status.resilience.value" type ="text" value= {{data.status.resilience.value}} data-dtype="Number">
+               </div>
+            </div>
+         </div>
+         <div class = "motivation">
+            <h3>Motivation:</h3>
+            <div class = "motivation-text">
+               <input name ="data.details.motivation.value" type = "text" value ="{{data.details.motivation.value}}" data-dtype = "String">
+            </div>
+         </div>
+      </div>
+      <div class="main-row">
+      <div class="injury">
+         <div class ="wounds">
+            <a>Wounds:</a>
+            <a>{{data.status.wounds.max}}</a>
+         </div>
 
-   <div class="careers">
-      <a>Careers</a>
-   </div>
-</div>
+         <ol class="inventory-list crit-wounds-list">
+               <li class = "inventory-header item" >
+                  <div>Critical Wounds: {{data.status.criticalWounds.number}}/{{data.status.criticalWounds.max}}</div>
+               </li>
+               {{#each actor.critWounds as |crit cw|}}
+               <li class="item" data-item-id="{{item.id}}">
+                  <div class="item-name">
+                     <div class="item-image" style="background-image: url({{crit.img}})"></div>
+                     <h4>{{crit.name}}</h4>
+                  </div>
+               </li>
+               {{/each}}
+            </ol>
+
+
+         </div>
+         <div class="careers">
+               <a>Careers</a>
+            </div>
+         </div>

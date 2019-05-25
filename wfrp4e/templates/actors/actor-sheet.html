@@ -1,121 +1,97 @@
 <form class="{{cssClass}}" autocomplete="off">
-
-    <header class="sheet-header">
-        <h1 class="charname">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
-        </h1>
-    </header>
-
-
-
-    <section class="general">
-        <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img"/>
-        <div class="items">
-
-
-        <div class = "row">
-
-        <div class="item">
-                <input name="data.details.species.value" type="text" value="{{data.details.species.value}}" />
-                <a>Species</a>
-            </div>
-        <div class="item">
-            <input name="data.details.class" type="text" value="" />
-            <a>Class</a>
-        </div>
-        
-        <div class="item">
-                <input name="data.details.career" type="text" value="" />
-                <a>Career</a>
-            </div>
-
-
-          <div class ="item-status">
-              <div class ="item">
-                <input name="data.details.status.tier" type="text" value="{{data.details.status.tier}}" placeholder="Tier"/>
-                <input name="data.details.status.standing" type="text" value="{{data.details.status.standing}}" placeholder="Standing"/>
-            </div>
-              <a>Status </a>
-          </div>
-        </div>
-
-        <div class = "row">
-            <div class = "row small">   
-            <div class="item small">
-                <input name="" type="text" value="" />
-                <a>Age</a>
-            </div>
-
-            <div class="item small">
-                <input name="" type="text" value="" />
-                <a>Height</a>
-            </div>
-
-            <div class="item small">
-                <input name="" type="text" value="" />
-                <a>Hair</a>
-            </div>
-
-            <div class="item small">
-                <input name="" type="text" value="" />
-                <a>Eyes</a>
-            </div>
-            </div>
-        <div class ="experience">
-            <a>EXP</a>
-    
-            <div class = "experience-section">
-                  <input name = "data.details.xp.current" type ="text" value ="{{data.details.xp.current}}" data-dtype = "Number"/>
-                  <a>Current</a>
-            </div>
-            <div class = "experience-section">
-                  <input name = "data.details.xp.spent" type ="text" value ="{{data.details.xp.spent}}" data-dtype = "Number"/>
-                  <a>Spent</a>
+        <header class="sheet-header">
+           <h1 class="charname">
+              <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
+           </h1>
+        </header>
+        <section class="general">
+           <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img"/>
+           <div class="items">
+           <div class = "row">
+              <div class="item">
+                 <input name="data.details.species.value" type="text" value="{{data.details.species.value}}" />
+                 <a>Species</a>
               </div>
-              <div class = "experience-section">
-                  <input name = "data.details.xp.total" type ="text" value ="{{data.details.xp.total}}" data-dtype = "Number" readonly/>
-                  <a>Total</a>
+              <div class="item">
+                 <input name="data.details.class" type="text" value="" />
+                 <a>Class</a>
               </div>
-    </div>
-        </div>
-
-    
-
-      </section>
-
-    <!-- TABS -->
-    <section>
-        <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item active" data-tab="main">Main</a>
-            <a class="item" data-tab="skills">Skills</a>
-            <a class="item" data-tab="talents">Talents</a>
-            <a class="item" data-tab="combat">Combat</a>
-            <a class="item" data-tab="inventory">Inventory</a>
-            <a class="item" data-tab="magic">Magic</a>
-            <a class="item" data-tab="notes">Notes</a>
-        </nav>
-
-        <div class = "tab main" data-tab="main" data-group="primary">
-                {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
-        </div>
-
-        <div class = "tab skills" data-tab="skills" data-group="primary">
-                {{> public/systems/wfrp4e/templates/actors/actor-skills.html}}
-        </div>
-
-        <div class = "tab talents" data-tab="talents" data-group="primary">
-            {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
-    </div>
-    
-    <div class="tab combat" data-tab="combat" data-group="primary">
-            {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
-    </div>
-    
-    <div class = "tab notes" data-tab="notes" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-notes.html}}
-</div>
-    </section>
-
-
-
-</form>
+              <div class="item">
+                 <input name="data.details.career" type="text" value="" />
+                 <a>Career</a>
+              </div>
+              <div class ="item-status">
+                 <div class ="item">
+                    <input name="data.details.status.tier" type="text" value="{{data.details.status.tier}}" placeholder="Tier"/>
+                    <input name="data.details.status.standing" type="text" value="{{data.details.status.standing}}" placeholder="Standing"/>
+                 </div>
+                 <a>Status </a>
+              </div>
+           </div>
+           <div class = "row">
+              <div class = "row small">
+                 <div class="item small">
+                    <input name="" type="text" value="" />
+                    <a>Age</a>
+                 </div>
+                 <div class="item small">
+                    <input name="" type="text" value="" />
+                    <a>Height</a>
+                 </div>
+                 <div class="item small">
+                    <input name="" type="text" value="" />
+                    <a>Hair</a>
+                 </div>
+                 <div class="item small">
+                    <input name="" type="text" value="" />
+                    <a>Eyes</a>
+                 </div>
+              </div>
+              <div class ="experience">
+                 <a>EXP</a>
+                 <div class = "experience-section">
+                    <input name = "data.details.xp.current" type ="text" value ="{{data.details.xp.current}}" data-dtype = "Number"/>
+                    <a>Current</a>
+                 </div>
+                 <div class = "experience-section">
+                    <input name = "data.details.xp.spent" type ="text" value ="{{data.details.xp.spent}}" data-dtype = "Number"/>
+                    <a>Spent</a>
+                 </div>
+                 <div class = "experience-section">
+                    <input name = "data.details.xp.total" type ="text" value ="{{data.details.xp.total}}" data-dtype = "Number" readonly/>
+                    <a>Total</a>
+                 </div>
+              </div>
+           </div>
+        </section>
+        <!-- TABS -->
+        <section>
+           <nav class="sheet-tabs tabs" data-group="primary">
+              <a class="item active" data-tab="main">Main</a>
+              <a class="item" data-tab="skills">Skills</a>
+              <a class="item" data-tab="talents">Talents</a>
+              <a class="item" data-tab="combat">Combat</a>
+              <a class="item" data-tab="inventory">Inventory</a>
+              <a class="item" data-tab="magic">Magic</a>
+              <a class="item" data-tab="notes">Notes</a>
+           </nav>
+           <div class = "tab main" data-tab="main" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
+           </div>
+           <div class = "tab skills" data-tab="skills" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-skills.html}}
+           </div>
+           <div class = "tab talents" data-tab="talents" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
+           </div>
+           <div class="tab combat" data-tab="combat" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
+           </div>
+           <div class="tab inventory" data-tab="inventory" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-inventory.html}}
+           </div>
+           <div class = "tab notes" data-tab="notes" data-group="primary">
+              {{> public/systems/wfrp4e/templates/actors/actor-notes.html}}
+           </div>
+        </section>
+     </form>

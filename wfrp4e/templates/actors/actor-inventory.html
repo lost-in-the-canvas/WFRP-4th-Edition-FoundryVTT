@@ -1,0 +1,203 @@
+<div class="inventory" data-group="primary" data-tab="inventory">
+      <div class="inventory-type">
+            <a>Weapons</a>
+            <ol class="inventory-list">
+               <li class="inventory-header item">
+                  <div>Item</div>
+                  <div>Enc</div>
+               </li>
+               {{#each actor.weapons as |item i|}}
+               <li class="item" data-item-id="{{item.id}}">
+                  <div class="item-name">
+                     <div class="item-image" style="background-image: url({{item.img}})"></div>
+                     <h4>{{item.name}}</h4>
+                  </div>
+                  <div></div>
+               </li>
+               {{/each}}
+            </ol>
+         </div>
+         <div class="inventory-type">
+               <a>Armor</a>
+               <ol class="inventory-list">
+                  <li class="inventory-header item">
+                     <div>Item</div>
+                     <div>Enc</div>
+                     <div>Worn</div>
+                  </li>
+                  {{#each actor.armour as |item i|}}
+                  <li class="item" data-item-id="{{item.id}}">
+                     <div class="item-name">
+                        <div class="item-image" style="background-image: url({{item.img}})"></div>
+                        <h4>{{item.name}}</h4>
+                     </div>
+                     <div>{{item.data.encumbrance.value}}</div>
+                     <div><i class="far fa-circle"></i></div>
+                  </li>
+                  {{/each}}
+               </ol>
+            </div>
+            <div class="inventory-type">
+                  <a>Ammunition</a>
+                  <ol class="inventory-list">
+                     <li class="inventory-header item">
+                        <div>Item</div>
+                        <div>Enc</div>
+                     </li>
+                     {{#each actor.ammunition as |item i|}}
+                     <li class="item" data-item-id="{{item.id}}">
+                        <div class="item-name">
+                           <div class="item-image" style="background-image: url({{item.img}})"></div>
+                           <h4>{{item.name}}</h4>
+                        </div>
+                        <div></div>
+                     </li>
+                     {{/each}}
+                  </ol>
+               </div>
+
+               <div class="inventory-type">
+                     <a>Clothing and Accessories</a>
+                     <ol class="inventory-list">
+                        <li class="inventory-header item">
+                           <div>Item</div>
+                           <div>Enc</div>
+                           <div>Worn</div>
+                        </li>
+                        {{#each actor.placeholder as |item i|}}
+                        {{#if item.placeholder}}
+                        <li class="item" data-item-id="{{item.id}}">
+                           <div class="item-name">
+                              <div class="item-image" style="background-image: url({{item.img}})"></div>
+                              <h4>{{item.name}}</h4>
+                           </div>
+                           <div></div>
+                           <div><i class="far fa-circle"></i></div>
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                     </ol>
+                  </div>
+      <div class="inventory-type">
+         <a>Packs and Containers</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+               <div>Worn</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+      <div class="inventory-type">
+         <a>Food and Drinks</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+      <div class="inventory-type">
+         <a>Tools and Kits</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+      <div class="inventory-type">
+         <a>Books and Documents</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+      <div class="inventory-type">
+         <a>Drugs, Herbs, Poisons, Draughts</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+      <div class="inventory-type">
+         <a>Miscellaneous</a>
+         <ol class="inventory-list">
+            <li class="inventory-header item">
+               <div>Item</div>
+               <div>Enc</div>
+            </li>
+            {{#each actor.placeholder as |item i|}}
+            {{#if item.placeholder}}
+            <li class="item" data-item-id="{{item.id}}">
+               <div class="item-name">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>{{item.name}}</h4>
+               </div>
+               <div></div>
+            </li>
+            {{/if}}
+            {{/each}}
+         </ol>
+      </div>
+   </div>
