@@ -519,6 +519,15 @@
         "label": "Range",
         "value": ""
       },
+      "ammunitionGroup":{
+        "type": "String",
+        "label": "Ammunition Group",
+        "value": ""
+      },
+      "currentAmmo" : {
+        "type" : "Number",
+        "value": 0
+      },
       "weaponGroup": {
         "type": "String",
         "label": "Weapon Group",
@@ -588,12 +597,59 @@
         "body": 0
       },
       "currentAP":{
-        "head": 0,
-        "lArm": 0,
-        "rArm": 0,
-        "lLeg": 0,
-        "rLeg": 0,
-        "body": 0
+        "head": -1,
+        "lArm": -1,
+        "rArm": -1,
+        "lLeg": -1,
+        "rLeg": -1,
+        "body": -1
+      }
+    },
+    "ammunition": {
+      "quantity": {
+        "type": "Number",
+        "label": "Quantity",
+        "value": 1
+      },
+      "encumbrance": {
+        "type": "Number",
+        "label": "Encumbrance"
+      },
+      "price": {
+        "type": "String",
+        "label": "Price"
+      },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value": ""
+      },
+      "ammunitionType": {
+        "type": "String",
+        "label": "Ammunition Type",
+        "value": ""
+      },
+      "range": {
+        "type": "String",
+        "label": "Range",
+        "value": ""
+      },
+
+      "damage": {
+        "type": "String",
+        "label": "Damage",
+        "value": ""
+      },
+
+      "qualities":{
+        "type": "String",
+        "label": "Qualities",
+        "value": ""
+      },
+      "flaws":{
+        "type": "String",
+        "label": "Flaws",
+        "value": ""
       }
     },
     "container": {

@@ -29,18 +29,18 @@
     <div class="tab" data-tab="details">
 
 
-        
-   <!-- <div class="form-group">
-            <label>Weapon Type</label>
-            <select class = "weapon-type" name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
-                {{#select data.weaponType.value}}
-                <option value="Melee Weapon">Melee Weapon</option>
-                <option value="Ranged Weapon">Ranged Weapon</option>
+    
+        <div class="form-group">
+            <label>{{data.ammunitionType.label}}</label>
+            <select name="data.ammunitionType.value" data-dtype="{{data.ammunitionType.type}}">
+                {{#select data.ammunitionType.value}}
+                <option value=""></option>
+                {{#each ammunitionGroups as |group g|}}
+                <option value="{{g}}">{{group}}</option>
+                {{/each}}
                 {{/select}}
             </select>
         </div>
--->
-
 
         <div class="form-group">
             <label>{{data.availability.label}}</label>
@@ -54,46 +54,13 @@
         </div>
 
         <div class="form-group">
-                <label>{{data.armorType.label}}</label>
-                <select name ="data.armorType.value" data-dtype={{data.armorType.type}}>
-                    {{#select data.armorType.value}}
-                    {{#each armorTypes as |type t|}}
-                    <option value="{{t}}">{{type}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-
-            
-        <div class="form-group">
-                <label>Head: </label>
-                <input type="text" name="data.maxAP.head" value="{{data.maxAP.head}}" data-dtype="Number"/>
-            </div>
+            <label>{{data.damage.label}}</label>
+            <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+        </div>
 
         <div class="form-group">
-                <label>Body: </label>
-                <input type="text" name="data.maxAP.body" value="{{data.maxAP.body}}" data-dtype="Number"/>
-            </div>
-        <div class="form-group">
-                <label>Left Arm: </label>
-                <input type="text" name="data.maxAP.lArm" value="{{data.maxAP.lArm}}" data-dtype="Number"/>
-            </div>
-        <div class="form-group">
-                <label>Right Arm: </label>
-                <input type="text" name="data.maxAP.rArm" value="{{data.maxAP.rArm}}" data-dtype="Number"/>
-            </div>
-        <div class="form-group">
-                <label>Left Leg: </label>
-                <input type="text" name="data.maxAP.lLeg" value="{{data.maxAP.lLeg}}" data-dtype="Number"/>
-            </div>
-        <div class="form-group">
-                <label>Right Leg: </label>
-                <input type="text" name="data.maxAP.rLeg" value="{{data.maxAP.rLeg}}" data-dtype="Number"/>
-            </div>
-
-        <div class="form-group">
-            <label>{{data.penalty.label}}</label>
-            <input type="text" name="data.penalty.value" value="{{data.penalty.value}}" data-dtype="{{data.penalty.type}}"/>
+            <label>{{data.range.label}}</label>
+            <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="{{data.range.type}}"/>
         </div>
 
         <div class="form-group-stacked">

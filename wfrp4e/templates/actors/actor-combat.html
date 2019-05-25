@@ -37,6 +37,7 @@
                              Weapon
                           </div>
                           <div class="weapon-descriptor">Weapon Group</div>
+                          <div class="weapon-descriptor">Ammunition</div>
                           <div class="weapon-descriptor">Damage</div>
                           <div class="weapon-descriptor">Range (yds)</div>
                           <div class="weapon-descriptor">Qualities/Flaws</div>
@@ -49,6 +50,16 @@
                              <h4>{{item.name}}</h4>
                           </div>
                           <div>{{item.data.weaponGroup.value}}</div>
+
+                          <div class = "ammo-selector">
+                              <select name="data.currentAmmo.value" data-item-id = "{{item.id}}" data-dtype="{{data.currentAmmo.type}}">
+                                    {{#select data.currentAmmo.value}}
+                                    {{#each item.ammo as |ammo a|}}
+                                    <option value="{{a}}">{{ammo.name}} ({{ammo.data.quantity.value}})</option>
+                                    {{/each}}
+                                    {{/select}}
+                                    </select>
+                        </div>
                           <div>+{{item.data.damage.value}}</div>
                           <div>{{item.data.range.value}}</div>
                           <div>
@@ -69,7 +80,7 @@
 
             <div class = "armor-row">
            <div class="armor-box">
-              <a>Head: {{AP.head}}</a>
+              <a>Head: {{actor.AP.head}}</a>
               <div class="location-values">
                  <ol class = "armor-list">
                      <li class="armor-header">
@@ -83,7 +94,7 @@
                               <div class="item-image" style="background-image: url({{item.img}})"></div>
                               <h4>{{item.name}}</h4>
                            </div>
-                           <div>{{item.data.currentAP.head}}</div>
+                           <div class = "AP-values">{{item.data.currentAP.head}}</div>
                      </li>
                      {{/if}}
                      {{/each}}
@@ -94,35 +105,68 @@
 
          <div class = "armor-row">
                <div class="armor-box">
-                  <a>Left Arm: {{AP.lArm}}</a>
+                  <a>Left Arm: {{actor.AP.lArm}}</a>
                   <div class="location-values">
                      <ol class = "armor-list">
                          <li class="armor-header">
                             <div class="armor-descriptor">Armor</div>
                             <div class="armor-descriptor">AP</div>
                          </li>
+                         {{#each actor.armour as |item i|}}
+                         {{#if item.protectslArm}}
+                         <li class="armor-list-item" data-item-id="{{item.id}}">
+                               <div class="item-name">
+                                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                  <h4>{{item.name}}</h4>
+                               </div>
+                               <div class = "AP-values">{{item.data.currentAP.lArm}}</div>
+                         </li>
+                         {{/if}}
+                         {{/each}}
                      </ol>
                   </div>
                </div>
                <div class="armor-box">
-                     <a>Body: {{AP.body}}</a>
+                     <a>Body: {{actor.AP.body}}</a>
                      <div class="location-values">
                         <ol class = "armor-list">
                             <li class="armor-header">
                                <div class="armor-descriptor">Armor</div>
                                <div class="armor-descriptor">AP</div>
                             </li>
+                            {{#each actor.armour as |item i|}}
+                            {{#if item.protectsBody}}
+                            <li class="armor-list-item" data-item-id="{{item.id}}">
+                                  <div class="item-name">
+                                     <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                     <h4>{{item.name}}</h4>
+                                  </div>
+                                  <div class = "AP-values">{{item.data.currentAP.body}}</div>
+                            </li>
+                            {{/if}}
+                            {{/each}}
                         </ol>
                      </div>
                   </div>
                   <div class="armor-box">
-                        <a>Right Arm: {{AP.rArm}}</a>
+                        <a>Right Arm: {{actor.AP.rArm}}</a>
                         <div class="location-values">
                            <ol class = "armor-list">
                                <li class="armor-header">
                                   <div class="armor-descriptor">Armor</div>
                                   <div class="armor-descriptor">AP</div>
                                </li>
+                               {{#each actor.armour as |item i|}}
+                               {{#if item.protectsrArm}}
+                               <li class="armor-list-item" data-item-id="{{item.id}}">
+                                     <div class="item-name">
+                                        <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                        <h4>{{item.name}}</h4>
+                                     </div>
+                                     <div class = "AP-values">{{item.data.currentAP.rArm}}</div>
+                               </li>
+                               {{/if}}
+                               {{/each}}
                            </ol>
                         </div>
                      </div>
@@ -130,24 +174,46 @@
 
              <div class = "armor-row">
                   <div class="armor-box">
-                     <a>Left Leg: {{AP.lLeg}}</a>
+                     <a>Left Leg: {{actor.AP.lLeg}}</a>
                      <div class="location-values">
                         <ol class = "armor-list">
                             <li class="armor-header">
                                <div class="armor-descriptor">Armor</div>
                                <div class="armor-descriptor">AP</div>
                             </li>
+                            {{#each actor.armour as |item i|}}
+                            {{#if item.protectslLeg}}
+                            <li class="armor-list-item" data-item-id="{{item.id}}">
+                                  <div class="item-name">
+                                     <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                     <h4>{{item.name}}</h4>
+                                  </div>
+                                  <div class = "AP-values">{{item.data.currentAP.lLeg}}</div>
+                            </li>
+                            {{/if}}
+                            {{/each}}
                         </ol>
                      </div>
                   </div>
                   <div class="armor-box">
-                        <a>Right Leg: {{AP.rLeg}}</a>
+                        <a>Right Leg: {{actor.AP.rLeg}}</a>
                         <div class="location-values">
                            <ol class = "armor-list">
                                <li class="armor-header">
                                   <div class="armor-descriptor">Armor</div>
                                   <div class="armor-descriptor">AP</div>
                                </li>
+                               {{#each actor.armour as |item i|}}
+                               {{#if item.protectsrLeg}}
+                               <li class="armor-list-item" data-item-id="{{item.id}}">
+                                     <div class="item-name">
+                                        <div class="item-image" style="background-image: url({{item.img}})"></div>
+                                        <h4>{{item.name}}</h4>
+                                     </div>
+                                     <div class = "AP-values">{{item.data.currentAP.rLeg}}</div>
+                               </li>
+                               {{/if}}
+                               {{/each}}
                            </ol>
                         </div>
                      </div>

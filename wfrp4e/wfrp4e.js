@@ -1317,6 +1317,12 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['weaponGroups'] = CONFIG.weaponGroups;
       data['availability'] = CONFIG.availability;
       data['weaponReaches'] = CONFIG.weaponReaches
+      data['ammunitionGroups'] = CONFIG.ammunitionGroups;
+    }
+    else if (this.item.type == "ammunition")
+    {
+      data['availability'] = CONFIG.availability;
+      data['ammunitionGroups'] = CONFIG.ammunitionGroups;
     }
     else if (this.item.type == "armour")
     {
@@ -1602,6 +1608,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       itemToEdit.data.advances.value = Number(event.target.value);
     });
 
+    html.find('.ammo-selector').change(event => {
+      console.log(event);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.currentAmmo.value = Number(event.target.value);
+    });
+
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
@@ -1852,6 +1865,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       this._prepareTalent(actorData, talents, i);
     }
 
+    else if (i.type === "ammunition")
+    {
+
+    }
+
     else if (i.type === "weapon")
     {
       i["properties"] = this._prepareQualitiesFlaws(i);
@@ -1866,11 +1884,38 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       if (i.data.reach.value)
         i["meleeWeaponType"] = true;
 
+      if (i.data.ammunitionGroup.value != "none") {
+        i["ammo"] = [ {"name" : "None"}];
+        for ( let a of actorData.items ) {
+          if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
+          {
+            let existingAmmo = i.ammo.find(x => x.name == a.name);
+            if (existingAmmo)
+              existingAmmo.data.quantity.value += a.data.quantity.value;
+            else
+            {
+              i.ammo.push(a);
+            }
+          }
+        }
+        this._prepareWeaponWithAmmo(actorData, i);
+
+      }
+      i.properties = i.properties.filter(function(item) {return item != ""});
       weapons.push(i);
     }
 
     else if (i.type === "armour")
     {
+      // -1 means currentAP is maxAP
+      for (let ap in i.data.currentAP)
+      {
+        if (i.data.currentAP[ap] == -1)
+        {
+          i.data.currentAP[ap] = i.data.maxAP[ap];
+        }
+      }
+
       if (i.data.maxAP.head > 0)
       {
         i["protectsHead"] = true;
@@ -1902,6 +1947,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         AP.rLeg += i.data.currentAP.head;
       }
 
+     // i.properties = i.properties.filter(function(item) {return item != ""});  
       armour.push(i);
 
       
@@ -2011,6 +2057,73 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     formula = formula.replace('x', '*');
     
     return eval(formula);
+  }
+
+  _prepareWeaponWithAmmo(actorData, weapon){    
+    if (weapon.ammo[weapon.data.currentAmmo.value].name == "None")
+      return;
+    let ammo = weapon.ammo[weapon.data.currentAmmo.value];
+
+    let ammoProperties = this._prepareQualitiesFlaws(ammo);
+    let ammoRange = ammo.data.range.value || "0";
+    let ammoDamage = ammo.data.damage.value || "0";
+
+    if (ammoRange.toLowerCase() == "as weapon")
+      {
+        // Do nothing to weapon's range
+      }
+    else if (ammoRange.toLowerCase() == "half weapon")
+    {
+      weapon.data.range.value /= 2;
+    }
+    else if (ammoRange.toLowerCase() == "third weapon")
+    {
+      weapon.data.range.value /= 3;
+    }
+    else if (ammoRange.toLowerCase() == "twice weapon") 
+    {
+      weapon.data.range.value *= 2;
+    }
+    else
+      weapon.data.range.value += eval(ammoRange)
+
+    weapon.data.damage.value += eval(ammoDamage);
+    
+    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
+    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
+
+    let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
+
+    for (let inc in propertyIncrease)
+    {
+      let index = inc.indexOf("+");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+    for (let inc in propertyDecrease)
+    {
+      let index = inc.indexOf("-");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+
+    weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
 
   /* -------------------------------------------- */
