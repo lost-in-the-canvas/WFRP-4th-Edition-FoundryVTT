@@ -614,6 +614,10 @@
         "type": "Number",
         "label": "Encumbrance"
       },
+      "quantityPerEnc": {
+        "type": "Number",
+        "value" : 12
+      },
       "price": {
         "type": "String",
         "label": "Price"
@@ -633,7 +637,6 @@
         "label": "Range",
         "value": ""
       },
-
       "damage": {
         "type": "String",
         "label": "Damage",
@@ -670,42 +673,12 @@
         "label": "Carries"
       }
     },
-    "consumable": {
-      "quantity": {
-        "type": "Number",
-        "label": "Quantity",
-        "value": 1
-      },
-      "encumbrance": {
-        "type": "Number",
-        "label": "Encumbrance"
-      },
-      "price": {
+    "trapping" : {
+      "trappingType": {
         "type": "String",
-        "label": "Price"
+        "label": "Trapping Type",
+        "value": ""
       },
-      "consumableType": {
-        "type": "String",
-        "label": "Consumable Type"
-      },
-      "charges": {
-        "type": "Number",
-        "label": "Charges"
-      },
-      "consume": {
-        "type": "String",
-        "label": "Roll on Consume"
-      },
-      "autoUse": {
-        "type": "Boolean",
-        "label": "Consume on Use"
-      },
-      "autoDestroy": {
-        "type": "Boolean",
-        "label": "Destroy on Empty"
-      }
-    },
-    "tool": {
       "quantity": {
         "type": "Number",
         "label": "Quantity",
@@ -767,7 +740,6 @@
         "label": "Total"
       }
     },
-
       "mutation" : {
         "type" : {
           "value": "",
@@ -777,9 +749,7 @@
           "value": "",
           "type" : "string"
         }
-      },
-
-      
+      }, 
       "criticalWound" : {
         "description" : {
           "value": "",

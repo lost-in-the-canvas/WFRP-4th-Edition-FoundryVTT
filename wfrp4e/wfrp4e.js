@@ -150,30 +150,16 @@ CONFIG.reachDescription={
    "exotic": "Exotic",
  }
 
-// Spell Schools
-CONFIG.spellSchools = {
-  "abj": "Abjuration",
-  "con": "Conjuration",
-  "div": "Divination",
-  "enc": "Enchantment",
-  "evo": "Evocation",
-  "ill": "Illusion",
-  "nec": "Necromancy",
-  "trs": "Transmutation",
-};
-
-// Spell Levels
-CONFIG.spellLevels = {
-  0: "Cantrip",
-  1: "1st Level",
-  2: "2nd Level",
-  3: "3rd Level",
-  4: "4th Level",
-  5: "5th Level",
-  6: "6th Level",
-  7: "7th Level",
-  8: "8th Level",
-  9: "9th Level"
+ 
+// Consumable Types
+CONFIG.trappingTypes = {
+  "clothingAcessories":"Clothing and Accessories",
+  "foodAndDrink":"Food and Drink",
+  "toolsAndKits":"Tools and Kits",
+  "booksAndDocuments":"Books and Documents",
+  "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
+  "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "misc":"Miscellaneous"
 };
 
 // 
@@ -229,14 +215,6 @@ CONFIG.talentMax = {
   "fel": "Fellowship Bonus"
 }
 
-
-// Proficiency Multipliers
-CONFIG.proficiencyLevels = {
-  0: "Not Proficient",
-  1: "Proficient",
-  0.5: "Jack of all Trades",
-  2: "Expertise"
-};
 
 // Creature Sizes
 CONFIG.actorSizes = {
@@ -1840,7 +1818,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
 
 
-    // Skills
+    // 
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
@@ -1854,131 +1832,181 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       rLeg: 0,
       lLeg: 0
     };
-
     const critWounds = [];
 
 
+    const inventory = {
+      weapons: { label: "Weapons", items: [] },
+      armor: { label: "Armour", items: [], wearable: true},
+      ammunition: { label: "Ammunition", items: [], quantified: true},
+      clothingAcessories: { label: "Clothing and Accessories", items: [], wearable: true },
+      packs: { label: "Packs and Containers", items: [], wearable: true },
+      booksAndDocuments: {label: "Food and Drink", items: []},
+      toolsAndKits: {label: "Tools and Kits", items: []},
+      books: {label: "Books and Documents", items: []},
+      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, and Draughts", items: [], quantified: true},
+      misc: {label: "Miscellaneous", items: []}
+    };
 
     // Iterate through items, allocating to containers
-    let totalWeight = 0;
+    let totalEnc = 0;
+    let itemsToRemove = []; // remove items with quantity of 0
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
-    if (i.type === "talent")
-    {
-      this._prepareTalent(actorData, talents, i);
-    }
 
-    else if ( i.type === "skill" )
-    {
-      this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
-    }
+      try  {
+        if (i.data.quantity.value == 0)
+        {
+          itemsToRemove.push(i)
+          continue;
+        }
+      }
+      catch
+      {
+        // do nothing
+      }
+      if (i.type === "talent")
+      {
+        this._prepareTalent(actorData, talents, i);
+      }
+
+      else if ( i.type === "skill" )
+      {
+        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+      }
 
 
-    else if (i.type === "ammunition")
-    {
+      else if (i.type === "ammunition")
+      {
+        let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
+        if (existingAmmo) {
+          existingAmmo.data.quantity.value += i.data.quantity.value;
+          existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
 
-    }
+        }
+        else{
+          i.data.encumbrance.value = Math.ceil(i.data.quantity.value / i.data.quantityPerEnc.value);
+          inventory.ammunition.items.push(i);
+        }
+      }
 
-    else if (i.type === "weapon")
-    {
-      i["properties"] = this._prepareQualitiesFlaws(i);
-      i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
-      i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
+      else if (i.type === "weapon")
+      {
+        inventory.weapons.items.push(i);
+        totalEnc += i.data.encumbrance.value;
+        i["properties"] = this._prepareQualitiesFlaws(i);
+        i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
+        i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
 
-      i.data.range.value = this._calculateRangeOrDamage(actorData, i.data.range.value);
-      i.data.damage.value = this._calculateRangeOrDamage(actorData, i.data.damage.value);
+        i.data.range.value = this._calculateRangeOrDamage(actorData, i.data.range.value);
+        i.data.damage.value = this._calculateRangeOrDamage(actorData, i.data.damage.value);
 
-      if (Number(i.data.range.value) > 0)
-          i["rangedWeaponType"] = true;
-      if (i.data.reach.value)
-        i["meleeWeaponType"] = true;
+        if (Number(i.data.range.value) > 0)
+            i["rangedWeaponType"] = true;
+        if (i.data.reach.value)
+          i["meleeWeaponType"] = true;
 
-      if (i.data.ammunitionGroup.value != "none") {
-        i["ammo"] = [ {"name" : "None"}];
-        for ( let a of actorData.items ) {
-          if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
-          {
-            let existingAmmo = i.ammo.find(x => x.name == a.name);
-            if (existingAmmo)
-              existingAmmo.data.quantity.value += a.data.quantity.value;
-            else
+        if (i.data.ammunitionGroup.value != "none") {
+          i["ammo"] = [ {"name" : "None"}];
+          for ( let a of actorData.items ) {
+            if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
             {
-              i.ammo.push(a);
+              let existingAmmo = i.ammo.find(x => x.name == a.name);
+              if (existingAmmo)
+                existingAmmo.data.quantity.value += a.data.quantity.value;
+              else
+              {
+                i.ammo.push(a);
+              }
             }
           }
+          this._prepareWeaponWithAmmo(actorData, i);
+
         }
-        this._prepareWeaponWithAmmo(actorData, i);
-
+        i.properties = i.properties.filter(function(item) {return item != ""});
+        weapons.push(i);
       }
-      i.properties = i.properties.filter(function(item) {return item != ""});
-      weapons.push(i);
-    }
 
-    else if (i.type === "armour")
-    {
-      // -1 means currentAP is maxAP
-      for (let ap in i.data.currentAP)
+      else if (i.type === "armour")
       {
-        if (i.data.currentAP[ap] == -1)
+        inventory.armor.items.push(i);
+        totalEnc += i.data.encumbrance.value
+        // -1 means currentAP is maxAP
+        for (let ap in i.data.currentAP)
         {
-          i.data.currentAP[ap] = i.data.maxAP[ap];
+          if (i.data.currentAP[ap] == -1)
+          {
+            i.data.currentAP[ap] = i.data.maxAP[ap];
+          }
         }
+
+        if (i.data.maxAP.head > 0)
+        {
+          i["protectsHead"] = true;
+          AP.head += i.data.currentAP.head;
+        }
+        if (i.data.maxAP.body > 0)
+        {
+          i["protectsBody"] = true;
+          AP.body += i.data.currentAP.body;
+        }
+        if (i.data.maxAP.lArm > 0)
+        {
+          i["protectslArm"] = true;
+          AP.lArm += i.data.currentAP.lArm;
+        }      
+        if (i.data.maxAP.rArm > 0)
+        {
+          i["protectsrArm"] = true;
+          AP.rArm += i.data.currentAP.rArm;
+        }
+        if (i.data.maxAP.lLeg > 0)
+        {
+          i["protectslLeg"] = true;
+          AP.lLeg += i.data.currentAP.lLeg;
+        }
+        if (i.data.maxAP.rLeg > 0)
+        {
+          i["protectsrLeg"] = true
+          AP.rLeg += i.data.currentAP.head;
+        }
+
+        // i.properties = i.properties.filter(function(item) {return item != ""});  
+        armour.push(i);
+
+        
       }
 
-      if (i.data.maxAP.head > 0)
+      else if (i.type == "criticalWound")
       {
-        i["protectsHead"] = true;
-        AP.head += i.data.currentAP.head;
-      }
-      if (i.data.maxAP.body > 0)
-      {
-        i["protectsBody"] = true;
-        AP.body += i.data.currentAP.body;
-      }
-      if (i.data.maxAP.lArm > 0)
-      {
-        i["protectslArm"] = true;
-        AP.lArm += i.data.currentAP.lArm;
-      }      
-      if (i.data.maxAP.rArm > 0)
-      {
-        i["protectsrArm"] = true;
-        AP.rArm += i.data.currentAP.rArm;
-      }
-      if (i.data.maxAP.lLeg > 0)
-      {
-        i["protectslLeg"] = true;
-        AP.lLeg += i.data.currentAP.lLeg;
-      }
-      if (i.data.maxAP.rLeg > 0)
-      {
-        i["protectsrLeg"] = true
-        AP.rLeg += i.data.currentAP.head;
+        critWounds.push(i);
       }
 
-     // i.properties = i.properties.filter(function(item) {return item != ""});  
-      armour.push(i);
+      else if (i.type === "container")
+      {
+        actor.inventory.packs.items.push(i);
+        totalEnc += i.data.encumbrance.value;
+      }
 
-      
-    }
+      else if (i.type === "trapping")
+      {
+        inventory[i.data.trappingType].items.push(i);
+        totalEnc += i.data.encumbrance.value;
 
-    else if (i.type == "criticalWound")
-    {
-      critWounds.push(i);
-    }
+      }
 
     /*
     // Inventory
     if ( Object.keys(inventory).includes(i.type) ) {
       i.data.quantity.value = i.data.quantity.value || 1;
       i.data.weight.value = i.data.weight.value || 0;
-      i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+      i.totalEnc = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
       i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
       inventory[i.type].items.push(i);
-      totalWeight += i.totalWeight;
+      totalEnc += i.totalEnc;
     }
 
-     /* // Spells
+      /* // Spells
       else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
       // Classes
@@ -1990,9 +2018,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     }
 
-    // Assign and return
-    //actorData.inventory = inventory;
-    //actorData.spellbook = spellbook;
+    actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
@@ -2000,20 +2026,39 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.armour = armour;
     actorData.AP = AP;
     actorData.critWounds = critWounds;
-    //actorData.classes = classes;
 
-   /* // Currency weight
+
+    /* // Currency weight
     if ( game.settings.get("wfrp4e", "currencyWeight") ) {
-      totalWeight += this._computeCurrencyWeight(actorData.data.currency);
+      totalEnc += this._computeCurrencyWeight(actorData.data.currency);
     }
 
     // Inventory encumbrance
     let enc = {
       max: actorData.data.abilities.str.value * 15,
-      value: Math.round(totalWeight * 10) / 10,
+      value: Math.round(totalEnc * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     actorData.data.attributes.encumbrance = enc;**/
+
+    for (let r in itemsToRemove)
+    {
+      actorData.items.splice(actorData.items.indexOf(r), 1);
+    }
+
+    // Calculate ammo encumbrance after the loop (since it gets aggregated)
+    for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
+    {
+      totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
+    }
+    let enc = {
+      max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
+      value: Math.round(totalEnc * 10) / 10,
+    };
+    enc.pct = Math.min(enc.value * 100 / enc.max, 99);
+    actorData.encumbrance = enc;
+
+
   }
 
 

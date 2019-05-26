@@ -647,9 +647,10 @@ margin-right: -5px;
   flex-wrap: wrap;
 }
 
+
 .inventory-type{
+  height: 100px;
   width: 50%;
-  height: 150px;
 }
 
 /* Inventory List */
@@ -657,7 +658,8 @@ margin-right: -5px;
   list-style: none;
   margin: 0;
   padding: 0;
-  height: calc(100% - 20px);
+  height: 100%;
+  /*height: calc(100% - 20px);*/ 
   overflow-y: scroll;
   /* Inventory Item */
   /* Inventory Header */
@@ -702,6 +704,7 @@ margin-right: -5px;
   font-size: 12px;
   flex: 0;
 }
+.inventory-list .item .item-worn,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {
   flex: 0 0 32px;
