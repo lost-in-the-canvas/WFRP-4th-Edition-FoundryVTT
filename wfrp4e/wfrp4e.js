@@ -8,6 +8,13 @@ CONFIG.species = {
   "gnome": "Gnome"
 };
 
+//status tiers
+CONFIG.statusTiers = {
+  "g" : "Gold",
+  "s" : "Silver",
+  "b" : "Brass"
+};
+
 
 // Weapon Types
 CONFIG.weaponTypes = {
@@ -226,6 +233,30 @@ CONFIG.actorSizes = {
   "enor": "Enormous",
   "mnst": "Monstrous"
 };
+
+
+// Condition Types
+CONFIG.magicLores = {
+  "petty": "Petty",
+  "beasts": "Beasts",
+  "death": "Death",
+  "fire": "Fire",
+  "heavens": "Heavens",
+  "metal": "Metal",
+  "life": "Life",
+  "light": "Light",
+  "shadow": "Shadow",
+  "hedgecraft": "Hedgecraft",
+  "witchcraft": "Witchcraft",
+  "daemonology": "Daemonology",
+  "necromancy": "Necromancy",
+  "nurgle": "Nurgle",
+  "slaanesh": "Slaanesh",
+  "tzeentch": "Tzeentch",
+};
+
+
+
 
 // Condition Types
 CONFIG.conditionTypes = {
@@ -539,6 +570,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
     "public/systems/wfrp4e/templates/actors/actor-inventory.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
+    "public/systems/wfrp4e/templates/actors/actor-magic.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
@@ -1308,7 +1340,22 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['armorTypes'] = CONFIG.armorTypes;
       data['availability'] = CONFIG.availability;
     }
+    else if (this.item.type == "spell")
+    {
+      data['magicLores'] = CONFIG.magicLores;
+    }
 
+    else if (this.item.type == "career")
+    {
+      data['statusTiers'] = CONFIG.statusTiers;
+      data['skills'] = data.data.skills.toString();
+      data['earningSkills'] = data.data.incomeSkill.map(function(item) {
+        return data.data.skills[item];
+      });
+      data['talents'] = data.data.talents.toString();
+      data['trappings'] = data.data.trappings.toString();
+
+    }
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1344,11 +1391,69 @@ class ItemSheetWfrp4e extends ItemSheet {
     // Activate tabs
     new Tabs(html.find(".tabs"));
 
+        // Activate tabs
+      new Tabs(html.find(".tabs"), {
+        initial: this.item.data.flags["_sheetTab"],
+        callback: clicked => this.item.data.flags["_sheetTab"] = clicked.attr("data-tab")
+      });
+
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
 
 
     html.find('.weapon-type').change(event => {console.log(event)});
+
+    // This listener converts comma separated lists in the career section to arrays,
+    // placing them in the correct location using update
+    html.find('.csv-input').change(async event => {
+        let list = event.target.value.split(",").map(function(item) {
+        return item.trim();
+      });       
+      
+      switch(event.target.attributes["data-dest"].value)
+      {
+        case 'skills':
+        {
+          await this.item.update({'data.skills': list});
+        }
+        break;
+
+        // find the indices of the skills that match the earning skill input, send those
+        // values to data.incomeSkill
+        case 'earning':
+        {
+          this.item.update({'data.incomeSkill': []});
+          let earningSkills = [];
+          for (let sk in list){
+            let skillIndex = this.item.data.data.skills.indexOf(list[Number(sk)])
+            if (skillIndex == -1)
+              continue;
+      
+            else
+            {
+              earningSkills.push(skillIndex);
+            }
+      
+          }
+          await this.item.update({'data.incomeSkill': earningSkills});
+
+          
+        }
+        break;
+        case 'talents':
+        {
+          await this.item.update({'data.talents': list});
+        }
+        break;
+
+        case 'trappings':
+        {
+          await this.item.update({'data.trappings': list});         
+        }
+        break;
+
+      }
+    });
   }
 }
 
@@ -1484,26 +1589,16 @@ class ActorSheetWfrp4e extends ActorSheet {
    * @param {Object} spell        The spell data being prepared
    * @private
    */
-  _prepareSpell(actorData, spellbook, spell) {
-   /* let lvl = spell.data.level.value || 0,
-        isNPC = this.actorType === "npc";
-
-    // Determine whether to show the spell
-    let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
-    if ( !showSpell ) return;
-
-    // Extend the Spellbook level
-    spellbook[lvl] = spellbook[lvl] || {
-      isCantrip: lvl === 0,
-      label: CONFIG.spellLevels[lvl],
-      spells: [],
-      uses: actorData.data.spells["spell"+lvl].value || 0,
-      slots: actorData.data.spells["spell"+lvl].max || 0
-    };
-
-    // Add the spell to the spellbook at the appropriate level
-    spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
-    spellbook[lvl].spells.push(spell);*/
+  _prepareSpell(actorData, list, spell) {
+    
+    spell['target'] = this._calculateSpellRangeOrDuration(actorData, spell.data.target.value, spell.data.target.aoe);
+    spell['duration'] = this._calculateSpellRangeOrDuration(actorData, spell.data.duration.value);
+    spell['range'] = this._calculateSpellRangeOrDuration(actorData, spell.data.range.value);
+    
+    if (!spell.data.memorized.value)
+      spell.data.cn.value *= 2;
+    
+    list.push(spell);
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1581,7 +1676,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.options.editable) return;
 
     html.find('.skill-advances').focusout(event => {
-      let itemId = Number(event.target.attributes[1].value);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       console.log(itemToEdit);
       itemToEdit.data.advances.value = Number(event.target.value);
@@ -1819,6 +1914,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
 
     // 
+    const careers = [];
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
@@ -1833,6 +1929,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       lLeg: 0
     };
     const critWounds = [];
+    const grimoire = [];
+    const petty = [];
 
 
     const inventory = {
@@ -1844,7 +1942,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       booksAndDocuments: {label: "Food and Drink", items: []},
       toolsAndKits: {label: "Tools and Kits", items: []},
       books: {label: "Books and Documents", items: []},
-      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, and Draughts", items: [], quantified: true},
+      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true},
       misc: {label: "Miscellaneous", items: []}
     };
 
@@ -1992,7 +2090,21 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       {
         inventory[i.data.trappingType].items.push(i);
         totalEnc += i.data.encumbrance.value;
+      }
 
+      
+      else if (i.type === "spell")
+      {
+        if (i.data.lore.value == "petty")
+          this._prepareSpell(actorData, petty, i)
+        else
+          this._prepareSpell(actorData, grimoire, i)
+      }
+
+
+      else if (i.type === "career")
+      {
+        careers.push(i);
       }
 
     /*
@@ -2026,6 +2138,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.armour = armour;
     actorData.AP = AP;
     actorData.critWounds = critWounds;
+    actorData.grimoire = grimoire;
+    actorData.petty = petty;
+    actorData.careers = careers;
 
 
     /* // Currency weight
@@ -2056,6 +2171,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       value: Math.round(totalEnc * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
+    enc.state = Math.floor(enc.value / enc.max);
     actorData.encumbrance = enc;
 
 
@@ -2182,6 +2298,38 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
+
+    
+  _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
+    formula = formula.toLowerCase();
+
+    if (formula == "you")
+      return "You"
+
+    if (formula == "special")
+      return "Special"
+
+    for(let ch in actorData.data.characteristics)
+    {
+
+      if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      {
+        if (formula.includes('bonus'))
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+        }
+        else 
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+        }
+      } 
+    }
+    
+    if (aoe)
+      formula = "AoE (" + formula + ")";
+    return formula;
+  }
+
 
   /* -------------------------------------------- */
 

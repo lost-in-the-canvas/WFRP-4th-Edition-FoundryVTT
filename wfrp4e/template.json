@@ -459,14 +459,20 @@
     "career": {
       "class":{
         "type":"String",
+        "label":"Class",
         "value":""
       },
       "current":{
         "type": "Boolean",
         "value": false
       },
+      "complete" : {
+        "type": "Boolean",
+        "value": false
+      },
       "tier" : {
         "type":"Number",
+        "label":"Tier",
         "value": 1
       },
       "status":{
@@ -476,10 +482,7 @@
       "skills": [],
       "talents":[],
       "trappings":[],
-      "incomeSkill" : {
-        "type": "Number",
-        "value": -1
-      }
+      "incomeSkill" : []
     },
     "weapon": {
       "quantity": {
@@ -740,34 +743,79 @@
         "label": "Total"
       }
     },
+
+    "spell": {
+      "lore" : {
+        "type" : "String",
+        "label" : "Lore",
+        "value" : ""
+      },
+      "range" : {
+        "type" : "String",
+        "label" : "Range",
+        "value" : ""
+      },
+      "target" : {
+        "type" : "String",
+        "label" : "Target",
+        "value" : "",
+        "aoe" : false
+      },
+      "duration" : {
+        "type" : "String",
+        "label" : "Duration",
+        "value" : "",
+        "extendable" : false
+      },
+      "damage" : {
+        "type" : "String",
+        "label" : "Damage",
+        "value" : ""
+      },
+      "cn" : {
+        "type" : "Number",
+        "label" : "Casting Number",
+        "value" : 0
+      },
+       "magicMissile" : {
+        "type" : "Boolean",
+        "label" : "Magic Missile",
+        "value" : false
+      },
+      "memorized" : {
+        "type" : "Boolean",
+        "label" : "Memorized",
+        "value" : false
+      }
+    }, 
       "mutation" : {
         "type" : {
           "value": "",
-          "type" : "string"
+          "type" : "String"
         },
         "description" : {
           "value": "",
-          "type" : "string"
+          "type" : "String"
         }
       }, 
       "criticalWound" : {
         "description" : {
           "value": "",
-          "type" : "string"
+          "type" : "String"
         }
       },
 
       "disease" : {
         "description" : {
           "value": "",
-          "type" : "string"
+          "type" : "String"
         }
       },
 
       "pyschology" : {
         "description" : {
           "value": "",
-          "type" : "string"
+          "type" : "String"
         }
       }
     }

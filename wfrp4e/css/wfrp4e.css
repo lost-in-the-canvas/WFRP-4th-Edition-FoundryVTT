@@ -642,11 +642,15 @@ margin-right: -5px;
 }
 
 .inventory{
+
+}
+
+.inventory-sections{
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-
 
 .inventory-type{
   height: 100px;
@@ -704,6 +708,9 @@ margin-right: -5px;
   font-size: 12px;
   flex: 0;
 }
+
+.inventory-list .item .career-tier,
+.inventory-list .item .spell-attr,
 .inventory-list .item .item-worn,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {

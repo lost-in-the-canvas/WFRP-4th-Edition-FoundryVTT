@@ -4,6 +4,11 @@
             <div class = "item-name">Talent Name</div>
             <div>Times Taken / Max</div>
             <div>Tests</div>
+            {{#if owner}}
+            <div class="item-controls">
+               <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+            </div>
+            {{/if}}
         </li>
 
         {{#each actor.talents as |item i|}}
@@ -17,9 +22,12 @@
 
             <div>{{item.data.tests.value}}</div>
 
+            {{#if ../owner}}
             <div class="item-controls">
-                    <a class="item-control item-delete" title="Delete Ability"><i class="fas fa-trash"></i></a>
-                </div>
+               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/if}}
         </li>
         {{/each}}
     </ol>
