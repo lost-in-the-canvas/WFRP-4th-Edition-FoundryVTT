@@ -1,60 +1,108 @@
-// Damage Types
-CONFIG.damageTypes = {
-  "acid": "Acid",
-  "bludgeoning": "Bludgeoning",
-  "cold": "Cold",
-  "fire": "Fire",
-  "force": "Force",
-  "lightning": "Lightning",
-  "necrotic": "Necrotic",
-  "piercing": "Piercing",
-  "poison": "Poison",
-  "psychic": "Psychic",
-  "radiant": "Radiant",
-  "slashing": "Slashing",
-  "thunder": "Thunder"
+// Species
+CONFIG.species = {
+  "human": "Human",
+  "dwarf": "Dwarf",
+  "halfling": "Halfling",
+  "helf": "High Elf",
+  "welf": "Wood Elf",
+  "gnome": "Gnome"
 };
 
-// Healing Types
-CONFIG.healingTypes = {
-  "healing": "Healing",
-  "temphp": "Healing (Temporary)"
+// Weapon Groups
+CONFIG.weaponGroups = {
+  "basic": "Basic",
+  "cavalry": "Cavalry",
+  "fencing": "Fencing",
+  "brawling": "Brawling",
+  "flail": "Flail",
+  "parry": "Parry",
+  "polearm": "Polearm",
+  "twohanded": "Two-Handed",
+  "blackpowder": "Blackpowder",
+  "bow": "Bow",
+  "crossbow": "Crossbow",
+  "entangling": "Entangling",
+  "engineering": "Engineering",
+  "explosives": "Explosives",
+  "sling": "Sling",
+  "throwing": "Throwing",
 };
 
-// Weapon Types
-CONFIG.weaponTypes = {
-  "simpleM": "Simple Melee",
-  "simpleR": "Simple Ranged",
-  "martialM": "Martial Melee",
-  "martialR": "Martial Ranged",
-  "natural": "Natural",
-  "improv": "Improvised",
-  "ammo": "Ammunition"
+// Ammo Groups
+CONFIG.ammunitionGroups = {
+  "BPandEng": "Blackpowder and Engineering",
+  "bow": "Bow",
+  "crossbow": "Crossbow",
+  "sling": "Sling",
 };
 
-// Weapon Properties
-CONFIG.weaponProperties = {
-  "thr": "Thrown",
-  "amm": "Ammunition",
-  "fir": "Firearm",
-  "rel": "Reload",
-  "two": "Two-Handed",
-  "fin": "Finesse",
-  "lgt": "Light",
-  "ver": "Versatile",
-  "hvy": "Heavy",
-  "rch": "Reach"
+// Item Qualities
+CONFIG.itemQualities ={
+  "durable": "Durable",
+  "fine": "Fine",
+  "lightweight": "Lightweight",
+  "practical": "Practical",
+};
+
+// Item Flaws
+CONFIG.itemFlaws = {
+  "ugly": "Ugly",
+  "shoddy": "Shoddy",
+  "unreliable": "Unreliable",
+  "bulky": "Bulky",
+}
+
+
+// Weapon Qualities
+CONFIG.weaponQualities = {
+  "accurate": "Accurate",
+  "blackpowder": "Blackpowder",
+  "blast": "Blast",
+  "damaging": "Damaging",
+  "defensive": "Defensive",
+  "entangle": "Entangle",
+  "fast": "Fast",
+  "hack": "Hack",
+  "impact": "Impact",
+  "penetrating": "Penetrating",
+  "pistol": "Pistol",
+  "precise": "Precise",
+  "pummel": "Pummel",
+  "repeater": "Repater",
+  "shield": "Shield",
+  "trapblade": "Trap Blade",
+  "unbreakable": "Unbreakable",
+  "wrap": "Wrap"
+};
+
+// Weapon Flaws
+CONFIG.weaponFlaws = {
+  "dangerous": "Dangerous",
+  "imprecise": "Imprecise",
+  "reload": "reload",
+  "slow": "Slow",
+  "tiring": "Tiring",
+  "undamaging": "Undamaging"
+};
+
+// Armor Qualities
+CONFIG.armorQualities = {
+  "flexible": "Flexible",
+  "Impenetrable": "impenetrable",
+};
+
+// Armor Flaws
+CONFIG.armorFlaws = {
+  "partial": "Partial",
+  "weakpoints": "Weakpoints",
 };
 
 // Equipment Types
 CONFIG.armorTypes = {
-  "clothing": "Clothing",
-  "light": "Light Armor",
-  "medium": "Medium Armor",
-  "heavy": "Heavy Armor",
-  "bonus": "Magical Bonus",
-  "natural": "Natural Armor",
-  "shield": "Shield"
+  "softLeather": "Soft Leather",
+  "boiledLeather": "Boiled Leather",
+  "mail": "Mail",
+  "plate": "Plate",
 };
 
 // Consumable Types
@@ -67,13 +115,32 @@ CONFIG.consumableTypes = {
   "trinket": "Trinket"
 };
 
-// Spell Types
-CONFIG.spellTypes = {
-  "attack": "Spell Attack",
-  "save": "Saving Throw",
-  "heal": "Healing",
-  "utility": "Utility"
-};
+CONFIG.weaponReaches={
+ "personal":"Personal",
+ "vshort":"Very Short",
+ "short":"Short",
+ "average": "Average",
+ "long":"Long",
+ "vLong":"Very Long",
+ "massive":"Massive",
+}
+
+CONFIG.reachDescription={
+  "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
+  "vshort":"Less than a foot in length.",
+  "short":"Up to 2 feet in length.",
+  "average": "Up to 3 feet long.",
+  "long":"Up to 6 feet long.",
+  "vLong":"Up to 10 feet in length; can Engage enemies up to 4 yards away, rather than just 2.",
+  "massive":"Anything over 10 feet long; can Engage enemies up to 6 yards away, rather than just 2",
+ }
+ 
+ CONFIG.availability = {
+   "common": "Common",
+   "scarce": "Scarce",
+   "rare": "Rare",
+   "exotic": "Exotic",
+ }
 
 // Spell Schools
 CONFIG.spellSchools = {
@@ -101,12 +168,59 @@ CONFIG.spellLevels = {
   9: "9th Level"
 };
 
-// Feat Types
-CONFIG.featTypes = {
-  "passive": "Passive Ability",
-  "attack": "Ability Attack",
-  "ability": "Generic Action"
+// 
+CONFIG.characteristics = {
+  "ws": "Weapon Skill",
+  "bs": "Ballistic Skill",
+  "s": "Strength",
+  "t": "Toughness",
+  "i": "Initiative",
+  "ag": "Agility",
+  "dex": "Dexterity",
+  "int": "Intelligence",
+  "wp": "Willpower",
+  "fel": "Fellowship"
 };
+
+CONFIG.characteristicsAbrev = {
+  "ws": "WS",
+  "bs": "BS",
+  "s": "S",
+  "t": "T",
+  "i": "I",
+  "ag": "Ag",
+  "dex": "Dex",
+  "int": "Int",
+  "wp": "WP",
+  "fel": "Fel"
+};
+
+CONFIG.skillTypes = {
+  "bsc" : "Basic",
+  "adv" : "Advanced"
+};
+
+CONFIG.skillGroup = {
+  "isSpec" : "Is Specialization",
+  "noSpec" : "Not Specialization"
+};
+
+CONFIG.talentMax = {
+  "1":"1",
+  "2":"2",
+  "none":"None",
+  "ws":" Weapon Skill Bonus",
+  "bs":"Ballistic Skill Bonus",
+  "s": "Strength Bonus",
+  "t": "Toughness Bonus",
+  "i": "Initiative Bonus",
+  "ag": "Agility Bonus",
+  "dex": "Dexterity Bonus",
+  "int": "Intelligence Bonus",
+  "wp": "Willpower Bonus",
+  "fel": "Fellowship Bonus"
+}
+
 
 // Proficiency Multipliers
 CONFIG.proficiencyLevels = {
@@ -119,11 +233,12 @@ CONFIG.proficiencyLevels = {
 // Creature Sizes
 CONFIG.actorSizes = {
   "tiny": "Tiny",
-  "sm": "Small",
-  "med": "Medium",
-  "lg": "Large",
-  "huge": "Huge",
-  "grg": "Gargantuan"
+  "ltl": "Little",
+  "sml": "Small",
+  "avg": "Average",
+  "lrg": "Large",
+  "enor": "Enormous",
+  "mnst": "Monstrous"
 };
 
 // Condition Types
@@ -434,12 +549,15 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-attributes.html",
     "public/systems/wfrp4e/templates/actors/actor-abilities.html",
     "public/systems/wfrp4e/templates/actors/actor-main.html",
+    "public/systems/wfrp4e/templates/actors/actor-combat.html",
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
-    "public/systems/wfrp4e/templates/actors/actor-traits.html",
+    "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
+    "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
+
   ]);
 });
 
@@ -495,7 +613,23 @@ class ActorWfrp4e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
+    data.details.move.walk = parseInt(data.details.move.value)* 2;
+    data.details.move.run = parseInt(data.details.move.value) * 4;
 
+
+    // If user enters a species that does not exist, remove it.
+    // let speciesExist = false;
+    // for (let s of Object.values(CONFIG.species))
+    // {
+    //   if (data.details.species.value == s)
+    //   {
+    //     speciesExist = true;
+    //     break;
+    //   }
+    // }
+    // if (!speciesExist)
+    //   data.details.species.value = "";
+    
     return actorData;
   }
 
@@ -505,6 +639,25 @@ class ActorWfrp4e extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(data) {
+    for (let ch of Object.values(data.characteristics))
+    {
+      ch.value = ch.initial + ch.advances;
+      ch.bonus = Math.floor(ch.value / 10)
+    }
+
+    if (data.status.fate.value < data.status.fortune.value)
+    {
+      data.status.fortune.value = data.status.fate.value;
+    }
+    if (data.status.resilience.value < data.status.resolve.value)
+    {
+      data.status.resolve.value = data.status.resilience.value;
+    }
+
+    data.details.xp.total = data.details.xp.current + data.details.xp.spent;
+
+
+
 
   }
 
@@ -651,6 +804,11 @@ class ActorWfrp4e extends Actor {
       }
     });*/
   }
+
+  static getBonus(value) {
+    return Math.floor(value / 10)
+  }
+
 }
 
 // Assign the actor class to the CONFIG
@@ -1135,6 +1293,24 @@ class ItemSheetWfrp4e extends ItemSheet {
    */
   getData() {
     const data = super.getData();
+
+    if (this.item.type === "skill")
+    {
+      data['characteristics'] = CONFIG.characteristics;
+      data['skillGroup'] = CONFIG.skillGroup;
+      data['skillTypes'] = CONFIG.skillTypes;
+    } 
+    else if (this.item.type === "talent")
+    {
+      data['talentMaxs'] = CONFIG.talentMax;
+    }
+    else if (this.item.type == "weapon")
+    {
+      data['weaponGroups'] = CONFIG.weaponGroups;
+      data['availability'] = CONFIG.availability;
+      data['weaponReaches'] = CONFIG.weaponReaches
+    }
+
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1222,8 +1398,56 @@ class ActorSheetWfrp4e extends ActorSheet {
     this._prepareTraits(sheetData.data["traits"]);
 
     // Prepare owned items
-    this._prepareItems(sheetData.actor);
 */
+
+    this._prepareItems(sheetData.actor);
+
+
+    let isSmall = sheetData.actor.talents.find(x=>x.name == "Small");
+    if (isSmall)
+      sheetData.actor.data.details.size.value="sml";
+
+
+    let sb = sheetData.actor.data.characteristics.s.bonus;
+    let tb = sheetData.actor.data.characteristics.t.bonus;
+    let wpb =sheetData.actor.data.characteristics.wp.bonus;
+
+    sheetData.actor.data.status.criticalWounds.max = tb;
+
+
+    switch (sheetData.actor.data.details.size.value){
+    
+      case "tiny":
+      sheetData.actor.data.status.wounds.max = 1;
+      break;
+
+      case "ltl":
+      sheetData.actor.data.status.wounds.max = tb;
+      break;
+    
+      case "sml":
+      sheetData.actor.data.status.wounds.max = 2 * tb + wpb;
+      break;
+
+      case "avg":
+      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb;
+      break;
+
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
+      break;
+
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
+      break;
+      
+      case "lrg":
+      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
+      break;
+
+    }
+          
+    
     // Return data to the sheet
     return sheetData;
   }
@@ -1281,6 +1505,51 @@ class ActorSheetWfrp4e extends ActorSheet {
     spellbook[lvl].spells.push(spell);*/
   }
 
+  _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
+
+    skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
+    skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
+    skill.data.characteristic.value = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
+
+    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
+      advOrGrpSkills.push(skill)
+    else
+      basicSkills.push(skill);
+   }
+
+  _prepareTalent(actorData, talentList, talent) {
+    let existingTalent = talentList.find(t => t.name == talent.name)
+    if (existingTalent){
+      if (!existingTalent.numMax){
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+      if (existingTalent.data.advances.value < existingTalent.numMax){
+        existingTalent.data.advances.value++;
+      }
+    }
+    else{
+      switch(talent.data.max.value){
+        case '1':
+        talent["numMax"] = 1;
+        break;
+
+        case '2':
+        talent["numMax"] = 2;
+        break;
+
+        case 'none':
+        talent["numMax"] = null;
+        break;
+
+        default:
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+      talentList.push(talent);
+    }
+
+
+   }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -1291,14 +1560,7 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-    /*// Pad field width
-    html.find('[data-wpad]').each((i, e) => {
-      let text = e.tagName === "INPUT" ? e.value : e.innerText,
-        w = text.length * parseInt(e.getAttribute("data-wpad")) / 2;
-      e.setAttribute("style", "flex: 0 0 " + w + "px");
-    });
-
+    
     // Activate tabs
     html.find('.tabs').each((_, el) => {
       let tabs = $(el),
@@ -1309,13 +1571,21 @@ class ActorSheetWfrp4e extends ActorSheet {
         callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
       });
     });
-
+/*
     // Item summaries
     html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+*/
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
-*/
+
+    html.find('.skill-advances').focusout(event => {
+      let itemId = Number(event.target.attributes[1].value);
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      console.log(itemToEdit);
+      itemToEdit.data.advances.value = Number(event.target.value);
+    });
+
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
@@ -1528,60 +1798,78 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-    /*
+    
     // Inventory
-    const inventory = {
+  /*  const inventory = {
       weapon: { label: "Weapons", items: [] },
       equipment: { label: "Equipment", items: [] },
       consumable: { label: "Consumables", items: [] },
       tool: { label: "Tools", items: [] },
       backpack: { label: "Backpack", items: [] },
-    };
+    };*/
 
-    // Spellbook
-    const spellbook = {};
 
-    // Feats
-    const feats = [];
 
-    // Classes
-    const classes = [];
+    // Skills
+    const basicSkills = [];
+    const advancedOrGroupedSkills = [];
+    const talents = [];
+    const weapons = [];
+
 
     // Iterate through items, allocating to containers
     let totalWeight = 0;
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
+    if (i.type === "talent")
+    {
+      this._prepareTalent(actorData, talents, i);
+    }
 
-      // Inventory
-      if ( Object.keys(inventory).includes(i.type) ) {
-        i.data.quantity.value = i.data.quantity.value || 1;
-        i.data.weight.value = i.data.weight.value || 0;
-        i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
-        i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
-        inventory[i.type].items.push(i);
-        totalWeight += i.totalWeight;
-      }
+    else if (i.type === "weapon")
+    {
+      i["properties"] = this._prepareQualitiesFlaws(i);
+      i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
+      i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
+      weapons.push(i);
+    }
 
-      // Spells
+    /*
+    // Inventory
+    if ( Object.keys(inventory).includes(i.type) ) {
+      i.data.quantity.value = i.data.quantity.value || 1;
+      i.data.weight.value = i.data.weight.value || 0;
+      i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+      i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
+      inventory[i.type].items.push(i);
+      totalWeight += i.totalWeight;
+    }
+
+     /* // Spells
       else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
       // Classes
       else if ( i.type === "class" ) {
         classes.push(i);
-        classes.sort((a, b) => b.levels > a.levels);
-      }
+        classes.sort((a, b) => b.levels > a.levels);}*/
 
       // Feats
-      else if ( i.type === "feat" ) feats.push(i);
+      else if ( i.type === "skill" )
+      {
+        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+      }
     }
 
     // Assign and return
-    actorData.inventory = inventory;
-    actorData.spellbook = spellbook;
-    actorData.feats = feats;
-    actorData.classes = classes;
+    //actorData.inventory = inventory;
+    //actorData.spellbook = spellbook;
+    actorData.basicSkills = basicSkills;
+    actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+    actorData.talents = talents;
+    actorData.weapons = weapons;
+    //actorData.classes = classes;
 
-    // Currency weight
+   /* // Currency weight
     if ( game.settings.get("wfrp4e", "currencyWeight") ) {
       totalWeight += this._computeCurrencyWeight(actorData.data.currency);
     }
@@ -1592,8 +1880,47 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       value: Math.round(totalWeight * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    actorData.data.attributes.encumbrance = enc;*/
+    actorData.data.attributes.encumbrance = enc;**/
   }
+
+
+  _prepareQualitiesFlaws(item){
+    let qualities = item.data.qualities.value.split(",").map(function(item) {
+      return item.trim();
+    });
+    let flaws = item.data.flaws.value.split(",").map(function(item) {
+      return item.trim();
+    });
+
+    // Commented code is part of process of removing unrecognized qualities/flaws
+    // Unsure if this should even be done (it won't allow people to make up their own)
+    /*let invalidQualities = [];
+    let invalidFlaws = [];
+    for (let q in Object.values(qualities))
+    {
+      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
+      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
+      {
+        invalidQualities.push(q)
+      }
+    }
+
+    for (let f in Object.values(flaws))
+    {
+      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
+      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
+      {
+        invalidFlaws.push(f)
+      }
+    } */
+
+    // Remove Invalid qualities/flaws
+
+
+    return qualities.concat(flaws).sort();
+
+  }
+
 
   /* -------------------------------------------- */
 
@@ -1668,13 +1995,13 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   _prepareItems(actorData) {
 /*
     // Actions
-    const features = {
-      weapons: {label: "Weapons", items: [], type: "weapon" },
-      actions: { label: "Actions", items: [], type: "feat" },
-      passive: { label: "Features", items: [], type: "feat" },
-      equipment: { label: "Equipment", items: [], type: "equipment" }
-    };
-
+   // const features = {
+      //weapons: {label: "Weapons", items: [], type: "weapon" },
+     // actions: { label: "Actions", items: [], type: "feat" },
+     // passive: { label: "Features", items: [], type: "feat" },
+   //   equipment: { label: "Equipment", items: [], type: "equipment" }
+   //};
+/*
     // Spellbook
     const spellbook = {};
 

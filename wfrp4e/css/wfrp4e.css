@@ -1,40 +1,1193 @@
-/* ------------------------------------ */
-/* WFRP Stuff
-/* ------------------------------------ */
+/***************************************************/
+/*============== I. Pre-Loaded Fonts ==============*/
+/***************************************************/
 
-.wfrp4e.actor .general {
-  display: flex;
-  flex-direction: row;
-
+@font-face {
+  font-family: "CaslonAntique";
+  src: url('../fonts/CaslonAntique.ttf');
 }
 
-.wfrp4e.actor .general .charimg {
-  display: flex;
-  flex-direction: row;
+@font-face {
+  font-family: "CaslonAntique";
+  src: url('../fonts/CaslonAntique-Bold.ttf');
+  font-weight: bold;
 }
 
-.wfrp4e.actor .general .items {
-  display: flex;
-  flex-direction: row;
-  height: 18px;
-  flex-wrap: wrap;
+@font-face {
+  font-family: "CaslonPro";
+  src: url('../fonts/ACaslonPro-Regular.otf');
 }
 
-.wfrp4e.actor .general .items .status {
-  display: flex;
-  flex-direction: row;
-  width: 100px;
+@font-face {
+  font-family: "CaslonPro";
+  src: url('../fonts/ACaslonPro-Bold.otf');
+  font-weight: bold;
 }
 
-.wfrp4e.actor .general .items .status .tier {
+
+@font-face {
+  font-family: "CenturySchoolbook";
+  src: url('../fonts/CenturySchoolbook.ttf');
+}
+
+@font-face {
+  font-family: "CenturySchoolbook";
+  src: url('../fonts/CenturySchoolbook-Bold.ttf');
+  font-weight: bold;
+}
+
+
+@font-face {
+  font-family: "AdobeJensonPro";
+  src: url('../fonts/AdobeJensonPro-Semibold.otf');
+}
+
+/***************************************************/
+/***************************************************/
+
+
+
+
+/***************************************************/
+/*========== II. Actor (Character Sheet) ==========*/
+/***************************************************/
+
+  /* ==================== A. Window Framework =================== */
+    .app.window-app.sheet.wfrp4e.actor.character-sheet {
+      background: url(../ui/ActorSheet-Character.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header {
+      flex: 0 0 61px;
+      padding: 27px 13px 7px 13px;
+      line-height: 30px;
+      border-bottom: none;
+      background: none;
+      margin: 0px 20px 0px 0px;
+    }
+    .wfrp4e.sheet .window-content {
+      padding: 0px 0px 0px 0px;
+      font-size: 13px;
+      overflow-y: hidden;
+      margin: 3px 57px 65px 37px;
+      box-shadow: none;
+      background: none;
+      overflow-y: hidden;
+      border: none;
+    }
+    .wfrp4e.sheet form {
+      display: inline-block;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: normal;
+      border: none;
+      margin: 45px 35px;
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+    #section-header-personaldetails {
+      position: absolute;
+      top: 73px;
+      left: 285px;
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      color:#403f3e;
+    }
+  /* ============================================================ */
+
+  /* ==================== B. Header Section ===================== */
+    .wfrp4e.sheet form .sheet-header {
+      height: 34px;
+      order: 0;
+      background: #a01a1a4a;
+      background: none;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2em;
+      height: inherit;
+      border-bottom: none;
+      margin: 0px;
+      color: white;
+      /* margin: 0px 0px 10px 0px; */
+    }
+      #input-name {
+        border: none;
+        /* margin-top: 3px; */
+        padding: 0;
+        width: 278px;
+        color: #000000;
+        font-family: CaslonPro;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        line-height: 4px;
+        vertical-align: top;
+        background: #59d02963;
+        background: none;
+        /* border-bottom: 1px solid black; */
+      }
+      #label-name {
+        /* background: rgba(255, 255, 255, 0.8); */
+        position: absolute;
+        left: 72px;
+        height: 18px;
+        top: 122px;
+        border: none;
+        display: flex;
+        flex: 0px 0px;
+        /* top: 40px; */
+        padding: 0;
+        width: 278px;
+        color: #464331c4;
+        font-family: CaslonAntique;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: left;
+        line-height: inherit;
+        vertical-align: top;
+        background: #3b25e233;
+        background: none;
+        /* outline-offset: 3px; */
+        /* outline: 3px solid red; */
+        border-top: 1px solid #736953a6;
+      }
+    #input-species {
+      background: rgba(255, 255, 255, -0.9);
+      position: absolute;
+      top: 109px;
+      left: 365px;
+      border: none;
+      padding: 0;
+      width: 125px;
+      color: #000000;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: left;
+      line-height: 1px;
+      background: #59d02963;
+      background: none;
+    }
+    #label-species {
+      position: absolute;
+      left: 72px;
+      height: 18px;
+      top: 122px;
+      left: 365px;
+      border: none;
+      display: flex;
+      flex: 0px 0px;
+      padding: 0;
+      width: 125px;
+      color: #464331c4;
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      line-height: inherit;
+      vertical-align: top;
+      background: #3b25e233;
+      background: none;
+      border-top: 1px solid #736953a6;
+    }
+    #input-gender {
+      background: rgba(255, 255, 255, -0.9);
+      position: absolute;
+      top: 109px;
+      left: 505px;
+      border: none;
+      padding: 0;
+      width: 73px;
+      color: #000000;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: left;
+      line-height: 1px;
+      background: #59d02963;
+      background: none;
+    }
+    #label-gender {
+      position: absolute;
+      left: 72px;
+      height: 18px;
+      top: 122px;
+      left: 505px;
+      border: none;
+      display: flex;
+      flex: 0px 0px;
+      padding: 0;
+      width: 73px;
+      color: #464331c4;
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      line-height: inherit;
+      vertical-align: top;
+      background: #3b25e233;
+      background: none;
+      border-top: 1px solid #736953a6;
+    }
+  /* ============================================================ */    
+
+  /* ==================== C. Details Section ==================== */
+    .wfrp4e.actor .general {
+      display: flex;
+      flex-direction: row;
+      height: 103px;
+      width: 100%;
+      margin: 0px 0px 0px 0px;
+    }
+    .wfrp4e.actor .general .charimg {
+      /* display: flex; */
+      flex-direction: row;
+      margin: 0px 8px 0px 0px;
+      border: none;
+    }
+    .wfrp4e.actor .general .items .row {
+      display: flex;
+      height: inherit;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .wfrp4e.actor .general .items .row .item .label-details {
+      position: relative;
+      top: -4px;
+    }
+    .wfrp4e.actor .general .items .row .item .input-details {
+      background: none;
+      border: none;
+      padding: 0px;
+      margin: 0px;
+      line-height: 1px;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      color: black;
+    }
+    .wfrp4e.actor .general .items .row .item {
+      height: 34px;
+      display: flex;
+      flex-direction: column;
+      margin: 0px 15px 0px 0px;
+    }
+    .wfrp4e.actor .general .items .row .item > a {
+      /* font-family: CaslonAntique; */
+      /* font-size: 18px; */
+      text-align: left;
+      height: 19px;
+      border-top: 1px solid #736953a6;
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      color: #464331c4;
+    }
+    #field-class {
+      margin: 0px 15px 0px 0px;
+      width: 70px;
+    }
+    #field-career {
+      margin: 0px 15px 0px 0px;
+      width: 113px;
+    }
+    #field-careerlevel {
+      margin: 0px 0px 0px 0px;
+      width: 190px;
+    }
+    #field-status {
+      /* margin: 0px; */
+      width: 60px;
+    }
+    #field-age {
+      /* margin: 0px; */
+      width: 80px;
+    }
+    #field-height {
+      /* margin: 0px; */
+      width: 45px;
+    }
+    #field-weight {
+      /* margin: 0px; */
+      width: 50px;
+    }
+    #field-haircolour {
+      margin: 0px;
+      width: 108px;
+    }
+    #field-eyecolour {
+      /* margin: 0px; */
+      width: 80px;
+    }
+    #field-distinguishingmark {
+      /* margin: 0px; */
+      width: 145px;
+    }
+    #field-starsign {
+      margin: 0px;
+      width: 148px;
+    }
+  /* ============================================================ */ 
+
+  /* ==================== D. General Section ==================== */
+    #wfrp4e-primarytabs {
+      /* background: url(../ui/ActorSheet-TabBorder.png); */
+      font-family: CaslonAntique;
+      font-size: 16px;
+      width: 504px;
+      margin: 0px 0px 0px 1px;
+      height: 24px;
+      font-weight: 700;
+      color: #403f3e;
+      /* background: url(../ui/ActorSheet-TabBackground.png); */
+    }
+    .wfrp4e.sheet form .sheet-tabs > .item {
+      line-height: 26px;
+      padding: 0 10px;
+      border-radius: 0px;
+      border-radius: 0px;
+      color: #403f3e;
+      width: 72px;
+      padding: 0px 2px 0px 2px;
+      background: url(../ui/ActorSheet-TabBorder.png);
+    }
+    .wfrp4e.sheet form .sheet-tabs > .item.active {
+      color: #000; 
+      /* font-weight: 700; */
+      /* border: 1px solid #666; */
+      border-radius: 0px;
+      border-bottom: none;
+      width: 72px;
+      padding: 0px 2px 0px 2px;
+      color: #4a0404;
+      box-shadow: none;
+      text-shadow: none;
+    }
+    #tab-sections{
+      height: 384px;
+    }
+      /* ================== 1. Main Tab Section ================== */    
+        .wfrp4e.actor .characteristics {
+          border-top: none;
+          margin: 5px 0px 0px 0px;
+          padding: 0px 0px 0px 0px;
+          height: 109px;
+          width: 506px;
+        }
+        .wfrp4e.actor .characteristics-table{
+          margin: 0px;
+          border: none;
+          background: none;
+          height: inherit;
+          width: inherit;
+        }      
+        .wfrp4e.actor .characteristics-table .table-row > *{
+          margin: 5px;
+          border: 1px solid #736953a6;
+          background: none;
+        }
+        .wfrp4e.actor .characteristics-table .table-row-bottom >* {
+          margin: 5px;
+          border: 1px solid #736953a6;
+          border: none;
+        }          
+        .wfrp4e.actor .characteristics-table .table-header > *{
+          text-align: center;
+          border: 1px solid #736953a6;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-size: 16px;
+          font-weight: 700;
+          color: #464331c4;
+          margin: 0px;
+          height: 20px;
+          padding: 3px 0px 0px 0px;
+          box-shadow: 0 0 10px #00000052 inset;
+        }         
+        .wfrp4e.actor .characteristics-table .table-row .table-data > input{
+          text-align: center;
+          width: 30px;
+          height: 15px;
+          padding-top: 7px;
+          vertical-align: middle;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+        }        
+        .wfrp4e.actor .characteristics-table .row-type{
+          font-family: CaslonAntique;
+          font-size: 16px;
+          font-weight: 700;
+          color: #464331c4;
+          /* font-family: CaslonAntique; */
+          /* font-weight: bold; */
+          width: 30px;
+          height: 21px;
+          padding: 3px 0px 0px 0px;
+          margin: 0px;
+          text-align: center;
+          /* font-size: 14px; */
+          box-shadow: 0 0 10px #00000052 inset;
+          padding: 6px 0px 0px 0px;
+          border: 1px solid #736953a6;
+        }       
+        .wfrp4e.actor .characteristics-table .table-data {
+          text-align: center;
+          width: 30px;
+          height: 28px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          /* margin-top: 54px; */
+        }
+        .wfrp4e.actor .characteristics-table .table-row-bottom .table-data {
+          padding: 6px 0px 0px 0px;
+          color: #29364a;
+          border: 1px solid #736953a6;
+        }   
+        
+        .wfrp4e.actor .main-row {
+          display: flex;
+          height: 80px;
+          border-bottom: 1px solid #CCC;
+          margin: 6px 0px 0px 0px;
+        }
+          .wfrp4e.actor .movement .move-value > input {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            text-align: center;
+            width: 50px;
+            height: 23px;
+            margin: 0px;
+            padding: 6px 0px 0px 0px;
+          }    
+          .wfrp4e.actor .movement .move-value {
+            padding: 6px 0px 0px 0px;
+            font-family: CaslonPro;
+            font-weight: 500;
+            font-size: 14px;
+            text-align: center;
+            width: 50px;
+            color: #29364a;
+            /* border: 1px solid #736953a6; */
+            border-left: 1px solid #736953a6;
+            /* border-right: 1px solid #736953a6; */
+            border-bottom: 1px solid #736953a6;
+            /* padding: 1px 3px; */
+            height: 23px;
+          }
+          #movement-value-box {
+            padding: 0px 0px 0px 0px;
+            margin: 0px;
+            /* border: 1px solid #736953a6; */
+            width: 70px;
+          }
+          .wfrp4e.actor .movement {
+            display: flex;
+            margin: 0px;
+            margin-right: 6px;
+            width: 170px;
+            height: 47px;
+            border-top: 1px solid #736953a6;
+            border-right: 1px solid #736953a6;
+          }
+          .wfrp4e.actor .movement .move-section {
+            margin: 0 0px;
+            height: inherit;
+          }
+          .wfrp4e.actor .movement .move-name {
+            font-family: CaslonAntique;
+            font-weight: normal;
+            font-size: 16px;
+            color: #464331c4;
+            /* border-top: 1px solid #ccc; */
+            text-align: center;
+            border-left: 1px solid #736953a6;
+            /* border-right: 1px solid #736953a6; */
+            border-bottom: 1px solid #736953a6;
+            margin: 0px;
+            padding: 2px 0px 0px 0px;
+            height: 23px;
+            /* vertical-align: middle; */
+            box-shadow: 0 0 10px #00000052 inset;
+          }
+          h4 {
+            margin: 0px;
+          }
+
+          .wfrp4e.actor .fate-resilience {
+            display: flex;
+            margin: 0px;
+            width: 250px;
+            border: 1px solid #736953a6;
+            border-left: none;
+            height: 47px;
+          }   
+          .wfrp4e.actor .fate-resilience .type {
+            display: flex;
+            flex-direction: column;
+            margin: 0 0px;
+            width: 95px;
+            /* border-top: 1px solid #736953a6; */
+            /* border-right: 1px solid #736953a6; */
+            height: inherit;
+          }          
+          .wfrp4e.actor .fate-resilience .type .upper {
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            text-align: center;
+            border-bottom: 1px solid #736953a6;
+            border-left: 1px solid #736953a6;
+            /* box-shadow: 0 0 10px #00000052 inset; */
+          }      
+          .wfrp4e.actor .fate-resilience .type .upper > input {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            width: 21px;
+            height: 23px;
+            float: right;
+            padding: 5px 1px 0px 0px;
+            /* margin: 0 0 0 5px; */
+            border-radius: 0px;
+            /* border-left: 1px solid #736953a6; */
+          }       
+          .wfrp4e.actor .fate-resilience .type .lower {
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            text-align: center;
+            /* border-top: 1px solid #ccc; */
+            border-left: 1px solid #736953a6;
+            /* box-shadow: 0 0 10px #00000052 inset; */
+          }     
+          .wfrp4e.actor .fate-resilience .type .lower > input {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            width: 21px;
+            height: 21px;
+            float: right;
+            /* border-left: 1px solid #736953a6; */
+            padding: 5px 1px 0px 0px;
+            border-radius: 0px;
+          }
+          #label-fortune {
+            position: absolute;
+            HEIGHT: 23PX;
+            width: 74px;
+            text-align: center;
+            TOP: 391PX;
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            border-RIGHT: 1px solid #736953a6;
+            /* PADDING-RIGHT: 5PX; */
+            PADDING-TOP: 3PX;
+            box-shadow: 0 0 10px #00000052 inset;
+          }
+          #label-fate {
+            position: absolute;
+            HEIGHT: 23PX;
+            width: 74px;
+            text-align: center;
+            TOP: 414PX;
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            border-RIGHT: 1px solid #736953a6;
+            PADDING-RIGHT: 5PX;
+            PADDING-TOP: 3PX;
+            box-shadow: 0 0 10px #00000052 inset;
+          }
+          #label-resolve {
+            position: absolute;
+            HEIGHT: 23PX;
+            width: 74px;
+            text-align: center;
+            TOP: 391PX;
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            border-RIGHT: 1px solid #736953a6;
+            /* PADDING-RIGHT: 5PX; */
+            PADDING-TOP: 3PX;
+            box-shadow: 0 0 10px #00000052 inset;
+          }
+          #label-resilience {
+            position: absolute;
+            HEIGHT: 23PX;
+            width: 74px;
+            text-align: center;
+            TOP: 414PX;
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            border-RIGHT: 1px solid #736953a6;
+            PADDING-RIGHT: 5PX;
+            PADDING-TOP: 3PX;
+            box-shadow: 0 0 10px #00000052 inset;
+          }
+      /* ============================================================ */  
+  
+/***************************************************/
+/***************************************************/
+
+
+
+
+
+
+
+input[type="text"], input[type="password"] {
+  min-width: 20px;
+  background: none;
+  padding: 1px 3px;
+  margin: 0;
+  border: none;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  color: #111;
+}
+
+
+
+
+
+
+
+
+
+
+.wfrp4e.sheet form input[type="text"]:hover,
+.wfrp4e.sheet form input[type="text"]:focus {
+  border: 1px solid #111;
+  box-shadow: none;
+}
+
+.wfrp4e.sheet form input[type="number"] {
+  background: none;
+  border: none;
+  padding: 0;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  color: #444;
+  border: 1px solid transparent;
+}
+.wfrp4e.sheet form input[type="number"]:hover,
+.wfrp4e.sheet form input[type="number"]:focus {
+  border: 1px solid #111;
+  box-shadow: 0 0 8px red;
+}
+
+
+.wfrp4e.sheet form input[type="number"] {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #444;
+  border: 1px solid transparent;
+}
+
+
+.wfrp4e.sheet .header {
+display: flex;
+}
+
+
+.wfrp4e.actor-sheet .sheet-header {
   display: flex;
   flex-direction: row;
+  border-bottom: 1px solid #CCC;
+  
+}
+.wfrp4e.actor-sheet .sheet-header{
+  flex: 1;
+}
+
+
+.wfrp4e.actor-sheet .sheet-header .charname {
+  height: 44px;
+  padding: 5px 5px 5px 0;
+  border: none;
+}
+.wfrp4e.actor-sheet .sheet-header .charname > input {
+  width: 100%;
+  margin: 0;
+  font-family: CaslonAntique;
+  font-size: 18px;
+  color: #444;
+  border: none;
+}
+
+
+.wfrp4e.actor .experience{
+  display: flex;
+  flex-direction: row;
+  margin-top: -15px;
+  margin-left: 30px;
+  align-content: flex-end;
+}
+
+.wfrp4e.actor .experience > a{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  height: 30px;
+  margin-top: 20px;
+}
+
+.wfrp4e.actor  .experience > *{
+  margin: 5px;
+}
+
+.wfrp4e.actor  .experience .experience-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.wfrp4e.actor .experience .experience-section > a{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.wfrp4e.actor .experience .experience-section > input{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+  height: 30px;
   width: 60px;
+  text-align: center;
+  margin-bottom: -5px;
 }
 
 
 
 
+
+/* .wfrp4e.actor .general .row .small{
+  height: 40px;
+  margin-top: -3px;
+}
+
+.wfrp4e.actor .general .item {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.wfrp4e.actor .general .item > input {
+  height: 30px;
+  width: 120px;
+  text-align: center;
+}
+
+
+.wfrp4e.actor .general .small > input {
+  width: 30px;
+}
+
+.wfrp4e.actor .general .item-status > .item  {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .general .item-status .item > input  {
+  width: 60px;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 1px;
+  margin-bottom: -4px;
+}
+
+.wfrp4e.actor .general .item-status > a  {
+  font-family: CaslonAntique;
+  font-size: 18px;
+  margin-left: 50px;
+}
+
+
+
+.wfrp4e.actor .general .small > a {
+  font-size: 16px;
+} */
+
+
+
+
+
+
+
+
+.wfrp4e.actor .main-row {
+  display: flex;
+  height: 80px;
+  border-bottom: 1px solid #CCC;
+}
+
+
+
+.wfrp4e.actor .motivation{
+  margin: 5px;
+  margin-right: 30px;
+  width: 100%;
+}
+
+.wfrp4e.actor .motivation > *{
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 10px;
+  text-align: center;
+}
+
+.wfrp4e.actor .motivation .motivation-text {
+  width: 100%;
+  height: 50px;
+  margin-top: -10px;
+  font-family: CaslonPro
+}
+
+.wfrp4e.actor .motivation .motivation-text > input{
+  width: 100%;
+  height: 25px;
+}
+
+.wfrp4e.actor .careers{
+  width: 60%;
+  text-align: center;
+
+}
+
+.wfrp4e.actor .careers > a{
+  font-family: CaslonAntique;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury{
+  width: 40%;
+}
+
+.wfrp4e.actor .injury .wounds{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+
+.wfrp4e.actor .injury .wounds > * {
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury .crit-wounds > a{
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .injury .crit-wounds{
+  text-align: center;
+}
+
+
+.wfrp4e.actor .crit-wounds .editor {
+  height: 120px;
+  width: auto;
+}
+
+.wfrp4e.actor .crit-wounds a > input {
+width: 10%;
+font-family: CaslonAntique;
+font-size: 20px;
+font-weight: bold;
+}
+
+
+.wfrp4e.actor .ambitions{
+  margin-top: 5px;
+  width: 100%;
+}
+
+.wfrp4e.actor .ambitions > h3{
+  font-family: CaslonAntique;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .ambitions .ambition-sections{
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .ambitions .ambition-section{
+  width: 50%;
+  margin: 10px;
+}
+
+.wfrp4e.actor .ambitions .ambition-section > h4{
+  font-family: CaslonAntique;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.wfrp4e.actor .ambitions .ambition-section > h5{
+  text-align: left;
+  font-size: 14px;
+  margin: 0px;
+}
+
+
+.wfrp4e.actor .ambitions .ambition-section .editor {
+  height: 90px;
+  width:auto;
+}
+
+
+.wfrp4e.actor .ambition-section{
+  margin: 0;
+  padding: 3px 3px 0;
+}
+
+/* ----------------------------------------- */
+/* Skills Tab
+/* ----------------------------------------- */
+
+
+.wfrp4e .skill-section{
+  display:flex;
+  flex-direction: row;
+}
+
+.wfrp4e .skill-section .skill-type {
+  width: 50%;
+}
+
+
+
+.wfrp4e .skill-section .skill-type > h3{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 20px;
+  color: #444;
+}
+
+
+.wfrp4e .skills .skill-table{
+  background: none;
+  border: none;
+  margin: 5px;
+}
+
+.wfrp4e .skills .skill-table .table-header > th{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+  color: #444;
+}
+
+
+.wfrp4e .skill-table .skill > * {
+  border: 1px solid #000;
+}
+
+.wfrp4e .skill-table .skill >*:last-child {
+  border-right: none;
+}
+.wfrp4e .skill-table .skill >*:first-child {
+  border-left: none;
+}
+
+.wfrp4e .skill-section .skill-list .skill > * {
+  font-family: CaslonAntique;
+  font-size: 16px; 
+}
+
+.wfrp4e .skill .skill-name{
+  width: 55%;
+}
+
+.wfrp4e .skill .skill-characteristic{
+  text-align: center;
+  width: 15%;
+}
+  
+
+.wfrp4e .skill .skill-advances {
+  text-align: center;
+  width: 15%
+}
+
+
+.wfrp4e .skill .skill-advances >input{
+  text-align: center;
+  width: 100%;
+}
+
+.wfrp4e .skill .skill-total{
+  text-align: center;
+  width: 15%;
+}
+  
+
+
+
+/* ----------------------------------------- */
+/*  Item Sheet
+/* ----------------------------------------- */
+.wfrp4e.item-sheet .item-details,
+.wfrp4e.item-sheet .sheet-tabs {
+  flex: 0 0 30px;
+  padding: 5px 0;
+  margin: 0;
+}
+.wfrp4e.item-sheet .item-details {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  justify-content: space-between;
+}
+.wfrp4e.item-sheet .item-details > * {
+  flex: 1;
+}
+.wfrp4e.item-sheet .item-details > li {
+  flex: 0 0 30%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  font-size: 14px;
+  text-align: center;
+}
+.wfrp4e.item-sheet .item-details > li > * {
+  flex: 1;
+}
+.wfrp4e.item-sheet .item-details label {
+  line-height: 20px;
+}
+.wfrp4e.item-sheet .consumable-charges input {
+  flex: 0 0 64px;
+  margin-left: 5px;
+  text-align: center;
+}
+.wfrp4e.item-sheet .sheet-tabs {
+  border-top: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
+  font-size: 14px;
+  font-weight: bold;
+}
+.wfrp4e.item-sheet .sheet-tabs .active {
+  text-decoration: underline;
+}
+.wfrp4e.item-sheet .editor {
+  height: 300px;
+}
+
+
+
+/* ----------------------------------------- */
+/* Talent List
+/* ----------------------------------------- */
+.wfrp4e.actor .talent-list {
+  list-style: none;
+}
+
+.wfrp4e.actor .talent-list .talent-header {
+  line-height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: row;
+}
+
+
+.wfrp4e.actor .talent-list .talent-header .talent-descriptor {
+  width: 33%;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.wfrp4e.actor .talent-list .talents{
+  display: flex;
+}
+
+
+.wfrp4e.actor .talent-list .talents > * {
+  width: 33%;
+}
+
+
+/* ----------------------------------------- */
+/* Weapon List
+/* ----------------------------------------- */
+
+.wfr4e.actor .weapons{
+  width: 50%;
+}
+
+.wfrp4e.actor .weapon-list {
+  list-style: none;
+}
+
+.wfrp4e.actor .weapon-list .weapon-header {
+  line-height: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: row;
+}
+
+
+.wfrp4e.actor .weapon-list .weapon-header .weapon-descriptor {
+  width: 33%;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.wfrp4e.actor .weapon-list .weapon-list-item{
+  display: flex;
+}
+
+
+.wfrp4e.actor .weapon-list .weapon-list-item > * {
+  width: 33%;
+}
 /* ----------------------------------------- */
 /* User Interface Framework
 /* ----------------------------------------- */
@@ -84,7 +1237,12 @@
     border-image: url(../ui/footer-button.png) 10 repeat;
     border-image-width: 4px;
     border-image-outset: 0px;
-    
+/*     
+    border-image: url(../ui/ActorSheet-TabBorder.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+     */
+
     /* box-shadow: inset 0 0 20px #000000; */
     
     background: url(../ui/sidebar_button-background_red.png) repeat;
@@ -197,7 +1355,7 @@
   }
   #context-menu li.context-item:hover {
     color: #FFF;
-    text-shadow: 0 0 4px red;
+    text-shadow: none;
   }
   #context-menu li.context-item > i {
     margin-right: 10px;
@@ -239,41 +1397,16 @@
 
 
 
+
+
+
+
+
+
 /***************************************************/
 /*--------- Edmund's Custom CSS Additions ---------*/
 /***************************************************/
-  .app.window-app.sheet.dnd5e.actor.character-sheet {
-    width: 670px;
-    height: 740px;
-    top: 0px;
-    left: 0px;
-    z-index: 102;
-    
-    background: url(../ui/charsheet.png) no-repeat;
-    box-shadow: none;
-  }
 
-  .app.window-app.sheet.dnd5e.actor.character-sheet .window-header {
-    flex: 0 0 61px;
-    padding: 8px 8px 8px 8px;
-    line-height: 30px;
-    border-bottom: none;
-    background: none;
-    margin: 0px 20px 0px 0px;
-    /* background: rgba(135, 85, 35, 0.35); */
-  }
-
-  .dnd5e.sheet .window-content {
-    padding: 0px 0px 0px 0px;
-    font-size: 13px;
-    overflow-y: hidden;
-    margin: 10px 57px 65px 37px;
-    box-shadow: none;
-    background: none;
-    overflow-y: hidden;
-    /* background: rgba(255, 0, 0, 0.1); */
-    border: none;
-  }
 
   #settings .modules {
     height: auto;
@@ -327,7 +1460,7 @@
 
 
   /*
-  .dnd5e.sheet form {
+  .wfrp4e.sheet form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -338,7 +1471,7 @@
   /* ----------------------------------------- */
   /* Scrollbar
   /* ----------------------------------------- */
-  ::-webkit-scrollbar {
+  /*::-webkit-scrollbar {
     width: 14px;
   }
   ::-webkit-scrollbar-track {
@@ -349,7 +1482,7 @@
     outline: none;
     border-radius: 3px;
     background: none;
-    /* background: url(../ui/scrollbar.png) no-repeat; */
+    /* background: url(../ui/scrollbar.png) no-repeat; 
     border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
     border-image-width: 25px;
     border-image-outset: 0px;
@@ -366,16 +1499,16 @@
     background-position: center;
     box-shadow: none;
 
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
   } 
   ::-webkit-scrollbar-button:vertical:increment {
     background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
 
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
-    /* box-shadow: 0 0 17px rgb(0,0,0); */
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
+    /* box-shadow: 0 0 17px rgb(0,0,0); 
   } 
 
   ::-webkit-scrollbar-track {
@@ -384,14 +1517,14 @@
     background-size: 9px 110px;
     box-shadow: 0 0 17px rgb(0,0,0);
   }
-  /* -------------------------------------------------------- */
+  /* -------------------------------------------------------- 
  
   .control-tools > li {
     width: 36px;
     height: 36px;
     line-height: 36px;
     /* background: rgba(0, 0, 0, 0.5); */
-    /* box-shadow: 0 0 10px #000; */
+    /* box-shadow: 0 0 10px #000; 
     margin: 0 0 8px;
     color: #BBB;
     text-align: center;
@@ -424,7 +1557,7 @@
     
     cursor: pointer;
     box-shadow: 0 0 10px #ff6400;
-  }
+  }*/
 
 
 /***************************************************/
@@ -437,151 +1570,47 @@
 /*  Actor Sheet
 /* ----------------------------------------- */
 
-.dnd5e.actor-sheet section.window-content {
+.wfrp4e.actor-sheet section.window-content {
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 
-.dnd5e.sheet form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  border: none;
-  /* border-width: 2px;
-  border-style: solid; */
-  overflow-y: hidden;
-  /* Form Elements */
-}
-.dnd5e.sheet form > * {
+
+
+
+
+.wfrp4e.sheet form .sheet-sidebar > * {
   flex: 1;
 }
-.dnd5e.sheet form input[type="text"] {
-  background: none;
-  border: none;
-  padding: 0;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  color: #444;
-  border: 1px solid transparent;
-}
-.dnd5e.sheet form input[type="text"]:hover,
-.dnd5e.sheet form input[type="text"]:focus {
-  border: 1px solid #111;
-  box-shadow: 0 0 8px red;
-}
-.dnd5e.sheet form input:disabled,
-.dnd5e.sheet form select:disabled,
-.dnd5e.sheet form textarea:disabled {
-  color: #444;
-}
-.dnd5e.sheet form input:disabled:hover,
-.dnd5e.sheet form select:disabled:hover,
-.dnd5e.sheet form textarea:disabled:hover,
-.dnd5e.sheet form input:disabled:focus,
-.dnd5e.sheet form select:disabled:focus,
-.dnd5e.sheet form textarea:disabled:focus {
-  border: 1px solid transparent;
-  box-shadow: none;
-}
-.dnd5e.sheet form span,
-.dnd5e.sheet form label {
-  display: block;
-}
-.dnd5e.sheet form .mce-panel span {
-  display: inherit;
-}
-.dnd5e.sheet form.editable .rollable:hover {
-  color: #000;
-  text-shadow: 0 0 10px red;
-  cursor: pointer;
-}
-.dnd5e.sheet form .sheet-header {
-  flex: 0 0 100%;
-  height: 44px;
-  order: 1;
-}
-.dnd5e.sheet form .sheet-body {
-  flex: 1;
-  height: calc(100% - 44px);
-  order: 3;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-.dnd5e.sheet form .sheet-sidebar {
-    /* flex: 0 0 220px; */
-    height: calc(100% - 44px);
-    order: 2;
-    /* border-right: 1px solid #AAA; */
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-.dnd5e.sheet form .sheet-sidebar > * {
-  flex: 1;
-}
-.dnd5e.sheet form .sheet-sidebar img.sheet-profile {
+.wfrp4e.sheet form .sheet-sidebar img.sheet-profile {
   flex: 0 0 110;
   border: none;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.sheet form .sheet-sidebar .tab {
+.wfrp4e.sheet form .sheet-sidebar .tab {
   padding-right: 3px;
 }
-.dnd5e.sheet form .sheet-tabs {
-  flex: 0 1 25px;
-  /* width: 20px; */
-  /* flex-direction: column-reverse; */
-  /* margin-top: 85px; */
-  color: #cecece;
-  /* margin-left: 492px; */
-  padding: 0px 0px 0px 0px;
-  /* border-bottom: 1px solid #666; */
-  /* transform: rotate(90deg); */
-  font-weight: 100;
-  /* direction: rtl; */
-  /* width: 80px; */
-  /* height: 200px; */
-  /* overflow: hidden; */
-}
-.dnd5e.sheet form .sheet-tabs > .item {
-  line-height: 26px;
-  padding: 0 10px;
-  border-radius: 5px 5px 0 0;
-}
-.dnd5e.sheet form .sheet-tabs > .item.active {
-    color: #000;
-    /* font-weight: 700; */
-    border: 1px solid #666;
-    border-bottom: none;
-    box-shadow: 0 0 10px inset #ff6400;
-    text-shadow: none;
-}
 
-.dnd5e.sheet form .tab {
-  flex: 1 0 380px;
-  overflow: hidden;
-}
+
 /* ---------------------------------------- */
 /*  Sheet Header                            */
 /* ---------------------------------------- */
-.dnd5e.actor-sheet .sheet-header {
+/*(.wfrp4e.actor-sheet .sheet-header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .sheet-header > * {
+.wfrp4e.actor-sheet .sheet-header{
   flex: 1;
 }
-.dnd5e.actor-sheet .sheet-header .charname {
+.wfrp4e.actor-sheet .sheet-header .charname {
   height: 44px;
   padding: 5px 5px 5px 0;
   border: none;
 }
-.dnd5e.actor-sheet .sheet-header .charname > input {
+.wfrp4e.actor-sheet .sheet-header .charname > input {
   width: 100%;
   margin: 0;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
@@ -590,7 +1619,7 @@
   font-size: 36px;
   border: none;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel {
+.wfrp4e.actor-sheet .sheet-header .charlevel {
   flex: 0 0 150px;
   height: 44px;
   display: flex;
@@ -598,10 +1627,10 @@
   flex-wrap: nowrap;
   text-align: right;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel > * {
+.wfrp4e.actor-sheet .sheet-header .charlevel > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .level {
+.wfrp4e.actor-sheet .sheet-header .charlevel .level {
   flex: 0 0 20px;
   width: 100%;
   display: flex;
@@ -614,22 +1643,22 @@
   font-size: 20px;
   line-height: 20px;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .level > * {
+.wfrp4e.actor-sheet .sheet-header .charlevel .level > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .level > input[type="text"] {
+.wfrp4e.actor-sheet .sheet-header .charlevel .level > input[type="text"] {
   flex: 0 0 26px;
   height: 20px;
   text-align: center;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .xpbar {
+.wfrp4e.actor-sheet .sheet-header .charlevel .xpbar {
   width: 100%;
   flex: 0 0 8px;
   background: #666;
   border: 1px solid #000;
   border-radius: 3px;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .xpbar .bar {
+.wfrp4e.actor-sheet .sheet-header .charlevel .xpbar .bar {
   height: 4px;
   margin: 1px;
   display: block;
@@ -637,7 +1666,7 @@
   border: 1px solid #000;
   border-radius: 2px;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .experience {
+.wfrp4e.actor-sheet .sheet-header .charlevel .experience {
   flex: 0 0 16px;
   display: flex;
   flex-direction: row;
@@ -645,26 +1674,26 @@
   justify-content: flex-start;
   justify-content: flex-end;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .experience > * {
+.wfrp4e.actor-sheet .sheet-header .charlevel .experience > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .sheet-header .charlevel .experience > input[type="text"] {
+.wfrp4e.actor-sheet .sheet-header .charlevel .experience > input[type="text"] {
   flex: 1;
   text-align: right;
   height: 16px;
-}
+}*/
 /* ---------------------------------------- */
 /*  Sheet Body                              */
 /* ---------------------------------------- */
 /* Character Details */
-.dnd5e.actor-sheet .sheet-body .details {
+.wfrp4e.actor-sheet .sheet-body .details {
   flex: 0 0 30px;
   list-style: none;
   margin: 0;
   padding: 0;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .sheet-body .details .character-detail {
+.wfrp4e.actor-sheet .sheet-body .details .character-detail {
   width: 33.33%;
   height: 24px;
   float: left;
@@ -672,20 +1701,20 @@
   padding-left: 3px;
   border-right: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .sheet-body .details .character-detail:last-child {
+.wfrp4e.actor-sheet .sheet-body .details .character-detail:last-child {
   border-right: none;
 }
-.dnd5e.actor-sheet .sheet-body .details .character-detail > input {
+.wfrp4e.actor-sheet .sheet-body .details .character-detail > input {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 18px;
   color: #444;
   font-size: 20px;
 }
-.dnd5e.npc-sheet .sheet-body .details .character-detail {
+.wfrp4e.npc-sheet .sheet-body .details .character-detail {
   width: 25%;
 }
 /* Primary Attributes */
-.dnd5e.actor-sheet .primary-attributes {
+.wfrp4e.actor-sheet .primary-attributes {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -693,21 +1722,21 @@
   flex: 0 0 80px;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .primary-attributes > * {
+.wfrp4e.actor-sheet .primary-attributes > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute {
+.wfrp4e.actor-sheet .primary-attributes .attribute {
   flex: 0 0 25%;
   height: 72px;
   margin: 4px 0;
   padding: 0 4px;
   border-right: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute:last-child {
+.wfrp4e.actor-sheet .primary-attributes .attribute:last-child {
   margin-right: 0;
   border-right: none;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-name {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-name {
   position: relative;
   height: 22px;
   margin: 0 0 2px;
@@ -718,11 +1747,11 @@
   text-align: center;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-name .npc-roll-hp {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-name .npc-roll-hp {
   position: absolute;
   right: 2px;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-value {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-value {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -735,46 +1764,46 @@
   line-height: 32px;
   text-align: center;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-value > * {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-value > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer {
   height: 16px;
   text-align: center;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer span {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer span {
   display: inline-block;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input {
   max-width: 24px;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input.temphp {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input.temphp {
   max-width: 45%;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input.hit-dice {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input.hit-dice {
   min-width: 16px;
   max-width: 16px;
   text-align: right;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input[name="data.attributes.speed.value"] {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input[name="data.attributes.speed.value"] {
   max-width: none;
   text-align: left;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input.speed,
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer input.hpformula {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input.speed,
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer input.hpformula {
   max-width: 90%;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer a.rest {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer a.rest {
   padding: 0 2px;
   background: rgba(255, 255, 255, 0.25);
   border: 1px solid #CCC;
   border-radius: 2px;
 }
-.dnd5e.actor-sheet .primary-attributes .attribute .attribute-footer.recharge input[type="checkbox"] {
+.wfrp4e.actor-sheet .primary-attributes .attribute .attribute-footer.recharge input[type="checkbox"] {
   margin: 1px;
 }
 /* Status Effects */
-.dnd5e.actor-sheet .statuses {
+.wfrp4e.actor-sheet .statuses {
   flex: 0 0 29px;
   margin: 0;
   border-bottom: 1px solid #CCC;
@@ -783,10 +1812,10 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.dnd5e.actor-sheet .statuses > * {
+.wfrp4e.actor-sheet .statuses > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .statuses .status {
+.wfrp4e.actor-sheet .statuses .status {
   padding: 0 6px;
   border-right: 1px solid #CCC;
   font-size: 14px;
@@ -796,16 +1825,16 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.dnd5e.actor-sheet .statuses .status > * {
+.wfrp4e.actor-sheet .statuses .status > * {
   flex: 1;
 }
-.dnd5e.actor-sheet .statuses .status.death {
+.wfrp4e.actor-sheet .statuses .status.death {
   flex: 0 0 50%;
 }
-.dnd5e.actor-sheet .statuses .status:last-child {
+.wfrp4e.actor-sheet .statuses .status:last-child {
   border-right: none;
 }
-.dnd5e.actor-sheet .statuses .status h4 {
+.wfrp4e.actor-sheet .statuses .status h4 {
   flex: 1;
   margin: 0;
   font-size: 12px;
@@ -813,23 +1842,23 @@
   font-size: 18px;
   color: #444;
 }
-.dnd5e.actor-sheet .statuses .status .status-value {
+.wfrp4e.actor-sheet .statuses .status .status-value {
   flex: none;
 }
-.dnd5e.actor-sheet .statuses .status .status-value > * {
+.wfrp4e.actor-sheet .statuses .status .status-value > * {
   display: inline-block;
   margin-right: 5px;
 }
-.dnd5e.actor-sheet .statuses .status .status-value > input[type="text"] {
+.wfrp4e.actor-sheet .statuses .status .status-value > input[type="text"] {
   height: 20px;
   max-width: 20px;
   margin: 0;
 }
-.dnd5e.actor-sheet .statuses .status .status-value > input[type="checkbox"] {
+.wfrp4e.actor-sheet .statuses .status .status-value > input[type="checkbox"] {
   position: relative;
   top: 2px;
 }
-.dnd5e.sheet form .sheet-sidebar .tab {
+.wfrp4e.sheet form .sheet-sidebar .tab {
   padding-right: 73px;
   margin-top: -120px;
 }
@@ -872,25 +1901,25 @@
 /* ----------------------------------------- */
 /* Biography Tab
 /* ----------------------------------------- */
-.dnd5e.actor-sheet .biography .editor {
+.wfrp4e.actor-sheet .biography .editor {
   height: 380px;
   padding-left: 8px;
 }
-.dnd5e.npc-sheet .biography .editor {
+.wfrp4e.npc-sheet .biography .editor {
   height: 465px;
 }
 /* ----------------------------------------- */
 /* Abilities Sidebar Tab
 /* ----------------------------------------- */
-.dnd5e .abilities {
+.wfrp4e .abilities {
   margin-bottom: 3px;
 }
-.dnd5e .abilities .abilities-list {
+.wfrp4e .abilities .abilities-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.dnd5e .abilities .ability {
+.wfrp4e .abilities .ability {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -899,25 +1928,25 @@
   line-height: 36px;
   border-bottom: 1px solid #CCC;
 }
-.dnd5e .abilities .ability > * {
+.wfrp4e .abilities .ability > * {
   flex: 1;
 }
-.dnd5e .abilities .ability .ability-proficiency {
+.wfrp4e .abilities .ability .ability-proficiency {
   flex: 0 0 24px;
 }
-.dnd5e .abilities .ability .ability-proficiency i.fa-circle {
+.wfrp4e .abilities .ability .ability-proficiency i.fa-circle {
   font-size: 10px;
 }
-.dnd5e .abilities .ability .ability-name {
+.wfrp4e .abilities .ability .ability-name {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 18px;
   color: #444;
   margin: 0;
 }
-.dnd5e .abilities .ability .ability-score {
+.wfrp4e .abilities .ability .ability-score {
   flex: 0 0 36px;
 }
-.dnd5e .abilities .ability .ability-score > input {
+.wfrp4e .abilities .ability .ability-score > input {
   width: 30px;
   height: 30px;
   margin: 3px;
@@ -927,8 +1956,8 @@
   font-size: 22px;
   text-align: center;
 }
-.dnd5e .abilities .ability .ability-mod,
-.dnd5e .abilities .ability .ability-save {
+.wfrp4e .abilities .ability .ability-mod,
+.wfrp4e .abilities .ability .ability-save {
   flex: 0 0 24px;
   margin: 8px 0;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
@@ -938,49 +1967,15 @@
   color: #666;
   text-align: center;
 }
-.dnd5e .abilities .ability .ability-mod {
+.wfrp4e .abilities .ability .ability-mod {
   border-right: 1px solid #CCC;
 }
-.dnd5e .abilities .ability .ability-save {
+.wfrp4e .abilities .ability .ability-save {
   border-left: 1px solid #CCC;
 }
-/* ----------------------------------------- */
-/* Skills Tab
-/* ----------------------------------------- */
-.dnd5e .skills li.skill {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 21px;
-  line-height: 21px;
-  border-bottom: 1px solid #CCC;
-  font-size: 13px;
-}
-.dnd5e .skills li.skill > * {
-  flex: 1;
-}
-.dnd5e .skills li.skill .skill-name {
-  margin: 0;
-}
-.dnd5e .skills li.skill .skill-proficiency {
-  flex: 0 0 24px;
-}
-.dnd5e .skills li.skill .skill-proficiency i.fa-circle {
-  font-size: 10px;
-}
-.dnd5e .skills li.skill .skill-ability {
-  flex: 0 0 36px;
-  color: #666;
-  text-align: right;
-  margin-right: 4px;
-}
-.dnd5e .skills li.skill .skill-mod {
-  flex: 0 0 28px;
-  text-align: center;
-}
-.dnd5e.locked .ability-proficiency,
-.dnd5e.locked .skill-proficiency {
+
+.wfrp4e.locked .ability-proficiency,
+.wfrp4e.locked .skill-proficiency {
   text-shadow: none;
   cursor: default;
 }
@@ -1145,55 +2140,55 @@
 /* ----------------------------------------- */
 /*  Spellbook Tab
 /* ----------------------------------------- */
-.dnd5e.sheet .spellbook .spellcasting-ability {
+.wfrp4e.sheet .spellbook .spellcasting-ability {
   margin: 0;
   padding: 3px 3px 0;
   border-bottom: 1px solid #CCC;
   font-size: 12px;
 }
-.dnd5e.sheet .spellbook .spellcasting-ability label {
+.wfrp4e.sheet .spellbook .spellcasting-ability label {
   line-height: 20px;
 }
-.dnd5e.sheet .spellbook .spellcasting-ability select {
+.wfrp4e.sheet .spellbook .spellcasting-ability select {
   flex: 1;
   font-size: 10px;
   height: 18px;
   background: rgba(255, 255, 255, 0.5);
 }
-.dnd5e.sheet .spellbook .spellbook-header .spell-school,
-.dnd5e.sheet .spellbook .spellbook-header .spell-action {
+.wfrp4e.sheet .spellbook .spellbook-header .spell-school,
+.wfrp4e.sheet .spellbook .spellbook-header .spell-action {
   color: inherit;
 }
-.dnd5e.sheet .spellbook .inventory-list {
+.wfrp4e.sheet .spellbook .inventory-list {
   height: calc(100% - 28px);
 }
-.dnd5e.sheet .spellbook .item-name {
+.wfrp4e.sheet .spellbook .item-name {
   flex: 2;
 }
-.dnd5e.sheet .spellbook .spell-school,
-.dnd5e.sheet .spellbook .spell-action {
+.wfrp4e.sheet .spellbook .spell-school,
+.wfrp4e.sheet .spellbook .spell-action {
   flex: 1;
   font-size: 12px;
   color: #666;
   text-align: center;
   border-right: 1px solid #CCC;
 }
-.dnd5e.sheet .spellbook .spell-slots,
-.dnd5e.sheet .spellbook .spell-max {
+.wfrp4e.sheet .spellbook .spell-slots,
+.wfrp4e.sheet .spellbook .spell-max {
   flex: 0 0 24px;
   font-size: 12px;
   text-align: center;
 }
-.dnd5e.sheet .spellbook .spell-max {
+.wfrp4e.sheet .spellbook .spell-max {
   border-right: 1px solid #CCC;
 }
-.dnd5e.sheet .spellbook .spellbook-empty .item-controls {
+.wfrp4e.sheet .spellbook .spellbook-empty .item-controls {
   flex: 1;
 }
 /* ----------------------------------------- */
 /*  Feats Tab
 /* ----------------------------------------- */
-.dnd5e.sheet .feats .feats-list .item-name {
+.wfrp4e.sheet .feats .feats-list .item-name {
   flex: 2;
 }
 /* ----------------------------------------- */
@@ -1276,13 +2271,13 @@
 /* ----------------------------------------- */
 /*  Item Sheet
 /* ----------------------------------------- */
-.dnd5e.item-sheet .item-details,
-.dnd5e.item-sheet .sheet-tabs {
+.wfrp4e.item-sheet .item-details,
+.wfrp4e.item-sheet .sheet-tabs {
   flex: 0 0 30px;
   padding: 5px 0;
   margin: 0;
 }
-.dnd5e.item-sheet .item-details {
+.wfrp4e.item-sheet .item-details {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -1290,10 +2285,10 @@
   justify-content: flex-start;
   justify-content: space-between;
 }
-.dnd5e.item-sheet .item-details > * {
+.wfrp4e.item-sheet .item-details > * {
   flex: 1;
 }
-.dnd5e.item-sheet .item-details > li {
+.wfrp4e.item-sheet .item-details > li {
   flex: 0 0 30%;
   display: flex;
   flex-direction: row;
@@ -1302,74 +2297,74 @@
   font-size: 14px;
   text-align: center;
 }
-.dnd5e.item-sheet .item-details > li > * {
+.wfrp4e.item-sheet .item-details > li > * {
   flex: 1;
 }
-.dnd5e.item-sheet .item-details label {
+.wfrp4e.item-sheet .item-details label {
   line-height: 20px;
 }
-.dnd5e.item-sheet .consumable-charges input {
+.wfrp4e.item-sheet .consumable-charges input {
   flex: 0 0 64px;
   margin-left: 5px;
   text-align: center;
 }
-.dnd5e.item-sheet .sheet-tabs {
+.wfrp4e.item-sheet .sheet-tabs {
   border-top: 1px solid #CCC;
   border-bottom: 1px solid #CCC;
   font-size: 14px;
   font-weight: bold;
 }
-.dnd5e.item-sheet .sheet-tabs .active {
+.wfrp4e.item-sheet .sheet-tabs .active {
   text-decoration: underline;
 }
-.dnd5e.item-sheet .editor {
+.wfrp4e.item-sheet .editor {
   height: 300px;
 }
 /* ----------------------------------------- */
 /*  Chat Cards
 /* ----------------------------------------- */
-.dnd5e.chat-card {
+.wfrp4e.chat-card {
   font-style: normal;
 }
-.dnd5e.chat-card .card-header {
+.wfrp4e.chat-card .card-header {
   padding: 3px 0;
   border-top: 2px groove #FFF;
   border-bottom: 2px groove #FFF;
 }
-.dnd5e.chat-card .card-header img {
+.wfrp4e.chat-card .card-header img {
   flex: 0 0 36px;
   margin-right: 5px;
 }
-.dnd5e.chat-card .card-header h3 {
+.wfrp4e.chat-card .card-header h3 {
   flex: 1;
   margin: 0;
   line-height: 36px;
 }
-.dnd5e.chat-card .card-content {
+.wfrp4e.chat-card .card-content {
   margin: 5px 0;
 }
-.dnd5e.chat-card .card-buttons {
+.wfrp4e.chat-card .card-buttons {
   margin: 5px 0;
 }
-.dnd5e.chat-card .card-buttons span {
+.wfrp4e.chat-card .card-buttons span {
   display: block;
   line-height: 28px;
   text-align: center;
   border: 1px solid #CCC;
 }
-.dnd5e.chat-card .card-buttons button {
+.wfrp4e.chat-card .card-buttons button {
   margin: 2px 0;
 }
-.dnd5e.chat-card .card-footer {
+.wfrp4e.chat-card .card-footer {
   padding: 3px 0 0;
   border-top: 2px groove #FFF;
 }
-.dnd5e.chat-card .card-footer span {
+.wfrp4e.chat-card .card-footer span {
   border-right: 2px groove #FFF;
   padding: 0 5px 0 0;
   font-size: 12px;
 }
-.dnd5e.chat-card .card-footer span:last-child {
+.wfrp4e.chat-card .card-footer span:last-child {
   border-right: none;
   padding-right: 0;
 }

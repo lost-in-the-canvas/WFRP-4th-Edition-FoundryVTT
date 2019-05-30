@@ -1,0 +1,51 @@
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
+        {{> public/systems/wfrp4e/templates/items/item-header.html}}
+    
+        <nav class="sheet-tabs tabs" data-tab-container="primary">
+            <a class="item active" data-tab="description">Description</a>
+            <a class="item" data-tab="details">Details</a>
+        </nav>
+    
+        {{> public/systems/wfrp4e/templates/items/item-description.html}}
+    
+        <!-- Ability Details -->
+        <div class="tab" data-tab="details">
+    
+            <div class="form-group">
+                <label>{{data.characteristic.label}}</label>
+                <select name="data.characteristic.value" data-dtype="{{data.characteristic.type}}">
+                    {{#select data.characteristic.value}}
+                    {{#each characteristics as |ch char|}}
+                    <option value="{{char}}">{{ch}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+    
+            <div class="form-group">
+                <label>Skill Type</label>
+                <select name="data.advanced.value" data-dtype="{{data.advanced.type}}">
+                    {{#select data.advanced.value}}
+                    <option value=""></option>
+                    {{#each skillTypes as |type sktype|}}
+                    <option value="{{sktype}}">{{type}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Specialization</label>
+                <select name="data.grouped.value" data-dtype="{{data.grouped.type}}">
+                    {{#select data.grouped.value}}
+                    <option value=""></option>
+                    {{#each skillGroup as |grouped skgroup|}}
+                    <option value="{{skgroup}}">{{grouped}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+        </div>
+    </form>
+    
