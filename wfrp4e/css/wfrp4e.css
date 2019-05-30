@@ -443,9 +443,9 @@ display: flex;
 }
 
 .wfrp4e.actor .careers{
-  width: 60%;
+  width: 50%;
   text-align: center;
-
+  justify-content: end
 }
 
 .wfrp4e.actor .careers > a{
@@ -459,6 +459,12 @@ display: flex;
   height: auto;
 }
 
+.wfrp4e.actor .main-row .injury{
+  width: 50%;
+  height: 100%;
+}
+
+
 .wfrp4e.actor .injury .wounds{
   display: flex;
   flex-direction: row;
@@ -469,9 +475,19 @@ display: flex;
   margin: 5px;
 }
 
-.wfrp4e.actor  .crit-wounds-list {
-  height: auto;
+.wfrp4e.actor .injury .crit-wounds{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
 }
+
+.wfrp4e.actor .injury .crit-wounds > input{
+  width: 30px;
+}
+
 
 
 
@@ -480,31 +496,6 @@ display: flex;
   font-size: 20px;
   font-weight: bold;
 }
-
-.wfrp4e.actor .injury .crit-wounds > *{
-  font-family: CaslonAntique;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.wfrp4e.actor .injury .crit-wounds{
-  margin: 5px;
-  display: flex;
-  flex-direction: row; 
-}
-
-
-.wfrp4e.actor .crit-wounds > input {
-width: 30px;
-height: 30px;
-font-family: CaslonAntique;
-font-size: 30px;
-font-weight: bold;
-margin-left: 5px;
-margin-right: -5px;
-}
-
-
 
 
 
@@ -687,6 +678,7 @@ margin-right: -5px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+
 .inventory-list .item .item-name > * {
   flex: 1;
 }

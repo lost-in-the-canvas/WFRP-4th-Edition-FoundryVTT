@@ -1928,7 +1928,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       rLeg: 0,
       lLeg: 0
     };
-    const critWounds = [];
+    const injuries = [];
     const grimoire = [];
     const petty = [];
 
@@ -2075,9 +2075,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         
       }
 
-      else if (i.type == "criticalWound")
+      else if (i.type == "injury")
       {
-        critWounds.push(i);
+        injuries.push(i);
       }
 
       else if (i.type === "container")
@@ -2137,7 +2137,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.weapons = weapons;
     actorData.armour = armour;
     actorData.AP = AP;
-    actorData.critWounds = critWounds;
+    actorData.injuries = injuries;
     actorData.grimoire = grimoire;
     actorData.petty = petty;
     actorData.careers = careers;

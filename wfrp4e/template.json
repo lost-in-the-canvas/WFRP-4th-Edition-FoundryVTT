@@ -798,10 +798,15 @@
           "type" : "String"
         }
       }, 
-      "criticalWound" : {
+      "injury" : {
         "description" : {
           "value": "",
           "type" : "String"
+        },
+        "location" : {
+          "value": "",
+          "type" : "String",
+          "label" : "Location"
         }
       },
 
