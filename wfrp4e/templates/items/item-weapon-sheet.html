@@ -8,7 +8,7 @@
         </li>
         <li>
             <label>Enc</label>
-            <input type="text" name="data.weight.value" value="{{data.weight.value}}" data-dtype="{{data.weight.type}}"/>
+            <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
         </li>       
         <li>
             <label>Price</label>
@@ -25,7 +25,22 @@
 
     {{> public/systems/wfrp4e/templates/items/item-description.html}}
 
+
     <div class="tab" data-tab="details">
+
+
+        
+   <!-- <div class="form-group">
+            <label>Weapon Type</label>
+            <select class = "weapon-type" name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
+                {{#select data.weaponType.value}}
+                <option value="Melee Weapon">Melee Weapon</option>
+                <option value="Ranged Weapon">Ranged Weapon</option>
+                {{/select}}
+            </select>
+        </div>
+-->
+
         <div class="form-group">
             <label>{{data.weaponGroup.label}}</label>
             <select name="data.weaponGroup.value" data-dtype="{{data.weaponGroup.type}}">
@@ -66,6 +81,18 @@
                 <option value=""></option>
                 {{#each weaponReaches as |reach r|}}
                 <option value="{{r}}">{{reach}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>{{data.ammunitionGroup.label}}</label>
+            <select name="data.ammunitionGroup.value" data-dtype="{{data.ammunitionGroup.type}}">
+                {{#select data.ammunitionGroup.value}}
+                <option value="none">None</option>
+                {{#each ammunitionGroups as |group g|}}
+                <option value="{{g}}">{{group}}</option>
                 {{/each}}
                 {{/select}}
             </select>

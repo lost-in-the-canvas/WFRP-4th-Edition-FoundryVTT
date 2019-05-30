@@ -8,6 +8,21 @@ CONFIG.species = {
   "gnome": "Gnome"
 };
 
+//status tiers
+CONFIG.statusTiers = {
+  "g" : "Gold",
+  "s" : "Silver",
+  "b" : "Brass"
+};
+
+
+// Weapon Types
+CONFIG.weaponTypes = {
+  "melee" : "Melee Weapon",
+  "ranged" : "Ranged Weapon",
+  "both" : "Both"
+};
+
 // Weapon Groups
 CONFIG.weaponGroups = {
   "basic": "Basic",
@@ -142,30 +157,16 @@ CONFIG.reachDescription={
    "exotic": "Exotic",
  }
 
-// Spell Schools
-CONFIG.spellSchools = {
-  "abj": "Abjuration",
-  "con": "Conjuration",
-  "div": "Divination",
-  "enc": "Enchantment",
-  "evo": "Evocation",
-  "ill": "Illusion",
-  "nec": "Necromancy",
-  "trs": "Transmutation",
-};
-
-// Spell Levels
-CONFIG.spellLevels = {
-  0: "Cantrip",
-  1: "1st Level",
-  2: "2nd Level",
-  3: "3rd Level",
-  4: "4th Level",
-  5: "5th Level",
-  6: "6th Level",
-  7: "7th Level",
-  8: "8th Level",
-  9: "9th Level"
+ 
+// Consumable Types
+CONFIG.trappingTypes = {
+  "clothingAcessories":"Clothing and Accessories",
+  "foodAndDrink":"Food and Drink",
+  "toolsAndKits":"Tools and Kits",
+  "booksAndDocuments":"Books and Documents",
+  "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
+  "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "misc":"Miscellaneous"
 };
 
 // 
@@ -222,14 +223,6 @@ CONFIG.talentMax = {
 }
 
 
-// Proficiency Multipliers
-CONFIG.proficiencyLevels = {
-  0: "Not Proficient",
-  1: "Proficient",
-  0.5: "Jack of all Trades",
-  2: "Expertise"
-};
-
 // Creature Sizes
 CONFIG.actorSizes = {
   "tiny": "Tiny",
@@ -240,6 +233,30 @@ CONFIG.actorSizes = {
   "enor": "Enormous",
   "mnst": "Monstrous"
 };
+
+
+// Condition Types
+CONFIG.magicLores = {
+  "petty": "Petty",
+  "beasts": "Beasts",
+  "death": "Death",
+  "fire": "Fire",
+  "heavens": "Heavens",
+  "metal": "Metal",
+  "life": "Life",
+  "light": "Light",
+  "shadow": "Shadow",
+  "hedgecraft": "Hedgecraft",
+  "witchcraft": "Witchcraft",
+  "daemonology": "Daemonology",
+  "necromancy": "Necromancy",
+  "nurgle": "Nurgle",
+  "slaanesh": "Slaanesh",
+  "tzeentch": "Tzeentch",
+};
+
+
+
 
 // Condition Types
 CONFIG.conditionTypes = {
@@ -551,7 +568,9 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-main.html",
     "public/systems/wfrp4e/templates/actors/actor-combat.html",
     "public/systems/wfrp4e/templates/actors/actor-biography.html",
+    "public/systems/wfrp4e/templates/actors/actor-inventory.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
+    "public/systems/wfrp4e/templates/actors/actor-magic.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
@@ -1153,7 +1172,7 @@ class ItemWfrp4e extends Item {
       data: rollData,
       template: "public/systems/wfrp4e/templates/chat/tool-roll-dialog.html",
       title: title,
-      alias: this.actor.name,
+      alias: this.actor.name
       flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,
       dialogOptions: {
         width: 400,
@@ -1309,8 +1328,34 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['weaponGroups'] = CONFIG.weaponGroups;
       data['availability'] = CONFIG.availability;
       data['weaponReaches'] = CONFIG.weaponReaches
+      data['ammunitionGroups'] = CONFIG.ammunitionGroups;
+    }
+    else if (this.item.type == "ammunition")
+    {
+      data['availability'] = CONFIG.availability;
+      data['ammunitionGroups'] = CONFIG.ammunitionGroups;
+    }
+    else if (this.item.type == "armour")
+    {
+      data['armorTypes'] = CONFIG.armorTypes;
+      data['availability'] = CONFIG.availability;
+    }
+    else if (this.item.type == "spell")
+    {
+      data['magicLores'] = CONFIG.magicLores;
     }
 
+    else if (this.item.type == "career")
+    {
+      data['statusTiers'] = CONFIG.statusTiers;
+      data['skills'] = data.data.skills.toString();
+      data['earningSkills'] = data.data.incomeSkill.map(function(item) {
+        return data.data.skills[item];
+      });
+      data['talents'] = data.data.talents.toString();
+      data['trappings'] = data.data.trappings.toString();
+
+    }
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1346,8 +1391,69 @@ class ItemSheetWfrp4e extends ItemSheet {
     // Activate tabs
     new Tabs(html.find(".tabs"));
 
+        // Activate tabs
+      new Tabs(html.find(".tabs"), {
+        initial: this.item.data.flags["_sheetTab"],
+        callback: clicked => this.item.data.flags["_sheetTab"] = clicked.attr("data-tab")
+      });
+
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
+
+
+    html.find('.weapon-type').change(event => {console.log(event)});
+
+    // This listener converts comma separated lists in the career section to arrays,
+    // placing them in the correct location using update
+    html.find('.csv-input').change(async event => {
+        let list = event.target.value.split(",").map(function(item) {
+        return item.trim();
+      });       
+      
+      switch(event.target.attributes["data-dest"].value)
+      {
+        case 'skills':
+        {
+          await this.item.update({'data.skills': list});
+        }
+        break;
+
+        // find the indices of the skills that match the earning skill input, send those
+        // values to data.incomeSkill
+        case 'earning':
+        {
+          this.item.update({'data.incomeSkill': []});
+          let earningSkills = [];
+          for (let sk in list){
+            let skillIndex = this.item.data.data.skills.indexOf(list[Number(sk)])
+            if (skillIndex == -1)
+              continue;
+      
+            else
+            {
+              earningSkills.push(skillIndex);
+            }
+      
+          }
+          await this.item.update({'data.incomeSkill': earningSkills});
+
+          
+        }
+        break;
+        case 'talents':
+        {
+          await this.item.update({'data.talents': list});
+        }
+        break;
+
+        case 'trappings':
+        {
+          await this.item.update({'data.trappings': list});         
+        }
+        break;
+
+      }
+    });
   }
 }
 
@@ -1378,7 +1484,7 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   getData() {
     const sheetData = super.getData();
-    sheetData['characteristics'] = game.system.template.actor.data.characteristics;
+
 
     /*// Ability proficiency
     for ( let abl of Object.values(sheetData.data.abilities)) {
@@ -1483,26 +1589,16 @@ class ActorSheetWfrp4e extends ActorSheet {
    * @param {Object} spell        The spell data being prepared
    * @private
    */
-  _prepareSpell(actorData, spellbook, spell) {
-   /* let lvl = spell.data.level.value || 0,
-        isNPC = this.actorType === "npc";
-
-    // Determine whether to show the spell
-    let showSpell = this.options.showUnpreparedSpells || isNPC || spell.data.prepared.value || (lvl === 0);
-    if ( !showSpell ) return;
-
-    // Extend the Spellbook level
-    spellbook[lvl] = spellbook[lvl] || {
-      isCantrip: lvl === 0,
-      label: CONFIG.spellLevels[lvl],
-      spells: [],
-      uses: actorData.data.spells["spell"+lvl].value || 0,
-      slots: actorData.data.spells["spell"+lvl].max || 0
-    };
-
-    // Add the spell to the spellbook at the appropriate level
-    spell.data.school.str = CONFIG.spellSchools[spell.data.school.value];
-    spellbook[lvl].spells.push(spell);*/
+  _prepareSpell(actorData, list, spell) {
+    
+    spell['target'] = this._calculateSpellRangeOrDuration(actorData, spell.data.target.value, spell.data.target.aoe);
+    spell['duration'] = this._calculateSpellRangeOrDuration(actorData, spell.data.duration.value);
+    spell['range'] = this._calculateSpellRangeOrDuration(actorData, spell.data.range.value);
+    
+    if (!spell.data.memorized.value)
+      spell.data.cn.value *= 2;
+    
+    list.push(spell);
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1580,10 +1676,17 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.options.editable) return;
 
     html.find('.skill-advances').focusout(event => {
-      let itemId = Number(event.target.attributes[1].value);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       console.log(itemToEdit);
       itemToEdit.data.advances.value = Number(event.target.value);
+    });
+
+    html.find('.ammo-selector').change(event => {
+      console.log(event);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
+      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      itemToEdit.data.currentAmmo.value = Number(event.target.value);
     });
 
     /* -------------------------------------------- */
@@ -1810,15 +1913,42 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
 
 
-    // Skills
+    // 
+    const careers = [];
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
     const weapons = [];
+    const armour = [];
+    const AP = {
+      head: 0,
+      body: 0,
+      rArm: 0,
+      lArm: 0,
+      rLeg: 0,
+      lLeg: 0
+    };
+    const injuries = [];
+    const grimoire = [];
+    const petty = [];
 
+
+    const inventory = {
+      weapons: { label: "Weapons", items: [] },
+      armor: { label: "Armour", items: [], wearable: true},
+      ammunition: { label: "Ammunition", items: [], quantified: true},
+      clothingAcessories: { label: "Clothing and Accessories", items: [], wearable: true },
+      packs: { label: "Packs and Containers", items: [], wearable: true },
+      booksAndDocuments: {label: "Food and Drink", items: []},
+      toolsAndKits: {label: "Tools and Kits", items: []},
+      books: {label: "Books and Documents", items: []},
+      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true},
+      misc: {label: "Miscellaneous", items: []}
+    };
 
     // Iterate through items, allocating to containers
-    let totalWeight = 0;
+    let totalEnc = 0;
+    let itemsToRemove = []; // remove items with quantity of 0
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
     if (i.type === "talent")
@@ -1826,26 +1956,173 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       this._prepareTalent(actorData, talents, i);
     }
 
-    else if (i.type === "weapon")
-    {
-      i["properties"] = this._prepareQualitiesFlaws(i);
-      i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
-      i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
-      weapons.push(i);
-    }
+      try  {
+        if (i.data.quantity.value == 0)
+        {
+          itemsToRemove.push(i)
+          continue;
+        }
+      }
+      catch
+      {
+        // do nothing
+      }
+      if (i.type === "talent")
+      {
+        this._prepareTalent(actorData, talents, i);
+      }
+
+      else if ( i.type === "skill" )
+      {
+        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+      }
+
+
+      else if (i.type === "ammunition")
+      {
+        let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
+        if (existingAmmo) {
+          existingAmmo.data.quantity.value += i.data.quantity.value;
+          existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
+
+        }
+        else{
+          i.data.encumbrance.value = Math.ceil(i.data.quantity.value / i.data.quantityPerEnc.value);
+          inventory.ammunition.items.push(i);
+        }
+      }
+
+      else if (i.type === "weapon")
+      {
+        inventory.weapons.items.push(i);
+        totalEnc += i.data.encumbrance.value;
+        i["properties"] = this._prepareQualitiesFlaws(i);
+        i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
+        i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
+
+        i.data.range.value = this._calculateRangeOrDamage(actorData, i.data.range.value);
+        i.data.damage.value = this._calculateRangeOrDamage(actorData, i.data.damage.value);
+
+        if (Number(i.data.range.value) > 0)
+            i["rangedWeaponType"] = true;
+        if (i.data.reach.value)
+          i["meleeWeaponType"] = true;
+
+        if (i.data.ammunitionGroup.value != "none") {
+          i["ammo"] = [ {"name" : "None"}];
+          for ( let a of actorData.items ) {
+            if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
+            {
+              let existingAmmo = i.ammo.find(x => x.name == a.name);
+              if (existingAmmo)
+                existingAmmo.data.quantity.value += a.data.quantity.value;
+              else
+              {
+                i.ammo.push(a);
+              }
+            }
+          }
+          this._prepareWeaponWithAmmo(actorData, i);
+
+        }
+        i.properties = i.properties.filter(function(item) {return item != ""});
+        weapons.push(i);
+      }
+
+      else if (i.type === "armour")
+      {
+        inventory.armor.items.push(i);
+        totalEnc += i.data.encumbrance.value
+        // -1 means currentAP is maxAP
+        for (let ap in i.data.currentAP)
+        {
+          if (i.data.currentAP[ap] == -1)
+          {
+            i.data.currentAP[ap] = i.data.maxAP[ap];
+          }
+        }
+
+        if (i.data.maxAP.head > 0)
+        {
+          i["protectsHead"] = true;
+          AP.head += i.data.currentAP.head;
+        }
+        if (i.data.maxAP.body > 0)
+        {
+          i["protectsBody"] = true;
+          AP.body += i.data.currentAP.body;
+        }
+        if (i.data.maxAP.lArm > 0)
+        {
+          i["protectslArm"] = true;
+          AP.lArm += i.data.currentAP.lArm;
+        }      
+        if (i.data.maxAP.rArm > 0)
+        {
+          i["protectsrArm"] = true;
+          AP.rArm += i.data.currentAP.rArm;
+        }
+        if (i.data.maxAP.lLeg > 0)
+        {
+          i["protectslLeg"] = true;
+          AP.lLeg += i.data.currentAP.lLeg;
+        }
+        if (i.data.maxAP.rLeg > 0)
+        {
+          i["protectsrLeg"] = true
+          AP.rLeg += i.data.currentAP.head;
+        }
+
+        // i.properties = i.properties.filter(function(item) {return item != ""});  
+        armour.push(i);
+
+        
+      }
+
+      else if (i.type == "injury")
+      {
+        injuries.push(i);
+      }
+
+      else if (i.type === "container")
+      {
+        actor.inventory.packs.items.push(i);
+        totalEnc += i.data.encumbrance.value;
+      }
+
+      else if (i.type === "trapping")
+      {
+        inventory[i.data.trappingType].items.push(i);
+        totalEnc += i.data.encumbrance.value;
+      }
+
+      
+      else if (i.type === "spell")
+      {
+        if (i.data.lore.value == "petty")
+          this._prepareSpell(actorData, petty, i)
+        else
+          this._prepareSpell(actorData, grimoire, i)
+      }
+
+
+      else if (i.type === "career")
+      {
+        careers.push(i);
+      }
 
     /*
     // Inventory
     if ( Object.keys(inventory).includes(i.type) ) {
       i.data.quantity.value = i.data.quantity.value || 1;
       i.data.weight.value = i.data.weight.value || 0;
-      i.totalWeight = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
+      i.totalEnc = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
       i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
       inventory[i.type].items.push(i);
-      totalWeight += i.totalWeight;
+      totalEnc += i.totalEnc;
     }
 
-     /* // Spells
+      /* // Spells
       else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
 
       // Classes
@@ -1854,33 +2131,54 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         classes.sort((a, b) => b.levels > a.levels);}*/
 
       // Feats
-      else if ( i.type === "skill" )
-      {
-        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
-      }
+
     }
 
-    // Assign and return
-    //actorData.inventory = inventory;
-    //actorData.spellbook = spellbook;
+    actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
     actorData.weapons = weapons;
-    //actorData.classes = classes;
+    actorData.armour = armour;
+    actorData.AP = AP;
+    actorData.injuries = injuries;
+    actorData.grimoire = grimoire;
+    actorData.petty = petty;
+    actorData.careers = careers;
 
-   /* // Currency weight
+
+    /* // Currency weight
     if ( game.settings.get("wfrp4e", "currencyWeight") ) {
-      totalWeight += this._computeCurrencyWeight(actorData.data.currency);
+      totalEnc += this._computeCurrencyWeight(actorData.data.currency);
     }
 
     // Inventory encumbrance
     let enc = {
       max: actorData.data.abilities.str.value * 15,
-      value: Math.round(totalWeight * 10) / 10,
+      value: Math.round(totalEnc * 10) / 10,
     };
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     actorData.data.attributes.encumbrance = enc;**/
+
+    for (let r in itemsToRemove)
+    {
+      actorData.items.splice(actorData.items.indexOf(r), 1);
+    }
+
+    // Calculate ammo encumbrance after the loop (since it gets aggregated)
+    for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
+    {
+      totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
+    }
+    let enc = {
+      max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
+      value: Math.round(totalEnc * 10) / 10,
+    };
+    enc.pct = Math.min(enc.value * 100 / enc.max, 99);
+    enc.state = Math.floor(enc.value / enc.max);
+    actorData.encumbrance = enc;
+
+
   }
 
 
@@ -1919,6 +2217,121 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     return qualities.concat(flaws).sort();
 
+  }
+
+
+  
+  _calculateRangeOrDamage(actorData, formula){    
+    formula = formula.toLowerCase();
+
+    for(let ch in actorData.data.characteristics)
+    {
+      if (formula.includes(ch.concat('b')))
+      {
+        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+      }
+    }
+    formula = formula.replace('x', '*');
+    
+    return eval(formula);
+  }
+
+  _prepareWeaponWithAmmo(actorData, weapon){    
+    if (weapon.ammo[weapon.data.currentAmmo.value].name == "None")
+      return;
+    let ammo = weapon.ammo[weapon.data.currentAmmo.value];
+
+    let ammoProperties = this._prepareQualitiesFlaws(ammo);
+    let ammoRange = ammo.data.range.value || "0";
+    let ammoDamage = ammo.data.damage.value || "0";
+
+    if (ammoRange.toLowerCase() == "as weapon")
+      {
+        // Do nothing to weapon's range
+      }
+    else if (ammoRange.toLowerCase() == "half weapon")
+    {
+      weapon.data.range.value /= 2;
+    }
+    else if (ammoRange.toLowerCase() == "third weapon")
+    {
+      weapon.data.range.value /= 3;
+    }
+    else if (ammoRange.toLowerCase() == "twice weapon") 
+    {
+      weapon.data.range.value *= 2;
+    }
+    else
+      weapon.data.range.value += eval(ammoRange)
+
+    weapon.data.damage.value += eval(ammoDamage);
+    
+    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
+    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
+
+    let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
+
+    for (let inc in propertyIncrease)
+    {
+      let index = inc.indexOf("+");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+    for (let inc in propertyDecrease)
+    {
+      let index = inc.indexOf("-");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+
+    weapon.properties = weapon.properties.concat(propertiesToAdd);
+  }
+
+    
+  _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
+    formula = formula.toLowerCase();
+
+    if (formula == "you")
+      return "You"
+
+    if (formula == "special")
+      return "Special"
+
+    for(let ch in actorData.data.characteristics)
+    {
+
+      if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      {
+        if (formula.includes('bonus'))
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+        }
+        else 
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+        }
+      } 
+    }
+    
+    if (aoe)
+      formula = "AoE (" + formula + ")";
+    return formula;
   }
 
 
@@ -1993,7 +2406,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-/*
     // Actions
    // const features = {
       //weapons: {label: "Weapons", items: [], type: "weapon" },

@@ -700,7 +700,6 @@ input[type="text"], input[type="password"] {
   box-shadow: 0 0 8px red;
 }
 
-
 .wfrp4e.sheet form input[type="number"] {
   background: none;
   border: none;
@@ -786,7 +785,31 @@ display: flex;
 }
 
 
+.wfrp4e.actor .injury .crit-wounds{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
 
+.wfrp4e.actor .injury .crit-wounds > input{
+  width: 30px;
+}
+
+
+.wfrp4e.actor .injury .wounds{
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.wfrp4e.actor .injury .wounds > * {
+  font-family: CaslonAntique;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 
 /* .wfrp4e.actor .general .row .small{
@@ -2029,16 +2052,42 @@ font-weight: bold;
 .currency li.denomination:last-child {
   border-right: none;
 }
+
+/* Encumbrance Bar */
+.encumbrance {
+  background: rgba(0, 0, 0, 0.1);
+  height: 12px;
+  margin-top: 5px;
+  border: 1px solid #111;
+  border-radius: 3px;
+}
+.encumbrance .encumbrance-bar {
+  background: #782e22;
+  height: 8px;
+  margin: 1px;
+  border: 1px solid #ff6400;
+  border-radius: 3px;
+}
+.encumbrance .encumbrance-label {
+  float: right;
+  text-align: right;
+  padding-right: 5px;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+/* INVENTORY LIST - USED FOR ANY LIST INVOLVING ITEMS (WEAPONS, ARMOR, TALENTS, SPELLS, ETC. (Not skills)*/
 /* Inventory List */
 .inventory-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  height: calc(100% - 44px);
+  /*height: calc(100% - 20px);*/ 
   overflow-y: scroll;
   /* Inventory Item */
   /* Inventory Header */
 }
+
 .inventory-list .item {
   display: flex;
   flex-direction: row;
@@ -2057,6 +2106,7 @@ font-weight: bold;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
+
 .inventory-list .item .item-name > * {
   flex: 1;
 }
@@ -2078,6 +2128,10 @@ font-weight: bold;
   font-size: 12px;
   flex: 0;
 }
+
+.inventory-list .item .career-tier,
+.inventory-list .item .spell-attr,
+.inventory-list .item .item-worn,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {
   flex: 0 0 32px;
@@ -2115,28 +2169,135 @@ font-weight: bold;
 .inventory-list .inventory-header .item-controls a.item-create {
   width: 100%;
 }
-/* Encumbrance Bar */
-.encumbrance {
-  background: rgba(0, 0, 0, 0.1);
-  height: 12px;
-  margin-top: 5px;
-  border: 1px solid #111;
-  border-radius: 3px;
+
+.inventory-sections{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.encumbrance .encumbrance-bar {
-  background: #782e22;
-  height: 8px;
-  margin: 1px;
-  border: 1px solid #ff6400;
-  border-radius: 3px;
+
+.inventory-type{
+  height: 100px;
+  width: 50%;
 }
-.encumbrance .encumbrance-label {
-  float: right;
-  text-align: right;
-  padding-right: 5px;
-  font-size: 12px;
-  line-height: 12px;
+
+
+/* COMBAT SECTION */
+.wfrp4e.actor .weapon-list {
+  list-style: none;
+  height: 80px;
+  overflow: auto;
 }
+
+
+.wfrp4e.actor .combat-section .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.wfrp4e.actor .row .armor {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wfrp4e.actor .row .armor > a{
+  text-align: center;
+  font-family: CaslonAntique;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.wfrp4e.actor .armor{
+  text-align: center;
+ }
+ 
+ .wfrp4e.actor .combat-section .armor .armor-box{
+   text-align: center;
+   display: inline-block;
+   font-family: CaslonAntique;
+   font-weight: bold;
+   font-size: 20px;
+ }
+ 
+ .wfrp4e.actor .armor-list {
+   height: auto;
+   font-size: 12px;
+ }
+ 
+ .wfrp4e.actor .armor-list .item-image{
+   margin-left: 15px;
+ }
+ 
+ .wfrp4e.actor .armor-list .AP-values{
+   font-size: 18px;
+ }
+ 
+ 
+ .wfrp4e.actor .location-values{
+   border: 1px solid #000;
+   padding: 0px;
+   height: 70px;
+   width: 120px;
+   overflow: auto;
+ }
+ 
+ .wfrp4e.actor .armor-list .armor-header {
+   line-height: 20px;
+   background: rgba(0, 0, 0, 0.05);
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 8px;
+ }
+ 
+ 
+ .wfrp4e.actor .armor-list .armor-header .armor-descriptor {
+   width: 50%;
+   font-family: CaslonAntique;
+   font-weight: bold;
+   font-size: 14px;
+ }
+ 
+ .wfrp4e.actor .armor-list .armor-list-item{
+   display: flex;
+ }
+ 
+ 
+ .wfrp4e.actor .armor-list .armor-list-item > * {
+   width: 50%;
+   font-size: 14px;
+ }
+ 
+ .wfrp4e.actor .armor-list-item .item-name {
+   display: flex;
+   flex-direction: row;
+   margin-left: 2px;
+   overflow: hidden;
+   word-wrap: none;
+ 
+ }
+ 
+ .wfrp4e.actor .armor-list .item-name img {
+   flex: 0 0 24px;
+   margin-right: 6px;
+ }
+ 
+ .wfrp4e.actor .armor-list .armor-list-item .AP-values {
+   justify-content: center;
+ }
+ 
+ 
+ .wfrp4e.actor .item-image {
+   flex: 0 0 24px;
+   margin-right: 6px;
+   background-size: 24px;
+   background-repeat: no-repeat;
+ }
+
+
+
 /* ----------------------------------------- */
 /*  Spellbook Tab
 /* ----------------------------------------- */

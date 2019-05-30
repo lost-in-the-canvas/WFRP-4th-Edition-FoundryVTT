@@ -112,11 +112,9 @@
           "max": 12
         },
         "criticalWounds": {
-          "type": "String",
           "label": "Critical Wounds",
           "number": 0,
-          "max" : 0,
-          "value": ""
+          "max" : 0
         },
         "fate": {
           "type": "Number",
@@ -233,6 +231,7 @@
           "short-term":"",
           "long-term":""
         }
+
       },
       "skills": {
         "art": {
@@ -497,14 +496,20 @@
     "career": {
       "class":{
         "type":"String",
+        "label":"Class",
         "value":""
       },
       "current":{
         "type": "Boolean",
         "value": false
       },
+      "complete" : {
+        "type": "Boolean",
+        "value": false
+      },
       "tier" : {
         "type":"Number",
+        "label":"Tier",
         "value": 1
       },
       "status":{
@@ -514,10 +519,7 @@
       "skills": [],
       "talents":[],
       "trappings":[],
-      "incomeSkill" : {
-        "type": "String",
-        "value": ""
-      }
+      "incomeSkill" : []
     },
     "weapon": {
       "quantity": {
@@ -553,7 +555,16 @@
       "range":{
         "type": "String",
         "label": "Range",
-        "value": "0"
+        "value": ""
+      },
+      "ammunitionGroup":{
+        "type": "String",
+        "label": "Ammunition Group",
+        "value": ""
+      },
+      "currentAmmo" : {
+        "type" : "Number",
+        "value": 0
       },
       "weaponGroup": {
         "type": "String",
@@ -584,7 +595,8 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value" : 0
       },
       "price": {
         "type": "String",
@@ -595,9 +607,9 @@
         "label": "Availability",
         "value": ""
       },
-      "armourGroup": {
+      "armorType": {
         "type": "String",
-        "label": "Armour Group",
+        "label": "Armour Type",
         "value": ""
       },
       "penalty": {
@@ -615,13 +627,71 @@
         "label": "Flaws",
         "value": ""
       },
-      "AP":{
+      "maxAP":{
         "head": 0,
         "lArm": 0,
         "rArm": 0,
         "lLeg": 0,
         "rLeg": 0,
         "body": 0
+      },
+      "currentAP":{
+        "head": -1,
+        "lArm": -1,
+        "rArm": -1,
+        "lLeg": -1,
+        "rLeg": -1,
+        "body": -1
+      }
+    },
+    "ammunition": {
+      "quantity": {
+        "type": "Number",
+        "label": "Quantity",
+        "value": 1
+      },
+      "encumbrance": {
+        "type": "Number",
+        "label": "Encumbrance"
+      },
+      "quantityPerEnc": {
+        "type": "Number",
+        "value" : 12
+      },
+      "price": {
+        "type": "String",
+        "label": "Price"
+      },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value": ""
+      },
+      "ammunitionType": {
+        "type": "String",
+        "label": "Ammunition Type",
+        "value": ""
+      },
+      "range": {
+        "type": "String",
+        "label": "Range",
+        "value": ""
+      },
+      "damage": {
+        "type": "String",
+        "label": "Damage",
+        "value": ""
+      },
+
+      "qualities":{
+        "type": "String",
+        "label": "Qualities",
+        "value": ""
+      },
+      "flaws":{
+        "type": "String",
+        "label": "Flaws",
+        "value": ""
       }
     },
     "container": {
@@ -643,42 +713,12 @@
         "label": "Carries"
       }
     },
-    "consumable": {
-      "quantity": {
-        "type": "Number",
-        "label": "Quantity",
-        "value": 1
-      },
-      "encumbrance": {
-        "type": "Number",
-        "label": "Encumbrance"
-      },
-      "price": {
+    "trapping" : {
+      "trappingType": {
         "type": "String",
-        "label": "Price"
+        "label": "Trapping Type",
+        "value": ""
       },
-      "consumableType": {
-        "type": "String",
-        "label": "Consumable Type"
-      },
-      "charges": {
-        "type": "Number",
-        "label": "Charges"
-      },
-      "consume": {
-        "type": "String",
-        "label": "Roll on Consume"
-      },
-      "autoUse": {
-        "type": "Boolean",
-        "label": "Consume on Use"
-      },
-      "autoDestroy": {
-        "type": "Boolean",
-        "label": "Destroy on Empty"
-      }
-    },
-    "tool": {
       "quantity": {
         "type": "Number",
         "label": "Quantity",
@@ -738,13 +778,87 @@
       "total": {
         "type": "Number",
         "label": "Total"
+      }
+    },
+
+    "spell": {
+      "lore" : {
+        "type" : "String",
+        "label" : "Lore",
+        "value" : ""
+      },
+      "range" : {
+        "type" : "String",
+        "label" : "Range",
+        "value" : ""
+      },
+      "target" : {
+        "type" : "String",
+        "label" : "Target",
+        "value" : "",
+        "aoe" : false
+      },
+      "duration" : {
+        "type" : "String",
+        "label" : "Duration",
+        "value" : "",
+        "extendable" : false
+      },
+      "damage" : {
+        "type" : "String",
+        "label" : "Damage",
+        "value" : ""
+      },
+      "cn" : {
+        "type" : "Number",
+        "label" : "Casting Number",
+        "value" : 0
+      },
+       "magicMissile" : {
+        "type" : "Boolean",
+        "label" : "Magic Missile",
+        "value" : false
+      },
+      "memorized" : {
+        "type" : "Boolean",
+        "label" : "Memorized",
+        "value" : false
+      }
+    }, 
+      "mutation" : {
+        "type" : {
+          "value": "",
+          "type" : "String"
+        },
+        "description" : {
+          "value": "",
+          "type" : "String"
+        }
+      }, 
+      "injury" : {
+        "description" : {
+          "value": "",
+          "type" : "String"
+        },
+        "location" : {
+          "value": "",
+          "type" : "String",
+          "label" : "Location"
+        }
       },
 
-      "icon": {
-        "type": "String",
-        "label": "Icon",
-        "value": "<i class=\"far fa-circle\"></i>"
+      "disease" : {
+        "description" : {
+          "value": "",
+          "type" : "String"
+        }
+      },
+
+      "pyschology" : {
+        "description" : {
+          "value": "",
+          "type" : "String"
+        }
       }
     }
-  }
   }
