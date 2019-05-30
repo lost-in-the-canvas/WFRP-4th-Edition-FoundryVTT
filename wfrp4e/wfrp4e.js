@@ -632,22 +632,22 @@ class ActorWfrp4e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
-    data.details.move.walk = data.details.move.value * 2;
-    data.details.move.run = data.details.move.value * 4;
+    data.details.move.walk = parseInt(data.details.move.value)* 2;
+    data.details.move.run = parseInt(data.details.move.value) * 4;
 
 
     // If user enters a species that does not exist, remove it.
-    let speciesExist = false;
-    for (let s of Object.values(CONFIG.species))
-    {
-      if (data.details.species.value == s)
-      {
-        speciesExist = true;
-        break;
-      }
-    }
-    if (!speciesExist)
-      data.details.species.value = "";
+    // let speciesExist = false;
+    // for (let s of Object.values(CONFIG.species))
+    // {
+    //   if (data.details.species.value == s)
+    //   {
+    //     speciesExist = true;
+    //     break;
+    //   }
+    // }
+    // if (!speciesExist)
+    //   data.details.species.value = "";
     
     return actorData;
   }
@@ -1951,6 +1951,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     let itemsToRemove = []; // remove items with quantity of 0
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
+    if (i.type === "talent")
+    {
+      this._prepareTalent(actorData, talents, i);
+    }
 
       try  {
         if (i.data.quantity.value == 0)
@@ -2402,7 +2406,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-
     // Actions
    // const features = {
       //weapons: {label: "Weapons", items: [], type: "weapon" },

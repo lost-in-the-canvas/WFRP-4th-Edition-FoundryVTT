@@ -155,19 +155,57 @@
         },
         "class": {
           "type": "String",
-          "label": "Class"
+          "label": "Class",
+          "value": ""
         },
         "career": {
           "type": "String",
-          "label": "Career"
+          "label": "Career",
+          "value": ""
+        },
+        "careerlevel": {
+          "type": "String",
+          "label": "Career Level",
+          "value": ""
         },
         "status" : {
-          "tier" : "",
-          "standing" : ""
-        },
-        "species": {
           "type": "String",
-          "label": "Species",
+          "standing" : "",
+          "tier" : 0
+        },
+        "age" : {
+          "type": "String",
+          "label": "Age",
+          "value": ""
+        },
+        "height" : {
+          "type": "String",
+          "label": "Height",
+          "value": ""
+        },
+        "weight": {
+          "type": "String",
+          "label": "Weight",
+          "value": ""
+        },
+        "haircolour": {
+          "type": "String",
+          "label": "Hair Colour",
+          "value": ""
+        },
+        "eyecolour": {
+          "type": "String",
+          "label": "Eye Colour",
+          "value": ""
+        },
+        "distinguishingmark": {
+          "type": "String",
+          "label": "Distinguishing Mark",
+          "value": ""
+        },
+        "starsign": {
+          "type": "String",
+          "label": "Star Sign",
           "value": ""
         },
         "move": {
@@ -188,7 +226,6 @@
           "short-term":"",
           "long-term":""
         },
-
         "party-amibitions": {
           "name":"",
           "short-term":"",
