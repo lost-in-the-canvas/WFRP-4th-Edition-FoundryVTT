@@ -1,54 +1,144 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    <header class="sheet-header">
-        <h1 class="charname">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="Character Name"/>
-        </h1>
-    </header>
+  <a id="section-header-personaldetails">Personal Details</a>
+
+  <header class="sheet-header">
+    <h1 class="charname">
+      <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <a id="label-name">Name</a>
+    </h1>
+
+    <div class="item">
+      <input id="input-species" name="data.details.species.value" type="text" value="{{data.details.species.value}}" placeholder="Species" />
+      <a id="label-species">Species</a>
+    </div>
+
+    <div class="item">
+      <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}" placeholder="Gender" />
+      <a id="label-gender">Gender</a>
+    </div>
+  </header>
 
 
 
+  <section class="general">
+    <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
+    <div class="items">
 
-    <section class="general">
-        <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="100" width="100" data-edit="img"/>
-        <div class="items">
-          <a>Class: </a>
-          <input name="class" type="text" value="{{actor.details.class}}" />
 
-          <a>Career: </a>
-          <input name="career" type="text" value="{{actor.details.career}}" />
+      <div class="row">
 
-          <a>Status: </a>
-          <div class ="status">
-              <input name="name" type="text" value="{{actor.details.status.standing}}" placeholder="Standing"/>
-              <input class = "tier" name="name" type="text" value="{{actor.details.status.tier}}" placeholder="Tier"/>
-          </div>
-
-          <a>Age: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Height: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Hair: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
-          <a>Eyes: </a>
-          <input name="name" type="text" value="{{actor.details.status.standing}}"/>
-
+        <div id="field-class" class="item">
+          <input class="input-details" name="data.details.class.value" type="text" value="{{data.details.class.value}}" placeholder="Class"/>
+          <a class="label-details" >Class</a>
         </div>
 
-      </section>
+        <div id="field-career" class="item">
+          <input class="input-details" name="data.details.career.value" type="text" value="{{data.details.career.value}}" placeholder="Career"/>
+          <a class="label-details" >Career</a>
+        </div>
 
-    <!-- SIDEBAR -->
-    <section class="sheet-sidebar">
-        <nav class="sheet-tabs tabs" data-group="sidebar">
-            <a class="item active" data-tab="main">Main</a>
-            <a class="item" data-tab="skills">Skills</a>
-            <a class="item" data-tab="talents">Talents</a>
-            <a class="item" data-tab="combat">Combat</a>
-            <a class="item" data-tab="inventory">Inventory</a>
-            <a class="item" data-tab="magic">Magic</a>
-            <a class="item" data-tab="notes">Notes</a>
-        </nav>
+        <div id="field-careerlevel" class="item">
+          <input class="input-details" name="data.details.careerlevel.value" type="text" value="{{data.details.careerlevel.value}}" placeholder="Career Level" />
+          <a class="label-details" >Career Level</a>
+        </div>
+
+        <div id="field-status" class="item">
+          <input id="input-status" class="input-details" name="data.details.status.value" type="text" value="{{data.details.status.value}}" placeholder="Status" />
+          <a id="label-status" class="label-details" >Status</a>
+        </div>
+
+        <div id="field-age" class="item">
+          <input class="input-details" name="data.details.age.value" type="text" value="{{data.details.age.value}}" placeholder="Age" />
+          <a class="label-details" >Age</a>
+        </div>
+
+        <div  id="field-height" class="item">
+          <input class="input-details" name="data.details.height.value" type="text" value="{{data.details.height.value}}" placeholder="Height" />
+          <a class="label-details" >Height</a>
+        </div>
+
+        <div id="field-weight" class="item">
+          <input class="input-details" name="data.details.weight.value" type="text" value="{{data.details.weight.value}}" placeholder="Weight" />
+          <a class="label-details" >Weight</a>
+        </div>
+
+        <div id="field-haircolour" class="item">
+          <input class="input-details" name="data.details.haircolour.value" type="text" value="{{data.details.hair.value}}" placeholder="Hair Colour" />
+          <a class="label-details" >Hair Colour</a>
+        </div>
+
+        <div id="field-eyecolour" class="item">
+          <input class="input-details" name="data.details.eyecolour.value" type="text" value="{{data.details.eyecolour.value}}" placeholder="Eye Colour" />
+          <a class="label-details" >Eye Colour</a>
+        </div>
+
+        <div id="field-distinguishingmark" class="item">
+          <input class="input-details" name="data.details.distinguishingmark.value" type="text" value="{{data.details.distinguishingmark.value}}" placeholder="Distinguishing Mark" />
+          <a class="label-details" >Distinguishing Mark</a>
+        </div>
+
+        <div id="field-starsign" class="item">
+          <input class="input-details" name="data.details.starsign.value" type="text" value="{{data.details.starsign.value}}" placeholder="Star Sign" />
+          <a class="label-details" >Star Sign</a>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="experience">
+          <a>EXP</a>
+
+          <div class="experience-section">
+            <input name="data.details.xp.current" type="text" value="{{data.details.xp.current}}" data-dtype="Number" />
+            <a>Current</a>
+          </div>
+          <div class="experience-section">
+            <input name="data.details.xp.spent" type="text" value="{{data.details.xp.spent}}" data-dtype="Number" />
+            <a>Spent</a>
+          </div>
+          <div class="experience-section">
+            <input name="data.details.xp.total" type="text" value="{{data.details.xp.total}}" data-dtype="Number"
+              readonly />
+            <a>Total</a>
+          </div>
+        </div>
+      </div> -->
+
+
+
+  </section>
+
+  <!-- TABS -->
+  <section id="tab-sections">
+    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary">
+      <a class="item active" data-tab="main">Main</a>
+      <a class="item" data-tab="skills">Skills</a>
+      <a class="item" data-tab="talents">Talents</a>
+      <a class="item" data-tab="combat">Combat</a>
+      <a class="item" data-tab="inventory">Inventory</a>
+      <a class="item" data-tab="magic">Magic</a>
+      <a class="item" data-tab="religion">Religion</a>
+      <a class="item" data-tab="notes">Notes</a>
+    </nav>
+
+    <div class="tab main" data-tab="main" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
+    </div>
+
+    <div class="tab skills" data-tab="skills" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-skills.html}}
+    </div>
+
+    <div class="tab talents" data-tab="talents" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
+    </div>
+
+    <div class="tab combat" data-tab="combat" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
+    </div>
+
+    <div class="tab notes" data-tab="notes" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-notes.html}}
+    </div>
+  </section>
 </form>
