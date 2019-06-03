@@ -108,12 +108,13 @@
           "type": "Number",
           "label": "Wounds",
           "abrev": "W",
-          "value": 12,
-          "max": 12
+          "value": 0,
+          "max": 0
         },
         "criticalWounds": {
+          "type": "Number",
           "label": "Critical Wounds",
-          "number": 0,
+          "value": 0,
           "max" : 0
         },
         "fate": {
@@ -231,7 +232,6 @@
           "short-term":"",
           "long-term":""
         }
-
       },
       "skills": {
         "art": {

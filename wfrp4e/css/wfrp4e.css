@@ -45,7 +45,9 @@
 /***************************************************/
 /***************************************************/
 
-
+a:hover {
+  text-shadow: 0 0 8px #ff9f00;
+}
 
 
 /***************************************************/
@@ -372,7 +374,7 @@
       /* ================== 1. Main Tab Section ================== */    
         .wfrp4e.actor .characteristics {
           border-top: none;
-          margin: 5px 0px 0px 0px;
+          margin: 6px 0px 0px 0px;
           padding: 0px 0px 0px 0px;
           height: 109px;
           width: 506px;
@@ -409,7 +411,7 @@
         }         
         .wfrp4e.actor .characteristics-table .table-row .table-data > input{
           text-align: center;
-          width: 30px;
+          width: 35px;
           height: 15px;
           padding-top: 7px;
           vertical-align: middle;
@@ -417,6 +419,7 @@
           font-size: 14px;
           font-weight: 500;
           color: black;
+          border-radius: 0px;
         }        
         .wfrp4e.actor .characteristics-table .row-type{
           font-family: CaslonAntique;
@@ -454,8 +457,8 @@
         
         .wfrp4e.actor .main-row {
           display: flex;
-          height: 80px;
-          border-bottom: 1px solid #CCC;
+          height: 47px;
+          /* border-bottom: 1px solid #CCC; */
           margin: 6px 0px 0px 0px;
         }
           .wfrp4e.actor .movement .move-value > input {
@@ -465,9 +468,10 @@
             color: black;
             text-align: center;
             width: 50px;
-            height: 23px;
+            height: 22px;
             margin: 0px;
-            padding: 6px 0px 0px 0px;
+            padding: 7px 0px 0px 0px;
+            border-radius: 0px;
           }    
           .wfrp4e.actor .movement .move-value {
             padding: 6px 0px 0px 0px;
@@ -505,7 +509,7 @@
           }
           .wfrp4e.actor .movement .move-name {
             font-family: CaslonAntique;
-            font-weight: normal;
+            font-weight: 700;
             font-size: 16px;
             color: #464331c4;
             /* border-top: 1px solid #ccc; */
@@ -519,14 +523,20 @@
             /* vertical-align: middle; */
             box-shadow: 0 0 10px #00000052 inset;
           }
-          h4 {
-            margin: 0px;
+          #movement-label {
+            font-weight: 700;
+          }
+          #walk-label {
+            font-weight: 700;            
+          }
+          #run-label {
+            font-weight: 700;            
           }
 
           .wfrp4e.actor .fate-resilience {
             display: flex;
             margin: 0px;
-            width: 250px;
+            /* width: 250px; */
             border: 1px solid #736953a6;
             border-left: none;
             height: 47px;
@@ -645,8 +655,224 @@
             PADDING-TOP: 3PX;
             box-shadow: 0 0 10px #00000052 inset;
           }
+
+          .wfrp4e.actor .wounds-section {
+            display: flex;
+            margin: 0px;
+            margin-left: 6px;
+            width: 170px;
+            height: 47px;
+            /* border-top: 1px solid #736953a6;
+            border-right: 1px solid #736953a6; */
+          }
+          #wounds-name {
+            font-family: CaslonAntique;
+            font-weight: normal;
+            font-size: 16px;
+            color: #464331c4;
+            /* border-top: 1px solid #ccc; */
+            text-align: center;
+            border: 1px solid #736953a6;
+            /* border-right: 1px solid #736953a6; */
+            /* border-bottom: 1px solid #736953a6; */
+            margin: 0px;
+            padding: 2px 0px 0px 0px;
+            height: 25px;
+            width: 133px;
+            /* vertical-align: middle; */
+            box-shadow: 0 0 10px #00000052 inset;
+            PADDING-TOP: 3PX;
+          }   
+          #wounds-box {
+            width: 133px;
+            position: absolute;
+            top: 415px;
+            left: 445px;
+            font-family: CaslonAntique;
+            font-weight: normal;
+            font-size: 16px;
+            color: #464331c4;
+            /* border-top: 1px solid #ccc; */
+            text-align: center;
+            border: 2px solid #736953a6;
+            border: 1px solid #736953a6;
+            border-top: none;
+            /* border-bottom: 1px solid #736953a6; */
+            margin: 0px;
+            padding: 2px 0px 0px 0px;
+            height: 23px;
+            /* vertical-align: middle; */
+            /* box-shadow: 0 0 10px #00000052 inset; */
+          }
+          #wounds-divisor {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: bolder;
+            padding: 6px 1px 0px 0px;
+            height: 21px;
+            color: #000000;
+            /* border: 1px solid black; */
+            position: absolute;
+            top: 0px;
+            left: 15px;
+            margin: 0px 0px 0px 36px;
+            width: 30px;
+            border-radius: 0px;
+          }
+          #wounds-value > input {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 0px 0px 0px;
+            height: 21px;
+            color: black;
+            position: relative;
+            top: -1px;
+            width: 30px;
+            left: -18px;
+            /* border: 1px solid black; */
+            border-radius: 0px;
+            text-align: center;
+          }
+          #wounds-max > input {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 1px 0px 0px;
+            height: 21px;
+            color: #29364a;
+            /* border: 1px solid black; */
+            position: relative;
+            top: -23px;
+            /* left: 15px; */
+            margin: 0px 0px 0px 36px;
+            width: 30px;
+            border-radius: 0px;
+          }
+          #wound-label {
+            font-weight: 700;
+          }
+
+        #main-row-2 {
+          display: flex;
+          height: 187px;
+          border-bottom: 1px solid #CCC;
+          margin: 6px 0px 0px 0px;
+        }
+          .wfrp4e.actor .injury {
+            width: 40%;
+            margin-right: 6px;
+          }
+            .wfrp4e.actor .criticalWounds-section {
+              display: flex;
+              margin: 0px;
+              margin-left: 0px;
+              /* width: 204px; */
+              height: 54px;
+            }
+            #criticalWounds-name {
+              font-family: CaslonAntique;
+              font-weight: normal;
+              font-size: 16px;
+              color: #464331c4;
+              /* border-top: 1px solid #ccc; */
+              text-align: center;
+              border: 1px solid #736953a6;
+              /* border-right: 1px solid #736953a6; */
+              /* border-bottom: 1px solid #736953a6; */
+              margin: 0px;
+              padding: 2px 0px 0px 0px;
+              height: 25px;
+              width: 200px;
+              /* vertical-align: middle; */
+              box-shadow: 0 0 10px #00000052 inset;
+              PADDING-TOP: 3PX;
+            }   
+            #criticalWounds-box {
+              width: 200px;
+              position: absolute;
+              top: 468px;
+              left: 72px;
+              font-family: CaslonAntique;
+              font-weight: normal;
+              font-size: 16px;
+              color: #464331c4;
+              /* border-top: 1px solid #ccc; */
+              text-align: center;
+              border: 2px solid #736953a6;
+              border: 1px solid #736953a6;
+              border-top: none;
+              /* border-bottom: 1px solid #736953a6; */
+              margin: 0px;
+              padding: 2px 0px 0px 0px;
+              height: 23px;
+              /* vertical-align: middle; */
+              position: absolute;
+              top: 468px;
+              left: 36px;
+              margin: 0px 0px 0px 36px;
+              width: 200px;
+              border-radius: 0px;
+            }
+            #criticalWounds-divisor {
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: bolder;
+              padding: 6px 1px 0px 0px;
+              height: 21px;
+              color: #000000;
+              /* border: 1px solid black; */
+              position: absolute;
+              top: 0px;
+              left: 49px;
+              margin: 0px 0px 0px 36px;
+              width: 30px;
+              border-radius: 0px;
+            }
+            #criticalWounds-value > input {
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              padding: 6px 0px 0px 0px;
+              height: 21px;
+              color: black;
+              position: relative;
+              top: -1px;
+              width: 30px;
+              left: -18px;
+              /* border: 1px solid black; */
+              border-radius: 0px;
+              text-align: center;
+            }
+            #criticalWounds-max > input {
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              padding: 6px 1px 0px 0px;
+              height: 21px;
+              color: #29364a;
+              /* border: 1px solid black; */
+              position: relative;
+              top: -23px;
+              /* left: 15px; */
+              margin: 0px 0px 0px 36px;
+              width: 30px;
+              border-radius: 0px;
+            }
+            #criticalWounds-label {
+              font-weight: 700;
+            }
       /* ============================================================ */  
   
+      /* ================== 2. Main Tab Section ================== */ 
+
+
+
+
+
+
+
+
 /***************************************************/
 /***************************************************/
 
@@ -868,12 +1094,6 @@ display: flex;
 
 
 
-
-.wfrp4e.actor .main-row {
-  display: flex;
-  height: 80px;
-  border-bottom: 1px solid #CCC;
-}
 
 
 
