@@ -71,15 +71,17 @@
       </div>
       <div class= "row">
          <div class="armor">
-            <a>Armor</a>
             <div class = "armor-row">
                <div class="armor-box">
-                  <a>Head: {{actor.AP.head}}</a>
                   <div class="location-values">
                      <ol class = "inventory-list armor-list">
                         <li class="inventory-header item">
-                           <div>Armor</div>
-                           <div>AP</div>
+                              <span>Head</span>
+                              <span>{{actor.AP.head}}</span>
+                           </li>
+                        <li class="inventory-header item">
+                           <span>Armor</span>
+                           <span>AP</span>
                         </li>
                         {{#each actor.armour as |item i|}}
                         {{#if item.protectsHead}}
@@ -92,33 +94,16 @@
                      </ol>
                   </div>
                </div>
-               <div class = "armor-row">
-                  <div class="armor-box">
-                     <a>Left Arm: {{actor.AP.lArm}}</a>
+               <div class="armor-box">
                      <div class="location-values">
                         <ol class = "inventory-list armor-list">
                            <li class="inventory-header item">
-                              <div>Armor</div>
-                              <div>AP</div>
-                           </li>
-                           {{#each actor.armour as |item i|}}
-                           {{#if item.protectslArm}}
-                           <li class="item" data-item-id="{{item.id}}">
-                              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <div class = "AP-values">{{item.data.currentAP.lArm}}</div>
-                           </li>
-                           {{/if}}
-                           {{/each}}
-                        </ol>
-                     </div>
-                  </div>
-                  <div class="armor-box">
-                     <a>Body: {{actor.AP.body}}</a>
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
+                                 <span>Body</span>
+                                 <span>{{actor.AP.body}}</span>
+                              </li>
                            <li class="inventory-header item">
-                              <div>Armor</div>
-                              <div>AP</div>
+                                 <span>Armor</span>
+                                 <span>AP</span>
                            </li>
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsBody}}
@@ -131,13 +116,40 @@
                         </ol>
                      </div>
                   </div>
+
                   <div class="armor-box">
-                     <a>Right Arm: {{actor.AP.rArm}}</a>
+                     <div class="location-values">
+                        <ol class = "inventory-list armor-list">
+                        <li class="inventory-header item AP-item">
+                           <span>Left Arm</span>
+                           <span>{{actor.AP.lArm}}</span>
+                        </li>
+                        <li class="inventory-header item AP-item">
+                           <span>Armor</span>
+                           <span>AP</span>
+                        </li>
+                        {{#each actor.armour as |item i|}}
+                        {{#if item.protectslArm}}
+                        <li class="item AP-item" data-item-id="{{item.id}}">
+                           <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+                           <div class = "AP-values">{{item.data.currentAP.lArm}}</div>
+                        </li>
+                        {{/if}}
+                        {{/each}}
+                        </ol>
+                     </div>
+                  </div>
+                  <div class="armor-box">
                      <div class="location-values">
                         <ol class = "inventory-list armor-list">
                            <li class="inventory-header item">
-                              <div>Armor</div>
-                              <div>AP</div>
+                              <li class="inventory-header item">
+                                    <span>Right Arm</span>
+                                    <span>{{actor.AP.rArm}}</span>
+                                 </li>
+                                 <li class="inventory-header item">
+                                 <span>Armor</span>
+                                 <span>AP</span>
                            </li>
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsrArm}}
@@ -150,15 +162,16 @@
                         </ol>
                      </div>
                   </div>
-               </div>
-               <div class = "armor-row">
                   <div class="armor-box">
-                     <a>Left Leg: {{actor.AP.lLeg}}</a>
                      <div class="location-values">
                         <ol class = "inventory-list armor-list">
+                              <li class="inventory-header item">
+                                    <span>Left Leg</span>
+                                    <span>{{actor.AP.lLeg}}</span>
+                                 </li>
                            <li class="inventory-header item">
-                              <div>Armor</div>
-                              <div>AP</div>
+                                 <span>Armor</span>
+                                 <span>AP</span>
                            </li>
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectslLeg}}
@@ -172,12 +185,15 @@
                      </div>
                   </div>
                   <div class="armor-box">
-                     <a>Right Leg: {{actor.AP.rLeg}}</a>
                      <div class="location-values">
                         <ol class = "inventory-list armor-list">
+                              <li class="inventory-header item">
+                                    <span>Right Leg</span>
+                                    <span>{{actor.AP.rLeg}}</span>
+                                 </li>
                            <li class="inventory-header item">
-                              <div>Armor</div>
-                              <div>AP</div>
+                                 <span>Armor</span>
+                                 <span>AP</span>
                            </li>
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsrLeg}}

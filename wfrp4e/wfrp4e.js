@@ -166,6 +166,7 @@ CONFIG.trappingTypes = {
   "booksAndDocuments":"Books and Documents",
   "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
   "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "ingredient":"Ingredient",
   "misc":"Miscellaneous"
 };
 
@@ -255,6 +256,10 @@ CONFIG.magicLores = {
   "tzeentch": "Tzeentch",
 };
 
+CONFIG.prayerTypes = {
+  "blessing" : "Blessing",
+  "miracle" : "Miracle"
+}
 
 
 
@@ -571,6 +576,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-inventory.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
     "public/systems/wfrp4e/templates/actors/actor-magic.html",
+    "public/systems/wfrp4e/templates/actors/actor-religion.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
@@ -1344,6 +1350,11 @@ class ItemSheetWfrp4e extends ItemSheet {
     {
       data['magicLores'] = CONFIG.magicLores;
     }
+    else if (this.item.type == "prayer")
+    {
+      data['prayerTypes'] = CONFIG.prayerTypes;
+    }
+
 
     else if (this.item.type == "career")
     {
@@ -1354,8 +1365,13 @@ class ItemSheetWfrp4e extends ItemSheet {
       });
       data['talents'] = data.data.talents.toString();
       data['trappings'] = data.data.trappings.toString();
-
     }
+
+    else if (this.item.type == "trapping")
+    {
+      data['trappingTypes'] = CONFIG.trappingTypes;
+    }
+
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1589,16 +1605,16 @@ class ActorSheetWfrp4e extends ActorSheet {
    * @param {Object} spell        The spell data being prepared
    * @private
    */
-  _prepareSpell(actorData, list, spell) {
+  _prepareSpellOrPrayer(actorData, list, item) {
     
-    spell['target'] = this._calculateSpellRangeOrDuration(actorData, spell.data.target.value, spell.data.target.aoe);
-    spell['duration'] = this._calculateSpellRangeOrDuration(actorData, spell.data.duration.value);
-    spell['range'] = this._calculateSpellRangeOrDuration(actorData, spell.data.range.value);
+    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
+    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
-    if (!spell.data.memorized.value)
-      spell.data.cn.value *= 2;
+    if (item.type == "spell" && !item.data.memorized.value )
+    item.data.cn.value *= 2;
     
-    list.push(spell);
+    list.push(item);
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1931,6 +1947,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const injuries = [];
     const grimoire = [];
     const petty = [];
+    const blessings = [];
+    const miracles = [];
 
 
     const inventory = {
@@ -1943,6 +1961,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       toolsAndKits: {label: "Tools and Kits", items: []},
       books: {label: "Books and Documents", items: []},
       drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true},
+      ingredients: {label: "Ingredients", items: [], quantified: true},
       misc: {label: "Miscellaneous", items: []}
     };
 
@@ -2100,11 +2119,18 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "spell")
       {
         if (i.data.lore.value == "petty")
-          this._prepareSpell(actorData, petty, i)
+          this._prepareSpellOrPrayer(actorData, petty, i)
         else
-          this._prepareSpell(actorData, grimoire, i)
+          this._prepareSpellOrPrayer(actorData, grimoire, i)
       }
 
+      else if (i.type === "prayer")
+      {
+        if (i.data.type.value == "blessing")
+          this._prepareSpellOrPrayer(actorData, blessings, i)
+        else
+          this._prepareSpellOrPrayer(actorData, miracles, i)
+      }
 
       else if (i.type === "career")
       {
@@ -2145,6 +2171,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.grimoire = grimoire;
     actorData.petty = petty;
     actorData.careers = careers;
+    actorData.blessings = blessings;
+    actorData.miracles = miracles;
 
 
     /* // Currency weight
@@ -2177,8 +2205,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     enc.state = Math.floor(enc.value / enc.max);
     actorData.encumbrance = enc;
-
-
   }
 
 
@@ -2246,9 +2272,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     let ammoDamage = ammo.data.damage.value || "0";
 
     if (ammoRange.toLowerCase() == "as weapon")
-      {
-        // Do nothing to weapon's range
-      }
+    {
+      // Do nothing to weapon's range
+    }
     else if (ammoRange.toLowerCase() == "half weapon")
     {
       weapon.data.range.value /= 2;
@@ -2278,7 +2304,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       let value = inc.substring(index, property.length);
       if (weapon.properties.includes(property))
       {
-
+        //TODO
+        // This section is for ammo that increases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
       }
       else
       {
@@ -2292,7 +2320,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       let value = inc.substring(index, property.length);
       if (weapon.properties.includes(property))
       {
-
+        //TODO
+        // This section is for ammo that decreases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 3
       }
       else
       {
@@ -2312,6 +2342,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     if (formula == "special")
       return "Special"
+
+      if (formula == "instant")
+      return "Instant"
 
     for(let ch in actorData.data.characteristics)
     {

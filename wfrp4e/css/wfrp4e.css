@@ -2197,7 +2197,6 @@ font-weight: bold;
 }
 
 .wfrp4e.actor .row .armor {
-  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2207,7 +2206,7 @@ font-weight: bold;
   text-align: center;
   font-family: CaslonAntique;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .wfrp4e.actor .armor{
@@ -2219,7 +2218,7 @@ font-weight: bold;
    display: inline-block;
    font-family: CaslonAntique;
    font-weight: bold;
-   font-size: 20px;
+   font-size: 24px;
  }
  
  .wfrp4e.actor .armor-list {
@@ -2234,13 +2233,16 @@ font-weight: bold;
  .wfrp4e.actor .armor-list .AP-values{
    font-size: 18px;
  }
+
+.wfrp4e.actor .armor-box .item > *{
+  width: auto;
+}
  
  
  .wfrp4e.actor .location-values{
-   border: 1px solid #000;
    padding: 0px;
    height: 70px;
-   width: 120px;
+   width: 90px;
    overflow: auto;
  }
  
@@ -2295,6 +2297,13 @@ font-weight: bold;
    background-size: 24px;
    background-repeat: no-repeat;
  }
+
+
+ .wfrp4e.actor .religion-header {
+   display: flex;
+   flex-direction: row;
+}
+
 
 
 
