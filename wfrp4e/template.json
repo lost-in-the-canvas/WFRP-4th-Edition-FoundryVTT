@@ -514,6 +514,10 @@
       "price": {
         "type": "String",
         "label": "Price"
+      },
+      "spellIngredient": {
+        "type": "String",
+        "value": ""
       }
     },
     "talent": {
@@ -606,6 +610,12 @@
         "type" : "Boolean",
         "label" : "Memorized",
         "value" : false
+      },
+      "ingredients" : [],
+      "currentIng" : {
+        "type" : "Number",
+        "label" : "Ingredient",
+        "value" : 0
       }
     }, 
     "prayer": {

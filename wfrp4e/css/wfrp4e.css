@@ -2170,6 +2170,11 @@ font-weight: bold;
   width: 100%;
 }
 
+.inventory{
+  overflow: scroll;
+  height: 400px;
+}
+
 .inventory-sections{
   width: 100%;
   display: flex;
@@ -2180,6 +2185,7 @@ font-weight: bold;
 .inventory-type{
   height: 100px;
   width: 50%;
+  overflow: auto;
 }
 
 
