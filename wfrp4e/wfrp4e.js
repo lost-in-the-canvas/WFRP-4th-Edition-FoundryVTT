@@ -166,6 +166,7 @@ CONFIG.trappingTypes = {
   "booksAndDocuments":"Books and Documents",
   "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
   "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "ingredient":"Ingredient",
   "misc":"Miscellaneous"
 };
 
@@ -255,6 +256,10 @@ CONFIG.magicLores = {
   "tzeentch": "Tzeentch",
 };
 
+CONFIG.prayerTypes = {
+  "blessing" : "Blessing",
+  "miracle" : "Miracle"
+}
 
 
 
@@ -571,6 +576,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-inventory.html",
     "public/systems/wfrp4e/templates/actors/actor-skills.html",
     "public/systems/wfrp4e/templates/actors/actor-magic.html",
+    "public/systems/wfrp4e/templates/actors/actor-religion.html",
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
@@ -1344,6 +1350,11 @@ class ItemSheetWfrp4e extends ItemSheet {
     {
       data['magicLores'] = CONFIG.magicLores;
     }
+    else if (this.item.type == "prayer")
+    {
+      data['prayerTypes'] = CONFIG.prayerTypes;
+    }
+
 
     else if (this.item.type == "career")
     {
@@ -1354,8 +1365,13 @@ class ItemSheetWfrp4e extends ItemSheet {
       });
       data['talents'] = data.data.talents.toString();
       data['trappings'] = data.data.trappings.toString();
-
     }
+
+    else if (this.item.type == "trapping")
+    {
+      data['trappingTypes'] = CONFIG.trappingTypes;
+    }
+
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
     // Damage types
@@ -1589,16 +1605,16 @@ class ActorSheetWfrp4e extends ActorSheet {
    * @param {Object} spell        The spell data being prepared
    * @private
    */
-  _prepareSpell(actorData, list, spell) {
+  _prepareSpellOrPrayer(actorData, list, item) {
     
-    spell['target'] = this._calculateSpellRangeOrDuration(actorData, spell.data.target.value, spell.data.target.aoe);
-    spell['duration'] = this._calculateSpellRangeOrDuration(actorData, spell.data.duration.value);
-    spell['range'] = this._calculateSpellRangeOrDuration(actorData, spell.data.range.value);
+    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
+    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
-    if (!spell.data.memorized.value)
-      spell.data.cn.value *= 2;
+    if (item.type == "spell" && !item.data.memorized.value )
+    item.data.cn.value *= 2;
     
-    list.push(spell);
+    list.push(item);
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1675,19 +1691,40 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    html.find('.skill-advances').focusout(event => {
+    html.find('.skill-advances').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       console.log(itemToEdit);
       itemToEdit.data.advances.value = Number(event.target.value);
+      await this.actor.updateOwnedItem(itemToEdit, true);      
     });
 
-    html.find('.ammo-selector').change(event => {
+    html.find('.ammo-selector').change(async event => {
       console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.currentAmmo.value = Number(event.target.value);
+      await this.actor.updateOwnedItem(itemToEdit, true);      
     });
+
+    
+    html.find('.spell-selector').change(async event => {
+      console.log(event);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
+      const ing = this.actor.items.find(i => i.id === itemId);
+      ing.data.spellIngredient.value = event.target.value;
+      await this.actor.updateOwnedItem(ing, true);      
+    });
+
+    html.find('.ingredient-selector').change(async event => {
+      console.log(event);
+      let itemId = Number(event.target.attributes["data-item-id"].value);
+      const spell = this.actor.items.find(i => i.id === itemId);
+      spell.data.currentIng.value = Number(event.target.value);
+      await this.actor.updateOwnedItem(spell, true);      
+    });
+
+
 
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
@@ -1931,13 +1968,16 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const injuries = [];
     const grimoire = [];
     const petty = [];
+    const blessings = [];
+    const miracles = [];
+    const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
 
 
     const inventory = {
       weapons: { label: "Weapons", items: [] },
       armor: { label: "Armour", items: [], wearable: true},
       ammunition: { label: "Ammunition", items: [], quantified: true},
-      clothingAcessories: { label: "Clothing and Accessories", items: [], wearable: true },
+      clothingAcessories: { label: "Clothing/Accessories", items: [], wearable: true },
       packs: { label: "Packs and Containers", items: [], wearable: true },
       booksAndDocuments: {label: "Food and Drink", items: []},
       toolsAndKits: {label: "Tools and Kits", items: []},
@@ -1951,12 +1991,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     let itemsToRemove = []; // remove items with quantity of 0
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
-    if (i.type === "talent")
-    {
-      this._prepareTalent(actorData, talents, i);
-    }
 
-      try  {
+      /*      try  {
         if (i.data.quantity.value == 0)
         {
           itemsToRemove.push(i)
@@ -1966,7 +2002,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       catch
       {
         // do nothing
-      }
+      }*/
       if (i.type === "talent")
       {
         this._prepareTalent(actorData, talents, i);
@@ -1980,16 +2016,17 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "ammunition")
       {
-        let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
+        // Aggregate ammo option
+   /*     let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
         if (existingAmmo) {
           existingAmmo.data.quantity.value += i.data.quantity.value;
           existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
 
         }
-        else{
+        else{*/
           i.data.encumbrance.value = Math.ceil(i.data.quantity.value / i.data.quantityPerEnc.value);
           inventory.ammunition.items.push(i);
-        }
+      //}
       }
 
       else if (i.type === "weapon")
@@ -2012,15 +2049,16 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           i["ammo"] = [ {"name" : "None"}];
           for ( let a of actorData.items ) {
             if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
-            {
+           //aggregate ammo option
+            /* {
               let existingAmmo = i.ammo.find(x => x.name == a.name);
               if (existingAmmo)
                 existingAmmo.data.quantity.value += a.data.quantity.value;
               else
-              {
+              {*/
                 i.ammo.push(a);
-              }
-            }
+              //}
+           // }
           }
           this._prepareWeaponWithAmmo(actorData, i);
 
@@ -2092,7 +2130,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "trapping")
       {
-        inventory[i.data.trappingType].items.push(i);
+        if (i.data.trappingType.value == "ingredient")
+          ingredients.items.push(i)
+        else
+          inventory[i.data.trappingType].items.push(i);
+
         totalEnc += i.data.encumbrance.value;
       }
 
@@ -2100,11 +2142,18 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "spell")
       {
         if (i.data.lore.value == "petty")
-          this._prepareSpell(actorData, petty, i)
+          this._prepareSpellOrPrayer(actorData, petty, i)
         else
-          this._prepareSpell(actorData, grimoire, i)
+          this._prepareSpellOrPrayer(actorData, grimoire, i)
       }
 
+      else if (i.type === "prayer")
+      {
+        if (i.data.type.value == "blessing")
+          this._prepareSpellOrPrayer(actorData, blessings, i)
+        else
+          this._prepareSpellOrPrayer(actorData, miracles, i)
+      }
 
       else if (i.type === "career")
       {
@@ -2134,6 +2183,17 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     }
 
+    if (grimoire.length > 0)
+    {
+      ingredients.show = true;
+      actorData.ingredients = ingredients;
+      for (let s of grimoire)
+         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.name)
+
+    }
+    else
+      inventory.misc = inventory.misc.items.concat(ingredients.items);
+
     actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
@@ -2145,6 +2205,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.grimoire = grimoire;
     actorData.petty = petty;
     actorData.careers = careers;
+    actorData.blessings = blessings;
+    actorData.miracles = miracles;
 
 
     /* // Currency weight
@@ -2160,10 +2222,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     actorData.data.attributes.encumbrance = enc;**/
 
-    for (let r in itemsToRemove)
+  /*  for (let r in itemsToRemove)
     {
       actorData.items.splice(actorData.items.indexOf(r), 1);
-    }
+    }*/
 
     // Calculate ammo encumbrance after the loop (since it gets aggregated)
     for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
@@ -2177,8 +2239,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     enc.pct = Math.min(enc.value * 100 / enc.max, 99);
     enc.state = Math.floor(enc.value / enc.max);
     actorData.encumbrance = enc;
-
-
   }
 
 
@@ -2246,9 +2306,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     let ammoDamage = ammo.data.damage.value || "0";
 
     if (ammoRange.toLowerCase() == "as weapon")
-      {
-        // Do nothing to weapon's range
-      }
+    {
+      // Do nothing to weapon's range
+    }
     else if (ammoRange.toLowerCase() == "half weapon")
     {
       weapon.data.range.value /= 2;
@@ -2278,7 +2338,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       let value = inc.substring(index, property.length);
       if (weapon.properties.includes(property))
       {
-
+        //TODO
+        // This section is for ammo that increases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
       }
       else
       {
@@ -2292,7 +2354,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       let value = inc.substring(index, property.length);
       if (weapon.properties.includes(property))
       {
-
+        //TODO
+        // This section is for ammo that decreases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 3
       }
       else
       {
@@ -2312,6 +2376,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     if (formula == "special")
       return "Special"
+
+      if (formula == "instant")
+      return "Instant"
 
     for(let ch in actorData.data.characteristics)
     {
