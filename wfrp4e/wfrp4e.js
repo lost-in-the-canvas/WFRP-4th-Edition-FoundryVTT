@@ -1971,8 +1971,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const blessings = [];
     const miracles = [];
     const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
-
-
+  
     const inventory = {
       weapons: { label: "Weapons", items: [] },
       armor: { label: "Armour", items: [], wearable: true},
@@ -2108,13 +2107,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         if (i.data.maxAP.rLeg > 0)
         {
           i["protectsrLeg"] = true
-          AP.rLeg += i.data.currentAP.head;
+          AP.rLeg += i.data.currentAP.rLeg;
         }
-
         // i.properties = i.properties.filter(function(item) {return item != ""});  
         armour.push(i);
-
-        
       }
 
       else if (i.type == "injury")
@@ -2189,10 +2185,75 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       actorData.ingredients = ingredients;
       for (let s of grimoire)
          s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.name)
-
     }
     else
       inventory.misc = inventory.misc.items.concat(ingredients.items);
+
+
+
+
+    // Parsing armor penalties for the combat tab
+    let armorPenalties = {skill: [], penalty: []}
+    let armorPenaltiesString = "";
+    let wearingMail = false;
+    let wearingPlate = false;
+    for (let a of armour)
+    {
+      if (a.data.armorType.value == "mail")
+        wearingMail = true;
+      else if (a.data.armorType.value == "plate")
+        wearingPlate = true;
+
+      if (a.data.penalty.value.trim() == "")
+        continue;
+      
+      let penalties = a.data.penalty.value.split(",").map(function(item) {
+        return item.trim();
+      });
+
+      for(let p of penalties)
+      {
+        let penaltyandSkill = p.split(" ").map(function(item) {
+          return item.trim();
+        });
+        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
+
+        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
+        if (existingPenalty == -1)
+        {
+          armorPenalties.skill.push(penaltyandSkill[1]);
+          armorPenalties.penalty.push(penaltyandSkill[0]);
+        }
+        else
+        {
+          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
+        }
+      }
+    }
+
+    if (wearingMail || wearingPlate)
+    {
+      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      if (stealthPenalty == -1)
+      {
+        armorPenalties.skill.push("Stealth");
+        armorPenalties.penalty.push(0);
+        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      }
+
+      if (wearingMail)
+        armorPenalties.penalty[stealthPenalty] += -10;
+      if (wearingPlate)
+        armorPenalties.penalty[stealthPenalty] += -10;
+    }
+
+    for (let i = 0; i < armorPenalties.skill.length; i++)
+    {
+      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
+      if (i != armorPenalties.skill.length - 1)
+        armorPenaltiesString = armorPenaltiesString.concat(", ");
+
+    }
 
     actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
@@ -2200,6 +2261,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.talents = talents;
     actorData.weapons = weapons;
     actorData.armour = armour;
+    actorData.armorPenalties = armorPenaltiesString;
     actorData.AP = AP;
     actorData.injuries = injuries;
     actorData.grimoire = grimoire;

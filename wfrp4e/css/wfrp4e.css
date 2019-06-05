@@ -814,6 +814,11 @@ a:hover {
               width: 200px;
               border-radius: 0px;
             }
+
+            /*The critical wounds counter box in the combat tab*/
+            .combat-section #criticalWounds-box {
+              margin-top: 90px;
+            }
             #criticalWounds-divisor {
               font-family: CaslonPro;
               font-size: 14px;
@@ -1163,8 +1168,12 @@ display: flex;
   text-align: center;
 }
 
+.wfrp4e.actor .injury-crit-section .editor {
+  display: flex;
+  flex-direction: row;
+}
 
-.wfrp4e.actor .crit-wounds .editor {
+.wfrp4e.actor .injury-crit-section .editor {
   height: 120px;
   width: auto;
 }
@@ -2349,6 +2358,7 @@ font-weight: bold;
   flex: 0;
 }
 
+.inventory-list .item .AP-value,
 .inventory-list .item .career-tier,
 .inventory-list .item .spell-attr,
 .inventory-list .item .item-worn,
@@ -2360,6 +2370,14 @@ font-weight: bold;
   text-align: center;
   border-right: 1px solid #CCC;
 }
+
+.inventory-list .item .AP-value
+{
+  flex: 0 0 20px;
+
+}
+
+
 .inventory-list .item .item-controls {
   flex: 0 0 44px;
 }
@@ -2437,6 +2455,7 @@ font-weight: bold;
 
 .wfrp4e.actor .armor{
   text-align: center;
+  border-bottom: 1px solid #736953a6
  }
  
  .wfrp4e.actor .combat-section .armor .armor-box{
@@ -2453,12 +2472,9 @@ font-weight: bold;
  }
  
  .wfrp4e.actor .armor-list .item-image{
-   margin-left: 15px;
+   margin-left: 12px;
  }
  
- .wfrp4e.actor .armor-list .AP-values{
-   font-size: 18px;
- }
 
 .wfrp4e.actor .armor-box .item > *{
   width: auto;
@@ -2468,7 +2484,7 @@ font-weight: bold;
  .wfrp4e.actor .location-values{
    padding: 0px;
    height: 70px;
-   width: 90px;
+   width: 81px;
    overflow: auto;
  }
  
@@ -2497,6 +2513,11 @@ font-weight: bold;
    width: 50%;
    font-size: 14px;
  }
+
+ .wfrp4e.actor .armor-penalties {
+  display: flex;
+  flex-direction: row;
+}
  
  .wfrp4e.actor .armor-list-item .item-name {
    display: flex;
@@ -2511,10 +2532,7 @@ font-weight: bold;
    flex: 0 0 24px;
    margin-right: 6px;
  }
- 
- .wfrp4e.actor .armor-list .armor-list-item .AP-values {
-   justify-content: center;
- }
+
  
  
  .wfrp4e.actor .item-image {
