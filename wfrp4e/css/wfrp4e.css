@@ -1168,15 +1168,23 @@ display: flex;
   text-align: center;
 }
 
-.wfrp4e.actor .injury-crit-section .editor {
+.wfrp4e.actor .injury-crit-section {
   display: flex;
   flex-direction: row;
 }
 
-.wfrp4e.actor .injury-crit-section .editor {
-  height: 120px;
-  width: auto;
+.wfrp4e.actor .injury-crit-section .crit-notes {
+  
+  width: 100%;
+
+
 }
+
+.wfrp4e.actor .crit-notes .editor {
+  width: 100%;
+  height: 100%;
+}
+
 
 .wfrp4e.actor .crit-wounds a > input {
 width: 10%;

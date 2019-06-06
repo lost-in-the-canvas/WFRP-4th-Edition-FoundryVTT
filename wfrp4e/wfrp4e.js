@@ -1971,7 +1971,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const blessings = [];
     const miracles = [];
     const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
-  
+    const money = {coins: [], total: 0};
+
     const inventory = {
       weapons: { label: "Weapons", items: [] },
       armor: { label: "Armour", items: [], wearable: true},
@@ -2129,7 +2130,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         if (i.data.trappingType.value == "ingredient")
           ingredients.items.push(i)
         else
-          inventory[i.data.trappingType].items.push(i);
+          inventory[i.data.trappingType.value].items.push(i);
 
         totalEnc += i.data.encumbrance.value;
       }
@@ -2154,6 +2155,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "career")
       {
         careers.push(i);
+      }
+
+      else if (i.type === "money")
+      {
+        i.encumbrance = Math.floor(i.data.quantity.value / i.data.numPerEnc.value);
+        money.coins.push(i);
+        money.total += i.data.quantity.value * i.data.coinValue.value;
       }
 
     /*
@@ -2187,7 +2195,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
          s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.name)
     }
     else
-      inventory.misc = inventory.misc.items.concat(ingredients.items);
+      inventory.misc.items = inventory.misc.items.concat(ingredients.items);
 
 
 
@@ -2269,6 +2277,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.careers = careers;
     actorData.blessings = blessings;
     actorData.miracles = miracles;
+    actorData.money = money;
 
 
     /* // Currency weight

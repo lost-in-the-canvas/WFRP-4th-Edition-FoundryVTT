@@ -677,23 +677,7 @@
       },
 
       "disease" : {
-        "contraction" : {
-          "label" : "Contraction",
-          "value": "",
-          "type" : "String"
-        },
-        "incubation" : {
-          "label" : "Incubation",
-          "value": "",
-          "type" : "String"
-        },
-        "duration" : {
-          "label" : "Duration",
-          "value": "",
-          "type" : "String"
-        },
-        "symptoms" : {
-          "label" : "Symptoms",
+        "description" : {
           "value": "",
           "type" : "String"
         }
@@ -704,25 +688,6 @@
           "value": "",
           "type" : "String"
         }
-      },
-
-        
-      "money" : {
-        "numPerEnc" : {
-          "label" : "Coins per Encumbrance",
-          "type" : "Number",
-          "value" : 250
-      },
-      "coinValue" : {
-        "label" : "Value (in d)",
-        "type" : "Number",
-        "value" : 1
-      },     
-        "quantity" : {
-        "label" : "Quantity",
-        "type" : "Number",
-        "value" : 1
+      }
     }
   }
-}
-}

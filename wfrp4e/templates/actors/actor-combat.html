@@ -4,7 +4,7 @@
             <ol class="inventory-list weapon-list">
                <li class="inventory-header item">
                   <div>Weapon</div>
-                  <div>Weapon Group</div>
+                  <div>Group</div>
                   <div>Damage</div>
                   <div>Reach</div>
                   <div>Qualities/Flaws</div>
@@ -33,7 +33,7 @@
             <ol class="inventory-list weapon-list">
                <li class="inventory-header item">
                   <div>Weapon</div>
-                  <div>Weapon Group</div>
+                  <div>Group</div>
                   <div>Ammunition</div>
                   <div>Damage</div>
                   <div>Range (yds)</div>
@@ -253,7 +253,7 @@
                  {{/each}}
                </ol>
                </div>
-               <div>
+               <div class = "crit-notes">
                   {{editor content=actor.data.status.criticalWounds.descrptions target="actor.data.status.criticalWounds.descrptions" button=true owner=owner editable=editable}}
                </div>
            
