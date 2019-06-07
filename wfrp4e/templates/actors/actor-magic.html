@@ -55,12 +55,12 @@
     
                 <div >{{item.target}}</div>
                 <div >{{item.range}}</div>
-                <div class = "ingredient-selector">
+                <div class = "ingredient-selector selector">
                         <select name="item.data.currentIng.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.currentIng.type}}">
                            {{#select item.data.currentIng.value}}
-                           <option value="-1">None</option>
+                           <option value="0">None</option>
                            {{#each item.data.ingredients as |ing i|}}
-                           <option value="{{i}}">{{ing.name}} ({{ing.data.quantity.value}})</option>
+                           <option value="{{ing.id}}">{{ing.name}} ({{ing.data.quantity.value}})</option>
                            {{/each}}
                            {{/select}}
                         </select>

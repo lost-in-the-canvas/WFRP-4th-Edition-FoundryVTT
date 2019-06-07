@@ -1,29 +1,84 @@
-<div class = "ambitions">
-    <h3>Ambitions</h2>
-    
-    <div class = "ambition-sections">
-        <div class="ambition-section">
-            <h4>Personal</h4>
-            <h5>Short Term</h5>
-            <div class="ambition-editor">
-                {{editor content=data.details.personal-ambitions.short-term target="data.details.personal-ambitions.short-term" button=true owner=owner editable=editable}}
-            </div>
-            <h5>Long Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.personal-ambitions.long-term target="data.details.personal-ambitions.long-term" button=true owner=owner editable=editable}}
+    <div class="biography">
+        <h2>Biography</h2>
+            {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+    </div>
+
+    <div class = "ambitions">    
+            <div class = "ambition-sections">
+                <div class="ambition-section">
+                    <h4>Personal Ambitions</h4>
+                    <div class="ambition">
+                    <a class="label-details" >Short Term</a>
+                            <input class="input-details" name="data.details.personal-ambitions.short-term" type="text" value="{{data.details.personal-ambitions.short-term}}"/>
+                    </div>
+                    <div class="ambition">
+                        <a class="label-details" >Long Term</a>
+                        <input class="input-details" name="data.details.personal-ambitions.long-term" type="text" value="{{data.details.personal-ambitions.long-term}}"/>
+                    </div>
                 </div>
+        
+                
+                <div class="ambition-section">
+                    <h4>Party Ambitions</h4>
+                    <div class="ambition">
+                            <a class="label-details" >Short Term</a>
+                            <input class="input-details" name="data.details.party-ambitions.short-term" type="text" value="{{data.details.party-ambitions.short-term}}"/>
+                    </div>
+                    <div class="ambition">
+                        <a class="label-details" >Long Term</a>
+                        <input class="input-details" name="data.details.party-ambitions.long-term" type="text" value="{{data.details.party-ambitions.long-term}}"/>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <div class = "row">
+            <div class="experience">
+                <a>EXP</a>
+
+                <div class="experience-section">
+                <input name="data.details.xp.current" type="text" value="{{data.details.xp.current}}" data-dtype="Number" />
+                <a>Current</a>
+                </div>
+                <div class="experience-section">
+                <input name="data.details.xp.spent" type="text" value="{{data.details.xp.spent}}" data-dtype="Number" />
+                <a>Spent</a>
+                </div>
+                <div class="experience-section">
+                <input name="data.details.xp.total" type="text" value="{{data.details.xp.total}}" data-dtype="Number"
+                    readonly />
+                <a>Total</a>
+                </div>
+            </div>
+
+            <ol class ="inventory-list psychology">
+                <li class = "inventory-header item">
+                    <span>Pyschology</span>
+                    {{#if owner}}
+                    <div class="item-controls">
+                       <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+                    </div>
+                    {{/if}}
+                </li>
+                {{#each actor.psychology as |psych p|}}
+                <li class="item" data-item-id="{{psych.id}}">
+                        <div class="item-name">
+                            <a>{{psych.name}}</a>
+                        </div>
+            
+                        {{#if ../owner}}
+                        <div class="item-controls">
+                           <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        </div>
+                        {{/if}}
+                    </li>
+                    {{/each}}
+
+            </ol>
         
-        <div class="ambition-section">
-            <h4>Party</h4>
-            <h5>Short Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.party-ambitions.short-term target="data.details.party-ambitions.short-term" button=true owner=owner editable=editable}}
-            </div>
-            <h5>Long Term</h5>
-            <div class="ambition-editor">
-                    {{editor content=data.details.party-ambitions.long-term target="data.details.party-ambitions.long-term" button=true owner=owner editable=editable}}
-            </div>
         </div>
-    </div>
+
+        <div>
+
+        </div>

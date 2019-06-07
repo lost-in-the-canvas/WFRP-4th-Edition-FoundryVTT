@@ -1500,28 +1500,6 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   getData() {
     const sheetData = super.getData();
-
-
-    /*// Ability proficiency
-    for ( let abl of Object.values(sheetData.data.abilities)) {
-      abl.icon = this._getProficiencyIcon(abl.proficient);
-      abl.hover = CONFIG.proficiencyLevels[abl.proficient];
-    }
-
-    // Update skill labels
-    for ( let skl of Object.values(sheetData.data.skills)) {
-      skl.ability = sheetData.data.abilities[skl.ability].label.substring(0, 3);
-      skl.icon = this._getProficiencyIcon(skl.value);
-      skl.hover = CONFIG.proficiencyLevels[skl.value];
-    }
-
-    // Update traits
-    sheetData["actorSizes"] = CONFIG.actorSizes;
-    this._prepareTraits(sheetData.data["traits"]);
-
-    // Prepare owned items
-*/
-
     this._prepareItems(sheetData.actor);
 
 
@@ -1577,34 +1555,8 @@ class ActorSheetWfrp4e extends ActorSheet {
   /* -------------------------------------------- */
 
   _prepareTraits(traits) {
-  /*  const map = {
-      "dr": CONFIG.damageTypes,
-      "di": CONFIG.damageTypes,
-      "dv": CONFIG.damageTypes,
-      "ci": CONFIG.conditionTypes,
-      "languages": CONFIG.languages
-    };
-    for ( let [t, choices] of Object.entries(map) ) {
-      const trait = traits[t];
-      trait.selected = trait.value.reduce((obj, t) => {
-        obj[t] = choices[t];
-        return obj;
-      }, {});
-
-      // Add custom entry
-      if ( trait.custom ) trait.selected["custom"] = trait.custom;
-    }*/
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Insert a spell into the spellbook object when rendering the character sheet
-   * @param {Object} actorData    The Actor data being prepared
-   * @param {Object} spellbook    The spellbook data being prepared
-   * @param {Object} spell        The spell data being prepared
-   * @private
-   */
   _prepareSpellOrPrayer(actorData, list, item) {
     
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
@@ -1938,23 +1890,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-    
-    // Inventory
-  /*  const inventory = {
-      weapon: { label: "Weapons", items: [] },
-      equipment: { label: "Equipment", items: [] },
-      consumable: { label: "Consumables", items: [] },
-      tool: { label: "Tools", items: [] },
-      backpack: { label: "Backpack", items: [] },
-    };*/
-
-
-
-    // 
+  
+    // These containers are for the various different tabs
     const careers = [];
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
+    const traits = {list : [], hasTraits : false};
     const weapons = [];
     const armour = [];
     const AP = {
@@ -1970,9 +1912,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const petty = [];
     const blessings = [];
     const miracles = [];
-    const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
+    const psychology = [];
 
-
+    // Inventory object is for the inventory tab
     const inventory = {
       weapons: { label: "Weapons", items: [] },
       armor: { label: "Armour", items: [], wearable: true},
@@ -1985,24 +1927,15 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true},
       misc: {label: "Miscellaneous", items: []}
     };
+    const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
+    const money = {coins: [], total: 0};
+    // Money and ingredients are not in inventory objecet because they need more customization
 
     // Iterate through items, allocating to containers
     let totalEnc = 0;
     let itemsToRemove = []; // remove items with quantity of 0
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
-
-      /*      try  {
-        if (i.data.quantity.value == 0)
-        {
-          itemsToRemove.push(i)
-          continue;
-        }
-      }
-      catch
-      {
-        // do nothing
-      }*/
       if (i.type === "talent")
       {
         this._prepareTalent(actorData, talents, i);
@@ -2033,88 +1966,14 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       {
         inventory.weapons.items.push(i);
         totalEnc += i.data.encumbrance.value;
-        i["properties"] = this._prepareQualitiesFlaws(i);
-        i.data.reach.value = CONFIG.weaponReaches[i.data.reach.value];
-        i.data.weaponGroup.value = CONFIG.weaponGroups[i.data.weaponGroup.value];
-
-        i.data.range.value = this._calculateRangeOrDamage(actorData, i.data.range.value);
-        i.data.damage.value = this._calculateRangeOrDamage(actorData, i.data.damage.value);
-
-        if (Number(i.data.range.value) > 0)
-            i["rangedWeaponType"] = true;
-        if (i.data.reach.value)
-          i["meleeWeaponType"] = true;
-
-        if (i.data.ammunitionGroup.value != "none") {
-          i["ammo"] = [ {"name" : "None"}];
-          for ( let a of actorData.items ) {
-            if (a.type == "ammunition" && a.data.ammunitionType.value == i.data.ammunitionGroup.value)
-           //aggregate ammo option
-            /* {
-              let existingAmmo = i.ammo.find(x => x.name == a.name);
-              if (existingAmmo)
-                existingAmmo.data.quantity.value += a.data.quantity.value;
-              else
-              {*/
-                i.ammo.push(a);
-              //}
-           // }
-          }
-          this._prepareWeaponWithAmmo(actorData, i);
-
-        }
-        i.properties = i.properties.filter(function(item) {return item != ""});
-        weapons.push(i);
+        this._prepareWeaponCombat(actorData, i, weapons);
       }
 
       else if (i.type === "armour")
       {
         inventory.armor.items.push(i);
         totalEnc += i.data.encumbrance.value
-        // -1 means currentAP is maxAP
-        for (let ap in i.data.currentAP)
-        {
-          if (i.data.currentAP[ap] == -1)
-          {
-            i.data.currentAP[ap] = i.data.maxAP[ap];
-          }
-        }
-
-        if (i.data.maxAP.head > 0)
-        {
-          i["protectsHead"] = true;
-          AP.head += i.data.currentAP.head;
-        }
-        if (i.data.maxAP.body > 0)
-        {
-          i["protectsBody"] = true;
-          AP.body += i.data.currentAP.body;
-        }
-        if (i.data.maxAP.lArm > 0)
-        {
-          i["protectslArm"] = true;
-          AP.lArm += i.data.currentAP.lArm;
-        }      
-        if (i.data.maxAP.rArm > 0)
-        {
-          i["protectsrArm"] = true;
-          AP.rArm += i.data.currentAP.rArm;
-        }
-        if (i.data.maxAP.lLeg > 0)
-        {
-          i["protectslLeg"] = true;
-          AP.lLeg += i.data.currentAP.lLeg;
-        }
-        if (i.data.maxAP.rLeg > 0)
-        {
-          i["protectsrLeg"] = true
-          AP.rLeg += i.data.currentAP.head;
-        }
-
-        // i.properties = i.properties.filter(function(item) {return item != ""});  
-        armour.push(i);
-
-        
+        this._prepareArmorCombat(actorData, i, armour, AP)
       }
 
       else if (i.type == "injury")
@@ -2133,7 +1992,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         if (i.data.trappingType.value == "ingredient")
           ingredients.items.push(i)
         else
-          inventory[i.data.trappingType].items.push(i);
+          inventory[i.data.trappingType.value].items.push(i);
 
         totalEnc += i.data.encumbrance.value;
       }
@@ -2160,46 +2019,48 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         careers.push(i);
       }
 
-    /*
-    // Inventory
-    if ( Object.keys(inventory).includes(i.type) ) {
-      i.data.quantity.value = i.data.quantity.value || 1;
-      i.data.weight.value = i.data.weight.value || 0;
-      i.totalEnc = Math.round(i.data.quantity.value * i.data.weight.value * 10) / 10;
-      i.hasCharges = (i.type === "consumable") && i.data.charges.max > 0;
-      inventory[i.type].items.push(i);
-      totalEnc += i.totalEnc;
+      
+      else if (i.type === "trait")
+      {
+        traits.list.push(i);
+      }
+
+      
+      else if (i.type === "psychology")
+      {
+        psychology.push(i);
+      }
+
+      else if (i.type === "money")
+      {
+        i.encumbrance = Math.floor(i.data.quantity.value / i.data.numPerEnc.value);
+        money.coins.push(i);
+        money.total += i.data.quantity.value * i.data.coinValue.value;
+      }
     }
 
-      /* // Spells
-      else if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
-
-      // Classes
-      else if ( i.type === "class" ) {
-        classes.push(i);
-        classes.sort((a, b) => b.levels > a.levels);}*/
-
-      // Feats
-
-    }
-
+    // If you have no spells, just put all ingredients in the miscellaneous section
     if (grimoire.length > 0)
     {
       ingredients.show = true;
       actorData.ingredients = ingredients;
       for (let s of grimoire)
-         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.name)
-
+         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id)
     }
     else
-      inventory.misc = inventory.misc.items.concat(ingredients.items);
+      inventory.misc.items = inventory.misc.items.concat(ingredients.items);
+
+    if (traits.list.length > 0)
+      traits.hasTraits = true;
 
     actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
+    actorData.traits = traits;
     actorData.weapons = weapons;
     actorData.armour = armour;
+    actorData.armorPenalties = this._calculateArmorPenalties(actorData, armour);
     actorData.AP = AP;
     actorData.injuries = injuries;
     actorData.grimoire = grimoire;
@@ -2207,27 +2068,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.careers = careers;
     actorData.blessings = blessings;
     actorData.miracles = miracles;
+    actorData.money = money;
+    actorData.psychology = psychology;
 
-
-    /* // Currency weight
-    if ( game.settings.get("wfrp4e", "currencyWeight") ) {
-      totalEnc += this._computeCurrencyWeight(actorData.data.currency);
-    }
-
-    // Inventory encumbrance
-    let enc = {
-      max: actorData.data.abilities.str.value * 15,
-      value: Math.round(totalEnc * 10) / 10,
-    };
-    enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    actorData.data.attributes.encumbrance = enc;**/
-
-  /*  for (let r in itemsToRemove)
-    {
-      actorData.items.splice(actorData.items.indexOf(r), 1);
-    }*/
-
-    // Calculate ammo encumbrance after the loop (since it gets aggregated)
+    // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
     for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
     {
       totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
@@ -2241,6 +2085,88 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.encumbrance = enc;
   }
 
+
+  // Prepare a weapon to be displayed in the combat tab (assign ammo, calculate range, organize qualities/flaws)
+  _prepareWeaponCombat(actorData, weapon, weaponList){
+    weapon["properties"] = this._prepareQualitiesFlaws(weapon);
+    weapon.data.reach.value = CONFIG.weaponReaches[weapon.data.reach.value];
+    weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
+
+    weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
+    weapon.data.damage.value = this._calculateRangeOrDamage(actorData, weapon.data.damage.value);
+
+    if (Number(weapon.data.range.value) > 0)
+        weapon["rangedWeaponType"] = true;
+    if (weapon.data.reach.value)
+      weapon["meleeWeaponType"] = true;
+
+    // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
+    if (weapon.data.ammunitionGroup.value != "none") {
+      weapon["ammo"] = [];
+      for ( let a of actorData.items ) {
+        if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
+       //aggregate ammo option
+        /* {
+          let existingAmmo = i.ammo.find(x => x.name == a.name);
+          if (existingAmmo)
+            existingAmmo.data.quantity.value += a.data.quantity.value;
+          else
+          {*/
+            weapon.ammo.push(a);
+          //}
+       // }
+      }
+      this._prepareWeaponWithAmmo(actorData, weapon);
+
+    }
+    weapon.properties = weapon.properties.filter(function(item) {return item != ""});
+    weaponList.push(weapon);
+
+  }
+
+  // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
+  _prepareArmorCombat(actorData, armor, armorList, AP){ // -1 means currentAP is maxAP
+    for (let ap in armor.data.currentAP)
+    {
+      if (armor.data.currentAP[ap] == -1)
+      {
+        armor.data.currentAP[ap] = armor.data.maxAP[ap];
+      }
+    }
+
+    if (armor.data.maxAP.head > 0)
+    {
+      armor["protectsHead"] = true;
+      AP.head += armor.data.currentAP.head;
+    }
+    if (armor.data.maxAP.body > 0)
+    {
+      armor["protectsBody"] = true;
+      AP.body += armor.data.currentAP.body;
+    }
+    if (armor.data.maxAP.lArm > 0)
+    {
+      armor["protectslArm"] = true;
+      AP.lArm += armor.data.currentAP.lArm;
+    }      
+    if (armor.data.maxAP.rArm > 0)
+    {
+      armor["protectsrArm"] = true;
+      AP.rArm += armor.data.currentAP.rArm;
+    }
+    if (armor.data.maxAP.lLeg > 0)
+    {
+      armor["protectslLeg"] = true;
+      AP.lLeg += armor.data.currentAP.lLeg;
+    }
+    if (armor.data.maxAP.rLeg > 0)
+    {
+      armor["protectsrLeg"] = true
+      AP.rLeg += armor.data.currentAP.rLeg;
+    }
+    // armor.properties = armor.properties.filter(function(item) {return item != ""});  
+    armorList.push(armor);
+  }
 
   _prepareQualitiesFlaws(item){
     let qualities = item.data.qualities.value.split(",").map(function(item) {
@@ -2279,6 +2205,73 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
   }
 
+  _calculateArmorPenalties(actorData, armorList){
+    // Parsing armor penalties for the combat tab
+    let armorPenalties = {skill: [], penalty: []}
+    let armorPenaltiesString = "";
+    let wearingMail = false;
+    let wearingPlate = false;
+    for (let a of armorList)
+    {
+      if (a.data.armorType.value == "mail")
+        wearingMail = true;
+      else if (a.data.armorType.value == "plate")
+        wearingPlate = true;
+
+      if (a.data.penalty.value.trim() == "")
+        continue;
+      
+      let penalties = a.data.penalty.value.split(",").map(function(item) {
+        return item.trim();
+      });
+
+      for(let p of penalties)
+      {
+        let penaltyandSkill = p.split(" ").map(function(item) {
+          return item.trim();
+        });
+        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
+
+        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
+        if (existingPenalty == -1)
+        {
+          armorPenalties.skill.push(penaltyandSkill[1]);
+          armorPenalties.penalty.push(penaltyandSkill[0]);
+        }
+        else
+        {
+          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
+        }
+      }
+    }
+
+    if (wearingMail || wearingPlate)
+    {
+      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      if (stealthPenalty == -1)
+      {
+        armorPenalties.skill.push("Stealth");
+        armorPenalties.penalty.push(0);
+        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      }
+
+      if (wearingMail)
+        armorPenalties.penalty[stealthPenalty] += -10;
+      if (wearingPlate)
+        armorPenalties.penalty[stealthPenalty] += -10;
+    }
+
+    for (let i = 0; i < armorPenalties.skill.length; i++)
+    {
+      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
+      if (i != armorPenalties.skill.length - 1)
+        armorPenaltiesString = armorPenaltiesString.concat(", ");
+
+    }
+    return armorPenaltiesString;
+  }
+
+
 
   
   _calculateRangeOrDamage(actorData, formula){    
@@ -2297,9 +2290,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   }
 
   _prepareWeaponWithAmmo(actorData, weapon){    
-    if (weapon.ammo[weapon.data.currentAmmo.value].name == "None")
+    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    if (!ammo)
       return;
-    let ammo = weapon.ammo[weapon.data.currentAmmo.value];
 
     let ammoProperties = this._prepareQualitiesFlaws(ammo);
     let ammoRange = ammo.data.range.value || "0";

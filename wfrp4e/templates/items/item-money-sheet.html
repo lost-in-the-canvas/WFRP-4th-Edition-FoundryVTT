@@ -1,0 +1,30 @@
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
+        {{> public/systems/wfrp4e/templates/items/item-header.html}}
+    
+        <nav class="sheet-tabs tabs" data-tab-container="primary">
+            <a class="item active" data-tab="description">Description</a>
+            <a class="item" data-tab="details">Details</a>
+        </nav>
+    
+        {{> public/systems/wfrp4e/templates/items/item-description.html}}
+    
+        <!-- Ability Details -->
+        <div class="tab" data-tab="details">
+    
+
+            <div class="form-group">
+                <label>{{data.quantity.label}}</label>
+                <input  type="text" name = "data.quantity.value" data-dtype = "{{data.quantity.type}}" value = "{{data.quantity.value}}"/>
+            </div>
+
+            <div class="form-group">
+                <label>{{data.numPerEnc.label}}</label>
+                <input   type="text"name = "data.numPerEnc.value" data-dtype = "{{data.numPerEnc.type}}" value = "{{data.numPerEnc.value}}"/>
+            </div>
+
+            <div class="form-group">
+                <label>{{data.coinValue.label}}</label>
+                <input   type="text"name = "data.coinValue.value" data-dtype = "{{data.coinValue.type}}" value = "{{data.coinValue.value}}"/>
+            </div>
+    </form>
+    
