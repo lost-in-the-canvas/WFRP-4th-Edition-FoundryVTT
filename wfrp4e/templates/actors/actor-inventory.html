@@ -113,9 +113,9 @@
                      <div class = "spell-selector">
                            <select name="item.data.spellIngredient.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.spellIngredient.type}}">
                               {{#select item.data.spellIngredient.value}}
-                              <option value=""></option>
+                              <option value="0">-</option>
                               {{#each ../actor.grimoire as |spell s|}}
-                              <option value="{{spell.name}}">{{spell.name}}</option>
+                              <option value="{{spell.id}}">{{spell.name}}</option>
                               {{/each}}
                               {{/select}}
                            </select>

@@ -2031,7 +2031,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       ingredients.show = true;
       actorData.ingredients = ingredients;
       for (let s of grimoire)
-         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.name)
+         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id)
     }
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
@@ -2083,7 +2083,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
     if (weapon.data.ammunitionGroup.value != "none") {
-      weapon["ammo"] = [ {"name" : "None"}];
+      weapon["ammo"] = [];
       for ( let a of actorData.items ) {
         if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
        //aggregate ammo option
@@ -2271,9 +2271,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   }
 
   _prepareWeaponWithAmmo(actorData, weapon){    
-    if (weapon.ammo[weapon.data.currentAmmo.value].name == "None")
+    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    if (!ammo)
       return;
-    let ammo = weapon.ammo[weapon.data.currentAmmo.value];
 
     let ammoProperties = this._prepareQualitiesFlaws(ammo);
     let ammoRange = ammo.data.range.value || "0";

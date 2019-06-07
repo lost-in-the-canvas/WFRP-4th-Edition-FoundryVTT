@@ -48,10 +48,11 @@
                   </div>
                   <div>{{item.data.weaponGroup.value}}</div>
                   <div class = "ammo-selector">
-                     <select name="data.currentAmmo.value" data-item-id = "{{item.id}}" data-dtype="{{data.currentAmmo.type}}">
-                        {{#select data.currentAmmo.value}}
+                     <select name="item.data.currentAmmo.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.currentAmmo.type}}">
+                        {{#select item.data.currentAmmo.value}}
+                        <option value="0">None</option>
                         {{#each item.ammo as |ammo a|}}
-                        <option value="{{a}}">{{ammo.name}} ({{ammo.data.quantity.value}})</option>
+                        <option value="{{ammo.id}}">{{ammo.name}} ({{ammo.data.quantity.value}})</option>
                         {{/each}}
                         {{/select}}
                      </select>
