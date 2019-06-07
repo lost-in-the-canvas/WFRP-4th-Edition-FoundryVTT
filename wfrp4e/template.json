@@ -118,6 +118,34 @@
           "max" : 0,
           "descriptions" : ""
         },
+        "god": {
+          "type" : "String",
+          "label": "God",
+          "value": ""
+        },
+        "sin": {
+          "type" : "Number",
+          "label": "Sin",
+          "value": 0
+        }
+      },
+      "details": {
+        "size": {
+          "type": "String",
+          "label": "Size",
+          "value": "avg"
+         },
+        "move": {
+          "type": "Number",
+          "label": "Movement",
+          "value": 4,
+          "walk": 0,
+          "run": 0
+        }
+      }    
+    },
+    "character" : {
+      "status" : {
         "fate": {
           "type": "Number",
           "label": "Fate",
@@ -137,96 +165,10 @@
           "type": "Number",
           "label": "Resolve",
           "value": 2
-        },
-        "god": {
-          "type" : "String",
-          "label": "God",
-          "value": ""
-        },
-        "sin": {
-          "type" : "Number",
-          "label": "Sin",
-          "value": 0
         }
       },
-      "details": {
-        "size": {
-         "type": "String",
-         "label": "Size",
-         "value": "avg"
-        },
-        "biography": {
-          "type": "String",
-          "label": "Biography",
-          "value": ""
-        },
-        "motivation": {
-          "type": "String",
-          "label": "Motivation",
-          "value": ""
-        },
-        "class": {
-          "type": "String",
-          "label": "Class",
-          "value": ""
-        },
-        "career": {
-          "type": "String",
-          "label": "Career",
-          "value": ""
-        },
-        "careerlevel": {
-          "type": "String",
-          "label": "Career Level",
-          "value": ""
-        },
-        "status" : {
-          "type": "String",
-          "standing" : "",
-          "tier" : 0
-        },
-        "age" : {
-          "type": "String",
-          "label": "Age",
-          "value": ""
-        },
-        "height" : {
-          "type": "String",
-          "label": "Height",
-          "value": ""
-        },
-        "weight": {
-          "type": "String",
-          "label": "Weight",
-          "value": ""
-        },
-        "haircolour": {
-          "type": "String",
-          "label": "Hair Colour",
-          "value": ""
-        },
-        "eyecolour": {
-          "type": "String",
-          "label": "Eye Colour",
-          "value": ""
-        },
-        "distinguishingmark": {
-          "type": "String",
-          "label": "Distinguishing Mark",
-          "value": ""
-        },
-        "starsign": {
-          "type": "String",
-          "label": "Star Sign",
-          "value": ""
-        },
-        "move": {
-          "type": "Number",
-          "label": "Movement",
-          "value": 4,
-          "walk": 0,
-          "run": 0
-        },
+
+      "details" : {
         "xp": {
           "type": "Number",
           "label": "Xp",
@@ -234,35 +176,81 @@
           "current": 0,
           "spent": 0        
         },
-        "personal-amibitions": {
+        "personal-ambitions": {
           "short-term":"",
           "long-term":""
         },
-        "party-amibitions": {
+        "party-ambitions": {
           "name":"",
           "short-term":"",
           "long-term":""
-        }
-      },
-      "currency": {
-        "gc": {
-          "type": "Number",
-          "label": "Gold Crowns",
-          "value": 0
         },
-        "ss": {
-          "type": "Number",
-          "label": "Silver Shillings",
-          "value": 0
-        },
-        "bp": {
-          "type": "Number",
-          "label": "Brass Pennies",
-          "value": 0
-        }
+         "biography": {
+           "type": "String",
+           "label": "Biography",
+           "value": ""
+         },
+         "motivation": {
+           "type": "String",
+           "label": "Motivation",
+           "value": ""
+         },
+         "class": {
+           "type": "String",
+           "label": "Class",
+           "value": ""
+         },
+         "career": {
+           "type": "String",
+           "label": "Career",
+           "value": ""
+         },
+         "careerlevel": {
+           "type": "String",
+           "label": "Career Level",
+           "value": ""
+         },
+         "status" : {
+           "type": "String",
+           "standing" : "",
+           "tier" : 0
+         },
+         "age" : {
+           "type": "String",
+           "label": "Age",
+           "value": ""
+         },
+         "height" : {
+           "type": "String",
+           "label": "Height",
+           "value": ""
+         },
+         "weight": {
+           "type": "String",
+           "label": "Weight",
+           "value": ""
+         },
+         "haircolour": {
+           "type": "String",
+           "label": "Hair Colour",
+           "value": ""
+         },
+         "eyecolour": {
+           "type": "String",
+           "label": "Eye Colour",
+           "value": ""
+         },
+         "distinguishingmark": {
+           "type": "String",
+           "label": "Distinguishing Mark",
+           "value": ""
+         },
+         "starsign": {
+           "type": "String",
+           "label": "Star Sign",
+           "value": ""
+         }
       }
-    },
-    "character" : {
     },
     "npc": {
     }
@@ -699,7 +687,14 @@
         }
       },
 
-      "pyschology" : {
+      "psychology" : {
+        "description" : {
+          "value": "",
+          "type" : "String"
+        }
+      },
+
+      "trait" : {
         "description" : {
           "value": "",
           "type" : "String"

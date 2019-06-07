@@ -1896,6 +1896,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const basicSkills = [];
     const advancedOrGroupedSkills = [];
     const talents = [];
+    const traits = {list : [], hasTraits : false};
     const weapons = [];
     const armour = [];
     const AP = {
@@ -1911,6 +1912,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const petty = [];
     const blessings = [];
     const miracles = [];
+    const psychology = [];
 
     // Inventory object is for the inventory tab
     const inventory = {
@@ -2017,6 +2019,18 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         careers.push(i);
       }
 
+      
+      else if (i.type === "trait")
+      {
+        traits.list.push(i);
+      }
+
+      
+      else if (i.type === "psychology")
+      {
+        psychology.push(i);
+      }
+
       else if (i.type === "money")
       {
         i.encumbrance = Math.floor(i.data.quantity.value / i.data.numPerEnc.value);
@@ -2036,10 +2050,14 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
 
+    if (traits.list.length > 0)
+      traits.hasTraits = true;
+
     actorData.inventory = inventory;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
+    actorData.traits = traits;
     actorData.weapons = weapons;
     actorData.armour = armour;
     actorData.armorPenalties = this._calculateArmorPenalties(actorData, armour);
@@ -2051,6 +2069,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.blessings = blessings;
     actorData.miracles = miracles;
     actorData.money = money;
+    actorData.psychology = psychology;
 
     // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
     for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)

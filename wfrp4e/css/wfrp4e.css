@@ -974,8 +974,6 @@ display: flex;
 .wfrp4e.actor .experience{
   display: flex;
   flex-direction: row;
-  margin-top: -15px;
-  margin-left: 30px;
   align-content: flex-end;
 }
 
@@ -1448,6 +1446,19 @@ font-weight: bold;
 .wfrp4e.actor .weapon-list .weapon-list-item > * {
   width: 33%;
 }
+
+.wfrp4e.actor .selector > select{
+  width: 100%;
+}
+
+
+
+.wfrp4e.actor .psychology{
+  width: 100%;
+  margin-top: 10px;
+  height: calc(100% - 50px);
+}
+
 /* ----------------------------------------- */
 /* User Interface Framework
 /* ----------------------------------------- */
@@ -2161,8 +2172,16 @@ font-weight: bold;
 /* ----------------------------------------- */
 /* Biography Tab
 /* ----------------------------------------- */
-.wfrp4e.actor-sheet .biography .editor {
-  height: 380px;
+
+ .biography {
+  height: 40%;
+  width: 100%;
+} 
+
+
+ .biography .editor {
+  height: 100%;
+  width: 100%;
   padding-left: 8px;
 }
 .wfrp4e.npc-sheet .biography .editor {
@@ -2342,6 +2361,11 @@ font-weight: bold;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  
+}
+
+.inventory-list .item .item-name > *{
+  overflow: hidden;  
 }
 
 .inventory-list .item .item-name > * {
@@ -2443,10 +2467,15 @@ font-weight: bold;
 }
 
 
-.wfrp4e.actor .combat-section .row {
+.wfrp4e.actor .row {
   display: flex;
   flex-direction: row;
 }
+
+.wfrp4e.actor .row > .psychology {
+  height: 100px;
+}
+
 
 .wfrp4e.actor .row .armor {
   display: flex;
