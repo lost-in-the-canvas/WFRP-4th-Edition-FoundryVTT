@@ -218,7 +218,7 @@
            
                <ol class="inventory-list crit-wound-list">
                  <li class="inventory-header item">
-                   <div>Injury
+                   <div class = "injury-name">Injury
                    </div>
            
            
@@ -233,7 +233,7 @@
            
                  {{/if}}
                  {{#each actor.injuries as |injury i|}}
-                 <li class="item" data-item-id="{{item.id}}">
+                 <li class="item" data-item-id="{{injury.id}}">
                    <div class="item-name injury-name">
                      <div class="item-image" style="background-image: url({{injury.img}})"></div>
                      <h4>{{injury.name}}</h4>
@@ -253,9 +253,6 @@
                  </li>
                  {{/each}}
                </ol>
-               </div>
-               <div class = "crit-notes">
-                  {{editor content=actor.data.status.criticalWounds.descrptions target="actor.data.status.criticalWounds.descrptions" button=true owner=owner editable=editable}}
                </div>
            
              </div>

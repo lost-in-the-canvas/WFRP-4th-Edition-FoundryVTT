@@ -920,6 +920,26 @@ class ItemWfrp4e extends Item {
     return data;*/
   }
 
+  _talentChatData() {
+    const data = duplicate(this.data.data);
+    return data;
+  }
+
+  _injuryChatData() {
+    const data = duplicate(this.data.data);
+    return data;
+  }
+
+  _spellChatData() {
+    const data = duplicate(this.data.data);
+    return data;
+  }
+
+   _prayerChatData() {
+    const data = duplicate(this.data.data);
+    return data;
+  }
+
   /* -------------------------------------------- */
 
   _weaponChatData() {
@@ -1635,10 +1655,10 @@ class ActorSheetWfrp4e extends ActorSheet {
         callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
       });
     });
-/*
+
     // Item summaries
-    html.find('.item .item-name h4').click(event => this._onItemSummary(event));
-*/
+    html.find('.item-name').click(event => this._onItemSummary(event));
+
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -1791,7 +1811,7 @@ class ActorSheetWfrp4e extends ActorSheet {
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
    * @private
    */
-  _onItemSummary(event) {/*
+  _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
         item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
@@ -1804,12 +1824,12 @@ class ActorSheetWfrp4e extends ActorSheet {
     } else {
       let div = $(`<div class="item-summary">${chatData.description.value}</div>`);
       let props = $(`<div class="item-properties"></div>`);
-      chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      //chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       div.append(props);
       li.append(div.hide());
       div.slideDown(200);
     }
-    li.toggleClass("expanded");*/
+    li.toggleClass("expanded");
   }
 
 

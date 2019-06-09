@@ -763,6 +763,18 @@ a:hover {
             width: 40%;
             margin-right: 6px;
           }
+          .wfrp4e.actor .combat-section .injury {
+            width: 100%;
+            margin-right: 6px;
+            display: flex;
+            flex-direction: row;
+          }
+          .wfrp4e.actor .combat-section .crit-wound-list {
+            width: 100%;
+          }
+          .wfrp4e.actor .crit-wound-list .injury-name {
+            /* TODO: Make injury name bigger than location */
+          }
             .wfrp4e.actor .criticalWounds-section {
               display: flex;
               margin: 0px;
@@ -1138,9 +1150,7 @@ display: flex;
   font-weight: bold;
 }
 
-.wfrp4e.actor .injury{
-  width: 40%;
-}
+
 
 .wfrp4e.actor .injury .wounds{
   display: flex;
@@ -1243,6 +1253,11 @@ font-weight: bold;
 /* Skills Tab
 /* ----------------------------------------- */
 
+
+
+.wfrp4e .skills > .armor-penalties{
+  position: absolute; bottom: 100px;
+}
 
 .wfrp4e .skill-section{
   display:flex;
@@ -2362,6 +2377,14 @@ font-weight: bold;
   flex-wrap: wrap;
   justify-content: flex-start;
   
+}
+
+.inventory-list .item .item-summary {
+  flex: 0 0 100%;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  border-top: 1px solid #CCC;
 }
 
 .inventory-list .item .item-name > *{
