@@ -1,0 +1,27 @@
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
+    {{> public/systems/wfrp4e/templates/items/item-header.html}}
+
+    {{> public/systems/wfrp4e/templates/items/item-description.html}}
+
+
+    <div class = "form-group">
+            <label>Enc</label>
+            <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
+        </div>
+
+        <div class = "form-group">
+            <label>Carries</label>
+            <input type="text" name="data.carries.value" value="{{data.carries.value}}" data-dtype="{{data.carries.type}}"/>
+        </div>
+
+        <div class = "form-group">
+            <label>Price</label>
+            <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+        </div>
+
+            <div class = "form-group">
+            <label>Count Enc</label>
+            <input title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)" type="checkbox" name="data.countEnc.value" value="{{data.countEnc.value}}" data-dtype="{{data.countEnc.type}}"/>
+        </div>
+
+</form>

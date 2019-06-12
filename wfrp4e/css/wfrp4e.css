@@ -2417,6 +2417,7 @@ font-weight: bold;
 .inventory-list .item .career-tier,
 .inventory-list .item .spell-attr,
 .inventory-list .item .item-worn,
+.inventory-list .item .item-remove,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {
   flex: 0 0 32px;
@@ -2463,6 +2464,7 @@ font-weight: bold;
   width: 100%;
 }
 
+
 .inventory{
   overflow: scroll;
   height: 400px;
@@ -2476,8 +2478,7 @@ font-weight: bold;
 }
 
 .inventory-type{
-  height: 100px;
-  width: 50%;
+  width: 100%;
   overflow: auto;
 }
 

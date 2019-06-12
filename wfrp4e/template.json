@@ -358,6 +358,11 @@
         "type": "String",
         "label": "Special",
         "value": ""
+      },
+      "location": {
+        "type": "Number",
+        "label": "Location",
+        "value": 0
       }
     },
     "armour": {
@@ -379,6 +384,11 @@
         "type": "String",
         "label": "Availability",
         "value": ""
+      },
+      "worn": {
+        "type": "Boolean",
+        "label": "Worn",
+        "value": false
       },
       "armorType": {
         "type": "String",
@@ -415,6 +425,11 @@
         "lLeg": -1,
         "rLeg": -1,
         "body": -1
+      },
+      "location": {
+        "type": "Number",
+        "label": "Location",
+        "value": 0
       }
     },
     "ammunition": {
@@ -425,11 +440,8 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
-      },
-      "quantityPerEnc": {
-        "type": "Number",
-        "value" : 12
+        "label": "Encumbrance",
+        "value": 0
       },
       "price": {
         "type": "String",
@@ -465,25 +477,43 @@
         "type": "String",
         "label": "Flaws",
         "value": ""
+      },
+      "location": {
+        "type": "Number",
+        "label": "Location",
+        "value": 0
       }
     },
     "container": {
-      "quantity": {
+      "worn": {
         "type": "Number",
         "label": "Quantity",
-        "value": 1
+        "value": 0
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value": 0
       },
       "price": {
         "type": "String",
-        "label": "Price"
+        "label": "Price",
+        "value": 0
       },
       "carries": {
         "type": "Number",
-        "label": "Carries"
+        "label": "Carries",
+        "value": 0
+      },
+      "countEnc": {
+        "type": "Boolean",
+        "label": "Count Enc",
+        "value": true
+      },
+      "location": {
+        "type": "Number",
+        "label": "Location",
+        "value": 0
       }
     },
     "trapping" : {
@@ -508,6 +538,11 @@
       "spellIngredient": {
         "type": "String",
         "value": ""
+      },
+      "location": {
+        "type": "Number",
+        "label": "Location",
+        "value": 0
       }
     },
     "talent": {
@@ -703,11 +738,11 @@
 
         
       "money" : {
-        "numPerEnc" : {
-          "label" : "Coins per Encumbrance",
-          "type" : "Number",
-          "value" : 250
-      },
+        "encumbrance": {
+          "type": "Number",
+          "label": "Encumbrance",
+          "value": 0
+        },
       "coinValue" : {
         "label" : "Value (in d)",
         "type" : "Number",
@@ -717,6 +752,11 @@
         "label" : "Quantity",
         "type" : "Number",
         "value" : 1
+    },
+    "location": {
+      "type": "Number",
+      "label": "Location",
+      "value": 0
     }
   }
 }

@@ -160,6 +160,11 @@ CONFIG.reachDescription={
  
 // Consumable Types
 CONFIG.trappingTypes = {
+  "weapon" : "Weapons",
+  "armour" : "Armour",
+  "money" : "Money",
+  "ammunition" : "Ammunition",
+  "container" : "Container",
   "clothingAcessories":"Clothing and Accessories",
   "foodAndDrink":"Food and Drink",
   "toolsAndKits":"Tools and Kits",
@@ -1732,7 +1737,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     /* -------------------------------------------- */
     /*  Inventory
     /* -------------------------------------------- */
-/*
+
     // Create New Item
     html.find('.item-create').click(ev => this._onItemCreate(ev));
 
@@ -1752,6 +1757,16 @@ class ActorSheetWfrp4e extends ActorSheet {
       li.slideUp(200, () => this.render(false));
     });
 
+    
+    // Remove Inventory Item from Container
+    html.find('.item-remove').click(ev => {
+      let li = $(ev.currentTarget).parents(".item"),
+        itemId = Number(li.attr("data-item-id"));
+      const item = this.actor.items.find(i => i.id == itemId);
+      item.data.location.value = 0;
+      this.actor.updateOwnedItem(item, true);
+    });
+
     // Toggle Spell prepared value
     html.find('.item-prepare').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
@@ -1760,13 +1775,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item, true);
     });
 
-    // Item Dragging
+    //Item Dragging
     let handler = ev => this._onDragItemStart(ev);
     html.find('.item').each((i, li) => {
       li.setAttribute("draggable", true);
       li.addEventListener("dragstart", handler, false);
     });
-
+    /*
     // Item Rolling
     html.find('.item .item-image').click(event => this._onItemRoll(event));
 
@@ -1783,15 +1798,32 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   /* -------------------------------------------- */
 
-  _onDragItemStart(event) {/*
+  _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
     event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
       id: itemId
-    }));*/
+    }));
   }
 
+  
+  async _onDrop(event) {
+    try{
+      var dragData = event.dataTransfer.getData("text/plain");
+      var dropID = Number(event.target.attributes["data-item-id"].value);
+      if (event.target.attributes["inventory-type"].value == "container"){
+        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
+        if (dragItem.data.id == dropID)
+          throw "";
+        dragItem.data.data.location.value = dropID; 
+        await this.actor.updateOwnedItem(dragItem.data, true);  
+      } 
+    }
+    catch{
+      super._onDrop(event)
+    }
+  }
   /* -------------------------------------------- */
 
   /**
@@ -1839,12 +1871,12 @@ class ActorSheetWfrp4e extends ActorSheet {
    * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
    * @private
    */
-  _onItemCreate(event) {/*
+  _onItemCreate(event) {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createOwnedItem(data, true, {renderSheet: true});*/
+    this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
 
   /* -------------------------------------------- */
@@ -1936,19 +1968,21 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     // Inventory object is for the inventory tab
     const inventory = {
-      weapons: { label: "Weapons", items: [] },
-      armor: { label: "Armour", items: [], wearable: true},
-      ammunition: { label: "Ammunition", items: [], quantified: true},
-      clothingAcessories: { label: "Clothing/Accessories", items: [], wearable: true },
-      packs: { label: "Packs and Containers", items: [], wearable: true },
-      booksAndDocuments: {label: "Food and Drink", items: []},
-      toolsAndKits: {label: "Tools and Kits", items: []},
-      books: {label: "Books and Documents", items: []},
-      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true},
-      misc: {label: "Miscellaneous", items: []}
+      weapons: { label: "Weapons", items: [], show : false },
+      armor: { label: "Armour", items: [], wearable: true, show : false},
+      ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
+      clothingAcessories: { label: "Clothing/Accessories", items: [], wearable: true, show : false },
+      booksAndDocuments: {label: "Food and Drink", items: [], show : false},
+      toolsAndKits: {label: "Tools and Kits", items: [], show : false},
+      books: {label: "Books and Documents", items: [], show : false},
+      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false},
+      misc: {label: "Miscellaneous", items: [], show : false}
     };
     const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
-    const money = {coins: [], total: 0};
+    const money = {coins: [], total: 0, show : true};
+    const containers = {items: [], show : false};
+    const inContainers = [];
+
     // Money and ingredients are not in inventory objecet because they need more customization
 
     // Iterate through items, allocating to containers
@@ -1977,22 +2011,43 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
         }
         else{*/
-          i.data.encumbrance.value = Math.ceil(i.data.quantity.value / i.data.quantityPerEnc.value);
-          inventory.ammunition.items.push(i);
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            inventory.ammunition.items.push(i);
+            inventory.ammunition.show = true
+            totalEnc += i.encumbrance;
+          }
+          else{
+            inContainers.push(i);
+          }
       //}
       }
 
       else if (i.type === "weapon")
       {
-        inventory.weapons.items.push(i);
-        totalEnc += i.data.encumbrance.value;
+        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+        if (i.data.location.value == 0){
+          inventory.weapons.items.push(i);
+          inventory.weapons.show = true;
+          totalEnc += i.encumbrance;
+        }
+        else {
+          inContainers.push(i);
+        }
         this._prepareWeaponCombat(actorData, i, weapons);
       }
 
       else if (i.type === "armour")
       {
-        inventory.armor.items.push(i);
-        totalEnc += i.data.encumbrance.value
+        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+        if (i.data.location.value == 0){
+          inventory.armor.items.push(i);
+          inventory.armor.show = true;
+          totalEnc += i.encumbrance;
+        }
+        else {
+          inContainers.push(i);
+        }
         this._prepareArmorCombat(actorData, i, armour, AP)
       }
 
@@ -2003,18 +2058,37 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "container")
       {
-        actor.inventory.packs.items.push(i);
+        i.encumbrance = i.data.encumbrance.value;
+
+        if (i.data.location.value == 0){
         totalEnc += i.data.encumbrance.value;
+        }
+        else{
+          inContainers.push(i);
+        }
+        containers.items.push(i);
+        containers.show = true;
       }
 
       else if (i.type === "trapping")
       {
-        if (i.data.trappingType.value == "ingredient")
-          ingredients.items.push(i)
-        else
-          inventory[i.data.trappingType.value].items.push(i);
+        i.encumbrance = i.data.encumbrance.value * i.data.quantity.value;
+        if (i.data.location.value == 0)
+        {
+          if (i.data.trappingType.value == "ingredient"){
+            ingredients.items.push(i)
+          }
+          else
+          {
+            inventory[i.data.trappingType.value].items.push(i);
+            inventory[i.data.trappingType.value].show = true;
+          }
+          totalEnc += i.encumbrance;
+        }
+        else{
+          inContainers.push(i);
+        }
 
-        totalEnc += i.data.encumbrance.value;
       }
 
       
@@ -2053,14 +2127,21 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "money")
       {
-        i.encumbrance = Math.floor(i.data.quantity.value / i.data.numPerEnc.value);
-        money.coins.push(i);
+        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+        if (i.data.location.value == 0){
+          money.coins.push(i);
+          totalEnc += i.encumbrance;
+        }
+        else{
+          inContainers.push(i);
+        }
         money.total += i.data.quantity.value * i.data.coinValue.value;
+
       }
     }
 
     // If you have no spells, just put all ingredients in the miscellaneous section
-    if (grimoire.length > 0)
+    if (grimoire.length > 0 && ingredients.items.length > 0)
     {
       ingredients.show = true;
       actorData.ingredients = ingredients;
@@ -2069,11 +2150,38 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     }
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
+    
+    
+    var containerMissing = inContainers.filter(i => containers.items.find(c => c.id == i.data.location.value) == undefined);
+    for (var itemNoContainer of containerMissing)
+    {
+      itemNoContainer.data.location.value = 0;
+      this.actor.updateOwnedItem(itemNoContainer, true);
+    }
+    for (var cont of containers.items)
+    {
+      var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
+      itemsInside.map(function(item){
+        if (item.type == "trapping")
+          item.type == CONFIG.trappingTypes[item.type.trappingType.value];
+        else
+          item.type = CONFIG.trappingTypes[item.type];
+      } )
+      cont["carrying"] = itemsInside.filter(i => i.type != "Container");
+      cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
+      cont["holding"] = itemsInside.reduce(function (prev, cur){
+        return prev + cur.encumbrance;
+      }, 0);
+      cont.holding = Math.floor(cont.holding)
+    }
 
+    containers.items = containers.items.filter(c => c.data.location.value == 0);
+    
     if (traits.list.length > 0)
       traits.hasTraits = true;
 
     actorData.inventory = inventory;
+    actorData.containers = containers;
     actorData.basicSkills = basicSkills;
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
@@ -2092,10 +2200,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.psychology = psychology;
 
     // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
-    for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
+   /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
     {
       totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
-    }
+    }*/
     let enc = {
       max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
       value: Math.round(totalEnc * 10) / 10,
@@ -2137,11 +2245,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
        // }
       }
       this._prepareWeaponWithAmmo(actorData, weapon);
-
     }
     weapon.properties = weapon.properties.filter(function(item) {return item != ""});
     weaponList.push(weapon);
-
   }
 
   // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
