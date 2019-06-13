@@ -410,6 +410,11 @@
         "label": "Flaws",
         "value": ""
       },
+      "special":{
+        "type": "String",
+        "label": "Special",
+        "value": ""
+      },
       "maxAP":{
         "head": 0,
         "lArm": 0,
@@ -476,6 +481,11 @@
       "flaws":{
         "type": "String",
         "label": "Flaws",
+        "value": ""
+      },
+      "special":{
+        "type": "String",
+        "label": "Special",
         "value": ""
       },
       "location": {

@@ -829,7 +829,7 @@ a:hover {
 
             /*The critical wounds counter box in the combat tab*/
             .combat-section #criticalWounds-box {
-              margin-top: 90px;
+              margin-top: 130px;
             }
             #criticalWounds-divisor {
               font-family: CaslonPro;
@@ -2375,8 +2375,7 @@ font-weight: bold;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  
+  justify-content: flex-start;  
 }
 
 .inventory-list .item .item-summary {
@@ -2416,7 +2415,7 @@ font-weight: bold;
 .inventory-list .item .AP-value,
 .inventory-list .item .career-tier,
 .inventory-list .item .spell-attr,
-.inventory-list .item .item-worn,
+.inventory-list .item .item-toggle,
 .inventory-list .item .item-remove,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {
@@ -2486,7 +2485,7 @@ font-weight: bold;
 /* COMBAT SECTION */
 .wfrp4e.actor .weapon-list {
   list-style: none;
-  height: 80px;
+  height: 100px;
   overflow: auto;
 }
 

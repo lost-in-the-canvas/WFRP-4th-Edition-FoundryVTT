@@ -47,11 +47,11 @@
             <ol class="inventory-list">
                <li class="inventory-header item">
                   <span class="item-name">{{section.label}}</span>
-                  {{#if section.wearable}}
-                  <span class = "item-worn">Worn</span>
+                  {{#if section.toggle}}
+                  <span class = "item-toggle">{{section.toggleName}}</span>
                   {{/if}}
 
-                  <span class = "item-quantity">Qty.</span>
+                  <a class = "item-quantity">Qty.</a>
 
                   <span class="item-weight">Enc</span>
                   {{#if ../owner}}
@@ -66,15 +66,15 @@
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
                      <a>{{item.name}}</a>
                   </div>
-                  {{#if section.wearable}}
-                  {{#if item.data.worn.value}}
-                  <a class = "item-worn"><i class="fa fa-check"></i></a>
+                  {{#if section.toggle}}
+                  {{#if item.toggleValue}}
+                  <a class = "item-toggle"><i class="fa fa-check"></i></a>
                   {{else}}
-                  <a class = "item-worn"><i class="far fa-circle"></i></a>
+                  <a class = "item-toggle"><i class="far fa-circle"></i></a>
                   {{/if}}
                   {{/if}}
  
-                  <span class = "item-quantity">{{item.data.quantity.value}}</span>
+                  <a class = "item-quantity">{{item.data.quantity.value}}</a>
 
                   <span class="item-weight">{{item.encumbrance}}</span>
                   {{#if ../../owner}}

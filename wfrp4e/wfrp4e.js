@@ -79,6 +79,7 @@ CONFIG.weaponQualities = {
   "fast": "Fast",
   "hack": "Hack",
   "impact": "Impact",
+  "impale": "Impale",
   "penetrating": "Penetrating",
   "pistol": "Pistol",
   "precise": "Precise",
@@ -112,6 +113,7 @@ CONFIG.qualityDescriptions = {
   "fast": "Fast",
   "hack": "Hacking weapons have heavy blades that can hack through armor with horrific ease. If you hit an opponent, you Damage a struck piece of armor or shield by 1 point as well as wounding the target.",
   "impact": "Impact",
+  "impale": "Impale",
   "penetrating": "Penetrating",
   "pistol": "Pistol",
   "precise": "Precise",
@@ -173,6 +175,16 @@ CONFIG.weaponReaches={
  "massive":"Massive",
 }
 
+
+
+CONFIG.rangeModifiers={
+  "Point Blank" : "Easy (+40)",
+  "Short Range":"Average (+20)",
+  "Normal" : "Challenging (+0)",
+  "Long Range": "Difficult (-10)",
+  "Extreme": "Very Hard (-30)",
+ }
+ 
 CONFIG.reachDescription={
   "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
   "vshort":"Less than a foot in length.",
@@ -198,7 +210,7 @@ CONFIG.trappingTypes = {
   "money" : "Money",
   "ammunition" : "Ammunition",
   "container" : "Container",
-  "clothingAcessories":"Clothing and Accessories",
+  "clothingAccessories":"Clothing and Accessories",
   "foodAndDrink":"Food and Drink",
   "toolsAndKits":"Tools and Kits",
   "booksAndDocuments":"Books and Documents",
@@ -988,13 +1000,15 @@ class ItemWfrp4e extends Item {
 
   _weaponChatData() {
    const data = duplicate(this.data.data);
-    const properties = [];
+    let properties = [];
     if (data.reach.value)
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
     for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
       properties.push(prop);
+    properties = properties.filter(p => p != "Special");
+    properties.push ("Special: " + data.special.value);
 
     data.properties = properties.filter(p => !!p);
     return data;
@@ -1717,9 +1731,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Item summaries
     html.find('.item-name').click(event => this._onItemSummary(event));
-
     
     html.find('.item-property').click(event => this._expandProperty(event));
+
+    html.find('.weapon-range').click(event => this._expandRange(event));
+
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -1828,10 +1844,34 @@ class ActorSheetWfrp4e extends ActorSheet {
       // TODO: click on item quantity header consolidates item quantities
     });
 
-    html.find('.item-worn').click(ev => {
+    html.find('.item-toggle').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let item = this.actor.items.find(i => i.id === itemId );
-      item.data.worn.value = !item.data.worn.value;
+      if (item.type == "armour")
+        item.data.worn.value = !item.data.worn.value;
+      else if (item.type == "weapon")
+        item.data.equipped = !item.data.equipped;
+      else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+        item.data.worn = !item.data.worn;
+      this.actor.updateOwnedItem(item);
+    });
+
+    
+    html.find('.item-quantity').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      switch (event.button)
+      {
+        case 0: 
+        item.data.quantity.value++;
+
+          break;
+        case 2:
+        item.data.quantity.value--;
+        if (item.data.quantity.value < 0)
+          item.data.quantity.value = 0;
+          break;
+      }
       this.actor.updateOwnedItem(item);
     });
 
@@ -1948,10 +1988,18 @@ class ActorSheetWfrp4e extends ActorSheet {
         propertyDescr = Object.assign(CONFIG.qualityDescriptions, CONFIG.flawDescriptions);
 
         let propertyKey = "";
-        for (let prop in properties)
+        if (property != "Special")
         {
-          if (properties[prop] == property)
-            propertyKey = prop;
+          for (let prop in properties)
+          {
+            if (properties[prop] == property)
+              propertyKey = prop;
+          }
+        }
+        else{
+          let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
+          propertyDescr = Object.assign(propertyDescr, {"Special" : item.data.data.special.value});
+          propertyKey = "Special";
         }
 
         let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
@@ -1962,6 +2010,29 @@ class ActorSheetWfrp4e extends ActorSheet {
       summary.slideUp(200, () => summary.remove());
     } else {
       let div = $(`<div class="item-summary">${propertyDescription}</div>`);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
+
+  _expandRange(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parents(".item"),
+        range = parseInt(event.target.text);
+        let expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
+        range / 10 + " yds - " + range / 2 + "yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
+        range / 2 + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
+        range + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
+        range * 2 + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
+
+    // Toggle summary
+
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${expansionText}</div>`);
       li.append(div.hide());
       div.slideDown(200);
     }
@@ -2071,10 +2142,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     // Inventory object is for the inventory tab
     const inventory = {
-      weapons: { label: "Weapons", items: [], show : false },
-      armor: { label: "Armour", items: [], wearable: true, show : false},
+      weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false },
+      armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false},
       ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
-      clothingAcessories: { label: "Clothing/Accessories", items: [], wearable: true, show : false },
+      clothingAccessories: { label: "Clothing/Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
       booksAndDocuments: {label: "Food and Drink", items: [], show : false},
       toolsAndKits: {label: "Tools and Kits", items: [], show : false},
       books: {label: "Books and Documents", items: [], show : false},
@@ -2130,20 +2201,24 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       {
         i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
         if (i.data.location.value == 0){
+          i.toggleValue = i.data.equipped || false;
           inventory.weapons.items.push(i);
           inventory.weapons.show = true;
           totalEnc += i.encumbrance;
         }
         else {
+          i.data.equipped = false;
           inContainers.push(i);
         }
-        this._prepareWeaponCombat(actorData, i, weapons);
+        if (i.data.equipped)
+          this._prepareWeaponCombat(actorData, i, weapons);
       }
 
       else if (i.type === "armour")
       {
         i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
         if (i.data.location.value == 0){
+          i.toggleValue = i.data.worn.value || false;
           inventory.armor.items.push(i);
           inventory.armor.show = true;
           totalEnc += i.encumbrance;
@@ -2183,6 +2258,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         {
           if (i.data.trappingType.value == "ingredient"){
             ingredients.items.push(i)
+          }
+          else if (i.data.trappingType.value == "clothingAccessories")
+          {
+            i.toggleValue = i.data.worn || false;
+            inventory[i.data.trappingType.value].items.push(i);
+            inventory[i.data.trappingType.value].show = true;
           }
           else
           {
@@ -2262,14 +2343,14 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     for (var itemNoContainer of containerMissing)
     {
       itemNoContainer.data.location.value = 0;
-      this.actor.updateOwnedItem(itemNoContainer, true);
+      this.actor.updateOwnedItem(itemNoContainer, true);;
     }
     for (var cont of containers.items)
     {
       var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
       itemsInside.map(function(item){
         if (item.type == "trapping")
-          item.type == CONFIG.trappingTypes[item.type.trappingType.value];
+          item.type == CONFIG.trappingTypes[item.data.trappingType.value];
         else
           item.type = CONFIG.trappingTypes[item.type];
       } )
@@ -2433,7 +2514,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     // Remove Invalid qualities/flaws
 
 
-    return qualities.concat(flaws).sort();
+    if (!item.data.special.value)
+      return qualities.concat(flaws).sort();
+    else
+      return qualities.concat(flaws).sort().concat("Special");
+    
 
   }
 
