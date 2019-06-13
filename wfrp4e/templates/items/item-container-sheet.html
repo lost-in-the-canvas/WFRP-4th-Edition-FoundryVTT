@@ -19,9 +19,14 @@
             <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
         </div>
 
-            <div class = "form-group">
+        <div class = "form-group">
+            <label>Wearable</label>
+            <input type="checkbox" name="data.wearable.value" value="{{data.wearable.value}}" data-dtype="{{data.wearable.type}}"  {{checked data.wearable.value}}/>
+        </div>
+
+        <div class = "form-group">
             <label>Count Enc</label>
-            <input title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)" type="checkbox" name="data.countEnc.value" value="{{data.countEnc.value}}" data-dtype="{{data.countEnc.type}}"/>
+            <input title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)" type="checkbox" name="data.countEnc.value" value="{{data.countEnc.value}}" data-dtype="{{data.countEnc.type}}"  {{checked data.countEnc.value}}/>
         </div>
 
 </form>

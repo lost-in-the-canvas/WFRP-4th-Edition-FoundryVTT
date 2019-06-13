@@ -1839,9 +1839,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item, true);
     });
 
-    html.find('.item-quantity').click(ev => {
-      // TODO: Click on item quantity decrease or increase quantity by one (left/right click)
-      // TODO: click on item quantity header consolidates item quantities
+    html.find('.toggle-enc').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data.countEnc.value = !item.data.countEnc.value;
+      this.actor.updateOwnedItem(item, true);
     });
 
     html.find('.item-toggle').click(ev => {
@@ -1854,6 +1856,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
         item.data.worn = !item.data.worn;
       this.actor.updateOwnedItem(item);
+    });
+
+    html.find('.worn-container').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data.worn.value = !item.data.worn.value;
+      this.actor.updateOwnedItem(item, true);
     });
 
     
@@ -1924,7 +1933,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
         if (dragItem.data.id == dropID)
           throw "";
-        dragItem.data.data.location.value = dropID; 
+        dragItem.data.data.location.value = dropID;
+
+          //  this will unequip/remove items like armor and weapons when moved into a container
+          if (dragItem.data.type == "armour")
+            dragItem.data.data.worn.value = false;
+          if (dragItem.data.type == "weapon")
+            dragItem.data.data.equipped = false;
+          if (dragItem.data.type == "trapping" && dragItem.data.data.trappingType.value == "clothingAccessories")        
+            dragItem.data.data.worn = false;
+
+
         await this.actor.updateOwnedItem(dragItem.data, true);  
       } 
     }
@@ -2207,7 +2226,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           totalEnc += i.encumbrance;
         }
         else {
-          i.data.equipped = false;
           inContainers.push(i);
         }
         if (i.data.equipped)
@@ -2224,7 +2242,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           totalEnc += i.encumbrance;
         }
         else {
-          i.data.worn.value = false;
           inContainers.push(i);
         }
 
