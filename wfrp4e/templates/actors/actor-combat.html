@@ -14,14 +14,14 @@
                <li class="item" data-item-id="{{item.id}}">
                   <div class="item-name">
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
-                     <h4>{{item.name}}</h4>
+                     <a>{{item.name}}</a>
                   </div>
                   <div>{{item.data.weaponGroup.value}}</div>
                   <div>+{{item.data.damage.value}}</div>
                   <div>{{item.data.reach.value}}</div>
                   <div>
                      {{#each item.properties as |property p|}}
-                     <a>{{property}}</a>
+                     <a class = 'item-property'>{{property}}</a>                    
                      {{/each}}
                   </div>
                </li>
@@ -61,7 +61,7 @@
                   <div>{{item.data.range.value}}</div>
                   <div>
                      {{#each item.properties as |property p|}}
-                     <a>{{property}}</a>
+                     <a class = 'item-property'>{{property}}</a>
                      {{/each}}
                   </div>
                </li>

@@ -100,6 +100,39 @@ CONFIG.weaponFlaws = {
   "undamaging": "Undamaging"
 };
 
+
+// Weapon Qualities
+CONFIG.qualityDescriptions = {
+  "accurate": "Accurate",
+  "blackpowder": "Blackpowder",
+  "blast": "Blast",
+  "damaging": "A Damaging weapon can use the higher score from either the units die or the SL to determine the Damage caused from a successful hit. For example, if you roll 34 in your attack Test and the target number was 52 you can choose to use the SL, which in this case is 2, or the units die result, which is 4. An Undamaging weapon can never also be Damaging (Undamaging takes precedent).",
+  "defensive": "Defensive",
+  "entangle": "Entangle",
+  "fast": "Fast",
+  "hack": "Hacking weapons have heavy blades that can hack through armor with horrific ease. If you hit an opponent, you Damage a struck piece of armor or shield by 1 point as well as wounding the target.",
+  "impact": "Impact",
+  "penetrating": "Penetrating",
+  "pistol": "Pistol",
+  "precise": "Precise",
+  "pummel": "Pummel",
+  "repeater": "Repater",
+  "shield": "Shield",
+  "trapblade": "Trap Blade",
+  "unbreakable": "Unbreakable",
+  "wrap": "Wrap"
+};
+
+// Weapon Flaws
+CONFIG.flawDescriptions = {
+  "dangerous": "Dangerous",
+  "imprecise": "Imprecise",
+  "reload": "reload",
+  "slow": "Slow",
+  "tiring": "Tiring",
+  "undamaging": "Undamaging"
+};
+
 // Armor Qualities
 CONFIG.armorQualities = {
   "flexible": "Flexible",
@@ -925,38 +958,59 @@ class ItemWfrp4e extends Item {
     return data;*/
   }
 
+
+
   _talentChatData() {
     const data = duplicate(this.data.data);
+    data.properties=[];
     return data;
   }
 
   _injuryChatData() {
     const data = duplicate(this.data.data);
+    data.properties=[];
     return data;
   }
 
   _spellChatData() {
     const data = duplicate(this.data.data);
+    data.properties=[];
     return data;
   }
 
    _prayerChatData() {
     const data = duplicate(this.data.data);
+    data.properties=[];
     return data;
   }
 
   /* -------------------------------------------- */
 
   _weaponChatData() {
-  /* const data = duplicate(this.data.data);
-    const properties = [
-      data.range.value,
-      CONFIG.weaponTypes[data.weaponType.value],
-      data.proficient.value ? "" : "Not Proficient"
-    ];
+   const data = duplicate(this.data.data);
+    const properties = [];
+    if (data.reach.value)
+      properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+    if (data.range.value)
+      properties.push("Range: " + data.range.value);
+    for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
+      properties.push(prop);
+
     data.properties = properties.filter(p => !!p);
-    return data;*/
+    return data;
   }
+
+  _armourChatData() {
+    const data = duplicate(this.data.data);
+     const properties = [];
+     properties.push(CONFIG.armorTypes[data.armorType.value]);
+     for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
+       properties.push(prop);
+     properties.push(data.penalty.value);
+ 
+     data.properties = properties.filter(p => !!p);
+     return data;
+   }
 
   /* -------------------------------------------- */
 
@@ -1664,6 +1718,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Item summaries
     html.find('.item-name').click(event => this._onItemSummary(event));
 
+    
+    html.find('.item-property').click(event => this._expandProperty(event));
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
@@ -1767,6 +1823,18 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item, true);
     });
 
+    html.find('.item-quantity').click(ev => {
+      // TODO: Click on item quantity decrease or increase quantity by one (left/right click)
+      // TODO: click on item quantity header consolidates item quantities
+    });
+
+    html.find('.item-worn').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data.worn.value = !item.data.worn.value;
+      this.actor.updateOwnedItem(item);
+    });
+
     // Toggle Spell prepared value
     html.find('.item-prepare').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
@@ -1850,13 +1918,21 @@ class ActorSheetWfrp4e extends ActorSheet {
         chatData = item.getChatData({secrets: this.actor.owner});
 
     // Toggle summary
+
+    let combatSummary = $(event.currentTarget).parents(".combat-section").length > 0;
+
     if ( li.hasClass("expanded") ) {
       let summary = li.children(".item-summary");
       summary.slideUp(200, () => summary.remove());
     } else {
-      let div = $(`<div class="item-summary">${chatData.description.value}</div>`);
+      let div = "";
+      if (!combatSummary) // If in combat tab, don't show item description
+        div = $(`<div class="item-summary">${chatData.description.value}</div>`);
+      else
+        div = $(`<div class="item-summary"></div>`);
+
       let props = $(`<div class="item-properties"></div>`);
-      //chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       div.append(props);
       li.append(div.hide());
       div.slideDown(200);
@@ -1864,6 +1940,33 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.toggleClass("expanded");
   }
 
+  _expandProperty(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parents(".item"),
+        property = event.target.text,
+        properties = Object.assign(CONFIG.weaponQualities, CONFIG.weaponFlaws),
+        propertyDescr = Object.assign(CONFIG.qualityDescriptions, CONFIG.flawDescriptions);
+
+        let propertyKey = "";
+        for (let prop in properties)
+        {
+          if (properties[prop] == property)
+            propertyKey = prop;
+        }
+
+        let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
+    // Toggle summary
+
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = $(`<div class="item-summary">${propertyDescription}</div>`);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
 
   /* -------------------------------------------- */
 
@@ -2046,9 +2149,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           totalEnc += i.encumbrance;
         }
         else {
+          i.data.worn.value = false;
           inContainers.push(i);
         }
-        this._prepareArmorCombat(actorData, i, armour, AP)
+
+        if (i.data.worn.value)
+          this._prepareArmorCombat(actorData, i, armour, AP)
       }
 
       else if (i.type == "injury")

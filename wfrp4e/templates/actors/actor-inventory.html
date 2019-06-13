@@ -13,7 +13,7 @@
          <ol class="inventory-list">
             <li class="inventory-header item">
                <span class="item-name">Money (Total: {{actor.money.total}}d)</span>
-               <span class = "item-quantity">Qty.</span>
+               <a class = "item-quantity">Qty.</a>
                <span class="item-weight">Enc</span>
                {{#if owner}}
                <div class="item-controls">
@@ -25,9 +25,9 @@
             <li class="item" data-item-id="{{item.id}}">
                <div class="item-name">
                   <div class="item-image" style="background-image: url({{item.img}})"></div>
-                  <h4>{{item.name}}</h4>
+                  <a>{{item.name}}</a>
                </div>
-               <span class = "item-quantity">{{item.data.quantity.value}}</span>
+               <a class="item-quantity">{{item.data.quantity.value}}</a>
                <span class="item-weight">{{item.encumbrance}}</span>
                {{#if ../owner}}
                <div class="item-controls">
@@ -64,10 +64,14 @@
                <li class="item" data-item-id="{{item.id}}">
                   <div class="item-name">
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
-                     <h4>{{item.name}}</h4>
+                     <a>{{item.name}}</a>
                   </div>
                   {{#if section.wearable}}
-                  <span class = "item-worn"><i class="far fa-circle"></i></span>
+                  {{#if item.data.worn.value}}
+                  <a class = "item-worn"><i class="fa fa-check"></i></a>
+                  {{else}}
+                  <a class = "item-worn"><i class="far fa-circle"></i></a>
+                  {{/if}}
                   {{/if}}
  
                   <span class = "item-quantity">{{item.data.quantity.value}}</span>
@@ -110,7 +114,7 @@
                   <li class="item" data-item-id="{{item.id}}">
                      <div class="item-name">
                         <div class="item-image" style="background-image: url({{item.img}})"></div>
-                        <h4>{{item.name}}</h4>
+                        <a>{{item.name}}</a>
                      </div>
 
                      <div class = "spell-selector selector">
@@ -166,7 +170,7 @@
                      <li class="item" data-item-id="{{item.id}}">
                         <div class="item-name">
                            <div class="item-image" style="background-image: url({{item.img}})"></div>
-                           <h4>{{item.name}}</h4>
+                           <a>{{item.name}}</a>
                         </div>
 
                         <div>{{item.type}}</div>
@@ -207,7 +211,7 @@
                         <li class="item" data-item-id="{{item.id}}">
                            <div class="item-name">
                               <div class="item-image" style="background-image: url({{item.img}})"></div>
-                              <h4>{{item.name}}</h4>
+                              <a>{{item.name}}</a>
                            </div>
    
                            <div>{{item.type}}</div>
@@ -235,4 +239,5 @@
          <div class="encumbrance-bar" style="width:{{actor.encumbrance.pct}}%"></span>
          </div>
       </div>-->
+      </div>
    </div>

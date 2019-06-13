@@ -1,4 +1,4 @@
-<form class="dnd5e item-sheet {{cssClass}}" autocomplete="off">
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
     {{> public/systems/wfrp4e/templates/items/item-header.html}}
 
     <ol class="item-details">
@@ -23,24 +23,11 @@
         <a class="item" data-tab="details">Details</a>
     </nav>
 
+    <div class="tab" data-tab="description">
     {{> public/systems/wfrp4e/templates/items/item-description.html}}
-
+    </div>
 
     <div class="tab" data-tab="details">
-
-
-        
-   <!-- <div class="form-group">
-            <label>Weapon Type</label>
-            <select class = "weapon-type" name="data.weaponType.value" data-dtype="{{data.weaponType.type}}">
-                {{#select data.weaponType.value}}
-                <option value="Melee Weapon">Melee Weapon</option>
-                <option value="Ranged Weapon">Ranged Weapon</option>
-                {{/select}}
-            </select>
-        </div>
--->
-
         <div class="form-group">
             <label>{{data.weaponGroup.label}}</label>
             <select name="data.weaponGroup.value" data-dtype="{{data.weaponGroup.type}}">
