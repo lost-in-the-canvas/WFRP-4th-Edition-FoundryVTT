@@ -14,14 +14,14 @@
                <li class="item" data-item-id="{{item.id}}">
                   <div class="item-name">
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
-                     <h4>{{item.name}}</h4>
+                     <a>{{item.name}}</a>
                   </div>
                   <div>{{item.data.weaponGroup.value}}</div>
                   <div>+{{item.data.damage.value}}</div>
                   <div>{{item.data.reach.value}}</div>
                   <div>
                      {{#each item.properties as |property p|}}
-                     <a>{{property}}</a>
+                     <a class = 'item-property'>{{property}}</a>                    
                      {{/each}}
                   </div>
                </li>
@@ -58,10 +58,10 @@
                      </select>
                   </div>
                   <div>+{{item.data.damage.value}}</div>
-                  <div>{{item.data.range.value}}</div>
+                  <a class = "weapon-range">{{item.data.range.value}}</a>
                   <div>
                      {{#each item.properties as |property p|}}
-                     <a>{{property}}</a>
+                     <a class = 'item-property'>{{property}}</a>
                      {{/each}}
                   </div>
                </li>
@@ -218,7 +218,7 @@
            
                <ol class="inventory-list crit-wound-list">
                  <li class="inventory-header item">
-                   <div>Injury
+                   <div class = "injury-name">Injury
                    </div>
            
            
@@ -233,7 +233,7 @@
            
                  {{/if}}
                  {{#each actor.injuries as |injury i|}}
-                 <li class="item" data-item-id="{{item.id}}">
+                 <li class="item" data-item-id="{{injury.id}}">
                    <div class="item-name injury-name">
                      <div class="item-image" style="background-image: url({{injury.img}})"></div>
                      <h4>{{injury.name}}</h4>
@@ -253,9 +253,6 @@
                  </li>
                  {{/each}}
                </ol>
-               </div>
-               <div class = "crit-notes">
-                  {{editor content=actor.data.status.criticalWounds.descrptions target="actor.data.status.criticalWounds.descrptions" button=true owner=owner editable=editable}}
                </div>
            
              </div>

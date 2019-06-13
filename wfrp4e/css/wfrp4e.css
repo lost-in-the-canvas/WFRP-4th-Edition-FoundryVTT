@@ -763,6 +763,18 @@ a:hover {
             width: 40%;
             margin-right: 6px;
           }
+          .wfrp4e.actor .combat-section .injury {
+            width: 100%;
+            margin-right: 6px;
+            display: flex;
+            flex-direction: row;
+          }
+          .wfrp4e.actor .combat-section .crit-wound-list {
+            width: 100%;
+          }
+          .wfrp4e.actor .crit-wound-list .injury-name {
+            /* TODO: Make injury name bigger than location */
+          }
             .wfrp4e.actor .criticalWounds-section {
               display: flex;
               margin: 0px;
@@ -817,7 +829,7 @@ a:hover {
 
             /*The critical wounds counter box in the combat tab*/
             .combat-section #criticalWounds-box {
-              margin-top: 90px;
+              margin-top: 130px;
             }
             #criticalWounds-divisor {
               font-family: CaslonPro;
@@ -1138,9 +1150,7 @@ display: flex;
   font-weight: bold;
 }
 
-.wfrp4e.actor .injury{
-  width: 40%;
-}
+
 
 .wfrp4e.actor .injury .wounds{
   display: flex;
@@ -1243,6 +1253,11 @@ font-weight: bold;
 /* Skills Tab
 /* ----------------------------------------- */
 
+
+
+.wfrp4e .skills > .armor-penalties{
+  position: absolute; bottom: 100px;
+}
 
 .wfrp4e .skill-section{
   display:flex;
@@ -2360,8 +2375,15 @@ font-weight: bold;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  
+  justify-content: flex-start;  
+}
+
+.inventory-list .item .item-summary {
+  flex: 0 0 100%;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  border-top: 1px solid #CCC;
 }
 
 .inventory-list .item .item-name > *{
@@ -2393,7 +2415,8 @@ font-weight: bold;
 .inventory-list .item .AP-value,
 .inventory-list .item .career-tier,
 .inventory-list .item .spell-attr,
-.inventory-list .item .item-worn,
+.inventory-list .item .item-toggle,
+.inventory-list .item .item-remove,
 .inventory-list .item .item-quantity,
 .inventory-list .item .item-weight {
   flex: 0 0 32px;
@@ -2440,6 +2463,7 @@ font-weight: bold;
   width: 100%;
 }
 
+
 .inventory{
   overflow: scroll;
   height: 400px;
@@ -2453,8 +2477,7 @@ font-weight: bold;
 }
 
 .inventory-type{
-  height: 100px;
-  width: 50%;
+  width: 100%;
   overflow: auto;
 }
 
@@ -2462,7 +2485,7 @@ font-weight: bold;
 /* COMBAT SECTION */
 .wfrp4e.actor .weapon-list {
   list-style: none;
-  height: 80px;
+  height: 100px;
   overflow: auto;
 }
 
@@ -2586,6 +2609,16 @@ font-weight: bold;
 }
 
 
+.wfrp4e.sheet form .tag {
+  float: left;
+  margin: 0 2px 2px 0;
+  padding: 0 3px;
+  font-size: 10px;
+  line-height: 16px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
 
 
 /* ----------------------------------------- */

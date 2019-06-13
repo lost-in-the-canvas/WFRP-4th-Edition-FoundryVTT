@@ -1,4 +1,4 @@
-<form class="dnd5e item-sheet {{cssClass}}" autocomplete="off">
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
     {{> public/systems/wfrp4e/templates/items/item-header.html}}
 
     <ol class="item-details">
@@ -104,6 +104,11 @@
         <div class="form-group-stacked">
             <label>Flaws (comma-separated)</label>
             <input type="text" name="data.flaws.value" value="{{data.flaws.value}}" data-dtype="{{data.properties.type}}"/>
+        </div>
+
+        <div class="form-group-stacked">
+            <label>Special<label>
+            <input type="text" name="data.special.value" value="{{data.special.value}}" data-dtype="{{data.special.type}}"/>
         </div>
     </div>
 </form>

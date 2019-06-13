@@ -1,55 +1,50 @@
-
-
 <div class = "skill-section">
-
     <div class = "skill-type">
-
- <h3>Basic Skills</h3>
-<table class="skill-table">
-    <tr class = "table-header">
-       <th>Skill</th>
-       <th colspan="2">Characteristic</th>
-       <th>Adv</th>
-       <th>Total</th>
-    </tr>
-
-{{#each actor.basicSkills as |skill s|}}
-<tr class="skill" data-skill="{{s}}">
-    <td class="skill-name">{{skill.name}}</td>
-    <td class="skill-characteristic">{{skill.data.characteristic.value}}</td>
-    <td class="skill-characteristic">{{skill.data.characteristic.num}}</td>
-    <td  class="skill-advances">
-    <input name = "skill.data.advances.value" data-item-id = "{{skill.id}}" type= "text" data-dtype="{{skill.data.advances.type}}" value ="{{skill.data.advances.value}}"/>
-</td>
-    <td class="skill-total">{{skill.data.total.value}}</td>
-</tr>
-{{/each}}
-</table>
-</div>
-
-<div class = "skill-type">
-
-        <h3>Advanced & Grouped Skills</h3>
+       <h3>Basic Skills</h3>
        <table class="skill-table">
-           <tr class = "table-header">
-              <th>Skill</th>
-              <th colspan="2">Characteristic</th>
-              <th>Adv</th>
-              <th>Total</th>
-           </tr>
-       
-           {{#each actor.advancedOrGroupedSkills as |skill s|}}
-           <tr class="skill" data-skill="{{s}}">
-               <td class="skill-name">{{skill.name}}</td>
-               <td class="skill-characteristic">{{skill.data.characteristic.value}}</td>
-               <td class="skill-characteristic">{{skill.data.characteristic.num}}</td>
-               <td  class="skill-advances">
-               <input name = "skill.data.advances.value" data-item-id = "{{skill.id}}" type= "text" data-dtype="{{skill.data.advances.type}}" value ="{{skill.data.advances.value}}"/>
-           </td>
-               <td class="skill-total">{{skill.data.total.value}}</td>
-           </tr>
-           {{/each}}
+          <tr class = "table-header">
+             <th>Skill</th>
+             <th colspan="2">Characteristic</th>
+             <th>Adv</th>
+             <th>Total</th>
+          </tr>
+          {{#each actor.basicSkills as |skill s|}}
+          <tr class="skill" data-skill="{{s}}">
+             <td class="skill-name">{{skill.name}}</td>
+             <td class="skill-characteristic">{{skill.data.characteristic.value}}</td>
+             <td class="skill-characteristic">{{skill.data.characteristic.num}}</td>
+             <td  class="skill-advances">
+                <input name = "skill.data.advances.value" data-item-id = "{{skill.id}}" type= "text" data-dtype="{{skill.data.advances.type}}" value ="{{skill.data.advances.value}}"/>
+             </td>
+             <td class="skill-total">{{skill.data.total.value}}</td>
+          </tr>
+          {{/each}}
        </table>
-       </div>
-        
-</div>
+    </div>
+    <div class = "skill-type">
+       <h3>Advanced & Grouped Skills</h3>
+       <table class="skill-table">
+          <tr class = "table-header">
+             <th>Skill</th>
+             <th colspan="2">Characteristic</th>
+             <th>Adv</th>
+             <th>Total</th>
+          </tr>
+          {{#each actor.advancedOrGroupedSkills as |skill s|}}
+          <tr class="skill" data-skill="{{s}}">
+             <td class="skill-name">{{skill.name}}</td>
+             <td class="skill-characteristic">{{skill.data.characteristic.value}}</td>
+             <td class="skill-characteristic">{{skill.data.characteristic.num}}</td>
+             <td  class="skill-advances">
+                <input name = "skill.data.advances.value" data-item-id = "{{skill.id}}" type= "text" data-dtype="{{skill.data.advances.type}}" value ="{{skill.data.advances.value}}"/>
+             </td>
+             <td class="skill-total">{{skill.data.total.value}}</td>
+          </tr>
+          {{/each}}
+       </table>
+    </div>
+ </div>
+ <div class = "armor-penalties">
+    <h3>Armor Penalties: </h3>
+    <p>{{actor.armorPenalties}}</p>
+ </div>
