@@ -184,6 +184,26 @@ CONFIG.rangeModifiers={
   "Long Range": "Difficult (-10)",
   "Extreme": "Very Hard (-30)",
  }
+
+CONFIG.difficultyModifiers = {
+ "veasy" : 60,
+ "easy" : 40 , 
+ "average":20, 
+ "challenging":0,
+ "difficult": 10,
+ "hard" : -20,
+ "vhard": -30
+}
+CONFIG.difficultyLabels = {
+
+ "veasy" :"Very Easy (+60)",
+ "easy" :"Easy (+40)",
+ "average":"Average (+20)",
+ "challenging":"Challenging (+0)",
+ "difficult":"Difficult (-10)",
+ "hard" :"Hard (-20)",
+ "vhard":"Very Hard (-30)"
+}
  
 CONFIG.reachDescription={
   "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
@@ -363,7 +383,6 @@ CONFIG.languages = {
   "undercommon": "Undercommon"
 };
 class Dice5e {
-
   /**
    * A standardized helper function for managing core 5e "d20 rolls"
    *
@@ -383,83 +402,121 @@ class Dice5e {
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static d20Roll({event, parts, data, template, title, alias, flavor, advantage=true, situational=true,
-                  fastForward=true, onClose, dialogOptions}) {
+  static prepareTest({event, target, template, title, alias, actorId, flavor,fastForward=true, onClose, dialogOptions}) {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
+    let testData = { targetNum : target, slBonus : 0, successBonus : 0, hitLocation: true, opposed: true};
+    let testDifficulty = "challenging";
+    let testModifier = 0;
+
     let roll = () => {
-      let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if (adv === 1) {
-        parts[0] = ["2d20kh"];
-        flav = `${title} (Advantage)`;
-      }
-      else if (adv === -1) {
-        parts[0] = ["2d20kl"];
-        flav = `${title} (Disadvantage)`;
-      }
-
-      // Don't include situational bonus unless it is defined
-      if (!data.bonus && parts.indexOf("@bonus") !== -1) parts.pop();
-
-      // Execute the roll and send it to chat
-      let roll = new Roll(parts.join("+"), data).roll();
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode
-      });
-    };
-
-    // Modify the roll and handle fast-forwarding
-    let adv = 0;
-    parts = ["1d20"].concat(parts);
-    if ( event.shiftKey ) return roll();
-    else if ( event.altKey ) {
-      adv = 1;
-      return roll();
+      let roll = Dice5e.rollTest(testData);
+      let chatOptions = {
+        user: game.user._id,
+        speaker: {
+          alias: alias
+        },
+        template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
+      };
+      roll.actorId = actorId
+      Dice5e.renderRollCard(chatOptions, roll);
     }
-    else if ( event.ctrlKey || event.metaKey ) {
-      adv = -1;
-      return roll();
-    } else parts = parts.concat(["@bonus"]);
-
     // Render modal dialog
+
     template = template || "public/systems/wfrp4e/templates/chat/roll-dialog.html";
     let dialogData = {
-      formula: parts.join(" + "),
-      data: data,
       rollMode: rollMode,
-      rollModes: CONFIG.rollModes
+      rollModes: CONFIG.rollModes,
+      testDifficulty : testDifficulty,
+      testModifier : testModifier,
+      difficultyLabels : CONFIG.difficultyLabels,
+      slBonus : testData.slBonus,
+      uccessBonus : testData.successBonus,
+      hitLocation : testData.hitLocation,
+      opposed : testData.opposed
     };
     renderTemplate(template, dialogData).then(dlg => {
       new Dialog({
           title: title,
           content: dlg,
           buttons: {
-            advantage: {
-              label: "Advantage",
-              callback: () => adv = 1
-            },
-            normal: {
-              label: "Normal",
-            },
-            disadvantage: {
-              label: "Disadvantage",
-              callback: () => adv = -1
+            rollButton: {
+              label: "Roll",
             }
           },
-          default: "normal",
           close: html => {
-            if ( onClose ) onClose(html, parts, data);
+            if ( onClose ) onClose(html, parts);
             rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            roll()
+            testModifier = Number(html.find('[name="testModifier"]').val());
+            testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+            testData.successBonus = Number(html.find('[name="successBonus"]').val());
+            testData.slBonus = Number(html.find('[name="slBonus"]').val());
+            testData.targetNum = target + testModifier + testDifficulty; 
+            testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
+            testData.opposed = html.find('[name="opposed"]').val() === "true";
+            roll();
           }
         }, dialogOptions).render(true);
     });
+
+    
   }
 
+
+  static rollTest(testData){
+    let roll = new Roll("1d100").roll();
+    let successBonus = testData.successBonus || 0;
+    let slBonus = testData.slBonus || 0;
+    let targetNum = testData.targetNum;
+
+    let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let description;
+
+    if (SL > 0){
+      description = "Success"
+      SL = SL + successBonus;
+      SL = "+" + SL.toString()
+
+    }
+    else if(SL < 0){
+      description = "Failure"
+      SL = SL.toString()
+    }
+    else { // SL == 0,
+      if (targetNum > roll.total){
+        description = "Success"
+        SL = SL + successBonus;
+        SL = "+" + SL.toString()
+      }
+      else {
+        description = "Failure"
+        SL = "-" + SL.toString() // Should result in -0
+      }
+    }
+
+    let rollResults={
+      target: targetNum,
+      roll: roll.total,
+      SL: SL,
+      description: description
+    }
+    if (testData.opposed)
+      rollResults.opposed = true;
+    
+    return rollResults;
+   } 
+
+   static renderRollCard(chatOptions, testData) {
+    // Generate HTML from the requested chat template
+    return renderTemplate(chatOptions.template, testData).then(html => {
+      
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
   /* -------------------------------------------- */
 
   /**
@@ -483,24 +540,6 @@ class Dice5e {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
-    let roll = () => {
-      let roll = new Roll(parts.join("+"), data),
-          flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if ( crit ) {
-        roll.alter(0, 2);
-        flav = `${title} (Critical)`;
-      }
-
-      // Execute the roll and send it to chat
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode
-      });
-
-      // Return the Roll object
-      return roll;
-    };
 
     // Modify the roll and handle fast-forwarding
     let crit = 0;
@@ -546,6 +585,92 @@ class Dice5e {
         }, dialogOptions).render(true);
       });
     });
+  }
+
+  static opposeData  = {
+    opposeStarted : false,
+    actor : undefined,
+    rollData : undefined
+  }
+  static chatListeners(html) {
+
+    // Chat card actions
+    html.on('click', '.card-buttons button', ev => {
+      ev.preventDefault();
+
+      // Extract card data
+      let button = $(ev.currentTarget),
+          messageId = button.parents('.message').attr("data-message-id"),
+          senderId = game.messages.get(messageId).user._id;
+
+      // Confirm roll permission
+      if ( !game.user.isGM && ( game.user._id !== senderId )) return;
+
+      // Extract action data
+      let action = button.attr("data-action"),
+          card = button.parents('.chat-card'),
+          actor = game.actors.get(card.attr('data-actor-id'));
+      let rollData = { target : Number(card.attr('roll-target')),
+           SL : card.attr('roll-SL'),
+          result : Number(card.attr('roll-result'))
+      };
+
+      if (!this.opposeData.opposeStarted)
+      {
+        this.opposeData.opposeStarted = true;
+        this.opposeData.actor = actor;
+        this.opposeData.rollData = rollData;
+        let chatOptions = {
+          user: senderId,
+          speaker: {
+            alias: actor.name
+          },
+          template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
+        };
+
+        return renderTemplate(chatOptions.template, rollData).then(html =>{
+
+        let index = game.messages.entities.findIndex(e => e.data._id === messageId);
+        let m = game.messages.entities[index];
+        m.update({content: html}, true).then(message => {
+          ui.chat.updateMessage(message);});
+        });
+    }
+    else
+    {
+      this.opposeData.opposeStarted = false;
+      let result = {result:  Dice5e.evaluateOpposedTest(actor, rollData)};
+      let chatOptions = {
+        user: game.user._id,
+        template: "public/systems/wfrp4e/templates/chat/opposed-result.html"
+      }
+      return renderTemplate(chatOptions.template, result).then(html => {
+           // Emit the HTML as a chat message
+           chatOptions["content"] = html;
+           ChatMessage.create(chatOptions, false);
+           return html;
+      });
+    }
+    });
+  }
+
+  static evaluateOpposedTest(defender, defenderRollData)
+  {
+    let opposeResult = {};
+    let attackerSL = parseInt(this.opposeData.rollData.SL);
+    let defenderSL = parseInt(defenderRollData.SL);
+    let differenceSL = 0;
+    if (attackerSL >= defenderSL)
+      {
+        differenceSL = attackerSL - defenderSL;
+        opposeResult.result = this.opposeData.actor.name + " won by " + differenceSL + " SL";
+      }
+      else
+      {
+        differenceSL = defenderSL - attackerSL;
+        opposeResult.result = defender.name + " won by " + differenceSL + " SL";
+      }
+      return opposeResult;
   }
 }
 
@@ -778,22 +903,20 @@ class ActorWfrp4e extends Actor {
    * @param {String}abilityId     The ability id (e.g. "str")
    * @param {Object} options      Options which configure how ability tests or saving throws are rolled
    */
-  rollAbility(abilityId, options) {
-    /*let abl = this.data.data.abilities[abilityId];
-    new Dialog({
-      title: `${abl.label} Ability Check`,
-      content: `<p>What type of ${abl.label} check?</p>`,
-      buttons: {
-        test: {
-          label: "Ability Test",
-          callback: () => this.rollAbilityTest(abilityId, options)
-        },
-        save: {
-          label: "Saving Throw",
-          callback: () => this.rollAbilitySave(abilityId, options)
-        }
-      }
-    }).render(true);*/
+  rollCharacteristic(characteristicId, options) {
+    let char = this.data.data.characteristics[characteristicId],
+      parts = ["@mod"],
+      flavor = `${char.label} Test`;
+
+    // Call the roll helper utility
+    Dice5e.prepareTest({
+    event: options.event,
+    target: char.value,
+    parts: parts,
+    title: flavor,
+    alias: this.name,
+    actorId: this.id
+    });
   }
 
   /* -------------------------------------------- */
@@ -805,7 +928,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} options      Options which configure how ability tests are rolled
    */
   rollAbilityTest(abilityId, options={}) {
-  /*  let abl = this.data.data.abilities[abilityId],
+    let abl = this.data.data.characteristics[abilityId],
         parts = ["@mod"],
         flavor = `${abl.label} Ability Test`;
 
@@ -816,7 +939,7 @@ class ActorWfrp4e extends Actor {
       data: {mod: abl.mod},
       title: flavor,
       alias: this.name
-    });*/
+    });
   }
 
   /* -------------------------------------------- */
@@ -1295,9 +1418,9 @@ class ItemWfrp4e extends Item {
 
   /* -------------------------------------------- */
 
-  static chatListeners(html) {
+  /*static chatListeners(html) {
 
-   /* // Chat card actions
+    // Chat card actions
     html.on('click', '.card-buttons button', ev => {
       ev.preventDefault();
 
@@ -1339,8 +1462,8 @@ class ItemWfrp4e extends Item {
 
       // Tool usage
       else if ( action === "toolCheck" ) item.rollToolCheck(ev);
-    });*/
-  }
+    });
+  }*/
 }
 
 // Assign Item5e class to CONFIG
@@ -1567,7 +1690,7 @@ class ItemSheetWfrp4e extends ItemSheet {
 }
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html, data) => Item5e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html, data) => Dice5e.chatListeners(html));
 
 // Override CONFIG
 CONFIG.Item.sheetClass = ItemSheetWfrp4e;
@@ -1778,18 +1901,18 @@ class ActorSheetWfrp4e extends ActorSheet {
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
-/*
+
     // Ability Proficiency
     html.find('.ability-proficiency').click(ev => {
       let field = $(ev.currentTarget).siblings('input[type="hidden"]');
       this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
     });
 
-    // Ability Checks
-    html.find('.ability-name').click(event => {
+    // Characteristic Tests
+    html.find('.ch-value').click(event => {
       event.preventDefault();
-      let ability = event.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(ability, {event: event});
+      let characteristic = event.currentTarget.attributes["data-char"].value;
+      this.actor.rollCharacteristic(characteristic, {event: event});
     });
 
     // Toggle Skill Proficiency
@@ -1797,14 +1920,14 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
-      let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
-      this.actor.rollSkill(ev, skl);
+      let skl = ev.currentTarget.attributes["data-skill"].value;
+      this.actor.roll(ev, skl);
     });
 
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
-    */
+    
 
     /* -------------------------------------------- */
     /*  Inventory

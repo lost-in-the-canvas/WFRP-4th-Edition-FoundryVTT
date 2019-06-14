@@ -33,7 +33,7 @@
         Current
       </td>
       {{#each actor.data.characteristics as |ch c|}}
-      <td class="table-data">{{ch.value}}</td>
+      <td class="table-data ch-value" data-char = "{{c}}"><a>{{ch.value}}</a></td>
       {{/each}}
     </tr>
   </table>
