@@ -1109,13 +1109,26 @@ class ItemWfrp4e extends Item {
 
   _spellChatData() {
     const data = duplicate(this.data.data);
-    data.properties=[];
+    let preparedSpell = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    data.properties = [];
+    data.properties.push("Range: " + preparedSpell.range);
+    data.properties.push("Target: " + preparedSpell.target);
+    data.properties.push("Duration: " + preparedSpell.duration);
+    data.properties.push("Damage: " + preparedSpell.data.damage.value);
+    if (data.magicMissile.value)
+      data.properties.push("Magic Missile");
     return data;
   }
 
    _prayerChatData() {
     const data = duplicate(this.data.data);
-    data.properties=[];
+    let preparedPrayer = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    data.properties = [];
+    data.properties.push("Range: " + preparedPrayer.range);
+    data.properties.push("Target: " + preparedPrayer.target);
+    data.properties.push("Duration: " + preparedPrayer.duration);
+    if (preparedPrayer.data.damage.value)
+      data.properties.push("Damage: " + preparedPrayer.data.damage.value);
     return data;
   }
 
@@ -1773,7 +1786,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   _prepareTraits(traits) {
   }
 
-  _prepareSpellOrPrayer(actorData, list, item) {
+  _prepareSpellOrPrayer(actorData, item) {
     
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
@@ -1782,7 +1795,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (item.type == "spell" && !item.data.memorized.value )
     item.data.cn.value *= 2;
     
-    list.push(item);
+    return item;
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1872,7 +1885,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.ammo-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.currentAmmo.value = Number(event.target.value);
@@ -1881,7 +1893,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     
     html.find('.spell-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const ing = this.actor.items.find(i => i.id === itemId);
       ing.data.spellIngredient.value = event.target.value;
@@ -1889,14 +1900,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.ingredient-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const spell = this.actor.items.find(i => i.id === itemId);
       spell.data.currentIng.value = Number(event.target.value);
       await this.actor.updateOwnedItem(spell, true);      
     });
-
-
 
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
@@ -2006,6 +2014,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
       this.actor.updateOwnedItem(item);
     });
+
+    html.find('.memorized-toggle').click(async ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      const spell = this.actor.items.find(i => i.id === itemId);
+      spell.data.memorized.value = !spell.data.memorized.value;
+      await this.actor.updateOwnedItem(spell, true);      
+    });
+
 
     // Toggle Spell prepared value
     html.find('.item-prepare').click(ev => {
@@ -2422,17 +2438,17 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "spell")
       {
         if (i.data.lore.value == "petty")
-          this._prepareSpellOrPrayer(actorData, petty, i)
+          petty.push(this._prepareSpellOrPrayer(actorData, i));
         else
-          this._prepareSpellOrPrayer(actorData, grimoire, i)
+          grimoire.push(this._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "prayer")
       {
         if (i.data.type.value == "blessing")
-          this._prepareSpellOrPrayer(actorData, blessings, i)
+          blessings.push(this._prepareSpellOrPrayer(actorData, i));
         else
-          this._prepareSpellOrPrayer(actorData, miracles, i)
+          miracles.push(this._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "career")
