@@ -2066,7 +2066,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const options = super.defaultOptions;
     mergeObject(options, {
       classes: options.classes.concat(["wfrp4e", "actor", "character-sheet"]),
-      width: 670,
+      width: 610,
       height: 740,
       showUnpreparedSpells: true
     });
@@ -2728,6 +2728,46 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   }
   /* -------------------------------------------- */
 
+  // _getHeaderButtons() {
+  //   return [
+  //     {
+  //       label: "dabiggayClose",
+  //       class: "close",
+  //       icon: "fas fa-times",
+  //       onclick: ev => this.close()
+  //     }
+  //   ];
+  // }
+
+
+  _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+    if ( game.user.isGM && this.options.editable ) {
+      buttons = [
+        {
+          // label: "Close",
+          class: "close",
+          icon: "fas fa-times",
+          onclick: ev => this.close()
+        },
+        {
+          // label: "Sheet",
+          class: "configure-sheet",
+          icon: "fas fa-times",
+          onclick: ev => this._onConfigureSheet(ev)
+        },
+        {
+          // label: "Token",
+          class: "configure-token",
+          icon: "fas fa-times",
+          onclick: ev => this._onConfigureToken(ev)
+        }
+      ];
+    }
+    return buttons
+  }
+
+
 }
 
 // Register Character Sheet
@@ -2738,14 +2778,12 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCharacter, {
 
 
 
-
-
 class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   static get defaultOptions() {
     const options = super.defaultOptions;
     mergeObject(options, {
       classes: options.classes.concat(["wfrp4e", "actor", "npc-sheet"]),
-      width: 670,
+      width: 610,
       height: 740,
       showUnpreparedSpells: true
     });
@@ -2848,3 +2886,5 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eNPC, {
   types: ["npc"],
   makeDefault: true
 });
+
+

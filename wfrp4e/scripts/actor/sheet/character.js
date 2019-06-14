@@ -5,7 +5,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {
       classes: options.classes.concat(["dnd5e", "actor", "character-sheet"]),
-      width: 670,
+      width: 610,
       height: 740,
       showUnpreparedSpells: true
     });
@@ -231,6 +231,7 @@ class ActorSheet5eCharacter extends ActorSheet5e {
       default: 'rest'
     }).render(true);
   }
+
 }
 
 // Register Character Sheet

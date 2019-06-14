@@ -48,7 +48,93 @@
 a:hover {
   text-shadow: 0 0 8px #ff9f00;
 }
+button:hover {
+  box-shadow: 0 0 5px #ff9f00;
+}
 
+.wfrp4e.actor .close {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/button-close.png);
+  height: 30px;
+  width: 30px;
+  position: relative;
+  top: -2px;
+  left: 79px;
+}
+.wfrp4e.actor .configure-sheet {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/button-configure-sheet.png);
+  height: 30px;
+  width: 30px;
+  position: relative;
+  top: -2px;
+  left: 14px;
+}
+.wfrp4e.actor .configure-token {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/button-configure-token.png);
+  height: 30px;
+  width: 30px;
+  position: relative;
+  top: -2px;
+  left: -535px;
+}
+
+
+#sidebar-tabs > .item.active  {
+  /* background: none; */
+  height: 30px;
+  width: 30px;
+  color: #ff000000;
+  /* border: 1px solid blue; */
+  border-radius: 0px;
+  box-shadow: none;
+  border: 1px solid #ff000000;
+  border-bottom: none;
+}
+#sidebar-tabs > .item  {
+  background: none;
+  height: 30px;
+  width: 30px;
+  color: #ff000000;
+  /* border: 1px solid blue; */
+  border-radius: 0px;
+}
+
+.tabs .item.active {
+  text-shadow: 0 0 10px #ff000000;
+}
+
+#sidebar-tabs > [title~="Chat"] {
+  background: url(../ui/sidebar-button-chat.png);
+}
+#sidebar-tabs > [title~="Tracker"] {
+  background: url(../ui/sidebar-button-combat.png);
+}
+#sidebar-tabs > [title~="Scenes"] {
+  background: url(../ui/sidebar-button-scenes.png);
+}
+#sidebar-tabs > [title~="Actors"] {
+  background: url(../ui/sidebar-button-actors.png);
+}
+#sidebar-tabs > [title~="Items"] {
+  background: url(../ui/sidebar-button-items.png);
+}
+#sidebar-tabs > [title~="Journal"] {
+  background: url(../ui/sidebar-button-journal.png);
+}
+#sidebar-tabs > [title~="Playlists"] {
+  background: url(../ui/sidebar-button-playlists.png);
+}
+#sidebar-tabs > [title~="Compendium"] {
+  background: url(../ui/sidebar-button-compendium.png);
+}
+#sidebar-tabs > [title~="Settings"] {
+  background: url(../ui/sidebar-button-settings.png);
+}
 
 /***************************************************/
 /*========== II. Actor (Character Sheet) ==========*/
@@ -72,7 +158,7 @@ a:hover {
       padding: 0px 0px 0px 0px;
       font-size: 13px;
       overflow-y: hidden;
-      margin: 3px 57px 65px 37px;
+      margin: 3px 26px 65px 8px;
       box-shadow: none;
       background: none;
       overflow-y: hidden;
@@ -91,11 +177,11 @@ a:hover {
     #section-header-personaldetails {
       position: absolute;
       top: 73px;
-      left: 285px;
+      left: 256px;
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      color:#403f3e;
+      color: #403f3e;
     }
   /* ============================================================ */
 
@@ -134,7 +220,7 @@ a:hover {
       #label-name {
         /* background: rgba(255, 255, 255, 0.8); */
         position: absolute;
-        left: 72px;
+        /* left: 0px; */
         height: 18px;
         top: 122px;
         border: none;
@@ -160,7 +246,7 @@ a:hover {
       background: rgba(255, 255, 255, -0.9);
       position: absolute;
       top: 109px;
-      left: 365px;
+      left: 336px;
       border: none;
       padding: 0;
       width: 125px;
@@ -178,7 +264,7 @@ a:hover {
       left: 72px;
       height: 18px;
       top: 122px;
-      left: 365px;
+      left: 336px;
       border: none;
       display: flex;
       flex: 0px 0px;
@@ -199,7 +285,7 @@ a:hover {
       background: rgba(255, 255, 255, -0.9);
       position: absolute;
       top: 109px;
-      left: 505px;
+      left: 476px;
       border: none;
       padding: 0;
       width: 73px;
@@ -217,7 +303,7 @@ a:hover {
       left: 72px;
       height: 18px;
       top: 122px;
-      left: 505px;
+      left: 476px;
       border: none;
       display: flex;
       flex: 0px 0px;
@@ -240,7 +326,7 @@ a:hover {
     .wfrp4e.actor .general {
       display: flex;
       flex-direction: row;
-      height: 103px;
+      height: 105px;
       width: 100%;
       margin: 0px 0px 0px 0px;
     }
@@ -342,28 +428,38 @@ a:hover {
       width: 504px;
       margin: 0px 0px 0px 1px;
       height: 24px;
+      padding: 0px;
       font-weight: 700;
       color: #403f3e;
       /* background: url(../ui/ActorSheet-TabBackground.png); */
     }
     .wfrp4e.sheet form .sheet-tabs > .item {
-      line-height: 26px;
-      padding: 0 10px;
+      line-height: 20px;
+      padding: 2px 0px 0px 0px;
       border-radius: 0px;
       border-radius: 0px;
+      background: none;
       color: #403f3e;
       width: 72px;
-      padding: 0px 2px 0px 2px;
-      background: url(../ui/ActorSheet-TabBorder.png);
+      /* padding: 0px; */
+      margin: 0px;
+      border-image: url(../ui/ActorSheet-TabBorder.png) 4 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      color: #403f3e;
+      /* background: url(../ui/ActorSheet-TabBorder.png); */
     }
     .wfrp4e.sheet form .sheet-tabs > .item.active {
-      color: #000; 
+      color: #000;
       /* font-weight: 700; */
       /* border: 1px solid #666; */
       border-radius: 0px;
       border-bottom: none;
       width: 72px;
-      padding: 0px 2px 0px 2px;
+      /* padding: 0px; */
       color: #4a0404;
       box-shadow: none;
       text-shadow: none;
@@ -523,6 +619,10 @@ a:hover {
             /* vertical-align: middle; */
             box-shadow: 0 0 10px #00000052 inset;
           }
+            #move-run {
+              width: 49px;
+            }
+
           #movement-label {
             font-weight: 700;
           }
@@ -538,7 +638,7 @@ a:hover {
             margin: 0px;
             /* width: 250px; */
             border: 1px solid #736953a6;
-            border-left: none;
+            /* border-left: none; */
             height: 47px;
           }   
           .wfrp4e.actor .fate-resilience .type {
@@ -556,8 +656,9 @@ a:hover {
             font-weight: 700;
             color: #464331c4;
             text-align: center;
+            height: 23px;
             border-bottom: 1px solid #736953a6;
-            border-left: 1px solid #736953a6;
+            /* border-left: 1px solid #736953a6; */
             /* box-shadow: 0 0 10px #00000052 inset; */
           }      
           .wfrp4e.actor .fate-resilience .type .upper > input {
@@ -566,7 +667,7 @@ a:hover {
             font-weight: 500;
             color: black;
             width: 21px;
-            height: 23px;
+            height: 22px;
             float: right;
             padding: 5px 1px 0px 0px;
             /* margin: 0 0 0 5px; */
@@ -579,8 +680,9 @@ a:hover {
             font-weight: 700;
             color: #464331c4;
             text-align: center;
+            height: 23px;
             /* border-top: 1px solid #ccc; */
-            border-left: 1px solid #736953a6;
+            /* border-left: 1px solid #736953a6; */
             /* box-shadow: 0 0 10px #00000052 inset; */
           }     
           .wfrp4e.actor .fate-resilience .type .lower > input {
@@ -589,7 +691,7 @@ a:hover {
             font-weight: 500;
             color: black;
             width: 21px;
-            height: 21px;
+            height: 22px;
             float: right;
             /* border-left: 1px solid #736953a6; */
             padding: 5px 1px 0px 0px;
@@ -597,10 +699,10 @@ a:hover {
           }
           #label-fortune {
             position: absolute;
-            HEIGHT: 23PX;
+            HEIGHT: 22PX;
             width: 74px;
             text-align: center;
-            TOP: 391PX;
+            TOP: 394PX;
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
@@ -612,25 +714,25 @@ a:hover {
           }
           #label-fate {
             position: absolute;
-            HEIGHT: 23PX;
+            HEIGHT: 22PX;
             width: 74px;
             text-align: center;
-            TOP: 414PX;
+            TOP: 417PX;
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
             color: #464331c4;
             border-RIGHT: 1px solid #736953a6;
             PADDING-RIGHT: 5PX;
-            PADDING-TOP: 3PX;
+            PADDING-TOP: 2PX;
             box-shadow: 0 0 10px #00000052 inset;
           }
           #label-resolve {
             position: absolute;
-            HEIGHT: 23PX;
+            HEIGHT: 22PX;
             width: 74px;
             text-align: center;
-            TOP: 391PX;
+            TOP: 394PX;
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
@@ -638,14 +740,15 @@ a:hover {
             border-RIGHT: 1px solid #736953a6;
             /* PADDING-RIGHT: 5PX; */
             PADDING-TOP: 3PX;
+            border-left: 1px solid #736953a6;
             box-shadow: 0 0 10px #00000052 inset;
           }
           #label-resilience {
             position: absolute;
-            HEIGHT: 23PX;
+            HEIGHT: 22PX;
             width: 74px;
             text-align: center;
-            TOP: 414PX;
+            TOP: 417PX;
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
@@ -653,6 +756,7 @@ a:hover {
             border-RIGHT: 1px solid #736953a6;
             PADDING-RIGHT: 5PX;
             PADDING-TOP: 3PX;
+            border-left: 1px solid #736953a6;
             box-shadow: 0 0 10px #00000052 inset;
           }
 
@@ -677,17 +781,17 @@ a:hover {
             /* border-bottom: 1px solid #736953a6; */
             margin: 0px;
             padding: 2px 0px 0px 0px;
-            height: 25px;
-            width: 133px;
+            height: 24px;
+            width: 132px;
             /* vertical-align: middle; */
             box-shadow: 0 0 10px #00000052 inset;
             PADDING-TOP: 3PX;
           }   
           #wounds-box {
-            width: 133px;
+            width: 132px;
             position: absolute;
-            top: 415px;
-            left: 445px;
+            top: 417px;
+            left: 417px;
             font-family: CaslonAntique;
             font-weight: normal;
             font-size: 16px;
@@ -723,11 +827,11 @@ a:hover {
             font-family: CaslonPro;
             font-size: 14px;
             font-weight: 500;
-            padding: 6px 0px 0px 0px;
-            height: 21px;
+            padding: 7px 0px 0px 0px;
+            height: 22px;
             color: black;
             position: relative;
-            top: -1px;
+            top: -2px;
             width: 30px;
             left: -18px;
             /* border: 1px solid black; */
@@ -738,12 +842,12 @@ a:hover {
             font-family: CaslonPro;
             font-size: 14px;
             font-weight: 500;
-            padding: 6px 1px 0px 0px;
-            height: 21px;
+            padding: 7px 1px 0px 0px;
+            height: 22px;
             color: #29364a;
             /* border: 1px solid black; */
             position: relative;
-            top: -23px;
+            top: -25px;
             /* left: 15px; */
             margin: 0px 0px 0px 36px;
             width: 30px;
@@ -822,7 +926,7 @@ a:hover {
               position: absolute;
               top: 468px;
               left: 36px;
-              margin: 0px 0px 0px 36px;
+              margin: 2px 0px 0px 7px;
               width: 200px;
               border-radius: 0px;
             }
@@ -867,7 +971,7 @@ a:hover {
               font-weight: 500;
               padding: 6px 1px 0px 0px;
               height: 21px;
-              color: #29364a;
+              color: #3b4f6f;
               /* border: 1px solid black; */
               position: relative;
               top: -23px;
@@ -2163,7 +2267,7 @@ font-weight: bold;
 
   padding: 10px 0px 0px 134px;
 }
-#sidebar-tabs > .item {
+/* #sidebar-tabs > .item {
   position: relative;
   flex: 0 0 32px;
   line-height: 32px;
@@ -2175,7 +2279,7 @@ font-weight: bold;
   border: none;
   border-bottom: none;
   box-shadow: none;
-}
+} */
 #sidebar-tabs > .item i.fas {
   margin-right: 0;
 }

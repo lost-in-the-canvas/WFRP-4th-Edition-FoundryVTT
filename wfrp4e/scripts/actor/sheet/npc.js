@@ -5,7 +5,7 @@ class ActorSheet5eNPC extends ActorSheet5e {
 	  const options = super.defaultOptions;
 	  mergeObject(options, {
       classes: options.classes.concat(["dnd5e", "actor", "npc-sheet"]),
-      width: 670,
+      width: 610,
       height: 740,
       showUnpreparedSpells: true
     });
