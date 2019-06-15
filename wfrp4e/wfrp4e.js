@@ -43,6 +43,26 @@ CONFIG.weaponGroups = {
   "throwing": "Throwing",
 };
 
+// Weapon Groups
+CONFIG.weaponGroupDescriptions = {
+  "basic": "Basic",
+  "cavalry": "Cavalry weapons are assumed to be used when mounted. When not used from horse-back, all two-handed weapons in the Cavalry Weapon Group also count as Two-Handed weapons. Single-handed Cavalry weapons are not normally used when unmounted.",
+  "fencing": "Fencing",
+  "brawling": "Brawling",
+  "flail": "Unskilled characters add the Dangerous Weapon Flaw to their Flails, and the other listed Weapon Qualities are not used.",
+  "parry": "Any one-handed weapon with the Defensive Quality can be used with Melee (Parry). When using Melee (Parry), a weapon can be used to Oppose an incoming attack without the normal –20 oﬀhand penalty.",
+  "polearm": "Polearm",
+  "twohanded": "Two-Handed",
+  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty.",
+  "bow": "Bow",
+  "crossbow": "Crossbows weapons are relatively simple to use. You can attempt a Ranged (Crossbow) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
+  "entangling": "Entangling",
+  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws.",
+  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty.",
+  "sling": "Sling",
+  "throwing": "Thrown weapons are relatively simple to use. You can attempt a Ranged (Throwing) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
+};
+
 // Ammo Groups
 CONFIG.ammunitionGroups = {
   "BPandEng": "Blackpowder and Engineering",
@@ -409,6 +429,7 @@ class Dice5e {
     let testData = { targetNum : target, slBonus : 0, successBonus : 0, hitLocation: true, opposed: true};
     let testDifficulty = "challenging";
     let testModifier = 0;
+    let testTalents = ['talent1', 'talent2', 'talent3'];
 
     let roll = () => {
       let roll = Dice5e.rollTest(testData);
@@ -434,7 +455,8 @@ class Dice5e {
       slBonus : testData.slBonus,
       uccessBonus : testData.successBonus,
       hitLocation : testData.hitLocation,
-      opposed : testData.opposed
+      opposed : testData.opposed,
+      talents : testTalents
     };
     renderTemplate(template, dialogData).then(dlg => {
       new Dialog({
@@ -455,6 +477,7 @@ class Dice5e {
             testData.targetNum = target + testModifier + testDifficulty; 
             testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
             testData.opposed = html.find('[name="opposed"]').val() === "true";
+            testData.talents = html.find('[name = "testTalents"]').val();
             roll();
           }
         }, dialogOptions).render(true);
@@ -1870,7 +1893,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     
     html.find('.item-property').click(event => this._expandProperty(event));
 
-    html.find('.weapon-range').click(event => this._expandRange(event));
+    html.find('.weapon-range').click(event => this._expandInfo(event, 'weapon-range'));
+
+    html.find('.weapon-group').click(event => this._expandInfo(event, 'weapon-group'));
+
 
 
     // Everything below here is only needed if the sheet is editable
@@ -2174,16 +2200,34 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  _expandRange(event) {
+  _expandInfo(event, expandInfo) {
     event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
+    let li = $(event.currentTarget).parents(".item");
+    let  expansionText = "";
+      if (expandInfo == "weapon-range")
+      {
         range = parseInt(event.target.text);
-        let expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
+        expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
         range / 10 + " yds - " + range / 2 + "yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
         range / 2 + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
         range + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
         range * 2 + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
-
+      }
+      else if (expandInfo == "weapon-group")
+      {
+        let weaponGroup = event.target.text;
+        let weaponGroupKey = "";
+        for (let group in CONFIG.weaponGroups)
+        {
+          if (CONFIG.weaponGroups[group] == weaponGroup)
+            {
+              weaponGroupKey = group;
+              break;
+            }            
+        }
+        expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
+      }
+      
     // Toggle summary
 
     if ( li.hasClass("expanded") ) {

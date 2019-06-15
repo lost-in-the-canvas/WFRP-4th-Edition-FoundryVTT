@@ -16,7 +16,7 @@
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
                      <a>{{item.name}}</a>
                   </div>
-                  <div>{{item.data.weaponGroup.value}}</div>
+                  <a class = "weapon-group">{{item.data.weaponGroup.value}}</a>
                   <div>+{{item.data.damage.value}}</div>
                   <div>{{item.data.reach.value}}</div>
                   <div>
@@ -46,7 +46,7 @@
                      <div class="item-image" style="background-image: url({{item.img}})"></div>
                      <h4>{{item.name}}</h4>
                   </div>
-                  <div>{{item.data.weaponGroup.value}}</div>
+                  <a class ="weapon-group">{{item.data.weaponGroup.value}}</a>
                   <div class = "ammo-selector selector">
                      <select name="item.data.currentAmmo.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.currentAmmo.type}}">
                         {{#select item.data.currentAmmo.value}}
