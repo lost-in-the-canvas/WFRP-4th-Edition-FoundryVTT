@@ -1178,6 +1178,8 @@ class ItemWfrp4e extends Item {
   _armourChatData() {
     const data = duplicate(this.data.data);
      const properties = [];
+     //if (data.currentAP.value == -1 || data.currentAP.value == data.maxAP.value)
+     // properties.push("AP: " data.maxAP.value)
      properties.push(CONFIG.armorTypes[data.armorType.value]);
      for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
        properties.push(prop);
@@ -1792,11 +1794,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
       break;
 
-      case "lrg":
+      case "enor":
       sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
       break;
       
-      case "lrg":
+      case "mnst":
       sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
       break;
 
@@ -2039,6 +2041,28 @@ class ActorSheetWfrp4e extends ActorSheet {
         item.data.quantity.value--;
         if (item.data.quantity.value < 0)
           item.data.quantity.value = 0;
+          break;
+      }
+      this.actor.updateOwnedItem(item);
+    });
+
+    html.find('.AP-value').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
+      let item = this.actor.items.find(i => i.id === itemId );
+      if (item.data.currentAP[APlocation] == -1)
+        item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
+      switch (event.button)
+      {
+        case 0: 
+        item.data.currentAP[APlocation]++;
+        if (item.data.currentAP[APlocation] > item.data.maxAP[APlocation])
+          item.data.currentAP[APlocation] = item.data.maxAP[APlocation]
+          break;
+        case 2:
+        item.data.currentAP[APlocation]--;
+        if (item.data.currentAP[APlocation] < 0)
+          item.data.currentAP[APlocation] = 0;
           break;
       }
       this.actor.updateOwnedItem(item);

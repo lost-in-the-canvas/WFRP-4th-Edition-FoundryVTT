@@ -82,9 +82,10 @@
         
                         {{#each actor.armour as |item i|}}
                         {{#if item.protectsHead}}
-                        <li class="item" data-item-id="{{item.id}}">
+                        <li class="item" data-item-id="{{item.id}}" data-location="head">
                            <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                           <div class = "AP-value">{{item.data.currentAP.head}}</div>
+                           <a title = "Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
+                              class = "AP-value">{{item.data.currentAP.head}}</a>
                         </li>
                         {{/if}}
                         {{/each}}
@@ -101,9 +102,10 @@
           
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsBody}}
-                           <li class="item" data-item-id="{{item.id}}">
+                           <li class="item" data-item-id="{{item.id}}" data-location="body">
                               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <div class = "AP-value">{{item.data.currentAP.body}}</div>
+                              <a title = "Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
+                                 class = "AP-value">{{item.data.currentAP.body}}</a>
                            </li>
                            {{/if}}
                            {{/each}}
@@ -121,9 +123,10 @@
           
                         {{#each actor.armour as |item i|}}
                         {{#if item.protectslArm}}
-                        <li class="item" data-item-id="{{item.id}}">
+                        <li class="item" data-item-id="{{item.id}}" data-location="lArm">
                            <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                           <div class = "AP-value">{{item.data.currentAP.lArm}}</div>
+                           <a title = "Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+                              class = "AP-value">{{item.data.currentAP.lArm}}</a>
                         </li>
                         {{/if}}
                         {{/each}}
@@ -141,9 +144,10 @@
     
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsrArm}}
-                           <li class="item" data-item-id="{{item.id}}">
+                           <li class="item" data-item-id="{{item.id}}" data-location = "rArm">
                               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <div class = "AP-value">{{item.data.currentAP.rArm}}</div>
+                              <a title = "Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+                                 class = "AP-value">{{item.data.currentAP.rArm}}</a>
                            </li>
                            {{/if}}
                            {{/each}}
@@ -160,9 +164,10 @@
          
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectslLeg}}
-                           <li class="item" data-item-id="{{item.id}}">
+                           <li class="item" data-item-id="{{item.id}}" data-location = "lLeg">
                               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <div class = "AP-value">{{item.data.currentAP.lLeg}}</div>
+                              <a title = "Current: {{item.data.currentAP.lLeg}} Max: {{item.data.maxAP.lLeg}}"
+                                 class = "AP-value">{{item.data.currentAP.lLeg}}</a>
                            </li>
                            {{/if}}
                            {{/each}}
@@ -179,9 +184,10 @@
              
                            {{#each actor.armour as |item i|}}
                            {{#if item.protectsrLeg}}
-                           <li class="item" data-item-id="{{item.id}}">
+                           <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
                               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <div class = "AP-value">{{item.data.currentAP.rLeg}}</div>
+                              <a title = "Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
+                                 class = "AP-value">{{item.data.currentAP.rLeg}}</a>
                            </li>
                            {{/if}}
                            {{/each}}

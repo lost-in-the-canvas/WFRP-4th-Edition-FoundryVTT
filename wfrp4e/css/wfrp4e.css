@@ -2549,7 +2549,7 @@ font-weight: bold;
 .inventory-list .item .AP-value
 {
   flex: 0 0 20px;
-
+  font-weight: bold;
 }
 
 
