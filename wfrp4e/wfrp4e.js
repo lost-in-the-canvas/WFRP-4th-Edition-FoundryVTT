@@ -422,14 +422,13 @@ class Dice5e {
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static prepareTest({event, target, template, title, alias, actorId, flavor,fastForward=true, onClose, dialogOptions}) {
-
+  static prepareTest({event, target, template, title, alias, actorTesting, flavor,fastForward=true, onClose, dialogOptions}) {
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
     let testData = { targetNum : target, slBonus : 0, successBonus : 0, hitLocation: true, opposed: true};
     let testDifficulty = "challenging";
     let testModifier = 0;
-    let testTalents = ['talent1', 'talent2', 'talent3'];
+    let talentTests = actorTesting.talentTests;
 
     let roll = () => {
       let roll = Dice5e.rollTest(testData);
@@ -440,7 +439,7 @@ class Dice5e {
         },
         template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
       };
-      roll.actorId = actorId
+      roll.actorId = actorTesting.id;
       Dice5e.renderRollCard(chatOptions, roll);
     }
     // Render modal dialog
@@ -453,10 +452,10 @@ class Dice5e {
       testModifier : testModifier,
       difficultyLabels : CONFIG.difficultyLabels,
       slBonus : testData.slBonus,
-      uccessBonus : testData.successBonus,
+      successBonus : testData.successBonus,
       hitLocation : testData.hitLocation,
       opposed : testData.opposed,
-      talents : testTalents
+      talents : talentTests
     };
     renderTemplate(template, dialogData).then(dlg => {
       new Dialog({
@@ -477,7 +476,10 @@ class Dice5e {
             testData.targetNum = target + testModifier + testDifficulty; 
             testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
             testData.opposed = html.find('[name="opposed"]').val() === "true";
-            testData.talents = html.find('[name = "testTalents"]').val();
+            let talentBonuses = html.find('[name = "talentBonuses"]').val();
+            testData.successBonus += talentBonuses.reduce(function (prev, cur){
+              return prev + Number(cur)
+            }, 0)
             roll();
           }
         }, dialogOptions).render(true);
@@ -938,7 +940,7 @@ class ActorWfrp4e extends Actor {
     parts: parts,
     title: flavor,
     alias: this.name,
-    actorId: this.id
+    actorTesting: this
     });
   }
 
@@ -1737,6 +1739,7 @@ CONFIG.Item.sheetClass = ItemSheetWfrp4e;
  */
 class ActorSheetWfrp4e extends ActorSheet {
 
+  
   /**
    * Return the type of the current Actor
    * @type {String}
@@ -2567,6 +2570,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     if (traits.list.length > 0)
       traits.hasTraits = true;
 
+    // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
+    // instead of iterating through every item again to find talents when rolling
+    this.actor.talentTests = [];
+    for (let talent of talents)
+      if (talent.data.tests.value)
+        this.actor.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
+
     actorData.inventory = inventory;
     actorData.containers = containers;
     actorData.basicSkills = basicSkills;
@@ -2585,6 +2595,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.miracles = miracles;
     actorData.money = money;
     actorData.psychology = psychology;
+
+
 
     // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
    /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
