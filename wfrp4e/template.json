@@ -471,7 +471,6 @@
         "label": "Damage",
         "value": ""
       },
-
       "qualities":{
         "type": "String",
         "label": "Qualities",
@@ -495,9 +494,14 @@
     },
     "container": {
       "worn": {
-        "type": "Number",
-        "label": "Quantity",
-        "value": 0
+        "type": "Boolean",
+        "label": "Worn",
+        "value": false
+      },
+      "wearable": {
+        "type": "Boolean",
+        "label": "Wearable",
+        "value": false
       },
       "encumbrance": {
         "type": "Number",
@@ -574,7 +578,6 @@
         "type": "String",
         "label": "Tests",
         "value": null
-
       }
     },
     "skill": {

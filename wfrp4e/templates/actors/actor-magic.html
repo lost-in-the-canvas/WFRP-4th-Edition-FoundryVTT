@@ -3,8 +3,6 @@
         <ol class="inventory-list">
                 <li class="inventory-header item">
                     <div class = "item-name">Petty Spell</div>
-                    <div >Target</div>
-                    <div >Range</div>
                     {{#if owner}}
                     <div class="item-controls">
                        <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -19,8 +17,6 @@
                         <a>{{item.name}}</a>
                     </div>
         
-                    <div >{{item.target}}</div>
-                    <div >{{item.range}}</div>
                     {{#if ../owner}}
                     <div class="item-controls">
                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -33,8 +29,6 @@
         <ol class="inventory-list">
             <li class="inventory-header item">
                 <div class = "item-name">Lore Spell</div>
-                <div >Target</div>
-                <div >Range</div>
                 <div >Ingredients</div>
                 <div class = "spell-attr">CN</div>
                 <div class = "spell-attr">SL</div>
@@ -53,8 +47,6 @@
                     <a>{{item.name}}</a>
                 </div>
     
-                <div >{{item.target}}</div>
-                <div >{{item.range}}</div>
                 <div class = "ingredient-selector selector">
                         <select name="item.data.currentIng.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.currentIng.type}}">
                            {{#select item.data.currentIng.value}}
@@ -67,7 +59,11 @@
                      </div>
                 <div class = "spell-attr">{{item.data.cn.value}}</div>
                 <div class = "spell-attr">0</div>
-                <span class = "spell-attr"><i class="far fa-circle"></i></span>
+                {{#if item.data.memorized.value}}
+                <a class = "spell-attr memorized-toggle"><i class="fa fa-check"></i></a>
+                {{else}}
+                <a class = "spell-attr memorized-toggle"><i class="far fa-circle"></i></a>
+                {{/if}}
                 {{#if ../owner}}
                 <div class="item-controls">
                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>

@@ -2140,6 +2140,22 @@ font-weight: bold;
     z-index: 101;
   }
 
+  .dialog-row{
+    display: flex;
+    flex-direction: row;
+  }
+  .bonus-column{
+    width: 70%;
+  }
+
+  .bonus-column .form-group > input{
+    width: 50px;
+  }
+
+  .talent-selector > select{
+    width: 100%;
+    height: 100%;
+  }
 
 
 @font-face {
@@ -2911,7 +2927,7 @@ font-weight: bold;
 .inventory-list .item .AP-value
 {
   flex: 0 0 20px;
-
+  font-weight: bold;
 }
 
 

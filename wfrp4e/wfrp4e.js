@@ -43,6 +43,26 @@ CONFIG.weaponGroups = {
   "throwing": "Throwing",
 };
 
+// Weapon Groups
+CONFIG.weaponGroupDescriptions = {
+  "basic": "Basic",
+  "cavalry": "Cavalry weapons are assumed to be used when mounted. When not used from horse-back, all two-handed weapons in the Cavalry Weapon Group also count as Two-Handed weapons. Single-handed Cavalry weapons are not normally used when unmounted.",
+  "fencing": "Fencing",
+  "brawling": "Brawling",
+  "flail": "Unskilled characters add the Dangerous Weapon Flaw to their Flails, and the other listed Weapon Qualities are not used.",
+  "parry": "Any one-handed weapon with the Defensive Quality can be used with Melee (Parry). When using Melee (Parry), a weapon can be used to Oppose an incoming attack without the normal –20 oﬀhand penalty.",
+  "polearm": "Polearm",
+  "twohanded": "Two-Handed",
+  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty.",
+  "bow": "Bow",
+  "crossbow": "Crossbows weapons are relatively simple to use. You can attempt a Ranged (Crossbow) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
+  "entangling": "Entangling",
+  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws.",
+  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty.",
+  "sling": "Sling",
+  "throwing": "Thrown weapons are relatively simple to use. You can attempt a Ranged (Throwing) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
+};
+
 // Ammo Groups
 CONFIG.ammunitionGroups = {
   "BPandEng": "Blackpowder and Engineering",
@@ -184,6 +204,26 @@ CONFIG.rangeModifiers={
   "Long Range": "Difficult (-10)",
   "Extreme": "Very Hard (-30)",
  }
+
+CONFIG.difficultyModifiers = {
+ "veasy" : 60,
+ "easy" : 40 , 
+ "average":20, 
+ "challenging":0,
+ "difficult": 10,
+ "hard" : -20,
+ "vhard": -30
+}
+CONFIG.difficultyLabels = {
+
+ "veasy" :"Very Easy (+60)",
+ "easy" :"Easy (+40)",
+ "average":"Average (+20)",
+ "challenging":"Challenging (+0)",
+ "difficult":"Difficult (-10)",
+ "hard" :"Hard (-20)",
+ "vhard":"Very Hard (-30)"
+}
  
 CONFIG.reachDescription={
   "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
@@ -363,7 +403,6 @@ CONFIG.languages = {
   "undercommon": "Undercommon"
 };
 class Dice5e {
-
   /**
    * A standardized helper function for managing core 5e "d20 rolls"
    *
@@ -383,83 +422,126 @@ class Dice5e {
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    */
-  static d20Roll({event, parts, data, template, title, alias, flavor, advantage=true, situational=true,
-                  fastForward=true, onClose, dialogOptions}) {
-
+  static prepareTest({event, target, template, title, alias, actorTesting, flavor,fastForward=true, onClose, dialogOptions}) {
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
+    let testData = { targetNum : target, slBonus : 0, successBonus : 0, hitLocation: true, opposed: true};
+    let testDifficulty = "challenging";
+    let testModifier = 0;
+    let talentTests = actorTesting.talentTests;
+
     let roll = () => {
-      let flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if (adv === 1) {
-        parts[0] = ["2d20kh"];
-        flav = `${title} (Advantage)`;
-      }
-      else if (adv === -1) {
-        parts[0] = ["2d20kl"];
-        flav = `${title} (Disadvantage)`;
-      }
-
-      // Don't include situational bonus unless it is defined
-      if (!data.bonus && parts.indexOf("@bonus") !== -1) parts.pop();
-
-      // Execute the roll and send it to chat
-      let roll = new Roll(parts.join("+"), data).roll();
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode
-      });
-    };
-
-    // Modify the roll and handle fast-forwarding
-    let adv = 0;
-    parts = ["1d20"].concat(parts);
-    if ( event.shiftKey ) return roll();
-    else if ( event.altKey ) {
-      adv = 1;
-      return roll();
+      let roll = Dice5e.rollTest(testData);
+      let chatOptions = {
+        user: game.user._id,
+        speaker: {
+          alias: alias
+        },
+        template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
+      };
+      roll.actorId = actorTesting.id;
+      Dice5e.renderRollCard(chatOptions, roll);
     }
-    else if ( event.ctrlKey || event.metaKey ) {
-      adv = -1;
-      return roll();
-    } else parts = parts.concat(["@bonus"]);
-
     // Render modal dialog
+
     template = template || "public/systems/wfrp4e/templates/chat/roll-dialog.html";
     let dialogData = {
-      formula: parts.join(" + "),
-      data: data,
       rollMode: rollMode,
-      rollModes: CONFIG.rollModes
+      rollModes: CONFIG.rollModes,
+      testDifficulty : testDifficulty,
+      testModifier : testModifier,
+      difficultyLabels : CONFIG.difficultyLabels,
+      slBonus : testData.slBonus,
+      successBonus : testData.successBonus,
+      hitLocation : testData.hitLocation,
+      opposed : testData.opposed,
+      talents : talentTests
     };
     renderTemplate(template, dialogData).then(dlg => {
       new Dialog({
           title: title,
           content: dlg,
           buttons: {
-            advantage: {
-              label: "Advantage",
-              callback: () => adv = 1
-            },
-            normal: {
-              label: "Normal",
-            },
-            disadvantage: {
-              label: "Disadvantage",
-              callback: () => adv = -1
+            rollButton: {
+              label: "Roll",
             }
           },
-          default: "normal",
           close: html => {
-            if ( onClose ) onClose(html, parts, data);
+            if ( onClose ) onClose(html, parts);
             rollMode = html.find('[name="rollMode"]').val();
-            data['bonus'] = html.find('[name="bonus"]').val();
-            roll()
+            testModifier = Number(html.find('[name="testModifier"]').val());
+            testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+            testData.successBonus = Number(html.find('[name="successBonus"]').val());
+            testData.slBonus = Number(html.find('[name="slBonus"]').val());
+            testData.targetNum = target + testModifier + testDifficulty; 
+            testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
+            testData.opposed = html.find('[name="opposed"]').val() === "true";
+            let talentBonuses = html.find('[name = "talentBonuses"]').val();
+            testData.successBonus += talentBonuses.reduce(function (prev, cur){
+              return prev + Number(cur)
+            }, 0)
+            roll();
           }
         }, dialogOptions).render(true);
     });
+
+    
   }
 
+
+  static rollTest(testData){
+    let roll = new Roll("1d100").roll();
+    let successBonus = testData.successBonus || 0;
+    let slBonus = testData.slBonus || 0;
+    let targetNum = testData.targetNum;
+
+    let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let description;
+
+    if (SL > 0){
+      description = "Success"
+      SL = SL + successBonus;
+      SL = "+" + SL.toString()
+
+    }
+    else if(SL < 0){
+      description = "Failure"
+      SL = SL.toString()
+    }
+    else { // SL == 0,
+      if (targetNum > roll.total){
+        description = "Success"
+        SL = SL + successBonus;
+        SL = "+" + SL.toString()
+      }
+      else {
+        description = "Failure"
+        SL = "-" + SL.toString() // Should result in -0
+      }
+    }
+
+    let rollResults={
+      target: targetNum,
+      roll: roll.total,
+      SL: SL,
+      description: description
+    }
+    if (testData.opposed)
+      rollResults.opposed = true;
+    
+    return rollResults;
+   } 
+
+   static renderRollCard(chatOptions, testData) {
+    // Generate HTML from the requested chat template
+    return renderTemplate(chatOptions.template, testData).then(html => {
+      
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
   /* -------------------------------------------- */
 
   /**
@@ -483,24 +565,6 @@ class Dice5e {
 
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
-    let roll = () => {
-      let roll = new Roll(parts.join("+"), data),
-          flav = ( flavor instanceof Function ) ? flavor(parts, data) : title;
-      if ( crit ) {
-        roll.alter(0, 2);
-        flav = `${title} (Critical)`;
-      }
-
-      // Execute the roll and send it to chat
-      roll.toMessage({
-        alias: alias,
-        flavor: flav,
-        rollMode: rollMode
-      });
-
-      // Return the Roll object
-      return roll;
-    };
 
     // Modify the roll and handle fast-forwarding
     let crit = 0;
@@ -546,6 +610,92 @@ class Dice5e {
         }, dialogOptions).render(true);
       });
     });
+  }
+
+  static opposeData  = {
+    opposeStarted : false,
+    actor : undefined,
+    rollData : undefined
+  }
+  static chatListeners(html) {
+
+    // Chat card actions
+    html.on('click', '.card-buttons button', ev => {
+      ev.preventDefault();
+
+      // Extract card data
+      let button = $(ev.currentTarget),
+          messageId = button.parents('.message').attr("data-message-id"),
+          senderId = game.messages.get(messageId).user._id;
+
+      // Confirm roll permission
+      if ( !game.user.isGM && ( game.user._id !== senderId )) return;
+
+      // Extract action data
+      let action = button.attr("data-action"),
+          card = button.parents('.chat-card'),
+          actor = game.actors.get(card.attr('data-actor-id'));
+      let rollData = { target : Number(card.attr('roll-target')),
+           SL : card.attr('roll-SL'),
+          result : Number(card.attr('roll-result'))
+      };
+
+      if (!this.opposeData.opposeStarted)
+      {
+        this.opposeData.opposeStarted = true;
+        this.opposeData.actor = actor;
+        this.opposeData.rollData = rollData;
+        let chatOptions = {
+          user: senderId,
+          speaker: {
+            alias: actor.name
+          },
+          template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
+        };
+
+        return renderTemplate(chatOptions.template, rollData).then(html =>{
+
+        let index = game.messages.entities.findIndex(e => e.data._id === messageId);
+        let m = game.messages.entities[index];
+        m.update({content: html}, true).then(message => {
+          ui.chat.updateMessage(message);});
+        });
+    }
+    else
+    {
+      this.opposeData.opposeStarted = false;
+      let result = {result:  Dice5e.evaluateOpposedTest(actor, rollData)};
+      let chatOptions = {
+        user: game.user._id,
+        template: "public/systems/wfrp4e/templates/chat/opposed-result.html"
+      }
+      return renderTemplate(chatOptions.template, result).then(html => {
+           // Emit the HTML as a chat message
+           chatOptions["content"] = html;
+           ChatMessage.create(chatOptions, false);
+           return html;
+      });
+    }
+    });
+  }
+
+  static evaluateOpposedTest(defender, defenderRollData)
+  {
+    let opposeResult = {};
+    let attackerSL = parseInt(this.opposeData.rollData.SL);
+    let defenderSL = parseInt(defenderRollData.SL);
+    let differenceSL = 0;
+    if (attackerSL >= defenderSL)
+      {
+        differenceSL = attackerSL - defenderSL;
+        opposeResult.result = this.opposeData.actor.name + " won by " + differenceSL + " SL";
+      }
+      else
+      {
+        differenceSL = defenderSL - attackerSL;
+        opposeResult.result = defender.name + " won by " + differenceSL + " SL";
+      }
+      return opposeResult;
   }
 }
 
@@ -779,22 +929,20 @@ class ActorWfrp4e extends Actor {
    * @param {String}abilityId     The ability id (e.g. "str")
    * @param {Object} options      Options which configure how ability tests or saving throws are rolled
    */
-  rollAbility(abilityId, options) {
-    /*let abl = this.data.data.abilities[abilityId];
-    new Dialog({
-      title: `${abl.label} Ability Check`,
-      content: `<p>What type of ${abl.label} check?</p>`,
-      buttons: {
-        test: {
-          label: "Ability Test",
-          callback: () => this.rollAbilityTest(abilityId, options)
-        },
-        save: {
-          label: "Saving Throw",
-          callback: () => this.rollAbilitySave(abilityId, options)
-        }
-      }
-    }).render(true);*/
+  rollCharacteristic(characteristicId, options) {
+    let char = this.data.data.characteristics[characteristicId],
+      parts = ["@mod"],
+      flavor = `${char.label} Test`;
+
+    // Call the roll helper utility
+    Dice5e.prepareTest({
+    event: options.event,
+    target: char.value,
+    parts: parts,
+    title: flavor,
+    alias: this.name,
+    actorTesting: this
+    });
   }
 
   /* -------------------------------------------- */
@@ -806,7 +954,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} options      Options which configure how ability tests are rolled
    */
   rollAbilityTest(abilityId, options={}) {
-  /*  let abl = this.data.data.abilities[abilityId],
+    let abl = this.data.data.characteristics[abilityId],
         parts = ["@mod"],
         flavor = `${abl.label} Ability Test`;
 
@@ -817,7 +965,7 @@ class ActorWfrp4e extends Actor {
       data: {mod: abl.mod},
       title: flavor,
       alias: this.name
-    });*/
+    });
   }
 
   /* -------------------------------------------- */
@@ -987,13 +1135,26 @@ class ItemWfrp4e extends Item {
 
   _spellChatData() {
     const data = duplicate(this.data.data);
-    data.properties=[];
+    let preparedSpell = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    data.properties = [];
+    data.properties.push("Range: " + preparedSpell.range);
+    data.properties.push("Target: " + preparedSpell.target);
+    data.properties.push("Duration: " + preparedSpell.duration);
+    data.properties.push("Damage: " + preparedSpell.data.damage.value);
+    if (data.magicMissile.value)
+      data.properties.push("Magic Missile");
     return data;
   }
 
    _prayerChatData() {
     const data = duplicate(this.data.data);
-    data.properties=[];
+    let preparedPrayer = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    data.properties = [];
+    data.properties.push("Range: " + preparedPrayer.range);
+    data.properties.push("Target: " + preparedPrayer.target);
+    data.properties.push("Duration: " + preparedPrayer.duration);
+    if (preparedPrayer.data.damage.value)
+      data.properties.push("Damage: " + preparedPrayer.data.damage.value);
     return data;
   }
 
@@ -1018,6 +1179,8 @@ class ItemWfrp4e extends Item {
   _armourChatData() {
     const data = duplicate(this.data.data);
      const properties = [];
+     //if (data.currentAP.value == -1 || data.currentAP.value == data.maxAP.value)
+     // properties.push("AP: " data.maxAP.value)
      properties.push(CONFIG.armorTypes[data.armorType.value]);
      for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
        properties.push(prop);
@@ -1296,9 +1459,9 @@ class ItemWfrp4e extends Item {
 
   /* -------------------------------------------- */
 
-  static chatListeners(html) {
+  /*static chatListeners(html) {
 
-   /* // Chat card actions
+    // Chat card actions
     html.on('click', '.card-buttons button', ev => {
       ev.preventDefault();
 
@@ -1340,8 +1503,8 @@ class ItemWfrp4e extends Item {
 
       // Tool usage
       else if ( action === "toolCheck" ) item.rollToolCheck(ev);
-    });*/
-  }
+    });
+  }*/
 }
 
 // Assign Item5e class to CONFIG
@@ -1568,7 +1731,7 @@ class ItemSheetWfrp4e extends ItemSheet {
 }
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html, data) => Item5e.chatListeners(html));
+Hooks.on('renderChatLog', (log, html, data) => Dice5e.chatListeners(html));
 
 // Override CONFIG
 CONFIG.Item.sheetClass = ItemSheetWfrp4e;
@@ -1579,6 +1742,7 @@ CONFIG.Item.sheetClass = ItemSheetWfrp4e;
  */
 class ActorSheetWfrp4e extends ActorSheet {
 
+  
   /**
    * Return the type of the current Actor
    * @type {String}
@@ -1631,11 +1795,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
       break;
 
-      case "lrg":
+      case "enor":
       sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
       break;
       
-      case "lrg":
+      case "mnst":
       sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
       break;
 
@@ -1651,7 +1815,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   _prepareTraits(traits) {
   }
 
-  _prepareSpellOrPrayer(actorData, list, item) {
+  _prepareSpellOrPrayer(actorData, item) {
     
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
@@ -1660,7 +1824,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (item.type == "spell" && !item.data.memorized.value )
     item.data.cn.value *= 2;
     
-    list.push(item);
+    return item;
   }
 
   _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
@@ -1735,7 +1899,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     
     html.find('.item-property').click(event => this._expandProperty(event));
 
-    html.find('.weapon-range').click(event => this._expandRange(event));
+    html.find('.weapon-range').click(event => this._expandInfo(event, 'weapon-range'));
+
+    html.find('.weapon-group').click(event => this._expandInfo(event, 'weapon-group'));
+
 
 
     // Everything below here is only needed if the sheet is editable
@@ -1750,7 +1917,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.ammo-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.currentAmmo.value = Number(event.target.value);
@@ -1759,7 +1925,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     
     html.find('.spell-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const ing = this.actor.items.find(i => i.id === itemId);
       ing.data.spellIngredient.value = event.target.value;
@@ -1767,30 +1932,27 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.ingredient-selector').change(async event => {
-      console.log(event);
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const spell = this.actor.items.find(i => i.id === itemId);
       spell.data.currentIng.value = Number(event.target.value);
       await this.actor.updateOwnedItem(spell, true);      
     });
 
-
-
     /* -------------------------------------------- */
     /*  Abilities, Skills, and Traits
      /* -------------------------------------------- */
-/*
+
     // Ability Proficiency
     html.find('.ability-proficiency').click(ev => {
       let field = $(ev.currentTarget).siblings('input[type="hidden"]');
       this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
     });
 
-    // Ability Checks
-    html.find('.ability-name').click(event => {
+    // Characteristic Tests
+    html.find('.ch-value').click(event => {
       event.preventDefault();
-      let ability = event.currentTarget.parentElement.getAttribute("data-ability");
-      this.actor.rollAbility(ability, {event: event});
+      let characteristic = event.currentTarget.attributes["data-char"].value;
+      this.actor.rollCharacteristic(characteristic, {event: event});
     });
 
     // Toggle Skill Proficiency
@@ -1798,14 +1960,14 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Roll Skill Checks
     html.find('.skill-name').click(ev => {
-      let skl = ev.currentTarget.parentElement.getAttribute("data-skill");
-      this.actor.rollSkill(ev, skl);
+      let skl = ev.currentTarget.attributes["data-skill"].value;
+      this.actor.roll(ev, skl);
     });
 
     // Trait Selector
     html.find('.trait-selector').click(ev => this._onTraitSelector(ev));
 
-    */
+    
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -1840,9 +2002,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item, true);
     });
 
-    html.find('.item-quantity').click(ev => {
-      // TODO: Click on item quantity decrease or increase quantity by one (left/right click)
-      // TODO: click on item quantity header consolidates item quantities
+    html.find('.toggle-enc').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data.countEnc.value = !item.data.countEnc.value;
+      this.actor.updateOwnedItem(item, true);
     });
 
     html.find('.item-toggle').click(ev => {
@@ -1855,6 +2019,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
         item.data.worn = !item.data.worn;
       this.actor.updateOwnedItem(item);
+    });
+
+    html.find('.worn-container').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data.worn.value = !item.data.worn.value;
+      this.actor.updateOwnedItem(item, true);
     });
 
     
@@ -1875,6 +2046,36 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
       this.actor.updateOwnedItem(item);
     });
+
+    html.find('.AP-value').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
+      let item = this.actor.items.find(i => i.id === itemId );
+      if (item.data.currentAP[APlocation] == -1)
+        item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
+      switch (event.button)
+      {
+        case 0: 
+        item.data.currentAP[APlocation]++;
+        if (item.data.currentAP[APlocation] > item.data.maxAP[APlocation])
+          item.data.currentAP[APlocation] = item.data.maxAP[APlocation]
+          break;
+        case 2:
+        item.data.currentAP[APlocation]--;
+        if (item.data.currentAP[APlocation] < 0)
+          item.data.currentAP[APlocation] = 0;
+          break;
+      }
+      this.actor.updateOwnedItem(item);
+    });
+
+    html.find('.memorized-toggle').click(async ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      const spell = this.actor.items.find(i => i.id === itemId);
+      spell.data.memorized.value = !spell.data.memorized.value;
+      await this.actor.updateOwnedItem(spell, true);      
+    });
+
 
     // Toggle Spell prepared value
     html.find('.item-prepare').click(ev => {
@@ -1925,7 +2126,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
         if (dragItem.data.id == dropID)
           throw "";
-        dragItem.data.data.location.value = dropID; 
+        dragItem.data.data.location.value = dropID;
+
+          //  this will unequip/remove items like armor and weapons when moved into a container
+          if (dragItem.data.type == "armour")
+            dragItem.data.data.worn.value = false;
+          if (dragItem.data.type == "weapon")
+            dragItem.data.data.equipped = false;
+          if (dragItem.data.type == "trapping" && dragItem.data.data.trappingType.value == "clothingAccessories")        
+            dragItem.data.data.worn = false;
+
+
         await this.actor.updateOwnedItem(dragItem.data, true);  
       } 
     }
@@ -2017,16 +2228,34 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  _expandRange(event) {
+  _expandInfo(event, expandInfo) {
     event.preventDefault();
-    let li = $(event.currentTarget).parents(".item"),
+    let li = $(event.currentTarget).parents(".item");
+    let  expansionText = "";
+      if (expandInfo == "weapon-range")
+      {
         range = parseInt(event.target.text);
-        let expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
+        expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
         range / 10 + " yds - " + range / 2 + "yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
         range / 2 + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
         range + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
         range * 2 + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
-
+      }
+      else if (expandInfo == "weapon-group")
+      {
+        let weaponGroup = event.target.text;
+        let weaponGroupKey = "";
+        for (let group in CONFIG.weaponGroups)
+        {
+          if (CONFIG.weaponGroups[group] == weaponGroup)
+            {
+              weaponGroupKey = group;
+              break;
+            }            
+        }
+        expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
+      }
+      
     // Toggle summary
 
     if ( li.hasClass("expanded") ) {
@@ -2208,7 +2437,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           totalEnc += i.encumbrance;
         }
         else {
-          i.data.equipped = false;
           inContainers.push(i);
         }
         if (i.data.equipped)
@@ -2225,7 +2453,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           totalEnc += i.encumbrance;
         }
         else {
-          i.data.worn.value = false;
           inContainers.push(i);
         }
 
@@ -2283,17 +2510,17 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "spell")
       {
         if (i.data.lore.value == "petty")
-          this._prepareSpellOrPrayer(actorData, petty, i)
+          petty.push(this._prepareSpellOrPrayer(actorData, i));
         else
-          this._prepareSpellOrPrayer(actorData, grimoire, i)
+          grimoire.push(this._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "prayer")
       {
         if (i.data.type.value == "blessing")
-          this._prepareSpellOrPrayer(actorData, blessings, i)
+          blessings.push(this._prepareSpellOrPrayer(actorData, i));
         else
-          this._prepareSpellOrPrayer(actorData, miracles, i)
+          miracles.push(this._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "career")
@@ -2368,6 +2595,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     if (traits.list.length > 0)
       traits.hasTraits = true;
 
+    // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
+    // instead of iterating through every item again to find talents when rolling
+    this.actor.talentTests = [];
+    for (let talent of talents)
+      if (talent.data.tests.value)
+        this.actor.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
+
     actorData.inventory = inventory;
     actorData.containers = containers;
     actorData.basicSkills = basicSkills;
@@ -2386,6 +2620,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.miracles = miracles;
     actorData.money = money;
     actorData.psychology = psychology;
+
+
 
     // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
    /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)

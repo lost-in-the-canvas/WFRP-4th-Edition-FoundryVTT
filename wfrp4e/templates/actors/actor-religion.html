@@ -17,9 +17,6 @@
 <ol class="inventory-list">
         <li class="inventory-header item">
             <div class = "item-name">Blessing</div>
-            <div >Target</div>
-            <div >Range</div>
-            <div>Duration</div>
             {{#if owner}}
             <div class="item-controls">
                 <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -33,10 +30,6 @@
                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                 <a>{{item.name}}</a>
             </div>
-
-            <div >{{item.target}}</div>
-            <div >{{item.range}}</div>
-            <div >{{item.duration}}</div>
             {{#if ../owner}}
             <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -49,9 +42,6 @@
 <ol class="inventory-list">
     <li class="inventory-header item">
         <div class = "item-name">Miracle</div>
-        <div>Target</div>
-        <div>Range</div>
-        <div>Duration</div>
         {{#if owner}}
         <div class="item-controls">
             <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -66,9 +56,6 @@
             <a>{{item.name}}</a>
         </div>
 
-        <div >{{item.target}}</div>
-        <div >{{item.range}}</div>
-        <div >{{item.duration}}</div>
 
         {{#if ../owner}}
         <div class="item-controls">
