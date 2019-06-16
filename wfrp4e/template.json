@@ -3,7 +3,7 @@
     "data": {
       "characteristics": {
         "ws": {
-          "type": "Number",
+          "type": "number",
           "label": "Weapon Skill",
           "abrev": "WS",
           "initial": 20,
@@ -169,11 +169,10 @@
       },
 
       "details" : {
-        "xp": {
+        "experience": {
           "type": "Number",
-          "label": "Xp",
+          "label": "Experience",
           "total": 0,
-          "current": 0,
           "spent": 0        
         },
         "personal-ambitions": {
