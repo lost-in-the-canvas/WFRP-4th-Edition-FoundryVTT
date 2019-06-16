@@ -827,6 +827,23 @@ Hooks.on("canvasInit", () => {
  */
 class ActorWfrp4e extends Actor {
 
+  static async create(data, options) {
+    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    let skills = [];
+    console.log(pack);
+    await pack.getIndex().then(index => skills = index);
+    data.items = [];
+    for (let sk of skills)
+    {
+      let skillItem = undefined;
+      await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
+        data.items.push(skillItem.data);
+    }
+
+    super.create(data, options);
+    
+  }
   /**
    * Augment the basic actor data with additional dynamic data.
    */
@@ -1123,6 +1140,17 @@ class ItemWfrp4e extends Item {
   _talentChatData() {
     const data = duplicate(this.data.data);
     data.properties=[];
+    return data;
+  }
+
+  _careerChatData() {
+    const data = duplicate(this.data.data);
+    data.properties=[];
+    data.properties.push(this.data.data.class.value);
+    data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    data.properties.push("Skills: " + this.data.data.skills.map(i => i = " " + i));
+    data.properties.push("Talents: " + this.data.data.talents.map (i => i = " " + i));
+    data.properties.push("Income: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
     return data;
   }
 
@@ -1903,7 +1931,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-group').click(event => this._expandInfo(event, 'weapon-group'));
 
 
-
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
@@ -2017,6 +2044,22 @@ class ActorSheetWfrp4e extends ActorSheet {
         item.data.equipped = !item.data.equipped;
       else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
         item.data.worn = !item.data.worn;
+      this.actor.updateOwnedItem(item);
+    });
+
+    html.find('.career-toggle').click(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let type = $(ev.currentTarget).attr("toggle-type")
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data[type].value = !item.data[type].value;
+
+      // Only one career can be current - make all other careers not current 
+      // Dislike iterating through every item: TODO - different approach
+      if (type == "current" && item.data.current.value == true)
+        for (let i of this.actor.items)
+          if (i.type == "career" && i != item)
+            i.data.current.value = false;
+
       this.actor.updateOwnedItem(item);
     });
 
@@ -2524,6 +2567,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "career")
       {
+        if (i.data.current.value)
+        {
+          actorData.currentClass = i.data.class.value;
+          actorData.currentCareer = i.name;
+          actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+        }
         careers.push(i);
       }
 
@@ -2577,7 +2626,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
       itemsInside.map(function(item){
         if (item.type == "trapping")
-          item.type == CONFIG.trappingTypes[item.data.trappingType.value];
+          item.type = CONFIG.trappingTypes[item.data.trappingType.value];
         else
           item.type = CONFIG.trappingTypes[item.type];
       } )

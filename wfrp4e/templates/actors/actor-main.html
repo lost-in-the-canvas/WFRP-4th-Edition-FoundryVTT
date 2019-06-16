@@ -192,10 +192,18 @@
       <li class="item" data-item-id="{{item.id}}">
         <div class="item-name">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a>{{item.name}}</a>
+          <a class = "career-name">{{item.name}}</a>
         </div>
-        <span><i class="far fa-circle"></i></span>
-        <span><i class="far fa-circle"></i></span>
+        {{#if item.data.current.value}}
+        <a class="career-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
+        {{else}}
+        <a class = "career-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
+        {{/if}}
+        {{#if item.data.complete.value}}
+        <a class = "career-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
+        {{else}}
+        <a class = "career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
+        {{/if}}
         <div class="career-tier">{{item.data.tier.value}}</div>
 
 

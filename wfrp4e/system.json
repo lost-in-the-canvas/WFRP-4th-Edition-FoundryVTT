@@ -30,6 +30,14 @@
       "module": "dnd5e",
       "path": "./packs/spells.db",
       "entity": "Item"
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/skills.db",
+      "entity": "Item"
     }
   ],
   "languages": ["en"],
