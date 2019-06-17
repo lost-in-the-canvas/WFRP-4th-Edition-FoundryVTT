@@ -829,6 +829,7 @@ Hooks.on("canvasInit", () => {
 class ActorWfrp4e extends Actor {
 
   static async create(data, options) {
+    let id = 1;
     const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
     let skills = [];
     console.log(pack);
@@ -838,6 +839,8 @@ class ActorWfrp4e extends Actor {
     {
       let skillItem = undefined;
       await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      skillItem.data.id = id;
+      id++;
       if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
         data.items.push(skillItem.data);
     }
@@ -897,10 +900,7 @@ class ActorWfrp4e extends Actor {
       data.status.resolve.value = data.status.resilience.value;
     }
 
-    data.details.xp.total = data.details.xp.current + data.details.xp.spent;
-
-
-
+    data.details.experience.current = data.details.experience.total - data.details.experience.spent;
 
   }
 
