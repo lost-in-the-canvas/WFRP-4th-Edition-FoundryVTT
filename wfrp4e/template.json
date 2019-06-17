@@ -265,7 +265,12 @@
         "label": "Source"
       }
     },
-    "career": {
+    "careerlevel": {
+      "career":{
+        "type":"String",
+        "label":"Career",
+        "value":""
+      },
       "class":{
         "type":"String",
         "label":"Class",

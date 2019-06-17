@@ -1641,7 +1641,7 @@ class ItemSheetWfrp4e extends ItemSheet {
     }
 
 
-    else if (this.item.type == "career")
+    else if (this.item.type == "careerlevel")
     {
       data['statusTiers'] = CONFIG.statusTiers;
       data['skills'] = data.data.skills.toString();
@@ -2058,7 +2058,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       // Dislike iterating through every item: TODO - different approach
       if (type == "current" && item.data.current.value == true)
         for (let i of this.actor.items)
-          if (i.type == "career" && i != item)
+          if (i.type == "careerlevel" && i != item)
             i.data.current.value = false;
 
       this.actor.updateOwnedItem(item);
@@ -2566,7 +2566,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           miracles.push(this._prepareSpellOrPrayer(actorData, i));
       }
 
-      else if (i.type === "career")
+      else if (i.type === "careerlevel")
       {
         if (i.data.current.value)
         {

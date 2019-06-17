@@ -111,6 +111,7 @@
     </div>
   </div>
 </div>
+
 <div id="main-row-2" class="main-row">
   <div class="injury">
     <div class="criticalWounds">
@@ -161,15 +162,18 @@
     <!-- <a>Careers</a> -->
     <ol class="inventory-list">
       <li class="inventory-header item">
-        <div class="item-name">Career</div>
-        <div>Current</div>
-        <div>Complete</div>
-        <div class="career-tier">Tier</div>
+        <h4 id="List-CareerLevel-label" class="item-name">Career Level</h4>
+        <h4 id="List-Career-label" class="item-name">Career</h4>
+        <h4 id="List-Current-label" >Current</h4>
+        <h4 id="List-Complete-label" >Complete</h4>
+        <div id="List-Tier-label" class="career-tier">Tier</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-            Add</a>
+          <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="{{sid}}">
+            <i class="fas fa-plus"></i>
+          </a>
         </div>
+        <h4 id="List-Add-label">Add</h4>
         {{/if}}
       </li>
 
@@ -177,17 +181,17 @@
       <li class="item" data-item-id="{{item.id}}">
         <div class="item-name">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a class = "career-name">{{item.name}}</a>
+          <a class = "careerlevel-name">{{item.name}}</a>
         </div>
         {{#if item.data.current.value}}
-        <a class="career-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
+        <a class="career-current-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
         {{else}}
-        <a class = "career-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
+        <a class = "career-current-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
         {{/if}}
         {{#if item.data.complete.value}}
-        <a class = "career-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
+        <a class = "career-complete-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
         {{else}}
-        <a class = "career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
+        <a class = "career-complete-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
         {{/if}}
         <div class="career-tier">{{item.data.tier.value}}</div>
 

@@ -15,6 +15,11 @@
         </div>
         
         <div class="form-group">
+            <label>Career</label>
+            <input type="text" name="data.career.value" value="{{data.career.value}}" data-dtype="{{data.career.type}}"/>
+        </div>
+
+        <div class="form-group">
             <label>{{data.tier.label}}</label>
             <select name="data.tier.value" data-dtype="{{data.tier.type}}">
                 {{#select data.tier.value}}
