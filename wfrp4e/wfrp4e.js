@@ -782,9 +782,10 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
-
   ]);
 });
+
+
 
 
 /**
@@ -3172,4 +3173,9 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eNPC, {
   makeDefault: true
 });
 
+
+
+
+
+/* -------------------------------------------- */
 

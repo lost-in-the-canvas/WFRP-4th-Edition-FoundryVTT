@@ -131,49 +131,34 @@
           </div>
         </div>
     </div>
-
-    <ol class="inventory-list crit-wound-list">
-      <li class="inventory-header item">
-        <div>Injury
-        </div>
-
-
-        <div>Location</div>
-
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-            Add</a>
-        </div>
-      </li>
-
-      {{/if}}
-      {{#each actor.injuries as |injury i|}}
-      <li class="item" data-item-id="{{injury.id}}">
-        <div class="item-name injury-name">
-          <div class="item-image" style="background-image: url({{injury.img}})"></div>
-          <h4>{{injury.name}}</h4>
-        </div>
-
-        <div>
-          {{injury.data.location.value}}
-        </div>
-
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-
-      </li>
-      {{/each}}
-    </ol>
-
-
   </div>
+  
+  <div class="experienceSection">
+    <div id="experience-name">
+      <h4 id="experience-label" class="experience-label" >Experience</h4>
+    </div>  
+    <div id="experience-current">
+      <h4 id="experience-current-label" class="experience-label" >Current</h4>
+    </div>  
+      <div id="xp-current-value" class="xp-value">
+        <input id="xp-current-input" name="data.details.experience.current.value" type="text" value="{{data.details.experience.current.value}}">
+      </div>
+    <div id="experience-spent">
+      <h4 id="experience-spent-label" class="experience-label" >Spent</h4>
+    </div>  
+      <div id="xp-spent-value" class="xp-value">
+        <input name="data.details.experience.spent.value" type="text" value="{{data.details.experience.spent.value}}">
+      </div>
+    <div id="experience-total">
+      <h4 id="experience-total-label" class="experience-label" >Total</h4>
+    </div>  
+      <div id="xp-total-value" class="xp-value">
+        <input id="xp-total-input" name="data.details.experience.total.value" type="text" value="{{data.details.experience.total.value}}">
+      </div>
+  </div>
+
   <div class="careers">
-    <a>Careers</a>
+    <!-- <a>Careers</a> -->
     <ol class="inventory-list">
       <li class="inventory-header item">
         <div class="item-name">Career</div>
@@ -217,4 +202,5 @@
       {{/each}}
     </ol>
   </div>
+
 </div>

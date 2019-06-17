@@ -84,57 +84,259 @@ button:hover {
 }
 
 
-#sidebar-tabs > .item.active  {
-  /* background: none; */
-  height: 30px;
-  width: 30px;
-  color: #ff000000;
-  /* border: 1px solid blue; */
-  border-radius: 0px;
-  box-shadow: none;
-  border: 1px solid #ff000000;
-  border-bottom: none;
-}
-#sidebar-tabs > .item  {
+
+input[type="text"], input[type="password"] {
+  min-width: 20px;
   background: none;
-  height: 30px;
-  width: 30px;
-  color: #ff000000;
-  /* border: 1px solid blue; */
+  padding: 1px 3px;
+  margin: 0;
+  border: none;
   border-radius: 0px;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  color: #111;
 }
 
-.tabs .item.active {
-  text-shadow: 0 0 10px #ff000000;
+.wfrp4e.sheet form input[type="text"]:hover,
+.wfrp4e.sheet form input[type="text"]:focus {
+  border: 1px dotted #463a3a;
+  box-shadow: none;
 }
 
-#sidebar-tabs > [title~="Chat"] {
-  background: url(../ui/sidebar-button-chat.png);
+.wfrp4e.sheet form input[type="number"] {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #444;
+  border: 1px solid transparent;
 }
-#sidebar-tabs > [title~="Tracker"] {
-  background: url(../ui/sidebar-button-combat.png);
+.wfrp4e.sheet form input[type="number"]:hover,
+.wfrp4e.sheet form input[type="number"]:focus {
+  border: 1px dotted #463a3a;
+  box-shadow: none;
+  box-shadow: 0 0 8px red;
 }
-#sidebar-tabs > [title~="Scenes"] {
-  background: url(../ui/sidebar-button-scenes.png);
-}
-#sidebar-tabs > [title~="Actors"] {
-  background: url(../ui/sidebar-button-actors.png);
-}
-#sidebar-tabs > [title~="Items"] {
-  background: url(../ui/sidebar-button-items.png);
-}
-#sidebar-tabs > [title~="Journal"] {
-  background: url(../ui/sidebar-button-journal.png);
-}
-#sidebar-tabs > [title~="Playlists"] {
-  background: url(../ui/sidebar-button-playlists.png);
-}
-#sidebar-tabs > [title~="Compendium"] {
-  background: url(../ui/sidebar-button-compendium.png);
-}
-#sidebar-tabs > [title~="Settings"] {
-  background: url(../ui/sidebar-button-settings.png);
-}
+
+
+
+/***************************************************/
+/*================== II. Sidebar ==================*/
+/***************************************************/
+
+  #sidebar-tabs > .item  {
+    background: none;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    border: none;
+    border-radius: 0px;
+  }
+
+  #sidebar-tabs > .item.active {
+    /* background: none; */
+    margin-top: 0px;
+    margin-left: 0px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: hidden;
+    /* background: url(../ui/sidebar-button-chat-active.png); */
+  }
+  #sidebar-tabs > .item.active .fas.fa-comments {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-chat-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-fist-raised {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-combat-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-map {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-scenes-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-users {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-actors-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-suitcase {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-items-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-book-open {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-journal-active.png)
+  }
+  #sidebar-tabs > .item.active .fas.fa-music {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-playlists-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-atlas {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-compendium-active.png);
+  }
+  #sidebar-tabs > .item.active .fas.fa-question {
+    /* background: none; */
+    position: relative;
+    top: -8px;
+    left: -7px;
+    height: 30px;
+    width: 30px;
+    color: #ff000000;
+    /* border: 1px solid blue; */
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-settings-active.png);
+  }
+
+  #sidebar-tabs > [title~="Chat"] {
+    background: url(../ui/sidebar-button-chat.png);
+  }
+  #sidebar-tabs > [title~="Tracker"] {
+    background: url(../ui/sidebar-button-combat.png);
+  }
+  #sidebar-tabs > [title~="Scenes"] {
+    background: url(../ui/sidebar-button-scenes.png);
+  }
+  #sidebar-tabs > [title~="Actors"] {
+    background: url(../ui/sidebar-button-actors.png);
+  }
+  #sidebar-tabs > [title~="Items"] {
+    background: url(../ui/sidebar-button-items.png);
+  }
+  #sidebar-tabs > [title~="Journal"] {
+    background: url(../ui/sidebar-button-journal.png);
+  }
+  #sidebar-tabs > [title~="Playlists"] {
+    background: url(../ui/sidebar-button-playlists.png);
+  }
+  #sidebar-tabs > [title~="Compendium"] {
+    background: url(../ui/sidebar-button-compendium.png);
+  }
+  #sidebar-tabs > [title~="Settings"] {
+    background: url(../ui/sidebar-button-settings.png);
+  }
+
+/***************************************************/
+/***************************************************/
+
+
+
 
 /***************************************************/
 /*========== II. Actor (Character Sheet) ==========*/
@@ -865,6 +1067,7 @@ button:hover {
         }
           .wfrp4e.actor .injury {
             width: 40%;
+            height: 47px;
             margin-right: 6px;
           }
           .wfrp4e.actor .combat-section .injury {
@@ -930,7 +1133,6 @@ button:hover {
               width: 200px;
               border-radius: 0px;
             }
-
             /*The critical wounds counter box in the combat tab*/
             .combat-section #criticalWounds-box {
               margin-top: 130px;
@@ -983,77 +1185,271 @@ button:hover {
             #criticalWounds-label {
               font-weight: 700;
             }
+          #main-row-2 .experienceSection {
+            border: 1px solid #736953a6;
+            height: 47px;
+            width: 300px;
+            margin-top: 0px;
+            position: absolute;
+            left: 249px;
+          }
+            .experienceSection .experience-label {
+              font-weight: 700;
+            }
+              #experience-name {
+                border: inherit;
+                border-left: none;
+                border-top: none;
+                border-right: none;
+                font-family: CaslonAntique;
+                font-size: 16px;
+                color: #464331c4;
+                text-align: center;
+                margin: 0px;
+                padding: 2px 0px 0px 0px;
+                height: 24px;
+                width: inherit - 2px;
+                box-shadow: 0 0 10px #00000052 inset;
+              }
+              #experience-current {
+                border: inherit;
+                border-left: none;
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonAntique;
+                font-size: 16px;
+                color: #464331c4;
+                text-align: center;
+                margin: 0px;
+                padding: 2px 0px 0px 0px;
+                height: 21px;
+                width: 50px;
+                box-shadow: 0 0 10px #00000052 inset;
+              }
+              #experience-spent {
+                border: inherit;
+                border-left: none;
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonAntique;
+                font-size: 16px;
+                color: #464331c4;
+                text-align: center;
+                margin: 0px;
+                padding: 2px 0px 0px 0px;
+                height: 21px;
+                width: 50px;
+                box-shadow: 0 0 10px #00000052 inset;
+                position: relative;
+                left: 99px;
+                top: -43px;
+              }
+              #experience-total {
+                border: inherit;
+                border-left: none;
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonAntique;
+                font-size: 16px;
+                color: #464331c4;
+                text-align: center;
+                margin: 0px;
+                padding: 2px 0px 0px 0px;
+                height: 21px;
+                width: 50px;
+                box-shadow: 0 0 10px #00000052 inset;
+                position: relative;
+                left: 198px;
+                top: -86px;
+              }
+            .xp-value > input {
+              padding: 6px 0px 0px 0px;
+              text-align: center;
+              width: 49px;
+              position: relative;
+              top: 0px;
+              /* margin-top: 1px; */
+              border-left: none;
+              height: 21px;
+              border-radius: 0px;
+            }
+            .xp-value {
+              left: 170px;
+              width: 51px;
+              height: 22px;
+              text-align: center;
+              padding: 0px;
+              margin: 0px;
+            }
+            #xp-current-input {
+              color: #29364a;
+            }
+            #xp-total-input {
+              left: 0px;
+              width: 50px;
+              height: 21px;
+              text-align: center;
+              /* padding: 0px; */
+              margin: 0px;
+            }
+              #xp-current-value {
+                position: relative;
+                top: -21px;
+                left: 49px;
+                border: inherit;
+                /* border-left: none; */
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+              }
+              #xp-spent-value {
+                position: relative;
+                top: -64px;
+                left: 148px;
+                border: inherit;
+                /* border-left: none; */
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+              }
+              #xp-total-value {
+                position: relative;
+                top: -107px;
+                left: 247px;
+                width: 52px;
+                border: inherit;
+                /* border-left: none; */
+                border-top: none;
+                border-bottom: none;
+                /* border-right: none; */
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+              }
+    
       /* ============================================================ */  
   
       /* ================== 2. Main Tab Section ================== */ 
 
-
-
-
-
-
-
-
 /***************************************************/
 /***************************************************/
 
 
+.inventory-list .item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  line-height: 24px;
+  /* padding: 0; */
+  /* border-bottom: 1px solid #CCC; */
+}
 
 
-
-
-
-input[type="text"], input[type="password"] {
-  min-width: 20px;
+#main-row-2 .inventory-header.item {
+  padding-left: 4px;
+  padding-right: 4px;
+  line-height: 19px;
+  border: 1px solid #736953a6;
+  font-family: CaslonAntique;
+  font-weight: 700;
+  font-size: 16px;
+  color: #464331c4;
   background: none;
-  padding: 1px 3px;
-  margin: 0;
-  border: none;
-  border-radius: 3px;
-  font-family: inherit;
-  font-size: inherit;
-  text-align: inherit;
-  line-height: inherit;
-  color: #111;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  /* color: #481c06b5; */
 }
 
-
-
-
-
-
-
-
-
-
-.wfrp4e.sheet form input[type="text"]:hover,
-.wfrp4e.sheet form input[type="text"]:focus {
-  border: 1px solid #111;
-  box-shadow: none;
+#main-row-2 .injury .inventory-header.item {
+  position: absolute;
+  top: 499px;
+  width: 200px;
+  left: 43px;
 }
 
-.wfrp4e.sheet form input[type="number"] {
+.main-row .inventory-list.crit-wound-list {
   background: none;
-  border: none;
-  padding: 0;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  color: #444;
-  border: 1px solid transparent;
-}
-.wfrp4e.sheet form input[type="number"]:hover,
-.wfrp4e.sheet form input[type="number"]:focus {
-  border: 1px solid #111;
-  box-shadow: 0 0 8px red;
+  height: 110px;
+  margin-top: 20px;
+  border: 1px solid #736953a6;
+  border-top: none;
+  box-shadow: 0px 0px 1px inset black;
 }
 
-.wfrp4e.sheet form input[type="number"] {
-  background: none;
-  border: none;
-  padding: 0;
-  color: #444;
-  border: 1px solid transparent;
+
+
+.wfrp4e.actor .careers{
+  width: 506px;
+  text-align: center;
+  position: absolute;
+  top: 499px;
+  left: 43px;
 }
+
+.wfrp4e.actor .careers > a{
+  font-family: CaslonAntique;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.main-row .careers .inventory-list {
+  background: none;
+  height: 110px;
+  width: 506px;
+  margin-top: 21px;
+  border: 1px solid #736953a6;
+  border-top: none;
+  box-shadow: 0px 0px 1px inset black;
+  color: #000000;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#main-row-2 .careers .inventory-header.item {
+  position: absolute;
+  top: 0px;
+  width: 506px;
+  left: 0px;
+}
+
+
+.careers .inventory-list .item .item-name > a {
+  flex: 1;
+  text-align: left;
+  width: 190px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .wfrp4e.sheet .header {
@@ -1242,17 +1638,7 @@ display: flex;
   height: 25px;
 }
 
-.wfrp4e.actor .careers{
-  width: 60%;
-  text-align: center;
 
-}
-
-.wfrp4e.actor .careers > a{
-  font-family: CaslonAntique;
-  font-size: 22px;
-  font-weight: bold;
-}
 
 
 
@@ -2281,7 +2667,7 @@ font-weight: bold;
   background: url(../ui/sidebar-border.png) repeat;
   background-position: 40px 0px;
 
-  padding: 10px 0px 0px 134px;
+  padding: 9px 0px 0px 134px;
 }
 /* #sidebar-tabs > .item {
   position: relative;
@@ -2479,15 +2865,7 @@ font-weight: bold;
   /* Inventory Header */
 }
 
-.inventory-list .item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 24px;
-  padding: 0;
-  border-bottom: 1px solid #CCC;
-}
+
 .inventory-list .item > * {
   flex: 1;
 }
@@ -2564,11 +2942,7 @@ font-weight: bold;
   text-align: center;
   color: #666;
 }
-.inventory-list .inventory-header {
-  font-weight: 700;
-  line-height: 20px;
-  background: rgba(0, 0, 0, 0.05);
-}
+
 .inventory-list .inventory-header h3 {
   font-size: 1em;
   margin: 0;
