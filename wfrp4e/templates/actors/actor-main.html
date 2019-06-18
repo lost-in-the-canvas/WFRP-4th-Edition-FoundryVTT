@@ -179,7 +179,7 @@
       </li>
 
       {{#each actor.careers as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
+      <li id="testlist" class="item" data-item-id="{{item.id}}">
         <div class="item-name">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           <a class = "careerlevel-name">{{item.name}}</a>
@@ -203,6 +203,12 @@
           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </div>
         {{/if}}
+
+        <script>
+          $(document).ready(function(){
+            $('#testlist li:nth-child(odd)').addClass('alternate');
+          });
+        </script>
       </li>
       {{/each}}
     </ol>
