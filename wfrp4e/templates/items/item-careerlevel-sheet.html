@@ -13,16 +13,16 @@
             <label>{{data.class.label}}</label>
             <input type="text" name="data.class.value" value="{{data.class.value}}" data-dtype="{{data.class.type}}"/>
         </div>
-
+        
         <div class="form-group">
-            <label>data.careergroup.label</label>
-            <input type="text" name="data.careergroup.value" value="{{data.careergroup.value}}" data-dtype="{{data.careergroup.type}}"/>
+            <label>Career</label>
+            <input type="text" name="data.career.value" value="{{data.career.value}}" data-dtype="{{data.career.type}}"/>
         </div>
 
         <div class="form-group">
-            <label>{{data.level.label}}</label>
-            <select name="data.level.value" data-dtype="{{data.level.type}}">
-                {{#select data.level.value}}
+            <label>{{data.tier.label}}</label>
+            <select name="data.tier.value" data-dtype="{{data.tier.type}}">
+                {{#select data.tier.value}}
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -48,21 +48,6 @@
         <div class="form-group">
             <label>Status Standing</label>
             <input type="text" name="data.status.standing" value="{{data.status.standing}}" data-dtype = "Number"/>
-        </div>
-
-
-        
-        <div class="form-group">
-            <div class="form-group">
-            <label>Characteristics</label>
-                <select name="data.characteristics" data-dtype="String" multiple>
-                    {{#select data.characteristics}}
-                    {{#each characteristicList as |c char|}}
-                    <option value="{{char}}">{{c}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
         </div>
 
         <div class="form-group">

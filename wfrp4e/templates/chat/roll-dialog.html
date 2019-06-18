@@ -1,7 +1,6 @@
 <form>
     <div class = "dialog-row">
         <div class = "bonus-column">
-            
             <div class="form-group">
                 <label>Modifier</label>
                 <input type="text" name="testModifier" value="{{testModifier}}"/>
@@ -39,18 +38,6 @@
             {{/select}}
             </select>
     </div>
-
-    <div class="form-group">
-            <label>Characteristic</label>
-            <select name="characteristicToUse">
-                {{#select characteristicToUse}}
-                {{#each characteristicList as |label char|}}
-                    <option value="{{char}}">{{label}}</option>
-                {{/each}}
-                {{/select}}
-                </select>
-    </div>
-
     <div class="form-group">
         <label>Roll Mode</label>
         <select name="rollMode">

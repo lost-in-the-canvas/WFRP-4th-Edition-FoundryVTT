@@ -1,74 +1,82 @@
-<div class = "skill-section">
-    <div class = "skill-type">
-       <h3>Basic Skills</h3>
-      <ol class="inventory-list talent-list">
-        <li class="inventory-header item">
-            <div class = "item-name">Skill</div>
-            <div>Char.</div>
-            <div>Adv.</div>
-            <div>Total</div>
-            {{#if owner}}
-            <div class="item-controls">
-               <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
-            </div>
-            {{/if}}
-        </li>
+<div class="skill-section">
+  <div id="basic-skills-list" class="skill-type">
+    <h3>Basic Skills</h3>
+    <ol class="inventory-list talent-list">
+      <li class="inventory-header item">
+        <div class="item-name">Skill</div>
+        <div class="skill-char-title">Char.</div>
+        <div class="skill-adv-title">Adv.</div>
+        <div class="skill-total-title">Total</div>
+        {{#if owner}}
+        <div class="item-controls">
+          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+            Add</a>
+        </div>
+        {{/if}}
+      </li>
 
-        {{#each actor.basicSkills as |item i|}}
-        <li class="item" data-item-id="{{item.id}}">
-            <div class="item-name">
-                <a>{{item.name}}</a>
-            </div>
+      {{#each actor.basicSkills as |item i|}}
+      <li class="item" data-item-id="{{item.id}}">
+        <div class="item-name">
+          <a>{{item.name}}</a>
+        </div>
 
-            <div class ="row">
-               <div>{{item.data.characteristic.value}}</div>
-               <div>{{item.data.characteristic.num}}</div>
-            </div>
+        <div class="row">
+          <h3 class="row-label">{{item.data.characteristic.value}}</h3>
+          <h3 class="row-value">{{item.data.characteristic.num}}</h3>
+        </div>
 
-            <input class = "skill-advances" name = "item.data.advances.value" data-item-id = "{{item.id}}" type= "text" data-dtype="{{item.data.advances.type}}" value ="{{item.data.advances.value}}"/>
+        <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
+          data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
 
-            <a class = "skill-total">{{item.data.total.value}}</a>
+        <div class="skill-total">{{item.data.total.value}}</div>
 
-        </li>
-        {{/each}}
+        {{#if ../owner}}
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+
+        {{/if}}
+      </li>
+      {{/each}}
     </ol>
-    </div>
-    <div class = "skill-type">
-       <h3>Advanced & Grouped Skills</h3>
-            <ol class="inventory-list talent-list">
-        <li class="inventory-header item">
-            <div class = "item-name">Skill</div>
-            <div>Char.</div>
-            <div>Adv.</div>
-            <div>Total</div>
-            {{#if owner}}
-            <div class="item-controls">
-               <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
-            </div>
-            {{/if}}
-        </li>
+  </div>
+  <div id="advanced-skills-list" class="skill-type">
+    <h3>Grouped & Advanced Skills</h3>
+    <ol class="inventory-list talent-list">
+      <li class="inventory-header item">
+        <div class="item-name">Skill</div>
+        <div>Char.</div>
+        <div>Adv.</div>
+        <div>Total</div>
+        {{#if owner}}
+        <div class="item-controls">
+          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+            Add</a>
+        </div>
+        {{/if}}
+      </li>
 
-        {{#each actor.advancedOrGroupedSkills as |item i|}}
-        <li class="item" data-item-id="{{item.id}}">
-            <div class="item-name">
-                <a>{{item.name}}</a>
-            </div>
+      {{#each actor.advancedOrGroupedSkills as |item i|}}
+      <li class="item" data-item-id="{{item.id}}">
+        <div class="item-name">
+          <a>{{item.name}}</a>
+        </div>
 
-            <div class ="row">
-               <div>{{item.data.characteristic.value}}</div>
-               <div>{{item.data.characteristic.num}}</div>
-            </div>
+        <div class="row">
+          <div>{{item.data.characteristic.value}}</div>
+          <div>{{item.data.characteristic.num}}</div>
+        </div>
 
-            <input class = "skill-advances" name = "item.data.advances.value" data-item-id = "{{item.id}}" type= "text" data-dtype="{{item.data.advances.type}}" value ="{{item.data.advances.value}}"/>
+        <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
+          data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
 
-            <a class = "skill-total">{{item.data.total.value}}</a>
+        <div class="skill-total">{{item.data.total.value}}</div>
 
-        </li>
-        {{/each}}
+      </li>
+      {{/each}}
     </ol>
-    </div>
- </div>
- <div class = "armor-penalties">
-    <h3>Armor Penalties: </h3>
-    <p>{{actor.armorPenalties}}</p>
- </div>
+  </div>
+</div>
+<div class="armor-penalties">
+  <h3>Armor Penalties: </h3>
+  <p>{{actor.armorPenalties}}</p>
+</div>
