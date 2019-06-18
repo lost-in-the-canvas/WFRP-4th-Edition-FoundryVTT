@@ -220,7 +220,6 @@ input[type="text"], input[type="password"] {
   box-shadow: none;
 }
 
-
   .wfrp4e.sheet .careers ::-webkit-scrollbar-button {
     background: #782e22;
     height: 17px;
@@ -1513,13 +1512,14 @@ input[type="text"], input[type="password"] {
             left: 80px;
             width: auto;
           }
-
           .career-complete-toggle {
             position: relative;
             left: 27px;
             width: auto;
           }
-
+          .career-tier {
+            color: #464331c4;
+          }
       /* ============================================================ */  
   
       /* ================== 2. Main Tab Section ================== */ 
@@ -1613,12 +1613,18 @@ input[type="text"], input[type="password"] {
   width: 190px;
 }
 
+/* testlist:nth-child(even) {
+  background: purple;
+} */
 
 
+.wfrp4e.actor ol > li:nth-child(odd) {
+  background-color: #7b733b29 ;
+}
 
-
-
-
+.wfrp4e.actor ol > li:nth-child(even) {
+  background-color: #9e856a0d ;
+}
 
 
 
