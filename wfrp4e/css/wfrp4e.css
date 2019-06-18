@@ -1499,7 +1499,8 @@ input[type="text"], input[type="password"] {
             color: #464331c4;
             margin: 0px;  
             position: absolute;
-            left: 476px;
+            left: 29px;
+            top: -1px;
           } 
           #List-Add-button {
             position: relative;
@@ -1508,13 +1509,13 @@ input[type="text"], input[type="password"] {
             color: #464331c4;
           }
 
-          .career-current-toggle {
+          .career-current {
             position: relative;
             left: 80px;
             width: auto;
           }
 
-          .career-complete-toggle {
+          .career-complete{
             position: relative;
             left: 27px;
             width: auto;
@@ -3175,6 +3176,10 @@ font-weight: bold;
 .wfrp4e.actor .row {
   display: flex;
   flex-direction: row;
+}
+.wfrp4e.actor .skill-section .row > *{
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .wfrp4e.actor .row > .psychology {

@@ -265,10 +265,10 @@
         "label": "Source"
       }
     },
-    "careerlevel": {
-      "career":{
+    "career": {
+      "careergroup":{
         "type":"String",
-        "label":"Career",
+        "label":"Career Group",
         "value":""
       },
       "class":{
@@ -284,9 +284,9 @@
         "type": "Boolean",
         "value": false
       },
-      "tier" : {
-        "type":"Number",
-        "label":"Tier",
+      "level" : {
+        "type":"String",
+        "label":"Career Level",
         "value": 1
       },
       "status":{

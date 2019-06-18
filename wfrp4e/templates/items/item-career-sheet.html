@@ -13,16 +13,16 @@
             <label>{{data.class.label}}</label>
             <input type="text" name="data.class.value" value="{{data.class.value}}" data-dtype="{{data.class.type}}"/>
         </div>
-        
+
         <div class="form-group">
-            <label>Career</label>
-            <input type="text" name="data.career.value" value="{{data.career.value}}" data-dtype="{{data.career.type}}"/>
+            <label>data.careergroup.label</label>
+            <input type="text" name="data.careergroup.value" value="{{data.careergroup.value}}" data-dtype="{{data.careergroup.type}}"/>
         </div>
 
         <div class="form-group">
-            <label>{{data.tier.label}}</label>
-            <select name="data.tier.value" data-dtype="{{data.tier.type}}">
-                {{#select data.tier.value}}
+            <label>{{data.level.label}}</label>
+            <select name="data.level.value" data-dtype="{{data.level.type}}">
+                {{#select data.level.value}}
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

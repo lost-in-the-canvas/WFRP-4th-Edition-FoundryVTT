@@ -3,7 +3,7 @@
     <tr class="table-header">
       <th></th>
       {{#each actor.data.characteristics as |ch c|}}
-      <th class="table-header">
+      <th title="{{ch.label}}"class="table-header">
         {{ch.abrev}}
       </th>
       {{/each}}
@@ -169,11 +169,12 @@
         <div id="List-Tier-label" class="career-tier">Tier</div>
         {{#if owner}}
         <div class="item-controls">
-          <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="{{sid}}">
+          <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="career">
             <i class="fas fa-plus"></i>
+            <h4 id="List-Add-label">Add</h4>
+
           </a>
         </div>
-        <h4 id="List-Add-label">Add</h4>
         {{/if}}
       </li>
 
@@ -184,14 +185,14 @@
           <a class = "careerlevel-name">{{item.name}}</a>
         </div>
         {{#if item.data.current.value}}
-        <a class="career-current-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
+        <a class="career-current career-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
         {{else}}
-        <a class = "career-current-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
+        <a class = "career-current career-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
         {{/if}}
         {{#if item.data.complete.value}}
-        <a class = "career-complete-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
+        <a class = "career-complete career-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
         {{else}}
-        <a class = "career-complete-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
+        <a class = "career-complete career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
         {{/if}}
         <div class="career-tier">{{item.data.tier.value}}</div>
 
