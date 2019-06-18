@@ -666,6 +666,48 @@ Hooks.on("renderChatMessage", (message, data, html) => {
  */
 Hooks.once("init", () => {
 
+  // IMPORT CODE FOR CAREERS
+  /*let counter = 0;
+  fetch ("careers.json").then(r => r.json()).then(async records => {
+    let careerData = {
+      data : {}
+    };
+    for (let careerClass of records) {
+      for (let careerGroup of careerClass.CareerPaths) {
+        for (let careerTier of careerGroup.Tiers) {
+          careerData.name = careerTier.Name;
+          careerData.type = "career"
+          careerData.data["class.value"] = careerClass.ClassName;
+          careerData.data["careergroup.value"] = careerGroup.PathName;
+          careerData.data["level.value"] = careerTier.Tier;
+          careerData.data["status.tier"] = careerTier.StatusTier[0].toLowerCase();
+          careerData.data["status.standing"] = careerTier.StatusStanding;
+          careerData.data["characteristics"] = [];
+          careerData.data["skills"] = [];
+          careerData.data["talents"] = [];
+          careerData.data["trappings"] = [];
+          for (let careerChar of careerTier.CareerCharacteristics){
+            let chCounter = 0;
+            for (let ch in CONFIG.characteristics){
+              if (chCounter == careerChar){
+                careerData.data.characteristics.push(ch);
+                break;
+              }
+              chCounter++;
+            }
+          }
+          for (let skill of careerTier.CareerSkills)
+            careerData.data.skills.push(skill);
+          for (let talent of careerTier.CareerTalents)
+            careerData.data.talents.push(talent);
+          for (let trappings of careerTier.CareerTrappings)
+            careerData.data.trappings.push(trappings);
+
+          await Item.create(careerData, {displaySheet : false});
+        }
+    }
+  }
+  })*/
   /**
    * Register diagonal movement rule setting
    */
@@ -795,6 +837,7 @@ class ActorWfrp4e extends Actor {
       if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
         data.items.push(skillItem.data);
     }
+
 
     super.create(data, options);
     
@@ -1701,6 +1744,7 @@ class ItemSheetWfrp4e extends ItemSheet {
       });
       data['talents'] = data.data.talents.toString();
       data['trappings'] = data.data.trappings.toString();
+      data['characteristicList'] = CONFIG.characteristics
     }
 
     else if (this.item.type == "trapping")

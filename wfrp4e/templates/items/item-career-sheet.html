@@ -50,6 +50,21 @@
             <input type="text" name="data.status.standing" value="{{data.status.standing}}" data-dtype = "Number"/>
         </div>
 
+
+        
+        <div class="form-group">
+            <div class="form-group">
+            <label>Characteristics</label>
+                <select name="data.characteristics" data-dtype="String" multiple>
+                    {{#select data.characteristics}}
+                    {{#each characteristicList as |c char|}}
+                    <option value="{{char}}">{{c}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+        </div>
+
         <div class="form-group">
             <label>Skills</label>
             <input class="csv-input" data-dest = "skills"  value="{{skills}}"  type="text" data-dtype = "String"/>
