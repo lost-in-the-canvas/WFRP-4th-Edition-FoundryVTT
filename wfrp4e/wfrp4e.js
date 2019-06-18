@@ -210,7 +210,7 @@ CONFIG.difficultyModifiers = {
  "easy" : 40 , 
  "average":20, 
  "challenging":0,
- "difficult": -10,
+ "difficult": 10,
  "hard" : -20,
  "vhard": -30
 }
@@ -903,7 +903,7 @@ class ActorWfrp4e extends Actor {
         opposed : true,
         talents : this.data.talentTests,
         characteristicList : CONFIG.characteristics,
-        characteristicToUse : skill.data.characteristic.value 
+        characteristicToUse : char 
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -911,11 +911,10 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        testData.characteristicToUse = html.find('[name="characteristicToUse"]').val();
-        testData.target = this.data.data.characteristics[testData.characteristicToUse].value
+        testData.targetNum = this.data.data.characteristics[characteristicToUse]
                              + testData.testModifier 
                              + testData.testDifficulty
-                             + skill.data.advances.value;
+                             + skill.data.advances;
         testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
         testData.opposed = html.find('[name="opposed"]').val() === "true";
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
@@ -985,7 +984,7 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
+        testData.targetNum = testData.target + testData.testModifier + testData.testDifficulty; 
         testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
         testData.opposed = html.find('[name="opposed"]').val() === "true";
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
@@ -2033,7 +2032,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollCharacteristic(characteristic, event);
     });
 
-    html.find('.skill-total').click(event => {
+    html.find('.skill-advances').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let skill = this.actor.items.find(i => i.id === itemId);
@@ -2616,7 +2615,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         {
           actorData.currentClass = i.data.class.value;
           actorData.currentCareer = i.name;
-          actorData.currentCareerGroup = i.data.careergroup.value;
           actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
         }
         careers.push(i);
