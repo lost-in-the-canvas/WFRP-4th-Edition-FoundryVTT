@@ -504,8 +504,6 @@ class DiceWFRP {
       SL: SL,
       description: description
     }
-    if (testData.opposed)
-      rollResults.opposed = true;
     
     return rollResults;
    } 
@@ -973,7 +971,6 @@ class ActorWfrp4e extends Actor {
       },
       data : {
         hitLocation : testData.hitLocation,
-        opposed : true,
         talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
         characteristicToUse : skill.data.characteristic.value  
@@ -989,8 +986,8 @@ class ActorWfrp4e extends Actor {
                              + testData.testModifier 
                              + testData.testDifficulty
                              + skill.data.advances.value;
-        testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
-        testData.opposed = html.find('[name="opposed"]').val() === "true";
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        console.log(testData.hitLocation);
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
           return prev + Number(cur)
@@ -1044,7 +1041,6 @@ class ActorWfrp4e extends Actor {
       },
       data : {
         hitLocation : testData.hitLocation,
-        opposed : true,
         talents : this.data.flags.talentTests,
       },
       callback : (html, roll) => {
@@ -1054,8 +1050,8 @@ class ActorWfrp4e extends Actor {
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
         testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
-        testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
-        testData.opposed = html.find('[name="opposed"]').val() === "true";
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        console.log(testData.hitLocation);
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
           return prev + Number(cur)
@@ -2116,8 +2112,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Create New Item
     html.find('.item-create').click(ev => this._onItemCreate(ev));
 
+
     // Update Inventory Item
-    html.find('.item-edit').click(ev => {
+    html.find('.item-edit, .item-name-edit').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let Item = CONFIG.Item.entityClass;
       const item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
@@ -2408,7 +2405,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let  expansionText = "";
       if (expandInfo == "weapon-range")
       {
-        range = parseInt(event.target.text);
+        let range = parseInt(event.target.text);
         expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
         range / 10 + " yds - " + range / 2 + "yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
         range / 2 + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+

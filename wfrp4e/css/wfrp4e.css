@@ -1507,10 +1507,12 @@ input[type="text"], input[type="password"] {
             left: 0px;
           }
 
+          .inventory-list .item .item-name-edit > *,
           .inventory-list .item .item-name > *{
             overflow: hidden; 
             flex: 1; 
           }
+          .inventory-list .item .item-name-edit,
           .inventory-list .item .item-name {
             display: flex;
             flex-direction: row;
@@ -1746,6 +1748,7 @@ input[type="text"], input[type="password"] {
             left: 9px;
           }
 
+        .skill-section .inventory-list .item .item-name-edit > *,
         .skill-section .inventory-list .item .item-name > * {
           flex: 1;
           width: 95px;
