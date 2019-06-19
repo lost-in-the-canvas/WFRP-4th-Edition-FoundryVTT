@@ -1574,7 +1574,7 @@ input[type="text"], input[type="password"] {
                 font-size: 11px;
                 position: relative;
                 top: -2px;
-                left: 9px;
+                left: 43px;
               }
 
             .careers .inventory-list .item .item-name > a {
@@ -1607,9 +1607,12 @@ input[type="text"], input[type="password"] {
             .item-controls {
               position: relative;
               left: 184px;
-              width: 44px;    
-              top: 3px;
-            }            
+              width: 46px;
+              top: 1px;
+              font-family: "Font Awesome 5 Free";
+              font-size: 10px;
+              color: #666;
+            }          
       /* ============================================================ */
       
       /* ================== 2. Skills Tab Section =================== */         
@@ -1623,11 +1626,11 @@ input[type="text"], input[type="password"] {
           margin-top: 6px;
         }     
         .wfrp4e .skill-section .inventory-list {
-          margin-top: 20px;
+          margin-top: 19px;
           /* position: relative; */
           width: 250px;
           padding: 0px;
-          height: 307px;
+          height: 308px;
           box-shadow: 0px 0px 1px inset black;
           overflow-y: scroll;
           border: 1px solid #736953a6;
@@ -1686,8 +1689,8 @@ input[type="text"], input[type="password"] {
         .wfrp4e .skill-section .inventory-list .inventory-header.item {
           padding-left: 4px;
           padding-right: 0px;
-          padding-top: 2px;
-          height: 20px;
+          padding-top: 1px;
+          height: 19px;
           line-height: inherit;
           border: 1px solid #736953a6;
           border-top: none;
@@ -1702,56 +1705,61 @@ input[type="text"], input[type="password"] {
           margin-left: -1px;
           width: 250px;
         }
-          .skill-section .inventory-list .item .item-name > * {
-            flex: 1;
+          .wfrp4e .skill-section .inventory-list .skill-char-title {
+            position: relative;
+            left: 61px;
+          }
+          .wfrp4e .skill-section .inventory-list .skill-adv-title {
+            position: relative;
+            left: 56px;
+          }
+          .wfrp4e .skill-section .inventory-list .skill-total-title {
+            position: relative;
+            left: 31px;
+          }
+          .wfrp4e .skill-section .inventory-list .item .item-controls {
+            flex: 0 0 44px;
+            position: relative;
+            left: 20px;
+            top: 1px;
             width: 95px;
-          }
-          .skill-section .inventory-list .item .row {
-            display: inline-flex;
-            flex-direction: row;
-            position: relative;
-            padding: 0px;
             margin: 0px;
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
           }
-            .skill-section .inventory-list .item .row .row-label {
-              position: relative;
-              width: 27px;
-              text-align: center;
-              font-family: CaslonPro;
-              font-size: 14px;
-              font-weight: 500;
-              color: black;
-              padding: 0px;
-              margin: 0px;
-            }
-            .skill-section .inventory-list .item .row .row-value {
-              position: relative;
-              width: 27px;
-              text-align: center;
-              font-family: CaslonPro;
-              font-size: 14px;
-              font-weight: 500;
-              color: black;
-              padding: 0px;
-              margin: 0px;
-            }
-          .skill-section .inventory-list .item .skill-advances {
-            display: block;
-            flex: 1 1 29px;
-            max-width: 29px;
-            height: 18px;
-            text-align: center;
-            position: relative;
-            left: 0px;
+          .wfrp4e .skill-section .inventory-list .item .item-controls > #List-Add-label {
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            margin: 0px;
+            position: absolute;
+            left: 20px;
             top: -1px;
-            padding-top: 6px;
-            margin: 0px;
           }
-          .skill-section .inventory-list .item .skill-total {
+          .wfrp4e .skill-section .fas.fa-plus {
+            font-size: 11px;
             position: relative;
-            flex: 1 0 30px;
-            max-width: 30px;
-            /* width: 22px; */
+            top: -2px;
+            left: 9px;
+          }
+
+        .skill-section .inventory-list .item .item-name > * {
+          flex: 1;
+          width: 95px;
+        }
+        .skill-section .inventory-list .item .row {
+          display: inline-flex;
+          flex-direction: row;
+          position: relative;
+          padding: 0px;
+          margin: 0px;
+        }
+          .skill-section .inventory-list .item .row .row-label {
+            position: relative;
+            width: 27px;
             text-align: center;
             font-family: CaslonPro;
             font-size: 14px;
@@ -1759,23 +1767,59 @@ input[type="text"], input[type="password"] {
             color: black;
             padding: 0px;
             margin: 0px;
-            left: -2px;
           }
-          .skill-section .item-delete {
+          .skill-section .inventory-list .item .row .row-value {
             position: relative;
-            flex: 1 0 30px;
-            max-width: 30px;
-            /* width: 22px; */
+            width: 27px;
             text-align: center;
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
             padding: 0px;
             margin: 0px;
-            top: -2px;
-            left: -3px;
-            height: fit-content;
-            font-family: "Font Awesome 5 Free";
-            font-size: 10px;
-            color: #666;
           }
+        .skill-section .inventory-list .item .skill-advances {
+          display: block;
+          flex: 1 1 29px;
+          max-width: 29px;
+          height: 18px;
+          text-align: center;
+          position: relative;
+          left: 0px;
+          top: -1px;
+          padding-top: 6px;
+          margin: 0px;
+        }
+        .skill-section .inventory-list .item .skill-total {
+          position: relative;
+          flex: 1 0 30px;
+          max-width: 30px;
+          /* width: 22px; */
+          text-align: center;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          padding: 0px;
+          margin: 0px;
+          left: -2px;
+        }
+        .skill-section .item-delete {
+          position: relative;
+          flex: 1 0 30px;
+          max-width: 30px;
+          /* width: 22px; */
+          text-align: center;
+          padding: 0px;
+          margin: 0px;
+          top: -2px;
+          left: -3px;
+          height: fit-content;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: #666;
+        }
 
 /*************************************************************/
 /*************************************************************/
@@ -3209,17 +3253,17 @@ font-weight: bold;
 }
 
 
-.inventory-list .item .item-controls {
+/* .inventory-list .item .item-controls {
   flex: 0 0 44px;
-}
-.inventory-list .item .item-controls a {
+} */
+/* .inventory-list .item .item-controls a {
   display: block;
   float: left;
   width: 22px;
   font-size: 10px;
   text-align: center;
   color: #666;
-}
+} */
 
 .inventory-list .inventory-header h3 {
   font-size: 1em;
