@@ -210,7 +210,7 @@ CONFIG.difficultyModifiers = {
  "easy" : 40 , 
  "average":20, 
  "challenging":0,
- "difficult": 10,
+ "difficult": -10,
  "hard" : -20,
  "vhard": -30
 }
@@ -708,6 +708,10 @@ Hooks.once("init", () => {
     }
   }
   })*/
+
+
+  
+
   /**
    * Register diagonal movement rule setting
    */
@@ -838,7 +842,6 @@ class ActorWfrp4e extends Actor {
         data.items.push(skillItem.data);
     }
 
-
     super.create(data, options);
     
   }
@@ -871,6 +874,7 @@ class ActorWfrp4e extends Actor {
     //   data.details.species.value = "";
     
     return actorData;
+
   }
 
   /* -------------------------------------------- */
@@ -944,9 +948,9 @@ class ActorWfrp4e extends Actor {
         successBonus : 0,
         hitLocation : true,
         opposed : true,
-        talents : this.data.talentTests,
+        talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
-        characteristicToUse : char 
+        characteristicToUse : skill.data.characteristic.value  
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -954,10 +958,11 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        testData.targetNum = this.data.data.characteristics[characteristicToUse]
+        let characteristicToUse = html.find('[name="characteristicToUse"]').val();
+        testData.target = this.data.data.characteristics[characteristicToUse].value
                              + testData.testModifier 
                              + testData.testDifficulty
-                             + skill.data.advances;
+                             + skill.data.advances.value;
         testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
         testData.opposed = html.find('[name="opposed"]').val() === "true";
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
@@ -1019,7 +1024,7 @@ class ActorWfrp4e extends Actor {
         successBonus : 0,
         hitLocation : true,
         opposed : true,
-        talents : this.data.talentTests,
+        talents : this.data.flags.talentTests,
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -1027,7 +1032,7 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        testData.targetNum = testData.target + testData.testModifier + testData.testDifficulty; 
+        testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
         testData.hitLocation = html.find('[name="hitLocation"]').val() === "true";
         testData.opposed = html.find('[name="opposed"]').val() === "true";
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
@@ -2076,7 +2081,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollCharacteristic(characteristic, event);
     });
 
-    html.find('.skill-advances').click(event => {
+    html.find('.skill-total').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let skill = this.actor.items.find(i => i.id === itemId);
@@ -2733,10 +2738,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
     // instead of iterating through every item again to find talents when rolling
-    this.actor.talentTests = [];
+    this.actor.data.flags.talentTests = [];
     for (let talent of talents)
       if (talent.data.tests.value)
-        this.actor.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
+        this.actor.data.flags.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
 
     actorData.inventory = inventory;
     actorData.containers = containers;
