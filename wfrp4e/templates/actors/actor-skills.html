@@ -9,7 +9,7 @@
         <div class="skill-total-title">Total</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+          <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
           <!-- <h4 id="List-Add-label">Add</h4> -->
@@ -19,7 +19,7 @@
 
       {{#each actor.basicSkills as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
-        <div class="item-name">
+        <div class="item-edit">
           <a>{{item.name}}</a>
         </div>
 
@@ -53,7 +53,7 @@
           <div class="skill-total-title">Total</div>
           {{#if owner}}
           <div class="item-controls">
-            <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+            <a class="item-control item-create" title="Create Item" data-type="skill">
               <i class="fas fa-plus"></i>
             </a>
             <!-- <h4 id="List-Add-label">Add</h4> -->
