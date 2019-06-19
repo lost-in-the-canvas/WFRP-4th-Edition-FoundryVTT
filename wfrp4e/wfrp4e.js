@@ -422,6 +422,32 @@ class DiceWFRP {
   static prepareTest({dialogOptions, testData, cardOptions, onClose}) {
     // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
+
+    // Merge input with generic properties consistent between all tests
+    mergeObject(testData, 
+    {
+      testDifficulty : "challenging",
+      testModifier : 0,
+      slBonus : 0,
+      successBonus : 0,
+    });
+      
+    mergeObject(dialogOptions.data, 
+      {
+        testDifficulty : "challenging",
+        difficultyLabels : CONFIG.difficultyLabels,
+        testModifier : 0,
+        slBonus : 0,
+        successBonus : 0,
+      });
+
+    mergeObject(cardOptions, 
+      {
+        user : game.user._id,
+        rollMode : undefined,
+      })
+    
+
     var roll = () => {
       let roll = DiceWFRP.rollTest(testData);
       DiceWFRP.renderRollCard(cardOptions, roll);
@@ -926,12 +952,17 @@ class ActorWfrp4e extends Actor {
     let title = skill.name + " Test";
     let testData = {
       target : char.value + skill.data.advances.value,
-      testDifficulty : "challenging",
-      testModifier : 0,
-      slBonus : 0,
-      successBonus : 0,
-      hitLocation : true
+      hitLocation : false
     };
+
+    if (skill.data.characteristic.value == "ws" ||
+        skill.data.characteristic.value == "bs" ||
+        skill.name.includes("Melee") ||
+        skill.name.includes("Ranged"))
+    {
+      testData.hitLocation = true;
+    }
+
     let dialogOptions = {
       title: title,
       template : "/public/systems/wfrp4e/templates/chat/skill-dialog.html",
@@ -941,12 +972,7 @@ class ActorWfrp4e extends Actor {
         }
       },
       data : {
-        testDifficulty : "challenging",
-        difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : 0,
-        slBonus : 0,
-        successBonus : 0,
-        hitLocation : true,
+        hitLocation : testData.hitLocation,
         opposed : true,
         talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
@@ -973,12 +999,10 @@ class ActorWfrp4e extends Actor {
         }
     };
     let cardOptions = {
-      user : game.user._id,
       actor : this.data.id,
       speaker: {
         alias: this.data.name,
       },
-      rollMode : undefined,
       title: title,
       template : "public/systems/wfrp4e/templates/chat/skill-card.html"
     }
@@ -1002,12 +1026,14 @@ class ActorWfrp4e extends Actor {
     let title = char.label + " Test";
     let testData = {
       target : char.value,
-      testDifficulty : "challenging",
-      testModifier : 0,
-      slBonus : 0,
-      successBonus : 0,
-      hitLocation : true
+      hitLocation : false
     };
+
+    if (characteristicId == "ws" || characteristicId == "bs")
+    {
+      testData.hitLocation = true;
+    }
+
     let dialogOptions = {
       title: title,
       template : "/public/systems/wfrp4e/templates/chat/characteristic-dialog.html",
@@ -1017,12 +1043,7 @@ class ActorWfrp4e extends Actor {
         }
       },
       data : {
-        testDifficulty : "challenging",
-        difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : 0,
-        slBonus : 0,
-        successBonus : 0,
-        hitLocation : true,
+        hitLocation : testData.hitLocation,
         opposed : true,
         talents : this.data.flags.talentTests,
       },
@@ -1043,12 +1064,10 @@ class ActorWfrp4e extends Actor {
         }
     };
     let cardOptions = {
-      user : game.user._id,
       actor : this.data.id,
       speaker: {
         alias: this.data.name,
       },
-      rollMode : undefined,
       title: title,
       template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
     }
@@ -1215,6 +1234,7 @@ class ItemWfrp4e extends Item {
 
   getChatData(htmlOptions) {
     const data = this[`_${this.data.type}ChatData`]();
+    data.description.value = data.description.value || "";
     data.description.value = enrichHTML(data.description.value, htmlOptions);
     return data;
   }
@@ -1244,7 +1264,8 @@ class ItemWfrp4e extends Item {
   _careerChatData() {
     const data = duplicate(this.data.data);
     data.properties=[];
-    data.properties.push(this.data.data.class.value);
+    data.properties.push("Class: " + this.data.data.class.value);
+    data.properties.push("Group: " + this.data.data.careergroup.value);
     data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
     data.properties.push("Skills: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("Talents: " + this.data.data.talents.map (i => i = " " + i));
@@ -2107,8 +2128,26 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.item-delete').click(ev => {
       let li = $(ev.currentTarget).parents(".item"),
         itemId = Number(li.attr("data-item-id"));
-      this.actor.deleteOwnedItem(itemId, true);
-      li.slideUp(200, () => this.render(false));
+        new Dialog({
+          title: "Delete Confirmation",
+          content: '<p>Are you sure you want to delete this item?</p>',
+          buttons: {
+            Yes: {
+              icon: '<i class="fa fa-check"></i>',
+              label: "Yes",
+              callback: dlg => {
+                this.actor.deleteOwnedItem(itemId, true);
+                li.slideUp(200, () => this.render(false));
+              }
+            },
+            cancel: {
+              icon: '<i class="fas fa-times"></i>',
+              label: "Cancel"
+            },
+          },
+          default: 'cancel'
+        }).render(true);
+
     });
 
     
