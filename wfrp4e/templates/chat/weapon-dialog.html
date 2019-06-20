@@ -43,9 +43,9 @@
     <div class="form-group">
             <label>Skill</label>
             <select name="skillSelected">
-                {{#select skillSelected}}
-                {{#each skillCharList as |skill|}}
-                    <option value="{{skill}}">{{skill}}</option>
+                {{#select defaultSelection}}
+                {{#each skillCharList as |skill index|}}
+                    <option value="{{index}}">{{skill}}</option>
                 {{/each}}
                 {{/select}}
                 </select>

@@ -43,6 +43,26 @@ CONFIG.weaponGroups = {
   "throwing": "Throwing",
 };
 
+// Given a group, what's the primary type, melee or ranged
+CONFIG.groupToType = {
+  "basic": "Melee",
+  "cavalry": "Melee",
+  "fencing": "Melee",
+  "brawling": "Melee",
+  "flail": "Melee",
+  "parry": "Melee",
+  "polearm": "Melee",
+  "twohanded": "Melee",
+  "blackpowder": "Ranged",
+  "bow": "Ranged",
+  "crossbow": "Ranged",
+  "entangling": "Ranged",
+  "engineering": "Ranged",
+  "explosives": "Ranged",
+  "sling": "Ranged",
+  "throwing": "Ranged",
+};
+
 // Weapon Groups
 CONFIG.weaponGroupDescriptions = {
   "basic": "Basic",
@@ -450,9 +470,10 @@ class DiceWFRP {
 
     var roll = () => {
       let roll = DiceWFRP.rollTest(testData);
+      if (testData.extra)
+        mergeObject(roll, testData.extra);
       DiceWFRP.renderRollCard(cardOptions, roll);
     }
-    // Render modal dialog
 
     dialogOptions.data.rollMode = rollMode;
     dialogOptions.data.rollModes = CONFIG.rollModes;
@@ -474,6 +495,18 @@ class DiceWFRP {
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
     let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+
+    if (roll.total >= 96)
+    {
+      if (SL > -1)
+        SL = -1;
+    }
+    else if (roll.total <= 5)
+    {
+      if (SL < 1)
+        SL = 1; 
+    }
+
     let description;
 
     if (SL > 0){
@@ -498,6 +531,32 @@ class DiceWFRP {
       }
     }
 
+    switch(Math.abs(Number(SL)))
+    {
+      case 6:
+        description = "Astounding " + description;
+        break;
+      
+      case 5:
+      case 4:
+        description = "Impressive " + description;
+        break;
+
+      case 3:
+      case 2:
+        break;
+
+      case 1:
+      case 0:
+        description = "Marginal " + description;
+        break;
+
+      default: 
+        if (Math.abs(Number(SL)) > 6)
+          description = "Astounding " + description;
+
+    }
+
     let rollResults={
       target: targetNum,
       roll: roll.total,
@@ -508,7 +567,11 @@ class DiceWFRP {
     return rollResults;
    } 
 
-   static renderRollCard(chatOptions, chatData) {
+   static renderRollCard(chatOptions, testData) {
+     let chatData = {
+       title : chatOptions.title,
+       testData : testData
+     }
     // Generate HTML from the requested chat template
     return renderTemplate(chatOptions.template, chatData).then(html => {
       
@@ -1080,7 +1143,7 @@ class ActorWfrp4e extends Actor {
    */
   rollWeapon(weapon, event) {
     let skillCharList = [];
-    let title = "Weapon Test";
+    let title = "Weapon Test - " + weapon.name;
     if (weapon.data.reach.value)
     {
       skillCharList.push("Weapon Skill")
@@ -1097,13 +1160,12 @@ class ActorWfrp4e extends Actor {
     }
     let testData = {
       target : 0,
-      hitLocation : false
+      hitLocation : true,
+      extra : {
+        weapon : weapon
+      }
     };
-
-    testData.hitLocation = true;
-
-    testData.weapon = weapon;
-    let defaultSelection = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
+    let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
 
     let dialogOptions = {
       title: title,
@@ -1117,7 +1179,7 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         skillCharList : skillCharList,
-        skillSelected : CONFIG.weaponGroups[weapon.data.weaponGroup.value] 
+        defaultSelection : skillCharList.indexOf(defaultSelection)
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -1125,11 +1187,11 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        let skillSelected = html.find('[name="skillSelected"]').val();
+        let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
         if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
         {
-          testData.weapon.data.qualities.value = "";
-          testData.weapon = WFRP_Utility._prepareQualitiesFlaws(testData.weapon)
+          testData.extra.weapon.data.qualities.value = "";
+          testData.extra.weapon = WFRP_Utility._prepareQualitiesFlaws(testData.extra.weapon)
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -1139,7 +1201,7 @@ class ActorWfrp4e extends Actor {
         }
         else{
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
-          testData.weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(testData.weapon)
+          testData.extra.weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(testData.extra.weapon)
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
           + testData.testModifier 
           + testData.testDifficulty
@@ -1160,7 +1222,7 @@ class ActorWfrp4e extends Actor {
         alias: this.data.name,
       },
       title: title,
-      template : "public/systems/wfrp4e/templates/chat/weapon-card.html"
+      template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
     }
     // Call the roll helper utility
     DiceWFRP.prepareTest({
