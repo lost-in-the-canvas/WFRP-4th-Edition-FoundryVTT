@@ -1,20 +1,24 @@
-<div class="dnd5e chat-card weapon-card" data-actor-id="{{actor._id}}" data-item-id="{{item.id}}">
-    <header class="card-header flexrow">
-        <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
-        <h3>{{item.name}}</h3>
-    </header>
+<div class="wfrp4e chat-card" data-actor-id="{{actorId}}"  roll-SL = {{SL}}  roll-result = {{roll}} roll-target = {{target}}>
 
-    <div class="card-content">{{{data.description.value}}}</div>
-
-    <div class="card-buttons">
-        <button data-action="weaponAttack">Attack</button>
-        {{#if data.damage.value}}<button data-action="weaponDamage">Damage</button>{{/if}}
-        {{#if data.damage2.value}}<button data-action="weaponDamage2">Alt. Damage</button>{{/if}}
+    <div class="card-content" >
+        Target: {{target}}
     </div>
 
-    <footer class="card-footer">
-        {{#each data.properties}}
-        <span>{{this}}</span>
-        {{/each}}
-    </footer>
+    <div class="card-content" >
+        Roll: {{roll}}
+    </div>
+    
+    <div class="card-content">
+        SL: {{SL}}
+    </div>
+    
+    <div class="card-content" roll-desrciption = {{description}}>
+        Description: {{description}}
+    </div>
+
+   <!-- {{#if opposed}}
+    <div class ="card-buttons">
+        <button class = "oppose-button">Oppose</button>
+    </div>
+    {{/if}}-->
 </div>

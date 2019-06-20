@@ -940,6 +940,70 @@ class ActorWfrp4e extends Actor {
   /*  Rolls                                       */
   /* -------------------------------------------- */
 
+
+  /**
+   * Roll a generic ability test or saving throw.
+   * Prompt the user for input on which variety of roll they want to do.
+   * @param {String}abilityId     The ability id (e.g. "str")
+   * @param {Object} options      Options which configure how ability tests or saving throws are rolled
+   */
+  rollCharacteristic(characteristicId, options) {
+    let char = this.data.data.characteristics[characteristicId];
+    let title = char.label + " Test";
+    let testData = {
+      target : char.value,
+      hitLocation : false
+    };
+
+    if (characteristicId == "ws" || characteristicId == "bs")
+    {
+      testData.hitLocation = true;
+    }
+
+    let dialogOptions = {
+      title: title,
+      template : "/public/systems/wfrp4e/templates/chat/characteristic-dialog.html",
+      buttons : {
+        rollButton : {
+          label: "Roll"
+        }
+      },
+      data : {
+        hitLocation : testData.hitLocation,
+        talents : this.data.flags.talentTests,
+      },
+      callback : (html, roll) => {
+        cardOptions.rollMode = html.find('[name="rollMode"]').val();
+        testData.testModifier = Number(html.find('[name="testModifier"]').val());
+        testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+        testData.successBonus = Number(html.find('[name="successBonus"]').val());
+        testData.slBonus = Number(html.find('[name="slBonus"]').val());
+        testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        let talentBonuses = html.find('[name = "talentBonuses"]').val();
+        testData.successBonus += talentBonuses.reduce(function (prev, cur){
+          return prev + Number(cur)
+        }, 0)
+        roll();
+        }
+    };
+    let cardOptions = {
+      actor : this.data.id,
+      speaker: {
+        alias: this.data.name,
+      },
+      title: title,
+      template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
+    }
+    // Call the roll helper utility
+    DiceWFRP.prepareTest({
+      dialogOptions : dialogOptions,
+      testData : testData,
+      cardOptions : cardOptions});
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Roll a Skill Check
    * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
@@ -987,7 +1051,6 @@ class ActorWfrp4e extends Actor {
                              + testData.testDifficulty
                              + skill.data.advances.value;
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
-        console.log(testData.hitLocation);
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
           return prev + Number(cur)
@@ -1010,30 +1073,41 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Roll a generic ability test or saving throw.
-   * Prompt the user for input on which variety of roll they want to do.
-   * @param {String}abilityId     The ability id (e.g. "str")
-   * @param {Object} options      Options which configure how ability tests or saving throws are rolled
+    /**
+   * Roll a Skill Check
+   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
+   * @param skill {String}    The skill id
    */
-  rollCharacteristic(characteristicId, options) {
-    let char = this.data.data.characteristics[characteristicId];
-    let title = char.label + " Test";
+  rollWeapon(weapon, event) {
+    let skillCharList = [];
+    let title = "Weapon Test";
+    if (weapon.data.reach.value)
+    {
+      skillCharList.push("Weapon Skill")
+      let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
+      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
+        skillCharList.push(skill);
+    }
+    if (weapon.data.range.value)
+    {
+      skillCharList.push("Ballistic Skill")
+      let skill = "Ranged (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
+      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
+        skillCharList.push(skill);
+    }
     let testData = {
-      target : char.value,
+      target : 0,
       hitLocation : false
     };
 
-    if (characteristicId == "ws" || characteristicId == "bs")
-    {
-      testData.hitLocation = true;
-    }
+    testData.hitLocation = true;
+
+    testData.weapon = weapon;
+    let defaultSelection = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     let dialogOptions = {
       title: title,
-      template : "/public/systems/wfrp4e/templates/chat/characteristic-dialog.html",
+      template : "/public/systems/wfrp4e/templates/chat/weapon-dialog.html",
       buttons : {
         rollButton : {
           label: "Roll"
@@ -1042,6 +1116,8 @@ class ActorWfrp4e extends Actor {
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
+        skillCharList : skillCharList,
+        skillSelected : CONFIG.weaponGroups[weapon.data.weaponGroup.value] 
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -1049,9 +1125,28 @@ class ActorWfrp4e extends Actor {
         testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
         testData.successBonus = Number(html.find('[name="successBonus"]').val());
         testData.slBonus = Number(html.find('[name="slBonus"]').val());
-        testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
+        let skillSelected = html.find('[name="skillSelected"]').val();
+        if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
+        {
+          testData.weapon.data.qualities.value = "";
+          testData.weapon = WFRP_Utility._prepareQualitiesFlaws(testData.weapon)
+          if (skillSelected == "Weapon Skill")
+            testData.target = this.data.data.characteristics.ws.value
+          else if (skillSelected == "Ballistic Skill")
+            testData.target = this.data.data.characteristics.bs.value
+
+          testData.target += testData.testModifier + testData.testDifficulty;
+        }
+        else{
+          let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
+          testData.weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(testData.weapon)
+          testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
+          + testData.testModifier 
+          + testData.testDifficulty
+          + skillUsed.data.advances.value;
+        }
+
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
-        console.log(testData.hitLocation);
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
           return prev + Number(cur)
@@ -1065,7 +1160,7 @@ class ActorWfrp4e extends Actor {
         alias: this.data.name,
       },
       title: title,
-      template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
+      template : "public/systems/wfrp4e/templates/chat/weapon-card.html"
     }
     // Call the roll helper utility
     DiceWFRP.prepareTest({
@@ -1073,6 +1168,7 @@ class ActorWfrp4e extends Actor {
       testData : testData,
       cardOptions : cardOptions});
   }
+
 
   /* -------------------------------------------- */
 
@@ -1277,7 +1373,7 @@ class ItemWfrp4e extends Item {
 
   _spellChatData() {
     const data = duplicate(this.data.data);
-    let preparedSpell = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
     data.properties = [];
     data.properties.push("Range: " + preparedSpell.range);
     data.properties.push("Target: " + preparedSpell.target);
@@ -1290,7 +1386,7 @@ class ItemWfrp4e extends Item {
 
    _prayerChatData() {
     const data = duplicate(this.data.data);
-    let preparedPrayer = this.actor.apps[0]._prepareSpellOrPrayer(this.actor.data, this.data);
+    let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
     data.properties = [];
     data.properties.push("Range: " + preparedPrayer.range);
     data.properties.push("Target: " + preparedPrayer.target);
@@ -1309,7 +1405,7 @@ class ItemWfrp4e extends Item {
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
-    for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
+    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
     properties = properties.filter(p => p != "Special");
     if (data.special.value)
@@ -1325,7 +1421,7 @@ class ItemWfrp4e extends Item {
      //if (data.currentAP.value == -1 || data.currentAP.value == data.maxAP.value)
      // properties.push("AP: " data.maxAP.value)
      properties.push(CONFIG.armorTypes[data.armorType.value]);
-     for (let prop of this.actor.apps[0]._prepareQualitiesFlaws(this.data))
+     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
        properties.push(prop);
      properties.push(data.penalty.value);
  
@@ -1959,63 +2055,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   _prepareTraits(traits) {
   }
 
-  _prepareSpellOrPrayer(actorData, item) {
-    
-    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
-    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
-    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
-    
-    if (item.type == "spell" && !item.data.memorized.value )
-    item.data.cn.value *= 2;
-    
-    return item;
-  }
-
-  _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
-
-    skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
-    skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
-    skill.data.characteristic.value = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
-
-    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
-      advOrGrpSkills.push(skill)
-    else
-      basicSkills.push(skill);
-   }
-
-  _prepareTalent(actorData, talentList, talent) {
-    let existingTalent = talentList.find(t => t.name == talent.name)
-    if (existingTalent){
-      if (!existingTalent.numMax){
-        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
-      }
-      if (existingTalent.data.advances.value < existingTalent.numMax){
-        existingTalent.data.advances.value++;
-      }
-    }
-    else{
-      switch(talent.data.max.value){
-        case '1':
-        talent["numMax"] = 1;
-        break;
-
-        case '2':
-        talent["numMax"] = 2;
-        break;
-
-        case 'none':
-        talent["numMax"] = null;
-        break;
-
-        default:
-        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
-      }
-      talentList.push(talent);
-    }
-
-
-   }
-
+ 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -2104,6 +2144,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       let skill = this.actor.items.find(i => i.id === itemId);
       this.actor.rollSkill(skill, event);
     })    
+
+    html.find('.weapon-name').click(event => {
+      event.preventDefault();
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let weapon = this.actor.items.find(i => i.id === itemId);
+      this.actor.rollWeapon(weapon, event);
+    })  
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -2567,12 +2614,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === "talent")
       {
-        this._prepareTalent(actorData, talents, i);
+        WFRP_Utility._prepareTalent(actorData, i, talents);
       }
 
       else if ( i.type === "skill" )
       {
-        this._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+        WFRP_Utility._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
       }
 
 
@@ -2611,7 +2658,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           inContainers.push(i);
         }
         if (i.data.equipped)
-          this._prepareWeaponCombat(actorData, i, weapons);
+          weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
+      
       }
 
       else if (i.type === "armour")
@@ -2628,7 +2676,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         }
 
         if (i.data.worn.value)
-          this._prepareArmorCombat(actorData, i, armour, AP)
+          armour.push(WFRP_Utility._prepareArmorCombat(actorData, i, AP));
       }
 
       else if (i.type == "injury")
@@ -2681,17 +2729,17 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       else if (i.type === "spell")
       {
         if (i.data.lore.value == "petty")
-          petty.push(this._prepareSpellOrPrayer(actorData, i));
+          petty.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
         else
-          grimoire.push(this._prepareSpellOrPrayer(actorData, i));
+          grimoire.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "prayer")
       {
         if (i.data.type.value == "blessing")
-          blessings.push(this._prepareSpellOrPrayer(actorData, i));
+          blessings.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
         else
-          miracles.push(this._prepareSpellOrPrayer(actorData, i));
+          miracles.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
       }
 
       else if (i.type === "career")
@@ -2778,6 +2826,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     for (let talent of talents)
       if (talent.data.tests.value)
         this.actor.data.flags.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
+    this.actor.data.flags.combatSkills = [];
+    for (let skill of basicSkills.concat(advancedOrGroupedSkills))
+      if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
+        this.actor.data.flags.combatSkills.push(skill);
 
     actorData.inventory = inventory;
     actorData.containers = containers;
@@ -2787,7 +2839,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.traits = traits;
     actorData.weapons = weapons;
     actorData.armour = armour;
-    actorData.armorPenalties = this._calculateArmorPenalties(actorData, armour);
+    actorData.armorPenalties = WFRP_Utility._calculateArmorPenalties(actorData, armour);
     actorData.AP = AP;
     actorData.injuries = injuries;
     actorData.grimoire = grimoire;
@@ -2813,320 +2865,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     enc.state = Math.floor(enc.value / enc.max);
     actorData.encumbrance = enc;
   }
-
-
-  // Prepare a weapon to be displayed in the combat tab (assign ammo, calculate range, organize qualities/flaws)
-  _prepareWeaponCombat(actorData, weapon, weaponList){
-    weapon["properties"] = this._prepareQualitiesFlaws(weapon);
-    weapon.data.reach.value = CONFIG.weaponReaches[weapon.data.reach.value];
-    weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
-
-    weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.value = this._calculateRangeOrDamage(actorData, weapon.data.damage.value);
-
-    if (Number(weapon.data.range.value) > 0)
-        weapon["rangedWeaponType"] = true;
-    if (weapon.data.reach.value)
-      weapon["meleeWeaponType"] = true;
-
-    // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
-    if (weapon.data.ammunitionGroup.value != "none") {
-      weapon["ammo"] = [];
-      for ( let a of actorData.items ) {
-        if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
-       //aggregate ammo option
-        /* {
-          let existingAmmo = i.ammo.find(x => x.name == a.name);
-          if (existingAmmo)
-            existingAmmo.data.quantity.value += a.data.quantity.value;
-          else
-          {*/
-            weapon.ammo.push(a);
-          //}
-       // }
-      }
-      this._prepareWeaponWithAmmo(actorData, weapon);
-    }
-    weapon.properties = weapon.properties.filter(function(item) {return item != ""});
-    weaponList.push(weapon);
-  }
-
-  // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
-  _prepareArmorCombat(actorData, armor, armorList, AP){ // -1 means currentAP is maxAP
-    for (let ap in armor.data.currentAP)
-    {
-      if (armor.data.currentAP[ap] == -1)
-      {
-        armor.data.currentAP[ap] = armor.data.maxAP[ap];
-      }
-    }
-
-    if (armor.data.maxAP.head > 0)
-    {
-      armor["protectsHead"] = true;
-      AP.head += armor.data.currentAP.head;
-    }
-    if (armor.data.maxAP.body > 0)
-    {
-      armor["protectsBody"] = true;
-      AP.body += armor.data.currentAP.body;
-    }
-    if (armor.data.maxAP.lArm > 0)
-    {
-      armor["protectslArm"] = true;
-      AP.lArm += armor.data.currentAP.lArm;
-    }      
-    if (armor.data.maxAP.rArm > 0)
-    {
-      armor["protectsrArm"] = true;
-      AP.rArm += armor.data.currentAP.rArm;
-    }
-    if (armor.data.maxAP.lLeg > 0)
-    {
-      armor["protectslLeg"] = true;
-      AP.lLeg += armor.data.currentAP.lLeg;
-    }
-    if (armor.data.maxAP.rLeg > 0)
-    {
-      armor["protectsrLeg"] = true
-      AP.rLeg += armor.data.currentAP.rLeg;
-    }
-    // armor.properties = armor.properties.filter(function(item) {return item != ""});  
-    armorList.push(armor);
-  }
-
-  _prepareQualitiesFlaws(item){
-    let qualities = item.data.qualities.value.split(",").map(function(item) {
-      return item.trim();
-    });
-    let flaws = item.data.flaws.value.split(",").map(function(item) {
-      return item.trim();
-    });
-
-    // Commented code is part of process of removing unrecognized qualities/flaws
-    // Unsure if this should even be done (it won't allow people to make up their own)
-    /*let invalidQualities = [];
-    let invalidFlaws = [];
-    for (let q in Object.values(qualities))
-    {
-      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
-      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
-      {
-        invalidQualities.push(q)
-      }
-    }
-
-    for (let f in Object.values(flaws))
-    {
-      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
-      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
-      {
-        invalidFlaws.push(f)
-      }
-    } */
-
-    // Remove Invalid qualities/flaws
-
-
-    if (!item.data.special.value)
-      return qualities.concat(flaws).sort();
-    else
-      return qualities.concat(flaws).sort().concat("Special");
-    
-
-  }
-
-  _calculateArmorPenalties(actorData, armorList){
-    // Parsing armor penalties for the combat tab
-    let armorPenalties = {skill: [], penalty: []}
-    let armorPenaltiesString = "";
-    let wearingMail = false;
-    let wearingPlate = false;
-    for (let a of armorList)
-    {
-      if (a.data.armorType.value == "mail")
-        wearingMail = true;
-      else if (a.data.armorType.value == "plate")
-        wearingPlate = true;
-
-      if (a.data.penalty.value.trim() == "")
-        continue;
-      
-      let penalties = a.data.penalty.value.split(",").map(function(item) {
-        return item.trim();
-      });
-
-      for(let p of penalties)
-      {
-        let penaltyandSkill = p.split(" ").map(function(item) {
-          return item.trim();
-        });
-        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
-
-        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
-        if (existingPenalty == -1)
-        {
-          armorPenalties.skill.push(penaltyandSkill[1]);
-          armorPenalties.penalty.push(penaltyandSkill[0]);
-        }
-        else
-        {
-          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
-        }
-      }
-    }
-
-    if (wearingMail || wearingPlate)
-    {
-      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      if (stealthPenalty == -1)
-      {
-        armorPenalties.skill.push("Stealth");
-        armorPenalties.penalty.push(0);
-        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      }
-
-      if (wearingMail)
-        armorPenalties.penalty[stealthPenalty] += -10;
-      if (wearingPlate)
-        armorPenalties.penalty[stealthPenalty] += -10;
-    }
-
-    for (let i = 0; i < armorPenalties.skill.length; i++)
-    {
-      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
-      if (i != armorPenalties.skill.length - 1)
-        armorPenaltiesString = armorPenaltiesString.concat(", ");
-
-    }
-    return armorPenaltiesString;
-  }
-
-
-
-  
-  _calculateRangeOrDamage(actorData, formula){    
-    formula = formula.toLowerCase();
-
-    for(let ch in actorData.data.characteristics)
-    {
-      if (formula.includes(ch.concat('b')))
-      {
-        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
-      }
-    }
-    formula = formula.replace('x', '*');
-    
-    return eval(formula);
-  }
-
-  _prepareWeaponWithAmmo(actorData, weapon){    
-    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
-    if (!ammo)
-      return;
-
-    let ammoProperties = this._prepareQualitiesFlaws(ammo);
-    let ammoRange = ammo.data.range.value || "0";
-    let ammoDamage = ammo.data.damage.value || "0";
-
-    if (ammoRange.toLowerCase() == "as weapon")
-    {
-      // Do nothing to weapon's range
-    }
-    else if (ammoRange.toLowerCase() == "half weapon")
-    {
-      weapon.data.range.value /= 2;
-    }
-    else if (ammoRange.toLowerCase() == "third weapon")
-    {
-      weapon.data.range.value /= 3;
-    }
-    else if (ammoRange.toLowerCase() == "twice weapon") 
-    {
-      weapon.data.range.value *= 2;
-    }
-    else
-      weapon.data.range.value += eval(ammoRange)
-
-    weapon.data.damage.value += eval(ammoDamage);
-    
-    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
-    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
-
-    let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
-
-    for (let inc in propertyIncrease)
-    {
-      let index = inc.indexOf("+");
-      let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
-      {
-        //TODO
-        // This section is for ammo that increases a quality
-        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
-      }
-      else
-      {
-        weapon.properties.push(property + " " + value);
-      }
-    }
-    for (let inc in propertyDecrease)
-    {
-      let index = inc.indexOf("-");
-      let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
-      {
-        //TODO
-        // This section is for ammo that decreases a quality
-        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 3
-      }
-      else
-      {
-        weapon.properties.push(property + " " + value);
-      }
-    }
-
-    weapon.properties = weapon.properties.concat(propertiesToAdd);
-  }
-
-    
-  _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
-    formula = formula.toLowerCase();
-
-    if (formula == "you")
-      return "You"
-
-    if (formula == "special")
-      return "Special"
-
-      if (formula == "instant")
-      return "Instant"
-
-    for(let ch in actorData.data.characteristics)
-    {
-
-      if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
-      {
-        if (formula.includes('bonus'))
-        {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
-        }
-        else 
-        {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
-        }
-      } 
-    }
-    
-    if (aoe)
-      formula = "AoE (" + formula + ")";
-    return formula;
-  }
-
-
-  /* -------------------------------------------- */
+ /* -------------------------------------------- */
 
   /**
    * Compute the weight of carried currency across all denominations by applying the standard rule from the
@@ -3303,6 +3042,377 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eNPC, {
 
 
 
+class WFRP_Utility
+{
+
+  static _prepareSpellOrPrayer(actorData, item) {
+    
+    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
+    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
+    
+    if (item.type == "spell" && !item.data.memorized.value )
+    item.data.cn.value *= 2;
+    
+    return item;
+  }
+
+  static _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
+
+    skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
+    skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
+    skill.data.characteristic.abrev = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
+
+    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
+      advOrGrpSkills.push(skill)
+    else
+      basicSkills.push(skill);
+   }
+
+   static  _prepareTalent(actorData, talent, talentList) {
+    let existingTalent = talentList.find(t => t.name == talent.name)
+    if (existingTalent){
+      if (!existingTalent.numMax){
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+      if (existingTalent.data.advances.value < existingTalent.numMax){
+        existingTalent.data.advances.value++;
+      }
+    }
+    else{
+      switch(talent.data.max.value){
+        case '1':
+        talent["numMax"] = 1;
+        break;
+
+        case '2':
+        talent["numMax"] = 2;
+        break;
+
+        case 'none':
+        talent["numMax"] = null;
+        break;
+
+        default:
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+      talentList.push(talent);
+    }
+   }
+
+  // Prepare a weapon to be displayed in the combat tab (assign ammo, calculate range, organize qualities/flaws)
+  static _prepareWeaponCombat(actorData, weapon){
+    weapon["properties"] = this._prepareQualitiesFlaws(weapon);
+    weapon.data.reach.value = CONFIG.weaponReaches[weapon.data.reach.value];
+    weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
+
+    weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
+    weapon.data.damage.value = this._calculateRangeOrDamage(actorData, weapon.data.damage.value);
+
+    if (Number(weapon.data.range.value) > 0)
+        weapon["rangedWeaponType"] = true;
+    if (weapon.data.reach.value)
+      weapon["meleeWeaponType"] = true;
+
+    // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
+    if (weapon.data.ammunitionGroup.value != "none") {
+      weapon["ammo"] = [];
+      for ( let a of actorData.items ) {
+        if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
+       //aggregate ammo option
+        /* {
+          let existingAmmo = i.ammo.find(x => x.name == a.name);
+          if (existingAmmo)
+            existingAmmo.data.quantity.value += a.data.quantity.value;
+          else
+          {*/
+            weapon.ammo.push(a);
+          //}
+       // }
+      }
+      this._prepareWeaponWithAmmo(actorData, weapon);
+    }
+    weapon.properties = weapon.properties.filter(function(item) {return item != ""});
+    return weapon;
+  }
+
+  // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
+  static _prepareArmorCombat(actorData, armor, AP){ // -1 means currentAP is maxAP
+    for (let ap in armor.data.currentAP)
+    {
+      if (armor.data.currentAP[ap] == -1)
+      {
+        armor.data.currentAP[ap] = armor.data.maxAP[ap];
+      }
+    }
+
+    if (armor.data.maxAP.head > 0)
+    {
+      armor["protectsHead"] = true;
+      AP.head += armor.data.currentAP.head;
+    }
+    if (armor.data.maxAP.body > 0)
+    {
+      armor["protectsBody"] = true;
+      AP.body += armor.data.currentAP.body;
+    }
+    if (armor.data.maxAP.lArm > 0)
+    {
+      armor["protectslArm"] = true;
+      AP.lArm += armor.data.currentAP.lArm;
+    }      
+    if (armor.data.maxAP.rArm > 0)
+    {
+      armor["protectsrArm"] = true;
+      AP.rArm += armor.data.currentAP.rArm;
+    }
+    if (armor.data.maxAP.lLeg > 0)
+    {
+      armor["protectslLeg"] = true;
+      AP.lLeg += armor.data.currentAP.lLeg;
+    }
+    if (armor.data.maxAP.rLeg > 0)
+    {
+      armor["protectsrLeg"] = true
+      AP.rLeg += armor.data.currentAP.rLeg;
+    }
+    // armor.properties = armor.properties.filter(function(item) {return item != ""});  
+    return armor;
+  }
+
+  static _prepareQualitiesFlaws(item){
+    let qualities = item.data.qualities.value.split(",").map(function(item) {
+      if (item)
+        return item.trim();
+    });
+    let flaws = item.data.flaws.value.split(",").map(function(item) {
+      if (item)
+        return item.trim();
+    });
+
+    // Commented code is part of process of removing unrecognized qualities/flaws
+    // Unsure if this should even be done (it won't allow people to make up their own)
+    /*let invalidQualities = [];
+    let invalidFlaws = [];
+    for (let q in Object.values(qualities))
+    {
+      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
+      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
+      {
+        invalidQualities.push(q)
+      }
+    }
+
+    for (let f in Object.values(flaws))
+    {
+      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
+      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
+      {
+        invalidFlaws.push(f)
+      }
+    } */
+
+    // Remove Invalid qualities/flaws
+
+
+    if (!item.data.special.value)
+      return qualities.concat(flaws).sort();
+    else
+      return qualities.concat(flaws).sort().concat("Special");
+    
+
+  }
+
+  static _calculateArmorPenalties(actorData, armorList){
+    // Parsing armor penalties for the combat tab
+    let armorPenalties = {skill: [], penalty: []}
+    let armorPenaltiesString = "";
+    let wearingMail = false;
+    let wearingPlate = false;
+    for (let a of armorList)
+    {
+      if (a.data.armorType.value == "mail")
+        wearingMail = true;
+      else if (a.data.armorType.value == "plate")
+        wearingPlate = true;
+
+      if (a.data.penalty.value.trim() == "")
+        continue;
+      
+      let penalties = a.data.penalty.value.split(",").map(function(item) {
+        return item.trim();
+      });
+
+      for(let p of penalties)
+      {
+        let penaltyandSkill = p.split(" ").map(function(item) {
+          return item.trim();
+        });
+        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
+
+        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
+        if (existingPenalty == -1)
+        {
+          armorPenalties.skill.push(penaltyandSkill[1]);
+          armorPenalties.penalty.push(penaltyandSkill[0]);
+        }
+        else
+        {
+          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
+        }
+      }
+    }
+
+    if (wearingMail || wearingPlate)
+    {
+      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      if (stealthPenalty == -1)
+      {
+        armorPenalties.skill.push("Stealth");
+        armorPenalties.penalty.push(0);
+        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
+      }
+
+      if (wearingMail)
+        armorPenalties.penalty[stealthPenalty] += -10;
+      if (wearingPlate)
+        armorPenalties.penalty[stealthPenalty] += -10;
+    }
+
+    for (let i = 0; i < armorPenalties.skill.length; i++)
+    {
+      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
+      if (i != armorPenalties.skill.length - 1)
+        armorPenaltiesString = armorPenaltiesString.concat(", ");
+
+    }
+    return armorPenaltiesString;
+  }
+
+
+
+  
+  static _calculateRangeOrDamage(actorData, formula){    
+    formula = formula.toLowerCase();
+
+    for(let ch in actorData.data.characteristics)
+    {
+      if (formula.includes(ch.concat('b')))
+      {
+        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+      }
+    }
+    formula = formula.replace('x', '*');
+    
+    return eval(formula);
+  }
+
+  static _prepareWeaponWithAmmo(actorData, weapon){    
+    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    if (!ammo)
+      return;
+
+    let ammoProperties = this._prepareQualitiesFlaws(ammo);
+    let ammoRange = ammo.data.range.value || "0";
+    let ammoDamage = ammo.data.damage.value || "0";
+
+    if (ammoRange.toLowerCase() == "as weapon")
+    {
+      // Do nothing to weapon's range
+    }
+    else if (ammoRange.toLowerCase() == "half weapon")
+    {
+      weapon.data.range.value /= 2;
+    }
+    else if (ammoRange.toLowerCase() == "third weapon")
+    {
+      weapon.data.range.value /= 3;
+    }
+    else if (ammoRange.toLowerCase() == "twice weapon") 
+    {
+      weapon.data.range.value *= 2;
+    }
+    else
+      weapon.data.range.value += eval(ammoRange)
+
+    weapon.data.damage.value += eval(ammoDamage);
+    
+    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
+    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
+
+    let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
+
+    for (let inc in propertyIncrease)
+    {
+      let index = inc.indexOf("+");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+        //TODO
+        // This section is for ammo that increases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+    for (let inc in propertyDecrease)
+    {
+      let index = inc.indexOf("-");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, property.length);
+      if (weapon.properties.includes(property))
+      {
+        //TODO
+        // This section is for ammo that decreases a quality
+        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 3
+      }
+      else
+      {
+        weapon.properties.push(property + " " + value);
+      }
+    }
+
+    weapon.properties = weapon.properties.concat(propertiesToAdd);
+  }
+
+    
+  static _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
+    formula = formula.toLowerCase();
+
+    if (formula == "you")
+      return "You"
+
+    if (formula == "special")
+      return "Special"
+
+      if (formula == "instant")
+      return "Instant"
+
+    for(let ch in actorData.data.characteristics)
+    {
+
+      if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      {
+        if (formula.includes('bonus'))
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+        }
+        else 
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+        }
+      } 
+    }
+    
+    if (aoe)
+      formula = "AoE (" + formula + ")";
+    return formula;
+  }
+
+}
 
 
 /* -------------------------------------------- */
