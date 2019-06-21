@@ -567,6 +567,56 @@ class DiceWFRP {
     return rollResults;
    } 
 
+   static rollCastTest(testData, spell){
+      let testResults = this.rollTest(testData);
+      if (spell.data.cn.SL >= spell.data.cn.value)
+        spell.data.cn.value = 0;
+      spell.data.cn.SL = 0;
+
+      let slOver = (Number(SL) - spell.data.cn.value)
+      if (slOver < 0 || testResults.total > testResults.target)
+      {
+        testResults.description = "Casting Failed"
+      }
+      // TODO: Miscasts
+      else
+      {
+        testResults.desscription = "Casting Succeeded"
+        let overcasts = Math.floor(slOver / 2);
+        testResults.overcasts = overcasts;
+      }
+      return testResults;
+   } 
+
+   static rollCastTest(testData, spell){
+    let testResults = this.rollTest(testData);
+    let SL = Number(testResults.SL);
+    if (testResults.total > testResults.target)
+    {
+      if (SL == 0)
+        testResults.SL = -1; // TODO: OPTIONAL RULE - extended tests resulting in +0 or -0 are counted as +1 and -1 respectively
+      testResults.description = "Channelling Failed"
+      spell.data.cn.SL += SL;
+      if (testResults.total % 11 == 0 || testResults.total % 10 == 0)
+      {// TODO: Miscast
+      }
+    }
+    else
+    {
+      if (SL == 0)
+        testResults.SL = 1; // TODO: OPTIONAL RULE - extended tests resulting in +0 or -0 are counted as +1 and -1 respectively
+      testResults.desscription = "Channelling Succeeded"
+      testResults.overcasts = overcasts;
+      spell.data.cn.SL += SL;
+      if (spell.data.cn.SL > spell.data.cn.value || testResults.total % 11 == 0)
+        spell.data.cn.SL = spell.data.cn.value;
+        // TODO: Miscasts
+
+    }
+    return testResults;
+ } 
+
+
    static renderRollCard(chatOptions, testData) {
      let chatData = {
        title : chatOptions.title,
@@ -1143,17 +1193,36 @@ class ActorWfrp4e extends Actor {
    */
   rollWeapon(weapon, event) {
     let skillCharList = [];
+    let ammo;
     let title = "Weapon Test - " + weapon.name;
-    if (weapon.data.reach.value)
+    if (event.attackType == "melee")
     {
       skillCharList.push("Weapon Skill")
       let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
       if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
         skillCharList.push(skill);
     }
-    if (weapon.data.range.value)
+    if (event.attackType == "ranged")
     {
       skillCharList.push("Ballistic Skill")
+      if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
+      { 
+        ammo = this.items.find(i => i.id == weapon.data.currentAmmo.value);
+        if (weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
+        {
+          ui.notifications.error("No Ammo!")
+          return
+        }
+      }
+      else if (weapon.data.quantity.value == 0)
+      {
+        ui.notifications.error("No Ammo!") 
+        return;
+      }
+      else
+      {
+        ammo = weapon;
+      }
       let skill = "Ranged (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
       if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
         skillCharList.push(skill);
@@ -1162,7 +1231,8 @@ class ActorWfrp4e extends Actor {
       target : 0,
       hitLocation : true,
       extra : {
-        weapon : weapon
+        weapon : weapon,
+        ammo : ammo
       }
     };
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
@@ -1214,7 +1284,12 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
         roll();
+        if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup != "entangling")
+        {
+          ammo.data.quantity.value--;
+          this.updateOwnedItem(ammo);
         }
+      }
     };
     let cardOptions = {
       actor : this.data.id,
@@ -1223,6 +1298,89 @@ class ActorWfrp4e extends Actor {
       },
       title: title,
       template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
+    }
+    // Call the roll helper utility
+    DiceWFRP.prepareTest({
+      dialogOptions : dialogOptions,
+      testData : testData,
+      cardOptions : cardOptions});
+  }
+
+
+  rollSpell(spell, options) {
+    new Dialog({
+      title: "Cast or Channell",
+      content: '<p>Cast or Channell this spell?</p>',
+      buttons: {
+        cast: {
+          label: "Cast",
+          callback: dlg => {
+            this.rollCast(spell, options);
+          }
+        },
+        channell: {
+          label: "Channell",
+          callback: dlg => {
+            this.rollChannel(spell, options);
+
+          }
+        },
+      },
+      default: 'cast'
+    }).render(true);
+  }
+
+  rollCast(spell, options) {
+    let title = "Casting Test";
+    let castSkill = actor.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
+    if (!castSkill)
+    {
+      ui.notifications.error("You need Language (Magick) to cast a spell")
+      return; 
+    }
+    let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
+    let testData = {
+      target : castSkill.data.advances.value + this.data.data.characteristics[castSkill.data.characteristic.value],
+      hitLocation : true,
+      malignantInfluence : false
+    };
+
+    let dialogOptions = {
+      title: title,
+      template : "/public/systems/wfrp4e/templates/chat/spell-dialog.html",
+      buttons : {
+        rollButton : {
+          label: "Roll"
+        }
+      },
+      data : {
+        hitLocation : testData.hitLocation,
+        malignantInfluence : testData.malignantInfluence,
+        talents : this.data.flags.talentTests,
+      },
+      callback : (html, roll) => {
+        cardOptions.rollMode = html.find('[name="rollMode"]').val();
+        testData.testModifier = Number(html.find('[name="testModifier"]').val());
+        testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+        testData.successBonus = Number(html.find('[name="successBonus"]').val());
+        testData.slBonus = Number(html.find('[name="slBonus"]').val());
+        testData.target = testData.target + testData.testModifier + testData.testDifficulty; 
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        testData.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
+        let talentBonuses = html.find('[name = "talentBonuses"]').val();
+        testData.successBonus += talentBonuses.reduce(function (prev, cur){
+          return prev + Number(cur)
+        }, 0)
+        roll();
+        }
+    };
+    let cardOptions = {
+      actor : this.data.id,
+      speaker: {
+        alias: this.data.name,
+      },
+      title: title,
+      template : "public/systems/wfrp4e/templates/chat/spell-card.html"
     }
     // Call the roll helper utility
     DiceWFRP.prepareTest({
@@ -2210,8 +2368,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollWeapon(weapon, event);
+      this.actor.rollWeapon(weapon, {attackType : attackType});
     })  
 
     /* -------------------------------------------- */
@@ -2672,6 +2831,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     // Iterate through items, allocating to containers
     let totalEnc = 0;
     let itemsToRemove = []; // remove items with quantity of 0
+    let hasSpells = false;
+    let hasPrayers = false;
+
     for ( let i of actorData.items ) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === "talent")
@@ -2790,6 +2952,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       
       else if (i.type === "spell")
       {
+        hasSpells = true;
         if (i.data.lore.value == "petty")
           petty.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
         else
@@ -2798,6 +2961,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else if (i.type === "prayer")
       {
+        hasPrayers = true;
         if (i.data.type.value == "blessing")
           blessings.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
         else
@@ -2911,6 +3075,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.miracles = miracles;
     actorData.money = money;
     actorData.psychology = psychology;
+    actorData.flags.hasSpells = hasSpells;
+    actorData.flags.hasPrayers = hasPrayers;
 
 
 
@@ -3194,6 +3360,10 @@ class WFRP_Utility
       }
       this._prepareWeaponWithAmmo(actorData, weapon);
     }
+    else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
+    {
+      weapon["ammo"] = [weapon];
+    }
     weapon.properties = weapon.properties.filter(function(item) {return item != ""});
     return weapon;
   }
@@ -3399,6 +3569,7 @@ class WFRP_Utility
 
     weapon.data.damage.value += eval(ammoDamage);
     
+    ammoProperties = ammoProperties.filter(p => p != undefined);
     let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
     let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
 

@@ -95,8 +95,12 @@
       <button class="item" data-tab="talents">Talents</button>
       <button class="item" data-tab="combat">Combat</button>
       <button class="item" data-tab="inventory">Inventory</button>
+      {{#if actor.flags.hasSpells}}
       <button class="item" data-tab="magic">Magic</button>
+      {{/if}}
+      {{#if actor.flags.hasPrayers}}
       <button class="item" data-tab="religion">Religion</button>
+      {{/if}}
       <button class="item" data-tab="notes">Notes</button>
    </nav>
    <div class = "tab main" data-tab="main" data-group="primary">
