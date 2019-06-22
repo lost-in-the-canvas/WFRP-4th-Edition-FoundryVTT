@@ -642,7 +642,8 @@
       "cn" : {
         "type" : "Number",
         "label" : "Casting Number",
-        "value" : 0
+        "value" : 0,
+        "SL" : 0
       },
        "magicMissile" : {
         "type" : "Boolean",
