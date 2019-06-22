@@ -1506,12 +1506,15 @@ input[type="text"], input[type="password"] {
             width: 506px;
             left: 0px;
           }
+
+          .inventory-list .item .spell-name > *,          
           .inventory-list .item .weapon-name > *,          
           .inventory-list .item .item-name-edit > *,
           .inventory-list .item .item-name > *{
             overflow: hidden; 
             flex: 1; 
           }
+          .inventory-list .item .spell-name,
           .inventory-list .item .weapon-name,
           .inventory-list .item .item-name-edit,
           .inventory-list .item .item-name {
