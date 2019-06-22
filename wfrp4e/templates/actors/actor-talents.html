@@ -2,8 +2,8 @@
     <ol class="inventory-list talent-list">
         <li class="inventory-header item">
             <div class = "item-name">Talent Name</div>
-            <div>Times Taken / Max</div>
-            <div>Tests</div>
+            <div class = "item-taken">Times Taken</div>
+            <div class = "item-tests">Tests</div>
             {{#if owner}}
             <div class="item-controls">
                <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
@@ -18,9 +18,9 @@
                 <a>{{item.name}}</a>
             </div>
 
-            <div>{{item.data.advances.value}} / {{item.numMax}}</div>
+            <div class = "item-max">{{item.data.advances.value}} / {{item.numMax}}</div>
 
-            <div>{{item.data.tests.value}}</div>
+            <div class = "item-tests">{{item.data.tests.value}}</div>
 
             {{#if ../owner}}
             <div class="item-controls">
