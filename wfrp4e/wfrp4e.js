@@ -603,7 +603,7 @@ class DiceWFRP {
         // If no ID
         if (testResults.roll % 11 == 0)
         {
-          testResults.description = "Casting Succeeded"
+          testResults.description = "Casting Succeeded - Critical Cast"
           miscastCounter++;
         }
       }
@@ -669,6 +669,8 @@ class DiceWFRP {
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
+         testResults.description = testResults.description + " - Critical Channell"
+
        }
      }
 
@@ -989,6 +991,14 @@ class ActorWfrp4e extends Actor {
       id++;
       if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
         data.items.push(skillItem.data);
+      else if (skillItem.data.data.advanced.value == "bsc")
+      {
+        let startParen = skillItem.data.name.indexOf("(")
+        skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+        if (data.items.filter(x => x.name.includes(skillItem.data.name).length <= 0))
+          data.items.push(skillItem.data);
+
+      }
     }
 
     super.create(data, options);
@@ -1244,7 +1254,7 @@ class ActorWfrp4e extends Actor {
       target : 0,
       hitLocation : true,
       extra : {
-        weapon : weapon,
+        weapon : undefined,
         ammo : ammo
       }
     };
@@ -1274,7 +1284,7 @@ class ActorWfrp4e extends Actor {
         if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
         {
           testData.extra.weapon.data.qualities.value = "";
-          testData.extra.weapon = WFRP_Utility._prepareQualitiesFlaws(testData.extra.weapon)
+          testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -1284,7 +1294,7 @@ class ActorWfrp4e extends Actor {
         }
         else{
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
-          testData.extra.weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(testData.extra.weapon)
+          testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
           + testData.testModifier 
           + testData.testDifficulty
@@ -1398,7 +1408,11 @@ class ActorWfrp4e extends Actor {
         if (!ing || ing.data.quantity.value <= 0)
           testData.extra.ingredient = false;
         else 
+        {
           testData.extra.ingredient = true;
+          ing.data.quantity.value--;
+          this.updateOwnedItem(ing);
+        }
         roll();
         },
       rollOveride : () => {
@@ -1502,91 +1516,6 @@ class ActorWfrp4e extends Actor {
       dialogOptions : dialogOptions,
       testData : testData,
       cardOptions : cardOptions});
-  }
-
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll an Ability Test
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param {String} abilityId    The ability ID (e.g. "str")
-   * @param {Object} options      Options which configure how ability tests are rolled
-   */
-  rollAbilityTest(abilityId, options={}) {
-    let abl = this.data.data.characteristics[abilityId],
-        parts = ["@mod"],
-        flavor = `${abl.label} Ability Test`;
-
-    // Call the roll helper utility
-    DiceWFRP.d20Roll({
-      event: options.event,
-      parts: parts,
-      data: {mod: abl.mod},
-      title: flavor,
-      alias: this.name
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll an Ability Saving Throw
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param {String} abilityId    The ability ID (e.g. "str")
-   * @param {Object} options      Options which configure how ability tests are rolled
-   */
-  rollAbilitySave(abilityId, options={}) {
-  /*  let abl = this.data.data.abilities[abilityId],
-        parts = ["@mod"],
-        flavor = `${abl.label} Saving Throw`;
-
-    // Call the roll helper utility
-    DiceWFRP.d20Roll({
-      event: options.event,
-      parts: parts,
-      data: {mod: abl.save},
-      title: flavor,
-      alias: this.name
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Apply rolled dice damage to the token or tokens which are currently controlled.
-   * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-   *
-   * @param {HTMLElement} roll    The chat entry which contains the roll data
-   * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-   */
-  static applyDamage(roll, multiplier) {
-    /*let value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier);
-
-    // Filter tokens to which damage can be applied
-    canvas.tokens.controlledTokens.filter(t => {
-      if ( t.actor && t.data.actorLink ) return true;
-      else if ( t.data.bar1.attribute === "attributes.hp" || t.data.bar2.attribute === "attributes.hp" ) return true;
-      return false;
-    }).forEach(t => {
-
-      // For linked Tokens, update the Actor first deducting from the temporary hit point pool
-      if ( t.actor && t.data.actorLink ) {
-        let hp = t.actor.data.data.attributes.hp,
-            tmp = parseInt(hp["temp"]),
-            dt = value > 0 ? Math.min(tmp, value) : 0;
-        t.actor.update({
-          "data.attributes.hp.temp": tmp - dt,
-          "data.attributes.hp.value": Math.clamped(hp.value - (value - dt), 0, hp.max)
-        });
-      }
-
-      // For unlinked Tokens, just update the resource bar directly
-      else {
-        let bar = (t.data.bar1.attribute === "attributes.hp") ? "bar1" : "bar2";
-        t.update(canvas.id, {[`${bar}.value`]: Math.clamped(t.data[bar].value - value, 0, t.data[bar].max)});
-      }
-    });*/
   }
 
   static getBonus(value) {
@@ -1796,291 +1725,7 @@ class ItemWfrp4e extends Item {
 
 
 
-  /* -------------------------------------------- */
-  /*  Roll Attacks
-  /* -------------------------------------------- */
-
-  /**
-   * Roll a Weapon Attack
-   * Rely upon the DiceWFRP.d20Roll logic for the core implementation
-   */
-  rollWeaponAttack(event) {
-   /* if ( this.type !== "weapon" ) throw "Wrong item type!";
-
-    // Prepare roll data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || "str",
-        parts = ["@item.bonus.value", `@abilities.${abl}.mod`, "@attributes.prof.value"],
-        title = `${this.name} - Attack Roll`;
-    rollData.item = itemData;
-    if ( !itemData.proficient.value ) parts.pop();
-
-    // Call the roll helper utility
-    DiceWFRP.d20Roll({
-      event: event,
-      parts: parts,
-      data: rollData,
-      title: title,
-      alias: this.actor.name,
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll Weapon Damage
-   * Rely upon the DiceWFRP.damageRoll logic for the core implementation
-   */
-  rollWeaponDamage(event, alternate=false) {
-   /* if ( this.type !== "weapon" ) throw "Wrong item type!";
-
-    // Get data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || "str",
-        parts = [alternate ? itemData.damage2.value : itemData.damage.value, `@abilities.${abl}.mod`],
-        dtype = CONFIG.damageTypes[alternate ? itemData.damage2Type.value : itemData.damageType.value];
-
-    // Append damage type to title
-    let title = `${this.name} - Damage`;
-    if ( dtype ) title += ` (${dtype})`;
-
-    // Call the roll helper utility
-    rollData.item = itemData;
-    DiceWFRP.damageRoll({
-      event: event,
-      parts: parts,
-      data: rollData,
-      title: title,
-      alias: this.actor.name,
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll Spell Damage
-   * Rely upon the DiceWFRP.d20Roll logic for the core implementation
-   */
-  rollSpellAttack(event) {
-/*    if ( this.type !== "spell" ) throw "Wrong item type!";
-
-    // Prepare roll data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
-        parts = [`@abilities.${abl}.mod`, "@attributes.prof.value"],
-        title = `${this.name} - Spell Attack Roll`;
-
-    // Call the roll helper utility
-    DiceWFRP.d20Roll({
-      event: event,
-      parts: parts,
-      data: rollData,
-      title: title,
-      alias: this.actor.name,
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll Spell Damage
-   * Rely upon the DiceWFRP.damageRoll logic for the core implementation
-   */
-  rollSpellDamage(event) {
-/*    if ( this.type !== "spell" ) throw "Wrong item type!";
-
-    // Get data
-    let itemData = this.data.data,
-        rollData = duplicate(this.actor.data.data),
-        abl = itemData.ability.value || rollData.attributes.spellcasting.value || "int",
-        parts = [itemData.damage.value],
-        isHeal = itemData.spellType.value === "heal",
-        dtype = CONFIG.damageTypes[itemData.damageType.value];
-
-    // Append damage type to title
-    let title = this.name + (isHeal ? " - Healing" : " - Damage");
-    if ( dtype && !isHeal ) title += ` (${dtype})`;
-
-    // Add item to roll data
-    rollData["mod"] = rollData.abilities[abl].mod;
-    rollData.item = itemData;
-
-    // Call the roll helper utility
-    DiceWFRP.damageRoll({
-      event: event,
-      parts: parts,
-      data: rollData,
-      title: title,
-      alias: this.actor.name,
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710
-      }
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Use a consumable item
-   */
-  rollConsumable(ev) {
-  /*  let itemData = this.data.data;
-
-    // Submit the roll to chat
-    let cv = itemData['consume'].value,
-        content = `Uses ${this.name}`;
-    if ( cv ) {
-      new Roll(cv).toMessage({
-        alias: this.actor.name,
-        flavor: content
-      });
-    } else {
-      ChatMessage.create({user: game.user._id, alias: this.actor.name, content: content})
-    }
-
-    // Deduct consumed charges from the item
-    if ( itemData['autoUse'].value ) {
-      let qty = itemData['quantity'],
-          chg = itemData['charges'];
-
-      // Deduct an item quantity
-      if ( chg.value <= 1 && qty.value > 1 ) {
-        this.actor.updateOwnedItem({
-          id: this.data.id,
-          'data.quantity.value': Math.max(qty.value - 1, 0),
-          'data.charges.value': chg.max
-        }, true);
-      }
-
-      // Optionally destroy the item
-      else if ( chg.value <= 1 && qty.value <= 1 && itemData['autoDestroy'].value ) {
-        this.actor.deleteOwnedItem(this.data.id);
-      }
-
-      // Deduct the remaining charges
-      else {
-        this.actor.updateOwnedItem({id: this.data.id, 'data.charges.value': Math.max(chg.value - 1, 0)}, true);
-      }
-    }*/
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Roll a Tool Check
-   * Rely upon the DiceWFRP.d20Roll logic for the core implementation
-   */
-  rollToolCheck(event) {
-    /*if ( this.type !== "tool" ) throw "Wrong item type!";
-
-    // Prepare roll data
-    let rollData = duplicate(this.actor.data.data),
-      abl = this.data.data.ability.value || "int",
-      ability = rollData.abilities[abl],
-      parts = [`@abilities.${abl}.mod`, "@proficiency"],
-      title = `${this.name} - Tool Check`;
-    rollData["ability"] = abl;
-    rollData["proficiency"] = (this.data.data.proficient.value || 0) * rollData.attributes.prof.value;
-
-    // Call the roll helper utility
-    DiceWFRP.d20Roll({
-      event: event,
-      parts: parts,
-      data: rollData,
-      template: "public/systems/wfrp4e/templates/chat/tool-roll-dialog.html",
-      title: title,
-      alias: this.actor.name
-      flavor: (parts, data) => `${this.name} - ${data.abilities[data.ability].label} Check`,
-      dialogOptions: {
-        width: 400,
-        top: event.clientY - 80,
-        left: window.innerWidth - 710,
-      },
-      onClose: (html, parts, data) => {
-        abl = html.find('[name="ability"]').val();
-        data.ability = abl;
-        parts[1] = `@abilities.${abl}.mod`;
-      }
-    }).then(roll => {
-      roll.toMessage({
-        alias: alias,
-        flavor: flavor,
-        highlightSuccess: roll.parts[0].total === 20,
-        highlightFailure: roll.parts[0].total === 1
-      });
-    });*/
-  }
-
-  /* -------------------------------------------- */
-
-  /*static chatListeners(html) {
-
-    // Chat card actions
-    html.on('click', '.card-buttons button', ev => {
-      ev.preventDefault();
-
-      // Extract card data
-      let button = $(ev.currentTarget),
-          messageId = button.parents('.message').attr("data-message-id"),
-          senderId = game.messages.get(messageId).user._id;
-
-      // Confirm roll permission
-      if ( !game.user.isGM && ( game.user._id !== senderId )) return;
-
-      // Extract action data
-      let action = button.attr("data-action"),
-          card = button.parents('.chat-card'),
-          actor = game.actors.get(card.attr('data-actor-id')),
-          itemId = Number(card.attr("data-item-id"));
-
-      // Get the item
-      if ( !actor ) return;
-      let itemData = actor.items.find(i => i.id === itemId);
-      if ( !itemData ) return;
-      let item = new Item5e(itemData, actor);
-
-      // Weapon attack
-      if ( action === "weaponAttack" ) item.rollWeaponAttack(ev);
-      else if ( action === "weaponDamage" ) item.rollWeaponDamage(ev);
-      else if ( action === "weaponDamage2" ) item.rollWeaponDamage(ev, true);
-
-      // Spell actions
-      else if ( action === "spellAttack" ) item.rollSpellAttack(ev);
-      else if ( action === "spellDamage" ) item.rollSpellDamage(ev);
-
-      // Feat actions
-      else if ( action === "featAttack" ) item.rollFeatAttack(ev);
-      else if ( action === "featDamage" ) item.rollFeatDamage(ev);
-
-      // Consumable usage
-      else if ( action === "consume" ) item.rollConsumable(ev);
-
-      // Tool usage
-      else if ( action === "toolCheck" ) item.rollToolCheck(ev);
-    });
-  }*/
 }
-
 // Assign Item5e class to CONFIG
 CONFIG.Item.entityClass = ItemWfrp4e;
 
@@ -2445,7 +2090,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.spell-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const ing = this.actor.items.find(i => i.id === itemId);
-      ing.data.spellIngredient.value = event.target.value;
+      ing.data.spellIngredient.value = Number(event.target.value);
       await this.actor.updateOwnedItem(ing, true);      
     });
 
@@ -2485,14 +2130,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollWeapon(weapon, {attackType : attackType});
+      this.actor.rollWeapon(duplicate(weapon), {attackType : attackType});
     })  
 
     html.find('.spell-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let spell = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollSpell(spell);
+      this.actor.rollSpell(duplicate(spell));
     })  
 
     /* -------------------------------------------- */
@@ -2761,7 +2406,14 @@ class ActorSheetWfrp4e extends ActorSheet {
         propertyDescr = Object.assign(CONFIG.qualityDescriptions, CONFIG.flawDescriptions);
 
         let propertyKey = "";
-        if (property != "Special")
+        if (property == "Special Ammo")
+        {
+          let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
+          let ammo = this.actor.getOwnedItem(item.data.data.currentAmmo.value);
+          propertyDescr = Object.assign(propertyDescr, {"Special Ammo" : ammo.data.data.special.value});
+          propertyKey = "Special Ammo";            
+        }
+        else if (property != "Special")
         {
           for (let prop in properties)
           {
@@ -2772,6 +2424,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else{
           let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
           propertyDescr = Object.assign(propertyDescr, {"Special" : item.data.data.special.value});
+          item = WFRP_Utility._prepareWeaponCombat(this.actor.data, duplicate(item.data));
           propertyKey = "Special";
         }
 
@@ -3134,7 +2787,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       ingredients.show = true;
       actorData.ingredients = ingredients;
       for (let s of grimoire)
-         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity > 0)
+         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
     }
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
@@ -3181,7 +2834,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
     actorData.inventory = inventory;
     actorData.containers = containers;
-    actorData.basicSkills = basicSkills;
+    actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
     actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
     actorData.talents = talents;
     actorData.traits = traits;
@@ -3486,7 +3139,7 @@ class WFRP_Utility
     {
       weapon["ammo"] = [weapon];
     }
-    weapon.properties = weapon.properties.filter(function(item) {return item != ""});
+    weapon.properties = weapon.properties.filter(x => x != undefined);
     return weapon;
   }
 
@@ -3647,7 +3300,8 @@ class WFRP_Utility
 
   
   static _calculateRangeOrDamage(actorData, formula){    
-    formula = formula.toLowerCase();
+    try {formula = formula.toLowerCase();}
+    catch {return formula}
 
     for(let ch in actorData.data.characteristics)
     {
@@ -3666,7 +3320,11 @@ class WFRP_Utility
     if (!ammo)
       return;
 
-    let ammoProperties = this._prepareQualitiesFlaws(ammo);
+    let ammoProperties = this._prepareQualitiesFlaws(ammo);           // Skip undefined
+    let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == "special"));
+    if (specialPropInd != -1)
+      ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " Ammo"
+
     let ammoRange = ammo.data.range.value || "0";
     let ammoDamage = ammo.data.damage.value || "0";
 
@@ -3697,7 +3355,7 @@ class WFRP_Utility
 
     let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
 
-    for (let inc in propertyIncrease)
+    for (let inc of propertyIncrease)
     {
       let index = inc.indexOf("+");
       let property = inc.substring(0, index).trim();
@@ -3713,7 +3371,7 @@ class WFRP_Utility
         weapon.properties.push(property + " " + value);
       }
     }
-    for (let inc in propertyDecrease)
+    for (let inc of propertyDecrease)
     {
       let index = inc.indexOf("-");
       let property = inc.substring(0, index).trim();
@@ -3722,7 +3380,7 @@ class WFRP_Utility
       {
         //TODO
         // This section is for ammo that decreases a quality
-        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 3
+        // e.g. Blast -1 Turns a weapon with Blast 4 into Blast 3
       }
       else
       {
@@ -3765,6 +3423,14 @@ class WFRP_Utility
     if (aoe)
       formula = "AoE (" + formula + ")";
     return formula;
+  }
+
+  static nameSorter(a, b){
+    if (a.name.toLowerCase() < b.name.toLowerCase())
+      return -1;
+    if (a.name.toLowerCase() > b.name.toLowerCase())
+      return 1;
+    return 0;
   }
 
 }
