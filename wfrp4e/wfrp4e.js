@@ -665,7 +665,7 @@ class DiceWFRP {
        if (Number(SL) == 0)
         SL = 1;
        // If no ID
-       if (testResults.rollConsumable % 11 == 0)
+       if (testResults.roll % 11 == 0)
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
@@ -693,6 +693,65 @@ class DiceWFRP {
        case 1: testResults.description = testResults.description + " - Minor Miscast"
        case 2: testResults.description = testResults.description + " - Major Miscast"
      }
+     return testResults;
+ } 
+
+
+   static renderRollCard(chatOptions, testData) {
+     let chatData = {
+       title : chatOptions.title,
+       testData : testData
+     }
+    // Generate HTML from the requested chat template
+    return renderTemplate(chatOptions.template, chatData).then(html => {
+      
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
+
+  static rollPrayTest(testData, actor){
+    let prayer = testData.extra.prayer;
+     let testResults = this.rollTest(testData);
+     let SL = testResults.SL;
+    let extensions = 0;
+    let currentSin = actor.data.data.status.sin.value;
+       
+      
+     if (testResults.roll > testResults.target)
+     {
+       testResults.description = "Prayer Refused"
+       if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
+         {
+           testResults.description += " - Wrath of the Gods"
+           currentSin--;
+           if (currentSin < 0)
+           currentSin = 0;
+          actor.update({"data.status.sin.value" : currentSin});
+          }
+
+     }
+     else
+     {
+       testResults.description = "Prayer Granted"
+
+       if (Number(testResults.roll.toString().split('').pop()) <= currentSin)
+       {
+         testResults.description += " - Wrath of the Gods"
+         currentSin--;
+         if (currentSin < 0)
+         currentSin = 0;
+        actor.update({"data.status.sin.value" : currentSin});
+       }
+      extensions = Math.floor(SL/2);
+      
+     }
+
+
+    
+     testResults.extensions = extensions;
      return testResults;
  } 
 
@@ -1363,7 +1422,7 @@ class ActorWfrp4e extends Actor {
       return; 
     }
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
-    this.updateOwnedItem(spell)
+    //this.updateOwnedItem(spell)
     let testData = {
       target : castSkill.data.advances.value + this.data.data.characteristics[castSkill.data.characteristic.value],
       hitLocation : true,
@@ -1517,6 +1576,78 @@ class ActorWfrp4e extends Actor {
       testData : testData,
       cardOptions : cardOptions});
   }
+
+
+  rollPrayer(prayer, options) {
+    let title = "Prayer Test";
+    let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
+    if (!praySkill)
+    {
+      ui.notifications.error("You need Pray to invoke the Gods")
+      return; 
+    }
+    let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
+   // this.updateOwnedItem(spell)
+    let testData = {
+      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value],
+      hitLocation : true,
+      extra : {
+        prayer : preparedPrayer,
+      }
+    };
+  
+    let dialogOptions = {
+      title: title,
+      template : "/public/systems/wfrp4e/templates/chat/prayer-dialog.html",
+      buttons : {
+        rollButton : {
+          label: "Roll"
+        }
+      },
+      data : {
+        hitLocation : testData.hitLocation,
+        talents : this.data.flags.talentTests,
+      },
+      callback : (html, roll) => {
+        cardOptions.rollMode = html.find('[name="rollMode"]').val();
+        testData.testModifier = Number(html.find('[name="testModifier"]').val());
+        testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+        testData.successBonus = Number(html.find('[name="successBonus"]').val());
+        testData.slBonus = Number(html.find('[name="slBonus"]').val());
+        testData.target = this.data.data.characteristics[praySkill.data.characteristic.value].value
+                          + praySkill.data.advances.value 
+                          + testData.testDifficulty 
+                          + testData.testModifier;
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        let talentBonuses = html.find('[name = "talentBonuses"]').val();
+        testData.successBonus += talentBonuses.reduce(function (prev, cur){
+          return prev + Number(cur)
+        }, 0)
+  
+        roll();
+        },
+      rollOveride : () => {
+        let roll = DiceWFRP.rollPrayTest(testData, this);
+        if (testData.extra)
+          mergeObject(roll, testData.extra);
+        DiceWFRP.renderRollCard(cardOptions, roll);
+      }
+    };
+    let cardOptions = {
+      actor : this.data.id,
+      speaker: {
+        alias: this.data.name,
+      },
+      title: title,
+      template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
+    }
+    // Call the roll helper utility
+    DiceWFRP.prepareTest({
+      dialogOptions : dialogOptions,
+      testData : testData,
+      cardOptions : cardOptions});
+  }
+  
 
   static getBonus(value) {
     return Math.floor(value / 10)
@@ -2139,6 +2270,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       let spell = this.actor.items.find(i => i.id === itemId);
       this.actor.rollSpell(duplicate(spell));
     })  
+
+    html.find('.prayer-name').click(event => {
+      event.preventDefault();
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let prayer = this.actor.items.find(i => i.id === itemId);
+      this.actor.rollPrayer(duplicate(prayer));
+    })  
+
 
     /* -------------------------------------------- */
     /*  Inventory
@@ -3138,6 +3277,7 @@ class WFRP_Utility
     else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
     {
       weapon["ammo"] = [weapon];
+      weapon.data.ammunitionGroup.value = "";
     }
     weapon.properties = weapon.properties.filter(x => x != undefined);
     return weapon;

@@ -49,6 +49,7 @@
                      <a>{{item.name}}</a>
                   </div>
                   <a class ="weapon-group">{{item.data.weaponGroup.value}}</a>
+                  {{#if item.data.ammunitionGroup.value}}
                   <div class = "ammo-selector selector">
                      <select name="item.data.currentAmmo.value" data-item-id = "{{item.id}}" data-dtype="{{item.data.currentAmmo.type}}">
                         {{#select item.data.currentAmmo.value}}
@@ -59,6 +60,11 @@
                         {{/select}}
                      </select>
                   </div>
+                  {{else}}
+                  <div>
+                     None
+                  </div>
+                  {{/if}}
                   <div>+{{item.data.damage.value}}</div>
                   <a class = "weapon-range">{{item.data.range.value}}</a>
                   <div>
