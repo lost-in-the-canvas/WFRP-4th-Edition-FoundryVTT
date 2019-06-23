@@ -1,15 +1,15 @@
 <div class="combat-section">
       <div class="weapons">
-         <h3 class="melee-title">Melee Weapons</h3>
+         <!-- <h3 class="melee-title">Melee Weapons</h3> -->
          <div class="weapon-type">
+          <div class="inventory-header item">
+              <div>Melee Weapon(s)</div>
+              <div>Group</div>
+              <div>Damage</div>
+              <div>Reach</div>
+              <div>Qualities/Flaws</div>
+          </div>
             <ol class="inventory-list weapon-list" weapon-type = "melee">
-               <li class="inventory-header item">
-                  <div>Weapon</div>
-                  <div>Group</div>
-                  <div>Damage</div>
-                  <div>Reach</div>
-                  <div>Qualities/Flaws</div>
-               </li>
                {{#each actor.weapons as |item i|}}
                {{#if item.meleeWeaponType}}
                <li class="item" data-item-id="{{item.id}}">
@@ -30,17 +30,17 @@
                {{/each}}
             </ol>
          </div>
-         <h3 class="ranged-title">Ranged Weapons</h3>
+         <!-- <h3 class="ranged-title">Ranged Weapons</h3> -->
          <div class="weapons">
             <ol class="inventory-list weapon-list" weapon-type = "ranged">
-               <li class="inventory-header item">
-                  <div>Weapon</div>
+               <div class="inventory-header item">
+                  <div>Ranged Weapon(s)</div>
                   <div>Group</div>
                   <div>Ammunition</div>
                   <div>Damage</div>
                   <div>Range (yds)</div>
                   <div>Qualities/Flaws</div>
-               </li>
+               </div>
                {{#each actor.weapons as |item i|}}
                {{#if item.rangedWeaponType}}
                <li class="item" data-item-id="{{item.id}}">
