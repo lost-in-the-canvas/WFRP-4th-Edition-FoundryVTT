@@ -590,7 +590,7 @@ class DiceWFRP {
         if (Number(testResults.roll.toString().split('').pop()) == 8)
           miscastCounter++;
       let slOver = (Number(testResults.SL) - spell.data.cn.value)
-      if (testResults.total > testResults.target)
+      if (testResults.roll > testResults.target)
       {
         testResults.description = "Casting Failed"
         if (testResults.roll % 11 == 0)
@@ -614,7 +614,7 @@ class DiceWFRP {
         testResults.overcasts = overcasts;
 
         // If no ID
-        if (testResults.total % 11 == 0)
+        if (testResults.roll % 11 == 0)
           miscastCounter++;
       }
 
@@ -928,6 +928,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
+    "public/systems/wfrp4e/templates/chat/dialog-constant.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
   ]);
@@ -1420,8 +1421,7 @@ class ActorWfrp4e extends Actor {
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
-        spell.data.cn.SL = 0;
-
+        this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
       }
     };
     let cardOptions = {
@@ -1481,7 +1481,7 @@ class ActorWfrp4e extends Actor {
         testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
         let skillSelected = channellSkills[Number(html.find('[name="skillSelected"]').val())];
         testData.target = testData.testModifier + testData.testDifficulty
-                         + this.data.data.characteristics[skillSelected.data.characteristic.value].advances
+                         + this.data.data.characteristics[skillSelected.data.characteristic.value].value
                          + skillSelected.data.advances.value
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
@@ -2826,7 +2826,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     this.actor.data.flags.talentTests = [];
     for (let talent of talents)
       if (talent.data.tests.value)
-        this.actor.data.flags.talentTests.push({test : talent.data.tests.value, SL : talent.data.advances.value});
+        this.actor.data.flags.talentTests.push({talentName: talent.name, test : talent.data.tests.value, SL : talent.data.advances.value});
     this.actor.data.flags.combatSkills = [];
     for (let skill of basicSkills.concat(advancedOrGroupedSkills))
       if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
