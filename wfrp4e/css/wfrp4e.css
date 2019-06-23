@@ -1,5 +1,5 @@
 /***************************************************/
-/*============== I. Pre-Loaded Fonts ==============*/
+/*============== I. PRE-LOADED FONTS ==============*/
 /***************************************************/
 @font-face {
   font-family: "CaslonAntique";
@@ -38,6 +38,15 @@
 }
 /***************************************************/
 /***************************************************/
+
+
+.fa-trash:before {
+  content: "\f1f8";
+  position: relative;
+  left: 3px;
+}
+
+
 
 a:hover {
   text-shadow: 0 0 8px #ff9f00;
@@ -224,7 +233,7 @@ input[type="text"], input[type="password"] {
 
 
 /*************************************************************/
-/*=============== II. Sidebar ===============================*/
+/*=============== II. SIDEBAR ===============================*/
 /*************************************************************/
 
   #sidebar-tabs > .item  {
@@ -441,10 +450,10 @@ input[type="text"], input[type="password"] {
 
 
 /*************************************************************/
-/*=============== III. Actor (Character Sheet) ==============*/
+/*=============== III. ACTOR (CHARACTER SHEET) ==============*/
 /*************************************************************/
 
-  /* ==================== A. Window Framework =================== */
+  /* ==================== A. WINDOW FRAMEWORK =================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet {
       background: url(../ui/ActorSheet-Character.png) no-repeat;
       box-shadow: none;
@@ -489,7 +498,7 @@ input[type="text"], input[type="password"] {
     }
   /* ============================================================ */
 
-  /* ==================== B. Header Section ===================== */
+  /* ==================== B. HEADER SECTION ===================== */
     .wfrp4e.sheet form .sheet-header {
       height: 34px;
       order: 0;
@@ -626,7 +635,7 @@ input[type="text"], input[type="password"] {
     }
   /* ============================================================ */    
 
-  /* ==================== C. Details Section ==================== */
+  /* ==================== C. DETAILS SECTION ==================== */
     .wfrp4e.actor .general {
       display: flex;
       flex-direction: row;
@@ -724,7 +733,7 @@ input[type="text"], input[type="password"] {
     }
   /* ============================================================ */ 
 
-  /* ==================== D. General Section ==================== */
+  /* ==================== D. GENERAL SECTION ==================== */
     #wfrp4e-primarytabs {
       /* background: url(../ui/ActorSheet-TabBorder.png); */
       font-family: CaslonAntique;
@@ -771,7 +780,7 @@ input[type="text"], input[type="password"] {
     #tab-sections{
       height: 384px;
     }
-      /* ================== 1. Main Tab Section ================== */    
+      /* ================== 1. MAIN TAB SECTION ================== */    
         .wfrp4e.actor .characteristics {
           border-top: none;
           margin: 6px 0px 0px 0px;
@@ -1617,11 +1626,11 @@ input[type="text"], input[type="password"] {
               top: 1px;
               font-family: "Font Awesome 5 Free";
               font-size: 10px;
-              color: #666;
+              color: #504f48a6;
             }          
       /* ============================================================ */
       
-      /* ================== 2. Skills Tab Section =================== */         
+      /* ================== 2. SKILLS TAB SECTION =================== */         
         .wfrp4e .skills > .armor-penalties {
           position: absolute; 
           bottom: 100px;
@@ -1632,7 +1641,7 @@ input[type="text"], input[type="password"] {
           margin-top: 6px;
         }     
         .wfrp4e .skill-section .inventory-list {
-          margin-top: 19px;
+          margin-top: 20px;
           /* position: relative; */
           width: 250px;
           padding: 0px;
@@ -1684,7 +1693,7 @@ input[type="text"], input[type="password"] {
           flex-wrap: wrap;
           justify-content: flex-start;
           padding-top: 3px;
-          line-height: 20px;
+          line-height: 16px;
         }
         .skill-section .inventory-list .item  > * {
           flex: 1;
@@ -1696,7 +1705,7 @@ input[type="text"], input[type="password"] {
           padding-left: 4px;
           padding-right: 0px;
           padding-top: 1px;
-          height: 19px;
+          height: 20px;
           line-height: inherit;
           border: 1px solid #736953a6;
           border-top: none;
@@ -1721,7 +1730,7 @@ input[type="text"], input[type="password"] {
           }
           .wfrp4e .skill-section .inventory-list .skill-total-title {
             position: relative;
-            left: 31px;
+            left: 32px;
           }
           .wfrp4e .skill-section .inventory-list .item .item-controls {
             flex: 0 0 44px;
@@ -1795,8 +1804,8 @@ input[type="text"], input[type="password"] {
           text-align: center;
           position: relative;
           left: 0px;
-          top: -1px;
-          padding-top: 6px;
+          top: -3px;
+          padding-top: 7px;
           margin: 0px;
         }
         .skill-section .inventory-list .item .skill-total {
@@ -1826,8 +1835,244 @@ input[type="text"], input[type="password"] {
           height: fit-content;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
-          color: #666;
+          color: #504f48a6;
         }
+      /* ============================================================ */
+
+      /* ================== 3. TALENTS TAB SECTION ================== */  
+        .wfrp4e .talent-list {
+          margin-top: 27px;
+          height: 331px;
+          overscroll-behavior-x: unset;
+          overflow-x: hidden;
+          border: 1px solid #736953a6;
+          border-top: none;
+          box-shadow: 0px 0px 1px inset black;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+        }
+          .wfrp4e .talent-list .item .item-name {
+            flex: none;
+            flex-basis: 140px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 16px;
+          }
+            .wfrp4e.actor .talent-list .item-image {
+              flex: 0 0 24px;
+              margin-right: 4px;
+              background-size: 24px;
+              background-repeat: no-repeat;
+              min-height: 24px;
+              max-height: 24px;
+              margin-top: 3px;
+            }
+            .wfrp4e .talent-list .item .item-name > a {
+              padding-top: 8px;
+            }
+          .wfrp4e .talent-list .item .item-max {
+            flex: none;
+            flex-basis: 30px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 20px;
+            text-align: center;
+            line-height: 16px;
+            padding-top: 8px;
+          }
+          .wfrp4e .talent-list .item .item-tests {
+            flex: none;
+            flex-basis: 260px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 16px;
+            text-align: left;
+            padding-top: 8px;
+          }
+          .wfrp4e .talent-list .item .item-controls {
+            position: relative;
+            left: 10px;
+            width: 29px;
+            top: 3px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .inventory-list .item .item-summary {
+            flex: 0 0 100%;
+            line-height: 16px;
+            padding: 0px;
+            border-top: 1px solid #73695378;
+            /* box-shadow: 0px 0px 1px inset #000000ad; */
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 3px;
+            color: black;
+          }
+            .inventory-list .item .item-summary > p {
+              margin: 5px;
+            }
+
+        .wfrp4e .talent-list .inventory-header.item {
+          height: 21px;
+          width: 506px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          position: absolute;
+          top: 278px;
+          left: 43px;
+        }
+          .wfrp4e .talent-list .inventory-header.item .item-name {
+            flex: none;
+            width: 100px;
+            flex-basis: 160px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 20px;
+            padding-top: 0px;
+          }
+          .wfrp4e .talent-list .inventory-header.item .item-taken {
+            flex: none;
+            width: 100px;
+            flex-basis: 160px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 20px;
+            padding-top: 0px;
+            position: relative;
+            right: 36px;
+          }
+          .wfrp4e .talent-list .inventory-header.item .item-tests {
+            flex: none;
+            width: 100px;
+            flex-basis: 160px;
+            flex-shrink: 0;
+            margin-right: 5px;
+            line-height: 20px;
+            padding-top: 0px;
+            position: relative;
+            right: 20px;
+          }
+          .wfrp4e .talent-list .inventory-header.item .item-controls {
+            position: absolute;
+            left: 488px;
+            width: 11px;
+            top: 1px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331c4;
+          }
+
+        .wfrp4e.sheet .tab.talents ::-webkit-scrollbar-button {
+          height: 18px;
+          border: none;
+        }
+        .wfrp4e.actor .item-image {
+          flex: 0 0 24px;
+          margin-right: 4px;
+          background-size: 24px;
+          background-repeat: no-repeat;
+          /* max-height: 33px; */
+          min-height: 24px;
+        }
+      /* ============================================================ */
+      
+      /* ================== 3. COMBAT TAB SECTION ================== */  
+        .wfrp4e .combat-section .weapons {
+          margin-top: 6px;
+        }
+        .wfrp4e .combat-section {
+          overflow-y: scroll;
+          overscroll-behavior-y: auto;
+          overflow-x: hidden;
+        }
+          .wfrp4e .weapons .melee-title {
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            text-align: center;
+            border: 1px solid #736953a6;
+            margin: 0px;
+            padding: 3px 0px 0px 0px;
+            height: 25px;
+            width: 493px;
+            box-shadow: 0 0 10px #00000052 inset;
+            position: relative;
+            top: 0px;
+          }
+            .wfrp4e.actor .weapons .weapon-type .weapon-list {
+              list-style: none;
+              height: 100px;
+              overflow: auto;
+              overscroll-behavior-x: unset;
+              overflow-x: hidden;
+              border: 1px solid #736953a6;
+              border-top: none;
+              box-shadow: 0px 0px 1px inset black;
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+              margin-top: 0px;
+              width: 493px;
+            }
+              .wfrp4e .combat-section .weapons .weapon-type .inventory-header.item {
+                height: 21px;
+                width: 493px;
+                padding-left: 4px;
+                padding-right: 4px;
+                line-height: 19px;
+                border: 1px solid #736953a6;
+                border-top: none;
+                border-left: none;
+                border-right: none;
+                font-family: CaslonAntique;
+                font-weight: 700;
+                font-size: 16px;
+                color: #464331c4;
+                background: none;
+                box-shadow: 0 0 10px #6b3a0f87 inset;
+                overscroll-behavior-x: none;
+                overflow-x: hidden;
+                overscroll-behavior-y: none;
+                overflow-y: hidden;
+                position: relative;
+                top: 0px;
+                left: 0px;
+              }
+
+        .wfrp4e .weapons .ranged-title {
+          font-family: CaslonAntique;
+          font-size: 16px;
+          font-weight: 700;
+          color: #464331c4;
+          text-align: center;
+          border: 1px solid #736953a6;
+          margin: 0px;
+          padding: 3px 0px 0px 0px;
+          height: 25px;
+          width: 506px;
+          box-shadow: 0 0 10px #00000052 inset;
+          position: absolute;
+          top: 440px;
+        }
+
 
 /*************************************************************/
 /*************************************************************/
@@ -2218,9 +2463,7 @@ font-weight: bold;
 /* ----------------------------------------- */
 /* Talent List
 /* ----------------------------------------- */
-.wfrp4e.actor .talent-list {
-  list-style: none;
-}
+
 
 .wfrp4e.actor .talent-list .talent-header {
   line-height: 20px;
@@ -3202,13 +3445,13 @@ font-weight: bold;
 } */
 
 
-.inventory-list .item .item-summary {
+/* .inventory-list .item .item-summary {
   flex: 0 0 100%;
   font-size: 12px;
   line-height: 16px;
   padding: 0.25em 0.5em;
   border-top: 1px solid #CCC;
-}
+} */
 .inventory-list .item .weapon-name > *,
 .inventory-list .item .item-name > *{
   overflow: hidden;  
