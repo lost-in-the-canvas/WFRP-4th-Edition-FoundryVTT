@@ -1876,7 +1876,7 @@ input[type="text"], input[type="password"] {
             flex: none;
             flex-basis: 30px;
             flex-shrink: 0;
-            margin-right: 5px;
+            margin-right: 9px;
             line-height: 20px;
             text-align: center;
             line-height: 16px;
@@ -2016,6 +2016,27 @@ input[type="text"], input[type="password"] {
             position: relative;
             top: 0px;
           }
+            .wfrp4e .combat-section .weapons .weapon-type .inventory-header.item {
+              height: 21px;
+              width: 493px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 1px;
+              left: 0px;
+            }
             .wfrp4e.actor .weapons .weapon-type .weapon-list {
               list-style: none;
               height: 100px;
@@ -2029,49 +2050,66 @@ input[type="text"], input[type="password"] {
               font-size: 14px;
               font-weight: 500;
               color: black;
-              margin-top: 0px;
+              margin-top: 1px;
               width: 493px;
             }
-              .wfrp4e .combat-section .weapons .weapon-type .inventory-header.item {
-                height: 21px;
-                width: 493px;
-                padding-left: 4px;
-                padding-right: 4px;
-                line-height: 19px;
-                border: 1px solid #736953a6;
-                border-top: none;
-                border-left: none;
-                border-right: none;
-                font-family: CaslonAntique;
-                font-weight: 700;
-                font-size: 16px;
-                color: #464331c4;
-                background: none;
-                box-shadow: 0 0 10px #6b3a0f87 inset;
-                overscroll-behavior-x: none;
-                overflow-x: hidden;
-                overscroll-behavior-y: none;
-                overflow-y: hidden;
-                position: relative;
-                top: 0px;
-                left: 0px;
-              }
 
-        .wfrp4e .weapons .ranged-title {
-          font-family: CaslonAntique;
-          font-size: 16px;
-          font-weight: 700;
-          color: #464331c4;
-          text-align: center;
-          border: 1px solid #736953a6;
-          margin: 0px;
-          padding: 3px 0px 0px 0px;
-          height: 25px;
-          width: 506px;
-          box-shadow: 0 0 10px #00000052 inset;
-          position: absolute;
-          top: 440px;
-        }
+
+          .wfrp4e .weapons .ranged-title {
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            text-align: center;
+            border: 1px solid #736953a6;
+            margin: 0px;
+            padding: 3px 0px 0px 0px;
+            height: 25px;
+            width: 493px;
+            box-shadow: 0 0 10px #00000052 inset;
+            position: relative;
+            top: 6px;
+          }
+            .wfrp4e .combat-section .weapons .inventory-header.item {
+              height: 21px;
+              width: 493px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              border-top: none;
+              border-left: none;
+              border-right: none;
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 1px;
+              left: 0px;
+            }
+            .wfrp4e.actor .weapons .weapon-list {
+              list-style: none;
+              height: 100px;
+              overflow: auto;
+              overscroll-behavior-x: unset;
+              overflow-x: hidden;
+              border: 1px solid #736953a6;
+              border-top: none;
+              box-shadow: 0px 0px 1px inset black;
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+              margin-top: -1px;
+              width: 493px;
+            }
 
 
 /*************************************************************/
