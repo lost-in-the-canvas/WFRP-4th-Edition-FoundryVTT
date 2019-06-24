@@ -366,6 +366,28 @@ CONFIG.magicLores = {
   "tzeentch": "Tzeentch",
 };
 
+
+CONFIG.magicWind = {
+  "petty": "None",
+  "beasts": "Ghur",
+  "death": "Shyish",
+  "fire": "Aqshy",
+  "heavens": "Azyr",
+  "metal": "Chamon",
+  "life": "Ghyran",
+  "light": "Hysh",
+  "shadow": "Ulgu",
+  "hedgecraft": "None",
+  "witchcraft": "None",
+  "daemonology": "Dhar",
+  "necromancy": "Dhar",
+  "nurgle": "Dhar",
+  "slaanesh": "Dhar",
+  "tzeentch": "Dhar",
+};
+
+
+
 CONFIG.prayerTypes = {
   "blessing" : "Blessing",
   "miracle" : "Miracle"
@@ -665,7 +687,7 @@ class DiceWFRP {
        if (Number(SL) == 0)
         SL = 1;
        // If no ID
-       if (testResults.rollConsumable % 11 == 0)
+       if (testResults.roll % 11 == 0)
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
@@ -697,20 +719,65 @@ class DiceWFRP {
  } 
 
 
-   static renderRollCard(chatOptions, testData) {
-     let chatData = {
-       title : chatOptions.title,
-       testData : testData
+ static rollPrayTest(testData, actor){
+  let prayer = testData.extra.prayer;
+   let testResults = this.rollTest(testData);
+   let SL = testResults.SL;
+  let extensions = 0;
+  let currentSin = actor.data.data.status.sin.value;
+
+
+   if (testResults.roll > testResults.target)
+   {
+     testResults.description = "Prayer Refused"
+     if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
+       {
+         testResults.description += " - Wrath of the Gods"
+         currentSin--;
+         if (currentSin < 0)
+         currentSin = 0;
+        actor.update({"data.status.sin.value" : currentSin});
+        }
+
+   }
+   else
+   {
+     testResults.description = "Prayer Granted"
+
+     if (Number(testResults.roll.toString().split('').pop()) <= currentSin)
+     {
+       testResults.description += " - Wrath of the Gods"
+       currentSin--;
+       if (currentSin < 0)
+       currentSin = 0;
+      actor.update({"data.status.sin.value" : currentSin});
      }
-    // Generate HTML from the requested chat template
-    return renderTemplate(chatOptions.template, chatData).then(html => {
-      
-      // Emit the HTML as a chat message
-      chatOptions["content"] = html;
-      ChatMessage.create(chatOptions, false);
-      return html;
-    });
-  }
+    extensions = Math.floor(SL/2);
+
+   }
+
+
+
+   testResults.extensions = extensions;
+   return testResults;
+} 
+
+
+ static renderRollCard(chatOptions, testData) {
+   let chatData = {
+     title : chatOptions.title,
+     testData : testData
+   }
+  // Generate HTML from the requested chat template
+  return renderTemplate(chatOptions.template, chatData).then(html => {
+
+    // Emit the HTML as a chat message
+    chatOptions["content"] = html;
+    ChatMessage.create(chatOptions, false);
+    return html;
+  });
+}
+
 
   
   
@@ -1363,7 +1430,7 @@ class ActorWfrp4e extends Actor {
       return; 
     }
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
-    this.updateOwnedItem(spell)
+    //this.updateOwnedItem(spell)
     let testData = {
       target : castSkill.data.advances.value + this.data.data.characteristics[castSkill.data.characteristic.value],
       hitLocation : true,
@@ -1443,6 +1510,8 @@ class ActorWfrp4e extends Actor {
   rollChannell(spell, options) {
     let title = "Channelling Test";
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
+    let spellLore = spell.data.lore.value;
+    let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
 
     if (channellSkills.length == 0)
     {
@@ -1469,7 +1538,7 @@ class ActorWfrp4e extends Actor {
       data : {
         malignantInfluence : testData.malignantInfluence,
         channellSkills : channellSkills,
-        defaultSelection: 0,
+        defaultSelection: defaultSelection,
         talents : this.data.flags.talentTests,
       },
       callback : (html, roll) => {
@@ -1510,6 +1579,76 @@ class ActorWfrp4e extends Actor {
       },
       title: title,
       template : "public/systems/wfrp4e/templates/chat/channell-card.html"
+    }
+    // Call the roll helper utility
+    DiceWFRP.prepareTest({
+      dialogOptions : dialogOptions,
+      testData : testData,
+      cardOptions : cardOptions});
+  }
+
+  rollPrayer(prayer, options) {
+    let title = "Prayer Test";
+    let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
+    if (!praySkill)
+    {
+      ui.notifications.error("You need Pray to invoke the Gods")
+      return; 
+    }
+    let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
+   // this.updateOwnedItem(spell)
+    let testData = {
+      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value],
+      hitLocation : true,
+      extra : {
+        prayer : preparedPrayer,
+      }
+    };
+
+    let dialogOptions = {
+      title: title,
+      template : "/public/systems/wfrp4e/templates/chat/prayer-dialog.html",
+      buttons : {
+        rollButton : {
+          label: "Roll"
+        }
+      },
+      data : {
+        hitLocation : testData.hitLocation,
+        talents : this.data.flags.talentTests,
+      },
+      callback : (html, roll) => {
+        cardOptions.rollMode = html.find('[name="rollMode"]').val();
+        testData.testModifier = Number(html.find('[name="testModifier"]').val());
+        testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+        testData.successBonus = Number(html.find('[name="successBonus"]').val());
+        testData.slBonus = Number(html.find('[name="slBonus"]').val());
+        testData.target = this.data.data.characteristics[praySkill.data.characteristic.value].value
+                          + praySkill.data.advances.value 
+                          + testData.testDifficulty 
+                          + testData.testModifier;
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        let talentBonuses = html.find('[name = "talentBonuses"]').val();
+        testData.successBonus += talentBonuses.reduce(function (prev, cur){
+          return prev + Number(cur)
+        }, 0)
+
+        roll();
+        },
+      rollOveride : () => {
+        let roll = DiceWFRP.rollPrayTest(testData, this);
+        if (testData.extra)
+          mergeObject(roll, testData.extra);
+        DiceWFRP.renderRollCard(cardOptions, roll);
+      }
+    };
+    let cardOptions = {
+      actor : this.data.id,
+      speaker: {
+        alias: this.data.name,
+      },
+      title: title,
+      template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
     }
     // Call the roll helper utility
     DiceWFRP.prepareTest({
@@ -1824,7 +1963,14 @@ class ItemSheetWfrp4e extends ItemSheet {
     }
     else if (this.item.type == "spell")
     {
-      data['magicLores'] = CONFIG.magicLores;
+      if (CONFIG.magicLores[this.item.data.data.lore.value])
+      {
+        data["loreValue"] = CONFIG.magicLores[this.item.data.data.lore.value]
+      }
+      else
+      {
+        data["loreValue"] = this.item.data.data.lore.value;
+      }
     }
     else if (this.item.type == "prayer")
     {
@@ -1841,7 +1987,16 @@ class ItemSheetWfrp4e extends ItemSheet {
       });
       data['talents'] = data.data.talents.toString();
       data['trappings'] = data.data.trappings.toString();
-      data['characteristicList'] = CONFIG.characteristics
+      let characteristicList = duplicate(CONFIG.characteristicsAbrev);
+      for (let char in characteristicList)
+      {
+        if(data.data.characteristics.includes(char))
+          characteristicList[char] = {abrev : CONFIG.characteristicsAbrev[char], checked : true};
+       else
+        characteristicList[char] = {abrev : CONFIG.characteristicsAbrev[char], checked : false};
+      }
+      data['characteristicList'] = characteristicList;
+      
     }
 
     else if (this.item.type == "trapping")
@@ -1895,6 +2050,39 @@ class ItemSheetWfrp4e extends ItemSheet {
 
 
     html.find('.weapon-type').change(event => {console.log(event)});
+
+    html.find('.lore-input').change(async event => {
+      let inputLore = event.target.value;
+      for (let lore in CONFIG.magicLores)
+      {
+        if (inputLore == CONFIG.magicLores[lore])
+        {
+          await this.item.update({'data.lore.value' : lore}); 
+          return;
+        }
+      }
+      await this.item.update({'data.lore.value' : inputLore}); // If lore not recognized, save input as lore directly (custom lore) 
+
+    }),
+
+    
+    html.find('.char-checkbox').change(async event => {
+      let charChanged = event.target.attributes.name.value;
+      let newValue = event.target.checked;
+
+      let characteristicList = duplicate(this.item.data.data.characteristics);
+      
+      if (newValue)
+      {
+        if (!characteristicList.includes(charChanged))
+          characteristicList.push(charChanged);
+      }
+      else
+        characteristicList = characteristicList.filter(c => c != charChanged);
+      
+      await this.item.update({'data.characteristics' : characteristicList})
+
+    }),
 
     // This listener converts comma separated lists in the career section to arrays,
     // placing them in the correct location using update
@@ -2138,6 +2326,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let spell = this.actor.items.find(i => i.id === itemId);
       this.actor.rollSpell(duplicate(spell));
+    })  
+
+    html.find('.prayer-name').click(event => {
+      event.preventDefault();
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let prayer = this.actor.items.find(i => i.id === itemId);
+      this.actor.rollPrayer(duplicate(prayer));
     })  
 
     /* -------------------------------------------- */
@@ -3138,6 +3333,7 @@ class WFRP_Utility
     else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
     {
       weapon["ammo"] = [weapon];
+      weapon.data.ammunitionGroup.value = "";
     }
     weapon.properties = weapon.properties.filter(x => x != undefined);
     return weapon;
