@@ -1,13 +1,21 @@
 <div class="combat-section">
-      <div class="weapons">
-         <!-- <h3 class="melee-title">Melee Weapons</h3> -->
-         <div class="weapon-type">
-          <div class="inventory-header item">
-              <div>Melee Weapon(s)</div>
-              <div>Group</div>
-              <div>Damage</div>
-              <div>Reach</div>
-              <div>Qualities/Flaws</div>
+  <div class="weapons">
+
+    <div class="weapon-type">
+      <div class="inventory-header item">
+        <div>Melee Weapon(s)</div>
+        <div>Group</div>
+        <div>Damage</div>
+        <div>Reach</div>
+        <div>Qualities/Flaws</div>
+      </div>
+      <ol class="inventory-list weapon-list" weapon-type="melee">
+        {{#each actor.weapons as |item i|}}
+        {{#if item.meleeWeaponType}}
+        <li class="item" data-item-id="{{item.id}}">
+          <div class="weapon-name">
+            <a class="item-image" style="background-image: url({{item.img}})"></a>
+            <a>{{item.name}}</a>
           </div>
             <ol class="inventory-list weapon-list" weapon-type = "melee">
                {{#each actor.weapons as |item i|}}
@@ -78,198 +86,219 @@
             </ol>
          </div>
       </div>
-         <div class="armor">
-            <div class = "armor-row">
-               <div class="armor-box">
-                  <div class="location-values">
-                     <ol class = "inventory-list armor-list">
-                        <li class="inventory-header item">
-                              <span>Head</span>
-                              <span class = "AP-value">{{actor.AP.head}}</span>
-                           </li>
-        
-                        {{#each actor.armour as |item i|}}
-                        {{#if item.protectsHead}}
-                        <li class="item" data-item-id="{{item.id}}" data-location="head">
-                           <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                           <a title = "Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
-                              class = "AP-value">{{item.data.currentAP.head}}</a>
-                        </li>
-                        {{/if}}
-                        {{/each}}
-                     </ol>
-                  </div>
-               </div>
-               <div class="armor-box">
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
-                           <li class="inventory-header item">
-                                 <span>Body</span>
-                                 <span class = "AP-value">{{actor.AP.body}}</span>
-                              </li>
-          
-                           {{#each actor.armour as |item i|}}
-                           {{#if item.protectsBody}}
-                           <li class="item" data-item-id="{{item.id}}" data-location="body">
-                              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <a title = "Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
-                                 class = "AP-value">{{item.data.currentAP.body}}</a>
-                           </li>
-                           {{/if}}
-                           {{/each}}
-                        </ol>
-                     </div>
-                  </div>
+      <ol class="inventory-list weapon-list" weapon-type="ranged">
+        {{#each actor.weapons as |item i|}}
+        {{#if item.rangedWeaponType}}
+        <li class="item" data-item-id="{{item.id}}">
+          <div class="weapon-name">
+            <div class="item-image" style="background-image: url({{item.img}})"></div>
+            <a>{{item.name}}</a>
+          </div>
+          <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
+          <div class="ammo-selector selector">
+            <select name="item.data.currentAmmo.value" data-item-id="{{item.id}}"
+              data-dtype="{{item.data.currentAmmo.type}}">
+              {{#select item.data.currentAmmo.value}}
+              <option value="0">None</option>
+              {{#each item.ammo as |ammo a|}}
+              <option value="{{ammo.id}}">{{ammo.name}} ({{ammo.data.quantity.value}})</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+          <div>+{{item.data.damage.value}}</div>
+          <a class="weapon-range">{{item.data.range.value}}</a>
+          <div>
+            {{#each item.properties as |property p|}}
+            <a class='item-property'>{{property}}</a>
+            {{/each}}
+          </div>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+  </div>
 
-                  <div class="armor-box">
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
-                        <li class="inventory-header item">
-                           <span>Left Arm</span>
-                           <span class = "AP-value">{{actor.AP.lArm}}</span>
-                        </li>
-          
-                        {{#each actor.armour as |item i|}}
-                        {{#if item.protectslArm}}
-                        <li class="item" data-item-id="{{item.id}}" data-location="lArm">
-                           <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                           <a title = "Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
-                              class = "AP-value">{{item.data.currentAP.lArm}}</a>
-                        </li>
-                        {{/if}}
-                        {{/each}}
-                        </ol>
-                     </div>
-                  </div>
-                  <div class="armor-box">
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
-                           <li class="inventory-header item">
-                              <li class="inventory-header item">
-                                    <span>Right Arm</span>
-                                    <span class = "AP-value">{{actor.AP.rArm}}</span>
-                                 </li>
-    
-                           {{#each actor.armour as |item i|}}
-                           {{#if item.protectsrArm}}
-                           <li class="item" data-item-id="{{item.id}}" data-location = "rArm">
-                              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <a title = "Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
-                                 class = "AP-value">{{item.data.currentAP.rArm}}</a>
-                           </li>
-                           {{/if}}
-                           {{/each}}
-                        </ol>
-                     </div>
-                  </div>
-                  <div class="armor-box">
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
-                              <li class="inventory-header item">
-                                    <span>Left Leg</span>
-                                    <span class = "AP-value">{{actor.AP.lLeg}}</span>
-                                 </li>
-         
-                           {{#each actor.armour as |item i|}}
-                           {{#if item.protectslLeg}}
-                           <li class="item" data-item-id="{{item.id}}" data-location = "lLeg">
-                              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <a title = "Current: {{item.data.currentAP.lLeg}} Max: {{item.data.maxAP.lLeg}}"
-                                 class = "AP-value">{{item.data.currentAP.lLeg}}</a>
-                           </li>
-                           {{/if}}
-                           {{/each}}
-                        </ol>
-                     </div>
-                  </div>
-                  <div class="armor-box">
-                     <div class="location-values">
-                        <ol class = "inventory-list armor-list">
-                              <li class="inventory-header item">
-                                    <span>Right Leg</span>
-                                    <span class = "AP-value">{{actor.AP.rLeg}}</span>
-                                 </li>
-             
-                           {{#each actor.armour as |item i|}}
-                           {{#if item.protectsrLeg}}
-                           <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
-                              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                              <a title = "Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
-                                 class = "AP-value">{{item.data.currentAP.rLeg}}</a>
-                           </li>
-                           {{/if}}
-                           {{/each}}
-                        </ol>
-                     </div>
-                  </div>
-               </div>
+  <div class="armor">
+    <!-- <div class="armor-img" alt="Italian Trulli"> -->
+
+    <div class="armor-header head">
+      <span>Head</span>
+      <span class="AP-value">{{actor.AP.head}}</span>
+    </div>
+    <div class="armor-box head">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectsHead}}
+        <li class="item" data-item-id="{{item.id}}" data-location="head">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
+            class="AP-value">{{item.data.currentAP.head}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    <div class="armor-header body">
+      <span>Body</span>
+      <span class="AP-value">{{actor.AP.body}}</span>
+    </div>
+    <div class="armor-box body">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectsBody}}
+        <li class="item" data-item-id="{{item.id}}" data-location="body">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
+            class="AP-value">{{item.data.currentAP.body}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    <li class="armor-header leftarm">
+        <span>Left Arm</span>
+        <span class="AP-value">{{actor.AP.lArm}}</span>
+      </li>
+    <div class="armor-box leftarm">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectslArm}}
+        <li class="item" data-item-id="{{item.id}}" data-location="lArm">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+            class="AP-value">{{item.data.currentAP.lArm}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    <li class="armor-header rightarm">
+      <span>Right Arm</span>
+      <span class="AP-value">{{actor.AP.rArm}}</span>
+    </li>
+    <div class="armor-box rightarm">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectsrArm}}
+        <li class="item" data-item-id="{{item.id}}" data-location="rArm">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+            class="AP-value">{{item.data.currentAP.rArm}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    <li class="armor-header leftleg">
+      <span>Left Leg</span>
+      <span class="AP-value">{{actor.AP.lLeg}}</span>
+    </li>
+    <div class="armor-box leftleg">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectslLeg}}
+        <li class="item" data-item-id="{{item.id}}" data-location="lLeg">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.lLeg}} Max: {{item.data.maxAP.lLeg}}"
+            class="AP-value">{{item.data.currentAP.lLeg}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+
+    <li class="armor-header rightleg">
+      <span>Right Leg</span>
+      <span class="AP-value">{{actor.AP.rLeg}}</span>
+    </li>
+    <div class="armor-box rightleg">
+      <ol class="inventory-list armor-list">
+        {{#each actor.armour as |item i|}}
+        {{#if item.protectsrLeg}}
+        <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
+          <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+          <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
+            class="AP-value">{{item.data.currentAP.rLeg}}</a>
+        </li>
+        {{/if}}
+        {{/each}}
+      </ol>
+    </div>
+  </div>
+
+
+  <div class="armor-penalties">
+    <h3>Armor Penalties: </h3>
+    <p>{{actor.armorPenalties}}</p>
+  </div>
+  <div class=injury-crit-section>
+    <div class="injury">
+      <div class="criticalWounds">
+        <div class="criticalWounds-section">
+          <div id="criticalWounds-name">
+            <h4 id="criticalWounds-label">Critical Wounds</h4>
+          </div>
+          <div id="criticalWounds-box">
+            <div id="criticalWounds-value">
+              <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
             </div>
-
-            <div class = "armor-penalties">
-               <h3>Armor Penalties: </h3>
-               <p>{{actor.armorPenalties}}</p>
+            <div id="criticalWounds-divisor" class="divisor">
+              /
             </div>
-            <div class = injury-crit-section>
-            <div class="injury">
-               <div class="criticalWounds">
-                   <div class="criticalWounds-section">
-                     <div id="criticalWounds-name">
-                       <h4 id="criticalWounds-label">Critical Wounds</h4>
-                     </div>
-                     <div id="criticalWounds-box">
-                       <div id="criticalWounds-value">
-                         <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
-                       </div>
-                       <div id="criticalWounds-divisor" class="divisor">
-                         /
-                       </div>
-                       <div id="criticalWounds-max">
-                         <input name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}" readonly>
-                       </div>
-                     </div>
-                   </div>
-               </div>
-           
-               <ol class="inventory-list crit-wound-list">
-                 <li class="inventory-header item">
-                   <div class = "injury-name">Injury
-                   </div>
-           
-           
-                   <div>Location</div>
-           
-                   {{#if owner}}
-                   <div class="item-controls">
-                     <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-                       Add</a>
-                   </div>
-                 </li>
-           
-                 {{/if}}
-                 {{#each actor.injuries as |injury i|}}
-                 <li class="item" data-item-id="{{injury.id}}">
-                   <div class="item-name injury-name">
-                     <div class="item-image" style="background-image: url({{injury.img}})"></div>
-                     <h4>{{injury.name}}</h4>
-                   </div>
-           
-                   <div>
-                     {{injury.data.location.value}}
-                   </div>
-           
-                   {{#if ../owner}}
-                   <div class="item-controls">
-                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                     <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                   </div>
-                   {{/if}}
-           
-                 </li>
-                 {{/each}}
-               </ol>
-               </div>
-           
-             </div>
-
+            <div id="criticalWounds-max">
+              <input name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}"
+                readonly>
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+
+      <ol class="inventory-list crit-wound-list">
+        <li class="inventory-header item">
+          <div class="injury-name">Injury
+          </div>
+
+
+          <div>Location</div>
+
+          {{#if owner}}
+          <div class="item-controls">
+            <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+              Add</a>
+          </div>
+        </li>
+
+        {{/if}}
+        {{#each actor.injuries as |injury i|}}
+        <li class="item" data-item-id="{{injury.id}}">
+          <div class="item-name injury-name">
+            <div class="item-image" style="background-image: url({{injury.img}})"></div>
+            <h4>{{injury.name}}</h4>
+          </div>
+
+          <div>
+            {{injury.data.location.value}}
+          </div>
+
+          {{#if ../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+
+  </div>
+
+</div>
+</div>
