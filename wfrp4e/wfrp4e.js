@@ -366,6 +366,27 @@ CONFIG.magicLores = {
   "tzeentch": "Tzeentch",
 };
 
+// Condition Types
+CONFIG.magicWind = {
+  "petty": "None",
+  "beasts": "Ghur",
+  "death": "Shyish",
+  "fire": "Aqshy",
+  "heavens": "Azyr",
+  "metal": "Chamon",
+  "life": "Ghyran",
+  "light": "Hysh",
+  "shadow": "Ulgu",
+  "hedgecraft": "None",
+  "witchcraft": "None",
+  "daemonology": "Dhar",
+  "necromancy": "Dhar",
+  "nurgle": "Dhar",
+  "slaanesh": "Dhar",
+  "tzeentch": "Dhar",
+};
+
+
 CONFIG.prayerTypes = {
   "blessing" : "Blessing",
   "miracle" : "Miracle"
@@ -1502,7 +1523,8 @@ class ActorWfrp4e extends Actor {
   rollChannell(spell, options) {
     let title = "Channelling Test";
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
-
+    let spellLore = spell.data.lore.value;
+    let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
     if (channellSkills.length == 0)
     {
       ui.notifications.error("You need a Channelling skill.")
@@ -1528,7 +1550,7 @@ class ActorWfrp4e extends Actor {
       data : {
         malignantInfluence : testData.malignantInfluence,
         channellSkills : channellSkills,
-        defaultSelection: 0,
+        defaultSelection: defaultSelection,
         talents : this.data.flags.talentTests,
       },
       callback : (html, roll) => {
@@ -1955,7 +1977,14 @@ class ItemSheetWfrp4e extends ItemSheet {
     }
     else if (this.item.type == "spell")
     {
-      data['magicLores'] = CONFIG.magicLores;
+      if (CONFIG.magicLores[this.item.data.data.lore.value])
+      {
+        data["loreValue"] = CONFIG.magicLores[this.item.data.data.lore.value]
+      }
+      else
+      {
+        data["loreValue"] = this.item.data.data.lore.value;
+      }
     }
     else if (this.item.type == "prayer")
     {
@@ -2026,6 +2055,20 @@ class ItemSheetWfrp4e extends ItemSheet {
 
 
     html.find('.weapon-type').change(event => {console.log(event)});
+
+    html.find('.lore-input').change(async event => {
+      let inputLore = event.target.value;
+      for (let lore in CONFIG.magicLores)
+      {
+        if (inputLore == CONFIG.magicLores[lore])
+        {
+          await this.item.update({'data.lore.value' : lore}); 
+          return;
+        }
+      }
+      await this.item.update({'data.lore.value' : inputLore}); // If lore not recognized, save input as lore directly (custom lore) 
+
+    }),
 
     // This listener converts comma separated lists in the career section to arrays,
     // placing them in the correct location using update
