@@ -885,11 +885,12 @@ Hooks.on("renderChatMessage", (message, data, html) => {
 Hooks.once("init", () => {
 
   // IMPORT CODE FOR CAREERS
-  /*let counter = 0;
+/* let counter = 0;
   fetch ("careers.json").then(r => r.json()).then(async records => {
     let careerData = {
       data : {}
     };
+    
     for (let careerClass of records) {
       for (let careerGroup of careerClass.CareerPaths) {
         for (let careerTier of careerGroup.Tiers) {
@@ -898,8 +899,15 @@ Hooks.once("init", () => {
           careerData.data["class.value"] = careerClass.ClassName;
           careerData.data["careergroup.value"] = careerGroup.PathName;
           careerData.data["level.value"] = careerTier.Tier;
+
+          try {
           careerData.data["status.tier"] = careerTier.StatusTier[0].toLowerCase();
           careerData.data["status.standing"] = careerTier.StatusStanding;
+          }
+          catch{
+            careerData.data["status.tier"] = "";
+            careerData.data["status.standing"] = 0;
+          }
           careerData.data["characteristics"] = [];
           careerData.data["skills"] = [];
           careerData.data["talents"] = [];
@@ -920,11 +928,38 @@ Hooks.once("init", () => {
             careerData.data.talents.push(talent);
           for (let trappings of careerTier.CareerTrappings)
             careerData.data.trappings.push(trappings);
-
+          
+          let folder = game.folders.entities.find(f => f.name == careerGroup.PathName)
+          try {
+          careerData.folder = folder.data._id;
+          }
+          catch{
+            careerData.folder = undefined;
+          }
           await Item.create(careerData, {displaySheet : false});
         }
     }
   }
+  })*/
+
+    // IMPORT CODE FOR TALENTS
+ /* fetch ("talents.json").then(r => r.json()).then(async records => {
+    let talentData = {
+      data : {},
+    }; 
+    for (data of records)
+{
+      talentData.name = data.Name;
+      talentData.type = "talent"
+      for (let talentMax in CONFIG.talentMax)
+        if (CONFIG.talentMax[talentMax] == data.Max)
+          talentData.data['max.value'] = talentMax;
+      talentData.data["tests.value"] = data.Tests;
+      talentData.data["description.value"] = data.Description;
+      let folder = game.data.folders.find(f => f.name == "Talents");
+      talentData.folder = folder._id;
+      await Item.create(talentData, {displaySheet : false});     
+    }
   })*/
 
 
@@ -1063,7 +1098,7 @@ class ActorWfrp4e extends Actor {
       {
         let startParen = skillItem.data.name.indexOf("(")
         skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
-        if (data.items.filter(x => x.name.includes(skillItem.data.name).length <= 0))
+        if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
           data.items.push(skillItem.data);
 
       }
@@ -2002,6 +2037,11 @@ class ItemSheetWfrp4e extends ItemSheet {
     else if (this.item.type == "trapping")
     {
       data['trappingTypes'] = CONFIG.trappingTypes;
+    }
+
+    else if (this.item.type == "trait")
+    {
+      data['characteristics'] = CONFIG.characteristics;
     }
 
     /*data['abilities'] = game.system.template.actor.data.abilities;
