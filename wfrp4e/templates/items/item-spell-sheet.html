@@ -9,13 +9,7 @@
         <div class="tab" data-tab="details">
            <div class="form-group">
               <label>{{data.lore.label}}</label>
-              <select name="data.lore.value" data-dtype="{{data.lore.type}}">
-                 {{#select data.lore.value}}
-                 {{#each magicLores as |lore l|}}
-                 <option value="{{l}}">{{lore}}</option>
-                 {{/each}}
-                 {{/select}}
-              </select>
+              <input class = "lore-input" type="text" value="{{loreValue}}" data-dtype="{{data.lore.type}}">
            </div>
 
            <div class="form-group">

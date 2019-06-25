@@ -49,6 +49,7 @@
             <a class="item-name">{{item.name}}</a>
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
+          {{#if item.data.ammunitionGroup.value}}
           <div class="ammo-selector selector">
             <select name="item.data.currentAmmo.value" data-item-id="{{item.id}}"
               data-dtype="{{item.data.currentAmmo.type}}">
@@ -60,7 +61,12 @@
               {{/select}}
             </select>
           </div>
-          <div class="weapon-damage">+{{item.data.damage.value}}</div>
+          {{else}}
+          <div>
+              None
+           </div>
+           {{/if}}
+          <div>+{{item.data.damage.value}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div>
             {{#each item.properties as |property p|}}
@@ -192,7 +198,6 @@
     <h3>Armor Penalties: </h3>
     <p>{{actor.armorPenalties}}</p>
   </div>
-
   <div class=injury-crit-section>
     <div class="injury">
       <div class="criticalWounds">

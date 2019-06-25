@@ -752,7 +752,20 @@
         "description" : {
           "value": "",
           "type" : "String"
+        },
+        "rollable" :{
+          "value" : false,
+          "label" : "Rollable",
+          "type" : "Boolean",
+          "rollCharacteristic" : "",
+          "bonusCharacteristic" : ""
+        },
+        "rating" : {
+          "value" : 0,
+          "type" : "Number",
+          "label" : "Rating"
         }
+
       },
 
         

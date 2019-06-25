@@ -55,13 +55,10 @@
         <div class="form-group">
             <div class="form-group">
             <label>Characteristics</label>
-                <select name="data.characteristics" data-dtype="String" multiple>
-                    {{#select data.characteristics}}
-                    {{#each characteristicList as |c char|}}
-                    <option value="{{char}}">{{c}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
+                {{#each characteristicList as |charValue charIndex|}}
+                    <label>{{charValue.abrev}}</label>
+                    <input class="char-checkbox"type="checkbox" name="{{charIndex}}" value="{{charValue.checked}}" data-dtype="Boolean" {{checked charValue.checked}}/>
+                {{/each}}
             </div>
         </div>
 
