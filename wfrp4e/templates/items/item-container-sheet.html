@@ -1,24 +1,38 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
     {{> public/systems/wfrp4e/templates/items/item-header.html}}
 
+
+
+
+    <nav class="sheet-tabs tabs" data-tab-container="primary">
+        <a class="item active" data-tab="description">Description</a>
+        <a class="item" data-tab="details">Details</a>
+    </nav>
+
+    <div class="tab" data-tab="description">
     {{> public/systems/wfrp4e/templates/items/item-description.html}}
+    </div>
 
+    <div class="tab" data-tab="details">
 
-    <div class = "form-group">
-            <label>Enc</label>
-            <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
-        </div>
-
-        <div class = "form-group">
+    <ol class="item-details">
+        <li>
             <label>Carries</label>
             <input type="text" name="data.carries.value" value="{{data.carries.value}}" data-dtype="{{data.carries.type}}"/>
-        </div>
-
-        <div class = "form-group">
+        </li>
+        <li>
+            <label>Enc</label>
+            <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
+        </li>       
+        <li>
             <label>Price</label>
-            <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
-        </div>
-
+            <input type="text" name="data.price.gc" value="{{data.price.gc}}" data-dtype="{{data.price.type}}" placeholder="GC"/>
+            GC
+            <input type="text" name="data.price.ss" value="{{data.price.ss}}" data-dtype="{{data.price.type}}" placeholder="SS"/>
+            /
+            <input type="text" name="data.price.bp" value="{{data.price.bp}}" data-dtype="{{data.price.type}}" placeholder="BP"/>
+        </li>
+    </ol>
         <div class = "form-group">
             <label>Wearable</label>
             <input type="checkbox" name="data.wearable.value" value="{{data.wearable.value}}" data-dtype="{{data.wearable.type}}"  {{checked data.wearable.value}}/>
@@ -28,5 +42,5 @@
             <label>Count Enc</label>
             <input title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)" type="checkbox" name="data.countEnc.value" value="{{data.countEnc.value}}" data-dtype="{{data.countEnc.type}}"  {{checked data.countEnc.value}}/>
         </div>
-
+</div>
 </form>

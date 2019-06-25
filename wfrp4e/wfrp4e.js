@@ -1357,7 +1357,7 @@ class ActorWfrp4e extends Actor {
       target : 0,
       hitLocation : true,
       extra : {
-        weapon : undefined,
+        weapon : weapon,
         ammo : ammo
       }
     };
@@ -1694,6 +1694,64 @@ class ActorWfrp4e extends Actor {
 
   static getBonus(value) {
     return Math.floor(value / 10)
+  }
+
+  rollTrait(trait, event) {
+    if (!trait.rollable.value)
+      return;
+    let char = this.data.data.characteristics[trait.rollable.rollCharacteristic];
+    let title =  + " Test";
+    let testData = {
+      target : char.value,
+      hitLocation : true
+    };
+
+    let dialogOptions = {
+      title: title,
+      template : "/public/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
+      buttons : {
+        rollButton : {
+          label: "Roll"
+        }
+      },
+      data : {
+        hitLocation : testData.hitLocation,
+        talents : this.data.flags.talentTests,
+        characteristicList : CONFIG.characteristics,
+        characteristicToUse : trait.rollable.rollCharacteristic 
+      },
+      callback : (html, roll) => {
+        cardOptions.rollMode = html.find('[name="rollMode"]').val();
+        testData.testModifier = Number(html.find('[name="testModifier"]').val());
+        testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+        testData.successBonus = Number(html.find('[name="successBonus"]').val());
+        testData.slBonus = Number(html.find('[name="slBonus"]').val());
+        let characteristicToUse = html.find('[name="characteristicToUse"]').val();
+        testData.target = this.data.data.characteristics[characteristicToUse].value
+                             + testData.testModifier 
+                             + testData.testDifficulty
+                             + skill.data.advances.value;
+        testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+        let talentBonuses = html.find('[name = "talentBonuses"]').val();
+        testData.successBonus += talentBonuses.reduce(function (prev, cur){
+          return prev + Number(cur)
+        }, 0)
+        roll();
+        }
+    };
+    let cardOptions = {
+      actor : this.data.id,
+      speaker: {
+        alias: this.data.name,
+      },
+      title: title,
+      template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
+    }
+    // Call the roll helper utility
+    DiceWFRP.prepareTest({
+      dialogOptions : dialogOptions,
+      testData : testData,
+      cardOptions : cardOptions});
   }
 
 }
@@ -3080,7 +3138,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     actorData.injuries = injuries;
     actorData.grimoire = grimoire;
     actorData.petty = petty;
-    actorData.careers = careers;
+    actorData.careers = careers.reverse();
     actorData.blessings = blessings;
     actorData.miracles = miracles;
     actorData.money = money;
@@ -3459,9 +3517,9 @@ class WFRP_Utility
 
 
     if (!item.data.special.value)
-      return qualities.concat(flaws).sort();
+      return qualities.concat(flaws).sort().filter(p => !!p);
     else
-      return qualities.concat(flaws).sort().concat("Special");
+      return qualities.concat(flaws).sort().concat("Special").filter(p => !!p);
     
 
   }

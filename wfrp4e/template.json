@@ -313,7 +313,9 @@
       "price": {
         "type": "String",
         "label": "Price",
-        "value": ""
+        "gc" : 0,
+        "ss" : 0,
+        "bp" : 0
       },
       "availability": {
         "type": "String",
