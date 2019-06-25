@@ -123,6 +123,9 @@ input[type="text"], input[type="password"] {
 }
 
 
+
+/****************************************************/
+
 /* ----------------------------------------- */
 /* Sidebar Scrollbar                         */
 /* ----------------------------------------- */
@@ -1426,7 +1429,7 @@ input[type="text"], input[type="password"] {
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: flex-start;
-                line-height: 23px;
+                line-height: 17px;
                 padding-left: 4px;
               }
                            
@@ -1571,7 +1574,7 @@ input[type="text"], input[type="password"] {
 
             .careers .inventory-list .item .item-name > a {
               position: relative;
-              top: 5px;
+              top: 11px;
               text-align: left;
               width: 190px;
             }
@@ -1588,27 +1591,27 @@ input[type="text"], input[type="password"] {
               left: 114px;
               width: 30px;
               flex: none;
-              top: 5px;
+              top: 11px;
             }
             .career-complete {
               position: relative;
               left: 140px;
               width: 30px;
               flex: none;
-              top: 5px;
+              top: 11px;
             }
             .career-level {
               color: black;
               position: relative;
               left: 169px;
               width: auto;
-              top: 5px;
+              top: 11px;
             }
             .item-controls {
               position: relative;
               left: 184px;
               width: 46px;
-              top: 3px;
+              top: 9px;
               font-family: "Font Awesome 5 Free";
               font-size: 10px;
               color: #504f48a6;
@@ -1678,7 +1681,7 @@ input[type="text"], input[type="password"] {
           flex-wrap: wrap;
           justify-content: flex-start;
           padding-top: 3px;
-          line-height: 16px;
+          line-height: 17px;
         }
         .skill-section .inventory-list .item  > * {
           flex: 1;
@@ -1840,23 +1843,23 @@ input[type="text"], input[type="password"] {
         }
           .wfrp4e .talent-list .item .item-name {
             flex: none;
-            flex-basis: 140px;
+            flex-basis: 155px;
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
           }
             .wfrp4e.actor .talent-list .item-image {
-              flex: 0 0 24px;
+              flex: 0 0 30px;
               margin-right: 4px;
-              background-size: 24px;
+              background-size: 30px;
               background-repeat: no-repeat;
-              min-height: 24px;
-              max-height: 24px;
+              min-height: 30px;
+              max-height: 30px;
               margin-top: 2px;
               margin-bottom: 2px;
             }
             .wfrp4e .talent-list .item .item-name > a {
-              padding-top: 8px;
+              padding-top: 10px;
             }
           .wfrp4e .talent-list .item .item-max {
             flex: none;
@@ -1866,28 +1869,28 @@ input[type="text"], input[type="password"] {
             line-height: 20px;
             text-align: center;
             line-height: 16px;
-            padding-top: 8px;
+            padding-top: 10px;
           }
           .wfrp4e .talent-list .item .item-tests {
             flex: none;
-            flex-basis: 260px;
+            flex-basis: 251px;
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
             text-align: left;
-            padding-top: 8px;
+            padding-top: 10px;
           }
           .wfrp4e .talent-list .item .item-controls {
             position: relative;
-            left: 10px;
+            left: 0px;
             width: 29px;
-            top: 3px;
+            top: 9px;
             font-family: "Font Awesome 5 Free";
             font-size: 10px;
             color: #504f48a6;
           }
           .inventory-list .item .item-summary {
-            flex: 0 0 100%;
+            flex: 0 0 99.2%;
             line-height: 16px;
             padding: 0px;
             border-top: 1px solid #73695378;
@@ -1968,14 +1971,7 @@ input[type="text"], input[type="password"] {
           height: 18px;
           border: none;
         }
-        .wfrp4e.actor .item-image {
-          flex: 0 0 24px;
-          margin-right: 4px;
-          background-size: 24px;
-          background-repeat: no-repeat;
-          /* max-height: 33px; */
-          min-height: 24px;
-        }
+
       /* ============================================================ */
       
       /* ================== 3. COMBAT TAB SECTION =================== */  
@@ -2006,82 +2002,98 @@ input[type="text"], input[type="password"] {
               flex-direction: row;
               padding-left: 4px;
             }
-              .wfrp4e .combat-section .weapons .melee-type .inventory-header.item {
-                height: 21px;
-                width: 493px;
-                padding-left: 4px;
-                padding-right: 4px;
-                line-height: 19px;
-                border: 1px solid #736953a6;
-                font-family: CaslonAntique;
-                font-weight: 700;
-                font-size: 16px;
-                color: #464331c4;
-                background: none;
-                box-shadow: 0 0 10px #6b3a0f87 inset;
-                overscroll-behavior-x: none;
-                overflow-x: hidden;
-                overscroll-behavior-y: none;
-                overflow-y: hidden;
-                position: relative;
-                top: 1px;
-                left: 0px;
+              .wfrp4e .weapons .melee-title .header-name {
+                width: 111px;
               }
+              .wfrp4e .weapons .melee-title .header-group {
+                width: 77px;
+              }
+              .wfrp4e .weapons .melee-title .header-damage {
+                width: 55px;
+              }
+              .wfrp4e .weapons .melee-title .header-reach {
+                width: 48px;
+              }
+              .wfrp4e .weapons .melee-title .header-qualities {
+              }
+            .wfrp4e .combat-section .weapons .melee-type .inventory-header.item {
+              height: 21px;
+              width: 493px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 1px;
+              left: 0px;
+            }
+            .wfrp4e.actor .weapons .melee-type .weapon-list {
+              list-style: none;
+              height: 100px;
+              overflow: auto;
+              overscroll-behavior-x: unset;
+              overflow-x: hidden;
+              border: 1px solid #736953a6;
+              border-top: none;
+              box-shadow: 0px 0px 1px inset black;
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+              margin-top: 0px;
+              width: 493px;
+            }
               .wfrp4e.actor .weapons .melee-type .weapon-list {
-                list-style: none;
-                height: 100px;
-                overflow: auto;
-                overscroll-behavior-x: unset;
-                overflow-x: hidden;
-                border: 1px solid #736953a6;
-                border-top: none;
-                box-shadow: 0px 0px 1px inset black;
-                font-family: CaslonPro;
-                font-size: 14px;
-                font-weight: 500;
-                color: black;
-                margin-top: 0px;
-                width: 493px;
+                line-height: 17px;
               }
-                .wfrp4e.actor .weapons .melee-type .weapon-list {
-                  line-height: 23px;
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name {
+                width: 112px;
+              }
+                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-image {
+                  margin-top: 2px;
+                  margin-bottom: 2px;
                 }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name {
-                  width: 107px;
-                }
-                  .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-image {
-                    margin-top: 2px;
-                    margin-bottom: 2px;
-                  }
-                  .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-name {
-                    vertical-align: middle;
-                    position: relative;
-                    top: 5px;
-                    margin-right: 4px;
-                  }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-group, .weapon-damage, .weapon-reach, .weapon-property {
+                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-name {
                   vertical-align: middle;
-                  position: relative;
-                  top: 5px;
-                  margin-right: 4px;
+                  margin-right: 6px;
+                  padding-top: 10px;
                 }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-group {
-                  width: 77px;
-                }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-damage {
-                  width: 27px;
-                  text-align: center;
-                }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-reach {
-                  width: 65px;
-                  text-align: center;
-                }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-property {
-                }
-              .wfrp4e.sheet .weapons .melee-type .weapon-list ::-webkit-scrollbar-button {
-                height: 18px;
-                border: none;
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-group, .weapon-damage, .weapon-reach, .weapon-property {
+                vertical-align: middle;
+                margin-right: 4px;
+                padding-top: 10px;
               }
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-group {
+                width: 77px;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-damage {
+                width: 27px;
+                text-align: center;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-reach {
+                width: 65px;
+                text-align: center;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-property {
+              }
+            .wfrp4e.sheet .weapons .melee-type .weapon-list ::-webkit-scrollbar-button {
+              height: 18px;
+              border: none;
+            }
+
             .wfrp4e .weapons .ranged-title {
               font-family: CaslonAntique;
               font-size: 16px;
@@ -2100,51 +2112,141 @@ input[type="text"], input[type="password"] {
               flex-direction: row;
               padding-left: 4px;
             }
-              .wfrp4e .combat-section .weapons .ranged-type .inventory-header.item {
-                height: 21px;
-                width: 493px;
-                padding-left: 4px;
-                padding-right: 4px;
-                line-height: 19px;
-                border: 1px solid #736953a6;
-                font-family: CaslonAntique;
-                font-weight: 700;
-                font-size: 16px;
-                color: #464331c4;
-                background: none;
-                box-shadow: 0 0 10px #6b3a0f87 inset;
-                overscroll-behavior-x: none;
-                overflow-x: hidden;
-                overscroll-behavior-y: none;
-                overflow-y: hidden;
-                position: relative;
-                top: 1px;
-                left: 0px;
+              .wfrp4e .weapons .ranged-title .header-name {
+                width: 111px;
               }
+              .wfrp4e .weapons .ranged-title .header-group {
+                width: 77px;
+              }
+              .wfrp4e .weapons .ranged-title .header-damage {
+                width: 55px;
+              }
+              .wfrp4e .weapons .ranged-title .header-reach {
+                width: 48px;
+              }
+              .wfrp4e .weapons .ranged-title .header-qualities {
+              }
+            .wfrp4e .combat-section .weapons .ranged-type .inventory-header.item {
+              height: 21px;
+              width: 493px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 1px;
+              left: 0px;
+            }
+            .wfrp4e.actor .weapons .ranged-type .weapon-list {
+              list-style: none;
+              height: 100px;
+              overflow: auto;
+              overscroll-behavior-x: unset;
+              overflow-x: hidden;
+              border: 1px solid #736953a6;
+              border-top: none;
+              box-shadow: 0px 0px 1px inset black;
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+              margin-top: 0px;
+              width: 493px;
+            }
               .wfrp4e.actor .weapons .ranged-type .weapon-list {
-                list-style: none;
-                height: 100px;
-                overflow: auto;
-                overscroll-behavior-x: unset;
-                overflow-x: hidden;
-                border: 1px solid #736953a6;
-                border-top: none;
-                box-shadow: 0px 0px 1px inset black;
-                font-family: CaslonPro;
-                font-size: 14px;
-                font-weight: 500;
-                color: black;
-                margin-top: 6px;
-                width: 493px;
+                line-height: 17px;
               }
-                .wfrp4e.actor .weapons .ranged-type .weapon-list {
-                  line-height: 23px;
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name {
+                width: 112px;
+              }
+                .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .item-image {
+                  margin-top: 2px;
+                  margin-bottom: 2px;
                 }
-              .wfrp4e.sheet .weapons .ranged-type .weapon-list ::-webkit-scrollbar-button {
-                height: 18px;
-                border: none;
+                .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .item-name {
+                  vertical-align: middle;
+                  margin-right: 6px;
+                  padding-top: 10px;
+                }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-group, .weapon-damage, .weapon-range, .weapon-property {
+                vertical-align: middle;
+                margin-right: 4px;
+                padding-top: 10px;
               }
-            
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-group {
+                width: 77px;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .ammo-selector {
+                width: 77px;
+                padding-top: 7px;
+              }
+                .wfrp4e.actor .selector > select {
+                  width: 100%;
+                  background: none;
+                  border: 1px solid #737373;
+                  border-radius: 2px;
+                  padding: 0 3px;
+                  padding-top: 1px;
+                  font-family: CaslonPro;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: black;
+                  height: 19px;
+                  /* line-height: 7px; */
+                }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-damage {
+                width: 27px;
+                text-align: center;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-range {
+                width: 65px;
+                text-align: center;
+                padding-top: 10px;
+              }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-property {
+              }
+            .wfrp4e.sheet .weapons .ranged-type .weapon-list ::-webkit-scrollbar-button {
+              height: 18px;
+              border: none;
+            }
+
+
+            .wfrp4e.actor .weapons .ranged-type .weapon-list {
+              list-style: none;
+              height: 100px;
+              overflow: auto;
+              overscroll-behavior-x: unset;
+              overflow-x: hidden;
+              border: 1px solid #736953a6;
+              border-top: none;
+              box-shadow: 0px 0px 1px inset black;
+              font-family: CaslonPro;
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+              margin-top: 6px;
+              width: 493px;
+            }
+              .wfrp4e.actor .weapons .ranged-type .weapon-list {
+                line-height: 23px;
+              }
+            .wfrp4e.sheet .weapons .ranged-type .weapon-list ::-webkit-scrollbar-button {
+              height: 18px;
+              border: none;
+            }
+          
             
 
 
@@ -2428,6 +2530,21 @@ input[type="text"], input[type="password"] {
             }
 
 
+      /* ================== 4. INVENTORY TAB SECTION ================== */ 
+        .wfrp4e .inventory {
+          overflow-y: scroll;
+          overscroll-behavior-y: auto;
+          overflow-x: hidden;
+          height: 360px;
+        }  
+
+        .wfrp4e .inventory > ol {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          /* height: calc(100% - 20px); */
+          overflow-y: hidden;
+        }  
 
 
 /*************************************************************/
@@ -3942,9 +4059,7 @@ font-weight: bold;
 
 
  
- .wfrp4e.actor .armor-list .item-image{
-   margin-left: 12px;
- }
+
  
 
 .wfrp4e.actor .armor-box .item > *{
@@ -4000,19 +4115,20 @@ font-weight: bold;
 
  
  
- .wfrp4e.actor .item-image {
-   flex: 0 0 24px;
-   margin-right: 4px;
-   background-size: 24px;
-   background-repeat: no-repeat;
- }
 
 
  .wfrp4e.actor .religion-header {
    display: flex;
    flex-direction: row;
 }
-
+.wfrp4e.actor .item-image {
+  flex: 0 0 30px;
+  margin-right: 4px;
+  background-size: 30px;
+  background-repeat: no-repeat;
+  /* max-height: 33px; */
+  min-height: 30px;
+}
 
 .wfrp4e.sheet form .tag {
   float: left;

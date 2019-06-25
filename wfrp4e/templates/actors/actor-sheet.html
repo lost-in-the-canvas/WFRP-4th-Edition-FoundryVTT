@@ -2,7 +2,7 @@
 
   <a id="section-header-personaldetails">Personal Details</a>
 
-  <header class="sheet-header">
+  <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname">
       <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
       <a id="label-name">Name</a>
@@ -21,7 +21,7 @@
 
 
 
-  <section class="general">
+  <section class="general" ondragstart="return false;" ondrop="return false;">
     <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
     <div class="items">
 
@@ -89,12 +89,12 @@
 
   <!-- TABS -->
   <section id="tab-sections">
-    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary">
+    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;" ondrop="return false;">
       <button class="item active" data-tab="main">Main</button>
       <button class="item" data-tab="skills">Skills</button>
       <button class="item" data-tab="talents">Talents</button>
       <button class="item" data-tab="combat">Combat</button>
-      <button class="item" data-tab="inventory">Inventory</button>
+      <button class="item" data-tab="inventory">Trappings</button>
       {{#if actor.flags.hasSpells}}
       <button class="item" data-tab="magic">Magic</button>
       {{/if}}
