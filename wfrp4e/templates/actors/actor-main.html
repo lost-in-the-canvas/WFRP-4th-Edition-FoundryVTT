@@ -135,7 +135,7 @@
         </div>
         <div id="criticalWounds-box">
           <div id="criticalWounds-value">
-            <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
+              <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
           </div>
           <div id="criticalWounds-divisor" class="divisor">
             /
@@ -144,7 +144,7 @@
             {{#if actor.flags.autoCalcCritW}}       
             <a class ="auto-calc-toggle" toggle-type = "critW" >{{data.status.criticalWounds.max}}</a>
             {{else}}
-            <input class ="auto-calc-toggle" toggle-type = "critW" name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}">
+            <input class ="auto-calc-toggle" toggle-type = "critW" name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}" data-dtype="String">
             {{/if}}
           </div>
         </div>

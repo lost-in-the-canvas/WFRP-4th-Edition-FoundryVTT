@@ -2096,7 +2096,7 @@ input[type="text"], input[type="password"] {
                   margin-top: 2px;
                   margin-bottom: 2px;
                 }
-                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-name {
+                .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .weapon-item-name {
                   vertical-align: middle;
                   margin-right: 6px;
                   padding-top: 10px;
@@ -2206,7 +2206,7 @@ input[type="text"], input[type="password"] {
                   margin-top: 2px;
                   margin-bottom: 2px;
                 }
-                .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .item-name {
+                .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .weapon-item-name {
                   vertical-align: middle;
                   margin-right: 6px;
                   padding-top: 10px;

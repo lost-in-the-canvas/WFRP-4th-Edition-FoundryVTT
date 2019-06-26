@@ -124,7 +124,7 @@ CONFIG.weaponQualities = {
   "pistol": "Pistol",
   "precise": "Precise",
   "pummel": "Pummel",
-  "repeater": "Repater",
+  "repeater": "Repeater",
   "shield": "Shield",
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
@@ -135,7 +135,7 @@ CONFIG.weaponQualities = {
 CONFIG.weaponFlaws = {
   "dangerous": "Dangerous",
   "imprecise": "Imprecise",
-  "reload": "reload",
+  "reload": "Reload",
   "slow": "Slow",
   "tiring": "Tiring",
   "undamaging": "Undamaging"
@@ -158,7 +158,7 @@ CONFIG.qualityDescriptions = {
   "pistol": "Pistol",
   "precise": "Precise",
   "pummel": "Pummel",
-  "repeater": "Repater",
+  "repeater": "Repeater",
   "shield": "Shield",
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
@@ -169,7 +169,7 @@ CONFIG.qualityDescriptions = {
 CONFIG.flawDescriptions = {
   "dangerous": "Dangerous",
   "imprecise": "Imprecise",
-  "reload": "reload",
+  "reload": "Reload",
   "slow": "Slow",
   "tiring": "Tiring",
   "undamaging": "Undamaging"
@@ -2285,9 +2285,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     let tb = sheetData.actor.data.characteristics.t.bonus;
     let wpb =sheetData.actor.data.characteristics.wp.bonus;
 
-    /*if (sheetData.actor.flags.autoCalcCritW)
+    if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
-*/
+
    if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
     
@@ -2421,7 +2421,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollSkill(skill, event);
     })    
 
-    html.find('.weapon-name').click(event => {
+    html.find('.weapon-item-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
@@ -2738,7 +2738,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           for (let prop in properties)
           {
-            if (properties[prop] == property)
+            if (properties[prop] == property.split(" ")[0])
               propertyKey = prop;
           }
         }
@@ -3070,6 +3070,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         {
           actorData.currentClass = i.data.class.value;
           actorData.currentCareer = i.name;
+          actorData.currentCareerGroup = i.data.careergroup.value;
           actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
         }
         careers.push(i);
