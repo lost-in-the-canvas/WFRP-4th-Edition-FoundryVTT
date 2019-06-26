@@ -962,6 +962,22 @@ Hooks.once("init", () => {
     }
   })*/
 
+      // IMPORT CODE FOR TRAITS
+ /*fetch ("traits.json").then(r => r.json()).then(async records => {
+    let traitData = {
+      data : {},
+    }; 
+    for (data of records)
+{
+      traitData.name = data.Name;
+      traitData.type = "trait"
+      traitData.data["description.value"] = data.Description;
+      let folder = game.data.folders.find(f => f.name == "Traits");
+      traitData.folder = folder._id;
+      await Item.create(traitData, {displaySheet : false});     
+    }
+  })*/
+
 
   
 

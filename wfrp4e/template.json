@@ -773,10 +773,10 @@
           "rollCharacteristic" : "",
           "bonusCharacteristic" : ""
         },
-        "rating" : {
-          "value" : 0,
-          "type" : "Number",
-          "label" : "Rating"
+        "specification" : {
+          "value" : "",
+          "type" : "String",
+          "label" : "Specification"
         }
 
       },
