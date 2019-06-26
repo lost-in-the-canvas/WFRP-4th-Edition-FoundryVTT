@@ -385,7 +385,10 @@
       },
       "price": {
         "type": "String",
-        "label": "Price"
+        "label": "Price",
+        "gc" : 0,
+        "ss" : 0,
+        "bp" : 0
       },
       "availability": {
         "type": "String",
@@ -457,7 +460,10 @@
       },
       "price": {
         "type": "String",
-        "label": "Price"
+        "label": "Price",
+        "gc" : 0,
+        "ss" : 0,
+        "bp" : 0
       },
       "availability": {
         "type": "String",
@@ -519,7 +525,9 @@
       "price": {
         "type": "String",
         "label": "Price",
-        "value": 0
+        "gc" : 0,
+        "ss" : 0,
+        "bp" : 0
       },
       "carries": {
         "type": "Number",
@@ -554,7 +562,10 @@
       },
       "price": {
         "type": "String",
-        "label": "Price"
+        "label": "Price",
+        "gc" : 0,
+        "ss" : 0,
+        "bp" : 0
       },
       "spellIngredient": {
         "type": "String",

@@ -885,6 +885,26 @@ input[type="text"], input[type="password"] {
             padding: 7px 0px 0px 0px;
             border-radius: 0px;
           }    
+          .wfrp4e.actor .movement .move-value > input.auto-calc-toggle {
+            height: 25px;
+            padding: 0px;
+            position: relative;
+            top: -7px;
+            padding: 7px 0px 0px 0px;
+          } 
+          .wfrp4e.actor .movement .move-value > a {
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            text-align: center;
+            width: 50px;
+            height: 22px;
+            margin: 0px;
+            padding: 7px 0px 0px 0px;
+            border-radius: 0px;
+          }   
+          
           .wfrp4e.actor .movement .move-value {
             padding: 6px 0px 0px 0px;
             font-family: CaslonPro;
@@ -900,6 +920,9 @@ input[type="text"], input[type="password"] {
             /* padding: 1px 3px; */
             height: 23px;
           }
+
+
+
           #movement-value-box {
             padding: 0px 0px 0px 0px;
             margin: 0px;
@@ -1154,6 +1177,7 @@ input[type="text"], input[type="password"] {
             border-radius: 0px;
             text-align: center;
           }
+          #wounds-max > a,
           #wounds-max > input {
             font-family: CaslonPro;
             font-size: 14px;
@@ -1168,6 +1192,9 @@ input[type="text"], input[type="password"] {
             margin: 0px 0px 0px 36px;
             width: 30px;
             border-radius: 0px;
+          }
+          #wounds-max > a {
+            top: -22px;
           }
           #wound-label {
             font-weight: 700;
@@ -1256,7 +1283,8 @@ input[type="text"], input[type="password"] {
                 border-radius: 0px;
                 text-align: center;
               }
-              #criticalWounds-max > input {
+              #criticalWounds-max > input,
+              #criticalWounds-max > a {
                 font-family: CaslonPro;
                 font-size: 14px;
                 font-weight: 500;
@@ -1265,7 +1293,7 @@ input[type="text"], input[type="password"] {
                 color: #3b4f6f;
                 /* border: 1px solid black; */
                 position: relative;
-                top: -23px;
+                top: -22px;
                 /* left: 15px; */
                 margin: 0px 0px 0px 36px;
                 width: 30px;
@@ -1273,6 +1301,11 @@ input[type="text"], input[type="password"] {
               }
               #criticalWounds-label {
                 font-weight: 700;
+              }
+              #criticalWounds-max > input {
+                position: relative;
+                top: -23px;
+                padding-bottom: 1px;
               }
           #main-row-2 .experienceSection {
             border: 1px solid #736953a6;

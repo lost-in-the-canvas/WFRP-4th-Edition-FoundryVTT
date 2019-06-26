@@ -1103,12 +1103,18 @@ class ActorWfrp4e extends Actor {
 
       }
     }
-
+    data.flags = 
+    {
+      autoCalcRun :  true,
+      autoCalcWalk :  true,
+      autoCalcWounds :  true,
+      autoCalcCritW :  true
+    }
     super.create(data, options);
     
   }
   /**
-   * Augment the basic actor data with additional dynamic data.
+   * Augment the basFic actor data with additional dynamic data.
    */
   prepareData(actorData) {
     actorData = super.prepareData(actorData);
@@ -1118,8 +1124,11 @@ class ActorWfrp4e extends Actor {
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
 
-    data.details.move.walk = parseInt(data.details.move.value)* 2;
-    data.details.move.run = parseInt(data.details.move.value) * 4;
+    if (actorData.flags.autoCalcWalk)
+      data.details.move.walk = parseInt(data.details.move.value)* 2;
+    if (actorData.flags.autoCalcRun)
+      data.details.move.run = parseInt(data.details.move.value) * 4;
+
 
 
     // If user enters a species that does not exist, remove it.
@@ -2276,9 +2285,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     let tb = sheetData.actor.data.characteristics.t.bonus;
     let wpb =sheetData.actor.data.characteristics.wp.bonus;
 
-    sheetData.actor.data.status.criticalWounds.max = tb;
-
-
+    /*if (sheetData.actor.flags.autoCalcCritW)
+      sheetData.actor.data.status.criticalWounds.max = tb;
+*/
+   if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
     
       case "tiny":
@@ -2575,14 +2585,32 @@ class ActorSheetWfrp4e extends ActorSheet {
       await this.actor.updateOwnedItem(spell, true);      
     });
 
+    html.find('.auto-calc-toggle').mousedown(async ev => {
+      let toggle = event.target.attributes["toggle-type"].value;
 
-    // Toggle Spell prepared value
-    html.find('.item-prepare').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id")),
-          item = this.actor.items.find(i => { return i.id === itemId });
-      item.data['prepared'].value = !item.data['prepared'].value;
-      this.actor.updateOwnedItem(item, true);
+      if (event.button == 2)
+      {
+        let newFlags = duplicate(this.actor.data.flags);
+
+        if (toggle == "walk")
+          newFlags.autoCalcWalk = !newFlags.autoCalcWalk;
+
+        else if (toggle == "run")
+          newFlags.autoCalcRun = !newFlags.autoCalcRun;
+
+        if (toggle == "wounds")
+          newFlags.autoCalcWounds = !newFlags.autoCalcWounds;
+
+        else if (toggle == "critW")
+          newFlags.autoCalcCritW = !newFlags.autoCalcCritW;
+
+
+        this.actor.update({'flags' : newFlags})
+
+      }
+
     });
+
 
     //Item Dragging
     let handler = ev => this._onDragItemStart(ev);
