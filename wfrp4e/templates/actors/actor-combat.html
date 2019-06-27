@@ -21,10 +21,16 @@
           <div class="weapon-damage">+{{item.data.damage.value}}</div>
           <div class="weapon-reach">{{item.data.reach.value}}</div>
           <div class="weapon-property">
-            {{#each item.properties as |property p|}}
-            <a class='item-property'>{{property}}</a>,
-            {{/each}}
-          </div>
+            <div>
+                <b>Q:</b>
+                {{#each item.properties.qualities as |property p|}}
+                <a class='item-property'>{{property}}</a>,
+                {{/each}}
+                <b>F:</b>
+                {{#each item.properties.flaws as |property p|}}
+                <a class='item-property'>{{property}}</a>,
+                {{/each}}
+              </div>
         </li>
         {{/if}}
         {{/each}}
@@ -69,8 +75,13 @@
           <div>+{{item.data.damage.value}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div>
-            {{#each item.properties as |property p|}}
-            <a class='item-property'>{{property}}</a>
+            <b>Q:</b>
+            {{#each item.properties.qualities as |property p|}}
+            <a class='item-property'>{{property}}</a>,
+            {{/each}}
+            <b>F:</b>
+            {{#each item.properties.flaws as |property p|}}
+            <a class='item-property'>{{property}}</a>,
             {{/each}}
           </div>
         </li>

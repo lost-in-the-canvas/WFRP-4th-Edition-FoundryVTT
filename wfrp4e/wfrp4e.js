@@ -178,7 +178,7 @@ CONFIG.flawDescriptions = {
 // Armor Qualities
 CONFIG.armorQualities = {
   "flexible": "Flexible",
-  "Impenetrable": "impenetrable",
+  "Impenetrable": "Impenetrable",
 };
 
 // Armor Flaws
@@ -1410,8 +1410,9 @@ class ActorWfrp4e extends Actor {
         let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
         if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
         {
-          testData.extra.weapon.data.qualities.value = "";
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
+          testData.extra.weapon.properties.qualities = [];
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -1422,6 +1423,9 @@ class ActorWfrp4e extends Actor {
         else{
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
+          testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
+
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
           + testData.testModifier 
           + testData.testDifficulty
@@ -2809,7 +2813,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               label: "Cancel"
             },
           },
-          default: 'cancel'
+          default: 'Yes'
         }).render(true);
 
     });
@@ -3485,7 +3489,7 @@ class WFRP_Utility
       weapon["ammo"] = [weapon];
       weapon.data.ammunitionGroup.value = "";
     }
-    weapon.properties = weapon.properties.filter(x => x != undefined);
+    weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
     return weapon;
   }
 
@@ -3574,6 +3578,24 @@ class WFRP_Utility
       return qualities.concat(flaws).sort().concat("Special").filter(p => !!p);
     
 
+  }
+
+  static _separateQualitiesFlaws(properties){
+    let qualities = [],
+        flaws = [],
+        special = [];
+    let allQualities = Object.values(CONFIG.weaponQualities).concat(Object.values(CONFIG.itemQualities).concat(Object.values(CONFIG.armorQualities)));    
+    let allFlaws = Object.values(CONFIG.weaponFlaws).concat(Object.values(CONFIG.itemFlaws).concat(Object.values(CONFIG.armorFlaws)));
+    for (let prop of properties)
+    {
+      if (allQualities.includes(prop.split(" ")[0]))
+        qualities.push(prop);
+      else if (allFlaws.includes(prop.split(" ")[0]))
+        flaws.push(prop);
+      else
+        special.push(prop);
+    }
+    return {qualities : qualities,flaws : flaws,special : special}
   }
 
   static _calculateArmorPenalties(actorData, armorList){

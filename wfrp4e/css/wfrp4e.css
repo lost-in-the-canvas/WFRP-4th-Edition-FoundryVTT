@@ -4132,10 +4132,11 @@ font-weight: bold;
  .wfrp4e.actor .penalties {
   display: flex;
   flex-direction: row;
+  font-family: CaslonPro;
 }
 
 .wfrp4e.actor .penalties > input{
-  height: 20px;
+  height: 18px;
   width: 100%;
 }
  
