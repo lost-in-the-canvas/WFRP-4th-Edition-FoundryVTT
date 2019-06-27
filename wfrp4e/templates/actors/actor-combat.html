@@ -16,7 +16,7 @@
         <li class="item" data-item-id="{{item.id}}">
           <div class="weapon-name">
             <a class="item-image" style="background-image: url({{item.img}})"></a>
-            <a class="item-name">{{item.name}}</a>
+            <a class="weapon-item-name">{{item.name}}</a>
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
           <div class="weapon-damage">+{{item.data.damage.value}}</div>
@@ -47,7 +47,7 @@
         <li class="item" data-item-id="{{item.id}}">
           <div class="weapon-name">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a class="item-name">{{item.name}}</a>
+            <a class="weapon-item-name">{{item.name}}</a>
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
           {{#if item.data.ammunitionGroup.value}}

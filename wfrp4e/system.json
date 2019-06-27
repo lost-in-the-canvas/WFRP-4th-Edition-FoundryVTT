@@ -8,27 +8,11 @@
   "styles": ["./css/wfrp4e.css"],
   "packs": [
     {
-      "name": "monsters",
-      "label": "Monsters (SRD)",
-      "system": "dnd5e",
-      "module": "dnd5e",
-      "path": "./packs/monsters.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "items",
-      "label": "Items (SRD)",
-      "system": "dnd5e",
-      "module": "dnd5e",
-      "path": "./packs/items.db",
-      "entity": "Item"
-    },
-    {
-      "name": "spells",
-      "label": "Spells (SRD)",
-      "system": "dnd5e",
-      "module": "dnd5e",
-      "path": "./packs/spells.db",
+      "name": "traits",
+      "label": "Traits",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/traits.db",
       "entity": "Item"
     },
     {
@@ -38,6 +22,22 @@
       "module": "wfrp4e",
       "path": "./packs/skills.db",
       "entity": "Item"
+    },
+    {
+      "name": "diseases",
+      "label": "Diseases",
+      "path": "./packs/diseases.db",
+      "entity": "Item",
+      "module": "world",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "injuries",
+      "label": "Injuries",
+      "path": "./packs/injuries.db",
+      "entity": "Item",
+      "module": "world",
+      "system": "wfrp4e"
     }
   ],
   "languages": ["en"],

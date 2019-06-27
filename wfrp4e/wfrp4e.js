@@ -124,7 +124,7 @@ CONFIG.weaponQualities = {
   "pistol": "Pistol",
   "precise": "Precise",
   "pummel": "Pummel",
-  "repeater": "Repater",
+  "repeater": "Repeater",
   "shield": "Shield",
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
@@ -135,7 +135,7 @@ CONFIG.weaponQualities = {
 CONFIG.weaponFlaws = {
   "dangerous": "Dangerous",
   "imprecise": "Imprecise",
-  "reload": "reload",
+  "reload": "Reload",
   "slow": "Slow",
   "tiring": "Tiring",
   "undamaging": "Undamaging"
@@ -158,7 +158,7 @@ CONFIG.qualityDescriptions = {
   "pistol": "Pistol",
   "precise": "Precise",
   "pummel": "Pummel",
-  "repeater": "Repater",
+  "repeater": "Repeater",
   "shield": "Shield",
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
@@ -169,7 +169,7 @@ CONFIG.qualityDescriptions = {
 CONFIG.flawDescriptions = {
   "dangerous": "Dangerous",
   "imprecise": "Imprecise",
-  "reload": "reload",
+  "reload": "Reload",
   "slow": "Slow",
   "tiring": "Tiring",
   "undamaging": "Undamaging"
@@ -962,6 +962,22 @@ Hooks.once("init", () => {
     }
   })*/
 
+      // IMPORT CODE FOR TRAITS
+ /*fetch ("traits.json").then(r => r.json()).then(async records => {
+    let traitData = {
+      data : {},
+    }; 
+    for (data of records)
+{
+      traitData.name = data.Name;
+      traitData.type = "trait"
+      traitData.data["description.value"] = data.Description;
+      let folder = game.data.folders.find(f => f.name == "Traits");
+      traitData.folder = folder._id;
+      await Item.create(traitData, {displaySheet : false});     
+    }
+  })*/
+
 
   
 
@@ -1181,7 +1197,6 @@ class ActorWfrp4e extends Actor {
   _prepareNPCData(data) {
 
   }
-
 
   /* -------------------------------------------- */
   /*  Rolls                                       */
@@ -1701,10 +1716,6 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
-  static getBonus(value) {
-    return Math.floor(value / 10)
-  }
-
   rollTrait(trait, event) {
     if (!trait.rollable.value)
       return;
@@ -1762,6 +1773,12 @@ class ActorWfrp4e extends Actor {
       testData : testData,
       cardOptions : cardOptions});
   }
+
+  static getBonus(value) {
+    return Math.floor(value / 10)
+  }
+
+
 
 }
 
@@ -2285,9 +2302,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     let tb = sheetData.actor.data.characteristics.t.bonus;
     let wpb =sheetData.actor.data.characteristics.wp.bonus;
 
-    /*if (sheetData.actor.flags.autoCalcCritW)
+    if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
-*/
+
    if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
     
@@ -2326,11 +2343,323 @@ class ActorSheetWfrp4e extends ActorSheet {
     return sheetData;
   }
 
-  /* -------------------------------------------- */
+  _prepareItems(actorData)
+  {
+      // These containers are for the various different tabs
+      const careers = [];
+      const basicSkills = [];
+      const advancedOrGroupedSkills = [];
+      const talents = [];
+      const traits = {list : [], hasTraits : false};
+      const weapons = [];
+      const armour = [];
+      const AP = {
+        head: 0,
+        body: 0,
+        rArm: 0,
+        lArm: 0,
+        rLeg: 0,
+        lLeg: 0
+      };
+      const injuries = [];
+      const grimoire = [];
+      const petty = [];
+      const blessings = [];
+      const miracles = [];
+      const psychology = [];
+      let allPenalties = "";
+  
+      // Inventory object is for the inventory tab
+      const inventory = {
+        weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false },
+        armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false},
+        ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
+        clothingAccessories: { label: "Clothing/Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
+        booksAndDocuments: {label: "Food and Drink", items: [], show : false},
+        toolsAndKits: {label: "Tools and Kits", items: [], show : false},
+        books: {label: "Books and Documents", items: [], show : false},
+        drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false},
+        misc: {label: "Miscellaneous", items: [], show : false}
+      };
+      const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
+      const money = {coins: [], total: 0, show : true};
+      const containers = {items: [], show : false};
+      const inContainers = [];
+  
+      // Money and ingredients are not in inventory objecet because they need more customization
+  
+      // Iterate through items, allocating to containers
+      let totalEnc = 0;
+      let itemsToRemove = []; // remove items with quantity of 0
+      let hasSpells = false;
+      let hasPrayers = false;
+  
+      for ( let i of actorData.items ) {
+        i.img = i.img || DEFAULT_TOKEN;
+        if (i.type === "talent")
+        {
+          WFRP_Utility._prepareTalent(actorData, i, talents);
+        }
+  
+        else if ( i.type === "skill" )
+        {
+          WFRP_Utility._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+        }
+  
+  
+        else if (i.type === "ammunition")
+        {
+          // Aggregate ammo option
+     /*     let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
+          if (existingAmmo) {
+            existingAmmo.data.quantity.value += i.data.quantity.value;
+            existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
+  
+          }
+          else{*/
+            i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+            if (i.data.location.value == 0){
+              inventory.ammunition.items.push(i);
+              inventory.ammunition.show = true
+              totalEnc += i.encumbrance;
+            }
+            else{
+              inContainers.push(i);
+            }
+        //}
+        }
+  
+        else if (i.type === "weapon")
+        {
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            i.toggleValue = i.data.equipped || false;
+            inventory.weapons.items.push(i);
+            inventory.weapons.show = true;
+            totalEnc += i.encumbrance;
+          }
+          else {
+            inContainers.push(i);
+          }
+          if (i.data.equipped)
+            weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
+        
+        }
+  
+        else if (i.type === "armour")
+        {
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            i.toggleValue = i.data.worn.value || false;
+            inventory.armor.items.push(i);
+            inventory.armor.show = true;
+            totalEnc += i.encumbrance;
+          }
+          else {
+            inContainers.push(i);
+          }
+  
+          if (i.data.worn.value)
+            armour.push(WFRP_Utility._prepareArmorCombat(actorData, i, AP));
+        }
+  
+        else if (i.type == "injury")
+        {
+          injuries.push(i);
+          allPenalties += i.data.penalty.value;
+        }
+  
+        else if (i.type === "container")
+        {
+          i.encumbrance = i.data.encumbrance.value;
+  
+          if (i.data.location.value == 0){
+          totalEnc += i.data.encumbrance.value;
+          }
+          else{
+            inContainers.push(i);
+          }
+          containers.items.push(i);
+          containers.show = true;
+        }
+  
+        else if (i.type === "trapping")
+        {
+          i.encumbrance = i.data.encumbrance.value * i.data.quantity.value;
+          if (i.data.location.value == 0)
+          {
+            if (i.data.trappingType.value == "ingredient"){
+              ingredients.items.push(i)
+            }
+            else if (i.data.trappingType.value == "clothingAccessories")
+            {
+              i.toggleValue = i.data.worn || false;
+              inventory[i.data.trappingType.value].items.push(i);
+              inventory[i.data.trappingType.value].show = true;
+            }
+            else
+            {
+              inventory[i.data.trappingType.value].items.push(i);
+              inventory[i.data.trappingType.value].show = true;
+            }
+            totalEnc += i.encumbrance;
+          }
+          else{
+            inContainers.push(i);
+          }
+  
+        }
+  
+        
+        else if (i.type === "spell")
+        {
+          hasSpells = true;
+          if (i.data.lore.value == "petty")
+            petty.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+          else
+            grimoire.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+        }
+  
+        else if (i.type === "prayer")
+        {
+          hasPrayers = true;
+          if (i.data.type.value == "blessing")
+            blessings.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+          else
+            miracles.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+        }
+  
+        else if (i.type === "career")
+        {
+          if (i.data.current.value)
+          {
+            actorData.currentClass = i.data.class.value;
+            actorData.currentCareer = i.name;
+            actorData.currentCareerGroup = i.data.careergroup.value;
+            actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+          }
+          careers.push(i);
+        }
+  
+        
+        else if (i.type === "trait")
+        {
+          traits.list.push(i);
+        }
+  
+        
+        else if (i.type === "psychology")
+        {
+          psychology.push(i);
+        }
+  
+        else if (i.type === "money")
+        {
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            money.coins.push(i);
+            totalEnc += i.encumbrance;
+          }
+          else{
+            inContainers.push(i);
+          }
+          money.total += i.data.quantity.value * i.data.coinValue.value;
+  
+        }
+      }
+  
+      // If you have no spells, just put all ingredients in the miscellaneous section
+      if (grimoire.length > 0 && ingredients.items.length > 0)
+      {
+        ingredients.show = true;
+        actorData.ingredients = ingredients;
+        for (let s of grimoire)
+           s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
+      }
+      else
+        inventory.misc.items = inventory.misc.items.concat(ingredients.items);
+      
+      
+      var containerMissing = inContainers.filter(i => containers.items.find(c => c.id == i.data.location.value) == undefined);
+      for (var itemNoContainer of containerMissing)
+      {
+        itemNoContainer.data.location.value = 0;
+        this.actor.updateOwnedItem(itemNoContainer, true);;
+      }
+      for (var cont of containers.items)
+      {
+        var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
+        itemsInside.map(function(item){
+          if (item.type == "trapping")
+            item.type = CONFIG.trappingTypes[item.data.trappingType.value];
+          else
+            item.type = CONFIG.trappingTypes[item.type];
+        } )
+        cont["carrying"] = itemsInside.filter(i => i.type != "Container");
+        cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
+        cont["holding"] = itemsInside.reduce(function (prev, cur){
+          return prev + cur.encumbrance;
+        }, 0);
+        cont.holding = Math.floor(cont.holding)
+      }
+  
+      containers.items = containers.items.filter(c => c.data.location.value == 0);
+      
+      if (traits.list.length > 0)
+        traits.hasTraits = true;
+  
+      // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
+      // instead of iterating through every item again to find talents when rolling
+      this.actor.data.flags.talentTests = [];
+      for (let talent of talents)
+        if (talent.data.tests.value)
+          this.actor.data.flags.talentTests.push({talentName: talent.name, test : talent.data.tests.value, SL : talent.data.advances.value});
+      this.actor.data.flags.combatSkills = [];
+      for (let skill of basicSkills.concat(advancedOrGroupedSkills))
+        if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
+          this.actor.data.flags.combatSkills.push(skill);
+  
+      if (this.actor.data.data.status.penalties.value)
+        allPenalties += " " + this.actor.data.data.status.penalties.value
+      
+      allPenalties += " " +  WFRP_Utility._calculateArmorPenalties(actorData, armour);
 
-  _prepareTraits(traits) {
+      actorData.inventory = inventory;
+      actorData.containers = containers;
+      actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
+      actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+      actorData.talents = talents;
+      actorData.traits = traits;
+      actorData.weapons = weapons;
+      actorData.armour = armour;
+      actorData.allPenalties = allPenalties;
+      actorData.AP = AP;
+      actorData.injuries = injuries;
+      actorData.grimoire = grimoire;
+      actorData.petty = petty;
+      actorData.careers = careers.reverse();
+      actorData.blessings = blessings;
+      actorData.miracles = miracles;
+      actorData.money = money;
+      actorData.psychology = psychology;
+      actorData.flags.hasSpells = hasSpells;
+      actorData.flags.hasPrayers = hasPrayers;
+  
+  
+  
+      // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
+     /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
+      {
+        totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
+      }*/
+      let enc = {
+        max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
+        value: Math.round(totalEnc * 10) / 10,
+      };
+      enc.pct = Math.min(enc.value * 100 / enc.max, 99);
+      enc.state = Math.floor(enc.value / enc.max);
+      actorData.encumbrance = enc;
   }
-
  
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
@@ -2421,7 +2750,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollSkill(skill, event);
     })    
 
-    html.find('.weapon-name').click(event => {
+    html.find('.weapon-item-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
@@ -2738,7 +3067,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           for (let prop in properties)
           {
-            if (properties[prop] == property)
+            if (properties[prop] == property.split(" ")[0])
               propertyKey = prop;
           }
         }
@@ -2880,315 +3209,10 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * Organize and classify Items for Character sheets
    * @private
    */
-  _prepareItems(actorData) {
+  /*_prepareItems(actorData) {
   
-    // These containers are for the various different tabs
-    const careers = [];
-    const basicSkills = [];
-    const advancedOrGroupedSkills = [];
-    const talents = [];
-    const traits = {list : [], hasTraits : false};
-    const weapons = [];
-    const armour = [];
-    const AP = {
-      head: 0,
-      body: 0,
-      rArm: 0,
-      lArm: 0,
-      rLeg: 0,
-      lLeg: 0
-    };
-    const injuries = [];
-    const grimoire = [];
-    const petty = [];
-    const blessings = [];
-    const miracles = [];
-    const psychology = [];
-
-    // Inventory object is for the inventory tab
-    const inventory = {
-      weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false },
-      armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false},
-      ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
-      clothingAccessories: { label: "Clothing/Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
-      booksAndDocuments: {label: "Food and Drink", items: [], show : false},
-      toolsAndKits: {label: "Tools and Kits", items: [], show : false},
-      books: {label: "Books and Documents", items: [], show : false},
-      drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false},
-      misc: {label: "Miscellaneous", items: [], show : false}
-    };
-    const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
-    const money = {coins: [], total: 0, show : true};
-    const containers = {items: [], show : false};
-    const inContainers = [];
-
-    // Money and ingredients are not in inventory objecet because they need more customization
-
-    // Iterate through items, allocating to containers
-    let totalEnc = 0;
-    let itemsToRemove = []; // remove items with quantity of 0
-    let hasSpells = false;
-    let hasPrayers = false;
-
-    for ( let i of actorData.items ) {
-      i.img = i.img || DEFAULT_TOKEN;
-      if (i.type === "talent")
-      {
-        WFRP_Utility._prepareTalent(actorData, i, talents);
-      }
-
-      else if ( i.type === "skill" )
-      {
-        WFRP_Utility._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
-      }
-
-
-      else if (i.type === "ammunition")
-      {
-        // Aggregate ammo option
-   /*     let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
-        if (existingAmmo) {
-          existingAmmo.data.quantity.value += i.data.quantity.value;
-          existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
-
-        }
-        else{*/
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-          if (i.data.location.value == 0){
-            inventory.ammunition.items.push(i);
-            inventory.ammunition.show = true
-            totalEnc += i.encumbrance;
-          }
-          else{
-            inContainers.push(i);
-          }
-      //}
-      }
-
-      else if (i.type === "weapon")
-      {
-        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-        if (i.data.location.value == 0){
-          i.toggleValue = i.data.equipped || false;
-          inventory.weapons.items.push(i);
-          inventory.weapons.show = true;
-          totalEnc += i.encumbrance;
-        }
-        else {
-          inContainers.push(i);
-        }
-        if (i.data.equipped)
-          weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
-      
-      }
-
-      else if (i.type === "armour")
-      {
-        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-        if (i.data.location.value == 0){
-          i.toggleValue = i.data.worn.value || false;
-          inventory.armor.items.push(i);
-          inventory.armor.show = true;
-          totalEnc += i.encumbrance;
-        }
-        else {
-          inContainers.push(i);
-        }
-
-        if (i.data.worn.value)
-          armour.push(WFRP_Utility._prepareArmorCombat(actorData, i, AP));
-      }
-
-      else if (i.type == "injury")
-      {
-        injuries.push(i);
-      }
-
-      else if (i.type === "container")
-      {
-        i.encumbrance = i.data.encumbrance.value;
-
-        if (i.data.location.value == 0){
-        totalEnc += i.data.encumbrance.value;
-        }
-        else{
-          inContainers.push(i);
-        }
-        containers.items.push(i);
-        containers.show = true;
-      }
-
-      else if (i.type === "trapping")
-      {
-        i.encumbrance = i.data.encumbrance.value * i.data.quantity.value;
-        if (i.data.location.value == 0)
-        {
-          if (i.data.trappingType.value == "ingredient"){
-            ingredients.items.push(i)
-          }
-          else if (i.data.trappingType.value == "clothingAccessories")
-          {
-            i.toggleValue = i.data.worn || false;
-            inventory[i.data.trappingType.value].items.push(i);
-            inventory[i.data.trappingType.value].show = true;
-          }
-          else
-          {
-            inventory[i.data.trappingType.value].items.push(i);
-            inventory[i.data.trappingType.value].show = true;
-          }
-          totalEnc += i.encumbrance;
-        }
-        else{
-          inContainers.push(i);
-        }
-
-      }
-
-      
-      else if (i.type === "spell")
-      {
-        hasSpells = true;
-        if (i.data.lore.value == "petty")
-          petty.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
-        else
-          grimoire.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
-      }
-
-      else if (i.type === "prayer")
-      {
-        hasPrayers = true;
-        if (i.data.type.value == "blessing")
-          blessings.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
-        else
-          miracles.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
-      }
-
-      else if (i.type === "career")
-      {
-        if (i.data.current.value)
-        {
-          actorData.currentClass = i.data.class.value;
-          actorData.currentCareer = i.name;
-          actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
-        }
-        careers.push(i);
-      }
-
-      
-      else if (i.type === "trait")
-      {
-        traits.list.push(i);
-      }
-
-      
-      else if (i.type === "psychology")
-      {
-        psychology.push(i);
-      }
-
-      else if (i.type === "money")
-      {
-        i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-        if (i.data.location.value == 0){
-          money.coins.push(i);
-          totalEnc += i.encumbrance;
-        }
-        else{
-          inContainers.push(i);
-        }
-        money.total += i.data.quantity.value * i.data.coinValue.value;
-
-      }
-    }
-
-    // If you have no spells, just put all ingredients in the miscellaneous section
-    if (grimoire.length > 0 && ingredients.items.length > 0)
-    {
-      ingredients.show = true;
-      actorData.ingredients = ingredients;
-      for (let s of grimoire)
-         s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
-    }
-    else
-      inventory.misc.items = inventory.misc.items.concat(ingredients.items);
-    
-    
-    var containerMissing = inContainers.filter(i => containers.items.find(c => c.id == i.data.location.value) == undefined);
-    for (var itemNoContainer of containerMissing)
-    {
-      itemNoContainer.data.location.value = 0;
-      this.actor.updateOwnedItem(itemNoContainer, true);;
-    }
-    for (var cont of containers.items)
-    {
-      var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
-      itemsInside.map(function(item){
-        if (item.type == "trapping")
-          item.type = CONFIG.trappingTypes[item.data.trappingType.value];
-        else
-          item.type = CONFIG.trappingTypes[item.type];
-      } )
-      cont["carrying"] = itemsInside.filter(i => i.type != "Container");
-      cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
-      cont["holding"] = itemsInside.reduce(function (prev, cur){
-        return prev + cur.encumbrance;
-      }, 0);
-      cont.holding = Math.floor(cont.holding)
-    }
-
-    containers.items = containers.items.filter(c => c.data.location.value == 0);
-    
-    if (traits.list.length > 0)
-      traits.hasTraits = true;
-
-    // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
-    // instead of iterating through every item again to find talents when rolling
-    this.actor.data.flags.talentTests = [];
-    for (let talent of talents)
-      if (talent.data.tests.value)
-        this.actor.data.flags.talentTests.push({talentName: talent.name, test : talent.data.tests.value, SL : talent.data.advances.value});
-    this.actor.data.flags.combatSkills = [];
-    for (let skill of basicSkills.concat(advancedOrGroupedSkills))
-      if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
-        this.actor.data.flags.combatSkills.push(skill);
-
-    actorData.inventory = inventory;
-    actorData.containers = containers;
-    actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
-    actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
-    actorData.talents = talents;
-    actorData.traits = traits;
-    actorData.weapons = weapons;
-    actorData.armour = armour;
-    actorData.armorPenalties = WFRP_Utility._calculateArmorPenalties(actorData, armour);
-    actorData.AP = AP;
-    actorData.injuries = injuries;
-    actorData.grimoire = grimoire;
-    actorData.petty = petty;
-    actorData.careers = careers.reverse();
-    actorData.blessings = blessings;
-    actorData.miracles = miracles;
-    actorData.money = money;
-    actorData.psychology = psychology;
-    actorData.flags.hasSpells = hasSpells;
-    actorData.flags.hasPrayers = hasPrayers;
-
-
-
-    // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
-   /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
-    {
-      totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
-    }*/
-    let enc = {
-      max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
-      value: Math.round(totalEnc * 10) / 10,
-    };
-    enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-    enc.state = Math.floor(enc.value / enc.max);
-    actorData.encumbrance = enc;
-  }
+  
+  }*/
  /* -------------------------------------------- */
 
   /**

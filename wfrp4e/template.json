@@ -127,6 +127,11 @@
           "type" : "Number",
           "label": "Sin",
           "value": 0
+        },
+        "penalties" : {
+          "type" : "String",
+          "label" : "Penalties",
+          "value" : ""
         }
       },
       "details": {
@@ -728,6 +733,11 @@
           "value": "",
           "type" : "String",
           "label" : "Location"
+        },
+        "penalty" : {
+          "value": "",
+          "type" : "String",
+          "label" : "Penalty"
         }
       },
 
@@ -749,6 +759,11 @@
         },
         "symptoms" : {
           "label" : "Symptoms",
+          "value": "",
+          "type" : "String"
+        },
+        "permanent" : {
+          "label" : "Permanent",
           "value": "",
           "type" : "String"
         }
@@ -773,10 +788,10 @@
           "rollCharacteristic" : "",
           "bonusCharacteristic" : ""
         },
-        "rating" : {
-          "value" : 0,
-          "type" : "Number",
-          "label" : "Rating"
+        "specification" : {
+          "value" : "",
+          "type" : "String",
+          "label" : "Specification"
         }
 
       },
