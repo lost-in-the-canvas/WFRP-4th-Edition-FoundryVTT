@@ -4129,11 +4129,17 @@ font-weight: bold;
    font-size: 14px;
  }
 
- .wfrp4e.actor .armor-penalties {
+ .wfrp4e.actor .penalties {
   display: flex;
   flex-direction: row;
 }
+
+.wfrp4e.actor .penalties > input{
+  height: 20px;
+  width: 100%;
+}
  
+
  .wfrp4e.actor .armor-list-item .item-name {
    display: flex;
    flex-direction: row;

@@ -1,40 +1,28 @@
 <div class="characteristics">
     <table class="characteristics-table">
       <tr class="table-header">
-        <th></th>
+        <th title="Movement" class="table-header">
+          M
+        </th>
         {{#each actor.data.characteristics as |ch c|}}
         <th title="{{ch.label}}" class="table-header">
           {{ch.abrev}}
         </th>
         {{/each}}
-      </tr>
-      <tr class="table-row">
-        <td class="row-type">
-          Initial
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data">
-          <input name="data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
-        </td>
-        {{/each}}
-      </tr>
-      <tr class="table-row">
-        <td class="row-type">
-          Advances
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data">
-          <input name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
-        </td>
-        {{/each}}
+        <th title="Wounds" class="table-header">
+            W
+          </th>
       </tr>
       <tr class="table-row-bottom">
         <td class="row-type">
-          Current
+          {{actor.data.details.move.value}}
         </td>
         {{#each actor.data.characteristics as |ch c|}}
         <td class="table-data ch-value" data-char="{{c}}"><a>{{ch.value}}</a></td>
         {{/each}}
+        <td class="row-type">
+            {{actor.data.status.wounds.max}}
+        </td>
       </tr>
     </table>
   </div>
@@ -134,9 +122,9 @@
           <h4 id="criticalWounds-label">Critical Wounds</h4>
         </div>
         <div id="criticalWounds-box">
-            <div id="criticalWounds-value">
+          <div id="criticalWounds-value">
               <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
-            </div>
+          </div>
           <div id="criticalWounds-divisor" class="divisor">
             /
           </div>
