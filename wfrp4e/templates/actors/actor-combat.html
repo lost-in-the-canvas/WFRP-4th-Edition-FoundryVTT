@@ -1,4 +1,5 @@
 <div class="combat-section">
+  
   <div class="weapons">
     <!-- <h3 class="melee-title">Melee Weapons</h3> -->
     <div class="melee-type">
@@ -7,7 +8,7 @@
         <div class="header-group">Group</div>
         <div class="header-damage">Damage</div>
         <div class="header-reach">Reach</div>
-        <div class="header-qualities">Qualities/Flaws</div>
+        <!-- <div class="header-qualities">Qualities/Flaws</div> -->
       </div>
       <ol class="inventory-list weapon-list" weapon-type="melee">
         {{#each actor.weapons as |item i|}}
@@ -37,8 +38,8 @@
         <div class="header-name" >Group</div>
         <div class="header-ammo">Ammunition</div>
         <div class="header-damage">Damage</div>
-        <div class="header-range">Range (yds)</div>
-        <div class="header-qualities">Qualities/Flaws</div>
+        <div class="header-range">Range</div>
+        <!-- <div class="header-qualities">Qualities/Flaws</div> -->
       </div>
       <ol class="inventory-list weapon-list" weapon-type="ranged">
         {{#each actor.weapons as |item i|}}
@@ -56,7 +57,7 @@
               {{#select item.data.currentAmmo.value}}
               <option value="0">None</option>
               {{#each item.ammo as |ammo a|}}
-              <option value="{{ammo.id}}">{{ammo.name}} ({{ammo.data.quantity.value}})</option>
+              <option value="{{ammo.id}}"> ({{ammo.data.quantity.value}}) {{ammo.name}}</option>
               {{/each}}
               {{/select}}
             </select>
@@ -66,7 +67,7 @@
               None
            </div>
            {{/if}}
-          <div>+{{item.data.damage.value}}</div>
+          <div class="weapon-damage">+{{item.data.damage.value}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div>
             {{#each item.properties as |property p|}}
@@ -198,6 +199,7 @@
     <h3>Armor Penalties: </h3>
     <p>{{actor.armorPenalties}}</p>
   </div>
+
   <div class=injury-crit-section>
     <div class="injury">
       <div class="criticalWounds">
@@ -257,8 +259,68 @@
         </li>
         {{/each}}
       </ol>
-    </div>
-
+    </div>  
   </div>
+
+    <div class="injury">
+      <div class="criticalWounds">
+        <div class="criticalWounds-section">
+          <div id="criticalWounds-name">
+            <h4 id="criticalWounds-label">Critical Wounds</h4>
+          </div>
+          <div id="criticalWounds-box">
+            <div id="criticalWounds-value">
+              <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
+            </div>
+            <div id="criticalWounds-divisor" class="divisor">
+              /
+            </div>
+            <div id="criticalWounds-max">
+              <input name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}"
+                readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ol class="inventory-list crit-wound-list">
+        <li class="inventory-header item">
+          <div class="injury-name">Injury
+          </div>
+
+
+          <div>Location</div>
+
+          {{#if owner}}
+          <div class="item-controls">
+            <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+              Add</a>
+          </div>
+        </li>
+
+        {{/if}}
+        {{#each actor.injuries as |injury i|}}
+        <li class="item" data-item-id="{{injury.id}}">
+          <div class="item-name injury-name">
+            <div class="item-image" style="background-image: url({{injury.img}})"></div>
+            <h4>{{injury.name}}</h4>
+          </div>
+
+          <div>
+            {{injury.data.location.value}}
+          </div>
+
+          {{#if ../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+
+        </li>
+        {{/each}}
+      </ol>
+    </div>  
+
 
 </div>

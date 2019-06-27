@@ -1263,8 +1263,8 @@ input[type="text"], input[type="password"] {
                 /* border: 1px solid black; */
                 position: absolute;
                 top: 0px;
-                left: 49px;
-                margin: 0px 0px 0px 36px;
+                left: 35px;
+                margin: 0px 0px 0px 0px;
                 width: 30px;
                 border-radius: 0px;
               }
@@ -2036,7 +2036,7 @@ input[type="text"], input[type="password"] {
               padding-left: 4px;
             }
               .wfrp4e .weapons .melee-title .header-name {
-                width: 111px;
+                width: 305px;
               }
               .wfrp4e .weapons .melee-title .header-group {
                 width: 77px;
@@ -2048,6 +2048,7 @@ input[type="text"], input[type="password"] {
                 width: 48px;
               }
               .wfrp4e .weapons .melee-title .header-qualities {
+                visibility: hidden;
               }
             .wfrp4e .combat-section .weapons .melee-type .inventory-header.item {
               height: 21px;
@@ -2090,7 +2091,7 @@ input[type="text"], input[type="password"] {
                 line-height: 17px;
               }
               .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name {
-                width: 112px;
+                width: 306px;
               }
                 .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-image {
                   margin-top: 2px;
@@ -2121,6 +2122,7 @@ input[type="text"], input[type="password"] {
                 padding-top: 10px;
               }
               .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-property {
+                padding-top: 0px;
               }
             .wfrp4e.sheet .weapons .melee-type .weapon-list ::-webkit-scrollbar-button {
               height: 18px;
@@ -2146,7 +2148,7 @@ input[type="text"], input[type="password"] {
               padding-left: 4px;
             }
               .wfrp4e .weapons .ranged-title .header-name {
-                width: 111px;
+                width: 179px;
               }
               .wfrp4e .weapons .ranged-title .header-group {
                 width: 77px;
@@ -2158,6 +2160,7 @@ input[type="text"], input[type="password"] {
                 width: 48px;
               }
               .wfrp4e .weapons .ranged-title .header-qualities {
+                visibility: hidden;
               }
             .wfrp4e .combat-section .weapons .ranged-type .inventory-header.item {
               height: 21px;
@@ -2200,7 +2203,7 @@ input[type="text"], input[type="password"] {
                 line-height: 17px;
               }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name {
-                width: 112px;
+                width: 160px;
               }
                 .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .item-image {
                   margin-top: 2px;
@@ -2221,15 +2224,16 @@ input[type="text"], input[type="password"] {
                 padding-top: 10px;
               }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .ammo-selector {
-                width: 77px;
+                width: 144px;
                 padding-top: 7px;
+                margin-right: 4px;
               }
                 .wfrp4e.actor .selector > select {
                   width: 100%;
                   background: none;
                   border: 1px solid #737373;
                   border-radius: 2px;
-                  padding: 0 3px;
+                  padding: 0px;
                   padding-top: 1px;
                   font-family: CaslonPro;
                   font-size: 14px;
@@ -2239,12 +2243,12 @@ input[type="text"], input[type="password"] {
                   /* line-height: 7px; */
                 }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-damage {
-                width: 27px;
+                width: 60px;
                 text-align: center;
                 padding-top: 10px;
               }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-range {
-                width: 65px;
+                width: 30px;
                 text-align: center;
                 padding-top: 10px;
               }
