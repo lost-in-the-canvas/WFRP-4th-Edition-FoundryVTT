@@ -63,7 +63,7 @@ button:hover {
   width: 30px;
   position: relative;
   top: -2px;
-  left: 79px;
+  /*left: 79px;*/
 }
 .wfrp4e.actor .configure-sheet {
   color: #00e5ff00;
@@ -73,7 +73,7 @@ button:hover {
   width: 30px;
   position: relative;
   top: -2px;
-  left: 14px;
+  /*left: 14px;*/
 }
 .wfrp4e.actor .configure-token {
   color: #00e5ff00;
@@ -83,7 +83,7 @@ button:hover {
   width: 30px;
   position: relative;
   top: -2px;
-  left: -535px;
+  /*left: -535px;*/
 }
 
 
@@ -470,6 +470,19 @@ input[type="text"], input[type="password"] {
       background: none;
       margin: 0px 20px 0px 0px;
     }
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet {
+      background: url(../ui/ActorSheet-Character.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header {
+      flex: 0 0 61px;
+      padding: 27px 13px 7px 13px;
+      line-height: 30px;
+      border-bottom: none;
+      background: none;
+      margin: 0px 20px 0px 0px;
+    }
     .wfrp4e.sheet .window-content {
       padding: 0px 0px 0px 0px;
       font-size: 13px;
@@ -791,6 +804,11 @@ input[type="text"], input[type="password"] {
           height: 109px;
           width: 506px;
         }
+        .wfrp4e.actor.npc-sheet .characteristics {
+          height: 25px;
+          width: 400px;
+          margin: 0px;
+        }
         .wfrp4e.actor .characteristics-table{
           margin: 0px;
           border: none;
@@ -866,12 +884,18 @@ input[type="text"], input[type="password"] {
           color: #29364a;
           border: 1px solid #736953a6;
         }   
+        .wfrp4e.actor.npc-sheet .characteristics-table .table-data {
+          height: 20px;
+        }
         
         .wfrp4e.actor .main-row {
           display: flex;
           height: 47px;
           /* border-bottom: 1px solid #CCC; */
           margin: 6px 0px 0px 0px;
+        }
+        .wfrp4e.actor.npc-sheet .main-row {
+          margin: 30px 0px 0px 0px;
         }
           .wfrp4e.actor .movement .move-value > input {
             font-family: CaslonPro;
@@ -884,7 +908,12 @@ input[type="text"], input[type="password"] {
             margin: 0px;
             padding: 7px 0px 0px 0px;
             border-radius: 0px;
-          }    
+          }
+          .wfrp4e.actor.npc-sheet .movement .move-value > input {
+            padding: 3px 0px 0px 0px;
+          }
+
+
           .wfrp4e.actor .movement .move-value > input.auto-calc-toggle {
             height: 25px;
             padding: 0px;
@@ -920,9 +949,11 @@ input[type="text"], input[type="password"] {
             /* padding: 1px 3px; */
             height: 23px;
           }
-
-
-
+                    
+          .wfrp4e.actor.npc-sheet .movement .move-value {
+             padding: 3px 3px; 
+            height: 19px;
+          }
           #movement-value-box {
             padding: 0px 0px 0px 0px;
             margin: 0px;
@@ -1108,6 +1139,11 @@ input[type="text"], input[type="password"] {
             /* border-top: 1px solid #736953a6;
             border-right: 1px solid #736953a6; */
           }
+          .wfrp4e.actor.npc-sheet .wounds-section {
+            position: relative;
+            left: -85px;
+            height: 23px;
+          }
           #wounds-name {
             font-family: CaslonAntique;
             font-weight: normal;
@@ -1125,7 +1161,11 @@ input[type="text"], input[type="password"] {
             /* vertical-align: middle; */
             box-shadow: 0 0 10px #00000052 inset;
             PADDING-TOP: 3PX;
-          }   
+          } 
+          .npc-sheet #wounds-name {
+            margin-top: 20px;
+            position: relative;
+          }
           #wounds-box {
             width: 132px;
             position: absolute;
@@ -1147,6 +1187,16 @@ input[type="text"], input[type="password"] {
             /* vertical-align: middle; */
             /* box-shadow: 0 0 10px #00000052 inset; */
           }
+          .npc-sheet #wounds-box {
+            position: relative;
+            top: 0px;
+            left: 85px;
+
+            border: 2px solid #736953a6;
+            border: 1px solid #736953a6;
+            height: 21px;
+
+          }
           #wounds-divisor {
             font-family: CaslonPro;
             font-size: 14px;
@@ -1161,6 +1211,10 @@ input[type="text"], input[type="password"] {
             margin: 0px 0px 0px 36px;
             width: 30px;
             border-radius: 0px;
+          }
+          .npc-sheet #wounds-divisor{
+            top: -2px;
+            left: -8px;
           }
           #wounds-value > input {
             font-family: CaslonPro;
@@ -1177,6 +1231,9 @@ input[type="text"], input[type="password"] {
             border-radius: 0px;
             text-align: center;
           }
+          .npc-sheet #wounds-value > input {
+            top: -5px;
+          }
           #wounds-max > a,
           #wounds-max > input {
             font-family: CaslonPro;
@@ -1187,24 +1244,29 @@ input[type="text"], input[type="password"] {
             color: #29364a;
             /* border: 1px solid black; */
             position: relative;
-            top: -25px;
+            top: -23px;
             /* left: 15px; */
             margin: 0px 0px 0px 36px;
             width: 30px;
             border-radius: 0px;
           }
-          #wounds-max > a {
-            top: -22px;
+          .npc-sheet #wounds-max > input,
+          .npc-sheet #wounds-max > a {
+            top: -25px
           }
           #wound-label {
             font-weight: 700;
           }
+          
 
         #main-row-2 {
           display: flex;
           height: 187px;
           border-bottom: 1px solid #CCC;
           margin: 6px 0px 0px 0px;
+        }
+        .npc-sheet #main-row-2 {
+          border: none;
         }
           .wfrp4e.actor .criticalWounds {
             width: 200px;
@@ -1520,6 +1582,9 @@ input[type="text"], input[type="password"] {
             font-weight: 500;
             overflow-x: hidden;
           }
+          .npc-sheet .main-row .careers .inventory-list {
+            height: 80px;
+          }
           #main-row-2 .careers .inventory-header.item {
             position: absolute;
             top: 0px;
@@ -1675,7 +1740,10 @@ input[type="text"], input[type="password"] {
           font-size: 14px;
           font-weight: 500;
           color: black;
-        }  
+        } 
+        .wfrp4e.npc-sheet .skill-section .inventory-list {
+          height: 170px;
+        } 
           #basic-skills-list {
             width: 250px;
             margin-right: 3px;
@@ -4136,10 +4204,15 @@ font-weight: bold;
  .wfrp4e.actor .penalties {
   display: flex;
   flex-direction: row;
+  font-family: CaslonPro;
+}
+.wfrp4e.actor.npc-sheet .penalties {
+  position: relative;
+  top: -83px;
 }
 
 .wfrp4e.actor .penalties > input{
-  height: 20px;
+  height: 18px;
   width: 100%;
 }
  

@@ -1,170 +1,97 @@
-<div class="characteristics">
-    <table class="characteristics-table">
-      <tr class="table-header">
-        <th title="Movement" class="table-header">
-          M
-        </th>
-        {{#each actor.data.characteristics as |ch c|}}
-        <th title="{{ch.label}}" class="table-header">
-          {{ch.abrev}}
-        </th>
-        {{/each}}
-        <th title="Wounds" class="table-header">
-            W
-          </th>
-      </tr>
-      <tr class="table-row-bottom">
-        <td class="row-type">
-          {{actor.data.details.move.value}}
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data ch-value" data-char="{{c}}"><a>{{ch.value}}</a></td>
-        {{/each}}
-        <td class="row-type">
-            {{actor.data.status.wounds.max}}
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="main-row">
-    <div class="movement">
-      <div class="move-section">
-        <div id="movement-value-box" class="move-value">
-          <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
-        </div>
-        <div class="move-name">
-          <h4 id="movement-label">Movement</h4>
-        </div>
-      </div>
-      <div class="move-section">
-          <div class="move-value">
 
-        {{#if actor.flags.autoCalcWalk}}
-          <a class ="auto-calc-toggle" toggle-type = "walk">{{actor.data.details.move.walk}} yds</a>
-        {{else}}
-        <input class="auto-calc-toggle" toggle-type = "walk" name="data.details.move.walk" type="text" value="{{data.details.move.walk}}" data-dtype="String">
-        {{/if}}
-      </div>
-
-        <div class="move-name">
-          <h4 id="walk-label">Walk</h4>
-        </div>
-      </div>
-      <div class="move-section">
-          <div class="move-value">
-
-          {{#if actor.flags.autoCalcRun}}
-              <a class ="auto-calc-toggle" toggle-type = "run">{{actor.data.details.move.run}} yds</a>
-          {{else}}
-          <input class ="auto-calc-toggle" toggle-type = "run" name="data.details.move.run" type="text" value="{{data.details.move.run}}" data-dtype="String">
-          {{/if}}
-        </div>
-
-        <div id="move-run" class="move-name">
-          <h4 id="run-label">Run</h4>
-        </div>
-      </div>
-    </div>
-    <div class="fate-resilience">
-      <div class="type">
-        <a id="label-fortune">Fortune</a>
-        <a id="label-fate">Fate</a>
-        <div class="upper">
-          <!-- Fortune: -->
-          <input name="data.status.fortune.value" type="text" value="{{data.status.fortune.value}}" data-dtype="Number">
-        </div>
-        <div class="lower">
-          <!-- Fate: -->
-          <input name="data.status.fate.value" type="text" value="{{data.status.fate.value}}" data-dtype="Number">
-        </div>
-      </div>
-      <div class="type">
-        <a id="label-resolve">Resolve</a>
-        <a id="label-resilience">Resilience</a>
-        <div class="upper">
-          <!-- Resolve: -->
-          <input name="data.status.resolve.value" type="text" value="{{data.status.resolve.value}}" data-dtype="Number">
-        </div>
-        <div class="lower">
-          <!-- Resilience: -->
-          <input name="data.status.resilience.value" type="text" value="{{data.status.resilience.value}}" data-dtype="Number">
-        </div>
-      </div>
-    </div>
-    <div class="wounds">
-      <div class="wounds-section">
-        <div id="wounds-name">
-          <h4 id="wound-label">Wounds</h4>
-        </div>
-        <div id="wounds-box">
-          <div id="wounds-value">
-            <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
-          </div>
-          <div id="wounds-divisor" class="divisor">
-            /
-          </div>
-          <div id="wounds-max">
-            {{#if actor.flags.autoCalcWounds}}
-            <a class ="auto-calc-toggle" toggle-type = "wounds">{{data.status.wounds.max}}</a>
-            {{else}}
-            <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="String">
+  
+  <div class="skill-section">
+      <div id="basic-skills-list" class="skill-type">
+        <h3>Basic Skills</h3>
+        <ol class="inventory-list">
+          <li class="inventory-header item">
+            <div class="item-name">Skill</div>
+            <div class="skill-char-title">Char.</div>
+            <div class="skill-adv-title">Adv.</div>
+            <div class="skill-total-title">Total</div>
+            {{#if owner}}
+            <div class="item-controls">
+              <a class="item-control item-create" title="Create Item" data-type="skill">
+                <i class="fas fa-plus"></i>
+              </a>
+              <!-- <h4 id="List-Add-label">Add</h4> -->
+            </div>
             {{/if}}
-          </div>
-        </div>
+          </li>
+    
+          {{#each actor.basicSkills as |item i|}}
+          <li class="item" data-item-id="{{item.id}}">
+              <div class="item-name-edit">
+              <a>{{item.name}}</a>
+            </div>
+    
+            <div class="row">
+              <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>
+              <h3 class="row-value">{{item.data.characteristic.num}}</h3>
+            </div>
+    
+            <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
+              data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
+    
+            <a class="skill-total">{{item.data.total.value}}</a>
+    
+            {{#if ../owner}}
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    
+            {{/if}}
+          </li>
+          {{/each}}
+        </ol>
       </div>
+    
+    
+      <div id="advanced-skills-list" class="skill-type">
+          <h3>Grouped & Advanced Skills</h3>
+          <ol class="inventory-list">
+            <li class="inventory-header item">
+              <div class="item-name">Skill</div>
+              <div class="skill-char-title">Char.</div>
+              <div class="skill-adv-title">Adv.</div>
+              <div class="skill-total-title">Total</div>
+              {{#if owner}}
+              <div class="item-controls">
+                <a class="item-control item-create" title="Create Item" data-type="skill">
+                  <i class="fas fa-plus"></i>
+                </a>
+                <!-- <h4 id="List-Add-label">Add</h4> -->
+              </div>
+              {{/if}}
+            </li>
+      
+            {{#each actor.advancedOrGroupedSkills as |item i|}}
+            <li class="item" data-item-id="{{item.id}}">
+                <div class="item-name-edit">
+                <a>{{item.name}}</a>
+              </div>
+      
+              <div class="row">
+                <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>
+                <h3 class="row-value">{{item.data.characteristic.num}}</h3>
+              </div>
+      
+              <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
+                data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
+      
+              <a class="skill-total">{{item.data.total.value}}</a>
+      
+              {{#if ../owner}}
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      
+              {{/if}}
+            </li>
+            {{/each}}
+          </ol>
+        </div>
+      
     </div>
-  </div>
   
   <div id="main-row-2" class="main-row">
-    <div class="criticalWounds">
-      <div class="criticalWounds-section">
-        <div id="criticalWounds-name">
-          <h4 id="criticalWounds-label">Critical Wounds</h4>
-        </div>
-        <div id="criticalWounds-box">
-          <div id="criticalWounds-value">
-              <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
-          </div>
-          <div id="criticalWounds-divisor" class="divisor">
-            /
-          </div>
-          <div id="criticalWounds-max">
-            {{#if actor.flags.autoCalcCritW}}       
-            <a class ="auto-calc-toggle" toggle-type = "critW" >{{data.status.criticalWounds.max}}</a>
-            {{else}}
-            <input class ="auto-calc-toggle" toggle-type = "critW" name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}" data-dtype="String">
-            {{/if}}
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="experienceSection">
-      <div id="experience-name">
-        <h4 id="experience-label" class="experience-label">Experience</h4>
-      </div>
-      <div id="experience-current">
-        <h4 id="experience-current-label" class="experience-label">Current</h4>
-      </div>
-      <div id="xp-current-value" class="xp-value">
-        <input id="xp-current-input" name="data.details.experience.current" type="text"
-          value="{{data.details.experience.current}}">
-      </div>
-      <div id="experience-spent">
-        <h4 id="experience-spent-label" class="experience-label">Spent</h4>
-      </div>
-      <div id="xp-spent-value" class="xp-value">
-        <input name="data.details.experience.spent" type="text" value="{{data.details.experience.spent}}">
-      </div>
-      <div id="experience-total">
-        <h4 id="experience-total-label" class="experience-label">Total</h4>
-      </div>
-      <div id="xp-total-value" class="xp-value">
-        <input id="xp-total-input" name="data.details.experience.total" type="text"
-          value="{{data.details.experience.total}}">
-      </div>
-    </div>
-  
+ 
     <div class="careers">
       <!-- <a>Careers</a> -->
       <ol class="inventory-list">
@@ -220,3 +147,8 @@
     </div>
   
   </div>
+
+  <div class="penalties">
+      <h3>Penalties: </h3>
+      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
+    </div>

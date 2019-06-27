@@ -178,7 +178,7 @@ CONFIG.flawDescriptions = {
 // Armor Qualities
 CONFIG.armorQualities = {
   "flexible": "Flexible",
-  "Impenetrable": "impenetrable",
+  "Impenetrable": "Impenetrable",
 };
 
 // Armor Flaws
@@ -1046,6 +1046,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-talents.html",
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
+    "public/systems/wfrp4e/templates/actors/npc-main.html",
     "public/systems/wfrp4e/templates/chat/dialog-constant.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
@@ -1136,6 +1137,12 @@ class ActorWfrp4e extends Actor {
     actorData = super.prepareData(actorData);
     const data = actorData.data;
 
+    for (let ch of Object.values(data.characteristics))
+    {
+      ch.value = ch.initial + ch.advances;
+      ch.bonus = Math.floor(ch.value / 10)
+    }
+    
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
@@ -1170,11 +1177,7 @@ class ActorWfrp4e extends Actor {
    * Prepare Character type specific data
    */
   _prepareCharacterData(data) {
-    for (let ch of Object.values(data.characteristics))
-    {
-      ch.value = ch.initial + ch.advances;
-      ch.bonus = Math.floor(ch.value / 10)
-    }
+
 
     if (data.status.fate.value < data.status.fortune.value)
     {
@@ -1410,8 +1413,9 @@ class ActorWfrp4e extends Actor {
         let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
         if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
         {
-          testData.extra.weapon.data.qualities.value = "";
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
+          testData.extra.weapon.properties.qualities = [];
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -1422,6 +1426,9 @@ class ActorWfrp4e extends Actor {
         else{
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
+          testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
+
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
           + testData.testModifier 
           + testData.testDifficulty
@@ -2809,7 +2816,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               label: "Cancel"
             },
           },
-          default: 'cancel'
+          default: 'Yes'
         }).render(true);
 
     });
@@ -3241,7 +3248,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   // }
 
 
-  _getHeaderButtons() {
+  /*_getHeaderButtons() {
     let buttons = super._getHeaderButtons();
     if ( game.user.isGM && this.options.editable ) {
       buttons = [
@@ -3266,7 +3273,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       ];
     }
     return buttons
-  }
+  }*/
 
 
 }
@@ -3299,7 +3306,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    */
   get template() {
     const path = "public/systems/wfrp4e/templates/actors/";
-    if ( this.actor.limited ) return path + "limited-sheet.html";
+   // if ( this.actor.limited ) return path + "limited-sheet.html";
     return path + "npc-sheet.html";
   }
 
@@ -3322,36 +3329,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    * @private
    */
   _prepareItems(actorData) {
-    // Actions
-   // const features = {
-      //weapons: {label: "Weapons", items: [], type: "weapon" },
-     // actions: { label: "Actions", items: [], type: "feat" },
-     // passive: { label: "Features", items: [], type: "feat" },
-   //   equipment: { label: "Equipment", items: [], type: "equipment" }
-   //};
-/*
-    // Spellbook
-    const spellbook = {};
-
-    // Iterate through items, allocating to containers
-    for ( let i of actorData.items ) {
-      i.img = i.img || DEFAULT_TOKEN;
-
-      // Spells
-      if ( i.type === "spell" ) this._prepareSpell(actorData, spellbook, i);
-
-      // Features
-      else if ( i.type === "weapon" ) features.weapons.items.push(i);
-      else if ( i.type === "feat" ) {
-        if ( i.data.featType.value === "passive" ) features.passive.items.push(i);
-        else features.actions.items.push(i);
-      }
-      else if (["equipment", "consumable", "tool", "backpack"].includes(i.type)) features.equipment.items.push(i);
-    }
-
-    // Assign and return
-    actorData.features = features;
-    actorData.spellbook = spellbook;*/
+   super._prepareItems(actorData); 
   }
 
 
@@ -3485,7 +3463,7 @@ class WFRP_Utility
       weapon["ammo"] = [weapon];
       weapon.data.ammunitionGroup.value = "";
     }
-    weapon.properties = weapon.properties.filter(x => x != undefined);
+    weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
     return weapon;
   }
 
@@ -3574,6 +3552,24 @@ class WFRP_Utility
       return qualities.concat(flaws).sort().concat("Special").filter(p => !!p);
     
 
+  }
+
+  static _separateQualitiesFlaws(properties){
+    let qualities = [],
+        flaws = [],
+        special = [];
+    let allQualities = Object.values(CONFIG.weaponQualities).concat(Object.values(CONFIG.itemQualities).concat(Object.values(CONFIG.armorQualities)));    
+    let allFlaws = Object.values(CONFIG.weaponFlaws).concat(Object.values(CONFIG.itemFlaws).concat(Object.values(CONFIG.armorFlaws)));
+    for (let prop of properties)
+    {
+      if (allQualities.includes(prop.split(" ")[0]))
+        qualities.push(prop);
+      else if (allFlaws.includes(prop.split(" ")[0]))
+        flaws.push(prop);
+      else
+        special.push(prop);
+    }
+    return {qualities : qualities,flaws : flaws,special : special}
   }
 
   static _calculateArmorPenalties(actorData, armorList){

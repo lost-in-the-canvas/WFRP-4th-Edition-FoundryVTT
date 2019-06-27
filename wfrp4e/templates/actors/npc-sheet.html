@@ -26,76 +26,96 @@
       <div class="items">
   
   
-        <div class="row">
-  
-          <div id="field-class" class="item">
-            <input class="input-details" name="actor.currentClass" type="text" value="{{actor.currentClass}}" placeholder="Class"/>
-            <a class="label-details" >Class</a>
-          </div>
-  
-          <div id="field-career" class="item">
-            <input class="input-details" name="actor.currentCareerGroup" type="text" value="{{actor.currentCareerGroup}}" placeholder="Career"/>
-            <a class="label-details" >Career</a>
-          </div>
-  
-          <div id="field-careerlevel" class="item">
-            <input class="input-details" name="actor.currentCareer" type="text" value="{{actor.currentCareer}}" placeholder="Career Level" />
-            <a class="label-details" >Career Level</a>
-          </div>
-  
-          <div id="field-status" class="item">
-            <input id="input-status" class="input-details" name="status" type="text" value="{{actor.status}}" placeholder="Status" />
-            <a id="label-status" class="label-details" >Status</a>
-          </div>
-  
-          <div id="field-age" class="item">
-            <input class="input-details" name="data.details.age.value" type="text" value="{{data.details.age.value}}" placeholder="Age" />
-            <a class="label-details" >Age</a>
-          </div>
-  
-          <div  id="field-height" class="item">
-            <input class="input-details" name="data.details.height.value" type="text" value="{{data.details.height.value}}" placeholder="Height" />
-            <a class="label-details" >Height</a>
-          </div>
-  
-          <div id="field-weight" class="item">
-            <input class="input-details" name="data.details.weight.value" type="text" value="{{data.details.weight.value}}" placeholder="Weight" />
-            <a class="label-details" >Weight</a>
-          </div>
-  
-          <div id="field-haircolour" class="item">
-            <input class="input-details" name="data.details.haircolour.value" type="text" value="{{data.details.haircolour.value}}" placeholder="Hair Colour" />
-            <a class="label-details" >Hair Colour</a>
-          </div>
-  
-          <div id="field-eyecolour" class="item">
-            <input class="input-details" name="data.details.eyecolour.value" type="text" value="{{data.details.eyecolour.value}}" placeholder="Eye Colour" />
-            <a class="label-details" >Eye Colour</a>
-          </div>
-  
-          <div id="field-distinguishingmark" class="item">
-            <input class="input-details" name="data.details.distinguishingmark.value" type="text" value="{{data.details.distinguishingmark.value}}" placeholder="Distinguishing Mark" />
-            <a class="label-details" >Distinguishing Mark</a>
-          </div>
-  
-          <div id="field-starsign" class="item">
-            <input class="input-details" name="data.details.starsign.value" type="text" value="{{data.details.starsign.value}}" placeholder="Star Sign" />
-            <a class="label-details" >Star Sign</a>
-          </div>
-        </div>
-  
-  
+          <div class="characteristics">
+              <table class="characteristics-table">
+                <tr class="table-header">
+                  {{#each actor.data.characteristics as |ch c|}}
+                  <th title="{{ch.label}}" class="table-header">
+                    {{ch.abrev}}
+                  </th>
+                  {{/each}}
+                </tr>
+                <tr class="table-row">
+                  {{#each actor.data.characteristics as |ch c|}}
+                  <td class="table-data">
+                      <input name="data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
+                    </td>
+                  {{/each}}
+                </tr>
+              </table>
+            </div>
+            <div class="main-row">
+                <div class="movement">
+                  <div class="move-section">
+                    <div id="movement-value-box" class="move-value">
+                      <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
+                    </div>
+                    <div class="move-name">
+                      <h4 id="movement-label">Movement</h4>
+                    </div>
+                  </div>
+                  <div class="move-section">
+                      <div class="move-value">
+            
+                    {{#if actor.flags.autoCalcWalk}}
+                      <a class ="auto-calc-toggle" toggle-type = "walk">{{actor.data.details.move.walk}} yds</a>
+                    {{else}}
+                    <input class="auto-calc-toggle" toggle-type = "walk" name="data.details.move.walk" type="text" value="{{data.details.move.walk}}" data-dtype="String">
+                    {{/if}}
+                  </div>
+            
+                    <div class="move-name">
+                      <h4 id="walk-label">Walk</h4>
+                    </div>
+                  </div>
+                  <div class="move-section">
+                      <div class="move-value">
+            
+                      {{#if actor.flags.autoCalcRun}}
+                          <a class ="auto-calc-toggle" toggle-type = "run">{{actor.data.details.move.run}} yds</a>
+                      {{else}}
+                      <input class ="auto-calc-toggle" toggle-type = "run" name="data.details.move.run" type="text" value="{{data.details.move.run}}" data-dtype="String">
+                      {{/if}}
+                    </div>
+            
+                    <div id="move-run" class="move-name">
+                      <h4 id="run-label">Run</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="wounds">
+                  <div class="wounds-section">
+                      <div id="wounds-box">
+                      <div id="wounds-value">
+                        <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+                      </div>
+                      <div id="wounds-divisor" class="divisor">
+                        /
+                      </div>
+                      <div id="wounds-max">
+                        {{#if actor.flags.autoCalcWounds}}
+                        <a class ="auto-calc-toggle" toggle-type = "wounds">{{data.status.wounds.max}}</a>
+                        {{else}}
+                        <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="String">
+                        {{/if}}
+                      </div>
+                    </div>
+                    <div id="wounds-name">
+                      <h4 id="wound-label">Wounds</h4>
+                    </div>
+                  </div>
+                </div>
+            </div>
     </section>
   
     <!-- TABS -->
     <section id="tab-sections">
       <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;" ondrop="return false;">
         <button class="item active" data-tab="main">Main</button>
-        <button class="item" data-tab="skills">Skills</button>
         <button class="item" data-tab="talents">Talents</button>
         <button class="item" data-tab="combat">Combat</button>
         <button class="item" data-tab="inventory">Trappings</button>
-        {{#if actor.flags.hasSpells}}
+        {{#if actor.flags.hasSpells}}t
         <button class="item" data-tab="magic">Magic</button>
         {{/if}}
         {{#if actor.flags.hasPrayers}}
@@ -104,10 +124,7 @@
         <button class="item" data-tab="notes">Notes</button>
      </nav>
      <div class = "tab main" data-tab="main" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-main.html}}
-     </div>
-     <div class = "tab skills" data-tab="skills" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-skills.html}}
+        {{> public/systems/wfrp4e/templates/actors/npc-main.html}}
      </div>
      <div class = "tab talents" data-tab="talents" data-group="primary">
         {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
