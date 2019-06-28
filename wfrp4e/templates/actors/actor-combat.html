@@ -23,15 +23,61 @@
           <div class="weapon-reach">{{item.data.reach.value}}</div>
           <div class="weapon-property">
             <div>
-                <b>Q:</b>
-                {{#each item.properties.qualities as |property p|}}
-                <a class='item-property'>{{property}}</a>,
-                {{/each}}
-                <b>F:</b>
-                {{#each item.properties.flaws as |property p|}}
-                <a class='item-property'>{{property}}</a>,
-                {{/each}}
-              </div>
+              <b>Qualities:</b>
+              {{#each item.properties.qualities as |property p|}}
+              <a class='melee-property-quality'>{{property}},</a>
+              {{/each}}
+              <b>Flaws:</b>
+              {{#each item.properties.flaws as |property p|}}
+              <a class='melee-property-flaw'>{{property}},</a>
+              {{/each}}
+            </div>
+            <script>
+              var x = document.getElementsByClassName('melee-property-quality');
+              console.log(x);
+              xLength = x.length;
+              console.log(xLength);
+              xLast = x.item(xLength - 1);
+              console.log(xLast);
+              xLastVal = JSON.stringify(xLast.textContent);
+              console.log(xLastVal);
+              console.log(typeof xLastVal);
+              console.log(xLastVal.length);
+              var xNewVal = xLastVal;
+              
+              xNewVal = xNewVal.replace(',','');
+              xNewVal = xNewVal.replace(/['"]+/g,'');
+
+
+              console.log(xNewVal);
+
+
+              // console.log(document.getElementsByClassName('melee-property-quality')[xLength - 1].textContent); 
+              document.getElementsByClassName('melee-property-quality')[xLength - 1].textContent = xNewVal;
+
+            // FLAWS
+              var y = document.getElementsByClassName('melee-property-flaw');
+              console.log(y);
+              yLength = y.length;
+              console.log(yLength);
+              yLast = y.item(yLength - 1);
+              console.log(yLast);
+              yLastVal = JSON.stringify(yLast.textContent);
+              console.log(yLastVal);
+              console.log(typeof yLastVal);
+              console.log(yLastVal.length);
+              var yNewVal = yLastVal;
+              
+              yNewVal = yNewVal.replace(',','');
+              yNewVal = yNewVal.replace(/['"]+/g,'');
+
+
+              console.log(yNewVal);
+
+
+              // console.log(document.getElementsByClassName('melee-property-quality')[yLength - 1].teytContent); 
+              document.getElementsByClassName('melee-property-flaw')[yLength - 1].textContent = yNewVal;
+            </script>
         </li>
         {{/if}}
         {{/each}}
@@ -76,15 +122,61 @@
           <div class="weapon-damage">+{{item.data.damage.value}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div>
-            <b>Q:</b>
+            <b>Qualities:</b> 
             {{#each item.properties.qualities as |property p|}}
-            <a class='item-property'>{{property}}</a>,
+            <a class='ranged-property-quality'>{{property}},</a>
             {{/each}}
-            <b>F:</b>
+            <b>Flaws:</b>
             {{#each item.properties.flaws as |property p|}}
-            <a class='item-property'>{{property}}</a>,
+            <a class='ranged-property-flaw'>{{property}},</a>
             {{/each}}
           </div>
+          <script>
+            var x = document.getElementsByClassName('ranged-property-quality');
+            console.log(x);
+            xLength = x.length;
+            console.log(xLength);
+            xLast = x.item(xLength - 1);
+            console.log(xLast);
+            xLastVal = JSON.stringify(xLast.textContent);
+            console.log(xLastVal);
+            console.log(typeof xLastVal);
+            console.log(xLastVal.length);
+            var xNewVal = xLastVal;
+            
+            xNewVal = xNewVal.replace(',','');
+            xNewVal = xNewVal.replace(/['"]+/g,'');
+
+
+            console.log(xNewVal);
+
+
+            // console.log(document.getElementsByClassName('melee-property-quality')[xLength - 1].textContent); 
+            document.getElementsByClassName('ranged-property-quality')[xLength - 1].textContent = xNewVal;
+
+          // FLAWS
+            var y = document.getElementsByClassName('ranged-property-flaw');
+            console.log(y);
+            yLength = y.length;
+            console.log(yLength);
+            yLast = y.item(yLength - 1);
+            console.log(yLast);
+            yLastVal = JSON.stringify(yLast.textContent);
+            console.log(yLastVal);
+            console.log(typeof yLastVal);
+            console.log(yLastVal.length);
+            var yNewVal = yLastVal;
+            
+            yNewVal = yNewVal.replace(',','');
+            yNewVal = yNewVal.replace(/['"]+/g,'');
+
+
+            console.log(yNewVal);
+
+
+            // console.log(document.getElementsByClassName('melee-property-quality')[yLength - 1].teytContent); 
+            document.getElementsByClassName('ranged-property-flaw')[yLength - 1].textContent = yNewVal;
+          </script>
         </li>
         {{/if}}
         {{/each}}

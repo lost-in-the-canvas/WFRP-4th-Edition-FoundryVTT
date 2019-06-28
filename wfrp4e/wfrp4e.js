@@ -2693,7 +2693,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Item summaries
     html.find('.item-name').click(event => this._onItemSummary(event));
     
-    html.find('.item-property').click(event => this._expandProperty(event));
+    html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw').click(event => this._expandProperty(event));
 
     html.find('.weapon-range').click(event => this._expandInfo(event, 'weapon-range'));
 

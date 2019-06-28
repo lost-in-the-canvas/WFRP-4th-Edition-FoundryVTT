@@ -2261,8 +2261,10 @@ input[type="text"], input[type="password"] {
               .wfrp4e.actor .weapons .melee-type .weapon-list {
                 line-height: 17px;
               }
+              .wfrp4e.actor .weapons .melee-type .weapon-list .item {
+              }
               .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name {
-                width: 306px;
+                width: 296px;
               }
                 .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-name .item-image {
                   margin-top: 2px;
@@ -2293,7 +2295,7 @@ input[type="text"], input[type="password"] {
                 padding-top: 10px;
               }
               .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-property {
-                padding-top: 0px;
+                padding: 0px 0px 0px 34px;
               }
             .wfrp4e.sheet .weapons .melee-type .weapon-list ::-webkit-scrollbar-button {
               height: 18px;
