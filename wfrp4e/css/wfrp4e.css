@@ -2188,7 +2188,7 @@ input[type="text"], input[type="password"] {
         }
           .wfrp4e .trait-list .item .item-name {
             flex: none;
-            flex-basis: 155px;
+            flex-basis: 450px;
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
@@ -2386,7 +2386,7 @@ input[type="text"], input[type="password"] {
             }
             .wfrp4e.actor .weapons .melee-type .weapon-list {
               list-style: none;
-              height: 100px;
+              height: 130px;
               overflow: auto;
               overscroll-behavior-x: unset;
               overflow-x: hidden;
@@ -2469,13 +2469,13 @@ input[type="text"], input[type="password"] {
               padding-left: 4px;
             }
               .wfrp4e .weapons .ranged-title .header-name {
-                width: 160px;
+                width: 202px;
               }
               .wfrp4e .weapons .ranged-title .header-group {
                 width: 82px;
               }
               .wfrp4e .weapons .ranged-title .header-ammo {
-                width: 155px;
+                width: 114px;
               }
               .wfrp4e .weapons .ranged-title .header-damage {
                 width: 45px;
@@ -2509,7 +2509,7 @@ input[type="text"], input[type="password"] {
             }
             .wfrp4e.actor .weapons .ranged-type .weapon-list {
               list-style: none;
-              height: 100px;
+              height: 130px;
               overflow: auto;
               overscroll-behavior-x: unset;
               overflow-x: hidden;
@@ -2531,7 +2531,7 @@ input[type="text"], input[type="password"] {
                 min-height: 38px;
               }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name {
-                width: 160px;
+                width: 202px;
                 height: 30px;
               }
                 .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-name .item-image {
@@ -2553,7 +2553,7 @@ input[type="text"], input[type="password"] {
                 padding-top: 10px;
               }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .ammo-selector {
-                width: 154px;
+                width: 112px;
                 padding-top: 7px;
                 margin-right: 4px;
               }
@@ -2627,11 +2627,12 @@ input[type="text"], input[type="password"] {
         .wfrp4e.actor .combat-section .armor {
           text-align: center;
           margin-top: 6px;
-          border: 1px solid #736953a6;
+          border: 1px solid #73695300;
           background: url(../ui/armor-diagram.png) no-repeat;
-          background-position: center;
+          background-position-x: 176px;
+          background-position-y: center;
           width: 493px;
-          height: 259px;
+          height: 376px;
           background-size: contain;
           position: relative;
           top: 6px;
@@ -2658,8 +2659,8 @@ input[type="text"], input[type="password"] {
               padding-right: 4px;
               line-height: 19px;
               border: 1px solid #736953a6;
-              border-top: none;
-              border-left: none;
+              /* border-top: none; */
+              /* border-left: none; */
               font-family: CaslonAntique;
               font-weight: 700;
               font-size: 16px;
@@ -2673,16 +2674,52 @@ input[type="text"], input[type="password"] {
               position: relative;
               top: 0px;
               left: 0px;
+              display: inline-flex;
             }
-              .wfrp4e.actor .combat-section .armor .AP-label {
+              .wfrp4e.actor .combat-section .armor .armor-total {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 700;
+                color: #2c566f;
                 position: relative;
-                left: 0px;
+                border-radius: 10px;
                 top: 0px;
+                display: inline-block;
+                box-shadow: 0 0 10px #6b3a0f87 inset;
+                border: 1px solid #7369538a;
+                text-align: center;
+                padding: 2px 0px 0px 0px;
+                width: 22px;
+                margin-right: 3px;
               }
-              .wfrp4e.actor .combat-section .armor .AP-label {
+              .wfrp4e.actor .combat-section .armor .shield-total {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 700;
+                color: #2c566f;
                 position: relative;
-                left: 0px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
                 top: 0px;
+                display: inline-block;
+                box-shadow: 0 0 10px #3c3b3b87 inset;
+                border: 1px solid #7369538a;
+                text-align: center;
+                padding: 2px 0px 0px 0px;
+                width: 22px;
+                margin-right: 3px;
+              }
+              .wfrp4e.actor .combat-section .armor .armor-label {
+                width: 155px;
+                display: inline-block;
+                text-align: left;
+                margin-top: 1px;
+              }
+              .wfrp4e.actor .combat-section .armor .armor-ap {
+                width: fit-content;
+                display: inline-block;
+                text-align: center;
+                margin-top: 1px;
               }
             .wfrp4e.actor .combat-section .armor-box.head {
               font-family: CaslonAntique;
@@ -2695,10 +2732,36 @@ input[type="text"], input[type="password"] {
               border: 1px solid #736953a6;
               box-shadow: 0px 0px 1px inset black;
               border-top: none;
-              border-left: none;
+              /* border-left: none; */
               height: inherit;
             }
-
+              .wfrp4e.actor .combat-section .armor .item {
+                padding-top: 2px;
+                padding-bottom: 2px;
+                min-height: 38px;
+              }
+              .wfrp4e.actor .combat-section .armor .armor-item-name {
+                vertical-align: middle;
+                margin-right: 4px;
+                padding-top: 10px;
+                width: 161px;
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+                color: black;
+                text-align: left;
+              }
+              .wfrp4e.actor .combat-section .armor .ap-value {
+                vertical-align: middle;
+                margin: 0px;
+                padding-top: 10px;
+                width: 25px;
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+                color: black;
+                text-align: center;
+              }
             .wfrp4e.actor .combat-section .body-section {
               width: 242px;
               margin: 0px;
@@ -2712,8 +2775,8 @@ input[type="text"], input[type="password"] {
               padding-right: 4px;
               line-height: 19px;
               border: 1px solid #736953a6;
-              border-top: none;
-              border-right: none;
+              /* border-top: none; */
+              /* border-left: none; */
               font-family: CaslonAntique;
               font-weight: 700;
               font-size: 16px;
@@ -2725,8 +2788,9 @@ input[type="text"], input[type="password"] {
               overscroll-behavior-y: none;
               overflow-y: hidden;
               position: relative;
-              top: 0;
-              left: 0;
+              top: 0px;
+              left: 0px;
+              display: inline-flex;
             }
             .wfrp4e.actor .combat-section .armor-box.body {
               font-family: CaslonAntique;
@@ -2739,173 +2803,199 @@ input[type="text"], input[type="password"] {
               border: 1px solid #736953a6;
               box-shadow: 0px 0px 1px inset black;
               border-top: none;
-              border-right: none;
+              /* border-right: none; */
               height: inherit;
             }
 
-
-          .wfrp4e.actor .combat-section .armor-header.leftarm {
-            width: 190px;
-            height: 21px;
-            padding-left: 4px;
-            padding-right: 4px;
-            line-height: 19px;
-            border: 1px solid #736953a6;
-            border-left: none;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
-            color: #464331c4;
-            background: none;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            overflow-y: hidden;
-            position: relative;
-            top: 46px;
-            left: 0px;
+          .wfrp4e.actor .combat-section .armor-second-row {
+            display: flex;
+            height: 100px;
+            width: inherit;
+            margin-top: 27px;
           }
-          .wfrp4e.actor .combat-section .armor-header.rightarm {
-            width: 190px;
-            height: 21px;
-            padding-left: 4px;
-            padding-right: 4px;
-            line-height: 19px;
-            border: 1px solid #736953a6;
-            border-right: none;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
-            color: #464331c4;
-            background: none;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            overflow-y: hidden;
-            position: relative;
-            top: 25px;
-            left: 301px;
-          }
-          .wfrp4e.actor .combat-section .armor-header.leftleg {
-            width: 191px;
-            height: 21px;
-            padding-left: 4px;
-            padding-right: 4px;
-            line-height: 19px;
-            border: 1px solid #736953a6;
-            border-left: none;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
-            color: #464331c4;
-            background: none;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            overflow-y: hidden;
-            position: relative;
-            top: 92px;
-            left: -1px;
-          }
-          .wfrp4e.actor .combat-section .armor-header.rightleg {
-            width: 190px;
-            height: 21px;
-            padding-left: 4px;
-            padding-right: 4px;
-            line-height: 19px;
-            border: 1px solid #736953a6;
-            border-right: none;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
-            color: #464331c4;
-            background: none;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            overflow-y: hidden;
-            position: relative;
-            top: 71px;
-            left: 301px;
-          }
-
-
-
-          .wfrp4e.actor .combat-section .armor-box.leftarm {
-            display: block;
-            font-family: CaslonAntique;
-            font-weight: bold;
-            font-size: 24px;
-            position: relative;
-            top: -139px;
-            left: 0px;
-            width: 190px;
-            border: 1px solid #736953a6;
-            box-shadow: 0px 0px 1px inset black;
-            border-top: none;
-            border-left: none;
-          }
-          .wfrp4e.actor .combat-section .armor-box.rightarm {
-            display: block;
-            font-family: CaslonAntique;
-            font-weight: bold;
-            font-size: 24px;
-            position: relative;
-            top: -200px;
-            left: 301px;
-            width: 190px;
-            border: 1px solid #736953a6;
-            box-shadow: 0px 0px 1px inset black;
-            border-top: none;
-            border-right: none;
-          }
-          .wfrp4e.actor .combat-section .armor-box.leftleg {
-            display: block;
-            font-family: CaslonAntique;
-            font-weight: bold;
-            font-size: 24px;
-            position: relative;
-            top: -173px;
-            left: 0px;
-            width: 190px;
-            border: 1px solid #736953a6;
-            box-shadow: 0px 0px 1px inset black;
-            border-top: none;
-            border-left: none;
-            border-bottom: none;
-          }
-          .wfrp4e.actor .combat-section .armor-box.rightleg {
-            display: block;
-            font-family: CaslonAntique;
-            font-weight: bold;
-            font-size: 24px;
-            position: relative;
-            top: -233px;
-            left: 301px;
-            width: 190px;
-            border: 1px solid #736953a6;
-            box-shadow: 0px 0px 1px inset black;
-            border-top: none;
-            border-right: none;
-            border-bottom: none;
-          }
-
-            .wfrp4e.actor .location-values {
-              padding: 0px;
-              height: 70px;
+            .wfrp4e.actor .combat-section .lArm-section {
+              width: 243px;
+              margin: 0px;
+              margin-right: 3px;
+              height: inherit;
+            }
+            .wfrp4e.actor .combat-section .armor-header.lArm {
               width: inherit;
-              overflow: auto;
+              height: 21px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              /* border-top: none; */
+              /* border-left: none; */
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              display: inline-flex;
             }
-            .wfrp4e.actor .armor-list {
+            .wfrp4e.actor .combat-section .armor-box.lArm {
+              font-family: CaslonAntique;
+              font-weight: bold;
+              font-size: 24px;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              width: inherit;
+              border: 1px solid #736953a6;
+              box-shadow: 0px 0px 1px inset black;
+              border-top: none;
+              /* border-left: none; */
               height: inherit;
-              font-size: 12px;
+            }
+            .wfrp4e.actor .combat-section .rArm-section {
+              width: 242px;
+              margin: 0px;
+              margin-left: 3px;
+              height: inherit;
+            }
+            .wfrp4e.actor .combat-section .armor-header.rArm {
+              width: inherit;
+              height: 21px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              /* border-top: none; */
+              /* border-left: none; */
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              display: inline-flex;
+            }
+            .wfrp4e.actor .combat-section .armor-box.rArm {
+              font-family: CaslonAntique;
+              font-weight: bold;
+              font-size: 24px;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              width: inherit;
+              border: 1px solid #736953a6;
+              box-shadow: 0px 0px 1px inset black;
+              border-top: none;
+              /* border-right: none; */
+              height: inherit;
             }
 
-
+          .wfrp4e.actor .combat-section .armor-third-row {
+            display: flex;
+            height: 100px;
+            width: inherit;
+            margin-top: 27px;
+          }
+            .wfrp4e.actor .combat-section .lLeg-section {
+              width: 243px;
+              margin: 0px;
+              margin-right: 3px;
+              height: inherit;
+            }
+            .wfrp4e.actor .combat-section .armor-header.lLeg {
+              width: inherit;
+              height: 21px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              /* border-top: none; */
+              /* border-left: none; */
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              display: inline-flex;
+            }
+            .wfrp4e.actor .combat-section .armor-box.lLeg {
+              font-family: CaslonAntique;
+              font-weight: bold;
+              font-size: 24px;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              width: inherit;
+              border: 1px solid #736953a6;
+              box-shadow: 0px 0px 1px inset black;
+              border-top: none;
+              /* border-left: none; */
+              height: inherit;
+            }
+            .wfrp4e.actor .combat-section .rLeg-section {
+              width: 242px;
+              margin: 0px;
+              margin-left: 3px;
+              height: inherit;
+            }
+            .wfrp4e.actor .combat-section .armor-header.rLeg {
+              width: inherit;
+              height: 21px;
+              padding-left: 4px;
+              padding-right: 4px;
+              line-height: 19px;
+              border: 1px solid #736953a6;
+              /* border-top: none; */
+              /* border-left: none; */
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              background: none;
+              box-shadow: 0 0 10px #6b3a0f87 inset;
+              overscroll-behavior-x: none;
+              overflow-x: hidden;
+              overscroll-behavior-y: none;
+              overflow-y: hidden;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              display: inline-flex;
+            }
+            .wfrp4e.actor .combat-section .armor-box.rLeg {
+              font-family: CaslonAntique;
+              font-weight: bold;
+              font-size: 24px;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              width: inherit;
+              border: 1px solid #736953a6;
+              box-shadow: 0px 0px 1px inset black;
+              border-top: none;
+              /* border-right: none; */
+              height: inherit;
+            }
 
 
         .wfrp4e.sheet ::-webkit-scrollbar-button {
@@ -4338,7 +4428,7 @@ font-weight: bold;
   flex: 0;
 }
 
-.inventory-list .item .AP-value,
+
 .inventory-list .item .career-tier,
 .inventory-list .item .spell-attr,
 .inventory-list .item .item-toggle,
@@ -4356,11 +4446,6 @@ font-weight: bold;
   border-right: 1px solid #CCC;
 }
 
-.inventory-list .item .AP-value
-{
-  flex: 0 0 20px;
-  font-weight: bold;
-}
 
 
 /* .inventory-list .item .item-controls {
