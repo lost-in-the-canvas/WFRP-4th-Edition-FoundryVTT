@@ -1125,7 +1125,8 @@ class ActorWfrp4e extends Actor {
       autoCalcRun :  true,
       autoCalcWalk :  true,
       autoCalcWounds :  true,
-      autoCalcCritW :  true
+      autoCalcCritW :  true,
+      autoCalcCorruption :  true
     }
     super.create(data, options);
     
@@ -1142,7 +1143,7 @@ class ActorWfrp4e extends Actor {
       ch.value = ch.initial + ch.advances;
       ch.bonus = Math.floor(ch.value / 10)
     }
-    
+
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
@@ -2312,6 +2313,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
 
+    if (sheetData.actor.flags.autoCalcCorruption)
+      sheetData.actor.data.status.corruption.max = tb + wpb;
+
    if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
     
@@ -2939,6 +2943,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (toggle == "critW")
           newFlags.autoCalcCritW = !newFlags.autoCalcCritW;
+
+          else if (toggle == "corruption")
+          newFlags.autoCalcCorruption = !newFlags.autoCalcCorruption;
 
 
         this.actor.update({'flags' : newFlags})
