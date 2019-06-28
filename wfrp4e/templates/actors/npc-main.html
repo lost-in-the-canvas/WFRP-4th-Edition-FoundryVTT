@@ -97,7 +97,6 @@
       <ol class="inventory-list">
         <li class="inventory-header item">
           <h4 id="List-Career-label" class="item-name">Career</h4>
-          <h4 id="List-Current-label">Current</h4>
           <h4 id="List-Complete-label">Complete</h4>
           <div id="List-Level-label">Level</div>
           {{#if owner}}
@@ -116,15 +115,10 @@
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a class="careerlevel-name">{{item.name}}</a>
           </div>
-          {{#if item.data.current.value}}
-          <a class="career-current career-toggle" toggle-type="current"><i class="fa fa-check"></i></a>
-          {{else}}
-          <a class="career-current career-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
-          {{/if}}
           {{#if item.data.complete.value}}
-          <a class="career-complete career-toggle" toggle-type="complete"><i class="fa fa-check"></i></a>
+          <a class="career-complete npc-career" toggle-type="complete"><i class="fa fa-check"></i></a>
           {{else}}
-          <a class="career-complete career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
+          <a class="career-complete npc-career" toggle-type="complete"><i class="far fa-circle"></i></a>
           {{/if}}
           <div class="career-level">{{item.data.level.value}}</div>
   
@@ -150,5 +144,5 @@
 
   <div class="penalties">
       <h3>Penalties: </h3>
-      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
+      <input class = "penalties-input" type="text" name="data.status.penalties.value" placeholder= "{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
     </div>

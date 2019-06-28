@@ -1125,7 +1125,8 @@ class ActorWfrp4e extends Actor {
       autoCalcRun :  true,
       autoCalcWalk :  true,
       autoCalcWounds :  true,
-      autoCalcCritW :  true
+      autoCalcCritW :  true,
+      autoCalcCorruption :  true
     }
     super.create(data, options);
     
@@ -1142,7 +1143,7 @@ class ActorWfrp4e extends Actor {
       ch.value = ch.initial + ch.advances;
       ch.bonus = Math.floor(ch.value / 10)
     }
-    
+
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
@@ -2940,6 +2941,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (toggle == "critW")
           newFlags.autoCalcCritW = !newFlags.autoCalcCritW;
 
+          else if (toggle == "corruption")
+          newFlags.autoCalcCorruption = !newFlags.autoCalcCorruption;
+
 
         this.actor.update({'flags' : newFlags})
 
@@ -3193,20 +3197,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    */
   getData() {
     const sheetData = super.getData();
+    let tb = sheetData.actor.data.characteristics.t.bonus;
+    let wpb =sheetData.actor.data.characteristics.wp.bonus;
+    if (sheetData.actor.flags.autoCalcCorruption)
+      sheetData.actor.data.status.corruption.max = tb + wpb;
 
-    /*// Temporary HP
-    let hp = sheetData.data.attributes.hp;
-    if (hp.temp === 0) delete hp.temp;
-    if (hp.tempmax === 0) delete hp.tempmax;
-
-    // Resources
-    let res = sheetData.data.resources;
-    if (res.primary && res.primary.value === 0) delete res.primary.value;
-    if (res.primary && res.primary.max === 0) delete res.primary.max;
-    if (res.secondary && res.secondary.value === 0) delete res.secondary.value;
-    if (res.secondary && res.secondary.max === 0) delete res.secondary.max;
-
-    // Return data for rendering*/
     return sheetData;
   }
 
@@ -3343,6 +3338,50 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    */
   activateListeners(html) {
     super.activateListeners(html);
+
+
+      html.find('.ch-edit').focusout(async event => {
+        event.preventDefault();
+        let characteristic = event.currentTarget.attributes["data-char"].value;
+        let newValue  = Number(event.target.value);
+
+        await this.actor.update(
+          {
+            [`data.characteristics.${characteristic}.initial`] : newValue,
+            [`data.characteristics.${characteristic}.advances`] : 0
+          })
+      });
+
+      html.find('.npc-career').click(event => {
+        event.preventDefault();
+        let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+        let careerItem = this.actor.getOwnedItem(id);
+        careerItem.data.data.complete.value = !careerItem.data.data.complete.value
+        let updateObj = {};
+        if (careerItem.data.data.complete.value)
+        {
+          for (let advChar of careerItem.data.data.characteristics)
+          {
+            if (this.actor.data.data.characteristics[advChar].advances < 5 * careerItem.data.data.level.value)
+              updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerItem.data.data.level.value;
+          }
+        }
+        this.actor.updateOwnedItem({id : id, 'data' : careerItem.data.data});
+        this.actor.update(updateObj);
+      });
+
+      html.find('#input-species').focusout(async event => {
+        event.preventDefault();
+        let species = event.target.value;
+
+        let initialValues = WFRP_Utility.speciesAverage(species);
+
+        // Could not get assigning the whole object to work
+        // Error was something about fields not allowing "."
+        for (let char in initialValues)
+          await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+        await this.actor.update({"data.details.species.value" : species});
+      });
   }
 
   /* -------------------------------------------- */
@@ -3765,6 +3804,24 @@ class WFRP_Utility
     if (aoe)
       formula = "AoE (" + formula + ")";
     return formula;
+  }
+
+
+  static speciesAverage(species)
+  {
+    let averageCharacteristics = {};
+    for (let char in CONFIG.characteristics)
+    {
+      averageCharacteristics[char] = 0;
+    }
+    if (species == "Human")
+    {
+      for (let char in averageCharacteristics)
+      {
+        averageCharacteristics[char] = 30;
+      }
+    }
+    return averageCharacteristics;
   }
 
   static nameSorter(a, b){

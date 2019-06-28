@@ -342,6 +342,11 @@
         "label": "Range",
         "value": ""
       },
+      "twohanded" : {
+        "type": "Boolean",
+        "label" : "Two-Handed",
+        "value" : false
+      },
       "ammunitionGroup":{
         "type": "String",
         "label": "Ammunition Group",
