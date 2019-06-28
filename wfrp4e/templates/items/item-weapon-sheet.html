@@ -87,6 +87,11 @@
             </select>
         </div>
 
+        <div class="form-group">
+                <label>{{data.twohanded.label}}</label>
+                <input type="checkbox" name="data.twohanded.value" value="{{data.twohanded.value}}" data-dtype="Boolean" {{checked data.twohanded.value}}/>
+             </div>
+
         <div class="form-group-stacked">
             <label>Qualities (comma-separated)</label>
             <input type="text" name="data.qualities.value" value="{{data.qualities.value}}" data-dtype="{{data.properties.type}}"/>
