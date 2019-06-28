@@ -152,6 +152,29 @@
     </div>
   </div>
 
+  <div class="corruption">
+    <div class="corruption-section">
+      <div id="corruption-name">
+        <h4 id="corruption-label">Corruption</h4>
+      </div>
+      <div id="corruption-box">
+        <div id="corruption-value">
+          <input name="data.status.corruption.value" type="text" value="{{data.status.corruption.value}}">
+        </div>
+        <div id="corruption-divisor" class="divisor">
+          /
+        </div>
+        <div id="corruption-max">
+          {{#if actor.flags.autoCalcCritW}}       
+          <a class ="auto-calc-toggle" toggle-type = "corruption" >{{data.status.corruption.max}}</a>
+          {{else}}
+          <input class ="auto-calc-toggle" toggle-type = "corruption" name="data.status.corruption.max" type="text" value="{{data.status.corruption.max}}">
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="experienceSection">
     <div id="experience-name">
       <h4 id="experience-label" class="experience-label">Experience</h4>

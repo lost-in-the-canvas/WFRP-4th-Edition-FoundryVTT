@@ -1269,7 +1269,7 @@ input[type="text"], input[type="password"] {
           border: none;
         }
           .wfrp4e.actor .criticalWounds {
-            width: 200px;
+            width: 97px;
             height: 47px;
             margin-right: 6px;
           }
@@ -1369,6 +1369,109 @@ input[type="text"], input[type="password"] {
                 top: -23px;
                 padding-bottom: 1px;
               }
+
+          .wfrp4e.actor .corruption {
+            width: 97px;
+            height: 47px;
+            margin-right: 6px;
+          }
+          .wfrp4e.actor .corruption-section {
+            display: flex;
+            margin: 0px;
+            margin-left: 0px;
+            width: inherit;
+            height: 54px;
+          }
+            #corruption-name {
+              font-family: CaslonAntique;
+              font-weight: normal;
+              font-size: 16px;
+              color: #464331c4;
+              text-align: center;
+              border: 1px solid #736953a6;
+              margin: 0px;
+              padding: 2px 0px 0px 0px;
+              height: 25px;
+              width: inherit;
+              box-shadow: 0 0 10px #00000052 inset;
+              padding-top: 3px;
+            }   
+            #corruption-box {
+              font-family: CaslonAntique;
+              font-weight: normal;
+              font-size: 16px;
+              color: #464331c4;
+              text-align: center;
+              border: 1px solid #736953a6;
+              border-top: none;
+              padding: 2px 0px 0px 0px;
+              height: 23px;
+              position: absolute;
+              top: 468px;
+              left: 139px;
+              width: 97px;
+              margin: 2px 0px 0px 7px;
+              border-radius: 0px;
+            }
+              /*The critical wounds counter box in the combat tab*/
+              .combat-section #corruption-box {
+                margin-top: 130px;
+              }
+              #corruption-divisor {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: bolder;
+                padding: 6px 1px 0px 0px;
+                height: 21px;
+                color: #000000;
+                /* border: 1px solid black; */
+                position: absolute;
+                top: 0px;
+                left: 35px;
+                margin: 0px 0px 0px 0px;
+                width: 30px;
+                border-radius: 0px;
+              }
+              #corruption-value > input {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 6px 0px 0px 0px;
+                height: 21px;
+                color: black;
+                position: relative;
+                top: -1px;
+                width: 30px;
+                left: -18px;
+                /* border: 1px solid black; */
+                border-radius: 0px;
+                text-align: center;
+              }
+              #corruption-max > input,
+              #corruption-max > a {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 6px 1px 0px 0px;
+                height: 21px;
+                color: #3b4f6f;
+                /* border: 1px solid black; */
+                position: relative;
+                top: -22px;
+                /* left: 15px; */
+                margin: 0px 0px 0px 36px;
+                width: 30px;
+                border-radius: 0px;
+              }
+              #corruption-label {
+                font-weight: 700;
+              }
+              #corruption-max > input {
+                position: relative;
+                top: -23px;
+                padding-bottom: 1px;
+              }
+
           #main-row-2 .experienceSection {
             border: 1px solid #736953a6;
             height: 47px;
