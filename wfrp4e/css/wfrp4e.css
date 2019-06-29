@@ -2354,6 +2354,10 @@ input[type="text"], input[type="password"] {
               .wfrp4e .weapons .melee-title .header-name {
                 width: 295px;
               }
+              .wfrp4e .weapons .melee-title .fist-icon {
+                opacity: 0.8;
+                margin: 10px;
+              }
               .wfrp4e .weapons .melee-title .header-group {
                 width: 77px;
               }
@@ -4732,6 +4736,10 @@ font-weight: bold;
 .wfrp4e.actor.npc-sheet .penalties {
   position: relative;
   top: -83px;
+}
+
+.wfrp4e.actor .penalty {
+  margin-left: 10px;
 }
 
 .wfrp4e.actor .penalties > input{

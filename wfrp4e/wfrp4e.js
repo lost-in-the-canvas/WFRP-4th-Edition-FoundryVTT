@@ -3026,8 +3026,8 @@ class ActorSheetWfrp4e extends ActorSheet {
   async _onDrop(event) {
     try{
       var dragData = event.dataTransfer.getData("text/plain");
-      var dropID = Number(event.target.attributes["data-item-id"].value);
-      if (event.target.attributes["inventory-type"].value == "container"){
+      var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
+      if ($(event.target).parents(".item").attr("inventory-type") == "container"){
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
         if (dragItem.data.id == dropID)
           throw "";
@@ -3057,7 +3057,7 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   _onItemRoll(event) {/*
     event.preventDefault();
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id")),
+    let itemId = ,
         item = this.actor.getOwnedItem(itemId);
     item.roll();*/
   }
@@ -3076,17 +3076,13 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Toggle summary
 
-    let combatSummary = $(event.currentTarget).parents(".combat-section").length > 0;
 
     if ( li.hasClass("expanded") ) {
       let summary = li.children(".item-summary");
       summary.slideUp(200, () => summary.remove());
     } else {
       let div = "";
-      if (!combatSummary) // If in combat tab, don't show item description
-        div = $(`<div class="item-summary">${chatData.description.value}</div>`);
-      else
-        div = $(`<div class="item-summary"></div>`);
+      div = $(`<div class="item-summary">${chatData.description.value}</div>`);
 
       let props = $(`<div class="item-properties"></div>`);
       chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));

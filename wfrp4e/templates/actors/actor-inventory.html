@@ -146,9 +146,9 @@
             {{#each actor.containers.items as |pack p|}}
             <div class="inventory-type">
                   <ol class="inventory-list">
-                     <li class="inventory-header item" data-item-id = "{{pack.id}}">
+                     <li class="inventory-header item" inventory-type="container" data-item-id = "{{pack.id}}">
       
-                        <div class="item-name" inventory-type="container" data-item-id="{{pack.id}}">
+                        <div class="item-name" data-item-id="{{pack.id}}">
                            <div class="item-image" style="background-image: url({{pack.img}})"></div>
                            {{pack.name}}
                         </div>
@@ -194,10 +194,11 @@
                      </li>
                      {{/each}}
 
+                     <!-- Packs Inside (Copy from Here)-->
                      {{#each pack.packsInside as |pack p|}}
                      <ol style = "margin-left: 20px" class="inventory-list">
-                        <li class="inventory-header item" data-item-id = "{{pack.id}}">
-                           <div class="item-name" inventory-type = "container" data-item-id = "{{pack.id}}">
+                        <li class="inventory-header item" inventory-type = "container" data-item-id = "{{pack.id}}">
+                           <div class="item-name" data-item-id = "{{pack.id}}">
                               <div class="item-image" style="background-image: url({{pack.img}})"></div>
                               {{pack.name}}
                            </div>
@@ -220,7 +221,7 @@
                               <div class="item-image" style="background-image: url({{item.img}})"></div>
                               <a>{{item.name}}</a>
                            </div>
-   
+                           
                            <div>{{item.type}}</div>
       
                            <span class = "item-quantity">{{item.data.quantity.value}}</span>
@@ -233,9 +234,10 @@
                            {{/if}}
                         </li>
                         {{/each}}
-
+                        <!-- Insert Pack Inside Code here-->
                   </ol>
                   {{/each}}
+                  <!-- Pack Inside (Copy to here)-->
                </div>
             </div>
             {{/each}}
