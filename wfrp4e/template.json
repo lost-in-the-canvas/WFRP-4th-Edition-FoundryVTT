@@ -118,11 +118,6 @@
           "max" : 0,
           "descriptions" : ""
         },
-        "god": {
-          "type" : "String",
-          "label": "God",
-          "value": ""
-        },
         "sin": {
           "type" : "Number",
           "label": "Sin",
@@ -132,6 +127,11 @@
           "type" : "String",
           "label" : "Penalties",
           "value" : ""
+        },
+        "corruption" : {
+          "type" : "Number",
+          "label" : "Corruption",
+          "value" : 0
         }
       },
       "details": {
@@ -146,6 +146,11 @@
           "value": 4,
           "walk": 0,
           "run": 0
+        },
+        "god": {
+          "type" : "String",
+          "label": "God",
+          "value": ""
         }
       }    
     },
@@ -257,6 +262,8 @@
       }
     },
     "npc": {
+    },
+    "creature": {
     }
   },
   "item": {
