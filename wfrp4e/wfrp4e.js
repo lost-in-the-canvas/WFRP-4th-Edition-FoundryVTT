@@ -1,3 +1,7 @@
+CONFIG.initiative = {
+  decimals: 2
+}
+
 // Species
 CONFIG.species = {
   "human": "Human",
@@ -999,27 +1003,6 @@ Hooks.once("init", () => {
     onChange: rule => canvas.grid.diagonalRule = rule
   });
 
-  /**
-   * Register Initiative formula setting
-   */
-  function _set5eInitiative(tiebreaker) {
-    const base = "1d100"
-
-      CONFIG.initiative = {
-        formula: base,
-        decimals: 0
-    }
-  }
-  game.settings.register("wfrp4e", "initiativeDexTiebreaker", {
-    name: "Initiative Dexterity Tiebreaker",
-    hint: "Append the raw Dexterity ability score to break ties in Initiative.",
-    scope: "world",
-    config: true,
-    default: true,
-    type: Boolean,
-    onChange: enable => _set5eInitiative(enable)
-  });
-  _set5eInitiative(game.settings.get("wfrp4e", "initiativeDexTiebreaker"));
 
   /**
    * Require Currency Carrying Weight
@@ -2659,7 +2642,26 @@ class ActorSheetWfrp4e extends ActorSheet {
       
       allPenalties += " " +  WFRP_Utility._calculateArmorPenalties(actorData, armour);
       if (allPenalties.length > 78)
-        allPenalties = "overflow";
+      {
+        actorData.penaltyOverflow = true;
+        let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
+        let injuryPenalties = injuries.reduce(function (prev, cur) {
+          return prev += cur.data.penalty.value
+        }, "");
+        let otherPenalties = this.actor.data.data.status.penalties.value; 
+        let allPenaltiesOverflow = {};
+        if (armourPenalties)
+          allPenaltiesOverflow["Armour"] = armourPenalties;
+
+        if (injuryPenalties)
+          allPenaltiesOverflow["Injury"] = injuryPenalties;
+
+        if (otherPenalties)
+          allPenaltiesOverflow["Other"] = otherPenalties;
+
+        allPenalties = allPenaltiesOverflow;
+
+      }
 
       actorData.inventory = inventory;
       actorData.containers = containers;
