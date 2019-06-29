@@ -2369,7 +2369,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         rArm: 0,
         lArm: 0,
         rLeg: 0,
-        lLeg: 0
+        lLeg: 0,
+        shield: 0
       };
       const injuries = [];
       const grimoire = [];
@@ -2452,7 +2453,15 @@ class ActorSheetWfrp4e extends ActorSheet {
             inContainers.push(i);
           }
           if (i.data.equipped)
+          {
             weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
+            let shieldProperty = i.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+            if (shieldProperty)
+            {
+               AP.shield += parseInt(shieldProperty.split(" ")[1]);
+            }
+          }
+
         
         }
   
@@ -2795,6 +2804,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
       this.actor.rollWeapon(duplicate(weapon), {attackType : attackType});
+    })  
+
+    html.find('.fist-icon').click(event => {
+      event.preventDefault();
+      // Roll Fist Attack
     })  
 
     html.find('.trait-name').click(event => {
