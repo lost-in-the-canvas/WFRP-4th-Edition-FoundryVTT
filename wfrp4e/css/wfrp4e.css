@@ -2569,7 +2569,7 @@ input[type="text"], input[type="password"] {
                   font-weight: 500;
                   color: black;
                   height: 19px;
-                }
+                }          
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-damage {
                 width: 35px;
                 text-align: center;
@@ -2589,49 +2589,48 @@ input[type="text"], input[type="password"] {
               height: 18px;
               border: none;
             }
+            .wfrp4e.sheet .weapons .ranged-type .weapon-list ::-webkit-scrollbar-button {
+              height: 18px;
+              border: none;
+            }
 
-          .wfrp4e.actor .weapons .quality-label {
-            font-family: CaslonPro;
-            font-size: 13px;
-            font-weight: 400;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            padding-top: 2px;
-            padding-left: 2px;
-            padding-right: 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
-          .wfrp4e.actor .weapons .flaw-label {
-            font-family: CaslonPro;
-            font-size: 13px;
-            font-weight: 400;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            padding-top: 2px;
-            padding-left: 2px;
-            padding-right: 2px;
-            margin-left: 7px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
+            .wfrp4e.actor .weapons .quality-label {
+              font-family: CaslonPro;
+              font-size: 13px;
+              font-weight: 400;
+              color: #464331f0;
+              border: 1px solid #00000038;
+              border-radius: 3px;
+              padding-top: 2px;
+              padding-left: 2px;
+              padding-right: 2px;
+              background: #774e000f;
+              box-shadow: 0 0 3px #6b3a0f2b inset;
+            }
+            .wfrp4e.actor .weapons .flaw-label {
+              font-family: CaslonPro;
+              font-size: 13px;
+              font-weight: 400;
+              color: #464331f0;
+              border: 1px solid #00000038;
+              border-radius: 3px;
+              padding-top: 2px;
+              padding-left: 2px;
+              padding-right: 2px;
+              margin-left: 7px;
+              background: #774e000f;
+              box-shadow: 0 0 3px #6b3a0f2b inset;
+            }
 
-          .wfrp4e.sheet .weapons .ranged-type .weapon-list ::-webkit-scrollbar-button {
-            height: 18px;
-            border: none;
-          }
-          
 
         .wfrp4e.actor .combat-section .armor {
           text-align: center;
           margin-top: 6px;
-          border: 1px solid #73695300;
+          /* border: 1px solid #73695300; */
           background: url(../ui/armor-diagram.png) no-repeat;
           background-position-x: 176px;
           background-position-y: center;
-          width: 493px;
+          width: 494px;
           height: 376px;
           background-size: contain;
           position: relative;
@@ -2639,6 +2638,9 @@ input[type="text"], input[type="password"] {
           left: 0px;
           margin: 0px;
           padding: 0px;
+        }
+        .wfrp4e.actor .combat-section .armor .armor-list {
+          height: inherit;
         }
           .wfrp4e.actor .combat-section .armor-first-row {
             display: flex;
@@ -2763,7 +2765,7 @@ input[type="text"], input[type="password"] {
                 text-align: center;
               }
             .wfrp4e.actor .combat-section .body-section {
-              width: 242px;
+              width: 244px;
               margin: 0px;
               margin-left: 3px;
               height: inherit;
@@ -2858,7 +2860,7 @@ input[type="text"], input[type="password"] {
               height: inherit;
             }
             .wfrp4e.actor .combat-section .rArm-section {
-              width: 242px;
+              width: 244px;
               margin: 0px;
               margin-left: 3px;
               height: inherit;
@@ -2953,7 +2955,7 @@ input[type="text"], input[type="password"] {
               height: inherit;
             }
             .wfrp4e.actor .combat-section .rLeg-section {
-              width: 242px;
+              width: 244px;
               margin: 0px;
               margin-left: 3px;
               height: inherit;
@@ -2997,6 +2999,96 @@ input[type="text"], input[type="password"] {
               height: inherit;
             }
 
+        .wfrp4e.actor .injury-header  {
+          font-family: CaslonAntique;
+          font-size: 16px;
+          font-weight: 700;
+          color: #464331c4;
+          text-align: left;
+          border: 1px solid #736953a6;
+          border-bottom: none;
+          margin: 0px;
+          padding: 1px 0px 0px 0px;
+          height: 21px;
+          width: 493px;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          position: relative;
+          top: 11px;
+          display: flex;
+          flex-direction: row;
+          padding-left: 4px;
+        }
+          .wfrp4e.actor .injury-label  {
+            position: relative;
+            left: 0px;
+          }
+          .wfrp4e.actor .location-label  {
+            position: relative;
+            left: 161px;
+          }
+        .wfrp4e.actor .combat-section .injury {
+          text-align: center;
+          width: 493px;
+          height: 120px;
+          position: relative;
+          top: 10px;
+          left: 0px;
+          margin: 0px;
+          padding: 0px;
+          margin-top: 1px;
+          /* border: 1px solid #736953a6; */
+        }
+          .wfrp4e.actor .injury .crit-wound-list {
+            list-style: none;
+            overflow: auto;
+            overscroll-behavior-x: unset;
+            overflow-x: hidden;
+            overscroll-behavior-y: unset;
+            overflow-y: scroll;
+            box-shadow: 0px 0px 1px inset black;
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
+            margin-top: 0px;
+            height: 117px;
+            width: inherit;
+            line-height: 17px;
+            border: 1px solid #736953a6;
+          }
+            .wfrp4e.actor .injury .inventory-header {
+              visibility: hidden;
+              display: none;
+            }
+            .wfrp4e.actor .injury .crit-wound-list .injury-name {
+              width: 190px;
+            }
+              .wfrp4e.actor .injury .crit-wound-list .injury-title {
+                vertical-align: middle;
+                margin-right: 6px;
+                padding-top: 10px;
+                text-align: left;
+              }
+            .wfrp4e.actor .injury .crit-wound-list .injury-location {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+              text-align: left;
+              width: 235px;
+            }
+            .wfrp4e.actor .injury .crit-wound-list .item-controls {
+              position: relative;
+              left: 0px;
+              width: 46px;
+              top: 9px;
+              font-family: "Font Awesome 5 Free";
+              font-size: 10px;
+              color: #504f48a6;
+            }
+        .wfrp4e.sheet .combat-section .injury ::-webkit-scrollbar-button {
+          height: 18px;
+          border: none;
+        }
 
         .wfrp4e.sheet ::-webkit-scrollbar-button {
           height: 18px;
