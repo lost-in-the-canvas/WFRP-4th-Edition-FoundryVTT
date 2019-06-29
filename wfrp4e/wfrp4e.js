@@ -1726,10 +1726,10 @@ class ActorWfrp4e extends Actor {
   }
 
   rollTrait(trait, event) {
-    if (!trait.rollable.value)
+    if (!trait.data.rollable.value)
       return;
-    let char = this.data.data.characteristics[trait.rollable.rollCharacteristic];
-    let title =  + " Test";
+    let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
+    let title =  trait.name + " Test";
     let testData = {
       target : char.value,
       hitLocation : true
@@ -1747,7 +1747,7 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
-        characteristicToUse : trait.rollable.rollCharacteristic 
+        characteristicToUse : trait.data.rollable.rollCharacteristic 
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -1759,7 +1759,6 @@ class ActorWfrp4e extends Actor {
         testData.target = this.data.data.characteristics[characteristicToUse].value
                              + testData.testModifier 
                              + testData.testDifficulty
-                             + skill.data.advances.value;
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
@@ -2457,6 +2456,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   
         else if (i.type === "armour")
         {
+
           i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
           if (i.data.location.value == 0){
             i.toggleValue = i.data.worn.value || false;
@@ -2553,6 +2553,16 @@ class ActorSheetWfrp4e extends ActorSheet {
         
         else if (i.type === "trait")
         {
+          if (i.data.specification.value)
+          {
+            if (i.data.rollable.bonusCharacteristic)
+            {
+              i.data.specification.value = parseInt(i.data.specification.value)
+              i.data.specification.value += actorData.data.characteristics[i.data.rollable.bonusCharacteristic].bonus;
+            }
+            i.name = i.name + " (" + i.data.specification.value + ")";
+
+          }
           traits.list.push(i);
         }
   
@@ -2697,9 +2707,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     
     html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw').click(event => this._expandProperty(event));
 
-    html.find('.weapon-range').click(event => this._expandInfo(event, 'weapon-range'));
+    html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
-    html.find('.weapon-group').click(event => this._expandInfo(event, 'weapon-group'));
+    
 
 
     // Everything below here is only needed if the sheet is editable
@@ -2765,6 +2775,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
       this.actor.rollWeapon(duplicate(weapon), {attackType : attackType});
+    })  
+
+    html.find('.trait-name').click(event => {
+      event.preventDefault();
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let trait = this.actor.items.find(i => i.id === itemId);
+      this.actor.rollTrait((duplicate(trait)));
     })  
 
     html.find('.spell-name').click(event => {
@@ -3065,8 +3082,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     let li = $(event.currentTarget).parents(".item"),
         property = event.target.text,
-        properties = Object.assign(CONFIG.weaponQualities, CONFIG.weaponFlaws),
-        propertyDescr = Object.assign(CONFIG.qualityDescriptions, CONFIG.flawDescriptions);
+        properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
+        propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
 
         console.log(property);
         property = property.replace(/,/g, '');
@@ -3096,6 +3113,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
 
         let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
+        if (propertyDescription.includes("(Rating)"))
+          propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
     // Toggle summary
 
     if ( li.hasClass("expanded") ) {
@@ -3109,9 +3128,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.toggleClass("expanded");
   }
 
-  _expandInfo(event, expandInfo) {
+  _expandInfo(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item");
+    let expandInfo = event.target.attributes.class.value;
     let  expansionText = "";
       if (expandInfo == "weapon-range")
       {
@@ -3135,6 +3155,21 @@ class ActorSheetWfrp4e extends ActorSheet {
             }            
         }
         expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
+      }
+      else if (expandInfo == "weapon-reach")
+      {
+        let reach = event.target.text;
+        let reachKey;
+
+        for (let r in CONFIG.weaponReaches)
+        {
+          if (CONFIG.weaponReaches[r] == reach)
+          {
+            reachKey = r;
+            break;
+          }
+        }
+        expansionText = CONFIG.reachDescription[reachKey];       
       }
       
     // Toggle summary
@@ -3552,18 +3587,28 @@ class WFRP_Utility
       armor["protectsrLeg"] = true
       AP.rLeg += armor.data.currentAP.rLeg;
     }
-    // armor.properties = armor.properties.filter(function(item) {return item != ""});  
+    armor.properties = this._separateQualitiesFlaws(this._prepareQualitiesFlaws(armor));
     return armor;
   }
 
   static _prepareQualitiesFlaws(item){
     let qualities = item.data.qualities.value.split(",").map(function(item) {
       if (item)
-        return item.trim();
+      {
+        item = item.trim();
+        if (!Object.values(WFRP_Utility.qualityList()).includes(item))
+          CONFIG.itemQualities[item.toLowerCase().trim()] = item;
+        return item
+      }
     });
     let flaws = item.data.flaws.value.split(",").map(function(item) {
       if (item)
-        return item.trim();
+      {
+        item = item.trim();
+        if (!Object.values(WFRP_Utility.flawList()).includes(item))
+          CONFIG.itemFlaws[item.toLowerCase().trim()] = item;
+        return item;
+      }
     });
 
     // Commented code is part of process of removing unrecognized qualities/flaws
@@ -3603,8 +3648,8 @@ class WFRP_Utility
     let qualities = [],
         flaws = [],
         special = [];
-    let allQualities = Object.values(CONFIG.weaponQualities).concat(Object.values(CONFIG.itemQualities).concat(Object.values(CONFIG.armorQualities)));    
-    let allFlaws = Object.values(CONFIG.weaponFlaws).concat(Object.values(CONFIG.itemFlaws).concat(Object.values(CONFIG.armorFlaws)));
+    let allQualities = Object.values(this.qualityList());
+    let allFlaws = Object.values(this.flawList());
     for (let prop of properties)
     {
       if (allQualities.includes(prop.split(" ")[0]))
@@ -3838,6 +3883,22 @@ class WFRP_Utility
     return 0;
   }
 
+  static qualityList()
+  {
+    let weapon = duplicate(CONFIG.weaponQualities);
+    let armor = duplicate(CONFIG.armorQualities);
+    let item = duplicate(CONFIG.itemQualities);
+    let list = mergeObject(weapon,mergeObject(item, armor))
+    return list;
+  }
+  static flawList()
+  {
+    let weapon = duplicate(CONFIG.weaponFlaws);
+    let armor = duplicate(CONFIG.armorFlaws);
+    let item = duplicate(CONFIG.itemFlaws);
+    let list = mergeObject(weapon,mergeObject(item, armor))
+    return list;
+  }
 }
 
 
