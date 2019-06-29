@@ -2300,10 +2300,29 @@ class ActorSheetWfrp4e extends ActorSheet {
     const sheetData = super.getData();
     this._prepareItems(sheetData.actor);
 
+    let size;
+    let trait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("size"));
+    if (trait)
+    {
+      trait = this.actor.getOwnedItem(trait.id);
+      size = trait.data.data.specification.value;
+    }
+    else 
+    {
+      size = sheetData.actor.talents.find(x=>x.name.toLowerCase() == "small");
+      if (size)
+        size = size.name;
+    }
 
-    let isSmall = sheetData.actor.talents.find(x=>x.name == "Small");
-    if (isSmall)
-      sheetData.actor.data.details.size.value="sml";
+    if (size)
+    {
+      for (let s in CONFIG.actorSizes)
+      {
+        if (CONFIG.actorSizes[s] == size)
+          sheetData.actor.data.details.size.value = s;
+      }
+    }
+    
 
 
     let sb = sheetData.actor.data.characteristics.s.bonus;
@@ -2358,7 +2377,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       const basicSkills = [];
       const advancedOrGroupedSkills = [];
       const talents = [];
-      const traits = {list : [], hasTraits : false};
+      const traits = [];
       const weapons = [];
       const armour = [];
       const AP = {
@@ -2563,7 +2582,7 @@ class ActorSheetWfrp4e extends ActorSheet {
             i.name = i.name + " (" + i.data.specification.value + ")";
 
           }
-          traits.list.push(i);
+          traits.push(i);
         }
   
         
@@ -2623,9 +2642,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
   
       containers.items = containers.items.filter(c => c.data.location.value == 0);
-      
-      if (traits.list.length > 0)
-        traits.hasTraits = true;
   
       // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
       // instead of iterating through every item again to find talents when rolling
@@ -2642,6 +2658,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         allPenalties += " " + this.actor.data.data.status.penalties.value
       
       allPenalties += " " +  WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      if (allPenalties.length > 78)
+        allPenalties = "overflow";
 
       actorData.inventory = inventory;
       actorData.containers = containers;

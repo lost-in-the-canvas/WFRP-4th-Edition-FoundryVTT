@@ -33,7 +33,7 @@
       {{/each}}
     </ol>
 
-    {{#if actor.traits.hasTraits}}
+    {{#if actor.traits}}
     <ol class="inventory-list trait-list">
       <li class="inventory-header item">
         <div class="item-name">Creature Trait</div>
@@ -44,7 +44,7 @@
         {{/if}}
       </li>
 
-      {{#each actor.traits.list as |item i|}}
+      {{#each actor.traits as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
         <div class="trait-name">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
