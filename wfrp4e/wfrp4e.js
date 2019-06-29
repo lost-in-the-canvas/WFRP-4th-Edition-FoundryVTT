@@ -3024,7 +3024,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   
   async _onDrop(event) {
-    try{
       var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
       if ($(event.target).parents(".item").attr("inventory-type") == "container"){
@@ -3044,10 +3043,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         await this.actor.updateOwnedItem(dragItem.data, true);  
       } 
-    }
-    catch{
+    else
       super._onDrop(event)
-    }
   }
   /* -------------------------------------------- */
 
