@@ -1,13 +1,14 @@
 <div class="tab talents" data-group="primary" data-tab="talents">
   <div class="talents-section">
     <ol class="inventory-list talent-list">
-      <li class="inventory-header item">
+      <li class="inventory-header">
         <div class="item-name">Talent Name</div>
         <div class="item-taken">Times Taken</div>
         <div class="item-tests">Tests</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+          </a>
         </div>
         {{/if}}
       </li>
@@ -33,13 +34,20 @@
       {{/each}}
     </ol>
 
+
+
     {{#if actor.traits}}
+    <div class="traits-header">
+      <div class="item-name">Creature Trait</div>
+    </div>
+
     <ol class="inventory-list trait-list">
-      <li class="inventory-header item">
+      <li class="inventory-header">
         <div class="item-name">Creature Trait</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i> Add</a>
+          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+            Add</a>
         </div>
         {{/if}}
       </li>
