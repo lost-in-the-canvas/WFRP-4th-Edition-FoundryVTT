@@ -20,62 +20,50 @@
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
           <div class="weapon-damage">+{{item.data.damage.value}}</div>
-          <div class="weapon-reach">{{item.data.reach.value}}</div>
+          <a class="weapon-reach">{{item.data.reach.value}}</a>
           <div class="weapon-property">
             <div>
-              <a class="quality-label">Qualities</a>:
-              {{#each item.properties.qualities as |property p|}}
-              <a class='melee-property-quality'>{{property}},</a>
-              {{/each}}
-              <a class="flaw-label">Flaws</a>:
-              {{#each item.properties.flaws as |property p|}}
-              <a class='melee-property-flaw'>{{property}},</a>
-              {{/each}}
+
+              
+              {{#if item.properties.special}}
+                {{#each item.properties.special as |property p|}}
+                  <a class='ranged-property-quality quality-label'>{{property}}</a>
+                {{/each}}
+              {{/if}}
+
+
+              {{#if item.properties.qualities}}
+                <span class="quality-label">Q:</span>
+                {{#each item.properties.qualities as |property p|}}
+                <a class='melee-property-quality'>{{property}},</a>
+                {{/each}}
+              {{/if}}
+
+              {{#if item.properties.flaws}}
+                <span class="flaw-label">F:</span>
+                {{#each item.properties.flaws as |property p|}}
+                <a class='melee-property-flaw'>{{property}},</a>
+                {{/each}}
+              {{/if}}
             </div>
             <script>
               var x = document.getElementsByClassName('melee-property-quality');
-              console.log(x);
               xLength = x.length;
-              console.log(xLength);
               xLast = x.item(xLength - 1);
-              console.log(xLast);
               xLastVal = JSON.stringify(xLast.textContent);
-              console.log(xLastVal);
-              console.log(typeof xLastVal);
-              console.log(xLastVal.length);
               var xNewVal = xLastVal;
-              
               xNewVal = xNewVal.replace(',','');
               xNewVal = xNewVal.replace(/['"]+/g,'');
-
-
-              console.log(xNewVal);
-
-
-              // console.log(document.getElementsByClassName('melee-property-quality')[xLength - 1].textContent); 
               document.getElementsByClassName('melee-property-quality')[xLength - 1].textContent = xNewVal;
 
-            // FLAWS
+              // FLAWS
               var y = document.getElementsByClassName('melee-property-flaw');
-              console.log(y);
               yLength = y.length;
-              console.log(yLength);
               yLast = y.item(yLength - 1);
-              console.log(yLast);
               yLastVal = JSON.stringify(yLast.textContent);
-              console.log(yLastVal);
-              console.log(typeof yLastVal);
-              console.log(yLastVal.length);
-              var yNewVal = yLastVal;
-              
+              var yNewVal = yLastVal;              
               yNewVal = yNewVal.replace(',','');
               yNewVal = yNewVal.replace(/['"]+/g,'');
-
-
-              console.log(yNewVal);
-
-
-              // console.log(document.getElementsByClassName('melee-property-quality')[yLength - 1].teytContent); 
               document.getElementsByClassName('melee-property-flaw')[yLength - 1].textContent = yNewVal;
             </script>
         </li>
@@ -123,14 +111,27 @@
           <div class="weapon-damage">+{{item.data.damage.value}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div class="weapon-property">
-            <a class="quality-label">Qualities</a>: 
-            {{#each item.properties.qualities as |property p|}}
-            <a class='ranged-property-quality'>{{property}},</a>
-            {{/each}}
-            <a class="flaw-label">Flaws</a>:
-            {{#each item.properties.flaws as |property p|}}
-            <a class='ranged-property-flaw'>{{property}},</a>
-            {{/each}}
+
+           {{#if item.properties.special}}
+              {{#each item.properties.special as |property p|}}
+                <a class='ranged-property-quality quality-label'>{{property}}</a>
+              {{/each}}
+            {{/if}}
+
+            {{#if item.properties.qualities}}
+              <span class="quality-label">Q:</span>
+              {{#each item.properties.qualities as |property p|}}
+                <a class='ranged-property-quality'>{{property}},</a>
+              {{/each}}
+            {{/if}}
+
+            {{#if item.properties.flaws}}
+              <span class="flaw-label">F:</span>
+              {{#each item.properties.flaws as |property p|}}
+                <a class='ranged-property-flaw'>{{property}},</a>
+              {{/each}}
+            {{/if}}
+            
           </div>
           <script>
             var x = document.getElementsByClassName('ranged-property-quality');
@@ -197,15 +198,38 @@
         <div class="armor-box head">
           <ol class="inventory-list armor-list">
             {{#each actor.armour as |item i|}}
-            {{#if item.protectsHead}}
-            <li class="item" data-item-id="{{item.id}}" data-location="head">
-              <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-              <a class="armor-item-name">{{item.name}}</a>
-              <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
-                class="ap-value">{{item.data.currentAP.head}}</a>
+              {{#if item.protectsHead}}
+              <li class="item" data-item-id="{{item.id}}" data-location="head">
+                <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+                <a class="armor-item-name">{{item.name}}</a>
+                <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
+                  class="ap-value">{{item.data.currentAP.head}}</a>
+
+                    <!--Copy this into the other list items once its been styled-->
+                    {{#if item.properties.special}}
+                      {{#each item.properties.special as |property p|}}
+                        <a class='ranged-property-quality quality-label'>{{property}}</a>
+                      {{/each}}
+                    {{/if}}
+
+                    {{#if item.properties.qualities}}
+                      <span class="quality-label">Q: </span>
+                      {{#each item.properties.qualities as |property p|}}
+                        <a class='ranged-property-quality'>{{property}},</a>
+                      {{/each}}
+                    {{/if}}
+          
+                    {{#if item.properties.flaws}}
+                      <span class="flaw-label">F:</span>
+                      {{#each item.properties.flaws as |property p|}}
+                        <a class='ranged-property-flaw'>{{property}},</a>
+                      {{/each}}
+                    {{/if}}
+                    <!-- Copy ends here-->
+
+                  {{/if}}
+                {{/each}}
             </li>
-            {{/if}}
-            {{/each}}
           </ol>
         </div>
       </div>

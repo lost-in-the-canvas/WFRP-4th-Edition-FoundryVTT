@@ -41,7 +41,7 @@
     }
   ],
   "languages": ["en"],
-  "initiative": "1d100",
+  "initiative": "10 + (Math.floor(@characteristics.i.value / 10) - Math.floor(1d100/10)) + (@characteristics.ag.value/100)",
   "gridDistance": 2,
   "gridUnits": "yd"
 }

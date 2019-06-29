@@ -89,5 +89,17 @@
 </div>
 <div class="penalties">
   <h3>Penalties: </h3>
-  <input class = "penalties-input" type="text" name="data.status.penalties.value" placeholder= "{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
+  {{#if actor.penaltyOverflow}}
+  {{#each actor.allPenalties as |penalty p|}}
+  <a class = "penalty" title = "{{penalty}}">{{p}}</a>
+  {{/each}}
+  <input class = "penalties-input" type="text" name="data.status.penalties.value" data-dtype = "String" onfocus="this.value=''">
+  {{else}}
+  <input class = "penalties-input" type="text" name="data.status.penalties.value" placeholder="{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
+
+  {{/if}}
+  
+
+
+  
 </div>
