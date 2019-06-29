@@ -2618,11 +2618,11 @@ input[type="text"], input[type="password"] {
               border: 1px solid #00000038;
               border-radius: 3px;
               padding-top: 2px;
-              padding-left: 2px;
-              padding-right: 2px;
-              margin-left: 7px;
+              padding-left: 3px;
+              padding-right: 4px;
               background: #774e000f;
               box-shadow: 0 0 3px #6b3a0f2b inset;
+              margin-left: 7px;
             }
 
 
@@ -3002,6 +3002,48 @@ input[type="text"], input[type="password"] {
               height: inherit;
             }
 
+          .wfrp4e.actor .armor .quality-label {
+            font-family: CaslonPro;
+            font-size: 13px;
+            font-weight: 400;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;
+            height: 17px;
+            width: 20px;
+            margin-right: 3px;
+          }
+          .wfrp4e.actor .armor .flaw-label {
+            font-family: CaslonPro;
+            font-size: 13px;
+            font-weight: 400;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            padding-top: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;
+            height: 17px;
+            width: 20px;
+            margin-left: 7px;
+            margin-right: 4px;
+          }
+          .wfrp4e.actor .armor .armor-quality {
+            font-family: CaslonPro;
+            font-weight: 500;
+            padding: 1px 0px 0px 0px;
+            color: #000000d6;
+            font-size: 13px;
+          }
+
+
         .wfrp4e.actor .injury-header  {
           font-family: CaslonAntique;
           font-size: 16px;
@@ -3105,8 +3147,8 @@ input[type="text"], input[type="password"] {
           overscroll-behavior-y: auto;
           overflow-x: hidden;
           height: 360px;
+          margin-top: 0px;
         }  
-
         .wfrp4e .inventory > ol {
           list-style: none;
           margin: 0;
@@ -3114,8 +3156,57 @@ input[type="text"], input[type="password"] {
           /* height: calc(100% - 20px); */
           overflow-y: hidden;
         }  
+        .wfrp4e .inventory .inventory-list {
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+        }
 
 
+
+        .wfrp4e.actor ol > li:nth-child(odd) {
+          background-color: #7b733b29 ;
+        }
+        
+        .wfrp4e.actor ol > li:nth-child(even) {
+          background-color: #9e856a0d ;
+        }
+
+
+
+
+        .wfrp4e .inventory .inventory-header {
+          height: 21px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+        }
+        .wfrp4e .inventory .inventory-list .item {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          line-height: 17px;
+          padding-left: 4px;
+        }
+
+        .wfrp4e.sheet ::-webkit-scrollbar-button {
+          height: 18px;
+          border: none;
+        }
 
 
 /*************************************************************/
@@ -3131,13 +3222,7 @@ input[type="text"], input[type="password"] {
 } */
 
 
-.wfrp4e.actor ol > li:nth-child(odd) {
-  background-color: #7b733b29 ;
-}
 
-.wfrp4e.actor ol > li:nth-child(even) {
-  background-color: #9e856a0d ;
-}
 
 
 
@@ -4524,22 +4609,7 @@ font-weight: bold;
 }
 
 
-.inventory-list .item .career-tier,
-.inventory-list .item .spell-attr,
-.inventory-list .item .item-toggle,
-.inventory-list .item .item-remove,
-.inventory-list .item .item-quantity,
-.inventory-list .item .item-weight {
-  flex: 0 0 32px;
-  font-family: CaslonAntique;
-  font-weight: 700;
-  font-size: 16px;
-  color: #464331c4;
-  /* font-size: 16px; */
-  /* color: #666; */
-  text-align: center;
-  border-right: 1px solid #CCC;
-}
+
 
 
 
@@ -4625,10 +4695,7 @@ font-weight: bold;
 
  
 
-.wfrp4e.actor .armor-box .item > *{
-  width: auto;
-}
- 
+
  
 
  .wfrp4e.actor .armor-list .armor-header {
