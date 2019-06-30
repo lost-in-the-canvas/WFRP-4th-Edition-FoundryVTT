@@ -2898,7 +2898,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollSpell(duplicate(spell));
     })  
 
-    html.find('.prayer-name').click(event => {
+    html.find('.prayer-roll').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let prayer = this.actor.items.find(i => i.id === itemId);
