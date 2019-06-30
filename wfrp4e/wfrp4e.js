@@ -1884,19 +1884,11 @@ class ItemWfrp4e extends Item {
 
   /* -------------------------------------------- */
 
-  _equipmentChatData() {
-    /*const data = duplicate(this.data.data);
-    const properties = [
-      CONFIG.armorTypes[data.armorType.value],
-      data.armor.value + " AC",
-      data.equipped.value ? "Equipped" : null,
-      data.stealth.value ? "Stealth Disadv." : null,
-    ];
-    data.properties = properties.filter(p => p !== null);
-    return data;*/
+  _trappingChatData() {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
   }
-
-
 
   _talentChatData() {
     const data = duplicate(this.data.data);
