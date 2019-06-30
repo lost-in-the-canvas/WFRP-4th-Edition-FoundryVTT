@@ -457,25 +457,16 @@ input[type="text"], input[type="password"] {
 /*************************************************************/
 
   /* ==================== A. WINDOW FRAMEWORK =================== */
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet,
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet,
     .app.window-app.sheet.wfrp4e.actor.character-sheet {
       background: url(../ui/ActorSheet-Character.png) no-repeat;
       box-shadow: none;
       margin: 0px;
     }
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header,
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header,
     .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header {
-      flex: 0 0 61px;
-      padding: 27px 13px 7px 13px;
-      line-height: 30px;
-      border-bottom: none;
-      background: none;
-      margin: 0px 20px 0px 0px;
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet {
-      background: url(../ui/ActorSheet-Character.png) no-repeat;
-      box-shadow: none;
-      margin: 0px;
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header {
       flex: 0 0 61px;
       padding: 27px 13px 7px 13px;
       line-height: 30px;
@@ -804,6 +795,7 @@ input[type="text"], input[type="password"] {
           height: 109px;
           width: 506px;
         }
+        .wfrp4e.actor.creature-sheet .characteristics,
         .wfrp4e.actor.npc-sheet .characteristics {
           height: 25px;
           width: 400px;
@@ -894,6 +886,8 @@ input[type="text"], input[type="password"] {
           /* border-bottom: 1px solid #CCC; */
           margin: 6px 0px 0px 0px;
         }
+
+        .wfrp4e.actor.creature-sheet .main-row,
         .wfrp4e.actor.npc-sheet .main-row {
           margin: 30px 0px 0px 0px;
         }
@@ -909,7 +903,8 @@ input[type="text"], input[type="password"] {
             padding: 7px 0px 0px 0px;
             border-radius: 0px;
           }
-          .wfrp4e.actor.npc-sheet .movement .move-value > input {
+          .wfrp4e.actor.creature-sheet .movement .move-value > input,
+            .wfrp4e.actor.npc-sheet .movement .move-value > input {
             padding: 3px 0px 0px 0px;
           }
 
@@ -950,7 +945,8 @@ input[type="text"], input[type="password"] {
             height: 23px;
           }
                     
-          .wfrp4e.actor.npc-sheet .movement .move-value {
+          .wfrp4e.actor.creature-sheet .movement .move-value ,
+            .wfrp4e.actor.npc-sheet .movement .move-value {
              padding: 3px 3px; 
             height: 19px;
           }
@@ -1139,7 +1135,8 @@ input[type="text"], input[type="password"] {
             /* border-top: 1px solid #736953a6;
             border-right: 1px solid #736953a6; */
           }
-          .wfrp4e.actor.npc-sheet .wounds-section {
+          .wfrp4e.actor.creature-sheet .wounds-section,
+            .wfrp4e.actor.npc-sheet .wounds-section {
             position: relative;
             left: -85px;
             height: 23px;
@@ -1162,7 +1159,8 @@ input[type="text"], input[type="password"] {
             box-shadow: 0 0 10px #00000052 inset;
             PADDING-TOP: 3PX;
           } 
-          .npc-sheet #wounds-name {
+          .creature-sheet #wounds-name,
+            .npc-sheet #wounds-name {
             margin-top: 20px;
             position: relative;
           }
@@ -1187,7 +1185,8 @@ input[type="text"], input[type="password"] {
             /* vertical-align: middle; */
             /* box-shadow: 0 0 10px #00000052 inset; */
           }
-          .npc-sheet #wounds-box {
+          .creature-sheet #wounds-box,
+            .npc-sheet #wounds-box {
             position: relative;
             top: 0px;
             left: 85px;
@@ -1212,7 +1211,8 @@ input[type="text"], input[type="password"] {
             width: 30px;
             border-radius: 0px;
           }
-          .npc-sheet #wounds-divisor{
+          .creature-sheet #wounds-divisor,
+            .npc-sheet #wounds-divisor{
             top: -2px;
             left: -8px;
           }
@@ -1231,7 +1231,8 @@ input[type="text"], input[type="password"] {
             border-radius: 0px;
             text-align: center;
           }
-          .npc-sheet #wounds-value > input {
+          .creature-sheet #wounds-value > input,
+            .npc-sheet #wounds-value > input {
             top: -5px;
           }
           #wounds-max > a,
@@ -1244,14 +1245,19 @@ input[type="text"], input[type="password"] {
             color: #29364a;
             /* border: 1px solid black; */
             position: relative;
-            top: -23px;
+            top: -22px;
             /* left: 15px; */
             margin: 0px 0px 0px 36px;
             width: 30px;
             border-radius: 0px;
           }
+          #wounds-max > input {
+            top: -25px;
+          }
           .npc-sheet #wounds-max > input,
-          .npc-sheet #wounds-max > a {
+          .creature-sheet #wounds-max > input,
+          .creature-sheet #wounds-max > a ,
+            .npc-sheet #wounds-max > a {
             top: -25px
           }
           #wound-label {
@@ -1265,7 +1271,8 @@ input[type="text"], input[type="password"] {
           border-bottom: 1px solid #CCC;
           margin: 6px 0px 0px 0px;
         }
-        .npc-sheet #main-row-2 {
+        .npc-sheet #main-row-2,
+          .creature-sheet #main-row-2 {
           border: none;
         }
           .wfrp4e.actor .criticalWounds {

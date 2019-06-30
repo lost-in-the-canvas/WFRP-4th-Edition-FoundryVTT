@@ -13,8 +13,9 @@
                 {{#each actor.petty as |item i|}}
                 <li class="item" data-item-id="{{item.id}}">
                     <div class="item-name">
+                      <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
                         <div class="item-image" style="background-image: url({{item.img}})"></div>
-                        <a>{{item.name}}</a>
+                        <a class = "spell-roll">{{item.name}}</a>
                     </div>
         
                     {{#if ../owner}}
@@ -43,8 +44,10 @@
             {{#each actor.grimoire as |item i|}}
             <li class="item" data-item-id="{{item.id}}">
                 <div class="spell-name">
+                        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
+
                     <div class="item-image" style="background-image: url({{item.img}})"></div>
-                    <a>{{item.name}}</a>
+                    <a class = "spell-roll">{{item.name}}</a>
                 </div>
     
                 <div class = "ingredient-selector selector">

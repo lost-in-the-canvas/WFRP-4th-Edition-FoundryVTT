@@ -55,11 +55,12 @@
       {{#each actor.traits as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
         <div class="trait-name">
+          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           {{#if item.data.rollable.value}}
-          <a>{{item.name}}</a>
+          <a class = "trait-roll">{{item.name}}</a>
           {{else}}
-          <span>{{item.name}}</span>
+          <a class = "item-dropdown">{{item.name}}</a>
           {{/if}}
         </div>
 

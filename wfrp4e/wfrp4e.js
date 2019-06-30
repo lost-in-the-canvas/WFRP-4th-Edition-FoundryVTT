@@ -989,30 +989,69 @@ Hooks.once("init", () => {
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("wfrp4e", "diagonalMovement", {
-    name: "Diagonal Movement Rule",
-    hint: "Configure which diagonal movement rule should be used for games within this system.",
+
+  game.settings.register("wfrp4e", "initiativeRule", {
+    name: "Initiative Rules",
+    hint: "Configure which method is used to determine who acts first in combat.",
     scope: "world",
     config: true,
-    default: "555",
+    default: "default",
     type: String,
     choices: {
-      "555": "Player's Handbook (5/5/5)",
-      "5105": "Dungeon Master's Guide (5/10/5)"
+      "default": "Default (Highest to Lowest Initative, Agility Tiebreaks)",
+      "sl": "Roll an Initiative test, higher SL goes first",
+      "d10Init": "Roll a d10 and add Initiative, higher goes first",
+      "d10InitAgi": "Roll a d10, add Initiative Bonus and Agility Bonus, higher goes first"
     },
-    onChange: rule => canvas.grid.diagonalRule = rule
+    onChange: rule => _setWfrp4eInitiative(rule)
   });
+  _setWfrp4eInitiative(game.settings.get("wfrp4e", "initiativeRule"));
 
 
-  /**
-   * Require Currency Carrying Weight
-   */
-  game.settings.register("wfrp4e", "currencyWeight", {
-    name: "Apply Currency Weight",
-    hint: "Carried currency affects character encumbrance following the rules on PHB pg. 143.",
+  function _setWfrp4eInitiative(initMethod)
+  {
+    let formula;
+    switch (initMethod)
+    {
+      case "default":  
+      formula = "@characteristics.i.value + @characteristics.ag.value/100";
+      break;
+
+      case "sl": 
+      formula = "(Math.floor(@characteristics.i.value / 10) - Math.floor(1d100/10))"
+      break;
+
+      case "d10Init": 
+      formula = "1d10 + @characteristics.i.value"
+      break;
+
+      case "d10InitAgi": 
+      formula = "1d10 + @characteristics.i.bonus + @characteristics.ag.bonus"
+      break;
+    }
+
+    let decimals = (initMethod == "default") ? 2 : 0; 
+    CONFIG.initiative = {
+      formula: formula,
+      decimals: decimals
+    }
+  }
+
+  game.settings.register("wfrp4e", "fastSL", {
+    name: "Fast SL",
+    hint: "(NOT IMPLEMENTED) Determine SL with Fast SL as described on page 152",
     scope: "world",
     config: true,
-    default: true,
+    default: false,
+    type: Boolean
+  });
+
+  game.settings.register("wfrp4e", "testAbove100", {
+    name: "Tests Above 100%",
+    hint: "(NOT IMPLEMNTED) Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
+    scope: "world",
+    config: true,
+    default: false,
     type: Boolean
   });
 
@@ -1032,6 +1071,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/actors/npc-main.html",
     "public/systems/wfrp4e/templates/chat/dialog-constant.html",
+    "public/systems/wfrp4e/templates/chat/test-card.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
     "public/systems/wfrp4e/templates/items/item-description.html",
   ]);
@@ -1046,8 +1086,6 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", () => {
 
   // Apply the current setting
-  canvas.grid.diagonalRule = game.settings.get("wfrp4e", "diagonalMovement");
-
   /* -------------------------------------------- */
 
   /**
@@ -1866,6 +1904,12 @@ class ItemWfrp4e extends Item {
     return data;
   }
 
+  _traitChatData() {
+    const data = duplicate(this.data.data);
+    data.properties=[];
+    return data;
+  }
+
   _careerChatData() {
     const data = duplicate(this.data.data);
     data.properties=[];
@@ -1918,6 +1962,8 @@ class ItemWfrp4e extends Item {
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
+    if (data.damage.value)
+      properties.push("Damage: " + data.damage.value);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
     properties = properties.filter(p => p != "Special");
@@ -1937,6 +1983,27 @@ class ItemWfrp4e extends Item {
      for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
        properties.push(prop);
      properties.push(data.penalty.value);
+ 
+     data.properties = properties.filter(p => !!p);
+     return data;
+   }
+
+   _ammunitionChatData() {
+    const data = duplicate(this.data.data);
+     let properties = [];
+     properties.push (CONFIG.ammunitionGroups[data.ammunitionType.value])
+
+     if (data.range.value)
+      properties.push("Range: " + data.range.value);
+
+     if (data.damage.value)
+      properties.push("Damage: " + data.damage.value);
+
+     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
+       properties.push(prop);
+     properties = properties.filter(p => p != "Special");
+     if (data.special.value)
+       properties.push ("Special: " + data.special.value);
  
      data.properties = properties.filter(p => !!p);
      return data;
@@ -2568,7 +2635,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           {
             if (i.data.rollable.bonusCharacteristic)
             {
-              i.data.specification.value = parseInt(i.data.specification.value)
+              i.data.specification.value = parseInt(i.data.specification.value) || 0
               i.data.specification.value += actorData.data.characteristics[i.data.rollable.bonusCharacteristic].bonus;
             }
             i.name = i.name + " (" + i.data.specification.value + ")";
@@ -2732,7 +2799,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     // Item summaries
-    html.find('.item-name').click(event => this._onItemSummary(event));
+    html.find('.item-dropdown').click(event => this._onItemSummary(event));
     
     html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armor-quality, .armor-flaw').click(event => this._expandProperty(event));
 
@@ -2806,19 +2873,25 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.rollWeapon(duplicate(weapon), {attackType : attackType});
     })  
 
-    html.find('.fist-icon').click(event => {
+    html.find('.fist-icon').click(async event => {
       event.preventDefault();
+      let pack = game.packs.find(p => p.collection == "world.weapons");
+      let weapons;
+      await pack.getIndex().then(index => weapons = index);
+      let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed"); 
+      let unarmed = await pack.getEntity(unarmedId.id);
+      this.actor.rollWeapon(duplicate(unarmed.data), {attackType : "melee"})
       // Roll Fist Attack
     })  
 
-    html.find('.trait-name').click(event => {
+    html.find('.trait-roll').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let trait = this.actor.items.find(i => i.id === itemId);
       this.actor.rollTrait((duplicate(trait)));
     })  
 
-    html.find('.spell-name').click(event => {
+    html.find('.spell-roll').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let spell = this.actor.items.find(i => i.id === itemId);
@@ -3474,6 +3547,91 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eNPC, {
 });
 
 
+class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    mergeObject(options, {
+      classes: options.classes.concat(["wfrp4e", "actor", "creature-sheet"]),
+      width: 610,
+      height: 740,
+      showUnpreparedSpells: true
+    });
+    return options;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the correct HTML template path to use for rendering this particular sheet
+   * @type {String}
+   */
+  get template() {
+    const path = "public/systems/wfrp4e/templates/actors/";
+   // if ( this.actor.limited ) return path + "limited-sheet.html";
+    return path + "creature-sheet.html";
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
+   */
+  getData() {
+    const sheetData = super.getData();
+
+    // Return data for rendering
+    return sheetData;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Organize and classify Items for NPC sheets
+   * @private
+   */
+  _prepareItems(actorData) {
+   super._prepareItems(actorData); 
+  }
+
+
+  /* -------------------------------------------- */
+  /*  Event Listeners and Handlers
+  /* -------------------------------------------- */
+
+  /**
+   * Activate event listeners using the prepared sheet HTML
+   * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+   */
+  activateListeners(html) {
+    super.activateListeners(html);
+
+
+      
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * This method is called upon form submission after form data is validated
+   * @param event {Event}       The initial triggering submission event
+   * @param formData {Object}   The object of validated form data with which to update the object
+   * @private
+   */
+  _updateObject(event, formData) {
+
+    // Parent ActorSheet update steps
+    super._updateObject(event, formData);
+  }
+}
+
+// Register NPC Sheet
+Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
+  types: ["creature"],
+  makeDefault: true
+});
+
+
+
 
 class WFRP_Utility
 {
@@ -3623,8 +3781,8 @@ class WFRP_Utility
       if (item)
       {
         item = item.trim();
-        if (!Object.values(WFRP_Utility.qualityList()).includes(item))
-          CONFIG.itemQualities[item.toLowerCase().trim()] = item;
+        if (!(Object.values(WFRP_Utility.qualityList()).includes(item) || (Object.values(WFRP_Utility.flawList()).includes(item)))) //if the quality does not show up in either quality or flaw list, add it
+          CONFIG.itemQualities[item.toLowerCase().trim()] = item; 
         return item
       }
     });
@@ -3632,7 +3790,7 @@ class WFRP_Utility
       if (item)
       {
         item = item.trim();
-        if (!Object.values(WFRP_Utility.flawList()).includes(item))
+        if (!(Object.values(WFRP_Utility.flawList()).includes(item) || (Object.values(WFRP_Utility.qualityList()).includes(item)))) //if the quality does not show up in either quality or flaw list, add it
           CONFIG.itemFlaws[item.toLowerCase().trim()] = item;
         return item;
       }

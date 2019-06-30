@@ -1,24 +1,7 @@
 <div class="wfrp4e chat-card" data-actor-id="{{actorId}}"  roll-SL = {{SL}}  roll-result = {{roll}} roll-target = {{target}}>
 
-    <div class="card-content" >
-        {{title}}
-    </div>
-    
-    <div class="card-content" >
-        Target: {{testData.target}}
-    </div>
+    {{> public/systems/wfrp4e/templates/chat/test-card.html}}
 
-    <div class="card-content" >
-        Roll: {{testData.roll}}
-    </div>
-    
-    <div class="card-content">
-        SL: {{testData.SL}}
-    </div>
-    
-    <div class="card-content" roll-desrciption = {{description}}>
-        Description: {{testData.description}}
-    </div>
 
    <!-- {{#if opposed}}
     <div class ="card-buttons">
