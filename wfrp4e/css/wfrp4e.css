@@ -512,6 +512,10 @@ input[type="text"], input[type="password"] {
       font-weight: 700;
       color: #403f3e;
     }
+    .window-app.wfrp4e .window-resizable-handle {
+      display: none;
+    }
+    
   /* ============================================================ */
 
   /* ==================== B. HEADER SECTION ===================== */
@@ -660,10 +664,13 @@ input[type="text"], input[type="password"] {
       margin: 0px 0px 0px 0px;
     }
     .wfrp4e.actor .general .charimg {
-      /* display: flex; */
       flex-direction: row;
       margin: 0px 8px 0px 0px;
       border: none;
+      min-width: 95px;
+      min-height: 100px;
+      max-width: 95px;
+      max-height: 100px;
     }
     .wfrp4e.actor .general .items .row {
       display: flex;
@@ -3222,39 +3229,7 @@ input[type="text"], input[type="password"] {
         }
 
 
-
-        .wfrp4e.actor ol > .item:nth-child(odd) {
-          background-color: #7b733b29 ;
-        }
-        
-        .wfrp4e.actor ol > .item:nth-child(even) {
-          background-color: #9e856a0d ;
-        }
-
-
-        #currency-header {
-          margin-top: 6px;
-        }
-
-        .wfrp4e .inventory .inventory-header {
-          height: 21px;
-          width: 493px;
-          padding-left: 4px;
-          padding-right: 4px;
-          line-height: 19px;
-          border: 1px solid #736953a6;
-          font-family: CaslonAntique;
-          font-weight: 700;
-          font-size: 16px;
-          color: #464331c4;
-          background: none;
-          box-shadow: 0 0 10px #6b3a0f87 inset;
-          overscroll-behavior-x: none;
-          overflow-x: hidden;
-          overscroll-behavior-y: none;
-          overflow-y: hidden;
-        }
-        .wfrp4e .inventory .inventory-list .item {
+        .wfrp4e .inventory .inventory-list .item:not(.inventory-header) {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -3262,7 +3237,137 @@ input[type="text"], input[type="password"] {
           line-height: 17px;
           padding-left: 4px;
           width: 493px;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
         }
+          .wfrp4e .inventory .item .item-name {
+            flex-basis: 302px;
+          }
+            .wfrp4e .inventory .item .item-name > a {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+            .wfrp4e .inventory .item .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e .inventory .item .item-toggle {
+              padding-top: 10px;
+              text-align: center;
+              width: 50px;
+              margin-right: 6px;
+            }
+            .wfrp4e .inventory .item .item-quantity {
+              padding-top: 10px;
+              text-align: center;
+              width: 50px;
+              margin-right: 6px;
+            }
+            .wfrp4e .inventory .item .item-weight {
+              padding-top: 10px;
+              text-align: center;
+              width: 30px;
+              margin-right: 6px;
+            }
+            .item-controls {
+              position: relative;
+              right: 0px;
+              width: 46px;
+              top: 9px;
+              font-family: "Font Awesome 5 Free";
+              font-size: 10px;
+              color: #504f48a6;
+            }
+            .wfrp4e .inventory .item-controls {
+              position: relative;
+              left: 0px;
+              width: 30px;
+              top: 9px;
+              font-family: "Font Awesome 5 Free";
+              font-size: 10px;
+              color: #504f48a6;
+            }
+
+            
+          #currency-header {
+            margin-top: 6px;
+          }
+          #currency-quantity {
+            padding-top: 0px;
+            margin-right: 2px;
+            position: relative;
+            left: 55px;
+          }
+          #currency-weight {
+            padding-top: 0px;
+            margin-right: 2px;
+            position: relative;
+            left: 59px;
+          }
+            .wfrp4e .inventory .item .currency-name {
+              flex-basis: 316px;
+            }
+
+
+          .wfrp4e .inventory .inventory-header {
+            height: 21px;
+            width: 493px;
+            padding-left: 4px;
+            padding-right: 4px;
+            line-height: 19px;
+            border: 1px solid #736953a6;
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            background: none;
+            box-shadow: 0 0 10px #6b3a0f87 inset;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            overflow-y: hidden;
+            margin-top: 6px;
+          }
+            .wfrp4e .inventory .inventory-header .item-name {
+              width: 120px;
+            }
+            .wfrp4e .inventory .inventory-header .item-toggle {
+              padding-top: 0px;
+              margin-right: 2px;
+              position: relative;
+              left: -2px;
+              text-align: center;
+            }
+            .wfrp4e .inventory .inventory-header .item-quantity {
+              padding-top: 0px;
+              margin-right: 2px;
+            }
+            .wfrp4e .inventory .inventory-header .item-weight {
+              padding-top: 0px;
+              margin-right: 2px;
+            }
+
+
+        .wfrp4e.actor ol > .item:nth-child(odd):not(.inventory-header) {
+          background-color: #7b733b29 ;
+        }
+        .wfrp4e.actor ol > .item:nth-child(even):not(.inventory-header) {
+          background-color: #9e856a0d ;
+        }
+
+
+
+
+
 
         .wfrp4e.sheet ::-webkit-scrollbar-button {
           height: 18px;
@@ -4692,10 +4797,7 @@ font-weight: bold;
   padding-left: 32px;
   font-weight: bold;
 }
-.inventory-list .inventory-header .item-quantity,
-.inventory-list .inventory-header .item-weight {
-  color: #111;
-}
+
 .inventory-list .inventory-header .item-controls a.item-create {
   width: 100%;
   color: #464331a1;
