@@ -212,8 +212,21 @@
 
           <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
 
-          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc:
-            {{pack.data.encumbrance.value}}</a>
+        {{#if pack.data.countEnc.value}}
+          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
+          {{#if pack.data.worn.value}}
+            <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+          {{else}}
+            <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
+          {{/if}}
+        {{else}}
+          <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
+          {{#if pack.data.worn.value}}
+            <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+          {{else}}
+            <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
+          {{/if}}
+        {{/if}}
 
           <span class="item-quantity">Qty.</span>
           <span class="item-weight">Enc.</span>
@@ -234,7 +247,7 @@
 
           <span class="item-quantity">{{item.data.quantity.value}}</span>
           <span class="item-weight">{{item.encumbrance}}</span>
-          {{#if ../../owner}}
+          {{#if ../../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
             <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
@@ -279,7 +292,7 @@
 
             <span class="item-quantity">{{item.data.quantity.value}}</span>
             <span class="item-weight">{{item.encumbrance}}</span>
-            {{#if ../../../owner}}
+            {{#if ../../../../owner}}
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
               <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
@@ -324,7 +337,7 @@
 
               <span class="item-quantity">{{item.data.quantity.value}}</span>
               <span class="item-weight">{{item.encumbrance}}</span>
-              {{#if ../../../../owner}}
+              {{#if ../../../../../owner}}
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
@@ -337,7 +350,7 @@
               <!-- Packs Inside (Copy from Here)-->
               {{#each pack.packsInside as |pack p|}}
               <ol style="margin-left: 10px" class="inventory-list container-lists">
-                <li class="inventory-header item inventory-container level-five" inventory-type="container"
+                <li class="inventory-header item inventory-container level-five"
                   data-item-id="{{pack.id}}">
                   <div class="item-name" data-item-id="{{pack.id}}">
                     <div class="item-image" style="background-image: url({{pack.img}})"></div>
@@ -368,7 +381,7 @@
 
                   <span class="item-quantity">{{item.data.quantity.value}}</span>
                   <span class="item-weight">{{item.encumbrance}}</span>
-                  {{#if ../../../../../owner}}
+                  {{#if ../../../../../../owner}}
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                     <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
