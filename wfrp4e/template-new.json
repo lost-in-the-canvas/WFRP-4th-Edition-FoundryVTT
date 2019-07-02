@@ -616,7 +616,7 @@
       "ingredients" : [],
       "currentIng" : {
         "type" : "Number",
-        "label" : "Ingredient",
+        "label" : "Ingredients",
         "value" : 0
       }
     }, 
