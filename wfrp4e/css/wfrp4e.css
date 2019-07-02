@@ -1,3 +1,4 @@
+
 /***************************************************/
 /*============== I. PRE-LOADED FONTS ==============*/
 /***************************************************/
@@ -1795,6 +1796,16 @@ input[type="text"], input[type="password"] {
               text-align: left;
               width: 190px;
             }
+            .wfrp4e.actor .careers .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              min-height: 30px;
+              max-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
             .wfrp4e .actor .item-image {
               flex: 0 0 24px;
               margin-right: 4px;
@@ -1848,7 +1859,7 @@ input[type="text"], input[type="password"] {
               color: black;
               width: 486px;
               text-align: left;
-          }
+            }
       /* ============================================================ */
       
       /* ================== 2. SKILLS TAB SECTION =================== */         
@@ -2407,6 +2418,12 @@ input[type="text"], input[type="password"] {
               .wfrp4e .weapons .melee-title .fist-icon {
                 opacity: 0.8;
                 margin: 10px;
+                padding: 3px 4px 0px 4px;
+                border-radius: 10px;
+                font-size: 14px;
+                border: 1px solid #736953;
+                border-top: none;
+                box-shadow: 0px 0px 10px #6b3a0f87 inset;
               }
               .wfrp4e .weapons .melee-title .header-group {
                 width: 77px;
@@ -3220,6 +3237,7 @@ input[type="text"], input[type="password"] {
           overflow-x: hidden;
           height: 360px;
           margin-top: 0px;
+          padding-bottom: 5px;
         }  
         .wfrp4e .inventory > ol {
           list-style: none;
@@ -3250,7 +3268,8 @@ input[type="text"], input[type="password"] {
           color: black;
         }
           .wfrp4e .inventory .item .item-name {
-            flex-basis: 302px;
+            flex-basis: 304px;
+            /* background: blue; */
           }
             .wfrp4e .inventory .item .item-name > a {
               vertical-align: middle;
@@ -3267,109 +3286,710 @@ input[type="text"], input[type="password"] {
               margin-top: 2px;
               margin-bottom: 2px;
             }
-            .wfrp4e .inventory .item .item-toggle {
-              padding-top: 10px;
-              text-align: center;
-              width: 50px;
-              margin-right: 6px;
-            }
-            .wfrp4e .inventory .item .item-quantity {
-              padding-top: 10px;
-              text-align: center;
-              width: 50px;
-              margin-right: 6px;
-            }
-            .wfrp4e .inventory .item .item-weight {
-              padding-top: 10px;
-              text-align: center;
-              width: 30px;
-              margin-right: 6px;
-            }
-            .item-controls {
-              position: relative;
-              right: 0px;
-              width: 46px;
-              top: 9px;
-              font-family: "Font Awesome 5 Free";
-              font-size: 10px;
-              color: #504f48a6;
-            }
-            .wfrp4e .inventory .item-controls {
-              position: relative;
-              left: 0px;
-              width: 30px;
-              top: 9px;
-              font-family: "Font Awesome 5 Free";
-              font-size: 10px;
-              color: #504f48a6;
-            }
+          .wfrp4e .inventory .item .item-toggle {
+            padding-top: 10px;
+            text-align: center;
+            width: 50px;
+            margin-right: 3px;
+            /* background: grey; */
+            position: relative;
+            left: 0px;
+          }
+          .wfrp4e .inventory .item .item-quantity {
+            padding-top: 10px;
+            text-align: center;
+            width: 50px;
+            margin-right: 3px;
+          }
+          .wfrp4e .inventory .item .item-weight {
+            padding-top: 10px;
+            text-align: center;
+            width: 30px;
+            margin-right: 12px;
+          }
+          .item-controls {
+            position: relative;
+            right: 0px;
+            width: 46px;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e .inventory .item-controls {
+            position: relative;
+            left: 0px;
+            width: 30px;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
 
             
-          #currency-header {
-            margin-top: 6px;
+        /* ITEMS HEADERS   */
+        #currency-header {
+          margin-top: 6px;
+        }
+          #currency-name {
+            display: block;
+            flex: none;
+            width: 356px;
+            /* background: red; */
           }
           #currency-quantity {
             padding-top: 0px;
-            margin-right: 2px;
+            margin-right: 3px;
             position: relative;
-            left: 55px;
+            left: 0px;
           }
           #currency-weight {
             padding-top: 0px;
-            margin-right: 2px;
+            margin-right: 6px;
             position: relative;
-            left: 59px;
+            left: 0px;
           }
-            .wfrp4e .inventory .item .currency-name {
-              flex-basis: 316px;
-            }
-
-
-          .wfrp4e .inventory .inventory-header {
-            height: 21px;
-            width: 493px;
-            padding-left: 4px;
-            padding-right: 4px;
-            line-height: 19px;
-            border: 1px solid #736953a6;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
-            color: #464331c4;
-            background: none;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            overscroll-behavior-x: none;
-            overflow-x: hidden;
-            overscroll-behavior-y: none;
-            overflow-y: hidden;
-            margin-top: 6px;
+          .wfrp4e .inventory .item .currency-name {
+            flex: none;
+            flex-basis: 357px;
+            /* background: blue; */
           }
-            .wfrp4e .inventory .inventory-header .item-name {
-              width: 120px;
-            }
-            .wfrp4e .inventory .inventory-header .item-toggle {
-              padding-top: 0px;
-              margin-right: 2px;
-              position: relative;
-              left: -2px;
-              text-align: center;
-            }
-            .wfrp4e .inventory .inventory-header .item-quantity {
-              padding-top: 0px;
-              margin-right: 2px;
-            }
-            .wfrp4e .inventory .inventory-header .item-weight {
-              padding-top: 0px;
-              margin-right: 2px;
-            }
 
+        #ingredient-name {
+          width: 248px;
+        }
+        #spell-label {
+          padding-top: 0px;
+          margin-right: 3px;
+          position: relative;
+          left: 0px;
+          text-align: center;
+          width: 106px;
+          /* background: grey; */
+        }
+          #spell-name {
+            flex: none;
+            width: 248px;
+            /* background: red; */
+          }
+          .wfrp4e .inventory .item .spell-selector {
+            width: 106px;
+            margin-top: 7px;
+            /* background: pink; */
+            margin-right: 3px;
+          }
 
+        .wfrp4e .inventory .inventory-header {
+          height: 21px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+        }
+          .wfrp4e .inventory .inventory-header .item-name {
+            display: block;
+            flex: none;
+            width: 303px;
+            /* background: red; */
+            padding: 0px;
+            margin: 0px;
+          }
+          .wfrp4e .inventory .inventory-header .item-toggle {
+            padding-top: 0px;
+            margin-right: 3px;
+            position: relative;
+            left: 0px;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-header .item-quantity {
+            padding-top: 0px;
+            margin-right: 3px;
+          }
+          .wfrp4e .inventory .inventory-header .item-weight {
+            padding-top: 0px;
+            margin-right: 6px;
+          }
+
+        /* INVENTORY STYLING */
         .wfrp4e.actor ol > .item:nth-child(odd):not(.inventory-header) {
           background-color: #7b733b29 ;
+          box-shadow: 0px 0px 1px inset black;
         }
         .wfrp4e.actor ol > .item:nth-child(even):not(.inventory-header) {
-          background-color: #9e856a0d ;
+          background-color: #9e856a0d;
+          box-shadow: 0px 0px 1px inset black;
         }
+        .wfrp4e.actor .inventory .item:nth-child(odd):not(.inventory-header) {
+          background-color: #7b733b29 ;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-bottom: none;
+          box-shadow: 0px 0px 1px inset black;
+        }
+        .wfrp4e.actor .inventory .item:nth-child(even):not(.inventory-header) {
+          background-color: #9e856a0d;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-bottom: none;
+          box-shadow: 0px 0px 1px inset black;
+        }
+
+
+
+        .wfrp4e.actor .inventory .inventory-list:not(.container-lists) {
+          margin-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+        .wfrp4e.actor .inventory .inventory-list .container-lists {
+          margin-right: 0px;
+        }
+        
+
+  
+
+
+
+        /* CONTAINER - LEVEL 1 */
+        .wfrp4e .inventory .inventory-container {
+          height: 36px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          background: none;
+          box-shadow: 0 0 10px #48484887 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-right: 0px;
+        }
+          .wfrp4e .inventory .inventory-container .item-name {
+            margin-right: 4px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            min-height: 34px;
+            max-height: 34px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            /* background: blue; */
+            width: 203px;
+          }
+            .wfrp4e .inventory .inventory-container .item-image {
+              display: block;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              min-height: 30px;
+              max-height: 30px;
+              min-width: 30px;
+              max-width: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e .inventory .inventory-container .item-name .item-label {
+              position: relative;
+              top: -26px;
+              left: 33px;
+              text-align: left;
+              width: 170px;
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 2px;
+              /* background: red; */
+            }
+          .wfrp4e .inventory .inventory-container .item-carries {
+            width: 100px;
+            position: relative;
+            top: 2px;
+            left: 57px;
+            height: fit-content;
+            /* background: aqua; */
+            vertical-align: middle;
+            text-align: left;
+          }
+          .wfrp4e .inventory .inventory-container .toggle-enc {
+            width: 100px;
+            position: relative;
+            top: 19px;
+            left: -43px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: left;
+          }
+          .wfrp4e .inventory .inventory-container .worn-container {
+            width: 55px;
+            position: relative;
+            top: 10px;
+            left: -201px;
+            height: 26px;
+            /* background: #5db747; */
+            vertical-align: middle;
+            text-align: left;
+          }
+          .wfrp4e .inventory .inventory-container .item-quantity {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 405px;
+            height: fit-content;
+            /* background: #4192da; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container .item-weight {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 319px;
+            height: fit-content;
+            /* background: #429458; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container .item-controls {
+            width: 35px;
+            position: relative;
+            top: -26px;
+            left: 357px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: center;
+          }
+
+          .wfrp4e .inventory .inventory-list .level-one-item .item-name {
+            flex-basis: 277px;
+          }
+          .wfrp4e .inventory .inventory-list .level-one-item .item-type {
+            padding-top: 3px;
+            margin: 0px;
+            vertical-align: middle;
+            line-height: normal;
+            height: 34px;
+            width: 80px;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-align: center;
+          }
+
+        /* CONTAINER - LEVEL 2 */
+        .wfrp4e .inventory .inventory-container.level-two {
+          height: 36px;
+          width: 483px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          background: none;
+          box-shadow: 0 0 10px #48484887 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-right: 0px;
+        }
+          .wfrp4e .inventory .inventory-container.level-two .item-name {
+            margin-right: 4px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            min-height: 34px;
+            max-height: 34px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            /* background: blue; */
+            width: 193px;
+          }
+            .wfrp4e .inventory .inventory-container.level-two .item-name .item-label {
+              position: relative;
+              top: -26px;
+              left: 33px;
+              text-align: left;
+              width: 160px;
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 2px;
+              /* background: red; */
+            }
+          .wfrp4e .inventory .inventory-container.level-two .item-weight {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 352px;
+            height: fit-content;
+            /* background: #429458; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-two .item-quantity {
+            width: 40px;
+            position: relative;
+            top: 10px;
+            left: -2px;
+            height: fit-content;
+            /* background: #4192da; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-two .item-controls {
+            width: 35px;
+            position: relative;
+            top: -26px;
+            left: 390px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: center;
+          }
+
+          .wfrp4e .inventory .level-two-item {
+            width: 483px !important;
+          }
+          .wfrp4e .inventory .inventory-list .level-two-item .item-name {
+            flex-basis: 267px;
+          }
+          .wfrp4e .inventory .inventory-list .level-two-item .item-type {
+            padding-top: 3px;
+            margin: 0px;
+            vertical-align: middle;
+            line-height: normal;
+            height: 34px;
+            width: 80px;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-align: center;
+          }
+
+        /* CONTAINER - LEVEL 3 */
+        .wfrp4e .inventory .inventory-container.level-three {
+          height: 36px;
+          width: 473px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          background: none;
+          box-shadow: 0 0 10px #48484887 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-right: 0px;
+        }
+          .wfrp4e .inventory .inventory-container.level-three .item-name {
+            margin-right: 4px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            min-height: 34px;
+            max-height: 34px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            /* background: blue; */
+            width: 183px;
+          }
+            .wfrp4e .inventory .inventory-container.level-three .item-name .item-label {
+              position: relative;
+              top: -26px;
+              left: 33px;
+              text-align: left;
+              width: 150px;
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 2px;
+              /* background: red; */
+            }
+          .wfrp4e .inventory .inventory-container.level-three .item-weight {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 342px;
+            height: fit-content;
+            /* background: #429458; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-three .item-quantity {
+            width: 40px;
+            position: relative;
+            top: 10px;
+            left: -2px;
+            height: fit-content;
+            /* background: #4192da; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-three .item-controls {
+            width: 35px;
+            position: relative;
+            top: -26px;
+            left: 380px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: center;
+          }
+
+          .wfrp4e .inventory .level-three-item {
+            width: 473px !important;
+          }
+          .wfrp4e .inventory .inventory-list .level-three-item .item-name {
+            flex-basis: 257px;
+          }
+          .wfrp4e .inventory .inventory-list .level-three-item .item-type {
+            padding-top: 3px;
+            margin: 0px;
+            vertical-align: middle;
+            line-height: normal;
+            height: 34px;
+            width: 80px;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-align: center;
+          }
+
+        /* CONTAINER - LEVEL 4 */
+        .wfrp4e .inventory .inventory-container.level-four {
+          height: 36px;
+          width: 463px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          background: none;
+          box-shadow: 0 0 10px #48484887 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-right: 0px;
+        }
+          .wfrp4e .inventory .inventory-container.level-four .item-name {
+            margin-right: 4px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            min-height: 34px;
+            max-height: 34px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            /* background: blue; */
+            width: 173px;
+          }
+            .wfrp4e .inventory .inventory-container.level-four .item-name .item-label {
+              position: relative;
+              top: -26px;
+              left: 33px;
+              text-align: left;
+              width: 140px;
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 2px;
+              /* background: red; */
+            }
+          .wfrp4e .inventory .inventory-container.level-four .item-weight {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 332px;
+            height: fit-content;
+            /* background: #429458; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-four .item-quantity {
+            width: 40px;
+            position: relative;
+            top: 10px;
+            left: -2px;
+            height: fit-content;
+            /* background: #4192da; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-four .item-controls {
+            width: 35px;
+            position: relative;
+            top: -26px;
+            left: 370px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: center;
+          }
+
+          .wfrp4e .inventory .level-four-item {
+            width: 463px !important;
+          }
+          .wfrp4e .inventory .inventory-list .level-four-item .item-name {
+            flex-basis: 247px;
+          }
+          .wfrp4e .inventory .inventory-list .level-four-item .item-type {
+            padding-top: 3px;
+            margin: 0px;
+            vertical-align: middle;
+            line-height: normal;
+            height: 34px;
+            width: 80px;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-align: center;
+          }
+
+        /* CONTAINER - LEVEL 5 */
+        .wfrp4e .inventory .inventory-container.level-five {
+          height: 36px;
+          width: 453px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          background: none;
+          box-shadow: 0 0 10px #48484887 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          margin-right: 0px;
+        }
+          .wfrp4e .inventory .inventory-container.level-five .item-name {
+            margin-right: 4px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            min-height: 34px;
+            max-height: 34px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            /* background: blue; */
+            width: 163px;
+          }
+            .wfrp4e .inventory .inventory-container.level-five .item-name .item-label {
+              position: relative;
+              top: -26px;
+              left: 33px;
+              text-align: left;
+              width: 130px;
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 2px;
+              /* background: red; */
+            }
+          .wfrp4e .inventory .inventory-container.level-five .item-weight {
+            width: 40px;
+            position: relative;
+            top: -24px;
+            left: 322px;
+            height: fit-content;
+            /* background: #429458; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-five .item-quantity {
+            width: 40px;
+            position: relative;
+            top: 10px;
+            left: -2px;
+            height: fit-content;
+            /* background: #4192da; */
+            vertical-align: middle;
+            text-align: center;
+          }
+          .wfrp4e .inventory .inventory-container.level-five .item-controls {
+            width: 35px;
+            position: relative;
+            top: -26px;
+            left: 360px;
+            height: fit-content;
+            /* background: #ffbe00; */
+            vertical-align: middle;
+            text-align: center;
+          }
+
+          .wfrp4e .inventory .level-five-item {
+            width: 453px !important;
+          }
+          .wfrp4e .inventory .inventory-list .level-five-item .item-name {
+            flex-basis: 237px;
+          }
+          .wfrp4e .inventory .inventory-list .level-five-item .item-type {
+            padding-top: 3px;
+            margin: 0px;
+            vertical-align: middle;
+            line-height: normal;
+            height: 34px;
+            width: 80px;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            text-align: center;
+          }
+
+
+
 
 
 
@@ -3617,7 +4237,7 @@ display: flex;
   font-weight: bold;
 }
 
-.wfrp4e.actor .injury .crit-wounds > a{
+.wfrp4e.actor .injury .crit-wounds > a {
   font-family: CaslonAntique;
   font-size: 20px;
   font-weight: bold;

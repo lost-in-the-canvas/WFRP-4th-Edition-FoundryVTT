@@ -2485,7 +2485,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false },
         armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false},
         ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
-        clothingAccessories: { label: "Clothing/Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
+        clothingAccessories: { label: "Clothing and Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
         booksAndDocuments: {label: "Food and Drink", items: [], show : false},
         toolsAndKits: {label: "Tools and Kits", items: [], show : false},
         books: {label: "Books and Documents", items: [], show : false},
