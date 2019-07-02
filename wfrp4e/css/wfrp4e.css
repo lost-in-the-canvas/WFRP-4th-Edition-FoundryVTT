@@ -41,10 +41,22 @@
 /***************************************************/
 
 
+.fa-check:before {
+  content: "\f058" !important;
+}
+
+.fa-check-circle:before {
+  content: "\f058" !important;
+}
+
+.fa-check-circle:before {
+  content: "\f058" !important; 
+}
+
 .fa-trash:before {
-  content: "\f1f8";
-  position: relative;
-  left: 3px;
+  content: "\f1f8" !important;
+  position: relative !important;
+  left: 3px !important;
 }
 
 
@@ -3989,17 +4001,195 @@ input[type="text"], input[type="password"] {
           }
 
 
+          
+      /* ================== 4. MAGIC TAB SECTION ====================== */
 
-
-
-
-
-
-
-        .wfrp4e.sheet ::-webkit-scrollbar-button {
-          height: 18px;
-          border: none;
+        .wfrp4e .magic-section {
+          overflow-y: scroll;
+          overscroll-behavior-y: auto;
+          overflow-x: hidden;
+          height: 360px;
+          margin-top: 0px;
+          padding-bottom: 5px;
+        }  
+        .wfrp4e .magic > ol {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          /* height: calc(100% - 20px); */
+          overflow-y: hidden;
+        }  
+        .wfrp4e .magic .inventory-list {
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
         }
+
+
+        .wfrp4e .magic .inventory-list .item:not(.inventory-header) {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          line-height: 17px;
+          padding-left: 4px;
+          width: 493px;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-bottom: none;
+          box-shadow: 0px 0px 1px inset black;
+        }
+          .wfrp4e .magic .petty-name {
+            flex-basis: 436px !important;
+            /* background: blue; */
+          }
+          .wfrp4e .magic .item .item-name .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e .magic .item .spell-roll {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+          .wfrp4e .magic .item .item-controls {
+            position: relative;
+            left: 0px;
+            width: fit-content;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e .magic .item .item-controls .item-dropdown {
+            margin-top: 6px;
+            font-size: 11px;
+            padding-right: 4px;
+            padding-top: 0PX;
+            vertical-align: middle;
+            line-height: 10px;
+          }
+
+
+          .wfrp4e .magic .lore-item .spell-name {
+            flex-basis: 193px !important;
+            /* background: blue; */
+          }
+          .wfrp4e .magic .lore-item .ingredient-selector {
+            width: 112px;
+            padding-top: 7px;
+            margin-right: 12px;
+          }
+          .wfrp4e .magic .lore-item .spell-attr {
+            width: 31px;
+            text-align: center;
+            padding-top: 10px;
+            margin-right: 4px;
+          }
+          .wfrp4e .magic .lore-item .memorized-toggle {
+            width: 35px;
+            text-align: center;
+            padding-top: 10px;
+            margin-right: 14px;
+          }
+
+
+        .wfrp4e .magic .inventory-header {
+          height: 21px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+        }
+          .wfrp4e .magic .inventory-header .item-name {
+            display: block;
+            flex: none;
+            width: 193px;
+            /* background: red; */
+            padding: 0px;
+            margin: 0px;
+          }
+          .wfrp4e .magic .inventory-header .spell-ingredients {
+            width: 112px;
+            margin-right: 12px;
+            text-align: left;
+          }
+          .wfrp4e .magic .inventory-header .spell-attr {
+            width: 31px;
+            text-align: center;
+            /* padding-top: 10px; */
+            margin-right: 4px;
+          }
+          .wfrp4e .magic .inventory-header .spell-memorized {
+            width: 35px;
+            text-align: center;
+            /* padding-top: 10px; */
+            margin-right: 14px;
+          }
+
+        .wfrp4e.actor .magic .inventory-list {
+          margin-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+
+      /* ================== 4. RELIGION TAB SECTION =================== */
+        .wfrp4e .magic-section {
+          overflow-y: scroll;
+          overscroll-behavior-y: auto;
+          overflow-x: hidden;
+          height: 360px;
+          margin-top: 0px;
+          padding-bottom: 5px;
+        }  
+
+        .wfrp4e.actor .religion-header {
+          display: flex;
+          flex-direction: row;
+        }
+
+        
+        .wfrp4e.actor .religion-box-1 {
+          display: flex;
+          flex-direction: row;
+        }
+        .wfrp4e.actor .religion-box-2 {
+          display: flex;
+          flex-direction: row;
+        }
+
+
+
+
+      .wfrp4e.sheet ::-webkit-scrollbar-button {
+        height: 18px;
+        border: none;
+      }
 
 
 /*************************************************************/
@@ -5553,10 +5743,7 @@ font-weight: bold;
  
 
 
- .wfrp4e.actor .religion-header {
-   display: flex;
-   flex-direction: row;
-}
+
 .wfrp4e.actor .item-image {
   flex: 0 0 30px;
   margin-right: 4px;
