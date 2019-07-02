@@ -691,7 +691,7 @@ input[type="text"], input[type="password"] {
       flex-direction: column;
       margin: 0px 15px 0px 0px;
     }
-    .wfrp4e.actor .general .items .row .item > a {
+    .wfrp4e.actor .general .items .row .item > span {
       /* font-family: CaslonAntique; */
       /* font-size: 18px; */
       text-align: left;
