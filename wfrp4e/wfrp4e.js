@@ -589,7 +589,7 @@ class DiceWFRP {
 
     if (testData.includeCriticalsFumbles)
     {
-      if (roll.total > targetNum && roll.total % 11 == 0)
+      if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
         description = description + " - Fumble!";
       else if (roll.total <= targetNum && roll.total % 11 == 0)
         description = desrciption + " - Critical!";
@@ -606,62 +606,94 @@ class DiceWFRP {
     return rollResults;
    } 
 
+
+   static rollWeaponTest(testData){
+    let weapon = testData.extra.weapon;
+     
+     let testResults = this.rollTest(testData);
+
+     if (testResults.roll > testResults.target)
+     {
+       if (testResults.roll % 11 == 0 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+       {
+         testResults.description += " - Fumble"      
+         if ((weapon.data.weaponGroup.value == "Blackpowder" ||
+             weapon.data.weaponGroup.value== "Engineering" ||
+             weapon.data.weaponGroup.value== "Explosives") &&
+             testResults.roll % 2 == 0)
+         testResults.description += " - Misfire"
+       }
+
+     }
+     else
+     {
+       if (testResults.roll % 11 == 0)
+         testResults.description += " - Critical"
+       
+       if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
+         testResults.description += " - Critical"
+         
+     }
+
+     return testResults;
+  } 
+
    static rollCastTest(testData){
-     let spell = testData.extra.spell;
-     let miscastCounter = 0;
-      let testResults = this.rollTest(testData);
-      if (spell.data.cn.SL >= spell.data.cn.value)
-        spell.data.cn.value = 0;
+    let spell = testData.extra.spell;
+    let miscastCounter = 0;
+     let testResults = this.rollTest(testData);
+     if (spell.data.cn.SL >= spell.data.cn.value)
+       spell.data.cn.value = 0;
 
-      if (testData.extra.malignantInfluence)
-        if (Number(testResults.roll.toString().split('').pop()) == 8)
-          miscastCounter++;
-      let slOver = (Number(testResults.SL) - spell.data.cn.value)
-      if (testResults.roll > testResults.target)
-      {
-        testResults.description = "Casting Failed"
-        if (testResults.roll % 11 == 0)
-          miscastCounter++;
-      }
-      else if (slOver < 0)
-      {
-        testResults.description = "Casting Failed"
+     if (testData.extra.malignantInfluence)
+       if (Number(testResults.roll.toString().split('').pop()) == 8)
+         miscastCounter++;
+     let slOver = (Number(testResults.SL) - spell.data.cn.value)
+     if (testResults.roll > testResults.target)
+     {
+       testResults.description = "Casting Failed"
+       if (testResults.roll % 11 == 0)
+         miscastCounter++;
+     }
+     else if (slOver < 0)
+     {
+       testResults.description = "Casting Failed"
 
-        // If no ID
-        if (testResults.roll % 11 == 0)
-        {
-          testResults.description = "Casting Succeeded - Critical Cast"
-          miscastCounter++;
-        }
-      }
-      else
-      {
-        testResults.description = "Casting Succeeded"
-        let overcasts = Math.floor(slOver / 2);
-        testResults.overcasts = overcasts;
+       // If no ID
+       if (testResults.roll % 11 == 0)
+       {
+         testResults.description = "Casting Succeeded - Critical Cast"
+         miscastCounter++;
+       }
+     }
+     else
+     {
+       testResults.description = "Casting Succeeded"
+       let overcasts = Math.floor(slOver / 2);
+       testResults.overcasts = overcasts;
 
-        // If no ID
-        if (testResults.roll % 11 == 0)
-          miscastCounter++;
-      }
+       // If no ID
+       if (testResults.roll % 11 == 0)
+         miscastCounter++;
+     }
 
-      if (testData.extra.ingredient)
-        miscastCounter--;
-      if (miscastCounter < 0)
-        miscastCounter = 0;
-      if (miscastCounter > 2)
-        miscastCounter = 2
+     if (testData.extra.ingredient)
+       miscastCounter--;
+     if (miscastCounter < 0)
+       miscastCounter = 0;
+     if (miscastCounter > 2)
+       miscastCounter = 2
 
-      switch (miscastCounter)
-      {
-        case 1: testResults.description = testResults.description + " - Minor Miscast"
-        break;
-        case 2: testResults.description = testResults.description + " - Major Miscast"
-        break;
-      }
+     switch (miscastCounter)
+     {
+       case 1: testResults.description = testResults.description + " - Minor Miscast"
+       break;
+       case 2: testResults.description = testResults.description + " - Major Miscast"
+       break;
+     }
 
-      return testResults;
-   } 
+     return testResults;
+  } 
 
    static rollChannellTest(testData, actor){
     let spell = testData.extra.spell;
@@ -1457,7 +1489,6 @@ class ActorWfrp4e extends Actor {
           + testData.testDifficulty
           + skillUsed.data.advances.value;
         }
-
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
@@ -1469,6 +1500,12 @@ class ActorWfrp4e extends Actor {
           ammo.data.quantity.value--;
           this.updateOwnedItem(ammo);
         }
+      },
+      rollOveride : () => {
+        let roll = DiceWFRP.rollWeaponTest(testData);
+        if (testData.extra)
+          mergeObject(roll, testData.extra);
+        DiceWFRP.renderRollCard(cardOptions, roll);
       }
     };
     let cardOptions = {
@@ -1950,6 +1987,10 @@ class ItemWfrp4e extends Item {
   _weaponChatData() {
    const data = duplicate(this.data.data);
     let properties = [];
+
+    if (data.weaponGroup.value)
+      properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
+
     if (data.reach.value)
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
@@ -2414,7 +2455,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   _prepareItems(actorData)
   {
-      // These containers are for the various different tabs
+      // These conta-* / rs are for the various different tabs
       const careers = [];
       const basicSkills = [];
       const advancedOrGroupedSkills = [];
