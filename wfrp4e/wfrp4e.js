@@ -200,15 +200,6 @@ CONFIG.armorTypes = {
   "plate": "Plate",
 };
 
-// Consumable Types
-CONFIG.consumableTypes = {
-  "potion": "Potion",
-  "poison": "Poison",
-  "scroll": "Scroll",
-  "wand": "Wand",
-  "rod": "Rod",
-  "trinket": "Trinket"
-};
 
 CONFIG.weaponReaches={
  "personal":"Personal",
@@ -219,7 +210,6 @@ CONFIG.weaponReaches={
  "vLong":"Very Long",
  "massive":"Massive",
 }
-
 
 
 CONFIG.rangeModifiers={
@@ -1206,21 +1196,6 @@ class ActorWfrp4e extends Actor {
       data.details.move.walk = parseInt(data.details.move.value)* 2;
     if (actorData.flags.autoCalcRun)
       data.details.move.run = parseInt(data.details.move.value) * 4;
-
-
-
-    // If user enters a species that does not exist, remove it.
-    // let speciesExist = false;
-    // for (let s of Object.values(CONFIG.species))
-    // {
-    //   if (data.details.species.value == s)
-    //   {
-    //     speciesExist = true;
-    //     break;
-    //   }
-    // }
-    // if (!speciesExist)
-    //   data.details.species.value = "";
     
     return actorData;
 
@@ -2478,21 +2453,23 @@ class ActorSheetWfrp4e extends ActorSheet {
       const blessings = [];
       const miracles = [];
       const psychology = [];
+      const mutations = [];
+      const diseases = [];
       let allPenalties = "";
   
       // Inventory object is for the inventory tab
       const inventory = {
-        weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false },
-        armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false},
-        ammunition: { label: "Ammunition", items: [], quantified: true, show : false},
-        clothingAccessories: { label: "Clothing and Accessories", items: [], toggle: true, toggleName: "Worn", show : false },
-        booksAndDocuments: {label: "Food and Drink", items: [], show : false},
-        toolsAndKits: {label: "Tools and Kits", items: [], show : false},
-        books: {label: "Books and Documents", items: [], show : false},
-        drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false},
-        misc: {label: "Miscellaneous", items: [], show : false}
+        weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false, dataType : "weapon" },
+        armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "armour"},
+        ammunition: { label: "Ammunition", items: [], quantified: true, show : false, dataType : "ammunition"},
+        clothingAccessories: { label: "Clothing and Accessories", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "trapping" },
+        booksAndDocuments: {label: "Books and Documents", items: [], show : false, dataType : "trapping"},
+        toolsAndKits: {label: "Tools and Kits", items: [], show : false, dataType : "trapping"},
+        foodAndDrink: {label: "Food and Drink", items: [], show : false, dataType : "trapping"},
+        drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false, dataType : "trapping"},
+        misc: {label: "Miscellaneous", items: [], show : false, dataType : "trapping"}
       };
-      const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false};
+      const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false, dataType : "trapping"};
       const money = {coins: [], total: 0, show : true};
       const containers = {items: [], show : false};
       const inContainers = [];
@@ -2681,6 +2658,16 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type === "psychology")
         {
           psychology.push(i);
+        }
+
+        else if (i.type === "disease")
+        {
+          diseases.push(i);
+        }
+
+        else if (i.type === "mutation")
+        {
+          mutations.push(i);
         }
   
         else if (i.type === "money")
@@ -3138,7 +3125,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
-      id: itemId
+      id: itemId,
+      root: Number(event.currentTarget.getAttribute("root"))
     }));
   }
 
@@ -3150,6 +3138,19 @@ class ActorSheetWfrp4e extends ActorSheet {
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
         if (dragItem.data.id == dropID)
           throw "";
+        else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container"))
+           throw "Cannot add container past the 4th nested container"
+
+        else if (dragItem.data.type == "container")
+        {
+          if (JSON.parse(dragData).root == $(event.target).parents(".item").attr("root"))
+          {
+            ui.notifications.error("Remove the container before changing its location");
+            throw "Remove the container before changing its location";
+          }
+            
+          
+        }
         dragItem.data.data.location.value = dropID;
 
           //  this will unequip/remove items like armor and weapons when moved into a container

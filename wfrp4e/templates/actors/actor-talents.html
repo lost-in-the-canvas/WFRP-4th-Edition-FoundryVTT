@@ -7,7 +7,7 @@
         <div class="item-tests">Tests</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+          <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
           </a>
         </div>
         {{/if}}
@@ -15,7 +15,7 @@
 
       {{#each actor.talents as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
-        <div class="item-name">
+        <div class="item-name item-dropdown">
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           <a>{{item.name}}</a>
         </div>
