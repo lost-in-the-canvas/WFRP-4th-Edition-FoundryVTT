@@ -200,15 +200,6 @@ CONFIG.armorTypes = {
   "plate": "Plate",
 };
 
-// Consumable Types
-CONFIG.consumableTypes = {
-  "potion": "Potion",
-  "poison": "Poison",
-  "scroll": "Scroll",
-  "wand": "Wand",
-  "rod": "Rod",
-  "trinket": "Trinket"
-};
 
 CONFIG.weaponReaches={
  "personal":"Personal",
@@ -219,7 +210,6 @@ CONFIG.weaponReaches={
  "vLong":"Very Long",
  "massive":"Massive",
 }
-
 
 
 CONFIG.rangeModifiers={
@@ -3138,7 +3128,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor._id,
-      id: itemId
+      id: itemId,
+      root: Number(event.currentTarget.getAttribute("root"))
     }));
   }
 
@@ -3150,6 +3141,19 @@ class ActorSheetWfrp4e extends ActorSheet {
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
         if (dragItem.data.id == dropID)
           throw "";
+        else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container"))
+           throw "Cannot add container past the 4th nested container"
+
+        else if (dragItem.data.type == "container")
+        {
+          if (JSON.parse(dragData).root == $(event.target).parents(".item").attr("root"))
+          {
+            ui.notifications.error("Remove the container before changing its location");
+            throw "Remove the container before changing its location";
+          }
+            
+          
+        }
         dragItem.data.data.location.value = dropID;
 
           //  this will unequip/remove items like armor and weapons when moved into a container
