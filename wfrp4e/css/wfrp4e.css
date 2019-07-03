@@ -1781,7 +1781,7 @@ input[type="text"], input[type="password"] {
             }   
             #List-Add-button {
               position: relative;
-              top: 1px;
+              top: 2px;
               left: 441px;
               color: #464331a1;
             }
@@ -1982,13 +1982,12 @@ input[type="text"], input[type="password"] {
           .wfrp4e .skill-section .inventory-list .item .item-controls {
             flex: 0 0 44px;
             position: relative;
-            left: 20px;
-            top: 1px;
+            left: 19px;
+            top: 5px;
             width: 95px;
             margin: 0px;
-            font-family: CaslonAntique;
-            font-weight: 700;
-            font-size: 16px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
             color: #464331a1;
           }
           .wfrp4e .skill-section .inventory-list .item .item-controls > #List-Add-label {
@@ -3375,7 +3374,7 @@ input[type="text"], input[type="password"] {
           margin-right: 3px;
           position: relative;
           left: 0px;
-          text-align: center;
+          text-align: left;
           width: 106px;
           /* background: grey; */
         }
@@ -3432,6 +3431,15 @@ input[type="text"], input[type="password"] {
           .wfrp4e .inventory .inventory-header .item-weight {
             padding-top: 0px;
             margin-right: 6px;
+          }
+          .wfrp4e .inventory .inventory-header .item-controls {
+            position: relative;
+            left: 26px;
+            width: 30px;
+            top: 1px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #504f48a6;
           }
 
         /* INVENTORY STYLING */
@@ -4149,6 +4157,24 @@ input[type="text"], input[type="password"] {
             /* padding-top: 10px; */
             margin-right: 14px;
           }
+          #petty-add {
+            position: relative;
+            left: 279px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
+          #lore-add {
+            position: relative;
+            left: 36px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
 
         .wfrp4e.actor .magic .inventory-list {
           margin-right: 3px;
@@ -4159,7 +4185,7 @@ input[type="text"], input[type="password"] {
         }
 
       /* ================== 4. RELIGION TAB SECTION =================== */
-        .wfrp4e .magic-section {
+        .wfrp4e .religion-section {
           overflow-y: scroll;
           overscroll-behavior-y: auto;
           overflow-x: hidden;
@@ -4167,21 +4193,215 @@ input[type="text"], input[type="password"] {
           margin-top: 0px;
           padding-bottom: 5px;
         }  
-
+        .wfrp4e .religion > ol {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          /* height: calc(100% - 20px); */
+          overflow-y: hidden;
+        }  
+        .wfrp4e .religion .inventory-list {
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+        }
+      
         .wfrp4e.actor .religion-header {
           display: flex;
           flex-direction: row;
-        }
+          height: 25px;
+          margin-top: 6px;
+        } 
+          .wfrp4e.actor .religion-box-1 {
+            display: flex;
+            flex-direction: row;
+          }
+            .wfrp4e.actor .religion-box-1 .blessed-label {
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              text-align: center;
+              border: 1px solid #736953a6;
+              margin: 0px;
+              padding: 2px 0px 0px 0px;
+              height: inherit;
+              box-shadow: 0 0 10px #00000052 inset;
+              padding-top: 3px;
+              width: 70px;
+            }
+            .wfrp4e.actor .religion-box-1 .blessed-input {
+              text-align: center;
+              border: 1px solid #736953a6;
+              border-left: none;
+              margin: 0px;
+              margin-right: 6px;
+              padding: 2px 0px 0px 0px;
+              height: inherit;
+              padding-top: 3px;
+              width: 337px;
+            }
+            .wfrp4e.actor .religion-box-1 .blessed-input > input {
+              text-align: left;
+              margin: 0px;
+              margin-top: -3px;
+              margin-right: 11px;
+              padding: 19px 0px 0px 4px;
+              height: 23px;
+              padding-top: 5px;
+              width: 336px;
+              background: none;
+              font-family: CaslonPro;
+              font-weight: 500;
+              font-size: 14px;      
+            }
 
-        
-        .wfrp4e.actor .religion-box-1 {
+          .wfrp4e.actor .religion-box-2 {
+            display: flex;
+            flex-direction: row;
+          }
+            .wfrp4e.actor .religion-box-2 .sin-label {
+              font-family: CaslonAntique;
+              font-weight: 700;
+              font-size: 16px;
+              color: #464331c4;
+              text-align: center;
+              border: 1px solid #736953a6;
+              margin: 0px;
+              padding: 2px 0px 0px 0px;
+              height: inherit;
+              box-shadow: 0 0 10px #00000052 inset;
+              padding-top: 3px;
+              width: 40px;
+            }
+            .wfrp4e.actor .religion-box-2 .sin-input {
+              text-align: center;
+              border: 1px solid #736953a6;
+              border-left: none;
+              margin: 0px;
+              margin-right: 6px;
+              padding: 2px 0px 0px 0px;
+              height: inherit;
+              padding-top: 3px;
+              width: 40px;
+            }
+            .wfrp4e.actor .religion-box-2 .sin-input > input {
+              text-align: center;
+              margin: 0px;
+              margin-top: -3px;
+              margin-right: 11px;
+              padding: 19px 0px 0px 0px;
+              height: 23px;
+              padding-top: 7px;
+              width: 39px;
+              background: none;
+              font-family: CaslonPro;
+              font-weight: 500;
+              font-size: 14px;
+            }
+
+
+        .wfrp4e .religion .inventory-list .item:not(.inventory-header) {
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          line-height: 17px;
+          padding-left: 4px;
+          width: 493px;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-bottom: none;
+          box-shadow: 0px 0px 1px inset black;
         }
-        .wfrp4e.actor .religion-box-2 {
-          display: flex;
-          flex-direction: row;
+          .wfrp4e .religion .item-name {
+            flex-basis: 436px !important;
+            /* background: blue; */
+          }
+          .wfrp4e .religion .item .item-name .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e .religion .item .prayer-roll {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+          .wfrp4e .religion .item .item-controls {
+            position: relative;
+            left: 0px;
+            width: fit-content;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e .religion .item .item-controls .item-dropdown {
+            margin-top: 6px;
+            font-size: 11px;
+            padding-right: 4px;
+            padding-top: 0PX;
+            vertical-align: middle;
+            line-height: 10px;
+          }
+
+          #blessing-add {
+            position: relative;
+            left: 279px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
+          #miracle-add {
+            position: relative;
+            left: 36px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
+
+        .wfrp4e.actor .religion .inventory-header {
+          height: 21px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
         }
+          .wfrp4e .religion .inventory-header .item-name {
+            display: block;
+            flex: none;
+            width: 193px;
+            /* background: red; */
+            padding: 0px;
+            margin: 0px;
+          }
 
 
 

@@ -4,8 +4,10 @@
       <li class="inventory-header item petty-header ">
         <div class="item-name">Petty Spell</div>
         {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+        <div id="petty-add" class="item-controls">
+          <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+            <i class="fas fa-plus"></i>
+          </a>
         </div>
         {{/if}}
       </li>
@@ -36,7 +38,7 @@
         <div class="spell-attr">SL</div>
         <div title="Memorized" class="spell-attr spell-memorized">M</div>
         {{#if owner}}
-        <div class="item-controls">
+        <div id="lore-add" class="item-controls">
           <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
         </div>
         {{/if}}
