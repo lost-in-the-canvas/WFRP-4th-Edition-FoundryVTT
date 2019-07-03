@@ -51,6 +51,11 @@
                 </div>
             </div>
 
+            <div class="item">
+                <input id="input-motivation" name="data.details.motivation.value" type="text" value="{{data.details.motivation.value}}" />
+                <span id="label-motivation">Gender</span>
+              </div>
+
             <ol class ="inventory-list psychology">
                 <li class = "inventory-header item">
                     <span>Pyschology</span>
@@ -79,6 +84,67 @@
         
         </div>
 
+        {{#if actor.mutations}}
         <div>
+            <ol class="inventory-list mutation-list">
+                <li id="mutation-header" class="inventory-header item mutation-header">
+                  <span id="mutation-name" class="item-name"></span>
+                  {{#if owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-create" title="Create Item" data-type="mutation"><i class="fas fa-plus"></i> Add</a>
+                  </div>
+                  {{/if}}
+                </li>
+                {{#each actor.mutations as |item i|}}
+                <li class="item" data-item-id="{{item.id}}">
+                  <div class="item-name currency-name item-dropdown">
+                    <div class="item-image" style="background-image: url({{item.img}})"></div>
+                    <a>{{item.name}}</a>
+                  </div>
 
+                  {{#if ../owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  </div>
+                  {{/if}}
+                </li>
+                {{/each}}
+              </ol>
+        </div>
+        {{/if}}
+
+        {{#if actor.diseases}}
+        <div>
+            <ol class="inventory-list disease-list">
+                <li id="disease-header" class="inventory-header item disease-header">
+                  <span id="disease-name" class="item-name"></span>
+                  {{#if owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-create" title="Create Item" data-type="disease"><i class="fas fa-plus"></i> Add</a>
+                  </div>
+                  {{/if}}
+                </li>
+                {{#each actor.diseases as |item i|}}
+                <li class="item" data-item-id="{{item.id}}">
+                  <div class="item-name currency-name item-dropdown">
+                    <div class="item-image" style="background-image: url({{item.img}})"></div>
+                    <a>{{item.name}}</a>
+                  </div>
+
+                  {{#if ../owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                  </div>
+                  {{/if}}
+                </li>
+                {{/each}}
+              </ol>
+        </div>
+        {{/if}}
+
+        <div class="biography">
+            <h3>GM Notes</h3>
+                {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
         </div>

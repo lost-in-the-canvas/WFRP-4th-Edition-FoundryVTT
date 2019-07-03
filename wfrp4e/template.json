@@ -199,6 +199,11 @@
            "label": "Biography",
            "value": ""
          },
+         "gmnotes": {
+          "type": "String",
+          "label": "GM Notes",
+          "value": ""
+        },
          "motivation": {
            "type": "String",
            "label": "Motivation",
