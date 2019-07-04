@@ -19,7 +19,7 @@
             <a class="weapon-item-name">{{item.name}}</a>
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
-          <div class="weapon-damage">+{{item.data.damage.value}}</div>
+          <div class="weapon-damage">+{{item.data.damage.meleeValue}}</div>
           <a class="weapon-reach">{{item.data.reach.value}}</a>
           <div class="weapon-property">
             <div>
@@ -104,11 +104,11 @@
             </select>
           </div>
           {{else}}
-          <div>
+          <div class = "no-ammo">
             None
           </div>
           {{/if}}
-          <div class="weapon-damage">+{{item.data.damage.value}}</div>
+          <div class="weapon-damage">+{{item.data.damage.rangedValue}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div class="weapon-property">
 
@@ -486,9 +486,9 @@
       {{/if}}
       {{#each actor.injuries as |injury i|}}
       <li class="item" data-item-id="{{injury.id}}">
-        <div class="item-name injury-name">
+        <div class="item-name injury-name item-dropdown">
           <div class="item-image" style="background-image: url({{injury.img}})"></div>
-          <h4 class="injury-title">{{injury.name}}</h4>
+          <a class="injury-title">{{injury.name}}</a>
         </div>
 
         <div class="injury-location">

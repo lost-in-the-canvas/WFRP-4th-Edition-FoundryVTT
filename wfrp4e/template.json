@@ -342,7 +342,8 @@
       "damage": {
         "type": "String",
         "label": "Damage",
-        "value": ""
+        "meleeValue": "",
+        "rangedValue": ""
       },
       "reach": {
         "type": "String",

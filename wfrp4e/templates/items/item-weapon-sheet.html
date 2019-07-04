@@ -54,9 +54,14 @@
         </div>
 
         <div class="form-group">
-            <label>{{data.damage.label}}</label>
-            <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="{{data.damage.type}}"/>
+            <label>Melee {{data.damage.label}}</label>
+            <input type="text" name="data.damage.meleeValue" value="{{data.damage.meleeValue}}" data-dtype="{{data.damage.type}}"/>
         </div>
+
+        <div class="form-group">
+                <label>Ranged {{data.damage.label}}</label>
+                <input type="text" name="data.damage.rangedValue" value="{{data.damage.rangedValue}}" data-dtype="{{data.damage.type}}"/>
+            </div>
 
         
         <div class="form-group">

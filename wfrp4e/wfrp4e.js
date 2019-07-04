@@ -1,7 +1,3 @@
-CONFIG.initiative = {
-  decimals: 2
-}
-
 // Species
 CONFIG.species = {
   "human": "Human",
@@ -1427,7 +1423,8 @@ class ActorWfrp4e extends Actor {
       hitLocation : true,
       extra : {
         weapon : weapon,
-        ammo : ammo
+        ammo : ammo,
+        attackType : event.attackType
       }
     };
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
@@ -1982,8 +1979,10 @@ class ItemWfrp4e extends Item {
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
-    if (data.damage.value)
-      properties.push("Damage: " + data.damage.value);
+    if (data.damage.meleeValue)
+      properties.push("Melee Damage: " + data.damage.meleeValue);
+    if (data.damage.rangedValue)
+      properties.push("Ranged Damage: " + data.damage.rangedValue);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
     properties = properties.filter(p => p != "Special");
@@ -2212,28 +2211,6 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['availability'] = CONFIG.availability;
     }
 
-
-    /*data['abilities'] = game.system.template.actor.data.abilities;
-
-    // Damage types
-    let dt = duplicate(CONFIG.damageTypes);
-    if ( ["spell", "feat"].includes(this.item.type) ) mergeObject(dt, CONFIG.healingTypes);
-    data['damageTypes'] = dt;
-
-    // Item types
-    let types = (this.item.type === "equipment") ? "armorTypes" : this.item.type + "Types";
-    data[types] = CONFIG[types];
-
-    // Spell-specific data
-    if ( this.item.type === "spell" ) {
-      data["spellSchools"] = CONFIG.spellSchools;
-      data["spellLevels"] = CONFIG.spellLevels;
-    }
-
-    // Tool-specific data
-    else if ( this.item.type === "tool" ) {
-      data["proficiencies"] = CONFIG.proficiencyLevels;
-    }*/
     return data;
   }
 
@@ -2406,7 +2383,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     let hardyTrait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("hardy"))
     let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
-    let tbMultiplier = (hardyTrait || 0) + (hardyTalent.data.advances.value || 0)
+
+    let tbMultiplier = (hardyTrait || 0)
+    if (hardyTalent)
+      tbMultiplier += hardyTalent.data.advances.value || 0
 
     let sb = sheetData.actor.data.characteristics.s.bonus;
     let tb = sheetData.actor.data.characteristics.t.bonus;
@@ -2449,7 +2429,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
 
 
-          
+    if (sheetData.actor.flags.autoCalcRun)
+    {
+      if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
+        sheetData.actor.data.details.move.run += sheetData.actor.data.details.move.walk;
+    } 
     
     // Return data to the sheet
     return sheetData;
@@ -3766,7 +3750,8 @@ class WFRP_Utility
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.value = this._calculateRangeOrDamage(actorData, weapon.data.damage.value);
+    weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue);
+    weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue);
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
@@ -4032,7 +4017,7 @@ class WFRP_Utility
     else
       weapon.data.range.value += eval(ammoRange)
 
-    weapon.data.damage.value += eval(ammoDamage);
+    weapon.data.damage.rangedValue += eval(ammoDamage);
     
     ammoProperties = ammoProperties.filter(p => p != undefined);
     let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
