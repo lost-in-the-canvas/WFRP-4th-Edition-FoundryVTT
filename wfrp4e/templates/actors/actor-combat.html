@@ -331,11 +331,11 @@
           <span class="armor-label">Right Arm</span>
           <span class="armor-ap">AP</span>
         </div>
-        <div class="armor-box body">
+        <div class="armor-box rArm">
           <ol class="inventory-list armor-list">
             {{#each actor.armour as |item i|}}
             {{#if item.protectsrArm}}
-            <li class="item" data-item-id="{{item.id}}" data-location="body">
+            <li class="item" data-item-id="{{item.id}}" data-location="rArm">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
               <a class="armor-item-name">{{item.name}}</a>
               <a title="Current: {{item.data.currentAP.rArm}} Max: {{item.data.maxAP.rArm}}"
@@ -428,7 +428,7 @@
         <div class="armor-box rLeg">
           <ol class="inventory-list armor-list">
             {{#each actor.armour as |item i|}}
-            {{#if item.protectsrArm}}
+            {{#if item.protectsrLeg}}
             <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
               <a class="armor-item-name">{{item.name}}</a>

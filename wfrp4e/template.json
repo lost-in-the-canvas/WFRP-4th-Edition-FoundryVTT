@@ -580,7 +580,8 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value" : 0
       },
       "price": {
         "type": "String",

@@ -260,6 +260,18 @@ CONFIG.reachDescription={
  
 // Consumable Types
 CONFIG.trappingTypes = {
+  "clothingAccessories":"Clothing and Accessories",
+  "foodAndDrink":"Food and Drink",
+  "toolsAndKits":"Tools and Kits",
+  "booksAndDocuments":"Books and Documents",
+  "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
+  "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "ingredient":"Ingredient",
+  "misc":"Miscellaneous"
+};
+
+// These categories are used to label items in containers
+CONFIG.trappingCategories = {
   "weapon" : "Weapons",
   "armour" : "Armour",
   "money" : "Money",
@@ -1391,7 +1403,7 @@ class ActorWfrp4e extends Actor {
       if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
       { 
         ammo = this.items.find(i => i.id == weapon.data.currentAmmo.value);
-        if (weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
+        if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
         {
           ui.notifications.error("No Ammo!")
           return
@@ -2270,7 +2282,10 @@ class ItemSheetWfrp4e extends ItemSheet {
       else
         characteristicList = characteristicList.filter(c => c != charChanged);
       
-      await this.item.update({'data.characteristics' : characteristicList})
+      if (this.item.actor)
+        this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
+      else
+        await this.item.update({'data.characteristics' : characteristicList})
 
     }),
 
@@ -2478,7 +2493,6 @@ class ActorSheetWfrp4e extends ActorSheet {
   
       // Iterate through items, allocating to containers
       let totalEnc = 0;
-      let itemsToRemove = []; // remove items with quantity of 0
       let hasSpells = false;
       let hasPrayers = false;
   
@@ -2594,10 +2608,15 @@ class ActorSheetWfrp4e extends ActorSheet {
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
             }
-            else
+            else if (i.data.trappingType.value)
             {
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
+            }
+            else
+            {
+              inventory.misc.items.push(i);
+              inventory.misc.show = true;
             }
             totalEnc += i.encumbrance;
           }
@@ -2708,9 +2727,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
         itemsInside.map(function(item){
           if (item.type == "trapping")
-            item.type = CONFIG.trappingTypes[item.data.trappingType.value];
+            item.type = CONFIG.trappingCategories[item.data.trappingType.value];
           else
-            item.type = CONFIG.trappingTypes[item.type];
+            item.type = CONFIG.trappingCategories[item.type];
         } )
         cont["carrying"] = itemsInside.filter(i => i.type != "Container");
         cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
@@ -3038,7 +3057,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item);
     });
 
-    html.find('.AP-value').mousedown(ev => {
+    html.find('.ap-value').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
       let item = this.actor.items.find(i => i.id === itemId );
@@ -3329,6 +3348,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
+    if (event.currentTarget.attributes["data-type"].value == "trapping")
+    {
+      data["trappingType.value"] = event.currentTarget.attributes["item-section"].value
+    }
+    data["description.value"] = "TEST DESCRIPTION" ;
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
