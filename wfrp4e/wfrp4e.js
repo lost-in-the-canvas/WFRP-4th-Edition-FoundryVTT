@@ -2199,12 +2199,19 @@ class ItemSheetWfrp4e extends ItemSheet {
     else if (this.item.type == "trapping")
     {
       data['trappingTypes'] = CONFIG.trappingTypes;
+      data['availability'] = CONFIG.availability;
     }
 
     else if (this.item.type == "trait")
     {
       data['characteristics'] = CONFIG.characteristics;
     }
+
+    else if (this.item.type == "container")
+    {
+      data['availability'] = CONFIG.availability;
+    }
+
 
     /*data['abilities'] = game.system.template.actor.data.abilities;
 
@@ -2396,7 +2403,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
     }
     
+    let hardyTrait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("hardy"))
+    let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
+    let tbMultiplier = (hardyTrait || 0) + (hardyTalent.data.advances.value || 0)
 
     let sb = sheetData.actor.data.characteristics.s.bonus;
     let tb = sheetData.actor.data.characteristics.t.bonus;
@@ -2409,34 +2419,36 @@ class ActorSheetWfrp4e extends ActorSheet {
     switch (sheetData.actor.data.details.size.value){
     
       case "tiny":
-      sheetData.actor.data.status.wounds.max = 1;
+      sheetData.actor.data.status.wounds.max = 1 + tb * tbMultiplier;
       break;
 
       case "ltl":
-      sheetData.actor.data.status.wounds.max = tb;
+      sheetData.actor.data.status.wounds.max = tb + tb * tbMultiplier;
       break;
     
       case "sml":
-      sheetData.actor.data.status.wounds.max = 2 * tb + wpb;
+      sheetData.actor.data.status.wounds.max = 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "avg":
-      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb;
+      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
 
       case "enor":
-      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
       
       case "mnst":
-      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
 
     }
+
+
           
     
     // Return data to the sheet
@@ -3349,10 +3361,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     let header = event.currentTarget,
         data = duplicate(header.dataset);
     if (event.currentTarget.attributes["data-type"].value == "trapping")
-    {
-      data["trappingType.value"] = event.currentTarget.attributes["item-section"].value
-    }
-    data["description.value"] = "TEST DESCRIPTION" ;
+      data = mergeObject(data, {"data.trappingType.value" : event.currentTarget.attributes["item-section"].value})
+
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }

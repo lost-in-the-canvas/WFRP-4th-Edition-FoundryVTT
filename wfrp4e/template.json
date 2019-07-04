@@ -551,6 +551,11 @@
         "ss" : 0,
         "bp" : 0
       },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value" : ""
+      },
       "carries": {
         "type": "Number",
         "label": "Carries",
@@ -582,6 +587,11 @@
         "type": "Number",
         "label": "Encumbrance",
         "value" : 0
+      },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value" : ""
       },
       "price": {
         "type": "String",
