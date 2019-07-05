@@ -1,3 +1,55 @@
+CONFIG.statusEffects = 
+["systems/wfrp4e/icons/conditions/bleed1.png",
+"systems/wfrp4e/icons/conditions/bleed2.png",
+"systems/wfrp4e/icons/conditions/bleed3.png",
+"systems/wfrp4e/icons/conditions/bleed4.png",
+//"systems/wfrp4e/icons/conditions/bleed5.png",
+"systems/wfrp4e/icons/conditions/poison1.png",
+"systems/wfrp4e/icons/conditions/poison2.png",
+"systems/wfrp4e/icons/conditions/poison3.png",
+"systems/wfrp4e/icons/conditions/poison4.png",
+//"systems/wfrp4e/icons/conditions/poison5.png",
+"systems/wfrp4e/icons/conditions/ablaze1.png",
+"systems/wfrp4e/icons/conditions/ablaze2.png",
+"systems/wfrp4e/icons/conditions/ablaze3.png",
+"systems/wfrp4e/icons/conditions/ablaze4.png",
+//"systems/wfrp4e/icons/conditions/ablaze5.png",
+"systems/wfrp4e/icons/conditions/deafened1.png",
+"systems/wfrp4e/icons/conditions/deafened2.png",
+"systems/wfrp4e/icons/conditions/deafened3.png",
+"systems/wfrp4e/icons/conditions/deafened4.png",
+//"systems/wfrp4e/icons/conditions/deafened5.png",
+"systems/wfrp4e/icons/conditions/stunned1.png",
+"systems/wfrp4e/icons/conditions/stunned2.png",
+"systems/wfrp4e/icons/conditions/stunned3.png",
+"systems/wfrp4e/icons/conditions/stunned4.png",
+//"systems/wfrp4e/icons/conditions/stunned5.png",
+"systems/wfrp4e/icons/conditions/entangled1.png",
+"systems/wfrp4e/icons/conditions/entangled2.png",
+"systems/wfrp4e/icons/conditions/entangled3.png",
+"systems/wfrp4e/icons/conditions/entangled4.png",
+//"systems/wfrp4e/icons/conditions/entangled5.png",
+"systems/wfrp4e/icons/conditions/fatigued1.png",
+"systems/wfrp4e/icons/conditions/fatigued2.png",
+"systems/wfrp4e/icons/conditions/fatigued3.png",
+"systems/wfrp4e/icons/conditions/fatigued4.png",
+//"systems/wfrp4e/icons/conditions/fatigued5.png",
+"systems/wfrp4e/icons/conditions/blinded1.png",
+"systems/wfrp4e/icons/conditions/blinded2.png",
+"systems/wfrp4e/icons/conditions/blinded3.png",
+"systems/wfrp4e/icons/conditions/blinded4.png",
+//"systems/wfrp4e/icons/conditions/blinded5.png"
+"systems/wfrp4e/icons/conditions/broken1.png",
+"systems/wfrp4e/icons/conditions/broken2.png",
+"systems/wfrp4e/icons/conditions/broken3.png",
+"systems/wfrp4e/icons/conditions/broken4.png",
+//"systems/wfrp4e/icons/conditions/broken5.png"
+"systems/wfrp4e/icons/conditions/grappling.png",
+"systems/wfrp4e/icons/conditions/prone.png",
+"systems/wfrp4e/icons/conditions/fear.png",
+"systems/wfrp4e/icons/conditions/surprised.png",
+]
+
 // Species
 CONFIG.species = {
   "human": "Human",
@@ -14,7 +66,6 @@ CONFIG.statusTiers = {
   "s" : "Silver",
   "b" : "Brass"
 };
-
 
 // Characteristic Names
 CONFIG.characteristics = {
@@ -391,6 +442,11 @@ CONFIG.magicWind = {
 CONFIG.prayerTypes = {
   "blessing" : "Blessing",
   "miracle" : "Miracle"
+}
+
+CONFIG.mutationTypes = {
+  "physical" : "Physical",
+  "mental" : "Mental"
 }
 
 class DiceWFRP {
@@ -2086,6 +2142,12 @@ class ItemSheetWfrp4e extends ItemSheet {
     {
       data['availability'] = CONFIG.availability;
     }
+
+    else if (this.item.type == "mutation")
+    {
+      data['mutationTypes'] = CONFIG.mutationTypes;
+    }
+
 
     return data;
   }

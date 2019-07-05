@@ -744,13 +744,25 @@
       }
     }, 
       "mutation" : {
-        "type" : {
+        "mutationType" : {
+          "label" : "Type",
+          "type" : "String",
+          "value": ""
+        },
+        "description" : {
+          "label" : "Description",
           "value": "",
           "type" : "String"
         },
-        "description" : {
+        "modifier" : {
           "value": "",
-          "type" : "String"
+          "type" : "String",
+          "label" : "Modifier"
+        },
+        "modifiesSkills" : {
+          "value": false,
+          "type" : "Boolean",
+          "label" : "Skill Modifier?"
         }
       }, 
       "injury" : {
