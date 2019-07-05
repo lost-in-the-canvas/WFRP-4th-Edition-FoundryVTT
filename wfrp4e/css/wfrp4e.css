@@ -4010,7 +4010,7 @@ input[type="text"], input[type="password"] {
 
 
           
-      /* ================== 4. MAGIC TAB SECTION ====================== */
+      /* ================== 5. MAGIC TAB SECTION ====================== */
 
         .wfrp4e .magic-section {
           overflow-y: scroll;
@@ -4184,7 +4184,7 @@ input[type="text"], input[type="password"] {
           border-right: none;
         }
 
-      /* ================== 4. RELIGION TAB SECTION =================== */
+      /* ================== 6. RELIGION TAB SECTION =================== */
         .wfrp4e .religion-section {
           overflow-y: scroll;
           overscroll-behavior-y: auto;
@@ -4404,6 +4404,185 @@ input[type="text"], input[type="password"] {
           }
 
 
+      /* ================== 8. NOTES TAB SECTION ====================== */
+        .wfrp4e .notes-section {
+          overflow-y: scroll;
+          overscroll-behavior-y: auto;
+          overflow-x: hidden;
+          height: 360px;
+          margin-top: 0px;
+          padding-bottom: 5px;
+        }  
+        .wfrp4e .notes > ol {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          /* height: calc(100% - 20px); */
+          overflow-y: hidden;
+        }  
+        .wfrp4e .notes .inventory-list {
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+        }
+
+        .wfrp4e .notes-section .biography {
+          height: 160px;
+          width: 493px;
+          background-color: #9e856a0d;
+          border: 1px solid #736953a6;
+          margin: 0px;
+          padding: 0px;
+          margin-top: 6px;
+        } 
+          .wfrp4e .notes-section .biography > h2 {
+            font-family: CaslonAntique;
+            font-size: 16px;
+            font-weight: 700;
+            color: #464331c4;
+            text-align: left;
+            border: 1px solid #736953a6;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            margin: 0px;
+            padding: 1px 0px 0px 0px;
+            height: 21px;
+            width: 491px;
+            box-shadow: 0 0 10px #6b3a0f87 inset;
+            position: relative;
+            top: 0px;
+            display: flex;
+            flex-direction: row;
+            padding-left: 4px;
+          }
+          .wfrp4e .notes-section .biography .editor {
+            height: 137px;
+            border: 0px #0000ff00 solid;
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            box-shadow: 0px 0px 1px inset black;
+          }
+
+
+        .wfrp4e.actor .ambitions {
+          margin-top: 6px;
+          width: 100%;
+        }
+        .wfrp4e.actor .ambitions .ambition-sections {
+          display: flex;
+          flex-direction: column;
+        }
+        .wfrp4e.actor .ambitions .ambition-section {
+          width: 100%;
+          margin: 0px;
+          padding: 0px;
+          padding-right: 3px;
+        }
+        .wfrp4e.actor .ambitions .ambition-section .ambition {
+          width: 100%;
+          margin: 0px;
+          padding: 0px;
+          padding-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          height: 25px;
+        }
+          .wfrp4e.actor .ambitions .ambition-section > h4 {
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            text-align: center;
+            border: 1px solid #736953a6;
+            margin: 0px;
+            padding: 2px 0px 0px 0px;
+            height: inherit;
+            box-shadow: 0 0 10px #00000052 inset;
+            padding-top: 3px; 
+          }
+          #party-ambition {
+            margin-top: 6px;
+          }
+          .wfrp4e.actor .ambitions .ambition-section .ambition > a {
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            border: 1px solid #736953a6;
+            border-top: none;
+            border-bottom: none;
+            border-left: none;
+            margin: 0px;
+            padding: 0px 0px 0px 4px;
+            width: 70px;
+            height: 24px;
+            box-shadow: 0 0 10px #00000052 inset;
+            padding-top: 3px;
+            display: block;
+            flex: none;
+            position: relative;
+            top: 0px;
+          }
+          .wfrp4e.actor .ambitions .ambition-section .ambition > input {
+            position: relative;
+            top: -24px;
+            left: 70px;
+            /* border: 1px solid black; */
+            height: 24px;
+            width: 421px;
+          }
+
+
+
+
+        .wfrp4e.actor .motivation {
+          margin-right: 30px;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          text-align: center;
+          border: 1px solid #736953a6;
+          margin: 0px;
+          margin-top: 6px;
+          padding: 2px 0px 0px 0px;
+          height: 26px;
+          padding-top: 3px;
+          width: 493px;
+        }
+          .wfrp4e.actor .label-motivation {
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            text-align: center;
+            border-right: 1px solid #736953a6;
+            margin: 0px;
+            padding: 2px 0px 0px 0px;
+            height: 24px;
+            box-shadow: 0 0 10px #00000052 inset;
+            padding-top: 3px;
+            position: relative;
+            top: -3px;
+            left: -211px;
+            width: 70px;
+            flex: none;
+            display: inline-block;
+          }
+          .wfrp4e.actor .motivation > input {
+            position: relative;
+            top: -27px;
+            left: 35px;
+            /* border: 1px solid black; */
+            height: 24px;
+            width: 421px;
+            text-align: left;
+          }
+
+
 
 
       .wfrp4e.sheet ::-webkit-scrollbar-button {
@@ -4603,19 +4782,7 @@ display: flex;
 
 
 
-.wfrp4e.actor .motivation{
-  margin: 5px;
-  margin-right: 30px;
-  width: 100%;
-}
 
-.wfrp4e.actor .motivation > *{
-  font-family: CaslonAntique;
-  font-weight: bold;
-  font-size: 18px;
-  margin: 10px;
-  text-align: center;
-}
 
 .wfrp4e.actor .motivation .motivation-text {
   width: 100%;
@@ -4683,34 +4850,13 @@ font-weight: bold;
 }
 
 
-.wfrp4e.actor .ambitions{
-  margin-top: 5px;
-  width: 100%;
-}
 
-.wfrp4e.actor .ambitions > h3{
-  font-family: CaslonAntique;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-}
 
-.wfrp4e.actor .ambitions .ambition-sections{
-  display: flex;
-  flex-direction: row;
-}
 
-.wfrp4e.actor .ambitions .ambition-section{
-  width: 50%;
-  margin: 10px;
-}
 
-.wfrp4e.actor .ambitions .ambition-section > h4{
-  font-family: CaslonAntique;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-}
+
+
+
 
 .wfrp4e.actor .ambitions .ambition-section > h5{
   text-align: left;
@@ -6270,7 +6416,7 @@ font-weight: bold;
 
 #chat-log {
   flex: none;
-  height: 780px;
+  height: 77vh;
   margin: -5px 4px 5px 5px;
   padding: 0px;
   overflow-y: auto;
