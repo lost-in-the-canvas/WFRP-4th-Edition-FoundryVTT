@@ -2816,8 +2816,27 @@ input[type="text"], input[type="password"] {
                 width: 22px;
                 margin-right: 3px;
               }
+              .wfrp4e.actor .combat-section .armor .toughness-total {
+                font-family: CaslonPro;
+                font-size: 14px;
+                font-weight: 700;
+                color: #2c566f;
+                position: relative;
+                border-top-left-radius: 9px;
+                border-top-right-radius: 3px;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 9px;
+                top: 0px;
+                display: inline-block;
+                box-shadow: 0 0 10px #4a324987 inset;
+                border: 1px solid #7369538a;
+                text-align: center;
+                padding: 2px 0px 0px 0px;
+                width: 22px;
+                margin-right: 3px;
+              }
               .wfrp4e.actor .combat-section .armor .armor-label {
-                width: 155px;
+                width: 130px;
                 display: inline-block;
                 text-align: left;
                 margin-top: 1px;
@@ -3696,7 +3715,7 @@ input[type="text"], input[type="password"] {
             width: 35px;
             position: relative;
             top: -26px;
-            left: 390px;
+            left: 347px;
             height: fit-content;
             /* background: #ffbe00; */
             vertical-align: middle;
@@ -3793,7 +3812,7 @@ input[type="text"], input[type="password"] {
             width: 35px;
             position: relative;
             top: -26px;
-            left: 380px;
+            left: 337px;
             height: fit-content;
             /* background: #ffbe00; */
             vertical-align: middle;
@@ -3890,7 +3909,7 @@ input[type="text"], input[type="password"] {
             width: 35px;
             position: relative;
             top: -26px;
-            left: 370px;
+            left: 327px;
             height: fit-content;
             /* background: #ffbe00; */
             vertical-align: middle;
@@ -3987,7 +4006,7 @@ input[type="text"], input[type="password"] {
             width: 35px;
             position: relative;
             top: -26px;
-            left: 360px;
+            left: 317px;
             height: fit-content;
             /* background: #ffbe00; */
             vertical-align: middle;
@@ -4541,8 +4560,6 @@ input[type="text"], input[type="password"] {
           }
 
 
-
-
         .wfrp4e.actor .motivation {
           margin-right: 30px;
           font-family: CaslonAntique;
@@ -4588,7 +4605,121 @@ input[type="text"], input[type="password"] {
           }
 
 
+        .wfrp4e.actor .psychology-list {
+          margin-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
+          width: 100%;
+        }
+          .wfrp4e.actor .psychology-list .inventory-header {
+            height: 21px;
+            width: 493px;
+            padding-left: 4px;
+            padding-right: 4px;
+            line-height: 19px;
+            border: 1px solid #736953a6;
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            background: none;
+            box-shadow: 0 0 10px #6b3a0f87 inset;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            overflow-y: hidden;
+            margin-top: 6px;
+          }
+          #psychology-add {
+            position: relative;
+            left: 416px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
+        
+          
+        .wfrp4e.actor .mutation-list {
+          margin-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
+          width: 100%;
+        }
+          .wfrp4e.actor .mutation-list .inventory-header {
+            height: 21px;
+            width: 493px;
+            padding-left: 4px;
+            padding-right: 4px;
+            line-height: 19px;
+            border: 1px solid #736953a6;
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            background: none;
+            box-shadow: 0 0 10px #6b3a0f87 inset;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            overflow-y: hidden;
+            margin-top: 6px;
+          }
+          #mutation-add {
+            position: relative;
+            left: 352px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
 
+
+        .wfrp4e.actor .disease-list {
+          margin-right: 3px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-bottom: none;
+          width: 100%;
+        }
+          .wfrp4e.actor .disease-list .inventory-header {
+            height: 21px;
+            width: 493px;
+            padding-left: 4px;
+            padding-right: 4px;
+            line-height: 19px;
+            border: 1px solid #736953a6;
+            font-family: CaslonAntique;
+            font-weight: 700;
+            font-size: 16px;
+            color: #464331c4;
+            background: none;
+            box-shadow: 0 0 10px #6b3a0f87 inset;
+            overscroll-behavior-x: none;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            overflow-y: hidden;
+            margin-top: 6px;
+          }
+          #disease-add {
+            position: relative;
+            left: 435px;
+            top: 1px;
+            width: fit-content;
+            font-family: "Font Awesome 5 Free";
+            font-size: 11px;
+            color: #464331a1;
+          }
 
       .wfrp4e.sheet ::-webkit-scrollbar-button {
         height: 18px;
@@ -5011,12 +5142,6 @@ font-weight: bold;
 
 
 
-
-.wfrp4e.actor .psychology{
-  width: 100%;
-  margin-top: 10px;
-  height: calc(100% - 50px);
-}
 
 /* ----------------------------------------- */
 /* User Interface Framework
@@ -6025,9 +6150,7 @@ font-weight: bold;
 }
 
 
-.wfrp4e.actor .row > .psychology {
-  height: 100px;
-}
+
 
 
 .wfrp4e.actor .row .armor {
