@@ -35,6 +35,9 @@
 
 
 
+
+
+
     {{#if actor.traits}}
     <div class="traits-header">
       <div class="item-name">Creature Trait</div>
@@ -42,6 +45,7 @@
 
     <ol class="inventory-list trait-list">
       <li class="inventory-header">
+        <div class="item-image" style="background-image: url({{item.img}})"></div>
         <div class="item-name">Creature Trait</div>
         {{#if owner}}
         <div class="item-controls">
