@@ -6,36 +6,36 @@
   </div>
 
   <div class="inventory-type">
-    <ol class="inventory-list currency-list">
-      <li id="currency-header" class="inventory-header item currency-header">
-        <span id="currency-name" class="item-name">Money (Total: {{actor.money.total}}d)</span>
-        <a id="currency-quantity" class="item-quantity">Qty.</a>
-        <span id="currency-weight" class="item-weight">Enc.</span>
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="money"><i class="fas fa-plus"></i> Add</a>
-        </div>
-        {{/if}}
-      </li>
-      {{#each actor.money.coins as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
-        <div class="item-name currency-name item-dropdown">
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a>{{item.name}}</a>
-        </div>
-        <a class="item-quantity">{{item.data.quantity.value}}</a>
-        <span class="item-weight">{{item.encumbrance}}</span>
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-    </ol>
-  </div>
-
+      <ol class="inventory-list currency-list">
+        <li id="currency-header" class="inventory-header item currency-header">
+          <span id="currency-name" class="item-name">Money (Total: {{actor.money.total}}d)</span>
+          <a id="currency-quantity" class="item-quantity">Qty.</a>
+          <span id="currency-weight" class="item-weight">Enc.</span>
+          {{#if owner}}
+          <div class="item-controls">
+            <a class="item-control item-create" title="Create Item" data-type="money"><i class="fas fa-plus"></i> Add</a>
+          </div>
+          {{/if}}
+        </li>
+        {{#each actor.money.coins as |item i|}}
+        <li class="item" data-item-id="{{item.id}}">
+          <div class="item-name currency-name item-dropdown">
+            <div class="item-image" style="background-image: url({{item.img}})"></div>
+            <a>{{item.name}}</a>
+          </div>
+          <a class="item-quantity">{{item.data.quantity.value}}</a>
+          <span class="item-weight">{{item.encumbrance}}</span>
+          {{#if ../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+    </div>
+   
   <div class="inventory-sections">
     {{#each actor.inventory as |section sid|}}
     {{#if section.items}}
@@ -50,9 +50,9 @@
           {{#if section.toggle}}
           <span class="item-toggle">{{section.toggleName}}</span>
           {{/if}}
-
+  
           <a class="item-quantity">Qty.</a>
-
+  
           <span class="item-weight">Enc.</span>
           {{#if ../owner}}
           <div class="item-controls">
@@ -78,9 +78,9 @@
           <a class="item-toggle"><i class="far fa-circle"></i></a>
           {{/if}}
           {{/if}}
-
+  
           <a class="item-quantity">{{item.data.quantity.value}}</a>
-
+  
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../../owner}}
           <div class="item-controls">
@@ -94,17 +94,17 @@
     </div>
     {{/if}}
     {{/each}}
-
-
+  
+  
     <!-- INGREDIENTS -->
     {{#if actor.ingredients.show}}
     <div class="inventory-type">
       <ol class="inventory-list">
         <li class="inventory-header item">
           <span id="ingredient-name" class="item-name">Ingredients</span>
-
+  
           <span id="spell-label">Spell</span>
-
+  
           {{#if actor.ingredients.quantified}}
           <span class="item-quantity">Qty.</span>
           {{/if}}
@@ -122,7 +122,7 @@
             <div class="item-image item-dropdown" style="background-image: url({{item.img}})"></div>
             <a>{{item.name}}</a>
           </div>
-
+  
           <div class="spell-selector selector">
             <select name="item.data.spellIngredient.value" data-item-id="{{item.id}}"
               data-dtype="{{item.data.spellIngredient.type}}">
@@ -134,7 +134,7 @@
               {{/select}}
             </select>
           </div>
-
+  
           <span class="item-quantity">{{item.data.quantity.value}}</span>
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../owner}}
@@ -148,22 +148,22 @@
       </ol>
     </div>
     {{/if}}
-
+  
     <!-- CONTAINERS (LEVEL 1) -->
     {{#if actor.containers.show}}
     {{#each actor.containers.items as |rootPack p|}}
     <div class="inventory-type">
-      <ol class="inventory-list container-lists">
+      <ol class="inventory-list">
         <li class="inventory-header item inventory-container level-one" inventory-type="container" root="{{rootPack.id}}"
           data-item-id="{{rootPack.id}}">
-
+  
           <div class="item-name" data-item-id="{{rootPack.id}}">
             <div class="item-image" style="background-image: url({{rootPack.img}})"></div>
             <div class="item-label">{{rootPack.name}}</div>
           </div>
-
+  
           <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-
+  
           {{#if rootPack.data.countEnc.value}}
             <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
             {{#if rootPack.data.worn.value}}
@@ -179,10 +179,10 @@
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{/if}}
-
+  
           <span class="item-weight">Enc.</span>
           <span class="item-quantity">Qty.</span>
-
+  
           {{#if ../owner}}
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -196,9 +196,9 @@
             <div class="item-image item-dropdown" style="background-image: url({{item.img}})"></div>
             <a>{{item.name}}</a>
           </div>
-
+  
           <div class="item-type">{{item.type}}</div>
-
+  
           <a class="item-quantity">{{item.data.quantity.value}}</a>
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../../owner}}
@@ -210,8 +210,7 @@
         </li>
         {{/each}}
       </ol>
-
-
+  
       <!-- CONTAINERS (LEVEL 2) -->
       <!-- Packs Inside (Copy from Here)-->
       {{#each rootPack.packsInside as |pack p|}}
@@ -222,9 +221,9 @@
             <div class="item-image" style="background-image: url({{pack.img}})"></div>
             <div class="item-label">{{pack.name}}</div>
           </div>
-
+  
           <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
-
+  
           {{#if pack.data.countEnc.value}}
             <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
             {{#if pack.data.worn.value}}
@@ -240,10 +239,10 @@
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{/if}}
-
+  
           <span class="item-weight">Enc.</span>
           <span class="item-quantity">Qty.</span>
-
+  
           {{#if ../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -257,9 +256,9 @@
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>{{item.name}}</a>
           </div>
-
+  
           <div class="item-type">{{item.type}}</div>
-
+  
           <a class="item-quantity">{{item.data.quantity.value}}</a>
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../../../owner}}
@@ -271,71 +270,39 @@
         </li>
         {{/each}}
         <!-- Insert Pack Inside Code here-->
-      </ol>
-      {{/each}}
-
-      
-      <!-- CONTAINERS (LEVEL 3) -->
-      <!-- Packs Inside (Copy from Here)-->
-      {{#each pack.packsInside as |pack p|}}
-      <ol style="margin-left: 10px" class="inventory-list container-lists">
-        <li class="inventory-header item inventory-container level-three" inventory-type="container" root="{{rootPack.id}}"
-          data-item-id="{{pack.id}}">
-          <div class="item-name" data-item-id="{{pack.id}}">
-            <div class="item-image" style="background-image: url({{pack.img}})"></div>
-            <div class="item-label">{{pack.name}}</div>
-          </div>
-
-          <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
-
-          {{#if pack.data.countEnc.value}}
-          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
-          {{#if pack.data.worn.value}}
-            <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{else}}
-          <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
-          {{#if pack.data.worn.value}}
-            <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{/if}}
-
-          <span class="item-quantity">Qty.</span>
-          <span class="item-weight">Enc.</span>
-          {{#if ../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+  
+        <!-- CONTAINERS (LEVEL 3) -->
+        <!-- Packs Inside (Copy from Here)-->
+        {{#each pack.packsInside as |pack p|}}
+        <ol style="margin-left: 10px" class="inventory-list container-lists">
+          <li class="inventory-header item inventory-container level-three" inventory-type="container" root="{{rootPack.id}}"
+            data-item-id="{{pack.id}}">
+            <div class="item-name" data-item-id="{{pack.id}}">
+              <div class="item-image" style="background-image: url({{pack.img}})"></div>
+              <div class="item-label">{{pack.name}}</div>
+            </div>
+  
+            <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+  
+            {{#if pack.data.countEnc.value}}
+            <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
+            {{#if pack.data.worn.value}}
+              <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+            {{else}}
+              <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
-        </li>
-        {{#each pack.carrying as |item i|}}
-        <li class="item level-three-item" data-item-id="{{item.id}}">
-          <div class="item-name item-dropdown">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a>{{item.name}}</a>
-          </div>
-
-          <div class="item-type">{{item.type}}</div>
-
-          <span class="item-quantity">{{item.data.quantity.value}}</span>
-          <span class="item-weight">{{item.encumbrance}}</span>
-          {{#if ../../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
-          </div>
+          {{else}}
+            <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
+            {{#if pack.data.worn.value}}
+              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+            {{else}}
+              <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
+            {{/if}}
           {{/if}}
-        </li>
-        {{/each}}
-        <!-- Insert Pack Inside Code here-->
-
+  
           <span class="item-weight">Enc.</span>
           <span class="item-quantity">Qty.</span>
-
+  
             {{#if ../../../owner}}
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -348,8 +315,9 @@
               <div class="item-image" style="background-image: url({{item.img}})"></div>
               <a>{{item.name}}</a>
             </div>
-
-
+  
+            <div class="item-type">{{item.type}}</div>
+  
             <a class="item-quantity">{{item.data.quantity.value}}</a>
             <span class="item-weight">{{item.encumbrance}}</span>
             {{#if ../../../../owner}}
@@ -361,43 +329,39 @@
           </li>
           {{/each}}
           <!-- Insert Pack Inside Code here-->
-
-          <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
-
-          {{#if pack.data.countEnc.value}}
-          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
-          {{#if pack.data.worn.value}}
-            <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{else}}
-          <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
-          {{#if pack.data.worn.value}}
-            <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{/if}}
-
-          <span class="item-quantity">Qty.</span>
-          <span class="item-weight">Enc.</span>
-          {{#if ../../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+  
+          <!-- CONTAINERS (LEVEL 4) -->
+          <!-- Packs Inside (Copy from Here)-->
+          {{#each pack.packsInside as |pack p|}}
+          <ol style="margin-left: 10px" class="inventory-list container-lists">
+            <li class="inventory-header item inventory-container level-four" inventory-type="container"  root="{{rootPack.id}}"
+              data-item-id="{{pack.id}}">
+              <div class="item-name" data-item-id="{{pack.id}}">
+                <div class="item-image" style="background-image: url({{pack.img}})"></div>
+                <div class="item-label">{{pack.name}}</div>
+              </div>
+  
+              <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+  
+              {{#if pack.data.countEnc.value}}
+              <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
+              {{#if pack.data.worn.value}}
+                <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+              {{else}}
+                <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
+              {{/if}}
+            {{else}}
+              <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
+              {{#if pack.data.worn.value}}
+                <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+              {{else}}
+                <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
+              {{/if}}
             {{/if}}
-        </li>
-        {{#each pack.carrying as |item i|}}
-        <li class="item level-four-item" data-item-id="{{item.id}}">
-          <div class="item-name item-dropdown">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a>{{item.name}}</a>
-          </div>
-
+  
           <span class="item-weight">Enc.</span>
           <span class="item-quantity">Qty.</span>
-
+  
               {{#if ../../../../owner}}
               <div class="item-controls">
                 <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -410,20 +374,9 @@
                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                 <a>{{item.name}}</a>
               </div>
-
-          <span class="item-quantity">{{item.data.quantity.value}}</span>
-          <span class="item-weight">{{item.encumbrance}}</span>
-          {{#if ../../../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
-            {{/if}}
-        </li>
-        {{/each}}
-        <!-- Insert Pack Inside Code here-->
-      </ol>
-      {{/each}}
-
+  
+              <div class="item-type">{{item.type}}</div>
+  
               <a class="item-quantity">{{item.data.quantity.value}}</a>
               <span class="item-weight">{{item.encumbrance}}</span>
               {{#if ../../../../../owner}}
@@ -434,39 +387,39 @@
             </li>
             {{/each}}
             <!-- Insert Pack Inside Code here-->
-
-      <!-- CONTAINERS (LEVEL 5) -->
-      <!-- Packs Inside (Copy from Here)-->
-      {{#each pack.packsInside as |pack p|}}
-      <ol style="margin-left: 10px" class="inventory-list container-lists">
-        <li class="inventory-header item inventory-container level-five" inventory-type="container"  root="{{rootPack.id}}"
-          data-item-id="{{pack.id}}">
-          <div class="item-name" data-item-id="{{pack.id}}">
-            <div class="item-image" style="background-image: url({{pack.img}})"></div>
-            <div class="item-label">{{pack.name}}</div>
-          </div>
-
-          <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
-
-          {{#if pack.data.countEnc.value}}
-          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
-          {{#if pack.data.worn.value}}
-            <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{else}}
-          <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
-          {{#if pack.data.worn.value}}
-            <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
-          {{else}}
-            <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
-          {{/if}}
-        {{/if}}
-
+  
+              <!-- CONTAINERS (LEVEL 5) -->
+              <!-- Packs Inside (Copy from Here)-->
+              {{#each pack.packsInside as |pack p|}}
+              <ol style="margin-left: 10px" class="inventory-list container-lists">
+                <li class="inventory-header item inventory-container level-five" inventory-type="container"  root="{{rootPack.id}}"
+                  data-item-id="{{pack.id}}">
+                  <div class="item-name" data-item-id="{{pack.id}}">
+                    <div class="item-image" style="background-image: url({{pack.img}})"></div>
+                    <div class="item-label">{{pack.name}}</div>
+                  </div>
+  
+                  <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+  
+                  {{#if pack.data.countEnc.value}}
+                  <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
+                  {{#if pack.data.worn.value}}
+                    <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+                  {{else}}
+                    <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
+                  {{/if}}
+                {{else}}
+                  <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
+                  {{#if pack.data.worn.value}}
+                    <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
+                  {{else}}
+                    <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
+                  {{/if}}
+                {{/if}}
+  
           <span class="item-weight">Enc.</span>
           <span class="item-quantity">Qty.</span>
-
+  
                   {{#if ../../../../../owner}}
                   <div class="item-controls">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -479,9 +432,9 @@
                     <div class="item-image" style="background-image: url({{item.img}})"></div>
                     <a>{{item.name}}</a>
                   </div>
-
-          <div class="item-type">{{item.type}}</div>
-
+  
+                  <div class="item-type">{{item.type}}</div>
+  
                   <a class="item-quantity">{{item.data.quantity.value}}</a>
                   <span class="item-weight">{{item.encumbrance}}</span>
                   {{#if ../../../../../../owner}}
@@ -495,20 +448,21 @@
                 <!-- Insert Pack Inside Code here-->
               </ol>
               {{/each}}
-
+  
           </ol>
           {{/each}}
-
+  
         </ol>
         {{/each}}
-        <!-- Insert Pack Inside Code here-->
+  
       </ol>
       {{/each}}
-
+  
+  
     </div>
     {{/each}}
     {{/if}}
   </div>
-
-
-</div>
+   
+   
+  </div>

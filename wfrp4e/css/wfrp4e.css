@@ -3555,7 +3555,7 @@ input[type="text"], input[type="password"] {
           margin-right: 0px;
         }
         .wfrp4e.actor .inventory .inventory-list.container-lists .item:last-child {
-          background:blue;
+          /* background:blue; */
         }
 
 
