@@ -1,7 +1,8 @@
 <div class="inventory" data-group="primary" data-tab="inventory">
+  
+  <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
   <div class="encumbrance">
-    <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
-    <span class="encumbrance-bar"></span>
+    <span class="encumbrance-bar" style="width:{{actor.encumbrance.pct}}%"></span>
   </div>
 
   <div class="inventory-type">
@@ -41,7 +42,11 @@
     <div class="inventory-type">
       <ol class="inventory-list">
         <li class="inventory-header item">
+          {{#if section.toggle}}
           <span class="item-name">{{section.label}}</span>
+          {{else}}
+          <span class = "item-name" id="currency-name">{{section.label}}</span>
+          {{/if}}
           {{#if section.toggle}}
           <span class="item-toggle">{{section.toggleName}}</span>
           {{/if}}
@@ -58,7 +63,11 @@
         </li>
         {{#each section.items as |item i|}}
         <li class="item" data-item-id="{{item.id}}">
+          {{#if section.toggle}}
           <div class="item-name item-dropdown">
+          {{else}}
+          <div class="item-name non-toggle-name item-dropdown">
+          {{/if}}
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <a>{{item.name}}</a>
           </div>
@@ -171,8 +180,8 @@
             {{/if}}
           {{/if}}
 
-          <span class="item-quantity">Qty.</span>
           <span class="item-weight">Enc.</span>
+          <span class="item-quantity">Qty.</span>
 
           {{#if ../owner}}
             <div class="item-controls">
@@ -190,7 +199,7 @@
 
           <div class="item-type">{{item.type}}</div>
 
-          <span class="item-quantity">{{item.data.quantity.value}}</span>
+          <a class="item-quantity">{{item.data.quantity.value}}</a>
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../../owner}}
           <div class="item-controls">
@@ -232,8 +241,9 @@
             {{/if}}
           {{/if}}
 
-          <span class="item-quantity">Qty.</span>
           <span class="item-weight">Enc.</span>
+          <span class="item-quantity">Qty.</span>
+
           {{#if ../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -250,7 +260,7 @@
 
           <div class="item-type">{{item.type}}</div>
 
-          <span class="item-quantity">{{item.data.quantity.value}}</span>
+          <a class="item-quantity">{{item.data.quantity.value}}</a>
           <span class="item-weight">{{item.encumbrance}}</span>
           {{#if ../../../owner}}
           <div class="item-controls">

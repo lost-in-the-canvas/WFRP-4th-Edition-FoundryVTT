@@ -130,3 +130,8 @@
 {"_id":"wPWH8ZgPEvdPPdkJ","name":"Lore of Metal","type":"Item","parent":"gq63Du7x7meVEF1y","sort":12700000}
 {"_id":"yvKm3BXywCm12LgA","name":"Taal","type":"Item","parent":"1w1PNu0u0r4vorit","sort":12800000}
 {"_id":"z2q9HQ3MaOBWOSu5","name":"Peasants","type":"Item","parent":"K6EzwV4HagHawMPX","sort":12900000}
+{"_id":"VUQRLIERgkXPGjjz","name":"Arm","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13400000,"color":""}
+{"_id":"4sWcMOarfHJov7XB","name":"Leg","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13500000,"color":""}
+{"_id":"s94Bj6SsZWR4M3LB","name":"Body","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13600000,"color":""}
+{"_id":"KSo9sarrEtB98gNz","name":"Head","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13700000,"color":""}
+{"_id":"FlNWhq4NxOEjudN9","name":"Other","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13800000,"color":""}
