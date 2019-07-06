@@ -333,20 +333,34 @@
         {{/each}}
         <!-- Insert Pack Inside Code here-->
 
-      </ol>
-      {{/each}}
+          <span class="item-weight">Enc.</span>
+          <span class="item-quantity">Qty.</span>
+
+            {{#if ../../../owner}}
+            <div class="item-controls">
+              <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+              <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+              {{/if}}
+          </li>
+          {{#each pack.carrying as |item i|}}
+          <li class="item level-three-item" data-item-id="{{item.id}}">
+            <div class="item-name item-dropdown">
+              <div class="item-image" style="background-image: url({{item.img}})"></div>
+              <a>{{item.name}}</a>
+            </div>
 
 
-      <!-- CONTAINERS (LEVEL 4) -->
-      <!-- Packs Inside (Copy from Here)-->
-      {{#each pack.packsInside as |pack p|}}
-      <ol style="margin-left: 10px" class="inventory-list container-lists">
-        <li class="inventory-header item inventory-container level-four" inventory-type="container"  root="{{rootPack.id}}"
-          data-item-id="{{pack.id}}">
-          <div class="item-name" data-item-id="{{pack.id}}">
-            <div class="item-image" style="background-image: url({{pack.img}})"></div>
-            <div class="item-label">{{pack.name}}</div>
-          </div>
+            <a class="item-quantity">{{item.data.quantity.value}}</a>
+            <span class="item-weight">{{item.encumbrance}}</span>
+            {{#if ../../../../owner}}
+            <div class="item-controls">
+              <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+              <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+            </div>
+            {{/if}}
+          </li>
+          {{/each}}
+          <!-- Insert Pack Inside Code here-->
 
           <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
 
@@ -381,7 +395,21 @@
             <a>{{item.name}}</a>
           </div>
 
-          <div class="item-type">{{item.type}}</div>
+          <span class="item-weight">Enc.</span>
+          <span class="item-quantity">Qty.</span>
+
+              {{#if ../../../../owner}}
+              <div class="item-controls">
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+                {{/if}}
+            </li>
+            {{#each pack.carrying as |item i|}}
+            <li class="item level-four-item" data-item-id="{{item.id}}">
+              <div class="item-name item-dropdown">
+                <div class="item-image" style="background-image: url({{item.img}})"></div>
+                <a>{{item.name}}</a>
+              </div>
 
           <span class="item-quantity">{{item.data.quantity.value}}</span>
           <span class="item-weight">{{item.encumbrance}}</span>
@@ -396,6 +424,16 @@
       </ol>
       {{/each}}
 
+              <a class="item-quantity">{{item.data.quantity.value}}</a>
+              <span class="item-weight">{{item.encumbrance}}</span>
+              {{#if ../../../../../owner}}
+              <div class="item-controls">
+                <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+                {{/if}}
+            </li>
+            {{/each}}
+            <!-- Insert Pack Inside Code here-->
 
       <!-- CONTAINERS (LEVEL 5) -->
       <!-- Packs Inside (Copy from Here)-->
@@ -426,32 +464,42 @@
           {{/if}}
         {{/if}}
 
-          <span class="item-quantity">Qty.</span>
           <span class="item-weight">Enc.</span>
-          {{#if ../../../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
-            {{/if}}
-        </li>
-        {{#each pack.carrying as |item i|}}
-        <li class="item level-five-item" data-item-id="{{item.id}}">
-          <div class="item-name item-dropdown">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a>{{item.name}}</a>
-          </div>
+          <span class="item-quantity">Qty.</span>
+
+                  {{#if ../../../../../owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+                    {{/if}}
+                </li>
+                {{#each pack.carrying as |item i|}}
+                <li class="item level-five-item" data-item-id="{{item.id}}">
+                  <div class="item-name item-dropdown">
+                    <div class="item-image" style="background-image: url({{item.img}})"></div>
+                    <a>{{item.name}}</a>
+                  </div>
 
           <div class="item-type">{{item.type}}</div>
 
-          <span class="item-quantity">{{item.data.quantity.value}}</span>
-          <span class="item-weight">{{item.encumbrance}}</span>
-          {{#if ../../../../../../owner}}
-          <div class="item-controls">
-            <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
-          </div>
-          {{/if}}
-        </li>
+                  <a class="item-quantity">{{item.data.quantity.value}}</a>
+                  <span class="item-weight">{{item.encumbrance}}</span>
+                  {{#if ../../../../../../owner}}
+                  <div class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-remove" title="Remove Item"><i class="fas fa-chevron-up"></i></a>
+                  </div>
+                  {{/if}}
+                </li>
+                {{/each}}
+                <!-- Insert Pack Inside Code here-->
+              </ol>
+              {{/each}}
+
+          </ol>
+          {{/each}}
+
+        </ol>
         {{/each}}
         <!-- Insert Pack Inside Code here-->
       </ol>
