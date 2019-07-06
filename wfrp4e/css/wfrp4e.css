@@ -3327,7 +3327,6 @@ input[type="text"], input[type="password"] {
         }       
           .wfrp4e .inventory .encumbrance-bar {
             background: none;
-            box-shadow: 0px 0px 8px inset #3e6577;
             height: 15px;
             width: 100%;
             margin: 1px 0px 0px 0px;
@@ -3337,6 +3336,26 @@ input[type="text"], input[type="password"] {
             display: inline-block;
             position: relative;
             left: 0px;
+          }
+          .wfrp4e .inventory .encumbrance-bar > * {
+            text-align: center;
+          }
+
+
+          .wfrp4e .inventory .max-encumbrance {
+            box-shadow: 0px 0px 8px inset #831c0c
+          }
+
+          .wfrp4e .inventory .high-encumbrance {
+            box-shadow: 0px 0px 8px inset #83530c
+          }
+
+          .wfrp4e .inventory .partial-encumbrance {
+            box-shadow: 0px 0px 8px inset #001a29
+          }
+          .wfrp4e .inventory .no-encumbrance {
+            box-shadow: 0px 0px 8px inset #3e6577;
+            
           }
 
         .wfrp4e .inventory .inventory-list .item:not(.inventory-header) {

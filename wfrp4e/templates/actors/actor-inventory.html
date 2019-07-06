@@ -2,7 +2,21 @@
   
   <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
   <div class="encumbrance">
-    <span class="encumbrance-bar" style="width:{{actor.encumbrance.pct}}%"></span>
+    {{#if actor.encumbrance.maxEncumbered}}
+    <span class="encumbrance-bar max-encumbrance" style="width:{{actor.encumbrance.pct}}%">Max Encumbered: {{actor.encumbrance.penalty}}</span>
+
+    {{else}}
+      {{#if actor.encumbrance.veryEncumbered}}
+      <span class="encumbrance-bar high-encumbrance" style="width:{{actor.encumbrance.pct}}%">Very Encumbered: {{actor.encumbrance.penalty}}</span>
+      {{else}}
+      {{#if actor.encumbrance.encumbered}}
+        <span class="encumbrance-bar partial-encumbrance" style="width:{{actor.encumbrance.pct}}%">Encumbered: {{actor.encumbrance.penalty}}</span>
+        {{else}}
+        <span class="encumbrance-bar no-encumbrance" style="width:{{actor.encumbrance.pct}}%">{{actor.encumbrance.penalty}}</span>
+
+        {{/if}}
+      {{/if}}
+    {{/if}}
   </div>
 
   <div class="inventory-type">

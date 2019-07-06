@@ -463,6 +463,12 @@ CONFIG.mutationTypes = {
   "mental" : "Mental"
 }
 
+CONFIG.encumbrancePenalties = {
+"encumbered" : "–1 Movement (min: 3), –10 Agility, +1 Travel Fatigue",
+"veryEncumbered" : "–2 Movement (min: 2), –20 Agility (min: 10), +2 Travel Fatigue",
+"maxEncumbered" : "You're not moving.",
+}
+
 class DiceWFRP {
   /**
    * A standardized helper function for managing preparing, rolling, and displaying WFRP tests"
@@ -2792,11 +2798,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       enc.pct = Math.min(enc.value * 100 / enc.max, 100);
       enc.state = enc.value / enc.max;
       if (enc.state > 3)
+      {
         enc["maxEncumbered"] = true
+        enc.penalty = CONFIG.encumbrancePenalties["maxEncumbered"];
+      }
       else if (enc.state > 2)
-        enc["veryEncumbered"] = true
+        {
+          enc["veryEncumbered"] = true
+          enc.penalty = CONFIG.encumbrancePenalties["veryEncumbered"];
+        }
       else if (enc.state > 1)
-        enc["encumbered"] = true;
+      {
+        enc["encumbered"] = true
+        enc.penalty = CONFIG.encumbrancePenalties["encumbered"];
+      }
       else
         enc["notEncumbered"] = true;
       actorData.encumbrance = enc;
