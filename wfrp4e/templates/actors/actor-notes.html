@@ -48,100 +48,96 @@
   </div>
 
 
-  <div class="row">
+  <ol class="inventory-list psychology-list">
+    <li class="inventory-header item">
+      <span>Pyschology</span>
+      {{#if owner}}
+      <div id="psychology-add" class="item-controls">
+        <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+      {{/if}}
+    </li>
+    {{#each actor.psychology as |psych p|}}
+    <li class="item" data-item-id="{{psych.id}}">
+      <div class="item-name">
+        <a>{{psych.name}}</a>
+      </div>
 
-    <ol class="inventory-list psychology">
-      <li class="inventory-header item">
-        <span>Pyschology</span>
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-            Add</a>
-        </div>
-        {{/if}}
-      </li>
-      {{#each actor.psychology as |psych p|}}
-      <li class="item" data-item-id="{{psych.id}}">
-        <div class="item-name">
-          <a>{{psych.name}}</a>
-        </div>
-
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-
-    </ol>
-
-  </div>
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
 
 
-  <div>
-    <ol class="inventory-list mutation-list">
-      <li id="mutation-header" class="inventory-header item mutation-header">
-        <span id="mutation-name" class="item-name"></span>
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="mutation"><i class="fas fa-plus"></i>
-            Add</a>
-        </div>
-        {{/if}}
-      </li>
-      {{#each actor.mutations as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
-        <div class="item-name currency-name item-dropdown">
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a>{{item.name}}</a>
-        </div>
+  <ol class="inventory-list mutation-list">
+    <li id="mutation-header" class="inventory-header item mutation-header">
+      <span id="mutation-name" class="item-name">Corruption & Mutation</span>
+      {{#if owner}}
+      <div id="mutation-add" class="item-controls">
+        <a class="item-control item-create" title="Create Item" data-type="mutation">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+      {{/if}}
+    </li>
+    {{#each actor.mutations as |item i|}}
+    <li class="item" data-item-id="{{item.id}}">
+      <div class="item-name currency-name item-dropdown">
+        <div class="item-image" style="background-image: url({{item.img}})"></div>
+        <a>{{item.name}}</a>
+      </div>
 
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-    </ol>
-  </div>
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
 
 
-  <div>
-    <ol class="inventory-list disease-list">
-      <li id="disease-header" class="inventory-header item disease-header">
-        <span id="disease-name" class="item-name"></span>
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="disease"><i class="fas fa-plus"></i>
-            Add</a>
-        </div>
-        {{/if}}
-      </li>
-      {{#each actor.diseases as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
-        <div class="item-name currency-name item-dropdown">
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a>{{item.name}}</a>
-        </div>
+  <ol class="inventory-list disease-list">
+    <li id="disease-header" class="inventory-header item disease-header">
+      <span id="disease-name" class="item-name">Disease</span>
+      {{#if owner}}
+      <div id="disease-add" class="item-controls">
+        <a class="item-control item-create" title="Create Item" data-type="disease">
+          <i class="fas fa-plus">
 
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-    </ol>
-  </div>
+          </i>
+        </a>
+      </div>
+      {{/if}}
+    </li>
+    {{#each actor.diseases as |item i|}}
+    <li class="item" data-item-id="{{item.id}}">
+      <div class="item-name currency-name item-dropdown">
+        <div class="item-image" style="background-image: url({{item.img}})"></div>
+        <a>{{item.name}}</a>
+      </div>
+
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </li>
+    {{/each}}
+  </ol>
 
 
   <div class="biography">
     <h3>GM Notes</h3>
     {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
   </div>
-<div>
+  <div>
