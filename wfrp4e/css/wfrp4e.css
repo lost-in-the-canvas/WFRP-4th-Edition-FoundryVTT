@@ -3273,6 +3273,7 @@ input[type="text"], input[type="password"] {
           height: 360px;
           margin-top: 0px;
           padding-bottom: 5px;
+          /* margin-left: calc(100vw - 100%); */
         }  
         .wfrp4e .inventory > ol {
           list-style: none;
@@ -3288,6 +3289,44 @@ input[type="text"], input[type="password"] {
           overflow-y: hidden;
         }
 
+        .wfrp4e .inventory .encumbrance {
+          margin-top: 6px;
+          border-radius: 3px;
+          display: block;
+          width: 493px;
+          border: 1px solid #736953a6;
+          box-shadow: 0px 0px 1px inset black;
+          background: none;
+          height: 19px;
+        }       
+          .wfrp4e .inventory .encumbrance .encumbrance-label {
+            text-align: right;
+            padding: 0px;
+            padding-top: 4px;
+            margin: 0px;
+            position: relative;
+            top: -3px;
+            left: 414px;
+            font-family: CaslonPro;
+            font-weight: 500;
+            font-size: 14px;
+            color: #464331;
+            width: 70px;
+            height: 17px;
+            display: inline-block;
+          } 
+          .wfrp4e .inventory .encumbrance-bar {
+            background: none;
+            box-shadow: 0px 0px 8px inset #3e6577;
+            height: 15px;
+            width: 90px;
+            margin: 1px;
+            border: none;
+            border-radius: 3px;
+            display: inline-block;
+            position: relative;
+            left: -73px;
+          }
 
         .wfrp4e .inventory .inventory-list .item:not(.inventory-header) {
           display: flex;
@@ -3499,13 +3538,12 @@ input[type="text"], input[type="password"] {
           border-left: none;
           border-right: none;
         }
-        .wfrp4e.actor .inventory .inventory-list .container-lists {
+        .wfrp4e.actor .inventory .inventory-list.container-lists {
           margin-right: 0px;
         }
-        
-
-  
-
+        .wfrp4e.actor .inventory .inventory-list.container-lists .item:last-child {
+          background:blue;
+        }
 
 
         /* CONTAINER - LEVEL 1 */
@@ -6010,28 +6048,7 @@ font-weight: bold;
   border-right: none;
 }
 
-/* Encumbrance Bar */
-.encumbrance {
-  background: rgba(0, 0, 0, 0.1);
-  height: 12px;
-  margin-top: 5px;
-  border: 1px solid #111;
-  border-radius: 3px;
-}
-.encumbrance .encumbrance-bar {
-  background: #782e22;
-  height: 8px;
-  margin: 1px;
-  border: 1px solid #ff6400;
-  border-radius: 3px;
-}
-.encumbrance .encumbrance-label {
-  float: right;
-  text-align: right;
-  padding-right: 5px;
-  font-size: 12px;
-  line-height: 12px;
-}
+
 
 /* INVENTORY LIST - USED FOR ANY LIST INVOLVING ITEMS (WEAPONS, ARMOR, TALENTS, SPELLS, ETC. (Not skills)*/
 /* Inventory List */
