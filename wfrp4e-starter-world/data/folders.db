@@ -3,6 +3,7 @@
 {"_id":"0UVMGD6kUlOonUD8","name":"Road Warden","type":"Item","parent":"my4FvSUiD2BuEAEn","sort":300000}
 {"_id":"0WHiQsohIJe1LdVZ","name":"Slayer","type":"Item","parent":"Z6AZPqCv92fnoCS2","sort":400000}
 {"_id":"0tuqaFBjxDZc1KYJ","name":"Physician","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":500000}
+{"_id":"1Pfz35POlJFLPP2B","name":"Physical","type":"Item","parent":"v6A6IaWm5P8IuCrP","sort":13200000,"color":""}
 {"_id":"1VT5mxR03XhWgr9D","name":"Charlatan","type":"Item","parent":"iomrYBt356ob6Nk7","sort":600000}
 {"_id":"1w1PNu0u0r4vorit","name":"Miracles","type":"Item","parent":"JtxVVZqTEK9ZRPZ8","sort":700000}
 {"_id":"31nJJ2lZ0mxZwmZX","name":"Prosthetics","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":800000}
@@ -49,6 +50,7 @@
 {"_id":"Mgv42GltsRfPeAuW","name":"Diseases","type":"Item","parent":null,"sort":4900000}
 {"_id":"N1YH5FM92pUfxB89","name":"Ranged","type":"Item","parent":"R2h7YszdQ9x1UDSE","sort":5000000}
 {"_id":"N5xBlFhdPsEcaTwy","name":"Equipment","type":"Item","parent":null,"sort":5100000}
+{"_id":"NkuvsdJgskGQH5u3","name":"Mental","type":"Item","parent":"v6A6IaWm5P8IuCrP","sort":13300000,"color":""}
 {"_id":"O9ckMyxbKExyEDet","name":"Nun","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":5200000}
 {"_id":"OnlqCE6AbXr2W1n1","name":"Witch","type":"Item","parent":"iomrYBt356ob6Nk7","sort":5300000}
 {"_id":"PDkeccIK9fnL0QOD","name":"Manann","type":"Item","parent":"1w1PNu0u0r4vorit","sort":5400000}

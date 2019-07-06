@@ -315,6 +315,7 @@ CONFIG.armorTypes = {
   "boiledLeather": "Boiled Leather",
   "mail": "Mail",
   "plate": "Plate",
+  "other": "Other"
 };
 
 // Range Test Modifiers
@@ -351,6 +352,7 @@ CONFIG.difficultyLabels = {
  
 // Trapping Availability
  CONFIG.availability = {
+   "None": "-",
    "common": "Common",
    "scarce": "Scarce",
    "rare": "Rare",
@@ -2621,6 +2623,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type === "mutation")
         {
           mutations.push(i);
+          if (i.data.modifiesSkills.value)
+            allPenalties += i.data.modifier.value;
         }
   
         else if (i.type === "money")
@@ -2695,7 +2699,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         actorData.penaltyOverflow = true;
         let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
         let injuryPenalties = injuries.reduce(function (prev, cur) {
-          return prev += cur.data.penalty.value
+          return prev += cur.data.penalty.value + " "
+        }, "");
+        let mutationPenalties = mutations.reduce(function (prev, cur) {
+          if (cur.data.modifiesSkills.value)
+            return prev += cur.data.modifier.value + " "
+          else
+            return prev;
         }, "");
         let otherPenalties = this.actor.data.data.status.penalties.value; 
         let allPenaltiesOverflow = {};
@@ -2705,8 +2715,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (injuryPenalties)
           allPenaltiesOverflow["Injury"] = injuryPenalties;
 
+        if (mutationPenalties)
+          allPenaltiesOverflow["Mutation"] = mutationPenalties;
+
         if (otherPenalties)
           allPenaltiesOverflow["Other"] = otherPenalties;
+
+
 
         allPenalties = allPenaltiesOverflow;
 
@@ -2719,6 +2734,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.talents = talents;
       actorData.traits = traits;
       actorData.weapons = weapons;
+      actorData.diseases = diseases;
+      actorData.mutations = mutations;
       actorData.armour = armour;
       actorData.allPenalties = allPenalties;
       actorData.AP = AP;
