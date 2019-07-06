@@ -108,12 +108,14 @@
   <ol class="inventory-list disease-list">
     <li id="disease-header" class="inventory-header item disease-header">
       <span id="disease-name" class="item-name">Disease</span>
+
+      <span id="disease-attr">Incubation</span>
+      <span id="disease-attr">Duration</span>
+
       {{#if owner}}
       <div id="disease-add" class="item-controls">
         <a class="item-control item-create" title="Create Item" data-type="disease">
-          <i class="fas fa-plus">
-
-          </i>
+          <i class="fas fa-plus"></i>
         </a>
       </div>
       {{/if}}
@@ -125,6 +127,11 @@
         <a>{{item.name}}</a>
       </div>
 
+      
+      <span id="disease-attr">Incubation</span>
+      <span id="disease-attr">Duration</span>
+
+      
       {{#if ../owner}}
       <div class="item-controls">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -136,8 +143,8 @@
   </ol>
 
 
-  <div class="biography">
-    <h3>GM Notes</h3>
+  <div class="gmnotes">
+    <h2>GM Notes</h2>
     {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
   </div>
   <div>

@@ -3366,6 +3366,7 @@ input[type="text"], input[type="password"] {
         #currency-header {
           margin-top: 6px;
         }
+          #non-toggle-name,
           #currency-name {
             display: block;
             flex: none;
@@ -3384,6 +3385,7 @@ input[type="text"], input[type="password"] {
             position: relative;
             left: 0px;
           }
+          .wfrp4e .inventory .item .non-toggle-name,
           .wfrp4e .inventory .item .currency-name {
             flex: none;
             flex-basis: 357px;
@@ -3601,7 +3603,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 405px;
+            left: 316px;
             height: fit-content;
             /* background: #4192da; */
             vertical-align: middle;
@@ -3611,7 +3613,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 319px;
+            left: 404px;
             height: fit-content;
             /* background: #429458; */
             vertical-align: middle;
@@ -3695,7 +3697,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 352px;
+            left: 394px;
             height: fit-content;
             /* background: #429458; */
             vertical-align: middle;
@@ -3704,8 +3706,8 @@ input[type="text"], input[type="password"] {
           .wfrp4e .inventory .inventory-container.level-two .item-quantity {
             width: 40px;
             position: relative;
-            top: 10px;
-            left: -2px;
+            top: -24px;
+            left: 306px;
             height: fit-content;
             /* background: #4192da; */
             vertical-align: middle;
@@ -3792,7 +3794,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 342px;
+            left: 384px;
             height: fit-content;
             /* background: #429458; */
             vertical-align: middle;
@@ -3801,8 +3803,8 @@ input[type="text"], input[type="password"] {
           .wfrp4e .inventory .inventory-container.level-three .item-quantity {
             width: 40px;
             position: relative;
-            top: 10px;
-            left: -2px;
+            top: -24px;
+            left: 296px;
             height: fit-content;
             /* background: #4192da; */
             vertical-align: middle;
@@ -3889,7 +3891,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 332px;
+            left: 374px;
             height: fit-content;
             /* background: #429458; */
             vertical-align: middle;
@@ -3898,8 +3900,8 @@ input[type="text"], input[type="password"] {
           .wfrp4e .inventory .inventory-container.level-four .item-quantity {
             width: 40px;
             position: relative;
-            top: 10px;
-            left: -2px;
+            top: -24px;
+            left: 286px;
             height: fit-content;
             /* background: #4192da; */
             vertical-align: middle;
@@ -3986,7 +3988,7 @@ input[type="text"], input[type="password"] {
             width: 40px;
             position: relative;
             top: -24px;
-            left: 322px;
+            left: 364px;
             height: fit-content;
             /* background: #429458; */
             vertical-align: middle;
@@ -3995,8 +3997,8 @@ input[type="text"], input[type="password"] {
           .wfrp4e .inventory .inventory-container.level-five .item-quantity {
             width: 40px;
             position: relative;
-            top: 10px;
-            left: -2px;
+            top: -24px;
+            left: 276px;
             height: fit-content;
             /* background: #4192da; */
             vertical-align: middle;
@@ -4451,7 +4453,8 @@ input[type="text"], input[type="password"] {
           overflow-y: hidden;
         }
 
-        .wfrp4e .notes-section .biography {
+        .wfrp4e .notes-section .gmnotes,
+          .wfrp4e .notes-section .biography {
           height: 160px;
           width: 493px;
           background-color: #9e856a0d;
@@ -4460,6 +4463,7 @@ input[type="text"], input[type="password"] {
           padding: 0px;
           margin-top: 6px;
         } 
+        .wfrp4e .notes-section .gmnotes > h2,
           .wfrp4e .notes-section .biography > h2 {
             font-family: CaslonAntique;
             font-size: 16px;
@@ -4481,6 +4485,7 @@ input[type="text"], input[type="password"] {
             flex-direction: row;
             padding-left: 4px;
           }
+        .wfrp4e .notes-section .gmnotes .editor ,
           .wfrp4e .notes-section .biography .editor {
             height: 137px;
             border: 0px #0000ff00 solid;
@@ -4713,12 +4718,19 @@ input[type="text"], input[type="password"] {
           }
           #disease-add {
             position: relative;
-            left: 435px;
+            left: 301px;
             top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
             font-size: 11px;
             color: #464331a1;
+          }
+
+          #disease-attr {
+            margin-left: 10px;
+            margin-right: 10px;
+            position: relative;
+            left: 250px;
           }
 
       .wfrp4e.sheet ::-webkit-scrollbar-button {

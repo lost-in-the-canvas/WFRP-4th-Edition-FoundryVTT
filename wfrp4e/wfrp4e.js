@@ -284,7 +284,13 @@ CONFIG.qualityDescriptions = {
   "shield": "If you use this weapon to oppose an incoming attack, you count as having (Rating) Armour Points on all locations of your body. If your weapon has a Shield Rating of 2 or higher (so: Shield 2 or Shield 3), you may also Oppose incoming missile shots in your Line of Sight.",
   "trapblade": "Some weapons are designed to trap other weapons, and sometimes even break them. If you score a Critical when defending against an attack from a bladed weapon you can choose to trap it instead of causing a Critical Hit. If you choose to do this, enact an Opposed Strength Test, adding your SL from the previous Melee Test. If you succeed, your opponent drops the blade as it is yanked free. If you score an Astounding Success, you not only disarm your opponent, but the force of your maneuver breaks their blade unless it has the Unbreakable quality. If you fail the Test, your opponent frees the blade and may fight on as normal.",
   "unbreakable": "The weapon is exquisitely well-made or constructed from an especially strong material. Under almost all circumstances, this weapon will not break, corrode, or lose its edge.",
-  "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades."
+  "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades.",
+  "flexible": "Flexible",
+  "impenetrable": "Impenetrable",
+  "durable": "Durable",
+  "fine": "Fine",
+  "lightweight": "Lightweight",
+  "practical": "Practical",
 };
 
 // Weapon Flaw Descriptions (used in dropdown info)
@@ -294,13 +300,19 @@ CONFIG.flawDescriptions = {
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
   "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.",
-  "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat."
+  "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
+  "partial": "Partial",
+  "weakpoints": "Weakpoints",
+  "ugly": "Ugly",
+  "shoddy": "Shoddy",
+  "unreliable": "Unreliable",
+  "bulky": "Bulky"
 };
 
 // Armor Qualities
 CONFIG.armorQualities = {
   "flexible": "Flexible",
-  "Impenetrable": "Impenetrable",
+  "impenetrable": "Impenetrable",
 };
 
 // Armor Flaws
@@ -1947,9 +1959,10 @@ class ItemWfrp4e extends Item {
     data.properties.push("Range: " + preparedSpell.range);
     data.properties.push("Target: " + preparedSpell.target);
     data.properties.push("Duration: " + preparedSpell.duration);
-    data.properties.push("Damage: " + preparedSpell.data.damage.value);
+    if (preparedSpell.data.damage.value)
+      data.properties.push("Damage: " + preparedSpell.data.damage.value);
     if (data.magicMissile.value)
-      data.properties.push("Magic Missile");
+      data.properties.push("Magic Missile: +" + eval( this.actor.data.data.characteristics.wp.bonus + preparedSpell.data.damage.value));
     return data;
   }
 
@@ -2498,6 +2511,11 @@ class ActorSheetWfrp4e extends ActorSheet {
           i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
           if (i.data.location.value == 0){
             i.toggleValue = i.data.worn.value || false;
+            if (i.data.worn.value)
+            {
+              i.encumbrance = i.encumbrance - 1;
+              i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+            }
             inventory.armor.items.push(i);
             inventory.armor.show = true;
             totalEnc += i.encumbrance;
@@ -2521,6 +2539,11 @@ class ActorSheetWfrp4e extends ActorSheet {
           i.encumbrance = i.data.encumbrance.value;
   
           if (i.data.location.value == 0){
+          if (i.data.worn.value)
+          {
+            i.encumbrance = i.encumbrance - 1;
+            i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+          }
           totalEnc += i.data.encumbrance.value;
           }
           else{
@@ -2543,6 +2566,11 @@ class ActorSheetWfrp4e extends ActorSheet {
               i.toggleValue = i.data.worn || false;
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
+              if (i.data.worn)
+              {
+                i.encumbrance = i.encumbrance - 1;
+                i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+              }
             }
             else if (i.data.trappingType.value)
             {
@@ -3037,6 +3065,23 @@ class ActorSheetWfrp4e extends ActorSheet {
       await this.actor.updateOwnedItem(spell, true);      
     });
 
+    html.find('.sl-counter').mousedown(async ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      const spell = this.actor.items.find(i => i.id === itemId);
+      switch (event.button)
+      {
+        case 0: 
+        spell.data.cn.SL++;
+        if (spell.data.cn.SL > spell.data.cn.value)
+          spell.data.cn.SL = spell.data.cn.valeu;
+          break;
+        case 2:
+        spell.data.cn.SL = 0;
+        break;
+      }
+      await this.actor.updateOwnedItem(spell, true);      
+    });
+
     html.find('.auto-calc-toggle').mousedown(async ev => {
       let toggle = event.target.attributes["toggle-type"].value;
 
@@ -3190,7 +3235,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
 
         console.log(property);
-        property = property.replace(/,/g, '');
+        property = property.replace(/,/g, '').trim();
         console.log(property);
         
         let propertyKey = "";
