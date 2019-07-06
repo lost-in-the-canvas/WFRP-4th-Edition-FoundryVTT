@@ -1,9 +1,12 @@
 <div class="inventory" data-group="primary" data-tab="inventory">
   
-  <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
+  <div class="encumbrance-header">Encumbrance Counter
+    <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
+  </div>
+  
   <div class="encumbrance">
     {{#if actor.encumbrance.maxEncumbered}}
-    <span class="encumbrance-bar max-encumbrance" style="width:{{actor.encumbrance.pct}}%">Max Encumbered: {{actor.encumbrance.penalty}}</span>
+    <span class="encumbrance-bar max-encumbrance" style="width:{{actor.encumbrance.pct}}%">Max Encumbered! {{actor.encumbrance.penalty}}</span>
 
     {{else}}
       {{#if actor.encumbrance.veryEncumbered}}
@@ -12,7 +15,7 @@
       {{#if actor.encumbrance.encumbered}}
         <span class="encumbrance-bar partial-encumbrance" style="width:{{actor.encumbrance.pct}}%">Encumbered: {{actor.encumbrance.penalty}}</span>
         {{else}}
-        <span class="encumbrance-bar no-encumbrance" style="width:{{actor.encumbrance.pct}}%">{{actor.encumbrance.penalty}}</span>
+        <span class="encumbrance-bar no-encumbrance" style="width:{{actor.encumbrance.pct}}%">Unencumbered: No modifiers {{actor.encumbrance.penalty}}</span>
 
         {{/if}}
       {{/if}}
@@ -477,6 +480,5 @@
     {{/each}}
     {{/if}}
   </div>
-   
-   
-  </div>
+  
+</div>

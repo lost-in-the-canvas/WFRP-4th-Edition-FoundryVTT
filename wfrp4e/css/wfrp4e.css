@@ -3298,65 +3298,88 @@ input[type="text"], input[type="password"] {
           overflow-y: hidden;
         }
 
-        .wfrp4e .inventory .encumbrance-label {
-          text-align: right;
-          padding: 0px;
-          padding-top: 4px;
-          margin: 0px;
-          position: relative;
-          top: 7px;
-          left: 385px;
-          font-family: CaslonPro;
-          font-weight: 500;
-          font-size: 14px;
-          color: #464331;
-          display: inline-block;
-          width: 100px;
-          height: 17px;
-        } 
+
+        .wfrp4e .inventory .encumbrance-header {
+          height: 21px;
+          width: 493px;
+          padding-left: 4px;
+          padding-right: 4px;
+          line-height: 19px;
+          border: 1px solid #736953a6;
+          border-bottom: none;
+          font-family: CaslonAntique;
+          font-weight: 700;
+          font-size: 16px;
+          color: #464331c4;
+          background: none;
+          box-shadow: 0 0 10px #6b3a0f87 inset;
+          overscroll-behavior-x: none;
+          overflow-x: hidden;
+          overscroll-behavior-y: none;
+          overflow-y: hidden;
+          margin-top: 6px;
+        }
+          .wfrp4e .inventory .encumbrance-header .encumbrance-label {
+            text-align: right;
+            padding: 0px;
+            padding-top: 4px;
+            padding-right: 10px;
+            margin: 0px;
+            position: relative;
+            top: 0px;
+            left: 271px;
+            font-family: CaslonPro;
+            font-weight: 500;
+            font-size: 14px;
+            color: #464331;
+            display: inline-block;
+            width: 100px;
+            height: 20px;
+            /* background: red; */
+          } 
         .wfrp4e .inventory .encumbrance {
-          margin-top: -12px;
+          margin-top: 0px;
           padding: 0px 1px 0px 1px;
-          border-radius: 3px;
+          border-radius: 0px;
+          border-top-left-radius: 0px;
+          border-top-right-radius: 0px;
           display: block;
           width: 493px;
           border: 1px solid #736953a6;
           box-shadow: 0px 0px 1px inset black;
           background: none;
-          height: 19px;
+          height: 25px;
         }       
           .wfrp4e .inventory .encumbrance-bar {
             background: none;
-            height: 15px;
+            height: 21px;
             width: 100%;
             margin: 1px 0px 0px 0px;
-            padding: 1px 1px 1px 1px;
+            padding: 4px 1px 1px 6px;
             border: none;
             border-radius: 3px;
             display: inline-block;
             position: relative;
             left: 0px;
+            font-family: CaslonPro;
+            font-size: 14px;
+            font-weight: 500;
+            color: black;
           }
-          .wfrp4e .inventory .encumbrance-bar > * {
-            text-align: center;
-          }
-
-
           .wfrp4e .inventory .max-encumbrance {
-            box-shadow: 0px 0px 8px inset #831c0c
+            box-shadow: 0px 0px 8px inset #8e1300f2;
           }
-
           .wfrp4e .inventory .high-encumbrance {
-            box-shadow: 0px 0px 8px inset #83530c
+            box-shadow: 0px 0px 8px inset #83530c;
           }
-
           .wfrp4e .inventory .partial-encumbrance {
-            box-shadow: 0px 0px 8px inset #001a29
+            box-shadow: 0px 0px 8px inset #366129f2;
           }
           .wfrp4e .inventory .no-encumbrance {
-            box-shadow: 0px 0px 8px inset #3e6577;
+            box-shadow: 0px 0px 8px inset #3c7173;
             
           }
+
 
         .wfrp4e .inventory .inventory-list .item:not(.inventory-header) {
           display: flex;
@@ -4498,7 +4521,7 @@ input[type="text"], input[type="password"] {
           }
 
 
-      /* ================== 8. NOTES TAB SECTION ====================== */
+      /* ================== 7. NOTES TAB SECTION ====================== */
         .wfrp4e .notes-section {
           overflow-y: scroll;
           overscroll-behavior-y: auto;
@@ -4507,14 +4530,14 @@ input[type="text"], input[type="password"] {
           margin-top: 0px;
           padding-bottom: 5px;
         }  
-        .wfrp4e .notes > ol {
+        .wfrp4e .notes-section > ol {
           list-style: none;
           margin: 0;
           padding: 0;
           /* height: calc(100% - 20px); */
           overflow-y: hidden;
         }  
-        .wfrp4e .notes .inventory-list {
+        .wfrp4e .notes-sections .inventory-list {
           overscroll-behavior-x: none;
           overflow-x: hidden;
           overscroll-behavior-y: none;
@@ -4678,7 +4701,27 @@ input[type="text"], input[type="password"] {
           }
 
 
-        .wfrp4e.actor .psychology-list {
+
+        .wfrp4e.actor .notes-section .inventory-list .item:not(.inventory-header) {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          line-height: 17px;
+          padding-left: 4px;
+          width: 493px;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: black;
+          border: 1px solid #736953a6;
+          border-top: none;
+          border-bottom: none;
+          box-shadow: 0px 0px 1px inset black;
+        }
+        
+
+        .wfrp4e.actor .notes-section .psychology-list {
           margin-right: 3px;
           border: 1px solid #736953a6;
           border-top: none;
@@ -4687,7 +4730,7 @@ input[type="text"], input[type="password"] {
           border-bottom: none;
           width: 100%;
         }
-          .wfrp4e.actor .psychology-list .inventory-header {
+          .wfrp4e.actor .notes-section .psychology-list .inventory-header {
             height: 21px;
             width: 493px;
             padding-left: 4px;
@@ -4716,8 +4759,45 @@ input[type="text"], input[type="password"] {
             color: #464331a1;
           }
         
+          .wfrp4e.actor .notes-section .psychology-list .item-name {
+            flex-basis: 452px !important;
+            /* background: blue; */
+          }
+            .wfrp4e.actor .notes-section .psychology-list .item .item-name .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e.actor .notes-section .psychology-list .item .item-name > a {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+          .wfrp4e.actor .notes-section .psychology-list .item .item-controls {
+            position: relative;
+            left: 0px;
+            width: fit-content;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e.actor .notes-section .psychology-list .item .item-controls .item-dropdown {
+            margin-top: 6px;
+            font-size: 11px;
+            padding-right: 4px;
+            padding-top: 0PX;
+            vertical-align: middle;
+            line-height: 10px;
+          }
           
-        .wfrp4e.actor .mutation-list {
+
+        .wfrp4e.actor .notes-section .mutation-list {
           margin-right: 3px;
           border: 1px solid #736953a6;
           border-top: none;
@@ -4726,7 +4806,7 @@ input[type="text"], input[type="password"] {
           border-bottom: none;
           width: 100%;
         }
-          .wfrp4e.actor .mutation-list .inventory-header {
+          .wfrp4e.actor .notes-section .mutation-list .inventory-header {
             height: 21px;
             width: 493px;
             padding-left: 4px;
@@ -4747,16 +4827,53 @@ input[type="text"], input[type="password"] {
           }
           #mutation-add {
             position: relative;
-            left: 352px;
+            left: 416px;
             top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
             font-size: 11px;
             color: #464331a1;
           }
-
-
-        .wfrp4e.actor .disease-list {
+        
+          .wfrp4e.actor .notes-section .mutation-list .item-name {
+            flex-basis: 452px !important;
+            /* background: blue; */
+          }
+            .wfrp4e.actor .notes-section .mutation-list .item .item-name .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e.actor .notes-section .mutation-list .item .item-name > a {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+          .wfrp4e.actor .notes-section .mutation-list .item .item-controls {
+            position: relative;
+            left: 0px;
+            width: fit-content;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e.actor .notes-section .mutation-list .item .item-controls .item-dropdown {
+            margin-top: 6px;
+            font-size: 11px;
+            padding-right: 4px;
+            padding-top: 0PX;
+            vertical-align: middle;
+            line-height: 10px;
+          }
+            
+          
+        .wfrp4e.actor .notes-section .disease-list {
           margin-right: 3px;
           border: 1px solid #736953a6;
           border-top: none;
@@ -4765,7 +4882,7 @@ input[type="text"], input[type="password"] {
           border-bottom: none;
           width: 100%;
         }
-          .wfrp4e.actor .disease-list .inventory-header {
+          .wfrp4e.actor .notes-section .disease-list .inventory-header {
             height: 21px;
             width: 493px;
             padding-left: 4px;
@@ -4784,22 +4901,88 @@ input[type="text"], input[type="password"] {
             overflow-y: hidden;
             margin-top: 6px;
           }
+          #disease-attr-incubation {
+            margin-left: 10px;
+            margin-right: 10px;
+            position: relative;
+            left: -3px;
+            top: 0px;
+          }
+          #disease-attr-duration {
+            margin-left: 10px;
+            margin-right: 10px;
+            position: relative;
+            left: 4px;
+            top: 0px;
+          }
           #disease-add {
             position: relative;
             left: 301px;
-            top: 1px;
+            top: -18px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
             font-size: 11px;
             color: #464331a1;
           }
-
-          #disease-attr {
-            margin-left: 10px;
-            margin-right: 10px;
-            position: relative;
-            left: 250px;
+        
+          .wfrp4e.actor .notes-section .disease-list .item-name {
+            flex-basis: 304px !important;
+            /* background: blue; */
           }
+            .wfrp4e.actor .notes-section .disease-list .item .item-name .item-image {
+              flex: 0 0 30px;
+              margin-right: 4px;
+              background-size: 30px;
+              background-repeat: no-repeat;
+              /* max-height: 33px; */
+              min-height: 30px;
+              margin-top: 2px;
+              margin-bottom: 2px;
+            }
+            .wfrp4e.actor .notes-section .disease-list .item .item-name > a {
+              vertical-align: middle;
+              margin-right: 6px;
+              padding-top: 10px;
+            }
+          .wfrp4e.actor .notes-section .disease-list .incubation {
+            flex: none;
+            flex-basis: 65px;
+            flex-shrink: 0;
+            margin-right: 9px;
+            line-height: 20px;
+            text-align: center;
+            line-height: 16px;
+            padding-top: 10px;
+          }
+          .wfrp4e.actor .notes-section .disease-list .duration {
+            flex: none;
+            flex-basis: 65px;
+            flex-shrink: 0;
+            margin-right: 9px;
+            line-height: 20px;
+            text-align: center;
+            line-height: 16px;
+            padding-top: 10px;
+          }
+          .wfrp4e.actor .notes-section .disease-list .item .item-controls {
+            position: relative;
+            left: 0px;
+            width: fit-content;
+            top: 9px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+          }
+          .wfrp4e.actor .notes-section .disease-list .item .item-controls .item-dropdown {
+            margin-top: 6px;
+            font-size: 11px;
+            padding-right: 4px;
+            padding-top: 0PX;
+            vertical-align: middle;
+            line-height: 10px;
+          }
+
+
 
       .wfrp4e.sheet ::-webkit-scrollbar-button {
         height: 18px;
