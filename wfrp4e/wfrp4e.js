@@ -1,6 +1,54 @@
-CONFIG.initiative = {
-  decimals: 2
-}
+CONFIG.statusEffects = 
+["systems/wfrp4e/icons/conditions/bleed1.png",
+"systems/wfrp4e/icons/conditions/bleed2.png",
+"systems/wfrp4e/icons/conditions/bleed3.png",
+"systems/wfrp4e/icons/conditions/bleed4.png",
+//"systems/wfrp4e/icons/conditions/bleed5.png",
+"systems/wfrp4e/icons/conditions/poison1.png",
+"systems/wfrp4e/icons/conditions/poison2.png",
+"systems/wfrp4e/icons/conditions/poison3.png",
+"systems/wfrp4e/icons/conditions/poison4.png",
+//"systems/wfrp4e/icons/conditions/poison5.png",
+"systems/wfrp4e/icons/conditions/ablaze1.png",
+"systems/wfrp4e/icons/conditions/ablaze2.png",
+"systems/wfrp4e/icons/conditions/ablaze3.png",
+"systems/wfrp4e/icons/conditions/ablaze4.png",
+//"systems/wfrp4e/icons/conditions/ablaze5.png",
+"systems/wfrp4e/icons/conditions/deafened1.png",
+"systems/wfrp4e/icons/conditions/deafened2.png",
+"systems/wfrp4e/icons/conditions/deafened3.png",
+"systems/wfrp4e/icons/conditions/deafened4.png",
+//"systems/wfrp4e/icons/conditions/deafened5.png",
+"systems/wfrp4e/icons/conditions/stunned1.png",
+"systems/wfrp4e/icons/conditions/stunned2.png",
+"systems/wfrp4e/icons/conditions/stunned3.png",
+"systems/wfrp4e/icons/conditions/stunned4.png",
+//"systems/wfrp4e/icons/conditions/stunned5.png",
+"systems/wfrp4e/icons/conditions/entangled1.png",
+"systems/wfrp4e/icons/conditions/entangled2.png",
+"systems/wfrp4e/icons/conditions/entangled3.png",
+"systems/wfrp4e/icons/conditions/entangled4.png",
+//"systems/wfrp4e/icons/conditions/entangled5.png",
+"systems/wfrp4e/icons/conditions/fatigued1.png",
+"systems/wfrp4e/icons/conditions/fatigued2.png",
+"systems/wfrp4e/icons/conditions/fatigued3.png",
+"systems/wfrp4e/icons/conditions/fatigued4.png",
+//"systems/wfrp4e/icons/conditions/fatigued5.png",
+"systems/wfrp4e/icons/conditions/blinded1.png",
+"systems/wfrp4e/icons/conditions/blinded2.png",
+"systems/wfrp4e/icons/conditions/blinded3.png",
+"systems/wfrp4e/icons/conditions/blinded4.png",
+//"systems/wfrp4e/icons/conditions/blinded5.png"
+"systems/wfrp4e/icons/conditions/broken1.png",
+"systems/wfrp4e/icons/conditions/broken2.png",
+"systems/wfrp4e/icons/conditions/broken3.png",
+"systems/wfrp4e/icons/conditions/broken4.png",
+//"systems/wfrp4e/icons/conditions/broken5.png"
+"systems/wfrp4e/icons/conditions/grappling.png",
+"systems/wfrp4e/icons/conditions/prone.png",
+"systems/wfrp4e/icons/conditions/fear.png",
+"systems/wfrp4e/icons/conditions/surprised.png",
+]
 
 // Species
 CONFIG.species = {
@@ -12,20 +60,67 @@ CONFIG.species = {
   "gnome": "Gnome"
 };
 
-//status tiers
+// Status Tiers
 CONFIG.statusTiers = {
   "g" : "Gold",
   "s" : "Silver",
   "b" : "Brass"
 };
 
-
-// Weapon Types
-CONFIG.weaponTypes = {
-  "melee" : "Melee Weapon",
-  "ranged" : "Ranged Weapon",
-  "both" : "Both"
+// Characteristic Names
+CONFIG.characteristics = {
+  "ws": "Weapon Skill",
+  "bs": "Ballistic Skill",
+  "s": "Strength",
+  "t": "Toughness",
+  "i": "Initiative",
+  "ag": "Agility",
+  "dex": "Dexterity",
+  "int": "Intelligence",
+  "wp": "Willpower",
+  "fel": "Fellowship"
 };
+
+// Characteristic Abbreviations
+CONFIG.characteristicsAbbrev = {
+  "ws": "WS",
+  "bs": "BS",
+  "s": "S",
+  "t": "T",
+  "i": "I",
+  "ag": "Ag",
+  "dex": "Dex",
+  "int": "Int",
+  "wp": "WP",
+  "fel": "Fel"
+};
+
+CONFIG.skillTypes = {
+  "bsc" : "Basic",
+  "adv" : "Advanced"
+};
+
+CONFIG.skillGroup = {
+  "isSpec" : "Is Specialization",
+  "noSpec" : "Not Specialization"
+};
+
+CONFIG.talentMax = {
+  "1":"1",
+  "2":"2",
+  "none":"None",
+  "ws":" Weapon Skill Bonus",
+  "bs":"Ballistic Skill Bonus",
+  "s": "Strength Bonus",
+  "t": "Toughness Bonus",
+  "i": "Initiative Bonus",
+  "ag": "Agility Bonus",
+  "dex": "Dexterity Bonus",
+  "int": "Intelligence Bonus",
+  "wp": "Willpower Bonus",
+  "fel": "Fellowship Bonus"
+}
+
 
 // Weapon Groups
 CONFIG.weaponGroups = {
@@ -67,7 +162,7 @@ CONFIG.groupToType = {
   "throwing": "Ranged",
 };
 
-// Weapon Groups
+// Weapon Group Descriptions
 CONFIG.weaponGroupDescriptions = {
   "basic": "Basic",
   "cavalry": "Cavalry weapons are assumed to be used when mounted. When not used from horse-back, all two-handed weapons in the Cavalry Weapon Group also count as Two-Handed weapons. Single-handed Cavalry weapons are not normally used when unmounted.",
@@ -86,6 +181,28 @@ CONFIG.weaponGroupDescriptions = {
   "sling": "Sling",
   "throwing": "Thrown weapons are relatively simple to use. You can attempt a Ranged (Throwing) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
 };
+
+// Weapon Reach
+CONFIG.weaponReaches={
+  "personal":"Personal",
+  "vshort":"Very Short",
+  "short":"Short",
+  "average": "Average",
+  "long":"Long",
+  "vLong":"Very Long",
+  "massive":"Massive",
+ }
+
+ // Weapon reach descriptions
+ CONFIG.reachDescription={
+  "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
+  "vshort":"Less than a foot in length.",
+  "short":"Up to 2 feet in length.",
+  "average": "Up to 3 feet long.",
+  "long":"Up to 6 feet long.",
+  "vLong":"Up to 10 feet in length; can Engage enemies up to 4 yards away, rather than just 2.",
+  "massive":"Anything over 10 feet long; can Engage enemies up to 6 yards away, rather than just 2",
+ }
 
 // Ammo Groups
 CONFIG.ammunitionGroups = {
@@ -146,7 +263,7 @@ CONFIG.weaponFlaws = {
 };
 
 
-// Weapon Qualities
+// Weapon Quality Descriptions (Used in dropdown info)
 CONFIG.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
   "blackpowder": "The crack of gunfire followed by gouts of smoke and confusioncan be terrifying. If you are targeted by a Blackpowder weapon,you must pass an Average (+20) Cool Test or take a BrokenCondition, even if the shot misses.",
@@ -170,7 +287,7 @@ CONFIG.qualityDescriptions = {
   "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades."
 };
 
-// Weapon Flaws
+// Weapon Flaw Descriptions (used in dropdown info)
 CONFIG.flawDescriptions = {
   "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including an 9 on either 10s or units die results in a Fumble (see Chapter 5: Rules for more on Fumbles).",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
@@ -200,18 +317,7 @@ CONFIG.armorTypes = {
   "plate": "Plate",
 };
 
-
-CONFIG.weaponReaches={
- "personal":"Personal",
- "vshort":"Very Short",
- "short":"Short",
- "average": "Average",
- "long":"Long",
- "vLong":"Very Long",
- "massive":"Massive",
-}
-
-
+// Range Test Modifiers
 CONFIG.rangeModifiers={
   "Point Blank" : "Easy (+40)",
   "Short Range":"Average (+20)",
@@ -220,6 +326,7 @@ CONFIG.rangeModifiers={
   "Extreme": "Very Hard (-30)",
  }
 
+// Difficulty Modifiers
 CONFIG.difficultyModifiers = {
  "veasy" : 60,
  "easy" : 40 , 
@@ -229,6 +336,8 @@ CONFIG.difficultyModifiers = {
  "hard" : -20,
  "vhard": -30
 }
+
+// Difficulty Labels
 CONFIG.difficultyLabels = {
 
  "veasy" :"Very Easy (+60)",
@@ -240,16 +349,7 @@ CONFIG.difficultyLabels = {
  "vhard":"Very Hard (-30)"
 }
  
-CONFIG.reachDescription={
-  "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
-  "vshort":"Less than a foot in length.",
-  "short":"Up to 2 feet in length.",
-  "average": "Up to 3 feet long.",
-  "long":"Up to 6 feet long.",
-  "vLong":"Up to 10 feet in length; can Engage enemies up to 4 yards away, rather than just 2.",
-  "massive":"Anything over 10 feet long; can Engage enemies up to 6 yards away, rather than just 2",
- }
- 
+// Trapping Availability
  CONFIG.availability = {
    "common": "Common",
    "scarce": "Scarce",
@@ -258,8 +358,20 @@ CONFIG.reachDescription={
  }
 
  
-// Consumable Types
+// Trapping Types
 CONFIG.trappingTypes = {
+  "clothingAccessories":"Clothing and Accessories",
+  "foodAndDrink":"Food and Drink",
+  "toolsAndKits":"Tools and Kits",
+  "booksAndDocuments":"Books and Documents",
+  "tradeTools":"Trade Tools and Workshops", //unused, makes more sense to use Tools and Kits
+  "drugsPoisonsHerbsDraughts":"Drugs, Poisons, Herbs, and Draughts",
+  "ingredient":"Ingredient",
+  "misc":"Miscellaneous"
+};
+
+// These categories are used to label items in containers (Trapping tab)
+CONFIG.trappingCategories = {
   "weapon" : "Weapons",
   "armour" : "Armour",
   "money" : "Money",
@@ -275,60 +387,6 @@ CONFIG.trappingTypes = {
   "misc":"Miscellaneous"
 };
 
-// 
-CONFIG.characteristics = {
-  "ws": "Weapon Skill",
-  "bs": "Ballistic Skill",
-  "s": "Strength",
-  "t": "Toughness",
-  "i": "Initiative",
-  "ag": "Agility",
-  "dex": "Dexterity",
-  "int": "Intelligence",
-  "wp": "Willpower",
-  "fel": "Fellowship"
-};
-
-CONFIG.characteristicsAbrev = {
-  "ws": "WS",
-  "bs": "BS",
-  "s": "S",
-  "t": "T",
-  "i": "I",
-  "ag": "Ag",
-  "dex": "Dex",
-  "int": "Int",
-  "wp": "WP",
-  "fel": "Fel"
-};
-
-CONFIG.skillTypes = {
-  "bsc" : "Basic",
-  "adv" : "Advanced"
-};
-
-CONFIG.skillGroup = {
-  "isSpec" : "Is Specialization",
-  "noSpec" : "Not Specialization"
-};
-
-CONFIG.talentMax = {
-  "1":"1",
-  "2":"2",
-  "none":"None",
-  "ws":" Weapon Skill Bonus",
-  "bs":"Ballistic Skill Bonus",
-  "s": "Strength Bonus",
-  "t": "Toughness Bonus",
-  "i": "Initiative Bonus",
-  "ag": "Agility Bonus",
-  "dex": "Dexterity Bonus",
-  "int": "Intelligence Bonus",
-  "wp": "Willpower Bonus",
-  "fel": "Fellowship Bonus"
-}
-
-
 // Creature Sizes
 CONFIG.actorSizes = {
   "tiny": "Tiny",
@@ -339,7 +397,6 @@ CONFIG.actorSizes = {
   "enor": "Enormous",
   "mnst": "Monstrous"
 };
-
 
 // Condition Types
 CONFIG.magicLores = {
@@ -361,7 +418,7 @@ CONFIG.magicLores = {
   "tzeentch": "Tzeentch",
 };
 
-
+// Given a Lore, what is the Wind
 CONFIG.magicWind = {
   "petty": "None",
   "beasts": "Ghur",
@@ -381,94 +438,37 @@ CONFIG.magicWind = {
   "tzeentch": "Dhar",
 };
 
-
-
+// Types of prayers
 CONFIG.prayerTypes = {
   "blessing" : "Blessing",
   "miracle" : "Miracle"
 }
 
+CONFIG.mutationTypes = {
+  "physical" : "Physical",
+  "mental" : "Mental"
+}
 
-
-// Condition Types
-CONFIG.conditionTypes = {
-  "blinded": "Blinded",
-  "charmed": "Charmed",
-  "deafened": "Deafened",
-  "fatigued": "Fatigued",
-  "frightened": "Frightened",
-  "grappled": "Grappled",
-  "incapacitated": "Inacapacitated",
-  "invisible": "Invisible",
-  "paralyzed": "Paralyzed",
-  "petrified": "Petrified",
-  "poisoned": "Poisoned",
-  "prone": "Prone",
-  "restrained": "Restrained",
-  "stunned": "Stunned",
-  "unconscious": "Unconscious",
-  "exhaustion": "Exhaustion",
-  "diseased": "Diseased"
-};
-
-// Languages
-CONFIG.languages = {
-  "common": "Common",
-  "aarakocra": "Aarakocra",
-  "abyssal": "Abyssal",
-  "aquan": "Aquan",
-  "auran": "Auran",
-  "celestial": "Celestial",
-  "deep": "Deep Speech",
-  "draconic": "Draconic",
-  "druidic": "Druidic",
-  "dwarvish": "Dwarvish",
-  "elvish": "Elvish",
-  "giant": "Giant",
-  "gith": "Gith",
-  "gnomish": "Gnomish",
-  "goblin": "Goblin",
-  "gnoll": "Gnoll",
-  "halfling": "Halfling",
-  "ignan": "Ignan",
-  "infernal": "Infernal",
-  "orc": "Orc",
-  "primordial": "Primordial",
-  "sylvan": "Sylvan",
-  "terran": "Terran",
-  "cant": "Thieves' Cant",
-  "undercommon": "Undercommon"
-};
 class DiceWFRP {
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing preparing, rolling, and displaying WFRP tests"
    *
-   * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
-   * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
    *
-   * @param {Event} event           The triggering event which initiated the roll
-   * @param {Array} parts           The dice roll component parts, excluding the initial d20
-   * @param {Object} data           Actor or item data against which to parse the roll
-   * @param {String} template       The HTML template used to render the roll dialog
-   * @param {String} title          The dice roll UI window title
-   * @param {String} alias          The alias with which to post to chat
-   * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-   * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-   * @param {Object} dialogOptions  Modal dialog options
+   * @param {Object} dialogOptions      Dialog template, buttons, everything associated with the dialog      
+   * @param {Object} testData           Test info: target number, SL bonus, success bonus, etc
+   * @param {Object} cardOptions        Chat card template and info
    */
   static prepareTest({dialogOptions, testData, cardOptions, onClose}) {
-    // Inner roll function
     let rollMode = game.settings.get("core", "rollMode");
 
-    // Merge input with generic properties consistent between all tests
+    // Merge input with generic properties constant between all tests
     mergeObject(testData, 
     {
       testDifficulty : "challenging",
       testModifier : 0,
       slBonus : 0,
       successBonus : 0,
-    });
-      
+    }); 
     mergeObject(dialogOptions.data, 
       {
         testDifficulty : "challenging",
@@ -477,17 +477,17 @@ class DiceWFRP {
         slBonus : 0,
         successBonus : 0,
       });
-
     mergeObject(cardOptions, 
       {
         user : game.user._id,
         rollMode : undefined,
       })
-    
+  
     var roll;
-    if (dialogOptions.rollOveride)
-      roll = dialogOptions.rollOveride;
-    else
+    // If dialogOptions has a rollOverride, use it (spells, weapons, prayers)
+    if (dialogOptions.rollOverride)
+      roll = dialogOptions.rollOverride;
+    else // Otherwise use a generic test
       roll = () =>{
       let roll = DiceWFRP.rollTest(testData);
       if (testData.extra)
@@ -498,6 +498,7 @@ class DiceWFRP {
     dialogOptions.data.rollMode = rollMode;
     dialogOptions.data.rollModes = CONFIG.rollModes;
     
+    // Render Test Dialog
     renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
       new Dialog({
           title: dialogOptions.title,
@@ -509,6 +510,7 @@ class DiceWFRP {
   }
 
 
+  // Roll a standard Test and determine success
   static rollTest(testData){
     let roll = new Roll("1d100").roll();
     let successBonus = testData.successBonus;
@@ -539,18 +541,22 @@ class DiceWFRP {
       description = "Failure"
       SL = SL.toString()
     }
-    else { // SL == 0,
-      if (targetNum > roll.total){
+    else // SL == 0
+    { 
+      if (targetNum > roll.total)
+      {
         description = "Success"
         SL = SL + successBonus;
         SL = "+" + SL.toString()
       }
-      else {
+      else
+      {
         description = "Failure"
         SL = "-" + SL.toString() // Should result in -0
       }
     }
 
+    // Find description according to outcome table
     switch(Math.abs(Number(SL)))
     {
       case 6:
@@ -577,13 +583,13 @@ class DiceWFRP {
 
     }
 
+
     if (testData.includeCriticalsFumbles)
     {
       if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
         description = description + " - Fumble!";
       else if (roll.total <= targetNum && roll.total % 11 == 0)
         description = desrciption + " - Critical!";
-        
     }
 
     let rollResults={
@@ -596,7 +602,7 @@ class DiceWFRP {
     return rollResults;
    } 
 
-
+   // Extend rollTest to account for weapon specifics (criticals, fumbles, etc)
    static rollWeaponTest(testData){
     let weapon = testData.extra.weapon;
      
@@ -628,63 +634,65 @@ class DiceWFRP {
      return testResults;
   } 
 
+  // Extend rollTest for casting specifics (miscasts, CN, etc)
    static rollCastTest(testData){
     let spell = testData.extra.spell;
     let miscastCounter = 0;
-     let testResults = this.rollTest(testData);
-     if (spell.data.cn.SL >= spell.data.cn.value)
-       spell.data.cn.value = 0;
+    let testResults = this.rollTest(testData);
+    if (spell.data.cn.SL >= spell.data.cn.value)
+      spell.data.cn.value = 0;
 
-     if (testData.extra.malignantInfluence)
-       if (Number(testResults.roll.toString().split('').pop()) == 8)
-         miscastCounter++;
-     let slOver = (Number(testResults.SL) - spell.data.cn.value)
-     if (testResults.roll > testResults.target)
-     {
-       testResults.description = "Casting Failed"
-       if (testResults.roll % 11 == 0)
-         miscastCounter++;
-     }
-     else if (slOver < 0)
-     {
-       testResults.description = "Casting Failed"
+    if (testData.extra.malignantInfluence)
+      if (Number(testResults.roll.toString().split('').pop()) == 8)
+        miscastCounter++;
+    let slOver = (Number(testResults.SL) - spell.data.cn.value)
+    if (testResults.roll > testResults.target)
+    {
+      testResults.description = "Casting Failed"
+      if (testResults.roll % 11 == 0)
+        miscastCounter++;
+    }
+    else if (slOver < 0)
+    {
+      testResults.description = "Casting Failed"
 
-       // If no ID
-       if (testResults.roll % 11 == 0)
-       {
-         testResults.description = "Casting Succeeded - Critical Cast"
-         miscastCounter++;
-       }
-     }
-     else
-     {
-       testResults.description = "Casting Succeeded"
-       let overcasts = Math.floor(slOver / 2);
-       testResults.overcasts = overcasts;
+      // TODO: If no ID
+      if (testResults.roll % 11 == 0)
+      {
+        testResults.description = "Casting Succeeded - Critical Cast"
+        miscastCounter++;
+      }
+    }
+    else
+    {
+      testResults.description = "Casting Succeeded"
+      let overcasts = Math.floor(slOver / 2);
+      testResults.overcasts = overcasts;
 
-       // If no ID
-       if (testResults.roll % 11 == 0)
-         miscastCounter++;
-     }
+      // If no ID
+      if (testResults.roll % 11 == 0)
+        miscastCounter++;
+    }
 
-     if (testData.extra.ingredient)
-       miscastCounter--;
-     if (miscastCounter < 0)
-       miscastCounter = 0;
-     if (miscastCounter > 2)
-       miscastCounter = 2
+    if (testData.extra.ingredient)
+      miscastCounter--;
+    if (miscastCounter < 0)
+      miscastCounter = 0;
+    if (miscastCounter > 2)
+      miscastCounter = 2
 
-     switch (miscastCounter)
-     {
-       case 1: testResults.description = testResults.description + " - Minor Miscast"
-       break;
-       case 2: testResults.description = testResults.description + " - Major Miscast"
-       break;
-     }
+    switch (miscastCounter)
+    {
+      case 1: testResults.description = testResults.description + " - Minor Miscast"
+      break;
+      case 2: testResults.description = testResults.description + " - Major Miscast"
+      break;
+    }
 
-     return testResults;
+    return testResults;
   } 
 
+  // Extend rollTest for channelling specifics (miscasts, CN, etc)
    static rollChannellTest(testData, actor){
     let spell = testData.extra.spell;
     let miscastCounter = 0;
@@ -723,6 +731,7 @@ class DiceWFRP {
        }
      }
 
+     // Add SL to CN and update actor
      spell.data.cn.SL += Number(SL);
      if (spell.data.cn.SL > spell.data.cn.value)
       spell.data.cn.SL = spell.data.cn.value;
@@ -745,7 +754,7 @@ class DiceWFRP {
      return testResults;
  } 
 
-
+  // Extend rollTest for pray specifics (sin, wrath of the gods, etc)
  static rollPrayTest(testData, actor){
   let prayer = testData.extra.prayer;
    let testResults = this.rollTest(testData);
@@ -789,7 +798,7 @@ class DiceWFRP {
    return testResults;
 } 
 
-
+// Take roll data and display it in a chat card template
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
@@ -807,7 +816,7 @@ class DiceWFRP {
 
 
   
-  
+  // To be used in the future for opposed tests
   static opposeData  = {
     opposeStarted : false,
     actor : undefined,
@@ -894,16 +903,6 @@ class DiceWFRP {
       return opposeResult;
   }
 }
-
-/**
- * Highlight critical success or failure on d20 rolls
- */
-Hooks.on("renderChatMessage", (message, data, html) => {
-  if ( !message.isRoll || message.roll.parts[0].faces !== 20 ) return;
-  let d20 = message.roll.parts[0].total;
-  if ( d20 === 20 ) html.find(".dice-total").addClass("success");
-  else if ( d20 === 1 ) html.find(".dice-total").addClass("failure");
-});
 
 
 /**
@@ -1005,13 +1004,7 @@ Hooks.once("init", () => {
     }
   })*/
 
-
-  
-
-  /**
-   * Register diagonal movement rule setting
-   */
-
+  // Register initiative rule
   game.settings.register("wfrp4e", "initiativeRule", {
     name: "Initiative Rules",
     hint: "Configure which method is used to determine who acts first in combat.",
@@ -1059,6 +1052,7 @@ Hooks.once("init", () => {
     }
   }
 
+  // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
     name: "Fast SL",
     hint: "(NOT IMPLEMENTED) Determine SL with Fast SL as described on page 152",
@@ -1068,14 +1062,35 @@ Hooks.once("init", () => {
     type: Boolean
   });
 
+  // Register Tests above 100% Rule
   game.settings.register("wfrp4e", "testAbove100", {
     name: "Tests Above 100%",
-    hint: "(NOT IMPLEMNTED) Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
+    hint: "(NOT IMPLEMENTED) Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
     scope: "world",
     config: true,
     default: false,
     type: Boolean
   });
+
+    // Register Fate/Fortune Cap
+    game.settings.register("wfrp4e", "fortuneCap", {
+      name: "Cap Fortune to Fate",
+      hint: "Fortune can never be higher than Fate",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+    // Register Resolve/Resilience Cap
+    game.settings.register("wfrp4e", "resolveCap", {
+      name: "Cap Resolve to Resilience",
+      hint: "Resolve can never be higher than Resilience",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
 
   // Pre-load templates
   loadTemplates([
@@ -1107,11 +1122,8 @@ Hooks.once("init", () => {
  */
 Hooks.on("canvasInit", () => {
 
-  // Apply the current setting
-  /* -------------------------------------------- */
-
   /**
-   * Override default Grid measurement
+   * Double every other diagonal movement
    */
   SquareGrid.prototype.measureDistance = function(p0, p1) {
     let gs = canvas.dimensions.size,
@@ -1123,15 +1135,11 @@ Hooks.on("canvasInit", () => {
     let nDiagonal = Math.min(nx, ny),
         nStraight = Math.abs(ny - nx);
 
-    // Alternative DMG Movement
-    if ( this.parent.diagonalRule === "5105" ) {
-      let nd10 = Math.floor(nDiagonal / 2);
-      let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
-      return spaces * canvas.dimensions.distance;
-    }
+    let nd10 = Math.floor(nDiagonal / 2);
+    let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
+    return spaces * canvas.dimensions.distance;
+  
 
-    // Standard PHB Movement
-    else return (nStraight + nDiagonal) * canvas.scene.data.gridDistance;
   }
 });
 
@@ -1140,30 +1148,34 @@ Hooks.on("canvasInit", () => {
  */
 class ActorWfrp4e extends Actor {
 
+  // Give new actor all Basic skills
   static async create(data, options) {
-    let id = 1;
-    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
-    let skills = [];
-    console.log(pack);
-    await pack.getIndex().then(index => skills = index);
-    data.items = [];
-    for (let sk of skills)
+    if (data.type == "character")
     {
-      let skillItem = undefined;
-      await pack.getEntity(sk.id).then(skill => skillItem = skill);
-      skillItem.data.id = id;
-      id++;
-      if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
-        data.items.push(skillItem.data);
-      else if (skillItem.data.data.advanced.value == "bsc")
+      let id = 1;
+      const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+      let skills = [];
+      console.log(pack);
+      await pack.getIndex().then(index => skills = index);
+      data.items = [];
+      for (let sk of skills)
       {
-        let startParen = skillItem.data.name.indexOf("(")
-        skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
-        if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
+        let skillItem = undefined;
+        await pack.getEntity(sk.id).then(skill => skillItem = skill);
+        skillItem.data.id = id;
+        id++;
+        if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
           data.items.push(skillItem.data);
-
+        else if (skillItem.data.data.advanced.value == "bsc")
+        {
+          let startParen = skillItem.data.name.indexOf("(")
+          skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+          if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
+            data.items.push(skillItem.data);
+        }
       }
     }
+    // Default auto calculation to true
     data.flags = 
     {
       autoCalcRun :  true,
@@ -1175,9 +1187,8 @@ class ActorWfrp4e extends Actor {
     super.create(data, options);
     
   }
-  /**
-   * Augment the basFic actor data with additional dynamic data.
-   */
+
+  // Calculate dynamic data like Characteristic totals and movemen values
   prepareData(actorData) {
     actorData = super.prepareData(actorData);
     const data = actorData.data;
@@ -1209,11 +1220,14 @@ class ActorWfrp4e extends Actor {
   _prepareCharacterData(data) {
 
 
-    if (data.status.fate.value < data.status.fortune.value)
+    // Cap fortune to fate
+    if (game.settings.get("wfrp4e", "fortuneCap") && data.status.fate.value < data.status.fortune.value)
     {
       data.status.fortune.value = data.status.fate.value;
     }
-    if (data.status.resilience.value < data.status.resolve.value)
+
+    // Cap resolve to resilience
+    if (game.settings.get("wfrp4e", "resolveCap") &&data.status.resilience.value < data.status.resolve.value)
     {
       data.status.resolve.value = data.status.resilience.value;
     }
@@ -1237,12 +1251,11 @@ class ActorWfrp4e extends Actor {
 
 
   /**
-   * Roll a generic ability test or saving throw.
+   * Roll a characteristic test.
    * Prompt the user for input on which variety of roll they want to do.
-   * @param {String}abilityId     The ability id (e.g. "str")
-   * @param {Object} options      Options which configure how ability tests or saving throws are rolled
+   * @param {String} characteristicId     The characteristic id (e.g. "ws")
    */
-  rollCharacteristic(characteristicId, options) {
+  rollCharacteristic(characteristicId) {
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " Test";
     let testData = {
@@ -1250,6 +1263,7 @@ class ActorWfrp4e extends Actor {
       hitLocation : false
     };
 
+    // Default a WS or BS test to use hit locations
     if (characteristicId == "ws" || characteristicId == "bs")
     {
       testData.hitLocation = true;
@@ -1301,11 +1315,10 @@ class ActorWfrp4e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Roll a Skill Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
+   * Roll a Skill Test
+   * @param skill {object}  The Skill Object owned by a character
    */
-  rollSkill(skill, event) {
+  rollSkill(skill) {
     let char = this.data.data.characteristics[skill.data.characteristic.value];
     let title = skill.name + " Test";
     let testData = {
@@ -1313,6 +1326,7 @@ class ActorWfrp4e extends Actor {
       hitLocation : false
     };
 
+    // Default hit location to true if WS, BS, Melee, or Ranged is tested
     if (skill.data.characteristic.value == "ws" ||
         skill.data.characteristic.value == "bs" ||
         skill.name.includes("Melee") ||
@@ -1370,9 +1384,9 @@ class ActorWfrp4e extends Actor {
   }
 
     /**
-   * Roll a Skill Check
-   * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-   * @param skill {String}    The skill id
+   * Roll a Weapon Test
+   * @param weapon {Object}   Weapon being used
+   * @param event {Object}    Event fired to initiate the roll
    */
   rollWeapon(weapon, event) {
     let skillCharList = [];
@@ -1380,18 +1394,23 @@ class ActorWfrp4e extends Actor {
     let title = "Weapon Test - " + weapon.name;
     if (event.attackType == "melee")
     {
+      // If Melee, default to Weapon Skill, but check to see if the actor has the specific skill for the weapon
       skillCharList.push("Weapon Skill")
       let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
       if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
         skillCharList.push(skill);
     }
+
+
     if (event.attackType == "ranged")
     {
+      // If Ranged, default to Ballistic Skill, but check to see if the actor has the specific skill for the weapon
       skillCharList.push("Ballistic Skill")
       if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
       { 
+        // Check to see if they have ammo
         ammo = this.items.find(i => i.id == weapon.data.currentAmmo.value);
-        if (weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
+        if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
         {
           ui.notifications.error("No Ammo!")
           return
@@ -1415,9 +1434,12 @@ class ActorWfrp4e extends Actor {
       hitLocation : true,
       extra : {
         weapon : weapon,
-        ammo : ammo
+        ammo : ammo,
+        attackType : event.attackType
       }
     };
+
+    // Default the selection to the specific skill (so user doesn't have to change it to the better option every time)
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
 
     let dialogOptions = {
@@ -1443,6 +1465,7 @@ class ActorWfrp4e extends Actor {
         let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
         if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
         {
+          // If using only a characteristic, delete all qualities, set target number to characteristic value + modifiers
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
           testData.extra.weapon.properties.qualities = [];
@@ -1453,7 +1476,9 @@ class ActorWfrp4e extends Actor {
 
           testData.target += testData.testModifier + testData.testDifficulty;
         }
-        else{
+        else
+        {
+          // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
@@ -1464,19 +1489,26 @@ class ActorWfrp4e extends Actor {
           + testData.testDifficulty
           + skillUsed.data.advances.value;
         }
+
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
         let talentBonuses = html.find('[name = "talentBonuses"]').val();
+
+        // Aggregate all talent bonuses selected and add that to successBonus
         testData.successBonus += talentBonuses.reduce(function (prev, cur){
           return prev + Number(cur)
         }, 0)
+        // Perform the d100 roll
         roll();
+
+        // Reduce ammo if necessary
         if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup != "entangling")
         {
           ammo.data.quantity.value--;
-          this.updateOwnedItem(ammo);
+          this.updateOwnedItem({id: ammo.id, "data.quantity.value" : ammo.data.quantity.value });
         }
       },
-      rollOveride : () => {
+      // Override the default test evaluation to use weaponTest specific function
+      rollOverride : () => {
         let roll = DiceWFRP.rollWeaponTest(testData);
         if (testData.extra)
           mergeObject(roll, testData.extra);
@@ -1498,7 +1530,7 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
-
+  // Roll spell Dialog - choose between Casting or Channelling
   rollSpell(spell, options) {
     new Dialog({
       title: "Cast or Channell",
@@ -1522,16 +1554,20 @@ class ActorWfrp4e extends Actor {
     }).render(true);
   }
 
-  rollCast(spell, options) {
+  /**
+   * Roll a Cast Test
+   * @param spell {Object}   Spell being cast
+   */
+  rollCast(spell) {
     let title = "Casting Test";
     let castSkill = this.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
+    // Prevent casting if they do not have Language (Magick)
     if (!castSkill)
     {
       ui.notifications.error("You need Language (Magick) to cast a spell")
       return; 
     }
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
-    //this.updateOwnedItem(spell)
     let testData = {
       target : castSkill.data.advances.value + this.data.data.characteristics[castSkill.data.characteristic.value],
       hitLocation : true,
@@ -1572,25 +1608,30 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
 
+        // Find ingredient being used, if any
         let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
 
         if (!ing || ing.data.quantity.value <= 0)
           testData.extra.ingredient = false;
         else 
         {
+          // Decrease ingredient quantity
           testData.extra.ingredient = true;
           ing.data.quantity.value--;
           this.updateOwnedItem(ing);
         }
         roll();
         },
-      rollOveride : () => {
-        let roll = DiceWFRP.rollCastTest(testData);
-        if (testData.extra)
-          mergeObject(roll, testData.extra);
-        DiceWFRP.renderRollCard(cardOptions, roll);
-        this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
-      }
+        // Override generic roll with cast specific roll
+        rollOverride : () => 
+        {
+          let roll = DiceWFRP.rollCastTest(testData);
+          if (testData.extra)
+            mergeObject(roll, testData.extra);
+          DiceWFRP.renderRollCard(cardOptions, roll);
+          this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
+          // Update spell to reflect SL from channelling resetting to 0
+        }
     };
     let cardOptions = {
       actor : this.data.id,
@@ -1607,8 +1648,11 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
-
-  rollChannell(spell, options) {
+ /**
+   * Roll a Channelling Test
+   * @param spell {Object}   Spell being channelled
+   */
+  rollChannell(spell) {
     let title = "Channelling Test";
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
     let spellLore = spell.data.lore.value;
@@ -1658,15 +1702,24 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
 
+
+        // Find ingredient being used, if any
         let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
 
         if (!ing || ing.data.quantity.value <= 0)
           testData.extra.ingredient = false;
         else 
+        {
+          // Decrease ingredient quantity
           testData.extra.ingredient = true;
-        roll(this);
+          ing.data.quantity.value--;
+          this.updateOwnedItem(ing);
+        }
+
+        roll();
         },
-      rollOveride : (actor) => {
+        // Override generic roll with channell specific function
+      rollOverride : (actor) => {
         let roll = DiceWFRP.rollChannellTest(testData, actor);
         if (testData.extra)
           mergeObject(roll, testData.extra);
@@ -1688,16 +1741,20 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
+   /**
+   * Roll a Prayer Test
+   * @param prayer {Object}   prayer being invoked
+   */
   rollPrayer(prayer, options) {
     let title = "Prayer Test";
     let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
+    // Prevent test if character does not have pray
     if (!praySkill)
     {
       ui.notifications.error("You need Pray to invoke the Gods")
       return; 
     }
     let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
-   // this.updateOwnedItem(spell)
     let testData = {
       target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value],
       hitLocation : true,
@@ -1736,7 +1793,8 @@ class ActorWfrp4e extends Actor {
 
         roll();
         },
-      rollOveride : () => {
+        // Override generic test function with prayer specific function
+      rollOverride : () => {
         let roll = DiceWFRP.rollPrayTest(testData, this);
         if (testData.extra)
           mergeObject(roll, testData.extra);
@@ -1758,7 +1816,11 @@ class ActorWfrp4e extends Actor {
       cardOptions : cardOptions});
   }
 
-  rollTrait(trait, event) {
+  /**
+   * Roll a Prayer Test
+   * @param prayer {Object}   prayer being invoked
+   */
+  rollTrait(trait) {
     if (!trait.data.rollable.value)
       return;
     let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
@@ -1818,31 +1880,10 @@ class ActorWfrp4e extends Actor {
   static getBonus(value) {
     return Math.floor(value / 10)
   }
-
-
-
 }
 
 // Assign the actor class to the CONFIG
 CONFIG.Actor.entityClass = ActorWfrp4e;
-
-
-/**
- * Hijack Token health bar rendering to include temporary and temp-max health in the bar display
- * TODO: This should probably be replaced with a formal Token class extension
- * @private
- */
-/*
-const _drawBar = Token.prototype._drawBar;
-Token.prototype._drawBar = function(number, bar, data) {
-  if ( data.attribute === "attributes.hp" ) {
-    data = duplicate(data);
-    data.value += parseInt(data['temp'] || 0);
-    data.max += parseInt(data['tempmax'] || 0);
-  }
-  _drawBar.bind(this)(number, bar, data);
-};*/
-
 
 
 
@@ -1851,44 +1892,9 @@ Token.prototype._drawBar = function(number, bar, data) {
  */
 class ItemWfrp4e extends Item {
 
-  /**
-   * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
-   * @return {Promise}
-   */
-  async roll() {
-/*
-    // Basic template rendering data
-    const template = `public/systems/wfrp4e/templates/chat/${this.data.type}-card.html`;
-    const templateData = {
-      actor: this.actor,
-      item: this.data,
-      data: this.getChatData()
-    };
-
-    // Basic chat message data
-    const chatData = {
-      user: game.user._id,
-      alias: this.actor.name,
-    };
-
-    // Toggle default roll mode
-    let rollMode = game.settings.get("core", "rollMode");
-    if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( rollMode === "blindroll" ) chatData["blind"] = true;
-
-    // Render the template
-    chatData["content"] = await renderTemplate(template, templateData);
-
-    // Create the chat message
-    return ChatMessage.create(chatData, {displaySheet: false});*/
-  }
-
-  /* -------------------------------------------- */
-  /*  Chat Card Data
-  /* -------------------------------------------- */
-
-  getChatData(htmlOptions) {
-    const data = this[`_${this.data.type}ChatData`]();
+  // Expand data is used in most dropdown infos
+  getExpandData(htmlOptions) {
+    const data = this[`_${this.data.type}ExpandData`]();
     data.description.value = data.description.value || "";
     data.description.value = enrichHTML(data.description.value, htmlOptions);
     return data;
@@ -1896,25 +1902,25 @@ class ItemWfrp4e extends Item {
 
   /* -------------------------------------------- */
 
-  _trappingChatData() {
+  _trappingExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
     return data;
   }
 
-  _talentChatData() {
+  _talentExpandData() {
     const data = duplicate(this.data.data);
     data.properties=[];
     return data;
   }
 
-  _traitChatData() {
+  _traitExpandData() {
     const data = duplicate(this.data.data);
     data.properties=[];
     return data;
   }
 
-  _careerChatData() {
+  _careerExpandData() {
     const data = duplicate(this.data.data);
     data.properties=[];
     data.properties.push("Class: " + this.data.data.class.value);
@@ -1926,13 +1932,13 @@ class ItemWfrp4e extends Item {
     return data;
   }
 
-  _injuryChatData() {
+  _injuryExpandData() {
     const data = duplicate(this.data.data);
     data.properties=[];
     return data;
   }
 
-  _spellChatData() {
+  _spellExpandData() {
     const data = duplicate(this.data.data);
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
     data.properties = [];
@@ -1945,7 +1951,7 @@ class ItemWfrp4e extends Item {
     return data;
   }
 
-   _prayerChatData() {
+   _prayerExpandData() {
     const data = duplicate(this.data.data);
     let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
     data.properties = [];
@@ -1959,7 +1965,7 @@ class ItemWfrp4e extends Item {
 
   /* -------------------------------------------- */
 
-  _weaponChatData() {
+  _weaponExpandData() {
    const data = duplicate(this.data.data);
     let properties = [];
 
@@ -1970,8 +1976,10 @@ class ItemWfrp4e extends Item {
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
-    if (data.damage.value)
-      properties.push("Damage: " + data.damage.value);
+    if (data.damage.meleeValue)
+      properties.push("Melee Damage: " + data.damage.meleeValue);
+    if (data.damage.rangedValue)
+      properties.push("Ranged Damage: " + data.damage.rangedValue);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
     properties = properties.filter(p => p != "Special");
@@ -1982,7 +1990,7 @@ class ItemWfrp4e extends Item {
     return data;
   }
 
-  _armourChatData() {
+  _armourExpandData() {
     const data = duplicate(this.data.data);
      const properties = [];
      //if (data.currentAP.value == -1 || data.currentAP.value == data.maxAP.value)
@@ -1996,7 +2004,7 @@ class ItemWfrp4e extends Item {
      return data;
    }
 
-   _ammunitionChatData() {
+   _ammunitionExpandData() {
     const data = duplicate(this.data.data);
      let properties = [];
      properties.push (CONFIG.ammunitionGroups[data.ammunitionType.value])
@@ -2017,78 +2025,15 @@ class ItemWfrp4e extends Item {
      return data;
    }
 
-  /* -------------------------------------------- */
-
-
-  _consumableChatData() {
-   /* const data = duplicate(this.data.data);
-    data.consumableType.str = CONFIG.consumableTypes[data.consumableType.value];
-    data.properties = [data.consumableType.str, data.charges.value + "/" + data.charges.max + " Charges"];
-    data.hasCharges = data.charges.value >= 0;
-    return data;*/
-  }
-
-  /* -------------------------------------------- */
-
-  _toolChatData() {
-   /* const data = duplicate(this.data.data);
-    let abl = this.actor.data.data.abilities[data.ability.value].label,
-        prof = data.proficient.value || 0;
-    const properties = [abl, CONFIG.proficiencyLevels[prof]];
-    data.properties = properties.filter(p => p !== null);
-    return data;*/
-  }
-
-  /* -------------------------------------------- */
-
-  _backpackChatData() {
-    const data = duplicate(this.data.data);
-    data.properties = [];
-    return data;
-  }
-
-
-
 }
-// Assign Item5e class to CONFIG
+// Assign ItemWfrp4e class to CONFIG
 CONFIG.Item.entityClass = ItemWfrp4e;
 
 
 /**
- * Hook into chat log context menu to add damage application options
+ * Hook into chat log context menu
  */
 Hooks.on("getChatLogEntryContext", (html, options) => {
-
-  // Condition
- /* let canApply = li => canvas.tokens.controlledTokens.length && li.find(".dice-roll").length;
-
-  // Apply Damage to Token
-  options["Apply Damage"] = {
-    icon: '<i class="fas fa-user-minus"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 1)
-  };
-
-  // Apply Healing to Token
-  options["Apply Healing"] = {
-    icon: '<i class="fas fa-user-plus"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, -1)
-  };
-
-  // Apply Double-Damage
-  options["Double Damage"] = {
-    icon: '<i class="fas fa-user-injured"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 2)
-  };
-
-  // Apply Half-Damage
-  options["Half Damage"] = {
-    icon: '<i class="fas fa-user-shield"></i>',
-    condition: canApply,
-    callback: li => Actor5e.applyDamage(li, 0.5)
-  }*/
 });
 
 /**
@@ -2099,8 +2044,6 @@ class ItemSheetWfrp4e extends ItemSheet {
     super(item, options);
     this.mce = null;
   }
-
-  /* -------------------------------------------- */
 
   /**
    * Use a type-specific template for each different item type
@@ -2172,13 +2115,13 @@ class ItemSheetWfrp4e extends ItemSheet {
       });
       data['talents'] = data.data.talents.toString();
       data['trappings'] = data.data.trappings.toString();
-      let characteristicList = duplicate(CONFIG.characteristicsAbrev);
+      let characteristicList = duplicate(CONFIG.characteristicsAbbrev);
       for (let char in characteristicList)
       {
         if(data.data.characteristics.includes(char))
-          characteristicList[char] = {abrev : CONFIG.characteristicsAbrev[char], checked : true};
+          characteristicList[char] = {abrev : CONFIG.characteristicsAbbrev[char], checked : true};
        else
-        characteristicList[char] = {abrev : CONFIG.characteristicsAbrev[char], checked : false};
+        characteristicList[char] = {abrev : CONFIG.characteristicsAbbrev[char], checked : false};
       }
       data['characteristicList'] = characteristicList;
       
@@ -2187,6 +2130,7 @@ class ItemSheetWfrp4e extends ItemSheet {
     else if (this.item.type == "trapping")
     {
       data['trappingTypes'] = CONFIG.trappingTypes;
+      data['availability'] = CONFIG.availability;
     }
 
     else if (this.item.type == "trait")
@@ -2194,27 +2138,17 @@ class ItemSheetWfrp4e extends ItemSheet {
       data['characteristics'] = CONFIG.characteristics;
     }
 
-    /*data['abilities'] = game.system.template.actor.data.abilities;
-
-    // Damage types
-    let dt = duplicate(CONFIG.damageTypes);
-    if ( ["spell", "feat"].includes(this.item.type) ) mergeObject(dt, CONFIG.healingTypes);
-    data['damageTypes'] = dt;
-
-    // Item types
-    let types = (this.item.type === "equipment") ? "armorTypes" : this.item.type + "Types";
-    data[types] = CONFIG[types];
-
-    // Spell-specific data
-    if ( this.item.type === "spell" ) {
-      data["spellSchools"] = CONFIG.spellSchools;
-      data["spellLevels"] = CONFIG.spellLevels;
+    else if (this.item.type == "container")
+    {
+      data['availability'] = CONFIG.availability;
     }
 
-    // Tool-specific data
-    else if ( this.item.type === "tool" ) {
-      data["proficiencies"] = CONFIG.proficiencyLevels;
-    }*/
+    else if (this.item.type == "mutation")
+    {
+      data['mutationTypes'] = CONFIG.mutationTypes;
+    }
+
+
     return data;
   }
 
@@ -2270,7 +2204,10 @@ class ItemSheetWfrp4e extends ItemSheet {
       else
         characteristicList = characteristicList.filter(c => c != charChanged);
       
-      await this.item.update({'data.characteristics' : characteristicList})
+      if (this.item.actor)
+        this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
+      else
+        await this.item.update({'data.characteristics' : characteristicList})
 
     }),
 
@@ -2381,7 +2318,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
     }
     
+    let hardyTrait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("hardy"))
+    let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
+
+    let tbMultiplier = (hardyTrait || 0)
+    if (hardyTalent)
+      tbMultiplier += hardyTalent.data.advances.value || 0
 
     let sb = sheetData.actor.data.characteristics.s.bonus;
     let tb = sheetData.actor.data.characteristics.t.bonus;
@@ -2394,35 +2337,41 @@ class ActorSheetWfrp4e extends ActorSheet {
     switch (sheetData.actor.data.details.size.value){
     
       case "tiny":
-      sheetData.actor.data.status.wounds.max = 1;
+      sheetData.actor.data.status.wounds.max = 1 + tb * tbMultiplier;
       break;
 
       case "ltl":
-      sheetData.actor.data.status.wounds.max = tb;
+      sheetData.actor.data.status.wounds.max = tb + tb * tbMultiplier;
       break;
     
       case "sml":
-      sheetData.actor.data.status.wounds.max = 2 * tb + wpb;
+      sheetData.actor.data.status.wounds.max = 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "avg":
-      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb;
+      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
 
       case "enor":
-      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
       
       case "mnst":
-      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb);
+      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
 
     }
-          
+
+
+    if (sheetData.actor.flags.autoCalcRun)
+    {
+      if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
+        sheetData.actor.data.details.move.run += sheetData.actor.data.details.move.walk;
+    } 
     
     // Return data to the sheet
     return sheetData;
@@ -2478,7 +2427,6 @@ class ActorSheetWfrp4e extends ActorSheet {
   
       // Iterate through items, allocating to containers
       let totalEnc = 0;
-      let itemsToRemove = []; // remove items with quantity of 0
       let hasSpells = false;
       let hasPrayers = false;
   
@@ -2594,10 +2542,15 @@ class ActorSheetWfrp4e extends ActorSheet {
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
             }
-            else
+            else if (i.data.trappingType.value)
             {
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
+            }
+            else
+            {
+              inventory.misc.items.push(i);
+              inventory.misc.show = true;
             }
             totalEnc += i.encumbrance;
           }
@@ -2708,9 +2661,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
         itemsInside.map(function(item){
           if (item.type == "trapping")
-            item.type = CONFIG.trappingTypes[item.data.trappingType.value];
+            item.type = CONFIG.trappingCategories[item.data.trappingType.value];
           else
-            item.type = CONFIG.trappingTypes[item.type];
+            item.type = CONFIG.trappingCategories[item.type];
         } )
         cont["carrying"] = itemsInside.filter(i => i.type != "Container");
         cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
@@ -3038,7 +2991,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item);
     });
 
-    html.find('.AP-value').mousedown(ev => {
+    html.find('.ap-value').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
       let item = this.actor.items.find(i => i.id === itemId );
@@ -3190,7 +3143,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
         item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
-        chatData = item.getChatData({secrets: this.actor.owner});
+        expandData = item.getExpandData({secrets: this.actor.owner});
 
     // Toggle summary
 
@@ -3200,10 +3153,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       summary.slideUp(200, () => summary.remove());
     } else {
       let div = "";
-      div = $(`<div class="item-summary">${chatData.description.value}</div>`);
+      div = $(`<div class="item-summary">${expandData.description.value}</div>`);
 
       let props = $(`<div class="item-properties"></div>`);
-      chatData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      expandData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
       div.append(props);
       li.append(div.hide());
       div.slideDown(200);
@@ -3329,6 +3282,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
+
+    // Conditional for creating Trappings from the Trapping tab - sets to the correct trapping type
+    if (event.currentTarget.attributes["data-type"].value == "trapping")
+      data = mergeObject(data, {"data.trappingType.value" : event.currentTarget.attributes["item-section"].value})
+
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
@@ -3638,9 +3596,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-
-      
   }
 
   /* -------------------------------------------- */
@@ -3686,7 +3641,7 @@ class WFRP_Utility
 
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
-    skill.data.characteristic.abrev = CONFIG.characteristicsAbrev[skill.data.characteristic.value];
+    skill.data.characteristic.abrev = CONFIG.characteristicsAbbrev[skill.data.characteristic.value];
 
     if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
       advOrGrpSkills.push(skill)
@@ -3732,7 +3687,8 @@ class WFRP_Utility
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.value = this._calculateRangeOrDamage(actorData, weapon.data.damage.value);
+    weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue);
+    weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue);
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
@@ -3998,7 +3954,7 @@ class WFRP_Utility
     else
       weapon.data.range.value += eval(ammoRange)
 
-    weapon.data.damage.value += eval(ammoDamage);
+    weapon.data.damage.rangedValue += eval(ammoDamage);
     
     ammoProperties = ammoProperties.filter(p => p != undefined);
     let propertyIncrease = ammoProperties.filter(p => p.includes("+"));

@@ -2633,6 +2633,11 @@ input[type="text"], input[type="password"] {
                 margin-right: 4px;
                 padding-top: 10px;
               }
+
+              .wfrp4e.actor .weapons .ranged-type .weapon-list .no-ammo{
+                margin-top: 10px;
+                margin-right: 84px;
+              }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-group {
                 width: 77px;
                 padding-top: 10px;
@@ -5329,6 +5334,7 @@ font-weight: bold;
   .talent-selector > select{
     width: 100%;
     height: 100%;
+    overflow: auto;
   }
 
 

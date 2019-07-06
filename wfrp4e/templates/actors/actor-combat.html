@@ -19,7 +19,7 @@
             <a class="weapon-item-name">{{item.name}}</a>
           </div>
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
-          <div class="weapon-damage">+{{item.data.damage.value}}</div>
+          <div class="weapon-damage">+{{item.data.damage.meleeValue}}</div>
           <a class="weapon-reach">{{item.data.reach.value}}</a>
           <div class="weapon-property">
             <div>
@@ -104,11 +104,11 @@
             </select>
           </div>
           {{else}}
-          <div>
+          <div class = "no-ammo">
             None
           </div>
           {{/if}}
-          <div class="weapon-damage">+{{item.data.damage.value}}</div>
+          <div class="weapon-damage">+{{item.data.damage.rangedValue}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div class="weapon-property">
 
@@ -335,11 +335,11 @@
           <span class="armor-label">Right Arm</span>
           <span class="armor-ap">AP</span>
         </div>
-        <div class="armor-box body">
+        <div class="armor-box rArm">
           <ol class="inventory-list armor-list">
             {{#each actor.armour as |item i|}}
             {{#if item.protectsrArm}}
-            <li class="item" data-item-id="{{item.id}}" data-location="body">
+            <li class="item" data-item-id="{{item.id}}" data-location="rArm">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
               <a class="armor-item-name">{{item.name}}</a>
               <a title="Current: {{item.data.currentAP.rArm}} Max: {{item.data.maxAP.rArm}}"
@@ -434,7 +434,7 @@
         <div class="armor-box rLeg">
           <ol class="inventory-list armor-list">
             {{#each actor.armour as |item i|}}
-            {{#if item.protectsrArm}}
+            {{#if item.protectsrLeg}}
             <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
               <a class="armor-item-name">{{item.name}}</a>
@@ -492,9 +492,9 @@
       {{/if}}
       {{#each actor.injuries as |injury i|}}
       <li class="item" data-item-id="{{injury.id}}">
-        <div class="item-name injury-name">
+        <div class="item-name injury-name item-dropdown">
           <div class="item-image" style="background-image: url({{injury.img}})"></div>
-          <h4 class="injury-title">{{injury.name}}</h4>
+          <a class="injury-title">{{injury.name}}</a>
         </div>
 
         <div class="injury-location">

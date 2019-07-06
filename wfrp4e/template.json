@@ -342,7 +342,8 @@
       "damage": {
         "type": "String",
         "label": "Damage",
-        "value": ""
+        "meleeValue": "",
+        "rangedValue": ""
       },
       "reach": {
         "type": "String",
@@ -551,6 +552,11 @@
         "ss" : 0,
         "bp" : 0
       },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value" : ""
+      },
       "carries": {
         "type": "Number",
         "label": "Carries",
@@ -580,7 +586,13 @@
       },
       "encumbrance": {
         "type": "Number",
-        "label": "Encumbrance"
+        "label": "Encumbrance",
+        "value" : 0
+      },
+      "availability": {
+        "type": "String",
+        "label": "Availability",
+        "value" : ""
       },
       "price": {
         "type": "String",
@@ -732,13 +744,25 @@
       }
     }, 
       "mutation" : {
-        "type" : {
+        "mutationType" : {
+          "label" : "Type",
+          "type" : "String",
+          "value": ""
+        },
+        "description" : {
+          "label" : "Description",
           "value": "",
           "type" : "String"
         },
-        "description" : {
+        "modifier" : {
           "value": "",
-          "type" : "String"
+          "type" : "String",
+          "label" : "Modifier"
+        },
+        "modifiesSkills" : {
+          "value": false,
+          "type" : "Boolean",
+          "label" : "Skill Modifier?"
         }
       }, 
       "injury" : {

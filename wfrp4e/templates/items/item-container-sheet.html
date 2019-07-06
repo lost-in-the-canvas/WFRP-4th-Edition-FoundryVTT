@@ -17,13 +17,13 @@
 
     <ol class="item-details">
         <li>
-            <label>Carries</label>
-            <input type="text" name="data.carries.value" value="{{data.carries.value}}" data-dtype="{{data.carries.type}}"/>
-        </li>
-        <li>
             <label>Enc</label>
             <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
-        </li>       
+        </li>    
+        <li>
+            <label>Carries</label>
+            <input type="text" name="data.carries.value" value="{{data.carries.value}}" data-dtype="{{data.carries.type}}"/>
+        </li>   
         <li>
             <label>Price</label>
             <input type="text" name="data.price.gc" value="{{data.price.gc}}" data-dtype="{{data.price.type}}" placeholder="GC"/>
@@ -33,6 +33,16 @@
             <input type="text" name="data.price.bp" value="{{data.price.bp}}" data-dtype="{{data.price.type}}" placeholder="BP"/>
         </li>
     </ol>
+        <div class="form-group">
+            <label>{{data.availability.label}}</label>
+            <select name ="data.availability.value" data-dtype={{data.availability.type}}>
+                {{#select data.availability.value}}
+                {{#each availability as |avail a|}}
+                <option value="{{a}}">{{avail}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class = "form-group">
             <label>Wearable</label>
             <input type="checkbox" name="data.wearable.value" value="{{data.wearable.value}}" data-dtype="{{data.wearable.type}}"  {{checked data.wearable.value}}/>
@@ -42,5 +52,6 @@
             <label>Count Enc</label>
             <input title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)" type="checkbox" name="data.countEnc.value" value="{{data.countEnc.value}}" data-dtype="{{data.countEnc.type}}"  {{checked data.countEnc.value}}/>
         </div>
+
 </div>
 </form>

@@ -1,0 +1,31 @@
+<form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
+   {{> public/systems/wfrp4e/templates/items/item-header.html}}
+   <nav class="sheet-tabs tabs" data-tab-container="primary">
+      <a class="item active" data-tab="description">Description</a>
+      <a class="item" data-tab="details">Details</a>
+   </nav>
+   {{> public/systems/wfrp4e/templates/items/item-description.html}}
+
+    <div class="tab" data-tab="details">
+      <div class="form-group">
+         <label>{{data.mutationType.label}}</label>
+         <select name="data.mutationType.value" data-dtype="{{data.mutationType.type}}">
+            {{#select data.mutationType.value}}
+            {{#each mutationTypes as |type t|}}
+            <option value="{{t}}">{{type}}</option>
+            {{/each}}
+            {{/select}}
+         </select>
+      </div>
+
+         <div class="form-group">
+            <label>{{data.modifier.label}}</label>
+            <input type="text" name="data.modifier.value" value="{{data.modifier.value}}" data-dtype="{{data.modifier.type}}"/>
+         </div>
+
+         <div title = "Show the modifier in the Skills 'penalty' box" class="form-group">
+            <label>{{data.modifiesSkills.label}}</label>
+            <input type="checkbox" name="data.modifiesSkills.value" value="{{data.modifiesSkills.value}}" data-dtype="Boolean" {{checked data.modifiesSkills.value}}/>
+         </div>
+
+</form>

@@ -48,7 +48,7 @@
           <span class="item-weight">Enc.</span>
           {{#if ../owner}}
           <div class="item-controls">
-            <a class="item-control item-create" title="Create Item" data-type="{{section.dataType}}"><i class="fas fa-plus"></i>
+            <a class="item-control item-create" title="Create Item" item-section="{{sid}}" data-type="{{section.dataType}}"><i class="fas fa-plus"></i>
               Add</a>
           </div>
           {{/if}}
@@ -61,7 +61,7 @@
           </div>
           {{#if section.toggle}}
           {{#if item.toggleValue}}
-          <a class="item-toggle"><i class="far fa-check"></i></a>
+          <a class="item-toggle"><i class="far fa-check-circle"></i></a>
           {{else}}
           <a class="item-toggle"><i class="far fa-circle"></i></a>
           {{/if}}
@@ -155,14 +155,14 @@
           {{#if rootPack.data.countEnc.value}}
             <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
             {{#if rootPack.data.worn.value}}
-              <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{else}}
             <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
             {{#if rootPack.data.worn.value}}
-              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
@@ -215,14 +215,14 @@
           {{#if pack.data.countEnc.value}}
             <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
             {{#if pack.data.worn.value}}
-              <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{else}}
             <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
             {{#if pack.data.worn.value}}
-              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
@@ -274,14 +274,14 @@
             {{#if pack.data.countEnc.value}}
             <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
             {{#if pack.data.worn.value}}
-              <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{else}}
             <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
             {{#if pack.data.worn.value}}
-              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+              <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
@@ -332,14 +332,14 @@
               {{#if pack.data.countEnc.value}}
               <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
               {{#if pack.data.worn.value}}
-                <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+                <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
               {{else}}
                 <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
               {{/if}}
             {{else}}
               <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
               {{#if pack.data.worn.value}}
-                <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+                <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
               {{else}}
                 <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
               {{/if}}
@@ -389,14 +389,14 @@
                   {{#if pack.data.countEnc.value}}
                   <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.data.encumbrance.value}}</a>
                   {{#if pack.data.worn.value}}
-                    <a class="worn-container">Worn: <i class="far fa-check"></i></a>
+                    <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
                   {{else}}
                     <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
                   {{/if}}
                 {{else}}
                   <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
                   {{#if pack.data.worn.value}}
-                    <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check"></i></a>
+                    <a style="visibility: hidden"  class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
                   {{else}}
                     <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
                   {{/if}}
