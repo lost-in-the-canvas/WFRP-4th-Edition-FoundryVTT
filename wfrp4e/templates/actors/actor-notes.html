@@ -62,6 +62,7 @@
     {{#each actor.psychology as |psych p|}}
     <li class="item" data-item-id="{{psych.id}}">
       <div class="item-name">
+        <div class="item-image" style="background-image: url({{psych.img}})"></div>
         <a>{{psych.name}}</a>
       </div>
 
@@ -109,8 +110,8 @@
     <li id="disease-header" class="inventory-header item disease-header">
       <span id="disease-name" class="item-name">Disease</span>
 
-      <span id="disease-attr">Incubation</span>
-      <span id="disease-attr">Duration</span>
+      <span id="disease-attr-incubation">Incubation</span>
+      <span id="disease-attr-duration">Duration</span>
 
       {{#if owner}}
       <div id="disease-add" class="item-controls">
@@ -128,8 +129,8 @@
       </div>
 
       
-      <span id="disease-attr">Incubation</span>
-      <span id="disease-attr">Duration</span>
+      <span class="incubation">Incubation</span>
+      <span class="duration">Duration</span>
 
       
       {{#if ../owner}}
@@ -147,4 +148,4 @@
     <h2>GM Notes</h2>
     {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
   </div>
-  <div>
+<div>
