@@ -2789,8 +2789,16 @@ class ActorSheetWfrp4e extends ActorSheet {
         max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
         value: Math.round(totalEnc * 10) / 10,
       };
-      enc.pct = Math.min(enc.value * 100 / enc.max, 99);
-      enc.state = Math.floor(enc.value / enc.max);
+      enc.pct = Math.min(enc.value * 100 / enc.max, 100);
+      enc.state = enc.value / enc.max;
+      if (enc.state > 3)
+        enc["maxEncumbered"] = true
+      else if (enc.state > 2)
+        enc["veryEncumbered"] = true
+      else if (enc.state > 1)
+        enc["encumbered"] = true;
+      else
+        enc["notEncumbered"] = true;
       actorData.encumbrance = enc;
   }
  
