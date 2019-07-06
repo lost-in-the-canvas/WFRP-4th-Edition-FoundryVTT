@@ -1912,6 +1912,7 @@ CONFIG.Actor.entityClass = ActorWfrp4e;
  */
 class ItemWfrp4e extends Item {
 
+
   // Expand data is used in most dropdown infos
   getExpandData(htmlOptions) {
     const data = this[`_${this.data.type}ExpandData`]();
@@ -1923,6 +1924,24 @@ class ItemWfrp4e extends Item {
   /* -------------------------------------------- */
 
   _trappingExpandData() {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
+
+  _psychologyExpandData() {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
+
+  _mutationExpandData() {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
+
+  _diseaseExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
     return data;
