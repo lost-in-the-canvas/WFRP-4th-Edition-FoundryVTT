@@ -836,12 +836,24 @@ class DiceWFRP {
 
 
   
-  // To be used in the future for opposed tests
-  static opposeData  = {
-    opposeStarted : false,
-    actor : undefined,
-    rollData : undefined
-  }
+    /**
+    * To be used in the future for opposed tests
+    * 
+    * getter for "static" variables which are just properties we stick
+    * in the class prototype
+    */
+   get opposeData() {
+    if (!!!DiceWFRP.opposeStarted) DiceWFRP.opposeStarted = false; 
+    /* these 2 are redundant technically */
+    if (!!!DiceWFRP.actor) DiceWFRP.actor = null; 
+    if (!!!DiceWFRP.rollData) DiceWFRP.opposeStarted = undefined; 
+
+    return {
+        opposeStarted: DiceWFRP.opposeStarted,
+        actor: DiceWFRP.actor,
+        rollData: DiceWFRP.rollData
+    }; 
+}
   static chatListeners(html) {
 
     // Chat card actions
