@@ -61,7 +61,7 @@
     </li>
     {{#each actor.psychology as |psych p|}}
     <li class="item" data-item-id="{{psych.id}}">
-      <div class="item-name">
+      <div class="item-name item-dropdown">
         <div class="item-image" style="background-image: url({{psych.img}})"></div>
         <a>{{psych.name}}</a>
       </div>
@@ -105,6 +105,7 @@
     {{/each}}
   </ol>
 
+  {{#if gm}}
 
   <ol class="inventory-list disease-list">
     <li id="disease-header" class="inventory-header item disease-header">
@@ -121,6 +122,7 @@
       </div>
       {{/if}}
     </li>
+
     {{#each actor.diseases as |item i|}}
     <li class="item" data-item-id="{{item.id}}">
       <div class="item-name currency-name item-dropdown">
@@ -129,8 +131,8 @@
       </div>
 
       
-      <span class="incubation">Incubation</span>
-      <span class="duration">Duration</span>
+      <span class="incubation">{{item.data.incubation.value}}</span>
+      <span class="duration">{{item.data.duration.value}}</span>
 
       
       {{#if ../owner}}
@@ -148,4 +150,5 @@
     <h2>GM Notes</h2>
     {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
   </div>
+  {{/if}}
 <div>
