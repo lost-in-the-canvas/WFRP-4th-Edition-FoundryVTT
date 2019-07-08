@@ -17,10 +17,11 @@
             </div>
         </div>
         <div class = "talent-selector">
+            <label id="talentlist-label" title="List of potential talent bonuses">Talent Bonuses</label>
             <select name="talentBonuses" multiple>
                 {{#select talentBonuses}}
                 {{#each talents as |talent t|}}
-                    <option value="{{talent.SL}}">{{talent.test}} - {{talent.SL}}
+                    <option value="{{talent.SL}}">• {{talent.test}} [{{talent.SL}}]
                     </option>
                 {{/each}}
                 {{/select}}

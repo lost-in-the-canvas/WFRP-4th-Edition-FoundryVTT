@@ -22,6 +22,15 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: "Lusitana";
+  src: url('../fonts/Lusitana-Regular.ttf');
+}
+@font-face {
+  font-family: "Lusitana";
+  src: url('../fonts/Lusitana-Bold.ttf');
+  font-weight: bold;
+}
 
 @font-face {
   font-family: "CenturySchoolbook";
@@ -192,7 +201,7 @@ input[type="text"], input[type="password"] {
 
 
 /* ----------------------------------------- */
-/* Sheet Scrollbar                         */
+/* SHEET SCROLLBAR                           */
 /* ----------------------------------------- */
 .wfrp4e.sheet ::-webkit-scrollbar {
   width: 10px;
@@ -245,6 +254,66 @@ input[type="text"], input[type="password"] {
   }
 /* ----------------------------------------- */
 /* ----------------------------------------- */
+
+
+
+/* ----------------------------------------- */
+/* CHAT CARD INPUT                           */
+/* ----------------------------------------- */
+.wfrp4e.sheet ::-webkit-scrollbar {
+  width: 10px;
+}
+.wfrp4e.sheet ::-webkit-scrollbar-track {
+  box-shadow: none;
+  border-radius: 0px;
+}
+.wfrp4e.sheet ::-webkit-scrollbar-thumb {
+  outline: none;
+  border-radius: 3px;
+  background: none;
+  /* background: url(../ui/scrollbar.png) no-repeat;  */
+  border-image: url(../ui/sheet-scrollbar-thumb.png) 10 repeat;
+  border-image-width: 5px;
+  border-image-outset: 0px;
+}
+
+.wfrp4e.sheet ::-webkit-scrollbar-button {
+  background: #782e22;
+  height: 23px;
+  border: none;
+}
+
+.wfrp4e.sheet ::-webkit-scrollbar-button:vertical:decrement {
+  background: url(../ui/sheet-scrollbar-button-vertical-decrement.png) no-repeat;
+  background-position: center;
+  box-shadow: none;
+  background-position-y: 2px;
+} 
+.wfrp4e.sheet ::-webkit-scrollbar-button:vertical:increment {
+  background: url(../ui/sheet-scrollbar-button-vertical-increment.png) no-repeat;
+  background-position: center;
+  background-position-y: 0px;
+  box-shadow: none;
+} 
+
+.wfrp4e.sheet ::-webkit-scrollbar-track {
+  background: url(../ui/sheet-scrollbar-track.png) repeat-y;
+  background-position: center;
+  background-size: 4px 62px;
+
+  box-shadow: none;
+}
+
+  .wfrp4e.sheet .careers ::-webkit-scrollbar-button {
+    background: #782e22;
+    height: 17px;
+    border: none;
+  }
+/* ----------------------------------------- */
+/* ----------------------------------------- */
+
+
+
 
 
 
@@ -3357,7 +3426,7 @@ input[type="text"], input[type="password"] {
             margin: 1px 0px 0px 0px;
             padding: 4px 1px 1px 6px;
             border: none;
-            border-radius: 3px;
+            border-radius: 2px;
             display: inline-block;
             position: relative;
             left: 0px;
@@ -4992,15 +5061,145 @@ input[type="text"], input[type="password"] {
 
 /*************************************************************/
 /*************************************************************/
+/*************************************************************/
 
 
 
 
 
+/*************************************************************/
+/*=============== IV. ROLL DIALOG ===========================*/
+/*************************************************************/
 
-/* testlist:nth-child(even) {
-  background: purple;
-} */
+.window-app.dialog {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background: url(../ui/window-app-dialog.png) repeat;
+  padding: 0px !important;
+  color: #111;
+  width: 518px !important;
+  height: 308px !important;
+  box-shadow: 3px 4px 10px #000;
+}
+.window-app.dialog .window-header {
+  flex: 0 0 45px;
+  padding: 0px;
+  margin: 0px;
+  line-height: 30px;
+  border-bottom: none;
+}
+  .window-app.dialog .window-header .close {
+    color: #00e5ff00;
+    text-align: center;
+    background: url(../ui/button-close.png);
+    height: 30px;
+    width: 30px;
+    position: relative;
+    top: 9px;
+    left: -11px;
+  }
+.window-app.dialog .window-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100% - 30px);
+  max-height: 90vh;
+  background: #0000007a;
+  padding: 8px;
+  margin: 10px 13px 13px 13px;
+  border: 1px solid black;
+  box-shadow: 0 0 21px #000000 inset;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ececec;
+}
+  .window-app.dialog .window-content .dialog-row {
+    display: flex;
+    flex-direction: row;
+    height: 122px;
+  }
+    .window-app.dialog .window-content .dialog-row .bonus-column {
+      width: 181px;
+      margin-right: 6px;
+    }
+    .form-group > label {
+      flex: 2;
+      line-height: 24px;
+      border: 1px solid #736953a6;
+      box-shadow: 0px 0px 10px inset black;
+      background: #000000b0;
+      border-radius: 0px;
+      opacity: 0.9;
+      text-align: center;
+      min-width: 93px;
+      color: #ececec;
+    }
+    #talentlist-label {
+      flex: 2;
+      line-height: 24px;
+      border: 1px solid #736953a6;
+      box-shadow: 0px 0px 10px inset black;
+      background: #000000b0;
+      border-radius: 0px;
+      opacity: 0.9;
+      text-align: center;
+      min-width: 93px;
+      min-height: 24px;
+      position: relative;
+      display: block;
+      padding-top: 0px;
+    }
+    .bonus-column .form-group > input {
+      border: 1px solid #736953a6;
+      border-left: none;
+      box-shadow: 0px 0px 5px inset black;
+      background: url(../ui/chat-form-dark.png);
+      border-radius: 0px;
+      opacity: 1;
+      color: #ececec91;
+      padding: 6px 5px 0px 5px;
+      text-align: center;
+    }
+    .form-group > * {
+      color: #ecececbd;
+      border: 1px solid #736953a6;
+      border-left: none;
+      box-shadow: 0px 0px 5px inset #000000cf;
+      background: #1c3a44b5;
+      border-radius: 0px;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+    } 
+
+  .talent-selector > select{
+    height: 95px;
+    overflow: auto;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 6px;
+    color: #ecececbd;
+    border: 1px solid #736953a6;
+    border-top: none;
+    box-shadow: 0px 0px 5px inset black;
+    background: url(../ui/chat-form-dark.png);
+    border-radius: 0px;
+    opacity: 1;
+    width: 278px;
+  }
+
+
+
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+
 
 
 
@@ -5582,23 +5781,11 @@ font-weight: bold;
     z-index: 101;
   }
 
-  .dialog-row{
-    display: flex;
-    flex-direction: row;
-  }
-  .bonus-column{
-    width: 70%;
-  }
 
-  .bonus-column .form-group > input{
-    width: 50px;
-  }
 
-  .talent-selector > select{
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
+
+
+
 
 
 @font-face {
@@ -6752,7 +6939,8 @@ font-weight: bold;
 }
 #chat-controls {
   height: 28px;
-  margin: 0px 0px 15px 10px;
+  margin: 0px 0px 15px 0px;
+  padding: 0px 17px 0px 14px;
 }
 #chat-controls i.fas {
   font-size: 16px;
@@ -6765,13 +6953,15 @@ font-weight: bold;
   text-align: center;
   position: relative;
   height: 24px;
-  top: -3px;
-  padding-top: 4px;
-  background: url(../ui/chat-message.png) repeat;
-  box-shadow: inset 0 0 11px #000000;
+  top: -1px;
+  padding-top: 3px;
+  background: url(../ui/chat-form.png) repeat;
+  background-position: initial;
+  box-shadow: inset 0 0 10px #000000;
   border-image: url(../ui/chat-controls-border.png) 4 repeat;
   border-image-width: 4px;
-  border-image-outset: 0px;
+  border-image-outset: 3px 2px 2px 2px;
+  color: #520000;
 }
 #chat-controls div.roll-type-select i.fas {
   margin-right: 5px;
@@ -6788,8 +6978,8 @@ font-weight: bold;
 #chat-log {
   flex: none;
   height: 77vh;
-  margin: -5px 4px 5px 5px;
-  padding: 0px;
+  margin: 0px;
+  padding: 10px 0px 10px 0px;
   overflow-y: auto;
   list-style: none;
 }
