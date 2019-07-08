@@ -13,6 +13,7 @@
 {"_id":"46KQkiGUpCj2088n","name":"Skills","type":"Item","parent":null,"sort":1200000}
 {"_id":"4QxeZepugYYBHTRn","name":"Engineer","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":1300000}
 {"_id":"4iST6AJtpGRLqMal","name":"Lore of Death","type":"Item","parent":"gq63Du7x7meVEF1y","sort":1400000}
+{"_id":"4sWcMOarfHJov7XB","name":"Leg","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13500000,"color":""}
 {"_id":"7MunAHnT1No2nkx5","name":"Thief","type":"Item","parent":"iomrYBt356ob6Nk7","sort":1500000}
 {"_id":"7VHRVhPNNSMC7UsK","name":"Bailiff","type":"Item","parent":"z2q9HQ3MaOBWOSu5","sort":1600000}
 {"_id":"88kWgGzmm7pToEdd","name":"Ranald","type":"Item","parent":"1w1PNu0u0r4vorit","sort":1700000}
@@ -33,6 +34,7 @@
 {"_id":"EgvVotx6j30Cl62M","name":"Noble","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":3200000}
 {"_id":"Es0u4U68vLPe70Lv","name":"Injuries","type":"Item","parent":null,"sort":3300000}
 {"_id":"FBz2coJJ1aZU2kLm","name":"Currency","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":3400000}
+{"_id":"FlNWhq4NxOEjudN9","name":"Other","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13800000,"color":""}
 {"_id":"HQk4srGmhItmPvP2","name":"Flagellant","type":"Item","parent":"my4FvSUiD2BuEAEn","sort":3500000}
 {"_id":"HyEHexI3wJ4tOfdd","name":"Outlaw","type":"Item","parent":"iomrYBt356ob6Nk7","sort":3600000}
 {"_id":"Il8t365W3mzOjutn","name":"Traits","type":"Item","parent":null,"sort":3700000}
@@ -42,6 +44,7 @@
 {"_id":"JxqPpYaVxkvUb63G","name":"Huffer","type":"Item","parent":"TTJJEP8bXUQdbeU0","sort":4100000}
 {"_id":"K6EzwV4HagHawMPX","name":"Classes","type":"Item","parent":null,"sort":4200000}
 {"_id":"KKaEBDBWQkMJ3toR","name":"Guard","type":"Item","parent":"Z6AZPqCv92fnoCS2","sort":4300000}
+{"_id":"KSo9sarrEtB98gNz","name":"Head","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13700000,"color":""}
 {"_id":"KhcDgsM4gJtfR4Cm","name":"Knight","type":"Item","parent":"Z6AZPqCv92fnoCS2","sort":4400000}
 {"_id":"LeXVP0kzDWVr62SA","name":"Artisan","type":"Item","parent":"Rp4F3ve4zbDnNFT4","sort":4500000}
 {"_id":"LgHx29wK5ehvZDwz","name":"Warden","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":4600000}
@@ -66,6 +69,7 @@
 {"_id":"U7diHd3MNwVr5KMT","name":"Spy","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":6400000}
 {"_id":"UpNkZ7GVIAPS0lPM","name":"Wizard","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":6500000}
 {"_id":"Uz6DA4C0PgTwIswi","name":"Pit Fighter","type":"Item","parent":"Z6AZPqCv92fnoCS2","sort":6600000}
+{"_id":"VUQRLIERgkXPGjjz","name":"Arm","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13400000,"color":""}
 {"_id":"W4OHkyUpQPIREzcj","name":"Trade Tools and Workshops","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":6700000}
 {"_id":"WSX9jCfIl84TLFfc","name":"Petty","type":"Item","parent":"gq63Du7x7meVEF1y","sort":6800000}
 {"_id":"WivMFIV9Fa69qyTC","name":"Lore of Daemonology","type":"Item","parent":"gq63Du7x7meVEF1y","sort":6900000}
@@ -121,6 +125,7 @@
 {"_id":"qrSZfUnOIruhUzLr","name":"Lore of Shadow","type":"Item","parent":"gq63Du7x7meVEF1y","sort":11800000}
 {"_id":"rdBQzOvPrXRs1Lhz","name":"Beggar","type":"Item","parent":"Rp4F3ve4zbDnNFT4","sort":11900000}
 {"_id":"s60MXkjohki4iv7i","name":"Servant","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":12000000}
+{"_id":"s94Bj6SsZWR4M3LB","name":"Body","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13600000,"color":""}
 {"_id":"t0EZsTqNYXFRFIuq","name":"Envoy","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":12100000}
 {"_id":"u6TJUXJdjQHR6KpO","name":"Tools and Kits","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":12200000}
 {"_id":"v1749wPV9rPtVXuT","name":"Chaos Magic","type":"Item","parent":"gq63Du7x7meVEF1y","sort":12300000}
@@ -130,8 +135,3 @@
 {"_id":"wPWH8ZgPEvdPPdkJ","name":"Lore of Metal","type":"Item","parent":"gq63Du7x7meVEF1y","sort":12700000}
 {"_id":"yvKm3BXywCm12LgA","name":"Taal","type":"Item","parent":"1w1PNu0u0r4vorit","sort":12800000}
 {"_id":"z2q9HQ3MaOBWOSu5","name":"Peasants","type":"Item","parent":"K6EzwV4HagHawMPX","sort":12900000}
-{"_id":"VUQRLIERgkXPGjjz","name":"Arm","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13400000,"color":""}
-{"_id":"4sWcMOarfHJov7XB","name":"Leg","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13500000,"color":""}
-{"_id":"s94Bj6SsZWR4M3LB","name":"Body","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13600000,"color":""}
-{"_id":"KSo9sarrEtB98gNz","name":"Head","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13700000,"color":""}
-{"_id":"FlNWhq4NxOEjudN9","name":"Other","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13800000,"color":""}

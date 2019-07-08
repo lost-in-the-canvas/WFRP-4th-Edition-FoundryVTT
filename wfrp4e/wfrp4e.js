@@ -836,12 +836,24 @@ class DiceWFRP {
 
 
   
-  // To be used in the future for opposed tests
-  static opposeData  = {
-    opposeStarted : false,
-    actor : undefined,
-    rollData : undefined
-  }
+    /**
+    * To be used in the future for opposed tests
+    * 
+    * getter for "static" variables which are just properties we stick
+    * in the class prototype
+    */
+   get opposeData() {
+    if (!!!DiceWFRP.opposeStarted) DiceWFRP.opposeStarted = false; 
+    /* these 2 are redundant technically */
+    if (!!!DiceWFRP.actor) DiceWFRP.actor = null; 
+    if (!!!DiceWFRP.rollData) DiceWFRP.opposeStarted = undefined; 
+
+    return {
+        opposeStarted: DiceWFRP.opposeStarted,
+        actor: DiceWFRP.actor,
+        rollData: DiceWFRP.rollData
+    }; 
+}
   static chatListeners(html) {
 
     // Chat card actions
@@ -1937,13 +1949,19 @@ class ItemWfrp4e extends Item {
 
   _mutationExpandData() {
     const data = duplicate(this.data.data);
-    data.properties = [];
+    data.properties = []
+    data.properties.push(CONFIG.mutationTypes[this.data.data.mutationType.value]);
+    data.properties.push(this.data.data.modifier.value);
     return data;
   }
 
   _diseaseExpandData() {
     const data = duplicate(this.data.data);
-    data.properties = [];
+    data.properties = this.data.data.symptoms.value.split(",").map(function(item) {
+      return item.trim();
+    });
+    if (this.data.data.permanent.value)
+      data.properties.push("<b>Permanent:</b> " + this.data.data.permanent.value)
     return data;
   }
 
@@ -2413,6 +2431,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         sheetData.actor.data.details.move.run += sheetData.actor.data.details.move.walk;
     } 
     
+    sheetData.gm = game.user.isGM;
     // Return data to the sheet
     return sheetData;
   }

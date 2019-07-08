@@ -4,16 +4,7 @@
   "system": "wfrp4e",
   "coreVersion": "0.3.2",
   "systemVersion": "Alpha 0.2",
-  "packs": [
-    {
-      "name": "careers",
-      "label": "Careers",
-      "path": "B:\\WFRP\\FoundryVTT\\FVTT\\resources\\app\\public\\worlds\\wfrp2\\packs\\careers.db",
-      "entity": "Item",
-      "module": "world",
-      "system": "wfrp4e"
-    }
-  ],
+  "packs": [],
   "scripts": [],
   "styles": [],
   "id": "wfrp4e-starter-world"

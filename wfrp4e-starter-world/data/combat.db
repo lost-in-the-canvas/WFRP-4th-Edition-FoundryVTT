@@ -2,11 +2,3 @@
 {"_id":"6PI06hhANjJSh6XZ","flags":{},"scene":"Uoxqoq5awjNfaEIp","combatants":[],"active":true,"round":0,"turn":0}
 {"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[],"active":true,"round":0,"turn":0}
 {"_id":"kDFLRcDx08rlGviK","flags":{},"scene":"Uoxqoq5awjNfaEIp","combatants":[],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false,"defeated":true}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false,"defeated":false}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false,"defeated":true}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false,"defeated":false}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":true,"defeated":false}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[{"id":1,"flags":{},"tokenId":1,"hidden":false,"defeated":false}],"active":true,"round":0,"turn":0}
-{"_id":"gsTHK6B5HOftKskl","flags":{},"scene":"AezDD2n3jtv5ifZH","combatants":[],"active":true,"round":0,"turn":0}
