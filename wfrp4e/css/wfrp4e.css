@@ -5190,6 +5190,16 @@ input[type="text"], input[type="password"] {
     opacity: 1;
     width: 278px;
   }
+  option {
+    /* wrap text in compatible browsers */
+    -moz-white-space: pre-wrap;
+    -o-white-space: pre-wrap;
+    white-space: pre-wrap;
+    /* hide text that can't wrap with an ellipsis */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* add border after every option */
+  }
 
 
 
