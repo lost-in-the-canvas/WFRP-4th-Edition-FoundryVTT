@@ -1204,6 +1204,15 @@ class ActorWfrp4e extends Actor {
       autoCalcCritW :  true,
       autoCalcCorruption :  true
     }
+
+    /*for (let item of Item.collection.entities)
+    {
+      if (item.img.includes ("blank"))
+      {
+        console.log("Test")
+        item.update({"img" : "systems/wfrp4e/icons/blank.png"});
+      }
+    }*/
     super.create(data, options);
     
   }
@@ -1913,6 +1922,11 @@ CONFIG.Actor.entityClass = ActorWfrp4e;
 class ItemWfrp4e extends Item {
 
 
+  static async create(data, options) {
+
+    data.img = "systems/wfrp4e/icons/blank.png";
+    super.create(data, options);
+  }
   // Expand data is used in most dropdown infos
   getExpandData(htmlOptions) {
     const data = this[`_${this.data.type}ExpandData`]();
