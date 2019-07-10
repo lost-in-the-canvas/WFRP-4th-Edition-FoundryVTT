@@ -1202,7 +1202,8 @@ class ActorWfrp4e extends Actor {
       autoCalcWalk :  true,
       autoCalcWounds :  true,
       autoCalcCritW :  true,
-      autoCalcCorruption :  true
+      autoCalcCorruption :  true,
+      autoCalcEnc :  true
     }
 
     /*for (let item of Item.collection.entities)
@@ -1236,6 +1237,10 @@ class ActorWfrp4e extends Actor {
       data.details.move.walk = parseInt(data.details.move.value)* 2;
     if (actorData.flags.autoCalcRun)
       data.details.move.run = parseInt(data.details.move.value) * 4;
+
+      
+    if (actorData.flags.autoCalcEnc)
+      actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     
     return actorData;
 
@@ -2387,6 +2392,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
 
+
    if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
     
@@ -2825,7 +2831,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
       }*/
       let enc = {
-        max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
+        max: actorData.data.status.encumbrance.max,
         value: Math.round(totalEnc * 10) / 10,
       };
       enc.pct = Math.min(enc.value * 100 / enc.max, 100);
@@ -3151,14 +3157,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (toggle == "run")
           newFlags.autoCalcRun = !newFlags.autoCalcRun;
 
-        if (toggle == "wounds")
+        else if (toggle == "wounds")
           newFlags.autoCalcWounds = !newFlags.autoCalcWounds;
 
         else if (toggle == "critW")
           newFlags.autoCalcCritW = !newFlags.autoCalcCritW;
 
-          else if (toggle == "corruption")
+        else if (toggle == "corruption")
           newFlags.autoCalcCorruption = !newFlags.autoCalcCorruption;
+
+        else if (toggle == "encumbrance")
+          newFlags.autoCalcEnc = !newFlags.autoCalcEnc;
 
 
         this.actor.update({'flags' : newFlags})

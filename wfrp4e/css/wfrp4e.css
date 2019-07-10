@@ -3396,7 +3396,7 @@ input[type="text"], input[type="password"] {
             margin: 0px;
             position: relative;
             top: 0px;
-            left: 271px;
+            left: 260px;
             font-family: CaslonPro;
             font-weight: 500;
             font-size: 14px;
@@ -3406,6 +3406,46 @@ input[type="text"], input[type="password"] {
             height: 20px;
             /* background: red; */
           } 
+          .wfrp4e .inventory .encumbrance-header .encumbrance-max {
+            text-align: right;
+            padding: 0px;
+            padding-top: 4px;
+            padding-right: 10px;
+            margin: 0px;
+            position: relative;
+            top: 0px;
+            left: 164px;
+            font-family: CaslonPro;
+            font-weight: 500;
+            font-size: 14px;
+            color: #464331;
+            display: inline-block;
+            width: 100px;
+            height: 20px;
+            /* background: red; */
+          }
+
+          /* doesnt work */
+          .wfrp4e .inventory .encumbrance-header .encumbrance-max input {
+            text-align: right;
+            padding: 0px;
+            padding-top: 4px;
+            padding-right: 10px;
+            margin: 0px;
+            position: relative;
+            top: 0px;
+            left: 164px;
+            font-family: CaslonPro;
+            font-weight: 500;
+            font-size: 14px;
+            color: #464331;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            /* background: red; */
+          }
+
+
         .wfrp4e .inventory .encumbrance {
           margin-top: 0px;
           padding: 0px 1px 0px 1px;

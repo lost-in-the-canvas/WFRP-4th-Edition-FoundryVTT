@@ -1,7 +1,12 @@
 <div class="inventory" data-group="primary" data-tab="inventory">
   
   <div class="encumbrance-header">Encumbrance Counter
-    <span class="encumbrance-label">{{actor.encumbrance.value}} / {{actor.encumbrance.max}}</span>
+    <span class="encumbrance-label">{{actor.encumbrance.value}} /</span>
+    {{#if actor.flags.autoCalcEnc}}
+   <a  class="encumbrance-max auto-calc-toggle" toggle-type = "encumbrance">{{actor.data.status.encumbrance.max}}</a>
+   {{else}}
+   <input type="text" name = "data.status.encumbrance.max" value ="{{data.status.encumbrance.max}}" class="encumbrance-max auto-calc-toggle" toggle-type = "encumbrance" data-dtype="Number"/>
+   {{/if}}
   </div>
   
   <div class="encumbrance">
