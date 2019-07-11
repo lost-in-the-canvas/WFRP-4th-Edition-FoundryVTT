@@ -884,6 +884,10 @@ input[type="text"], input[type="password"] {
           height: 109px;
           width: 506px;
         }
+
+        .wfrp4e.actor .advancement-indicator {
+          cursor: pointer;
+        }
         .wfrp4e.actor.creature-sheet .characteristics,
         .wfrp4e.actor.npc-sheet .characteristics {
           height: 25px;

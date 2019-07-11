@@ -1984,6 +1984,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("Class: " + this.data.data.class.value);
     data.properties.push("Group: " + this.data.data.careergroup.value);
     data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    data.properties.push("Characteristics: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
     data.properties.push("Skills: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("Talents: " + this.data.data.talents.map (i => i = " " + i));
     data.properties.push("Income: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
@@ -3588,6 +3589,77 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   }
 
 
+    /**
+   * Advance NPC based on given career
+   * @private
+   */
+  async _advanceNPC(careerData) {
+    let updateObj = {};
+    let skillList = [];
+    let advancesNeeded = careerData.level.value * 5;
+    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    await pack.getIndex().then(index => skillList = index);
+    
+    for (let advChar of careerData.characteristics)
+    {
+      if (this.actor.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+        updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+    }
+    for (let skill of careerData.skills)
+    {
+      let searchResult;
+      // Search for specific skill (won't find unlisted specializations)
+      searchResult = skillList.find(s => s.name == skill)
+
+      try 
+      {
+        if (!searchResult)
+          searchResult = skillList.find(s => s.name.split("(")[0].trim() == skill.split("(")[0].trim())
+
+        let existingSkill = this.actor.data.items.find(i => i.name.trim() == skill && i.type == "skill")
+        if (existingSkill)
+        {
+          existingSkill.data.advances.value = (existingSkill.data.advances.value < advancesNeeded) ? advancesNeeded : existingSkill.data.advances.value; 
+          this.actor.updateOwnedItem(existingSkill);
+        }
+      
+        else
+        {
+          let skillToAdd;             
+          await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
+          skillToAdd.data.name = skill; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+          skillToAdd.data.data.advances.value = advancesNeeded;
+          this.actor.createOwnedItem(skillToAdd.data);
+          console.log(skillToAdd);
+        }
+      }
+      catch {
+        console.log("Something went wrong when adding skill " + skill);
+      }
+
+    }
+
+    /*for (let talent of careerData.talents)
+    {
+      // TODO Redo for talent compendium
+      let talentList = game.items.entities.filter(i => i.type == "talent");
+      let searchResult = talentList.find(t => t.name == talent);
+
+        if (!searchResult)
+          searchResult = talentList.find(t => t.name.split("(")[0].trim() == talent.split("(")[0].trim())          
+        
+        if (searchResult)
+        {
+          let talentToAdd = duplicate(searchResult);
+          talentToAdd.data.name = talent;
+          this.actor.createOwnedItem(talentToAdd.data);
+        }
+
+
+    }*/
+    this.actor.update(updateObj);
+  }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -3617,17 +3689,10 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
         let careerItem = this.actor.getOwnedItem(id);
         careerItem.data.data.complete.value = !careerItem.data.data.complete.value
-        let updateObj = {};
         if (careerItem.data.data.complete.value)
-        {
-          for (let advChar of careerItem.data.data.characteristics)
-          {
-            if (this.actor.data.data.characteristics[advChar].advances < 5 * careerItem.data.data.level.value)
-              updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerItem.data.data.level.value;
-          }
-        }
+          this._advanceNPC(careerItem.data.data)
+
         this.actor.updateOwnedItem({id : id, 'data' : careerItem.data.data});
-        this.actor.update(updateObj);
       });
 
       html.find('#input-species').focusout(async event => {
