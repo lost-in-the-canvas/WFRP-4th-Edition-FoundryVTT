@@ -4083,42 +4083,31 @@ class WFRP_Utility
 
     weapon.data.damage.rangedValue += eval(ammoDamage);
     
+    // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
+    // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
     ammoProperties = ammoProperties.filter(p => p != undefined);
-    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
-    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
+    let propertyChange = ammoProperties.filter(p => p.includes("+") || p.includes("-")); // Properties that increase or decrease another (Blast +1, Blast -1)
 
+    // Normal properties (Impale, Penetrating)
     let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
 
-    for (let inc of propertyIncrease)
+    for (let inc of propertyChange)
     {
-      let index = inc.indexOf("+");
+      let index = inc.indexOf(" ");
       let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
+      let value = inc.substring(index, inc.length);
+
+      if (weapon.properties.find(p => p.includes(property)))
       {
-        //TODO
-        // This section is for ammo that increases a quality
-        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
+        let basePropertyIndex = weapon.properties.findIndex(p => p.includes(property))
+        let baseValue = weapon.properties[basePropertyIndex].split(" ")[1];
+        let newValue = eval(baseValue + value)
+  
+        weapon.properties[basePropertyIndex] = `${property} ${newValue}`;
       }
       else
       {
-        weapon.properties.push(property + " " + value);
-      }
-    }
-    for (let inc of propertyDecrease)
-    {
-      let index = inc.indexOf("-");
-      let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
-      {
-        //TODO
-        // This section is for ammo that decreases a quality
-        // e.g. Blast -1 Turns a weapon with Blast 4 into Blast 3
-      }
-      else
-      {
-        weapon.properties.push(property + " " + value);
+        propertiesToAdd.push(property + " " + value);
       }
     }
 
