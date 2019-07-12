@@ -362,6 +362,17 @@ CONFIG.difficultyLabels = {
  "vhard":"Very Hard (-30)"
 }
  
+CONFIG.locations = {
+ "head": "Head",
+ "body": "Body",
+ "rArm": "Right Arm",
+ "lArm": "Left Arm",
+ "rLeg": "Right Leg",
+ "lLeg": "Left Leg",
+}
+
+
+
 // Trapping Availability
  CONFIG.availability = {
    "None": "-",
@@ -510,6 +521,8 @@ class DiceWFRP {
     else // Otherwise use a generic test
       roll = () =>{
       let roll = DiceWFRP.rollTest(testData);
+      if (testData.hitLocation)
+        console.log(WFRP_Tables.hitloc)
       if (testData.extra)
         mergeObject(roll, testData.extra);
       DiceWFRP.renderRollCard(cardOptions, roll);
@@ -930,6 +943,46 @@ class DiceWFRP {
  */
 Hooks.once("init", () => {
 
+  fetch ("fgdb.json").then (r => r.json()).then(async records => {
+    var fgtable = records["tables"]["id-00005"];
+    var newtable = {
+      name : fgtable.description,
+      rows : ["-"]
+    }
+
+    for (var fgrow in fgtable["tablerows"])
+    {
+      fgrow = fgtable["tablerows"][fgrow];
+      var from = fgrow.fromrange;
+      var to = fgrow.torange;
+      for (var i = from; i <= to; i++)
+      {
+        var rowObj = {
+          name : fgrow.results["id-00001"].result,
+          wounds : fgrow.results["id-00002"].result,
+          description : fgrow.results["id-00003"].result
+        }
+        newtable.rows.push(rowObj);
+      }
+    }
+    console.log(JSON.stringify(newtable));
+  })
+
+  fetch("systems/wfrp4e/tables/hitloc.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.hitloc = records;
+  })
+  fetch("systems/wfrp4e/tables/crithead.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.crithead = records;
+  })
+  fetch("systems/wfrp4e/tables/critbody.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.critbody = records;
+  })
+  fetch("systems/wfrp4e/tables/critarm.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.critarm = records;
+  })
+  fetch("systems/wfrp4e/tables/critleg.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.critleg = records;
+  })
   // IMPORT CODE FOR CAREERS
 /* let counter = 0;
   fetch ("careers.json").then(r => r.json()).then(async records => {
@@ -1161,6 +1214,13 @@ Hooks.on("canvasInit", () => {
   
 
   }
+});
+
+Hooks.on("chatMessage", (html, content, msg) => {
+  content = content.toLowerCase();
+  console.log(content.substring(0,6));
+  if (content.substring(0, 6) == "/table")
+    msg.content = WFRP_Tables.formatChatRoll(content.substring(7).trim())
 });
 
 /**
@@ -4254,6 +4314,55 @@ class WFRP_Utility
     let item = duplicate(CONFIG.itemFlaws);
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
+  }
+}
+
+class WFRP_Tables {
+  static rollTable(table, modifier = 0)
+  {
+    if (this[table])
+    {
+      let die = `1d${this[table].rows.length - 1}`
+      let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+      return this[table].rows[roll.total];
+    }
+    else
+    {
+
+    }
+  }
+  
+  // Wrapper for rollTable to format rolls from chat commands nicely
+  static formatChatRoll (table, modifier = 0)
+  {
+    let result = this.rollTable(table, modifier);
+
+    switch (table)
+    {
+      case "help":
+        return "<b>Commands</b><br>"+
+        "<code>hitloc</code> - Hit Location<br>"+
+        "<code>crithead</code> - Head Critical Hits<br>"+
+        "<code>critbody</code> - Body Critical Hits<br>"+
+        "<code>critarm</code> - Arm Critical Hits<br>"+
+        "<code>critleg</code> - Leg Critical Hits<br>"+
+        "<code>minormis</code> - Minor Miscast<br>"+
+        "<code>majormis</code> - Major Miscast<br>"+
+        "<code>wrath</code> - Wrath of the Gods<br>"+
+        "<code>mutatephys</code> - Physical Mutation<br>"+
+        "<code>mutatemental</code> - Mental Mutation<br>"+
+        "<code>travel</code> - Travel Event<br>"+
+        "<code>event</code> - Downtime Event<br>"+
+        "<code>splatter</code> - Splatter Direction<br>";
+      case "hitloc":
+        return "<b>Location:</b> " + result.description;
+
+      case "crithead":
+      case "critbody":
+      case "critarm":
+      case "critleg":
+        return `<b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+    }
   }
 }
 
