@@ -944,7 +944,7 @@ class DiceWFRP {
 Hooks.once("init", () => {
 
   fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    var fgtable = records["tables"]["id-00005"];
+    var fgtable = records["tables"]["id-00008"];
     var newtable = {
       name : fgtable.description,
       rows : ["-"]
@@ -959,8 +959,7 @@ Hooks.once("init", () => {
       {
         var rowObj = {
           name : fgrow.results["id-00001"].result,
-          wounds : fgrow.results["id-00002"].result,
-          description : fgrow.results["id-00003"].result
+          description : fgrow.results["id-00002"].result,
         }
         newtable.rows.push(rowObj);
       }
@@ -982,6 +981,27 @@ Hooks.once("init", () => {
   })
   fetch("systems/wfrp4e/tables/critleg.json").then(r => r.json()).then(async records => {
     WFRP_Tables.critleg = records;
+  })
+  fetch("systems/wfrp4e/tables/event.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.event = records;
+  })
+  fetch("systems/wfrp4e/tables/minormis.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.minormis = records;
+  })  
+  fetch("systems/wfrp4e/tables/majormis.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.majormis = records;
+  })
+  fetch("systems/wfrp4e/tables/wrath.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.wrath = records;
+  })
+  fetch("systems/wfrp4e/tables/travel.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.travel = records;
+  })
+  fetch("systems/wfrp4e/tables/mutatephys.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.mutatephys = records;
+  })
+  fetch("systems/wfrp4e/tables/mutatemental.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.mutatemental = records;
   })
   // IMPORT CODE FOR CAREERS
 /* let counter = 0;
@@ -4320,6 +4340,7 @@ class WFRP_Utility
 class WFRP_Tables {
   static rollTable(table, modifier = 0)
   {
+    table = table.toLowerCase();
     if (this[table])
     {
       let die = `1d${this[table].rows.length - 1}`
@@ -4338,8 +4359,25 @@ class WFRP_Tables {
     let result = this.rollTable(table, modifier);
 
     switch (table)
-    {
-      case "help":
+    {  
+      case "hitloc":
+        return "<b>Location:</b> " + result.description;
+      case "crithead":
+      case "critbody":
+      case "critarm":
+      case "critleg":
+        return `<b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+      
+      case "minormis":
+      case "majormis":
+      case "event":
+      case "wrath":
+      case "travel":
+      case "mutatephys":
+      case "mutatemental":
+        return `<b>${result.name}</b><br>${result.description}`;
+
+      default:
         return "<b>Commands</b><br>"+
         "<code>hitloc</code> - Hit Location<br>"+
         "<code>crithead</code> - Head Critical Hits<br>"+
@@ -4351,17 +4389,10 @@ class WFRP_Tables {
         "<code>wrath</code> - Wrath of the Gods<br>"+
         "<code>mutatephys</code> - Physical Mutation<br>"+
         "<code>mutatemental</code> - Mental Mutation<br>"+
-        "<code>travel</code> - Travel Event<br>"+
         "<code>event</code> - Downtime Event<br>"+
-        "<code>splatter</code> - Splatter Direction<br>";
-      case "hitloc":
-        return "<b>Location:</b> " + result.description;
-
-      case "crithead":
-      case "critbody":
-      case "critarm":
-      case "critleg":
-        return `<b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+        "<code>travel</code> - Downtime Event<br>"+
+        "<code>splatter</code> - Scatter Direction<br>"+
+        "<code>doom</code> - Dooming<br>"
     }
   }
 }
