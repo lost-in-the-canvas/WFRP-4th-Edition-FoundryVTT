@@ -943,7 +943,7 @@ class DiceWFRP {
  */
 Hooks.once("init", () => {
 
-  fetch ("fgdb.json").then (r => r.json()).then(async records => {
+  /*fetch ("fgdb.json").then (r => r.json()).then(async records => {
     var fgtable = records["tables"]["id-00008"];
     var newtable = {
       name : fgtable.description,
@@ -965,7 +965,19 @@ Hooks.once("init", () => {
       }
     }
     console.log(JSON.stringify(newtable));
-  })
+  })*/
+
+  // fetch("doomings.txt").then(r => r.text()).then(t => {
+  //   let array = t.split("\n").map(function(item) {
+  //     return item.substring(3);
+  //   });
+  //   let table = {rows: [undefined]};
+  //   for (let i = 0; i < array.length; i++)
+  //   {
+  //     table.rows.push({description : array[i]})
+  //   }
+  //   console.log(JSON.stringify(table));
+  // })
 
   fetch("systems/wfrp4e/tables/hitloc.json").then(r => r.json()).then(async records => {
     WFRP_Tables.hitloc = records;
@@ -1003,6 +1015,47 @@ Hooks.once("init", () => {
   fetch("systems/wfrp4e/tables/mutatemental.json").then(r => r.json()).then(async records => {
     WFRP_Tables.mutatemental = records;
   })
+  fetch("systems/wfrp4e/tables/doom.json").then(r => r.json()).then(async records => {
+    WFRP_Tables.doom = records;
+  })
+
+
+  WFRP_Tables.scatter = {
+    rows : [
+      undefined, 
+      {
+        name : "Top Left"
+      },
+      {
+        name : "Top Middle"
+      },
+      {
+        name : "Top Right"
+      },
+      {
+        name : "Center Left"
+      },
+      {
+        name : "Center Right"
+      },
+      {
+        name : "Bottom Left"
+      },
+      {
+        name : "Bottom Middle"
+      },
+      {
+        name : "Bottom Right"
+      },
+      {
+        name : "At your feet"
+      },
+      {
+        name : "At the target's feet"
+      },
+    ]
+  }
+
   // IMPORT CODE FOR CAREERS
 /* let counter = 0;
   fetch ("careers.json").then(r => r.json()).then(async records => {
@@ -4338,6 +4391,7 @@ class WFRP_Utility
 }
 
 class WFRP_Tables {
+
   static rollTable(table, modifier = 0)
   {
     table = table.toLowerCase();
@@ -4345,6 +4399,16 @@ class WFRP_Tables {
     {
       let die = `1d${this[table].rows.length - 1}`
       let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+      if (table == "scatter")
+      {
+        if (roll.total <= 8)
+        {
+          let distRoll = new Roll('2d10').roll().total;
+          return {roll : roll.total, dist : distRoll}
+        }
+        else
+          return {roll : roll.total}
+      }
       return this[table].rows[roll.total];
     }
     else
@@ -4376,6 +4440,47 @@ class WFRP_Tables {
       case "mutatephys":
       case "mutatemental":
         return `<b>${result.name}</b><br>${result.description}`;
+
+      case "doom":
+        return `<b>The Prophet Speaketh</b><br>${result.description}`;
+
+      case "scatter":
+        let tableHtml = '<table class = "scatter-table">' +
+        " <tr>"+
+        "<td position='1'> "+
+        "</td>"+
+        "<td position='2'> "+
+        "</td>"+
+        "<td position='3'> "+
+        "</td>"+
+        "</tr>"+
+        " <tr>"+
+        "<td position='4'> "+
+        "</td>"+
+        "<td position='10'> T"+
+        "</td>"+
+        "<td position='5'> "+
+        "</td>"+
+        "</tr>"+
+        " <tr>"+
+        "<td position='6'> "+
+        "</td>"+
+        "<td position='7'> "+
+        "</td>"+
+        "<td position='8'> "+
+        "</td>"+
+        "</tr>"+
+      "</table>"
+      if (result.roll == 9)
+       tableHtml += "At your feet";
+      else if (result.roll == 10)
+        tableHtml += "At their feet";
+      console.log (result.roll)
+      tableHtml = tableHtml.replace(`position='${result.roll}'`, "class='selected-position'")
+      if (result.dist)
+        tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
+
+      return tableHtml;
 
       default:
         return "<b>Commands</b><br>"+
