@@ -356,6 +356,10 @@ input[type="text"], input[type="password"] {
       border-radius: 0px;
       box-shadow: 0 0 0px #000;
     }
+    .sidebar-tab {
+      overflow: hidden;
+      margin: 0px 8px 0px 87px;
+    }
   /* ============================================================ */
 
   /* ==================== (B) SIDEBAR HEADER ==================== */
@@ -570,7 +574,7 @@ input[type="text"], input[type="password"] {
     #chat-log {
       flex: none;
       height: calc(100vh - 54px - 187px);
-      margin: 0px 10px 10px 80px;
+      margin: 0px 0px 10px 0px;
       padding: 0px;
       overflow-y: auto;
       list-style: none;
@@ -646,8 +650,8 @@ input[type="text"], input[type="password"] {
     }
     #chat-controls {
       height: 28px;
-      margin: 0px 0px 15px 80px;
-      padding: 0px 17px 0px 14px;
+      margin: 0px 15px 15px 11px;
+      padding: 0px 0px 0px 0px;
     }
     #chat-controls i.fas {
       font-size: 16px;
@@ -691,7 +695,7 @@ input[type="text"], input[type="password"] {
     #chat-form {
       height: 100px;
       flex: 0 0 100px;
-      margin: 0px 0px 0px 80px;
+      margin: 0px 0px 0px 0px;
     }
     #chat-form textarea {
       width: 90%;
