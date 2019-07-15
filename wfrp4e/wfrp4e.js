@@ -362,6 +362,17 @@ CONFIG.difficultyLabels = {
  "vhard":"Very Hard (-30)"
 }
  
+CONFIG.locations = {
+ "head": "Head",
+ "body": "Body",
+ "rArm": "Right Arm",
+ "lArm": "Left Arm",
+ "rLeg": "Right Leg",
+ "lLeg": "Left Leg",
+}
+
+
+
 // Trapping Availability
  CONFIG.availability = {
    "None": "-",
@@ -510,6 +521,8 @@ class DiceWFRP {
     else // Otherwise use a generic test
       roll = () =>{
       let roll = DiceWFRP.rollTest(testData);
+      if (testData.hitLocation)
+        console.log(WFRP_Tables.hitloc)
       if (testData.extra)
         mergeObject(roll, testData.extra);
       DiceWFRP.renderRollCard(cardOptions, roll);
@@ -930,6 +943,95 @@ class DiceWFRP {
  */
 Hooks.once("init", () => {
 
+  /*fetch ("fgdb.json").then (r => r.json()).then(async records => {
+    var fgtable = records["tables"]["id-00008"];
+    var newtable = {
+      name : fgtable.description,
+      rows : ["-"]
+    }
+
+    for (var fgrow in fgtable["tablerows"])
+    {
+      fgrow = fgtable["tablerows"][fgrow];
+      var from = fgrow.fromrange;
+      var to = fgrow.torange;
+      for (var i = from; i <= to; i++)
+      {
+        var rowObj = {
+          name : fgrow.results["id-00001"].result,
+          description : fgrow.results["id-00002"].result,
+        }
+        newtable.rows.push(rowObj);
+      }
+    }
+    console.log(JSON.stringify(newtable));
+  })*/
+
+  // fetch("doomings.txt").then(r => r.text()).then(t => {
+  //   let array = t.split("\n").map(function(item) {
+  //     return item.substring(3);
+  //   });
+  //   let table = {rows: [undefined]};
+  //   for (let i = 0; i < array.length; i++)
+  //   {
+  //     table.rows.push({description : array[i]})
+  //   }
+  //   console.log(JSON.stringify(table));
+  // })
+
+  game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
+    for (var file of resp.files)
+    {
+      try {
+        if (!file.includes(".json"))
+          throw "Not JSON file"
+        let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
+        fetch(file).then(r=>r.json()).then(async records => {
+          WFRP_Tables[filename] = records;
+        })
+      }
+      catch(error) {
+       console.log("Error reading " + file + ": " + error) 
+      }
+    }
+  })
+
+  WFRP_Tables.scatter = {
+    rows : [
+      undefined, 
+      {
+        name : "Top Left"
+      },
+      {
+        name : "Top Middle"
+      },
+      {
+        name : "Top Right"
+      },
+      {
+        name : "Center Left"
+      },
+      {
+        name : "Center Right"
+      },
+      {
+        name : "Bottom Left"
+      },
+      {
+        name : "Bottom Middle"
+      },
+      {
+        name : "Bottom Right"
+      },
+      {
+        name : "At your feet"
+      },
+      {
+        name : "At the target's feet"
+      },
+    ]
+  }
+
   // IMPORT CODE FOR CAREERS
 /* let counter = 0;
   fetch ("careers.json").then(r => r.json()).then(async records => {
@@ -1163,6 +1265,19 @@ Hooks.on("canvasInit", () => {
   }
 });
 
+Hooks.on("chatMessage", async (html, content, msg) => {
+  content = content.toLowerCase();
+  console.log(content.substring(0,6));
+  let command = content.split(" ").map(function(item) {
+    return item.trim();
+  })
+  if (command[0] == "/table")
+  {
+    modifier = parseInt(command[2]);
+    msg.content = WFRP_Tables.formatChatRoll(command[1], modifier)
+  }
+});
+
 /**
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
  */
@@ -1202,8 +1317,18 @@ class ActorWfrp4e extends Actor {
       autoCalcWalk :  true,
       autoCalcWounds :  true,
       autoCalcCritW :  true,
-      autoCalcCorruption :  true
+      autoCalcCorruption :  true,
+      autoCalcEnc :  true
     }
+
+    /*for (let item of Item.collection.entities)
+    {
+      if (item.img.includes ("blank"))
+      {
+        console.log("Test")
+        item.update({"img" : "systems/wfrp4e/icons/blank.png"});
+      }
+    }*/
     super.create(data, options);
     
   }
@@ -1227,6 +1352,10 @@ class ActorWfrp4e extends Actor {
       data.details.move.walk = parseInt(data.details.move.value)* 2;
     if (actorData.flags.autoCalcRun)
       data.details.move.run = parseInt(data.details.move.value) * 4;
+
+      
+    if (actorData.flags.autoCalcEnc)
+      actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     
     return actorData;
 
@@ -1913,6 +2042,11 @@ CONFIG.Actor.entityClass = ActorWfrp4e;
 class ItemWfrp4e extends Item {
 
 
+  static async create(data, options) {
+
+    data.img = "systems/wfrp4e/icons/blank.png";
+    super.create(data, options);
+  }
   // Expand data is used in most dropdown infos
   getExpandData(htmlOptions) {
     const data = this[`_${this.data.type}ExpandData`]();
@@ -1965,6 +2099,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("Class: " + this.data.data.class.value);
     data.properties.push("Group: " + this.data.data.careergroup.value);
     data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    data.properties.push("Characteristics: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
     data.properties.push("Skills: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("Talents: " + this.data.data.talents.map (i => i = " " + i));
     data.properties.push("Income: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
@@ -2372,6 +2507,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
+
 
    if (sheetData.actor.flags.autoCalcWounds)
     switch (sheetData.actor.data.details.size.value){
@@ -2811,7 +2947,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
       }*/
       let enc = {
-        max: actorData.data.characteristics.s.bonus + actorData.data.characteristics.t.bonus,
+        max: actorData.data.status.encumbrance.max,
         value: Math.round(totalEnc * 10) / 10,
       };
       enc.pct = Math.min(enc.value * 100 / enc.max, 100);
@@ -3137,14 +3273,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (toggle == "run")
           newFlags.autoCalcRun = !newFlags.autoCalcRun;
 
-        if (toggle == "wounds")
+        else if (toggle == "wounds")
           newFlags.autoCalcWounds = !newFlags.autoCalcWounds;
 
         else if (toggle == "critW")
           newFlags.autoCalcCritW = !newFlags.autoCalcCritW;
 
-          else if (toggle == "corruption")
+        else if (toggle == "corruption")
           newFlags.autoCalcCorruption = !newFlags.autoCalcCorruption;
+
+        else if (toggle == "encumbrance")
+          newFlags.autoCalcEnc = !newFlags.autoCalcEnc;
 
 
         this.actor.update({'flags' : newFlags})
@@ -3565,6 +3704,77 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   }
 
 
+    /**
+   * Advance NPC based on given career
+   * @private
+   */
+  async _advanceNPC(careerData) {
+    let updateObj = {};
+    let skillList = [];
+    let advancesNeeded = careerData.level.value * 5;
+    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    await pack.getIndex().then(index => skillList = index);
+    
+    for (let advChar of careerData.characteristics)
+    {
+      if (this.actor.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+        updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+    }
+    for (let skill of careerData.skills)
+    {
+      let searchResult;
+      // Search for specific skill (won't find unlisted specializations)
+      searchResult = skillList.find(s => s.name == skill)
+
+      try 
+      {
+        if (!searchResult)
+          searchResult = skillList.find(s => s.name.split("(")[0].trim() == skill.split("(")[0].trim())
+
+        let existingSkill = this.actor.data.items.find(i => i.name.trim() == skill && i.type == "skill")
+        if (existingSkill)
+        {
+          existingSkill.data.advances.value = (existingSkill.data.advances.value < advancesNeeded) ? advancesNeeded : existingSkill.data.advances.value; 
+          this.actor.updateOwnedItem(existingSkill);
+        }
+      
+        else
+        {
+          let skillToAdd;             
+          await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
+          skillToAdd.data.name = skill; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+          skillToAdd.data.data.advances.value = advancesNeeded;
+          this.actor.createOwnedItem(skillToAdd.data);
+          console.log(skillToAdd);
+        }
+      }
+      catch {
+        console.log("Something went wrong when adding skill " + skill);
+      }
+
+    }
+
+    /*for (let talent of careerData.talents)
+    {
+      // TODO Redo for talent compendium
+      let talentList = game.items.entities.filter(i => i.type == "talent");
+      let searchResult = talentList.find(t => t.name == talent);
+
+        if (!searchResult)
+          searchResult = talentList.find(t => t.name.split("(")[0].trim() == talent.split("(")[0].trim())          
+        
+        if (searchResult)
+        {
+          let talentToAdd = duplicate(searchResult);
+          talentToAdd.data.name = talent;
+          this.actor.createOwnedItem(talentToAdd.data);
+        }
+
+
+    }*/
+    this.actor.update(updateObj);
+  }
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -3594,17 +3804,10 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
         let careerItem = this.actor.getOwnedItem(id);
         careerItem.data.data.complete.value = !careerItem.data.data.complete.value
-        let updateObj = {};
         if (careerItem.data.data.complete.value)
-        {
-          for (let advChar of careerItem.data.data.characteristics)
-          {
-            if (this.actor.data.data.characteristics[advChar].advances < 5 * careerItem.data.data.level.value)
-              updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerItem.data.data.level.value;
-          }
-        }
+          this._advanceNPC(careerItem.data.data)
+
         this.actor.updateOwnedItem({id : id, 'data' : careerItem.data.data});
-        this.actor.update(updateObj);
       });
 
       html.find('#input-species').focusout(async event => {
@@ -4060,42 +4263,31 @@ class WFRP_Utility
 
     weapon.data.damage.rangedValue += eval(ammoDamage);
     
+    // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
+    // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
     ammoProperties = ammoProperties.filter(p => p != undefined);
-    let propertyIncrease = ammoProperties.filter(p => p.includes("+"));
-    let propertyDecrease = ammoProperties.filter(p => p.includes("-"));
+    let propertyChange = ammoProperties.filter(p => p.includes("+") || p.includes("-")); // Properties that increase or decrease another (Blast +1, Blast -1)
 
+    // Normal properties (Impale, Penetrating)
     let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
 
-    for (let inc of propertyIncrease)
+    for (let inc of propertyChange)
     {
-      let index = inc.indexOf("+");
+      let index = inc.indexOf(" ");
       let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
+      let value = inc.substring(index, inc.length);
+
+      if (weapon.properties.find(p => p.includes(property)))
       {
-        //TODO
-        // This section is for ammo that increases a quality
-        // e.g. Blast +1 Turns a weapon with Blast 4 into Blast 5
+        let basePropertyIndex = weapon.properties.findIndex(p => p.includes(property))
+        let baseValue = weapon.properties[basePropertyIndex].split(" ")[1];
+        let newValue = eval(baseValue + value)
+  
+        weapon.properties[basePropertyIndex] = `${property} ${newValue}`;
       }
       else
       {
-        weapon.properties.push(property + " " + value);
-      }
-    }
-    for (let inc of propertyDecrease)
-    {
-      let index = inc.indexOf("-");
-      let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, property.length);
-      if (weapon.properties.includes(property))
-      {
-        //TODO
-        // This section is for ammo that decreases a quality
-        // e.g. Blast -1 Turns a weapon with Blast 4 into Blast 3
-      }
-      else
-      {
-        weapon.properties.push(property + " " + value);
+        propertiesToAdd.push(property + " " + value);
       }
     }
 
@@ -4177,6 +4369,133 @@ class WFRP_Utility
     let item = duplicate(CONFIG.itemFlaws);
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
+  }
+}
+
+class WFRP_Tables {
+
+  static rollTable(table, modifier = 0)
+  {
+    table = table.toLowerCase();
+    if (this[table])
+    {
+      let die = `1d${this[table].rows.length - 1}`
+      let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+      if (table == "scatter")
+      {
+        if (roll.total <= 8)
+        {
+          let distRoll = new Roll('2d10').roll().total;
+          return {roll : roll.total, dist : distRoll}
+        }
+        else
+          return {roll : roll.total}
+      }
+      return this[table].rows[roll.total];
+    }
+    else
+    {
+      let result;
+      fetch(`systems/wfrp4e/tables/${table}.json`).then(r => r.json()).then(async newTable => {
+        let die = `1d${newTable.rows.length - 1}`
+        let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+        result = newTable.rows[roll.total];
+      })
+      return result;
+    }
+  }
+  
+  // Wrapper for rollTable to format rolls from chat commands nicely
+  static formatChatRoll (table, modifier = 0)
+  {
+    let result = this.rollTable(table, modifier);
+
+    switch (table)
+    {  
+      case "hitloc":
+        return `<b>${this[table].name}</b><br>` + result.description;
+      case "crithead":
+      case "critbody":
+      case "critarm":
+      case "critleg":
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+      
+      case "minormis":
+      case "majormis":
+      case "event":
+      case "wrath":
+      case "travel":
+      case "mutatephys":
+      case "mutatemental":
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description}`;
+
+      case "doom":
+        return `<b>The Prophet Speaketh</b><br>${result.description}`;
+
+      case "scatter":
+        let tableHtml = '<table class = "scatter-table">' +
+        " <tr>"+
+        "<td position='1'> "+
+        "</td>"+
+        "<td position='2'> "+
+        "</td>"+
+        "<td position='3'> "+
+        "</td>"+
+        "</tr>"+
+        " <tr>"+
+        "<td position='4'> "+
+        "</td>"+
+        "<td position='10'> T"+
+        "</td>"+
+        "<td position='5'> "+
+        "</td>"+
+        "</tr>"+
+        " <tr>"+
+        "<td position='6'> "+
+        "</td>"+
+        "<td position='7'> "+
+        "</td>"+
+        "<td position='8'> "+
+        "</td>"+
+        "</tr>"+
+      "</table>"
+      if (result.roll == 9)
+       tableHtml += "At your feet";
+      else if (result.roll == 10)
+        tableHtml += "At their feet";
+      console.log (result.roll)
+      tableHtml = tableHtml.replace(`position='${result.roll}'`, "class='selected-position'")
+      if (result.dist)
+        tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
+
+      return tableHtml;
+
+      default:
+        try {
+          let html = "";
+          for (let part in result)
+            html += result[part] + "<br>"
+          return html;
+        }
+        catch
+        {
+          return "<b>Commands</b><br>"+
+          "<code>hitloc</code> - Hit Location<br>"+
+          "<code>crithead</code> - Head Critical Hits<br>"+
+          "<code>critbody</code> - Body Critical Hits<br>"+
+          "<code>critarm</code> - Arm Critical Hits<br>"+
+          "<code>critleg</code> - Leg Critical Hits<br>"+
+          "<code>minormis</code> - Minor Miscast<br>"+
+          "<code>majormis</code> - Major Miscast<br>"+
+          "<code>wrath</code> - Wrath of the Gods<br>"+
+          "<code>mutatephys</code> - Physical Mutation<br>"+
+          "<code>mutatemental</code> - Mental Mutation<br>"+
+          "<code>event</code> - Downtime Event<br>"+
+          "<code>travel</code> - Downtime Event<br>"+
+          "<code>scatter</code> - Scatter Direction<br>"+
+          "<code>doom</code> - Dooming<br>"
+        }
+    }
   }
 }
 

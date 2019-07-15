@@ -132,6 +132,12 @@
           "type" : "Number",
           "label" : "Corruption",
           "value" : 0
+        },
+        "encumbrance" : {
+          "type" : "Number",
+          "label" : "Encumbrance",
+          "max" : 0,
+          "current" : 0
         }
       },
       "details": {
