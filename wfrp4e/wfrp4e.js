@@ -979,46 +979,22 @@ Hooks.once("init", () => {
   //   console.log(JSON.stringify(table));
   // })
 
-  fetch("systems/wfrp4e/tables/hitloc.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.hitloc = records;
+  game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
+    for (var file of resp.files)
+    {
+      try {
+        if (!file.includes(".json"))
+          throw "Not JSON file"
+        let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
+        fetch(file).then(r=>r.json()).then(async records => {
+          WFRP_Tables[filename] = records;
+        })
+      }
+      catch(error) {
+       console.log("Error reading " + file + ": " + error) 
+      }
+    }
   })
-  fetch("systems/wfrp4e/tables/crithead.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.crithead = records;
-  })
-  fetch("systems/wfrp4e/tables/critbody.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.critbody = records;
-  })
-  fetch("systems/wfrp4e/tables/critarm.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.critarm = records;
-  })
-  fetch("systems/wfrp4e/tables/critleg.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.critleg = records;
-  })
-  fetch("systems/wfrp4e/tables/event.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.event = records;
-  })
-  fetch("systems/wfrp4e/tables/minormis.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.minormis = records;
-  })  
-  fetch("systems/wfrp4e/tables/majormis.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.majormis = records;
-  })
-  fetch("systems/wfrp4e/tables/wrath.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.wrath = records;
-  })
-  fetch("systems/wfrp4e/tables/travel.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.travel = records;
-  })
-  fetch("systems/wfrp4e/tables/mutatephys.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.mutatephys = records;
-  })
-  fetch("systems/wfrp4e/tables/mutatemental.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.mutatemental = records;
-  })
-  fetch("systems/wfrp4e/tables/doom.json").then(r => r.json()).then(async records => {
-    WFRP_Tables.doom = records;
-  })
-
 
   WFRP_Tables.scatter = {
     rows : [
@@ -1289,11 +1265,17 @@ Hooks.on("canvasInit", () => {
   }
 });
 
-Hooks.on("chatMessage", (html, content, msg) => {
+Hooks.on("chatMessage", async (html, content, msg) => {
   content = content.toLowerCase();
   console.log(content.substring(0,6));
-  if (content.substring(0, 6) == "/table")
-    msg.content = WFRP_Tables.formatChatRoll(content.substring(7).trim())
+  let command = content.split(" ").map(function(item) {
+    return item.trim();
+  })
+  if (command[0] == "/table")
+  {
+    modifier = parseInt(command[2]);
+    msg.content = WFRP_Tables.formatChatRoll(command[1], modifier)
+  }
 });
 
 /**
@@ -4413,7 +4395,13 @@ class WFRP_Tables {
     }
     else
     {
-
+      let result;
+      fetch(`systems/wfrp4e/tables/${table}.json`).then(r => r.json()).then(async newTable => {
+        let die = `1d${newTable.rows.length - 1}`
+        let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+        result = newTable.rows[roll.total];
+      })
+      return result;
     }
   }
   
@@ -4425,12 +4413,12 @@ class WFRP_Tables {
     switch (table)
     {  
       case "hitloc":
-        return "<b>Location:</b> " + result.description;
+        return `<b>${this[table].name}</b><br>` + result.description;
       case "crithead":
       case "critbody":
       case "critarm":
       case "critleg":
-        return `<b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
       
       case "minormis":
       case "majormis":
@@ -4439,7 +4427,7 @@ class WFRP_Tables {
       case "travel":
       case "mutatephys":
       case "mutatemental":
-        return `<b>${result.name}</b><br>${result.description}`;
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description}`;
 
       case "doom":
         return `<b>The Prophet Speaketh</b><br>${result.description}`;
@@ -4483,21 +4471,30 @@ class WFRP_Tables {
       return tableHtml;
 
       default:
-        return "<b>Commands</b><br>"+
-        "<code>hitloc</code> - Hit Location<br>"+
-        "<code>crithead</code> - Head Critical Hits<br>"+
-        "<code>critbody</code> - Body Critical Hits<br>"+
-        "<code>critarm</code> - Arm Critical Hits<br>"+
-        "<code>critleg</code> - Leg Critical Hits<br>"+
-        "<code>minormis</code> - Minor Miscast<br>"+
-        "<code>majormis</code> - Major Miscast<br>"+
-        "<code>wrath</code> - Wrath of the Gods<br>"+
-        "<code>mutatephys</code> - Physical Mutation<br>"+
-        "<code>mutatemental</code> - Mental Mutation<br>"+
-        "<code>event</code> - Downtime Event<br>"+
-        "<code>travel</code> - Downtime Event<br>"+
-        "<code>splatter</code> - Scatter Direction<br>"+
-        "<code>doom</code> - Dooming<br>"
+        try {
+          let html = "";
+          for (let part in result)
+            html += result[part] + "<br>"
+          return html;
+        }
+        catch
+        {
+          return "<b>Commands</b><br>"+
+          "<code>hitloc</code> - Hit Location<br>"+
+          "<code>crithead</code> - Head Critical Hits<br>"+
+          "<code>critbody</code> - Body Critical Hits<br>"+
+          "<code>critarm</code> - Arm Critical Hits<br>"+
+          "<code>critleg</code> - Leg Critical Hits<br>"+
+          "<code>minormis</code> - Minor Miscast<br>"+
+          "<code>majormis</code> - Major Miscast<br>"+
+          "<code>wrath</code> - Wrath of the Gods<br>"+
+          "<code>mutatephys</code> - Physical Mutation<br>"+
+          "<code>mutatemental</code> - Mental Mutation<br>"+
+          "<code>event</code> - Downtime Event<br>"+
+          "<code>travel</code> - Downtime Event<br>"+
+          "<code>scatter</code> - Scatter Direction<br>"+
+          "<code>doom</code> - Dooming<br>"
+        }
     }
   }
 }
