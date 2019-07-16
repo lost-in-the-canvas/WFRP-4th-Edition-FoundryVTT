@@ -178,7 +178,6 @@ input[type="text"], input[type="password"] {
     background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
     background-position: center;
     box-shadow: none;
-
     box-shadow: none; 
   } 
   ::-webkit-scrollbar-button:vertical:increment {
@@ -198,6 +197,63 @@ input[type="text"], input[type="password"] {
   }
 /* ----------------------------------------- */
 /* ----------------------------------------- */
+
+
+
+/* ----------------------------------------- */
+/* DIALOG Sidebar Scrollbar                  */
+/* ----------------------------------------- */
+.window-app.dialog ::-webkit-scrollbar {
+  width: 14px;
+}
+.window-app.dialog ::-webkit-scrollbar-track {
+  box-shadow: none;
+  border-radius: 4px;
+}
+.window-app.dialog ::-webkit-scrollbar-thumb {
+  outline: none;
+  border-radius: 3px;
+  background: none;
+  /* background: url(../ui/scrollbar.png) no-repeat;  */
+  border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+  border-image-width: 25px;
+  border-image-outset: 0px;
+}
+
+.window-app.dialog ::-webkit-scrollbar-button {
+  background: #782e22;
+  height: 25px;
+  border: none;
+}
+
+.window-app.dialog ::-webkit-scrollbar-button:start:decrement {
+  background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+  background-position: center;
+  box-shadow: none;
+  box-shadow: none; 
+} 
+.window-app.dialog ::-webkit-scrollbar-button:end:increment {
+  background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+  background-position: center;
+  box-shadow: none;
+  box-shadow: none; 
+}
+.window-app.dialog ::-webkit-scrollbar-button:vertical:start:increment,
+.window-app.dialog ::-webkit-scrollbar-button:vertical:end:decrement {
+    display: none;
+}
+
+.window-app.dialog ::-webkit-scrollbar-track {
+  background: url(../ui/scrollbar-track.png) repeat-y;
+  background-position: center;
+  background-size: 9px 110px;
+
+  box-shadow: none;
+}
+/* ----------------------------------------- */
+/* ----------------------------------------- */
+
+
 
 
 /* ----------------------------------------- */
@@ -360,6 +416,22 @@ input[type="text"], input[type="password"] {
       overflow: hidden;
       margin: 0px 8px 0px 87px;
     }
+    .sidebar-tab .directory-footer button {
+      width: 96%;
+      margin: 0 2%;
+      font-family: CaslonAntique;
+      font-weight: normal;
+      font-size: 19px;
+      font-weight: 700;
+      color: #cccccce8;
+      text-shadow: 1px 1px 7px black;
+    }
+
+    .sidebar-tab .directory-footer .create-entity > i {
+      font-size: 16px;
+      display: inline-block;
+    }
+
   /* ============================================================ */
 
   /* ==================== (B) SIDEBAR HEADER ==================== */
@@ -5424,7 +5496,7 @@ input[type="text"], input[type="password"] {
   padding: 0px !important;
   color: #111;
   width: 518px !important;
-  height: 308px !important;
+  height: 350px !important;
   box-shadow: 3px 4px 10px #000;
 }
 .window-app.dialog .window-header {
@@ -5450,11 +5522,11 @@ input[type="text"], input[type="password"] {
   flex-wrap: nowrap;
   height: calc(100% - 30px);
   max-height: 90vh;
-  background: #0000007a;
+  background: none;
   padding: 8px;
-  margin: 10px 13px 13px 13px;
-  border: 1px solid black;
-  box-shadow: 0 0 21px #000000 inset;
+  margin: 13px 16px 16px 13px;
+  border: none;
+  box-shadow: none;
   font-family: CaslonPro;
   font-weight: 500;
   font-size: 14px;
@@ -5469,7 +5541,7 @@ input[type="text"], input[type="password"] {
       width: 181px;
       margin-right: 6px;
     }
-    .form-group > label {
+    .window-app.dialog .form-group > label {
       flex: 2;
       line-height: 24px;
       border: 1px solid #736953a6;
@@ -5480,23 +5552,44 @@ input[type="text"], input[type="password"] {
       text-align: center;
       min-width: 93px;
       color: #ececec;
+      padding-top: 2px;
     }
-    #talentlist-label {
-      flex: 2;
-      line-height: 24px;
-      border: 1px solid #736953a6;
-      box-shadow: 0px 0px 10px inset black;
-      background: #000000b0;
-      border-radius: 0px;
-      opacity: 0.9;
-      text-align: center;
-      min-width: 93px;
-      min-height: 24px;
-      position: relative;
-      display: block;
-      padding-top: 0px;
+    .window-app.dialog .talent-selector {
+      width: 286px;
     }
-    .bonus-column .form-group > input {
+      #talentlist-label {
+        flex: 2;
+        line-height: 24px;
+        border: 1px solid #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000b0;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        min-width: 93px;
+        min-height: 24px;
+        position: relative;
+        display: block;
+        padding-top: 0px;
+        width: inherit;
+      }
+      .window-app.dialog .talent-selector > select{
+        height: 95px;
+        overflow: auto;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        padding: 6px;
+        color: #ecececbd;
+        border: 1px solid #736953a6;
+        border-top: none;
+        box-shadow: 0px 0px 5px inset black;
+        background: url(../ui/chat-form-dark.png);
+        border-radius: 0px;
+        opacity: 1;
+        width: inherit;
+      }
+    .window-app.dialog .bonus-column .form-group > input {
       border: 1px solid #736953a6;
       border-left: none;
       box-shadow: 0px 0px 5px inset black;
@@ -5507,7 +5600,7 @@ input[type="text"], input[type="password"] {
       padding: 6px 5px 0px 5px;
       text-align: center;
     }
-    .form-group > * {
+    .window-app.dialog .form-group > * {
       color: #ecececbd;
       border: 1px solid #736953a6;
       border-left: none;
@@ -5519,23 +5612,8 @@ input[type="text"], input[type="password"] {
       font-size: 14px;
     } 
 
-  .talent-selector > select{
-    height: 95px;
-    overflow: auto;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 14px;
-    padding: 6px;
-    color: #ecececbd;
-    border: 1px solid #736953a6;
-    border-top: none;
-    box-shadow: 0px 0px 5px inset black;
-    background: url(../ui/chat-form-dark.png);
-    border-radius: 0px;
-    opacity: 1;
-    width: 278px;
-  }
-  option {
+
+  .window-app.dialog option {
     /* wrap text in compatible browsers */
     -moz-white-space: pre-wrap;
     -o-white-space: pre-wrap;
@@ -5545,8 +5623,96 @@ input[type="text"], input[type="password"] {
     text-overflow: ellipsis;
     /* add border after every option */
   }
+  .window-app.dialog .dialog-buttons button:last-child {
+    flex: 2;
+    line-height: 24px;
+    border: 3px double #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #3a0527b5;
+    border-radius: 0px;
+    opacity: 0.9;
+    text-align: center;
+    min-width: 93px;
+    color: #ececec;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 15px;
+    padding-top: 5px;
+  } 
 
 
+
+
+
+
+  /* WAS WORKING HERE */
+  /*the container must be positioned relative:*/
+  .window-app.dialog .custom-select {
+    position: relative;
+    font-family: blue;
+  }
+
+  .window-app.dialog .custom-select select {
+    display: none; /*hide original SELECT element:*/
+  }
+
+  .window-app.dialog .select-selected {
+    background: #1c3a44b5;
+  } 
+
+  /*style the arrow inside the select element:*/
+  .window-app.dialog .select-selected:after {
+    position: absolute;
+    content: "";
+    top: 13px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  /*point the arrow upwards when the select box is open (active):*/
+  .window-app.dialog .select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+  }
+
+  /*style the items (options), including the selected item:*/
+  .window-app.dialog .select-items div, .select-selected {
+    padding: 6px 0px 0px 4px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid #736953a6;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  /*style items (options):*/
+  .window-app.dialog .select-items {
+    position: absolute;
+    background-color: #181d27ed;
+    color: #ecececbd;
+    top: 100%;
+    left: 180px;
+    right: 0;
+    z-index: 99;
+    border: 1px solid #736953a6;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  /*hide the items when the select box is closed:*/
+  .window-app.dialog .select-hide {
+    display: none;
+  }
+
+  .window-app.dialog .select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
 /*************************************************************/
 /*************************************************************/
