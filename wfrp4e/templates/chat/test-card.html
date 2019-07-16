@@ -12,9 +12,15 @@
         SL: {{testData.SL}}
     </div>
     
-    <div class="card-content" roll-desrciption = {{description}}>
+    <div class="card-content" roll-description = {{description}}>
         Description: {{testData.description}}
     </div>
+
+    {{#if testData.hitloc}}
+    <div class="card-content" roll-description = {{description}}>
+        Hit Location: {{testData.hitloc.description}}
+    </div>
+    {{/if}}
 
    <!-- {{#if opposed}}
     <div class ="card-buttons">

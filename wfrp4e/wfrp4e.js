@@ -50,6 +50,10 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/surprised.png",
 ]
 
+CONFIG.JournalEntry.noteIcons = {
+  Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
+}
+
 // Species
 CONFIG.species = {
   "human": "Human",
@@ -589,6 +593,7 @@ class DiceWFRP {
       }
     }
 
+
     // Find description according to outcome table
     switch(Math.abs(Number(SL)))
     {
@@ -631,6 +636,9 @@ class DiceWFRP {
       SL: SL,
       description: description
     }
+
+    if (testData.hitLocation)
+      rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
     
     return rollResults;
    } 
@@ -850,11 +858,11 @@ class DiceWFRP {
 
   
   // To be used in the future for opposed tests
-  static opposeData  = {
-    opposeStarted : false,
-    actor : undefined,
-    rollData : undefined
-  }
+  // static opposeData  = {
+  //   opposeStarted : false,
+  //   actor : undefined,
+  //   rollData : undefined
+  // }
   static chatListeners(html) {
 
     // Chat card actions
@@ -1634,9 +1642,9 @@ class ActorWfrp4e extends Actor {
           testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
 
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
-          + testData.testModifier 
-          + testData.testDifficulty
-          + skillUsed.data.advances.value;
+                                                                              + testData.testModifier 
+                                                                              + testData.testDifficulty
+                                                                              + skillUsed.data.advances.value;
         }
 
         testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
@@ -4463,7 +4471,8 @@ class WFRP_Tables {
        tableHtml += "At your feet";
       else if (result.roll == 10)
         tableHtml += "At their feet";
-      console.log (result.roll)
+      else
+        tableHtml += "Note: Distance can be no more than half the distance between you and the target"
       tableHtml = tableHtml.replace(`position='${result.roll}'`, "class='selected-position'")
       if (result.dist)
         tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
