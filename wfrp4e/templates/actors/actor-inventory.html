@@ -11,16 +11,20 @@
   
   <div class="encumbrance">
     {{#if actor.encumbrance.maxEncumbered}}
-    <span class="encumbrance-bar max-encumbrance" style="width:{{actor.encumbrance.pct}}%">Max Encumbered! {{actor.encumbrance.penalty}}</span>
+    <span class="encumbrance-text">Max Encumbered! {{actor.encumbrance.penalty}}</span>
+    <span class="encumbrance-bar max-encumbrance" style="width:{{actor.encumbrance.pct}}%"></span>
 
     {{else}}
       {{#if actor.encumbrance.veryEncumbered}}
-      <span class="encumbrance-bar high-encumbrance" style="width:{{actor.encumbrance.pct}}%">Very Encumbered: {{actor.encumbrance.penalty}}</span>
+      <span class="encumbrance-text">Very Encumbered: {{actor.encumbrance.penalty}}</span>
+      <span class="encumbrance-bar high-encumbrance" style="width:{{actor.encumbrance.pct}}%"></span>
       {{else}}
       {{#if actor.encumbrance.encumbered}}
-        <span class="encumbrance-bar partial-encumbrance" style="width:{{actor.encumbrance.pct}}%">Encumbered: {{actor.encumbrance.penalty}}</span>
+        <span class="encumbrance-text">Encumbered: {{actor.encumbrance.penalty}}</span>
+        <span class="encumbrance-bar partial-encumbrance" style="width:{{actor.encumbrance.pct}}%"></span>
         {{else}}
-        <span class="encumbrance-bar no-encumbrance" style="width:{{actor.encumbrance.pct}}%">Unencumbered: No modifiers {{actor.encumbrance.penalty}}</span>
+        <span class="encumbrance-text">Unencumbered: No modifiers</span>
+        <span class="encumbrance-bar no-encumbrance" style="width:{{actor.encumbrance.pct}}%"></span>
 
         {{/if}}
       {{/if}}
