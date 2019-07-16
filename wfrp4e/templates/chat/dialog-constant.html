@@ -56,18 +56,18 @@
   /*look for any elements with the class "custom-select":*/
   x = document.getElementsByClassName("custom-select");
 
-  var x = document.getElementsByClassName("example");
-
-  alpha = document.getElementsByClassName("select-selected")[0].parentElement;
-  beta = document.getElementsByClassName("select-items")[0].parentElement;
-  console.log("Already Made Classes Value");
-  console.log(alpha)
-  console.log(alpha.length);
-  console.log(beta);
-  console.log(beta.length);
 
 
-  for (i = 0; i < x.length; i++) {
+  // alpha = document.getElementsByClassName("select-selected");
+  // beta = document.getElementsByClassName("select-items");
+  // console.log("Already Made Classes Value");
+  // console.log(alpha)
+  // console.log(alpha.length);
+  // console.log(beta);
+  // console.log(beta.length);
+
+
+  for (i = document.getElementsByClassName("select-selected").length; i < x.length; i++) {
     selElmnt = x[i].getElementsByTagName("select")[0];
     /*for each element, create a new DIV that will act as the selected item:*/
     a = document.createElement("DIV");
