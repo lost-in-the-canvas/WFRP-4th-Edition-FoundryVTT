@@ -5492,7 +5492,7 @@ input[type="text"], input[type="password"] {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  background: url(../ui/window-app-dialog.png) repeat;
+  background: none;
   padding: 0px !important;
   color: #111;
   width: 518px !important;
@@ -5505,6 +5505,7 @@ input[type="text"], input[type="password"] {
   margin: 0px;
   line-height: 30px;
   border-bottom: none;
+  background: url(../ui/window-app-dialog-header.png) repeat;
 }
   .window-app.dialog .window-header .close {
     color: #00e5ff00;
@@ -5524,13 +5525,19 @@ input[type="text"], input[type="password"] {
   max-height: 90vh;
   background: none;
   padding: 8px;
-  margin: 13px 16px 16px 13px;
+  margin: 0px;
   border: none;
   box-shadow: none;
   font-family: CaslonPro;
   font-weight: 500;
   font-size: 14px;
   color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 0px;
 }
   .window-app.dialog .window-content .dialog-row {
     display: flex;

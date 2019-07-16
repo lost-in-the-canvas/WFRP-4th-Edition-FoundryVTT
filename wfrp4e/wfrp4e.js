@@ -850,11 +850,11 @@ class DiceWFRP {
 
   
   // To be used in the future for opposed tests
-  static opposeData  = {
-    opposeStarted : false,
-    actor : undefined,
-    rollData : undefined
-  }
+  // static opposeData  = {
+  //   opposeStarted : false,
+  //   actor : undefined,
+  //   rollData : undefined
+  // }
   static chatListeners(html) {
 
     // Chat card actions
