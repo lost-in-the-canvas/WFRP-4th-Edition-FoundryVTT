@@ -2339,8 +2339,8 @@ input[type="text"], input[type="password"] {
         .wfrp4e.npc-sheet .skill-section .inventory-list {
           height: 170px;
         } 
-        .wfrp4e.npc-sheet .skill-section .no-careers .inventory-list {
-          height: 290px;
+        .wfrp4e.npc-sheet .skill-section .no-career.inventory-list {
+          height: 277px;
         } 
           #basic-skills-list {
             width: 250px;
@@ -7311,8 +7311,8 @@ font-weight: bold;
   font-family: CaslonPro;
 }
 .wfrp4e.actor.npc-sheet .penalties {
-  position: relative;
-  top: -83px;
+  position: absolute;
+  top: 608px;
 }
 
 .wfrp4e.actor .penalty {
