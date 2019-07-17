@@ -63,11 +63,14 @@
 }
 
 .fa-trash:before {
-  content: "\f1f8" !important;
+  content: "\f2ed" !important;
   position: relative !important;
-  left: 3px !important;
+  left: 0px !important;
 }
 
+.controls .control-tools .fa-trash {
+  content: "\f2ed" !important;
+}
 
 
 a:hover {
@@ -95,7 +98,7 @@ button:hover {
   width: 30px;
   position: relative;
   top: -2px;
-  /*left: 14px;*/
+  left: -456px;
 }
 .wfrp4e.actor .configure-token {
   color: #00e5ff00;
@@ -105,7 +108,7 @@ button:hover {
   width: 30px;
   position: relative;
   top: -2px;
-  /*left: -535px;*/
+  left: 7px;
 }
 
 
@@ -205,6 +208,9 @@ input[type="text"], input[type="password"] {
 /* ----------------------------------------- */
 .window-app.dialog ::-webkit-scrollbar {
   width: 14px;
+  /* margin-top: 6px;
+  margin-bottom: 6px; */
+  /* left:-100px; */
 }
 .window-app.dialog ::-webkit-scrollbar-track {
   box-shadow: none;
@@ -422,8 +428,7 @@ input[type="text"], input[type="password"] {
       font-family: CaslonAntique;
       font-weight: normal;
       font-size: 19px;
-      font-weight: 700;
-      color: #cccccce8;
+      color: #ececec;
       text-shadow: 1px 1px 7px black;
     }
 
@@ -699,7 +704,7 @@ input[type="text"], input[type="password"] {
         #chat-log .message .message-header .message-metadata .message-delete {
           position: relative;
           top: 1px;
-          right: 3px;
+          right: 0px;
           font-size: 13px;
           color: #464331c4;
           text-shadow: none;
@@ -1318,8 +1323,9 @@ input[type="text"], input[type="password"] {
         }
         .wfrp4e.actor .characteristics-table .table-row-bottom .table-data {
           padding: 6px 0px 0px 0px;
-          color: #29364a;
+          color: #672323;
           border: 1px solid #736953a6;
+          text-shadow: 1px 0px 1px #6e6e716e;
         }   
         .wfrp4e.actor.npc-sheet .characteristics-table .table-data {
           height: 20px;
@@ -1804,7 +1810,7 @@ input[type="text"], input[type="password"] {
                 font-weight: 500;
                 padding: 6px 1px 0px 0px;
                 height: 21px;
-                color: #3b4f6f;
+                color: black;
                 /* border: 1px solid black; */
                 position: relative;
                 top: -22px;
@@ -1906,7 +1912,7 @@ input[type="text"], input[type="password"] {
                 font-weight: 500;
                 padding: 6px 1px 0px 0px;
                 height: 21px;
-                color: #3b4f6f;
+                color: black;
                 /* border: 1px solid black; */
                 position: relative;
                 top: -22px;
@@ -2281,6 +2287,12 @@ input[type="text"], input[type="password"] {
               font-size: 10px;
               color: #504f48a6;
             }    
+            .wfrp4e .careers .item-controls .item-delete {
+              margin-left: 3px;
+            }
+            .wfrp4e .item-delete {
+              margin-left: 3px;
+            }
             
             .wfrp4e .actor .careers .inventory-list .item .item-summary {
               line-height: 16px;
@@ -2492,6 +2504,8 @@ input[type="text"], input[type="password"] {
           padding: 0px;
           margin: 0px;
           left: -2px;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
         }
         .skill-section .item-delete {
           position: relative;
@@ -2577,6 +2591,9 @@ input[type="text"], input[type="password"] {
             font-size: 10px;
             color: #504f48a6;
           }
+            .wfrp4e .talent-list .item .item-controls .item-delete {
+              margin-left: 3px;
+            }
           .wfrp4e .talent-list .inventory-list .item .item-summary {
             line-height: 16px;
             padding: 0px;
@@ -2939,6 +2956,8 @@ input[type="text"], input[type="password"] {
                   vertical-align: middle;
                   margin-right: 6px;
                   padding-top: 10px;
+                  color: #672323;
+                  text-shadow: 1px 0px 1px #6e6e716e;
                 }
               .wfrp4e.actor .weapons .melee-type .weapon-list .weapon-group, .weapon-damage, .weapon-reach, .weapon-property {
                 vertical-align: middle;
@@ -3061,6 +3080,8 @@ input[type="text"], input[type="password"] {
                   vertical-align: middle;
                   margin-right: 6px;
                   padding-top: 10px;
+                  color: #672323;
+                  text-shadow: 1px 0px 1px #6e6e716e;
                 }
               .wfrp4e.actor .weapons .ranged-type .weapon-list .weapon-group, .weapon-damage, .weapon-range, .weapon-property {
                 vertical-align: middle;
@@ -3221,7 +3242,7 @@ input[type="text"], input[type="password"] {
                 font-family: CaslonPro;
                 font-size: 14px;
                 font-weight: 700;
-                color: #2c566f;
+                color: #000000c7;
                 position: relative;
                 border-radius: 10px;
                 top: 0px;
@@ -3237,7 +3258,7 @@ input[type="text"], input[type="password"] {
                 font-family: CaslonPro;
                 font-size: 14px;
                 font-weight: 700;
-                color: #2c566f;
+                color: #000000c7;
                 position: relative;
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
@@ -3254,7 +3275,7 @@ input[type="text"], input[type="password"] {
                 font-family: CaslonPro;
                 font-size: 14px;
                 font-weight: 700;
-                color: #2c566f;
+                color: #000000c7;
                 position: relative;
                 border-top-left-radius: 9px;
                 border-top-right-radius: 3px;
@@ -3920,15 +3941,6 @@ input[type="text"], input[type="password"] {
             width: 30px;
             margin-right: 12px;
           }
-          .item-controls {
-            position: relative;
-            right: 0px;
-            width: 46px;
-            top: 9px;
-            font-family: "Font Awesome 5 Free";
-            font-size: 10px;
-            color: #504f48a6;
-          }
           .wfrp4e .inventory .item-controls {
             position: relative;
             left: 0px;
@@ -4208,7 +4220,7 @@ input[type="text"], input[type="password"] {
           }
 
           .wfrp4e .inventory .inventory-list .level-one-item .item-name {
-            flex-basis: 277px;
+            flex-basis: 237px;
           }
           .wfrp4e .inventory .inventory-list .level-one-item .item-type {
             padding-top: 3px;
@@ -4216,11 +4228,14 @@ input[type="text"], input[type="password"] {
             vertical-align: middle;
             line-height: normal;
             height: 34px;
-            width: 80px;
+            width: 120px;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
             text-align: center;
+          }
+          .wfrp4e .inventory .inventory-list .level-one-item .item:last-child {
+            border-bottom: 1px solid #736953a6;
           }
 
         /* CONTAINER - LEVEL 2 */
@@ -4305,7 +4320,7 @@ input[type="text"], input[type="password"] {
             width: 483px !important;
           }
           .wfrp4e .inventory .inventory-list .level-two-item .item-name {
-            flex-basis: 267px;
+            flex-basis: 227px;
           }
           .wfrp4e .inventory .inventory-list .level-two-item .item-type {
             padding-top: 3px;
@@ -4313,11 +4328,14 @@ input[type="text"], input[type="password"] {
             vertical-align: middle;
             line-height: normal;
             height: 34px;
-            width: 80px;
+            width: 120px;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
             text-align: center;
+          }
+          .wfrp4e .inventory .inventory-list .level-two-item:last-of-type {
+            border-bottom: 1px solid #736953a6 !important;
           }
 
         /* CONTAINER - LEVEL 3 */
@@ -4402,7 +4420,7 @@ input[type="text"], input[type="password"] {
             width: 473px !important;
           }
           .wfrp4e .inventory .inventory-list .level-three-item .item-name {
-            flex-basis: 257px;
+            flex-basis: 217px;
           }
           .wfrp4e .inventory .inventory-list .level-three-item .item-type {
             padding-top: 3px;
@@ -4410,11 +4428,14 @@ input[type="text"], input[type="password"] {
             vertical-align: middle;
             line-height: normal;
             height: 34px;
-            width: 80px;
+            width: 120px;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
             text-align: center;
+          }
+          .wfrp4e .inventory .inventory-list .level-three-item:last-of-type {
+            border-bottom: 1px solid #736953a6 !important;
           }
 
         /* CONTAINER - LEVEL 4 */
@@ -4499,7 +4520,7 @@ input[type="text"], input[type="password"] {
             width: 463px !important;
           }
           .wfrp4e .inventory .inventory-list .level-four-item .item-name {
-            flex-basis: 247px;
+            flex-basis: 207px;
           }
           .wfrp4e .inventory .inventory-list .level-four-item .item-type {
             padding-top: 3px;
@@ -4507,11 +4528,14 @@ input[type="text"], input[type="password"] {
             vertical-align: middle;
             line-height: normal;
             height: 34px;
-            width: 80px;
+            width: 120px;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
             text-align: center;
+          }
+          .wfrp4e .inventory .inventory-list .level-four-item:last-of-type {
+            border-bottom: 1px solid #736953a6 !important;
           }
 
         /* CONTAINER - LEVEL 5 */
@@ -4596,7 +4620,7 @@ input[type="text"], input[type="password"] {
             width: 453px !important;
           }
           .wfrp4e .inventory .inventory-list .level-five-item .item-name {
-            flex-basis: 237px;
+            flex-basis: 197px;
           }
           .wfrp4e .inventory .inventory-list .level-five-item .item-type {
             padding-top: 3px;
@@ -4604,11 +4628,14 @@ input[type="text"], input[type="password"] {
             vertical-align: middle;
             line-height: normal;
             height: 34px;
-            width: 80px;
+            width: 120px;
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
             text-align: center;
+          }
+          .wfrp4e .inventory .inventory-list .level-five-item:last-of-type {
+            border-bottom: 1px solid #736953a6 !important;
           }
 
 
@@ -4673,6 +4700,8 @@ input[type="text"], input[type="password"] {
               vertical-align: middle;
               margin-right: 6px;
               padding-top: 10px;
+              color: #672323;
+              text-shadow: 1px 0px 1px #6e6e716e;
             }
           .wfrp4e .magic .item .item-controls {
             position: relative;
@@ -5492,11 +5521,11 @@ input[type="text"], input[type="password"] {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  background: url(../ui/window-app-dialog.png) repeat;
+  background: none;
   padding: 0px !important;
   color: #111;
-  width: 518px !important;
-  height: 350px !important;
+  width: 517px !important;
+  /* height: 350px !important; */
   box-shadow: 3px 4px 10px #000;
 }
 .window-app.dialog .window-header {
@@ -5505,6 +5534,7 @@ input[type="text"], input[type="password"] {
   margin: 0px;
   line-height: 30px;
   border-bottom: none;
+  background: url(../ui/window-app-dialog-header.png) repeat;
 }
   .window-app.dialog .window-header .close {
     color: #00e5ff00;
@@ -5520,17 +5550,23 @@ input[type="text"], input[type="password"] {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  height: calc(100% - 30px);
-  max-height: 90vh;
-  background: none;
+  overflow-y: auto !important;
   padding: 8px;
-  margin: 13px 16px 16px 13px;
-  border: none;
+  margin: 8px;
+  /* margin-bottom: 2px; */
+  background: url(../ui/window-app-dialog-backgrounds-1.png);
+  background-position: center;
   box-shadow: none;
   font-family: CaslonPro;
   font-weight: 500;
   font-size: 14px;
   color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 8px;
 }
   .window-app.dialog .window-content .dialog-row {
     display: flex;
@@ -5555,7 +5591,7 @@ input[type="text"], input[type="password"] {
       padding-top: 2px;
     }
     .window-app.dialog .talent-selector {
-      width: 286px;
+      width: 100%;
     }
       #talentlist-label {
         flex: 2;
@@ -5573,7 +5609,7 @@ input[type="text"], input[type="password"] {
         padding-top: 0px;
         width: inherit;
       }
-      .window-app.dialog .talent-selector > select{
+      .window-app.dialog .talent-selector > select {
         height: 95px;
         overflow: auto;
         font-family: CaslonPro;
@@ -5638,11 +5674,27 @@ input[type="text"], input[type="password"] {
     font-weight: 500;
     font-size: 15px;
     padding-top: 5px;
+    margin: 0px;
   } 
 
 
-
-
+  .window-app.dialog .dialog-buttons button {
+    flex: 2;
+    margin: 0 5px 0 0;
+    line-height: 24px;
+    border: 3px double #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #3a0527b5;
+    border-radius: 0px;
+    opacity: 0.9;
+    text-align: center;
+    min-width: 93px;
+    color: #ececec;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 15px;
+    padding-top: 5px;
+  }
 
 
   /* WAS WORKING HERE */
@@ -5697,7 +5749,8 @@ input[type="text"], input[type="password"] {
     background-color: #181d27ed;
     color: #ecececbd;
     top: 100%;
-    left: 180px;
+    /* left: 180px; */
+    width: 60.3%;
     right: 0;
     z-index: 99;
     border: 1px solid #736953a6;
@@ -5723,6 +5776,205 @@ input[type="text"], input[type="password"] {
 
 
 
+
+
+/*************************************************************/
+/*=============== V. MENU ===================================*/
+/*************************************************************/
+
+#menu {
+  position: fixed;
+  z-index: 101;
+  top: 45%;
+  left: calc(50% - 180px);
+  width: 341px;
+  background: none;
+  box-shadow: none;
+  font-family: CaslonAntique;
+  font-weight: normal;
+  font-size: 19px;
+  color: #ececec;
+  border: 1px solid blue;
+  border-image: url(../ui/menu-border.png) 21 repeat;
+  border-image-slice: 78 4 81 4;
+  border-image-width: 80px 6px 80px 6px;
+  border-image-outset: 76px 0px 76px 0px;
+  border-radius: 0px;
+  box-shadow: 3px 4px 11px #000;
+  background: #00000000;
+}
+#menu #menu-items {
+  list-style: none;
+  margin: 3px;
+  padding: 6px 32px 6px 32px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 84px #000000 inset;
+  /* border-right: 3px groove #bf8d1c; */
+  /* border-left: 3px ridge #775300; */
+}
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+/*************************************************************/
+/*=============== V. SCENE CONTROLS =========================*/
+/*************************************************************/
+#controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover {
+  cursor: default;
+  color: #FFF;
+  background: url(../ui/sidebar_button-background_red.png) repeat;
+  background-origin: padding-box;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+  box-shadow: 0 0 3px #ff6400;
+}
+
+#controls .scene-control, #controls .control-tool {
+  width: 36px;
+  height: 36px;
+  box-sizing: content-box;
+  font-size: 19px;
+  line-height: 36px;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 3px #000;
+  margin: 0 0 8px;
+  color: #BBB;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  cursor: default;
+  color: #FFF;
+  background: url(../ui/sidebar_button-background_cyan.png) repeat;
+  background-origin: padding-box;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+}
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+/*************************************************************/
+/*=============== VI. SCENE CONTROLS ========================*/
+/*************************************************************/
+#navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
+  cursor: default;
+  color: #FFF;
+  background: url(../ui/sidebar_button-background_red.png) repeat;
+  background-origin: padding-box;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+  box-shadow: 0 0 3px #ff6400;
+}
+
+#navigation #scene-list .scene.gm {
+  cursor: default;
+  color: #FFF;
+  background: url(../ui/sidebar_button-background_cyan.png) repeat;
+  background-origin: padding-box;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  padding-top: 2px;
+}
+  #navigation #scene-list .scene li.scene-player {
+    float: left;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px 0 0;
+    line-height: 12px;
+    padding-top: 1px;
+    text-align: center;
+    color: #000000e8;
+    font-weight: 600;
+    background: #97dff4;
+    border: 1px solid #000;
+    border-radius: 8px;
+    font-family: "Signika", "Palatino Linotype", serif;
+    font-size: 13px;
+    box-shadow: inset 0 0 3px #000000;
+  }
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+#players {
+  position: fixed;
+  bottom: 25px;
+  left: 23px;
+  width: 200px;
+  border: 1px solid blue;
+  border-image: url(../ui/players-border.png) 21 repeat;
+  border-image-slice: 23 19 23 19;
+  border-image-width: 23px 19px 23px 19px;
+  border-image-outset: 22px 17px 16px 14px;
+  border-radius: 0px;
+  box-shadow: inset 0 0 10px #000000;
+  background: #000000c4;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+}
+#players ol .player-name {
+  overflow: hidden;
+  white-space: nowrap;
+  word-break: break-all;
+  padding-top: 3px;
+}
+
+
+
+
+
+.window-app .window-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  height: calc(100% - 30px);
+  max-height: 90vh;
+  background: url(../ui/items-background.png) repeat;
+  padding: 8px;
+  color: #111;
+  border: 1px solid blue;
+  border-image: url(../ui/items-background-border.png) 21 fill repeat;
+  border-image-slice: 25;
+  border-image-width: 25;
+  border-image-outset: 22px 17px 16px 14px;
+}
+
+
+
+
+
+
+
+
+
+li.folder > .folder-header {
+  padding: 6px;
+  line-height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #262b2b;
+  border-left: none;
+  border-radius: 2px;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 16px;
+}
 
 
 
