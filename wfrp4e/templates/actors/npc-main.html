@@ -3,7 +3,11 @@
   <div class="skill-section">
       <div id="basic-skills-list" class="skill-type">
         <h3>Basic Skills</h3>
+        {{#if actor.careers}}
         <ol class="inventory-list">
+        {{else}}
+        <ol class = "inventory-list no-career">
+        {{/if}}
           <li class="inventory-header item">
             <div class="item-name">Skill</div>
             <div class="skill-char-title">Char.</div>
@@ -47,7 +51,11 @@
     
       <div id="advanced-skills-list" class="skill-type">
           <h3>Grouped & Advanced Skills</h3>
+          {{#if actor.careers}}
           <ol class="inventory-list">
+          {{else}}
+          <ol class = "inventory-list no-career">
+          {{/if}}
             <li class="inventory-header item">
               <div class="item-name">Skill</div>
               <div class="skill-char-title">Char.</div>
@@ -89,7 +97,8 @@
         </div>
       
     </div>
-  
+
+  {{#if actor.careers}}  
   <div id="main-row-2" class="main-row">
  
     <div class="careers">
@@ -141,6 +150,7 @@
     </div>
   
   </div>
+  {{/if}}
 
   <div class="penalties">
       <h3>Penalties: </h3>

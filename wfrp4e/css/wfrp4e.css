@@ -2339,6 +2339,9 @@ input[type="text"], input[type="password"] {
         .wfrp4e.npc-sheet .skill-section .inventory-list {
           height: 170px;
         } 
+        .wfrp4e.npc-sheet .skill-section .no-careers .inventory-list {
+          height: 290px;
+        } 
           #basic-skills-list {
             width: 250px;
             margin-right: 3px;

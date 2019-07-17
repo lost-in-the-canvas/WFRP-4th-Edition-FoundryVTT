@@ -704,7 +704,7 @@ class DiceWFRP {
       if (testResults.roll % 11 == 0)
       {
         testResults.description = "Casting Succeeded"
-        testResults.extra.criticalcast = "Critical Cast"
+        testResults.extra.critical = "Critical Cast"
         miscastCounter++;
       }
     }
@@ -719,20 +719,34 @@ class DiceWFRP {
         miscastCounter++;
     }
 
+    switch (miscastCounter)
+    {
+      case 1: 
+        if (testData.extra.ingredient)
+          testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+        else 
+          testResults.extra.minormis = "<s>Minor Miscast</s>"
+      break;
+      case 2:
+          if (testData.extra.ingredient)
+          {
+            testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+            testResults.extra.minormis = "Minor Miscast"
+          }
+         else 
+           testResults.extra.majormis = "<s>Major Miscast</s>"
+           break;
+      case 3: 
+      testResults.extra.majormis = "<s>Major Miscast</s>"
+      break;
+    }
+
     if (testData.extra.ingredient)
       miscastCounter--;
     if (miscastCounter < 0)
       miscastCounter = 0;
     if (miscastCounter > 2)
       miscastCounter = 2
-
-    switch (miscastCounter)
-    {
-      case 1: testResults.extra.minormis = "Minor Miscast"
-      break;
-      case 2: testResults.extra.majormis = "Major Miscast"
-      break;
-    }
 
     return testResults;
   } 
@@ -1317,7 +1331,7 @@ Hooks.on("chatMessage", async (html, content, msg) => {
   if (command[0] == "/table")
   {
     modifier = parseInt(command[2]);
-    msg.content = WFRP_Tables.formatChatRoll(command[1], modifier)
+    msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
   }
 });
 
@@ -4417,13 +4431,23 @@ class WFRP_Utility
 
 class WFRP_Tables {
 
-  static rollTable(table, modifier = 0)
+  static rollTable(table, options = {})
   {
+    let modifier = options.modifier || 0;
+    let minOne = options.minOne || false;
+
     table = table.toLowerCase();
     if (this[table])
     {
       let die = `1d${this[table].rows.length - 1}`
-      let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+      let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
+      let displayTotal = roll.total;
+      if (roll.total <= 0)
+        roll.parts[0].rolls[0].roll = (-1) * modifier + 1
+
+      if (roll.total > 100)
+        roll.parts[0].rolls[0].roll = 100 - modifier;
+
       if (table == "scatter")
       {
         if (roll.total <= 8)
@@ -4434,7 +4458,7 @@ class WFRP_Tables {
         else
           return {roll : roll.total}
       }
-      return this[table].rows[roll.total];
+      return mergeObject(this[table].rows[roll.total], ({roll : displayTotal}));
     }
     else
     {
@@ -4453,10 +4477,10 @@ class WFRP_Tables {
   }
   
   // Wrapper for rollTable to format rolls from chat commands nicely
-  static formatChatRoll (table, modifier = 0)
+  static formatChatRoll (table, options = {})
   {
     table = this.generalizeTable(table);
-    let result = this.rollTable(table, modifier);
+    let result = this.rollTable(table, options);
 
     switch (table)
     {  
@@ -4466,7 +4490,7 @@ class WFRP_Tables {
       case "critbody":
       case "critarm":
       case "critleg":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description}`
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description} (${result.roll})`
       
       case "minormis":
       case "majormis":
@@ -4475,13 +4499,13 @@ class WFRP_Tables {
       case "travel":
       case "mutatephys":
       case "mutatemental":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description}`;
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description} (${result.roll})`;
 
       case "doom":
-        return `<b>The Prophet Speaketh</b><br>${result.description}`;
+        return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
 
       case "doom":
-         return `<b>Oops!</b><br>${result.description}`;
+         return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
       case "scatter":
         let tableHtml = '<table class = "scatter-table">' +
@@ -4529,7 +4553,7 @@ class WFRP_Tables {
             let html = "";
             for (let part in result)
               html += result[part] + "<br>"
-            return html;
+            return html +  ` (${result.roll})`;
           }
           else 
             throw ""
