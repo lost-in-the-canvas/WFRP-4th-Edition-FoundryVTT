@@ -550,6 +550,7 @@ class DiceWFRP {
   // Roll a standard Test and determine success
   static rollTest(testData){
     let roll = new Roll("1d100").roll();
+    testData.includeCriticalsFumbles = true;
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
@@ -621,25 +622,27 @@ class DiceWFRP {
 
     }
 
-
-    if (testData.includeCriticalsFumbles)
-    {
-      if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
-        description = description + " - Fumble!";
-      else if (roll.total <= targetNum && roll.total % 11 == 0)
-        description = desrciption + " - Critical!";
-    }
-
     let rollResults={
       target: targetNum,
       roll: roll.total,
       SL: SL,
-      description: description
+      description: description,
+      extra : {}
     }
 
     if (testData.hitLocation)
       rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
     
+
+      if (testData.includeCriticalsFumbles)
+      {
+        if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
+          rollResults.extra.fumble = "Fumble";
+        else if (roll.total <= targetNum && roll.total % 11 == 0)
+          rollResults.extra.critical = "Critical";
+      }
+  
+
     return rollResults;
    } 
 
@@ -653,22 +656,22 @@ class DiceWFRP {
      {
        if (testResults.roll % 11 == 0 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
        {
-         testResults.description += " - Fumble"      
+         testResults.extra.fumble = "Fumble"      
          if ((weapon.data.weaponGroup.value == "Blackpowder" ||
              weapon.data.weaponGroup.value== "Engineering" ||
              weapon.data.weaponGroup.value== "Explosives") &&
              testResults.roll % 2 == 0)
-         testResults.description += " - Misfire"
+         testResults.extra.misfire = "Misfire"
        }
 
      }
      else
      {
        if (testResults.roll % 11 == 0)
-         testResults.description += " - Critical"
+         testResults.extra.critical = "Critical"
        
        if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
-         testResults.description += " - Critical"
+         testResults.extra.critical = "Critical"
          
      }
 
@@ -700,7 +703,8 @@ class DiceWFRP {
       // TODO: If no ID
       if (testResults.roll % 11 == 0)
       {
-        testResults.description = "Casting Succeeded - Critical Cast"
+        testResults.description = "Casting Succeeded"
+        testResults.extra.critical = "Critical Cast"
         miscastCounter++;
       }
     }
@@ -715,20 +719,34 @@ class DiceWFRP {
         miscastCounter++;
     }
 
+    switch (miscastCounter)
+    {
+      case 1: 
+        if (testData.extra.ingredient)
+          testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+        else 
+          testResults.extra.minormis = "<s>Minor Miscast</s>"
+      break;
+      case 2:
+          if (testData.extra.ingredient)
+          {
+            testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+            testResults.extra.minormis = "Minor Miscast"
+          }
+         else 
+           testResults.extra.majormis = "<s>Major Miscast</s>"
+           break;
+      case 3: 
+      testResults.extra.majormis = "<s>Major Miscast</s>"
+      break;
+    }
+
     if (testData.extra.ingredient)
       miscastCounter--;
     if (miscastCounter < 0)
       miscastCounter = 0;
     if (miscastCounter > 2)
       miscastCounter = 2
-
-    switch (miscastCounter)
-    {
-      case 1: testResults.description = testResults.description + " - Minor Miscast"
-      break;
-      case 2: testResults.description = testResults.description + " - Major Miscast"
-      break;
-    }
 
     return testResults;
   } 
@@ -767,7 +785,7 @@ class DiceWFRP {
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
-         testResults.description = testResults.description + " - Critical Channell"
+         testResults.extra.criticalchannell = "Critical Channell"
 
        }
      }
@@ -787,11 +805,13 @@ class DiceWFRP {
      if (miscastCounter > 2)
        miscastCounter = 2
 
-     switch (miscastCounter)
-     {
-       case 1: testResults.description = testResults.description + " - Minor Miscast"
-       case 2: testResults.description = testResults.description + " - Major Miscast"
-     }
+       switch (miscastCounter)
+       {
+         case 1: testResults.extra.minormis = "Minor Miscast"
+         break;
+         case 2: testResults.extra.majormis = "Major Miscast"
+         break;
+       }
      return testResults;
  } 
 
@@ -809,7 +829,7 @@ class DiceWFRP {
      testResults.description = "Prayer Refused"
      if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
        {
-         testResults.description += " - Wrath of the Gods"
+         testResults.extra.wrath = "Wrath of the Gods"
          currentSin--;
          if (currentSin < 0)
          currentSin = 0;
@@ -823,7 +843,7 @@ class DiceWFRP {
 
      if (Number(testResults.roll.toString().split('').pop()) <= currentSin)
      {
-       testResults.description += " - Wrath of the Gods"
+       testResults.extra.wrath = "Wrath of the Gods"       
        currentSin--;
        if (currentSin < 0)
        currentSin = 0;
@@ -865,6 +885,36 @@ class DiceWFRP {
   // }
   static chatListeners(html) {
 
+    html.on('mousedown', '.table-click', ev => {
+      ev.preventDefault();
+      if (ev.button == 0)
+      {
+        let html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"));
+        let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
+        let senderId = game.messages.get(messageId).user._id;
+        ChatMessage.create({content : html, user : senderId})
+      }
+      else if (ev.button == 2)
+      {
+        new Dialog({
+          title: "Table Modifier",
+          content: '',
+          buttons: {
+            roll: {
+              label: "Roll",
+              callback: (html) => {
+                let tableModifier = html.find('[name="tableModifier"]').val();
+                let minOne = html.find('[name="minOne"]').is(':checked');
+                console.log(minOne);
+              }
+            },
+          },
+          default: 'roll'
+        }).render(true);
+      }
+
+
+    })
     // Chat card actions
     html.on('click', '.card-buttons button', ev => {
       ev.preventDefault();
@@ -951,10 +1001,10 @@ class DiceWFRP {
  */
 Hooks.once("init", () => {
 
-  /*fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    var fgtable = records["tables"]["id-00008"];
+  fetch ("fgdb.json").then (r => r.json()).then(async records => {
+    var fgtable = records["tables"]["id-00001"];
     var newtable = {
-      name : fgtable.description,
+      name : fgtable.name,
       rows : ["-"]
     }
 
@@ -966,14 +1016,13 @@ Hooks.once("init", () => {
       for (var i = from; i <= to; i++)
       {
         var rowObj = {
-          name : fgrow.results["id-00001"].result,
-          description : fgrow.results["id-00002"].result,
+          description : fgrow.results["id-00001"].result,
         }
         newtable.rows.push(rowObj);
       }
     }
     console.log(JSON.stringify(newtable));
-  })*/
+  })
 
   // fetch("doomings.txt").then(r => r.text()).then(t => {
   //   let array = t.split("\n").map(function(item) {
@@ -1282,7 +1331,7 @@ Hooks.on("chatMessage", async (html, content, msg) => {
   if (command[0] == "/table")
   {
     modifier = parseInt(command[2]);
-    msg.content = WFRP_Tables.formatChatRoll(command[1], modifier)
+    msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
   }
 });
 
@@ -4382,13 +4431,23 @@ class WFRP_Utility
 
 class WFRP_Tables {
 
-  static rollTable(table, modifier = 0)
+  static rollTable(table, options = {})
   {
+    let modifier = options.modifier || 0;
+    let minOne = options.minOne || false;
+
     table = table.toLowerCase();
     if (this[table])
     {
       let die = `1d${this[table].rows.length - 1}`
-      let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
+      let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
+      let displayTotal = roll.total;
+      if (roll.total <= 0)
+        roll.parts[0].rolls[0].roll = (-1) * modifier + 1
+
+      if (roll.total > 100)
+        roll.parts[0].rolls[0].roll = 100 - modifier;
+
       if (table == "scatter")
       {
         if (roll.total <= 8)
@@ -4399,24 +4458,29 @@ class WFRP_Tables {
         else
           return {roll : roll.total}
       }
-      return this[table].rows[roll.total];
+      return mergeObject(this[table].rows[roll.total], ({roll : displayTotal}));
     }
     else
     {
-      let result;
-      fetch(`systems/wfrp4e/tables/${table}.json`).then(r => r.json()).then(async newTable => {
-        let die = `1d${newTable.rows.length - 1}`
-        let roll = new Roll(`${die}+ @modifier`, {modifier}).roll();
-        result = newTable.rows[roll.total];
-      })
-      return result;
+      
     }
+  }
+
+  static generalizeTable (table)
+  {
+    table = table.toLowerCase();
+    table = table.replace("lleg", "leg");
+    table = table.replace("rleg", "leg");
+    table = table.replace("rarm", "arm");
+    table = table.replace("larm", "arm");
+    return table;
   }
   
   // Wrapper for rollTable to format rolls from chat commands nicely
-  static formatChatRoll (table, modifier = 0)
+  static formatChatRoll (table, options = {})
   {
-    let result = this.rollTable(table, modifier);
+    table = this.generalizeTable(table);
+    let result = this.rollTable(table, options);
 
     switch (table)
     {  
@@ -4426,7 +4490,7 @@ class WFRP_Tables {
       case "critbody":
       case "critarm":
       case "critleg":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description:</b>${result.description}`
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description} (${result.roll})`
       
       case "minormis":
       case "majormis":
@@ -4435,10 +4499,13 @@ class WFRP_Tables {
       case "travel":
       case "mutatephys":
       case "mutatemental":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description}`;
+        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description} (${result.roll})`;
 
       case "doom":
-        return `<b>The Prophet Speaketh</b><br>${result.description}`;
+        return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
+
+      case "doom":
+         return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
       case "scatter":
         let tableHtml = '<table class = "scatter-table">' +
@@ -4481,19 +4548,25 @@ class WFRP_Tables {
 
       default:
         try {
-          let html = "";
-          for (let part in result)
-            html += result[part] + "<br>"
-          return html;
+          if (result)
+          {
+            let html = "";
+            for (let part in result)
+              html += result[part] + "<br>"
+            return html +  ` (${result.roll})`;
+          }
+          else 
+            throw ""
         }
         catch
         {
-          return "<b>Commands</b><br>"+
+          return "<b><code>/table</code> Commands</b><br>"+
           "<code>hitloc</code> - Hit Location<br>"+
           "<code>crithead</code> - Head Critical Hits<br>"+
           "<code>critbody</code> - Body Critical Hits<br>"+
           "<code>critarm</code> - Arm Critical Hits<br>"+
           "<code>critleg</code> - Leg Critical Hits<br>"+
+          "<code>oops</code> - Oops!<br>"+
           "<code>minormis</code> - Minor Miscast<br>"+
           "<code>majormis</code> - Major Miscast<br>"+
           "<code>wrath</code> - Wrath of the Gods<br>"+

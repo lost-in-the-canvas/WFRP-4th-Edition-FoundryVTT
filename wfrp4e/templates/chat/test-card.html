@@ -1,4 +1,4 @@
-<div class="wfrp4e chat-card" data-actor-id="{{actorId}}"  roll-SL = {{SL}}  roll-result = {{roll}} roll-target = {{target}}>
+<div class="wfrp4e chat-card" data-actor-id="{{actorId}}" hitloc="test" roll-SL = {{SL}}  roll-result = {{roll}} roll-target = {{target}}>
 
     <div class="card-content" >
         {{title}}
@@ -12,12 +12,34 @@
         SL: {{testData.SL}}
     </div>
     
-    <div class="card-content" roll-description = {{description}}>
+    <div class="card-content" roll-description = "{{description}}">
         Description: {{testData.description}}
+        {{#if testData.extra.critical}}
+            <a class ="table-click" data-table = "crit{{testData.hitloc.result}}" >- {{testData.extra.critical}}</a>
+        {{/if}}
+        {{#if testData.extra.fumble}}
+            <a class ="table-click" data-table = "oops">- {{testData.extra.fumble}}</a>
+        {{/if}}
+        {{#if testData.extra.nullminormis}}
+        <span style = "text-decoration: line-through"> {{testData.extra.nullminormis}}</span>
+        {{/if}}
+        {{#if testData.extra.nullmajormis}}
+        <span style = "text-decoration: line-through"> {{testData.extra.nullmajormis}}</span>
+        {{/if}}
+        {{#if testData.extra.minormis}}
+        <a class ="table-click" data-table = "minormis">- {{testData.extra.minormis}}</a>
+        {{/if}}
+
+        {{#if testData.extra.majormis}}
+        <a class ="table-click" data-table = "majormis">- {{testData.extra.majormis}}</a>
+        {{/if}}
+        {{#if testData.extra.wrath}}
+        <a class ="table-click" data-sin = "{{testData.extra.sin}}"data-table = "wrath">- {{testData.extra.wrath}}</a>
+        {{/if}}
     </div>
 
     {{#if testData.hitloc}}
-    <div class="card-content" roll-description = {{description}}>
+    <div class="card-content" roll-description = "{{description}}">
         Hit Location: {{testData.hitloc.description}}
     </div>
     {{/if}}
