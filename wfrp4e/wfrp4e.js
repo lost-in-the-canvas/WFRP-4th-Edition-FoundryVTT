@@ -176,12 +176,12 @@ CONFIG.weaponGroupDescriptions = {
   "parry": "Any one-handed weapon with the Defensive Quality can be used with Melee (Parry). When using Melee (Parry), a weapon can be used to Oppose an incoming attack without the normal –20 oﬀhand penalty.",
   "polearm": "Polearm",
   "twohanded": "Two-Handed",
-  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty.",
+  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
   "bow": "Bow",
   "crossbow": "Crossbows weapons are relatively simple to use. You can attempt a Ranged (Crossbow) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
   "entangling": "Entangling",
-  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws.",
-  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty.",
+  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
+  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
   "sling": "Sling",
   "throwing": "Thrown weapons are relatively simple to use. You can attempt a Ranged (Throwing) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
 };
@@ -993,6 +993,31 @@ class DiceWFRP {
       });
     }
     });
+    html.on("click", '.item-property', event => {
+      event.preventDefault();
+
+      let li = $(event.currentTarget).parents(".chat-card"),
+          property = event.target.text,
+          properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
+          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
+          let propertyKey;
+          property = property.replace(/,/g, '').trim();
+
+
+          for (let prop in properties)
+          {
+            if (properties[prop] == property.split(" ")[0])
+              propertyKey = prop;
+          }
+
+          
+          let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
+          propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
+
+      // Toggle summary
+
+      ChatMessage.create({content : propertyDescription, user : game.user._id});
+    });
   }
 
   static evaluateOpposedTest(defender, defenderRollData)
@@ -1022,9 +1047,10 @@ class DiceWFRP {
 Hooks.once("init", () => {
 
   fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    var fgtable = records["tables"]["id-00001"];
+    var fgtable = records["tables"]["category"]["id-00001"];
     var newtable = {
-      name : fgtable.name,
+      name : "General Critical Hits",
+      die : "1d100",
       rows : ["-"]
     }
 
@@ -1036,7 +1062,9 @@ Hooks.once("init", () => {
       for (var i = from; i <= to; i++)
       {
         var rowObj = {
-          description : fgrow.results["id-00001"].result,
+          wounds : fgrow.results["id-00002"].result,
+          name : fgrow.results["id-00001"].result,
+          description : fgrow.results["id-00003"].result,
         }
         newtable.rows.push(rowObj);
       }
@@ -1074,6 +1102,7 @@ Hooks.once("init", () => {
   })
 
   WFRP_Tables.scatter = {
+    die : "1d10",
     rows : [
       undefined, 
       {
@@ -1693,7 +1722,7 @@ class ActorWfrp4e extends Actor {
         {
           // If using only a characteristic, delete all qualities, set target number to characteristic value + modifiers
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
+          //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
           testData.extra.weapon.properties.qualities = [];
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
@@ -1707,8 +1736,8 @@ class ActorWfrp4e extends Actor {
           // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
-          testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
+         //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
+         //testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
 
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
                                                                               + testData.testModifier 
@@ -4525,15 +4554,19 @@ class WFRP_Tables {
     if (this[table])
     {
       // cap at 100
-      let die = `1d${(this[table].rows.length > 100 ? 100 : this[table].rows.length - 1)}`
+      let die = this[table].die;
+      let tableSize = this[table].rows.length - 1;
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
+      let rollValue = roll.total;
       let displayTotal = roll.total;
-      if (roll.total <= 0 && minOne)
-        roll.parts[0].rolls[0].roll = (-1) * modifier + 1
-      else if (roll.total <= 0)
-        return {roll : roll.total};
-      if (roll.total > 100 && maxSize)
-        roll.parts[0].rolls[0].roll = die - modifier;
+      if (rollValue <= 0 && minOne)
+        rollValue = 1;
+
+      else if (rollValue <= 0)
+        return {roll : rollValue};
+
+      if (rollValue > tableSize)
+        rollValue = tableSize;
 
       if (table == "scatter")
       {
@@ -4545,11 +4578,10 @@ class WFRP_Tables {
         else
           return {roll : roll.total}
       }
-      return mergeObject(this[table].rows[roll.total], ({roll : displayTotal}));
+      return mergeObject(this[table].rows[rollValue], ({roll : displayTotal}));
     }
     else
     {
-      
     }
   }
 
@@ -4568,8 +4600,11 @@ class WFRP_Tables {
   {
     table = this.generalizeTable(table);
     let result = this.rollTable(table, options);
+    try{
     if (result.roll <= 0 && !options.minOne)
       return `Roll: ${result.roll} - canceled`
+    }
+    catch {}
     switch (table)
     {  
       case "hitloc":
@@ -4592,7 +4627,7 @@ class WFRP_Tables {
       case "doom":
         return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
 
-      case "doom":
+      case "oops":
          return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
       case "scatter":

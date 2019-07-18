@@ -5,14 +5,20 @@
 
     {{#if testData.weapon.properties.qualities}}
     <div class="card-content" roll-desrciption = {{description}}>
-        Qualities: {{testData.weapon.properties.qualities}}
+        <span>Qualities: </span>
+        {{#each testData.weapon.properties.qualities as |quality q|}}
+        <a class ="item-property">{{quality}} </a>
+        {{/each}}
     </div>
     {{/if}}
 
     {{#if testData.weapon.properties.flaws}}
     <div class="card-content" roll-desrciption = {{description}}>
-        Flaws: {{testData.weapon.properties.flaws}}
-    </div>
+            <span>Flaws: </span>
+            {{#each testData.weapon.properties.flaws as |flaw f|}}
+            <a class ="item-property">{{flaw}} </a>
+            {{/each}}
+        </div>
     {{/if}}
    <!-- {{#if opposed}}
     <div class ="card-buttons">
