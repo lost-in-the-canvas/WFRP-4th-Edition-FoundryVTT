@@ -176,12 +176,12 @@ CONFIG.weaponGroupDescriptions = {
   "parry": "Any one-handed weapon with the Defensive Quality can be used with Melee (Parry). When using Melee (Parry), a weapon can be used to Oppose an incoming attack without the normal –20 oﬀhand penalty.",
   "polearm": "Polearm",
   "twohanded": "Two-Handed",
-  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty.",
+  "blackpowder": "Those with Ranged (Engineering) can use Blackpowder weapons without penalty. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
   "bow": "Bow",
   "crossbow": "Crossbows weapons are relatively simple to use. You can attempt a Ranged (Crossbow) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
   "entangling": "Entangling",
-  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws.",
-  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty.",
+  "engineering": "All Engineering weapons can be used by characters with Ranged (Blackpowder), but the weapons lose all Weapon Qualities whilst retaining their ﬂaws. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
+  "explosives": "Those with Ranged (Engineering) can use Explosive weapons without penalty. If you are using a Blackpowder, Engineering, or Explosive weapon, and roll a Fumble that is also an even number — 00, 88, and so on — your weapon Misfires, exploding in your hand. You take full Damage to your primary arm location using the units die as an effective SL for the hit, and your weapon is destroyed.",
   "sling": "Sling",
   "throwing": "Thrown weapons are relatively simple to use. You can attempt a Ranged (Throwing) Test using your Ballistic Skill, but the weapon loses all Qualities whilst retaining its Flaws.",
 };
@@ -798,20 +798,34 @@ class DiceWFRP {
      spell.data.cn.SL = 0;
      actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
 
+     switch (miscastCounter)
+     {
+       case 1: 
+         if (testData.extra.ingredient)
+           testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+         else 
+           testResults.extra.minormis = "<s>Minor Miscast</s>"
+       break;
+       case 2:
+           if (testData.extra.ingredient)
+           {
+             testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+             testResults.extra.minormis = "Minor Miscast"
+           }
+          else 
+            testResults.extra.majormis = "<s>Major Miscast</s>"
+            break;
+       case 3: 
+       testResults.extra.majormis = "<s>Major Miscast</s>"
+       break;
+     }
+ 
      if (testData.extra.ingredient)
        miscastCounter--;
      if (miscastCounter < 0)
        miscastCounter = 0;
      if (miscastCounter > 2)
        miscastCounter = 2
-
-       switch (miscastCounter)
-       {
-         case 1: testResults.extra.minormis = "Minor Miscast"
-         break;
-         case 2: testResults.extra.majormis = "Major Miscast"
-         break;
-       }
      return testResults;
  } 
 
@@ -889,7 +903,13 @@ class DiceWFRP {
       ev.preventDefault();
       if (ev.button == 0)
       {
-        let html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"));
+        let sin = Number($(ev.currentTarget).attr("data-sin"));
+        let modifier = sin * 10 || 0;
+        let html;
+        if (sin)
+          html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});      
+        else
+          html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
         let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
         let senderId = game.messages.get(messageId).user._id;
         ChatMessage.create({content : html, user : senderId})
@@ -973,6 +993,31 @@ class DiceWFRP {
       });
     }
     });
+    html.on("click", '.item-property', event => {
+      event.preventDefault();
+
+      let li = $(event.currentTarget).parents(".chat-card"),
+          property = event.target.text,
+          properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
+          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
+          let propertyKey;
+          property = property.replace(/,/g, '').trim();
+
+
+          for (let prop in properties)
+          {
+            if (properties[prop] == property.split(" ")[0])
+              propertyKey = prop;
+          }
+
+          
+          let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
+          propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
+
+      // Toggle summary
+
+      ChatMessage.create({content : propertyDescription, user : game.user._id});
+    });
   }
 
   static evaluateOpposedTest(defender, defenderRollData)
@@ -1002,9 +1047,10 @@ class DiceWFRP {
 Hooks.once("init", () => {
 
   fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    var fgtable = records["tables"]["id-00001"];
+    var fgtable = records["tables"]["category"]["id-00001"];
     var newtable = {
-      name : fgtable.name,
+      name : "General Critical Hits",
+      die : "1d100",
       rows : ["-"]
     }
 
@@ -1016,7 +1062,9 @@ Hooks.once("init", () => {
       for (var i = from; i <= to; i++)
       {
         var rowObj = {
-          description : fgrow.results["id-00001"].result,
+          wounds : fgrow.results["id-00002"].result,
+          name : fgrow.results["id-00001"].result,
+          description : fgrow.results["id-00003"].result,
         }
         newtable.rows.push(rowObj);
       }
@@ -1054,6 +1102,7 @@ Hooks.once("init", () => {
   })
 
   WFRP_Tables.scatter = {
+    die : "1d10",
     rows : [
       undefined, 
       {
@@ -1673,7 +1722,7 @@ class ActorWfrp4e extends Actor {
         {
           // If using only a characteristic, delete all qualities, set target number to characteristic value + modifiers
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
+          //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
           testData.extra.weapon.properties.qualities = [];
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
@@ -1687,8 +1736,8 @@ class ActorWfrp4e extends Actor {
           // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
           let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-          testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
-          testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
+         //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
+         //testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
 
           testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
                                                                               + testData.testModifier 
@@ -1962,10 +2011,11 @@ class ActorWfrp4e extends Actor {
     }
     let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
     let testData = {
-      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value],
+      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value].value,
       hitLocation : true,
       extra : {
         prayer : preparedPrayer,
+        sin : this.data.data.status.sin.value
       }
     };
 
@@ -2518,7 +2568,48 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
+  async _render(force = false, options = {}) {
+    this._saveScrollPos();
+    await super._render(force, options);
+    this._setScrollPos();
+  }
   /* -------------------------------------------- */
+
+  // TODO: Add .savescroll class to all classes that need their position saved
+  // Currently, many that are saved don't need to be.
+  _saveScrollPos()
+  {
+    if (this.form === null)
+      return;
+
+    const html = $(this.form).parent();
+    let lists = $(html.find(".inventory-list"));
+    lists.push(html.find(".combat-section"));
+    lists.push(html.find(".inventory")[1]);
+    lists.push(html.find(".magic-section"));
+    lists.push(html.find(".religion-section"));
+    lists.push(html.find(".notes-section"));
+    this.scrollPos = [];
+    for (let list of lists)
+    {
+      this.scrollPos.push($(list).scrollTop());
+    }
+  }
+
+  _setScrollPos()
+  {
+    const html = $(this.form).parent();
+    let lists = $(html.find(".inventory-list"));
+    lists.push(html.find(".combat-section"));
+    lists.push(html.find(".inventory"));
+    lists.push(html.find(".magic-section"));
+    lists.push(html.find(".religion-section"));
+    lists.push(html.find(".notes-section"));
+    for (let listIndex in lists)
+    {
+      ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
+    }
+  }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -2863,6 +2954,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "disease")
         {
+          i.data.incubation.roll = i.data.incubation.roll || i.data.incubation.value;
+          i.data.duration.roll = i.data.duration.roll || i.data.duration.value;
           diseases.push(i);
         }
 
@@ -3348,6 +3441,26 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
 
     });
+
+    html.find('.disease-roll').click(async ev =>  {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      const disease = this.actor.items.find(i => i.id === itemId);
+      let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
+
+      //let text = ev.target.text.split(' ').join('')
+      try 
+      {
+        let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
+        let timeUnit = disease.data[type].value.split(" ")[1];
+        disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+      }
+      catch
+      {
+        disease.data[type].roll = disease.data[type].value;
+      }
+    
+      await this.actor.updateOwnedItem(disease);
+    })
 
 
     //Item Dragging
@@ -4435,18 +4548,25 @@ class WFRP_Tables {
   {
     let modifier = options.modifier || 0;
     let minOne = options.minOne || false;
+    let maxSize = options.maxSize || false;
 
     table = table.toLowerCase();
     if (this[table])
     {
-      let die = `1d${this[table].rows.length - 1}`
+      // cap at 100
+      let die = this[table].die;
+      let tableSize = this[table].rows.length - 1;
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
+      let rollValue = roll.total;
       let displayTotal = roll.total;
-      if (roll.total <= 0)
-        roll.parts[0].rolls[0].roll = (-1) * modifier + 1
+      if (rollValue <= 0 && minOne)
+        rollValue = 1;
 
-      if (roll.total > 100)
-        roll.parts[0].rolls[0].roll = 100 - modifier;
+      else if (rollValue <= 0)
+        return {roll : rollValue};
+
+      if (rollValue > tableSize)
+        rollValue = tableSize;
 
       if (table == "scatter")
       {
@@ -4458,11 +4578,10 @@ class WFRP_Tables {
         else
           return {roll : roll.total}
       }
-      return mergeObject(this[table].rows[roll.total], ({roll : displayTotal}));
+      return mergeObject(this[table].rows[rollValue], ({roll : displayTotal}));
     }
     else
     {
-      
     }
   }
 
@@ -4481,7 +4600,11 @@ class WFRP_Tables {
   {
     table = this.generalizeTable(table);
     let result = this.rollTable(table, options);
-
+    try{
+    if (result.roll <= 0 && !options.minOne)
+      return `Roll: ${result.roll} - canceled`
+    }
+    catch {}
     switch (table)
     {  
       case "hitloc":
@@ -4504,7 +4627,7 @@ class WFRP_Tables {
       case "doom":
         return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
 
-      case "doom":
+      case "oops":
          return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
       case "scatter":
