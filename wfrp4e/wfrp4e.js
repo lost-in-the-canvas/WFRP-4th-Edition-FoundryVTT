@@ -798,20 +798,34 @@ class DiceWFRP {
      spell.data.cn.SL = 0;
      actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
 
+     switch (miscastCounter)
+     {
+       case 1: 
+         if (testData.extra.ingredient)
+           testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+         else 
+           testResults.extra.minormis = "<s>Minor Miscast</s>"
+       break;
+       case 2:
+           if (testData.extra.ingredient)
+           {
+             testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+             testResults.extra.minormis = "Minor Miscast"
+           }
+          else 
+            testResults.extra.majormis = "<s>Major Miscast</s>"
+            break;
+       case 3: 
+       testResults.extra.majormis = "<s>Major Miscast</s>"
+       break;
+     }
+ 
      if (testData.extra.ingredient)
        miscastCounter--;
      if (miscastCounter < 0)
        miscastCounter = 0;
      if (miscastCounter > 2)
        miscastCounter = 2
-
-       switch (miscastCounter)
-       {
-         case 1: testResults.extra.minormis = "Minor Miscast"
-         break;
-         case 2: testResults.extra.majormis = "Major Miscast"
-         break;
-       }
      return testResults;
  } 
 
@@ -889,7 +903,13 @@ class DiceWFRP {
       ev.preventDefault();
       if (ev.button == 0)
       {
-        let html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"));
+        let sin = Number($(ev.currentTarget).attr("data-sin"));
+        let modifier = sin * 10 || 0;
+        let html;
+        if (sin)
+          html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});      
+        else
+          html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
         let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
         let senderId = game.messages.get(messageId).user._id;
         ChatMessage.create({content : html, user : senderId})
@@ -1962,10 +1982,11 @@ class ActorWfrp4e extends Actor {
     }
     let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
     let testData = {
-      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value],
+      target : praySkill.data.advances.value + this.data.data.characteristics[praySkill.data.characteristic.value].value,
       hitLocation : true,
       extra : {
         prayer : preparedPrayer,
+        sin : this.data.data.status.sin.value
       }
     };
 
@@ -2518,7 +2539,48 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
+  async _render(force = false, options = {}) {
+    this._saveScrollPos();
+    await super._render(force, options);
+    this._setScrollPos();
+  }
   /* -------------------------------------------- */
+
+  // TODO: Add .savescroll class to all classes that need their position saved
+  // Currently, many that are saved don't need to be.
+  _saveScrollPos()
+  {
+    if (this.form === null)
+      return;
+
+    const html = $(this.form).parent();
+    let lists = $(html.find(".inventory-list"));
+    lists.push(html.find(".combat-section"));
+    lists.push(html.find(".inventory")[1]);
+    lists.push(html.find(".magic-section"));
+    lists.push(html.find(".religion-section"));
+    lists.push(html.find(".notes-section"));
+    this.scrollPos = [];
+    for (let list of lists)
+    {
+      this.scrollPos.push($(list).scrollTop());
+    }
+  }
+
+  _setScrollPos()
+  {
+    const html = $(this.form).parent();
+    let lists = $(html.find(".inventory-list"));
+    lists.push(html.find(".combat-section"));
+    lists.push(html.find(".inventory"));
+    lists.push(html.find(".magic-section"));
+    lists.push(html.find(".religion-section"));
+    lists.push(html.find(".notes-section"));
+    for (let listIndex in lists)
+    {
+      ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
+    }
+  }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -4435,18 +4497,21 @@ class WFRP_Tables {
   {
     let modifier = options.modifier || 0;
     let minOne = options.minOne || false;
+    let maxSize = options.maxSize || false;
 
     table = table.toLowerCase();
     if (this[table])
     {
-      let die = `1d${this[table].rows.length - 1}`
+      // cap at 100
+      let die = `1d${(this[table].rows.length > 100 ? 100 : this[table].rows.length - 1)}`
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
       let displayTotal = roll.total;
-      if (roll.total <= 0)
+      if (roll.total <= 0 && minOne)
         roll.parts[0].rolls[0].roll = (-1) * modifier + 1
-
-      if (roll.total > 100)
-        roll.parts[0].rolls[0].roll = 100 - modifier;
+      else if (roll.total <= 0)
+        return {roll : roll.total};
+      if (roll.total > 100 && maxSize)
+        roll.parts[0].rolls[0].roll = die - modifier;
 
       if (table == "scatter")
       {
@@ -4481,7 +4546,8 @@ class WFRP_Tables {
   {
     table = this.generalizeTable(table);
     let result = this.rollTable(table, options);
-
+    if (result.roll <= 0 && !options.minOne)
+      return `Roll: ${result.roll} - canceled`
     switch (table)
     {  
       case "hitloc":

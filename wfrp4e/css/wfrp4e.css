@@ -5345,7 +5345,7 @@ input[type="text"], input[type="password"] {
           }
           #mutation-add {
             position: relative;
-            left: 416px;
+            left: 19px;
             top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
@@ -5435,8 +5435,8 @@ input[type="text"], input[type="password"] {
           }
           #disease-add {
             position: relative;
-            left: 301px;
-            top: -18px;
+            left: 32px;
+            top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
             font-size: 11px;
