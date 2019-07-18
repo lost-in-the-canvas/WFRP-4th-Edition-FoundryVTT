@@ -2925,6 +2925,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "disease")
         {
+          i.data.incubation.roll = i.data.incubation.roll || i.data.incubation.value;
+          i.data.duration.roll = i.data.duration.roll || i.data.duration.value;
           diseases.push(i);
         }
 
@@ -3410,6 +3412,26 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
 
     });
+
+    html.find('.disease-roll').click(async ev =>  {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      const disease = this.actor.items.find(i => i.id === itemId);
+      let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
+
+      //let text = ev.target.text.split(' ').join('')
+      try 
+      {
+        let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
+        let timeUnit = disease.data[type].value.split(" ")[1];
+        disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+      }
+      catch
+      {
+        disease.data[type].roll = disease.data[type].value;
+      }
+    
+      await this.actor.updateOwnedItem(disease);
+    })
 
 
     //Item Dragging
