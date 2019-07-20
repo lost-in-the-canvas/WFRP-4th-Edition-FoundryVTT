@@ -287,6 +287,10 @@ CONFIG.skillTypes = {
   "adv" : "Advanced"
 };
 
+CONFIG.xpCost = {
+  "characteristics" : [25, 30, 40, 50, 70, 90, 120, 150, 190, 230, 280, 330, 390, 450, 520]
+}
+
 CONFIG.skillGroup = {
   "isSpec" : "Is Specialization",
   "noSpec" : "Not Specialization"
@@ -3180,6 +3184,12 @@ class ActorSheetWfrp4e extends ActorSheet {
             actorData.currentCareer = i.name;
             actorData.currentCareerGroup = i.data.careergroup.value;
             actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+            let availableCharacteristics = i.data.characteristics
+            for (let char in actorData.data.characteristics)
+            {
+              if (availableCharacteristics.includes(char))
+                actorData.data.characteristics[char].career = true;
+            }
           }
           careers.push(i);
         }
@@ -3590,13 +3600,36 @@ class ActorSheetWfrp4e extends ActorSheet {
       let item = this.actor.items.find(i => i.id === itemId );
       item.data[type].value = !item.data[type].value;
 
+
+       if (type == "current")
+       {
+         let availableCharacteristics = item.data.characteristics
+         let characteristics = this.actor.data.data.characteristics;
+         if (item.data.current.value)
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+             if (availableCharacteristics.includes(char))
+               characteristics[char].career = true;
+           }
+         }
+         else
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+           }
+         }
+      this.actor.update({"data.characteristics" : characteristics})
+      }
+
       // Only one career can be current - make all other careers not current 
       // Dislike iterating through every item: TODO - different approach
       if (type == "current" && item.data.current.value == true)
         for (let i of this.actor.items)
           if (i.type == "career" && i != item)
             i.data.current.value = false;
-
       this.actor.updateOwnedItem(item);
     });
 
@@ -4037,6 +4070,39 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
     return numCoins / 50;
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find('.advancement-indicator').mousedown(async ev =>  {
+      let characteristic = $(ev.target).attr("data-char");
+
+
+      let data = duplicate(this.actor.data.data);
+      let currentChar = this.actor.data.data.characteristics[characteristic];
+
+      if (ev.button == 0)
+      {
+        let cost = WFRP_Utility._calculateCharAdvCost(currentChar.advances);
+
+        data.characteristics[characteristic].advances++;
+        data.details.experience.spent = Number(data.details.experience.spent) + cost;
+        await this.actor.update({"data.characteristics" : data.characteristics,
+                                "data.details.experience" : data.details.experience});
+      }
+      else if (ev.button == 2)
+      {
+        if (currentChar.advances == 0)
+          return
+        let cost = WFRP_Utility._calculateCharAdvCost(currentChar.advances - 1);
+
+        data.characteristics[characteristic].advances--;
+        data.details.experience.spent = Number(data.details.experience.spent) - cost;
+        await this.actor.update({"data.characteristics" : data.characteristics,
+                                "data.details.experience" : data.details.experience});
+      }
+  });
+}
   /* -------------------------------------------- */
 
   // _getHeaderButtons() {
@@ -4930,6 +4996,16 @@ class WFRP_Utility
     let item = duplicate(CONFIG.itemFlaws);
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
+  }
+
+  static _calculateCharAdvCost(currentAdvances)
+  {
+    let index = Math.ceil((currentAdvances / 5) - 1);
+    index = index < 0 ? 0 : index; // min 0
+
+    if (index >= CONFIG.xpCost["characteristics"].length)
+      return 520;
+    return CONFIG.xpCost["characteristics"][index];
   }
 }
 

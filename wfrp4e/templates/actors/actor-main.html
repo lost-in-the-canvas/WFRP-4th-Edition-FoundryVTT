@@ -9,7 +9,11 @@
       {{#each actor.data.characteristics as |ch c|}}
       <th title="{{ch.label}}" class="table-header">
         {{ch.abrev}}
-      <a class="advancement-indicator">+</a>
+      {{#if ch.career}}
+        <a class="advancement-indicator" data-char = "{{c}}">+</a>
+      {{else}}
+        <a class="advancement-indicator" style = "visibility : hidden" data-char = "{{c}}">+</a>
+      {{/if}}
       </th>
 
       {{/each}}
