@@ -418,6 +418,35 @@ input[type="text"], input[type="password"] {
       border-radius: 0px;
       box-shadow: 0 0 0px #000;
     }
+    #sidebar.collapsed {
+      width: 50px !important;
+      height: 326px !important;
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      padding-left: 3px;
+      background: url(../ui/sidebar-collapsed.png) repeat;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      box-shadow: -2px 0px 8px #000;
+    }
+    #sidebar.collapsed #sidebar-tabs {
+      display: flex;
+      flex: none;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      position: relative;
+      top: 126px;
+      left: -81px;
+      width: 35px;
+      height: 54px;
+      margin: 0px;
+      padding: 0px 0px 0px 90px;
+      border: none;
+      box-shadow: none;
+      background: none;
+    }
     .sidebar-tab {
       overflow: hidden;
       margin: 0px 8px 0px 87px;
@@ -452,10 +481,10 @@ input[type="text"], input[type="password"] {
       width: 456px;
       height: 54px;
       margin: 0px;
-      padding: 0px 0px 0px 90px;
+      padding: 0px 0px 0px 82px;
       border: none;
       box-shadow: none;
-      background: url(../ui/sidebar-border.png) repeat;
+      background: url(../ui/sidebar-border.png) repeat;  
     }
 
     #sidebar-tabs > .item {
@@ -470,6 +499,35 @@ input[type="text"], input[type="password"] {
       border-radius: 0px;
       position: relative;
       top: 8px;
+    }
+    #sidebar-tabs > .collapse {
+      display: inline-block;
+      flex: none;
+      height: 30px;
+      width: 30px;
+      margin: 0px;
+      padding: 0px;
+      color: #ff000000;
+      border: none;
+      border-radius: 0px;
+      position: relative;
+      top: 8px;
+      position: relative;
+      top: 8px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-settings-active.png);
+      background: url(../ui/sidebar-button-collapse.png);
+    }   
+    #sidebar.collapsed .collapse {
+      background: url(../ui/sidebar-button-collapse-active.png);
     }
     #sidebar-tabs .item > i {
       height: inherit;
@@ -1251,7 +1309,7 @@ input[type="text"], input[type="password"] {
           width: 400px;
           margin: 0px;
         }
-        .wfrp4e.actor .characteristics-table{
+        .wfrp4e.actor .characteristics-table {
           margin: 0px;
           border: none;
           background: none;
@@ -1263,12 +1321,12 @@ input[type="text"], input[type="password"] {
           border: 1px solid #736953a6;
           background: none;
         }
-        .wfrp4e.actor .characteristics-table .table-row-bottom >* {
+        .wfrp4e.actor .characteristics-table .table-row-bottom > * {
           margin: 5px;
           border: 1px solid #736953a6;
           border: none;
         }          
-        .wfrp4e.actor .characteristics-table .table-header > *{
+        .wfrp4e.actor .characteristics-table .table-header > * {
           text-align: center;
           border: 1px solid #736953a6;
           border: 1px solid #736953a6;
@@ -1278,9 +1336,25 @@ input[type="text"], input[type="password"] {
           color: #464331c4;
           margin: 0px;
           height: 20px;
-          padding: 3px 0px 0px 0px;
+          padding: 3px 0px 0px 11px;
           box-shadow: 0 0 10px #00000052 inset;
-        }         
+        }    
+        .wfrp4e.actor .characteristics-table .table-header .advancement-indicator {
+          text-align: center;
+          border: none;
+          font-family: CaslonAntique;
+          font-size: 16px;
+          font-weight: 700;
+          color: #464331c4;
+          margin: 0px;
+          height: 10px;
+          padding: 3px 0px 0px 0px;
+          box-shadow: none;
+          vertical-align: top;
+          position: relative;
+          top: -6px;
+          left: -3px;
+        }
         .wfrp4e.actor .characteristics-table .table-row .table-data > input{
           text-align: center;
           width: 35px;
@@ -1721,10 +1795,6 @@ input[type="text"], input[type="password"] {
           height: 187px;
           border-bottom: 1px solid #CCC;
           margin: 6px 0px 0px 0px;
-        }
-        .npc-sheet #main-row-2,
-          .creature-sheet #main-row-2 {
-          border: none;
         }
           .wfrp4e.actor .criticalWounds {
             width: 97px;
@@ -5526,6 +5596,320 @@ input[type="text"], input[type="password"] {
 
 
 
+
+/*************************************************************/
+/*=============== IV. ACTOR (NPC SHEET) =====================*/
+/*************************************************************/
+
+.wfrp4e.npc-sheet .characteristics-table .table-header > * {
+  text-align: center;
+  border: 1px solid #736953a6;
+  border: 1px solid #736953a6;
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  margin: 0px;
+  height: 20px;
+  padding: 3px 0px 0px 0px;
+  box-shadow: 0 0 10px #00000052 inset;
+}
+
+.wfrp4e.npc-sheet .movement {
+  display: flex;
+  margin: 0px;
+  margin-right: 6px;
+  width: 170px;
+  height: 43px;
+  border-top: 1px solid #736953a6;
+  border-right: 1px solid #736953a6;
+  /* margin-bottom: -4px; */
+}
+
+.wfrp4e.npc-sheet .creature-sheet #wounds-box, .wfrp4e.npc-sheet #wounds-box {
+  position: relative;
+  top: 0px;
+  left: 85px;
+  border: 2px solid #736953a6;
+  border: 1px solid #736953a6;
+  border-bottom: 1px solid #ff000000;
+  height: 20px;
+}
+.wfrp4e.npc-sheet #wounds-name {
+  font-family: CaslonAntique;
+  font-weight: normal;
+  font-size: 16px;
+  color: #464331c4;
+  /* border-top: 1px solid #ccc; */
+  text-align: center;
+  border: 1px solid #736953a6;
+  /* border-right: 1px solid #736953a6; */
+  /* border-bottom: 1px solid #736953a6; */
+  margin: 19px 0px 0px 0px;
+  padding: 2px 0px 0px 0px;
+  height: 24px;
+  width: 132px;
+  /* vertical-align: middle; */
+  box-shadow: 0 0 10px #00000052 inset;
+  padding-top: 1px;
+}
+.wfrp4e.npc-sheet .creature-sheet #wounds-divisor, .wfrp4e.npc-sheet #wounds-divisor {
+  top: -2px;
+  left: -9px;
+}
+
+
+
+
+/* // SKKILLS */
+.wfrp4e.npc-sheet .skills > .armor-penalties {
+  position: absolute; 
+  bottom: 100px;
+}      
+
+.wfrp4e.npc-sheet .skill-section {
+  display:flex;
+  flex-direction: row;
+  margin-top: 6px;
+}     
+.wfrp4e.npc-sheet .skill-section .inventory-list {
+  margin-top: 20px;
+  /* position: relative; */
+  width: 250px;
+  padding: 0px;
+  height: 292px;
+  box-shadow: 0px 0px 1px inset black;
+  overflow-y: scroll;
+  border: 1px solid #736953a6;
+  border-top: none;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+} 
+.wfrp4e.npc-sheet .skill-section .inventory-list {
+  height: 170px;
+} 
+  .wfrp4e.npc-sheet #basic-skills-list {
+    width: 250px;
+    margin-right: 3px;
+  }
+  .wfrp4e.npc-sheet #advanced-skills-list {
+    width: 250px;
+    margin-left: 3px;
+  }
+  .wfrp4e.npc-sheet .skill-section ::-webkit-scrollbar {
+    width: 9px;
+  }
+  .wfrp4e.npc-sheet .skill-section ::-webkit-scrollbar-button {
+    background: #782e22;
+    height: 18px;
+    border: none;
+  }
+
+
+.wfrp4e.npc-sheet .skill-section .skill-type > h3 {
+  font-family: CaslonAntique;
+  font-weight: normal;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: center;
+  border: 1px solid #736953a6;
+  margin: 0px;
+  padding: 3px 0px 0px 0px;
+  height: 25px;
+  width: 100%;
+  box-shadow: 0 0 10px #00000052 inset;
+}  
+.wfrp4e.npc-sheet .skill-section .inventory-list .item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-top: 3px;
+  line-height: 17px;
+}
+.wfrp4e.npc-sheet .skill-section .inventory-list .item  > * {
+  flex: 1;
+  width: 95px;
+  margin-right: 3px;
+  
+}
+.wfrp4e.npc-sheet .skill-section .inventory-list .inventory-header.item {
+  padding-left: 4px;
+  padding-right: 0px;
+  padding-top: 1px;
+  height: 20px;
+  line-height: inherit;
+  border: 1px solid #736953a6;
+  border-top: none;
+  font-family: CaslonAntique;
+  font-weight: 700;
+  font-size: 16px;
+  color: #464331c4;
+  background: none;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  position: absolute;
+  top: 303px;
+  margin-left: -1px;
+  width: 250px;
+}
+  .wfrp4e.npc-sheet .skill-section .inventory-list .skill-char-title {
+    position: relative;
+    left: 61px;
+  }
+  .wfrp4e.npc-sheet .skill-section .inventory-list .skill-adv-title {
+    position: relative;
+    left: 56px;
+  }
+  .wfrp4e.npc-sheet .skill-section .inventory-list .skill-total-title {
+    position: relative;
+    left: 32px;
+  }
+  .wfrp4e.npc-sheet .skill-section .inventory-list .item .item-controls {
+    flex: 0 0 44px;
+    position: relative;
+    left: 19px;
+    top: 5px;
+    width: 95px;
+    margin: 0px;
+    font-family: "Font Awesome 5 Free";
+    font-size: 11px;
+    color: #464331a1;
+  }
+  .wfrp4e.npc-sheet .skill-section .inventory-list .item .item-controls > #List-Add-label {
+    font-family: CaslonAntique;
+    font-weight: 700;
+    font-size: 16px;
+    color: #464331c4;
+    margin: 0px;
+    position: absolute;
+    left: 20px;
+    top: -1px;
+  }
+  .wfrp4e.npc-sheet .skill-section .fas.fa-plus {
+    font-size: 11px;
+    position: relative;
+    top: -2px;
+    left: 9px;
+  }
+
+
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name-edit > *,
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name > * {
+  flex: 1;
+  width: 95px;
+}
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .row {
+  display: inline-flex;
+  flex-direction: row;
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+}
+  .wfrp4e.npc-sheet .skill-section .inventory-list .item .row .row-label {
+    position: relative;
+    width: 27px;
+    text-align: center;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 0px;
+    margin: 0px;
+  }
+  .wfrp4e.npc-sheet .skill-section .inventory-list .item .row .row-value {
+    position: relative;
+    width: 27px;
+    text-align: center;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 0px;
+    margin: 0px;
+  }
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .skill-advances {
+  display: block;
+  flex: 1 1 29px;
+  max-width: 29px;
+  height: 18px;
+  text-align: center;
+  position: relative;
+  left: 0px;
+  top: -3px;
+  padding-top: 7px;
+  margin: 0px;
+}
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .skill-total {
+  position: relative;
+  flex: 1 0 30px;
+  max-width: 30px;
+  /* width: 22px; */
+  text-align: center;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  padding: 0px;
+  margin: 0px;
+  left: -2px;
+  color: #672323;
+  text-shadow: 1px 0px 1px #6e6e716e;
+}
+.wfrp4e.npc-sheet .skill-section .item-delete {
+  position: relative;
+  flex: 1 0 30px;
+  max-width: 30px;
+  /* width: 22px; */
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  top: -2px;
+  left: -3px;
+  height: fit-content;
+  font-family: "Font Awesome 5 Free";
+  font-size: 10px;
+  color: #504f48a6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .wfrp4e.npc-sheet .careers {
+    width: 506px;
+    text-align: center;
+    position: absolute;
+  }   
+
+
+
+
+
+
+
 /*************************************************************/
 /*=============== IV. ROLL DIALOG ===========================*/
 /*************************************************************/
@@ -5959,7 +6343,7 @@ input[type="text"], input[type="password"] {
   flex-wrap: nowrap;
   height: calc(100% - 30px);
   max-height: 90vh;
-  background: url(../ui/items-background.png) repeat;
+  background: url(../ui/chat-form.png) repeat;
   padding: 8px;
   color: #111;
   border: 1px solid blue;
@@ -5988,7 +6372,6 @@ li.folder > .folder-header {
   font-weight: 500;
   font-size: 16px;
 }
-
 
 
 
@@ -6450,16 +6833,10 @@ font-weight: bold;
   .window-app .window-header i.fas {
     margin-right: 3px;
   }
-  .window-app .window-content {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: calc(100% - 30px);
-    max-height: 90vh;
-    background: url("../ui/parchment.jpg") repeat;
-    padding: 8px;
-    color: #111;
-  }
+
+
+
+
   .window-app .window-content > * {
     flex: 1;
   }
