@@ -2339,6 +2339,9 @@ input[type="text"], input[type="password"] {
         .wfrp4e.npc-sheet .skill-section .inventory-list {
           height: 170px;
         } 
+        .wfrp4e.npc-sheet .skill-section .no-career.inventory-list {
+          height: 277px;
+        } 
           #basic-skills-list {
             width: 250px;
             margin-right: 3px;
@@ -5045,6 +5048,9 @@ input[type="text"], input[type="password"] {
           margin-top: 0px;
           padding-bottom: 5px;
         }  
+        .wfrp4e.npc-sheet .notes-section {
+          overflow-y:hidden
+        }
         .wfrp4e .notes-section > ol {
           list-style: none;
           margin: 0;
@@ -5069,6 +5075,9 @@ input[type="text"], input[type="password"] {
           padding: 0px;
           margin-top: 6px;
         } 
+        .wfrp4e.npc-sheet .notes-section .biography {
+          height: calc(100% - 5px);
+        }
         .wfrp4e .notes-section .gmnotes > h2,
           .wfrp4e .notes-section .biography > h2 {
             font-family: CaslonAntique;
@@ -5099,6 +5108,10 @@ input[type="text"], input[type="password"] {
             padding-left: 5px;
             padding-right: 5px;
             box-shadow: 0px 0px 1px inset black;
+          }
+
+          .wfrp4e.npc-sheet .notes-section .biography .editor {
+            height: calc(100% - 20px);
           }
 
 
@@ -5342,7 +5355,7 @@ input[type="text"], input[type="password"] {
           }
           #mutation-add {
             position: relative;
-            left: 416px;
+            left: 19px;
             top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
@@ -5432,8 +5445,8 @@ input[type="text"], input[type="password"] {
           }
           #disease-add {
             position: relative;
-            left: 301px;
-            top: -18px;
+            left: 32px;
+            top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
             font-size: 11px;
@@ -7308,8 +7321,8 @@ font-weight: bold;
   font-family: CaslonPro;
 }
 .wfrp4e.actor.npc-sheet .penalties {
-  position: relative;
-  top: -83px;
+  position: absolute;
+  top: 608px;
 }
 
 .wfrp4e.actor .penalty {

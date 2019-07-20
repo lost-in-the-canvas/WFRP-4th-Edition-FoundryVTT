@@ -24,7 +24,7 @@
         </td>
         {{#each actor.data.characteristics as |ch c|}}
         <td class="table-data">
-          <input name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
+          <input class = "char-advances" data-characteristic = "{{c}}" name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
         </td>
         {{/each}}
       </tr>
