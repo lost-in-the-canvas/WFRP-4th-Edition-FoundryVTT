@@ -61,8 +61,191 @@ CONFIG.species = {
   "halfling": "Halfling",
   "helf": "High Elf",
   "welf": "Wood Elf",
-  "gnome": "Gnome"
+ // "gnome": "Gnome"
 };
+
+CONFIG.speciesCharacteristics = {
+  "human" :
+  {
+   "ws" : "2d10+20",
+   "bs" : "2d10+20",
+   "s"  : "2d10+20",
+   "t"  : "2d10+20",
+   "i"  : "2d10+20",
+   "ag" : "2d10+20",
+   "dex": "2d10+20",
+   "int": "2d10+20",
+   "wp" : "2d10+20",
+   "fel": "2d10+20"
+  },
+  "dwarf" :
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+20",
+    "s"  : "2d10+20",
+    "t"  : "2d10+30",
+    "i"  : "2d10+20",
+    "ag" : "2d10+10",
+    "dex": "2d10+30",
+    "int": "2d10+20",
+    "wp" : "2d10+40",
+    "fel": "2d10+10"
+  },
+  "halfling" :
+  {
+    "ws" : "2d10+10",
+    "bs" : "2d10+30",
+    "s"  : "2d10+10",
+    "t"  : "2d10+20",
+    "i"  : "2d10+20",
+    "ag" : "2d10+20",
+    "dex": "2d10+30",
+    "int": "2d10+20",
+    "wp" : "2d10+30",
+    "fel": "2d10+30"
+  },
+  "helf" : 
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+30",
+    "s"  : "2d10+20",
+    "t"  : "2d10+20",
+    "i"  : "2d10+40",
+    "ag" : "2d10+30",
+    "dex": "2d10+30",
+    "int": "2d10+30",
+    "wp" : "2d10+30",
+    "fel": "2d10+20"
+  },
+  "welf" : 
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+30",
+    "s"  : "2d10+20",
+    "t"  : "2d10+20",
+    "i"  : "2d10+40",
+    "ag" : "2d10+30",
+    "dex": "2d10+30",
+    "int": "2d10+30",
+    "wp" : "2d10+30",
+    "fel": "2d10+20"
+  },
+
+}
+
+CONFIG.speciesSkills = {
+  "human" : [
+    "Animal Care",
+    "Charm",
+    "Cool",
+    "Evaluate",
+    "Gossip",
+    "Haggle",
+    "Language (Bretonnian)",
+    "Language (Wastelander)",
+    "Leadership",
+    "Lore (Reikland)",
+    "Melee (Basic)",
+    "Ranged (Bow)"
+  ],
+  "dwarf" : [
+    "Consume Alcohol",
+    "Cool",
+    "Endurance",
+    "Entertain (Storytelling)",
+    "Evaluate",
+    "Intimidate",
+    "Language (Khazalid)",
+    "Lore (Dwarfs)",
+    "Lore (Geology)",
+    "Lore (Metallurgy)",
+    "Melee (Basic)",
+    "Trade (any one)"
+  ],
+  "halfling" : [
+    "Charm",
+    "Consume Alcohol",
+    "Dodge",
+    "Gamble",
+    "Haggle",
+    "Intuition",
+    "Language (Mootish)",
+    "Lore (Reikland)",
+    "Lore (Perception)",
+    "Sleight of Hand",
+    "Stealth (Any)",
+    "Trade (Cook)"
+  ],
+  "helf" : [
+    "Cool",
+    "Entertain (Sing)",
+    "Evaluate",
+    "Language (Eltharin)",
+    "Leadership",
+    "Melee (Basic)",
+    "Navigation",
+    "Perception",
+    "Play (any one)",
+    "Ranged (Bow)",
+    "Sail",
+    "Swim"
+  ],
+  "welf" : [
+    "Athletics",
+    "Climb",
+    "Endurance",
+    "Entertain (Sing)",
+    "Intimidate",
+    "Language (Eltharin)",
+    "Melee (Basic)",
+    "Outdoor Survival",
+    "Perception",
+    "Ranged (Bow)",
+    "Stealth (Rural)",
+    "Track"
+  ],
+}
+
+CONFIG.speciesTalents = {
+  "human" : [
+    "Doomed",
+    "Savvy, Suave",
+    3
+  ],
+  "dwarf" : [
+    "Magic Resistance",
+    "Night Vision",
+    "Read/Write, Relentless",
+    "Resolute, Strong-minded",
+    "Sturdy",
+    0
+  ],
+  "halfling" : [
+    "Acute Sense (Taste)",
+    "Night Vision",
+    "Resistance (Chaos)",
+    "Small",
+    0
+  ],
+  "helf" : [
+    "Acute Sense (Sight)",
+    "Coolheaded, Savvy",
+    "Night Vision",
+    "Second Sight, Sixth Sense",
+    "Read/Write",
+    0
+  ],
+  "welf" : [
+    "Acute Sense (Sight)",
+    "Hardy, Second Sight",
+    "Night Vision",
+    "Second Sight, Sixth Sense",
+    "Read/Write",
+    0
+  ],
+}
+
+
 
 // Status Tiers
 CONFIG.statusTiers = {
@@ -835,7 +1018,7 @@ class DiceWFRP {
             testResults.extra.majormis = "Major Miscast"
             break;
        case 3: 
-       testResults.extra.majormis = "Major Miscast"
+          testResults.extra.majormis = "Major Miscast"
        break;
      }
  
@@ -1342,6 +1525,17 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+    
+    // Register Resolve/Resilience Cap
+    game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
+      name: "Set Average NPC Characteristics",
+      hint: "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
   // Pre-load templates
   loadTemplates([
     "public/systems/wfrp4e/templates/actors/actor-attributes.html",
@@ -1479,6 +1673,7 @@ class ActorWfrp4e extends Actor {
 
   // Calculate dynamic data like Characteristic totals and movemen values
   prepareData(actorData) {
+    try {
     actorData = super.prepareData(actorData);
     const data = actorData.data;
 
@@ -1505,6 +1700,11 @@ class ActorWfrp4e extends Actor {
       actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     
     return actorData;
+    }
+    catch(error)
+    {
+      console.log("Something went wrong with preparing actor data: " + error)
+    }
 
   }
 
@@ -2508,7 +2708,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         if (inputLore == CONFIG.magicLores[lore])
         {
           await this.item.update({'data.lore.value' : lore}); 
-          await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
+          //await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
           return;
         }
       }
@@ -2751,6 +2951,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     } 
     
     // Return data to the sheet
+    sheetData.isToken = this.actor.token;
     return sheetData;
   }
 
@@ -3941,76 +4142,147 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    */
   async _advanceNPC(careerData) {
     let updateObj = {};
-    let skillList = [];
     let advancesNeeded = careerData.level.value * 5;
-    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
-    await pack.getIndex().then(index => skillList = index);
     
     for (let advChar of careerData.characteristics)
-    {
       if (this.actor.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
         updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-    }
+    
     for (let skill of careerData.skills)
-    {
-      let searchResult;
-      // Search for specific skill (won't find unlisted specializations)
-      searchResult = skillList.find(s => s.name == skill)
+      this._advanceSkill(skill, advancesNeeded);
 
-      try 
-      {
-        if (!searchResult)
-          searchResult = skillList.find(s => s.name.split("(")[0].trim() == skill.split("(")[0].trim())
-
-        let existingSkill = this.actor.data.items.find(i => i.name.trim() == skill && i.type == "skill")
-        if (existingSkill)
-        {
-          existingSkill.data.advances.value = (existingSkill.data.advances.value < advancesNeeded) ? advancesNeeded : existingSkill.data.advances.value; 
-          this.actor.updateOwnedItem(existingSkill);
-        }
-      
-        else
-        {
-          let skillToAdd;             
-          await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
-          skillToAdd.data.name = skill; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
-          skillToAdd.data.data.advances.value = advancesNeeded;
-          this.actor.createOwnedItem(skillToAdd.data);
-          console.log(skillToAdd);
-        }
-      }
-      catch {
-        console.log("Something went wrong when adding skill " + skill);
-      }
-
-    }
-    let talentList = [];
-    pack = game.packs.find(p => p.collection == "wfrp4e.talents")
-    await pack.getIndex().then(index => talentList = index);
     for (let talent of careerData.talents)
-    {
-      let searchResult = talentList.find(t => t.name == talent);
+      this._advanceTalent(talent);
 
-      try 
-      {
-        if (!searchResult)
-          searchResult = talentList.find(t => t.name == talent.split("(")[0].trim())          
-        
-        if (searchResult)
-        {
-          let talentToAdd;
-          await pack.getEntity(searchResult.id).then(packSkill => talentToAdd = packSkill);
-          talentToAdd.data.name = talent;
-          this.actor.createOwnedItem(talentToAdd.data);
-          console.log(talentToAdd)
-        }
-      }
-      catch{
-        console.log("Something went wrong when adding talent " + talent);
-      }
-
-    }
     this.actor.update(updateObj);
+  }
+
+  async _advanceSpeciesSkills() {
+    let skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
+    if (!skillList)
+    {
+      skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+      if (!skillList)
+        throw "Could not add skills for species " + this.actor.data.data.details.species.value;
+    }
+    let skillSelector = new Roll(`1d${skillList.length}- 1`);
+    skillSelector.roll().total;
+
+    let skillsSelected = [];
+    while (skillsSelected.length < 6)
+    {
+      skillSelector = skillSelector.reroll()
+      if (!skillsSelected.includes(skillSelector.total))
+        skillsSelected.push(skillSelector.total);
+    }
+    
+    for (let skillIndex in skillsSelected)
+    {
+      if (skillIndex <= 2)
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
+      else
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
+    }
+  }
+
+  
+  async _advanceSpeciesTalents() {
+    let talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
+    if (!talentList)
+    {
+      talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+      if (!talentList)
+        throw "Could not add talents for species " + this.actor.data.data.details.species.value;
+    }
+    let talentSelector; 
+    for (let talent of talentList)
+    {
+      if (!isNaN(talent)) // If is a number, roll on random talents
+      {
+        for (let i = 0; i < talent; i++)
+        {
+          let result = WFRP_Tables.rollTable("talents")
+          await this._advanceTalent(result.name);
+        }
+        continue
+      }
+      let talentOptions = talent.split(',').map(function(item) {
+        return item.trim();
+      });
+
+      if (talentOptions.length > 1)
+      {
+        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
+          await this._advanceTalent(talentOptions[talentSelector.roll().total])
+      }
+      else
+      {
+        await this._advanceTalent(talent)
+      }
+    }
+    
+  }
+
+  async _advanceSkill(skillName, advances){
+    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    let skillList = [];
+    await pack.getIndex().then(index => skillList = index);
+
+    let searchResult;
+    // Search for specific skill (won't find unlisted specializations)
+    searchResult = skillList.find(s => s.name == skillName)
+
+    try 
+    {
+      if (!searchResult)
+        searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
+
+      let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+      if (existingSkill)
+      {
+        existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advancesNeeded : existingSkill.data.advances.value; 
+        this.actor.updateOwnedItem(existingSkill);
+      }
+    
+      else
+      {
+        let skillToAdd;             
+        await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
+        skillToAdd.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+        skillToAdd.data.data.advances.value = advances;
+        this.actor.createOwnedItem(skillToAdd.data);
+        console.log(skillToAdd);
+      }
+    }
+    catch(error) {
+      console.log("Something went wrong when adding skill " + skillName +": " + error);
+    }
+  }
+
+  async _advanceTalent(talentName){
+    let talentList = [];
+    let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
+    await pack.getIndex().then(index => talentList = index);
+
+    let searchResult = talentList.find(t => t.name == talentName);
+
+    try 
+    {
+      if (!searchResult)
+        searchResult = talentList.find(t => t.name == talentName.split("(")[0].trim())          
+      
+      if (searchResult)
+      {
+        let talentToAdd;
+        await pack.getEntity(searchResult.id).then(packSkill => talentToAdd = packSkill);
+        talentToAdd.data.name = talentName;
+        this.actor.createOwnedItem(talentToAdd.data);
+        console.log(talentToAdd)
+      }
+    }
+    catch{
+      console.log("Something went wrong when adding talent " + talent);
+    }
   }
 
   /* -------------------------------------------- */
@@ -4050,15 +4322,45 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
 
       html.find('#input-species').focusout(async event => {
         event.preventDefault();
-        let species = event.target.value;
 
-        let initialValues = WFRP_Utility.speciesAverage(species);
+        if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
+        {
+          let species = event.target.value;
 
-        // Could not get assigning the whole object to work
-        // Error was something about fields not allowing "."
-        for (let char in initialValues)
-          await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
-        await this.actor.update({"data.details.species.value" : species});
+          let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
+
+          // Could not get assigning the whole object to work
+          // Error was something about fields not allowing "."
+          for (let char in initialValues)
+            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+          await this.actor.update({"data.details.species.value" : species});
+        }
+      });
+
+      
+      html.find('.randomize').click(async event => {
+        event.preventDefault();
+        let species = this.actor.data.data.details.species.value;;
+
+        switch(event.target.text)
+        {
+          case "C":
+            let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+            for (let char in rolledCharacteristics)
+              await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+            return
+
+          case "S":
+            this._advanceSpeciesSkills()  
+            return
+
+          case "T":
+            this._advanceSpeciesTalents()  
+            return
+        }
+
+
+
       });
   }
 
@@ -4216,9 +4518,7 @@ class WFRP_Utility
       if (!existingTalent.numMax){
         talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
-      if (existingTalent.data.advances.value < existingTalent.numMax){
         existingTalent.data.advances.value++;
-      }
     }
     else{
       switch(talent.data.max.value){
@@ -4346,30 +4646,6 @@ class WFRP_Utility
         return item;
       }
     });
-
-    // Commented code is part of process of removing unrecognized qualities/flaws
-    // Unsure if this should even be done (it won't allow people to make up their own)
-    /*let invalidQualities = [];
-    let invalidFlaws = [];
-    for (let q in Object.values(qualities))
-    {
-      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
-      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
-      {
-        invalidQualities.push(q)
-      }
-    }
-
-    for (let f in Object.values(flaws))
-    {
-      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
-      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
-      {
-        invalidFlaws.push(f)
-      }
-    } */
-
-    // Remove Invalid qualities/flaws
 
 
     if (!item.data.special.value)
@@ -4582,22 +4858,53 @@ class WFRP_Utility
     return formula;
   }
 
-
-  static speciesAverage(species)
+  /**
+   * Roll characteristics given a species
+   * @param {string} species      Key or value for species in CONFIG      
+   * @param {bool} average           Take average or not
+   */
+  static speciesCharacteristics(species, average)
   {
-    let averageCharacteristics = {};
+    let characteristics = {};
+    let characteristicFormulae = CONFIG.speciesCharacteristics[species];
+    if(!characteristicFormulae) // If input species was not a valid key, try finding it as a value
+     characteristicFormulae = CONFIG.speciesCharacteristics[this.findKey(species, CONFIG.species)]
+
+    if (!characteristicFormulae)
+    {
+      for (let char in CONFIG.characteristics)
+      {
+        characteristics[char] = 20;
+      }
+      console.log("Could not find species " + species)
+      return characteristics;
+    }
+
     for (let char in CONFIG.characteristics)
     {
-      averageCharacteristics[char] = 0;
-    }
-    if (species == "Human")
-    {
-      for (let char in averageCharacteristics)
+      if (average)
+        characteristics[char] = parseInt(characteristicFormulae[char].split("+")[1]) + 10
+      else
       {
-        averageCharacteristics[char] = 30;
+        characteristics[char] = new Roll(characteristicFormulae[char]).roll().total;
       }
     }
-    return averageCharacteristics;
+    return characteristics
+  }
+
+  static findKey(value, obj) {
+
+    for (let key in obj)
+    {
+      if (obj[key] == value)
+        return key;
+    }
+    throw "Could not find key corresponding to " + value + " in " + obj
+  }
+
+  static findSkill(skillName)
+  {
+
   }
 
   static nameSorter(a, b){
@@ -4640,6 +4947,8 @@ class WFRP_Tables {
       // cap at 100
       let die = this[table].die;
       let tableSize = this[table].rows.length - 1;
+      if (!die)
+        die = `1d${tableSize}`;
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
       let rollValue = roll.total;
       let displayTotal = roll.total;
