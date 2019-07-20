@@ -1357,6 +1357,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-classes.html",
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/actors/npc-main.html",
+    "public/systems/wfrp4e/templates/actors/npc-notes.html",
     "public/systems/wfrp4e/templates/chat/dialog-constant.html",
     "public/systems/wfrp4e/templates/chat/test-card.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
@@ -2259,7 +2260,8 @@ class ItemWfrp4e extends Item {
 
   _spellExpandData() {
     const data = duplicate(this.data.data);
-    let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
+    let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, duplicate(this.data));
+    data.description = preparedSpell.data.description
     data.properties = [];
     data.properties.push("Range: " + preparedSpell.range);
     data.properties.push("Target: " + preparedSpell.target);
@@ -4168,12 +4170,17 @@ class WFRP_Utility
 
   static _prepareSpellOrPrayer(actorData, item) {
     
+
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
-    if (item.type == "spell" && !item.data.memorized.value )
-    item.data.cn.value *= 2;
+    if (item.type == "spell")
+    {
+      item.data.description.value = this._spellDescription(item);
+      if (!item.data.memorized.value )
+        item.data.cn.value *= 2;
+    }
     
     return item;
   }
