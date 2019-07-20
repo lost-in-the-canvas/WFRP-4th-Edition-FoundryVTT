@@ -418,6 +418,35 @@ input[type="text"], input[type="password"] {
       border-radius: 0px;
       box-shadow: 0 0 0px #000;
     }
+    #sidebar.collapsed {
+      width: 50px !important;
+      height: 326px !important;
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      padding-left: 3px;
+      background: url(../ui/sidebar-collapsed.png) repeat;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      box-shadow: -2px 0px 8px #000;
+    }
+    #sidebar.collapsed #sidebar-tabs {
+      display: flex;
+      flex: none;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      position: relative;
+      top: 126px;
+      left: -81px;
+      width: 35px;
+      height: 54px;
+      margin: 0px;
+      padding: 0px 0px 0px 90px;
+      border: none;
+      box-shadow: none;
+      background: none;
+    }
     .sidebar-tab {
       overflow: hidden;
       margin: 0px 8px 0px 87px;
@@ -452,10 +481,10 @@ input[type="text"], input[type="password"] {
       width: 456px;
       height: 54px;
       margin: 0px;
-      padding: 0px 0px 0px 90px;
+      padding: 0px 0px 0px 82px;
       border: none;
       box-shadow: none;
-      background: url(../ui/sidebar-border.png) repeat;
+      background: url(../ui/sidebar-border.png) repeat;  
     }
 
     #sidebar-tabs > .item {
@@ -470,6 +499,35 @@ input[type="text"], input[type="password"] {
       border-radius: 0px;
       position: relative;
       top: 8px;
+    }
+    #sidebar-tabs > .collapse {
+      display: inline-block;
+      flex: none;
+      height: 30px;
+      width: 30px;
+      margin: 0px;
+      padding: 0px;
+      color: #ff000000;
+      border: none;
+      border-radius: 0px;
+      position: relative;
+      top: 8px;
+      position: relative;
+      top: 8px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-settings-active.png);
+      background: url(../ui/sidebar-button-collapse.png);
+    }   
+    #sidebar.collapsed .collapse {
+      background: url(../ui/sidebar-button-collapse-active.png);
     }
     #sidebar-tabs .item > i {
       height: inherit;
