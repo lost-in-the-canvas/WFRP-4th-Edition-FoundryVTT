@@ -15,6 +15,14 @@
       "path": "./packs/traits.db",
       "entity": "Item"
     },
+     {
+      "name": "talents",
+      "label": "Talents",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/talents.db",
+      "entity": "Item"
+    },
     {
       "name": "skills",
       "label": "Skills",
