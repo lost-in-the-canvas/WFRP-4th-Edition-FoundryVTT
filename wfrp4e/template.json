@@ -111,6 +111,12 @@
           "value": 0,
           "max": 0
         },
+        "advantage" : {
+          "type" : "Number",
+          "label" : "Advantage",
+          "value" : 0,
+          "max" : 0
+        },
         "criticalWounds": {
           "type": "Number",
           "label": "Critical Wounds",
@@ -668,8 +674,9 @@
       "lore" : {
         "type" : "String",
         "label" : "Lore",
-        "value" : ""
-      },
+        "value" : "",
+        "effect" : ""
+       },
       "range" : {
         "type" : "String",
         "label" : "Range",

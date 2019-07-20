@@ -467,6 +467,25 @@ CONFIG.magicWind = {
   "tzeentch": "Dhar",
 };
 
+CONFIG.loreEffect = {
+  "petty": "None",
+  "beasts": "Whenever you successfully cast a spell from the Lore of Beasts, you may also gain the Fear (1) Creature Trait for the next 1d10 Rounds.",
+  "death": "Targets afflicted by spells from the Lore of Death are drained of life, enervated, and listless. You may assign +1 Fatigued Condition to any living target aﬀected by a spell from this lore. A target may only ever have a single Fatigued Condition gained in this manner at any one time.",
+  "fire": "You may inﬂict +1 Ablaze Condition on anyone targeted by spells from the Lore of Fire, unless they also possess the Arcane Magic (Fire) Talent. Every Ablaze condition within Willpower Bonus yards adds +10 to attempts to Channel or Cast with Aqshy. ",
+  "heavens": "Spells causing Damage ignore Armour Points from metal armour, and will arc to all other targets within 2 yards, except those with the Arcane Magic (Heavens) Talent, inﬂicting hits with a Damage equal to your Willpower Bonus, handled like a magical missile.",
+  "metal": "Spells inﬂicting Damage ignore Armor Points from metal armor, and inﬂict bonus Damage equal to the number of Armor Points of metal armor being worn on any Hit Location struck. So, if your spell hit an Arm location protected by 2 Armor Points of metal armor, it would cause an additional +2 Damage and ignore the Armor Points.",
+  "life": "Receive a +10 bonus to Casting and Channeling rolls when in a rural or wilderness environment. Living creatures — e.g. those without the Daemonic or Undead Creature Traits — targeted by Arcane Spells from the Lore of Life have all Fatigued and Bleeding Conditions removed after any other eﬀects have been applied as life magic ﬂoods through them. Creatures with the Undead Creature Trait, on the other hand, suﬀer additional Damage equal to your Willpower Bonus, ignoring Toughness Bonus and Armor Points, if aﬀected by any spell cast with the Lore of Life.",
+  "light": "You may inﬂict one Blinded Condition on those targeted by Lore of Light spells, unless they possess the Arcane Magic (Light) Talent. If a target has the Daemonic or Undead Creature Traits, spells also inﬂict an additional hit with Damage equal to your Intelligence Bonus that ignores Toughness Bonus and Armor Points.",
+  "shadow": "All spells cast from the Lore of Shadows inﬂicting Damage ignore all non-magical Armor Points.",
+  "hedgecraft": "",
+  "witchcraft": "Each time practitioners of Witchcraft roll on a Miscast table, they also gain 1 Corruption point. Further, you may inﬂict one Bleeding Condition on anyone targeted by spells from the Lore of Witchcraft. Lastly, channeling or casting spells from this Lore automatically require a roll on the Minor Miscast table unless cast with an ingredient, where the ingredient provides no further protection should you roll a Miscast. Fortunately, ingredients for the Lore of Witchcraft are cheap and readily available: body parts of small animals for the most part. Ingredients cost a spell’s CN in brass pennies, instead of silver shillings, to purchase. Alternatively, a Witch may forage for parts, using the Outdoor Survival skill: a successful foraging roll receives 1 + SL ingredients, as described under Gathering Food and Herbs",
+  "daemonology": "",
+  "necromancy": "",
+  "nurgle": "",
+  "slaanesh": "",
+  "tzeentch": "",
+};
+
 // Types of prayers
 CONFIG.prayerTypes = {
   "blessing" : "Blessing",
@@ -1046,31 +1065,34 @@ class DiceWFRP {
  */
 Hooks.once("init", () => {
 
-  fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    var fgtable = records["tables"]["category"]["id-00001"];
-    var newtable = {
-      name : "General Critical Hits",
-      die : "1d100",
-      rows : ["-"]
-    }
 
-    for (var fgrow in fgtable["tablerows"])
-    {
-      fgrow = fgtable["tablerows"][fgrow];
-      var from = fgrow.fromrange;
-      var to = fgrow.torange;
-      for (var i = from; i <= to; i++)
-      {
-        var rowObj = {
-          wounds : fgrow.results["id-00002"].result,
-          name : fgrow.results["id-00001"].result,
-          description : fgrow.results["id-00003"].result,
-        }
-        newtable.rows.push(rowObj);
-      }
-    }
-    console.log(JSON.stringify(newtable));
-  })
+
+
+  // fetch ("fgdb.json").then (r => r.json()).then(async records => {
+  //   var fgtable = records["tables"]["category"]["id-00001"];
+  //   var newtable = {
+  //     name : "General Critical Hits",
+  //     die : "1d100",
+  //     rows : ["-"]
+  //   }
+
+  //   for (var fgrow in fgtable["tablerows"])
+  //   {
+  //     fgrow = fgtable["tablerows"][fgrow];
+  //     var from = fgrow.fromrange;
+  //     var to = fgrow.torange;
+  //     for (var i = from; i <= to; i++)
+  //     {
+  //       var rowObj = {
+  //         wounds : fgrow.results["id-00002"].result,
+  //         name : fgrow.results["id-00001"].result,
+  //         description : fgrow.results["id-00003"].result,
+  //       }
+  //       newtable.rows.push(rowObj);
+  //     }
+  //   }
+  //   console.log(JSON.stringify(newtable));
+  // })
 
   // fetch("doomings.txt").then(r => r.text()).then(t => {
   //   let array = t.split("\n").map(function(item) {
@@ -1435,6 +1457,19 @@ class ActorWfrp4e extends Actor {
         item.update({"img" : "systems/wfrp4e/icons/blank.png"});
       }
     }*/
+    
+
+    // let pack = game.packs.find(p => p.collection == "wfrp4e.injuries")
+    // let list;
+    // await pack.getIndex().then(index => list = index);
+    // for (let item of list)
+    // {
+    //   if (item.img.includes("mystery-man"))
+    //   {
+    //     await pack.updateEntity({_id: item.id, "img": "systems/wfrp4e/icons/blank.png"})
+    //     console.log("updated " + item.name)
+    //   }
+    // }
     super.create(data, options);
     
   }
@@ -1450,6 +1485,8 @@ class ActorWfrp4e extends Actor {
       ch.bonus = Math.floor(ch.value / 10)
     }
 
+    //this.update({"data.characteristics" : duplicate(data.characteristics)})
+
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
@@ -1459,6 +1496,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcRun)
       data.details.move.run = parseInt(data.details.move.value) * 4;
 
+    data.status.wounds.value = data.status.wounds.value
       
     if (actorData.flags.autoCalcEnc)
       actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
@@ -2381,6 +2419,8 @@ class ItemSheetWfrp4e extends ItemSheet {
       {
         data["loreValue"] = this.item.data.data.lore.value;
       }
+      data["descriptionAndLore"] = WFRP_Utility._spellDescription(this.item.data)
+
     }
     else if (this.item.type == "prayer")
     {
@@ -2464,6 +2504,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         if (inputLore == CONFIG.magicLores[lore])
         {
           await this.item.update({'data.lore.value' : lore}); 
+          await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
           return;
         }
       }
@@ -2568,48 +2609,57 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
-  async _render(force = false, options = {}) {
-    this._saveScrollPos();
-    await super._render(force, options);
-    this._setScrollPos();
-  }
-  /* -------------------------------------------- */
+  // async _render(force = false, options = {}) {
+  //   this._saveScrollPos();
+  //   await super._render(force, options);
+  //   this._setScrollPos();
+  // }
+  // /* -------------------------------------------- */
 
-  // TODO: Add .savescroll class to all classes that need their position saved
-  // Currently, many that are saved don't need to be.
-  _saveScrollPos()
-  {
-    if (this.form === null)
-      return;
+  // // TODO: Add .savescroll class to all classes that need their position saved
+  // // Currently, many that are saved don't need to be.
+  // _saveScrollPos()
+  // {
+  //   if (this.form === null)
+  //     return;
 
-    const html = $(this.form).parent();
-    let lists = $(html.find(".inventory-list"));
-    lists.push(html.find(".combat-section"));
-    lists.push(html.find(".inventory")[1]);
-    lists.push(html.find(".magic-section"));
-    lists.push(html.find(".religion-section"));
-    lists.push(html.find(".notes-section"));
-    this.scrollPos = [];
-    for (let list of lists)
-    {
-      this.scrollPos.push($(list).scrollTop());
-    }
-  }
+  //   const html = $(this.form).parent();
+  //   let lists = $(html.find(".inventory-list"));
+  //   lists.push(html.find(".combat-section"));
+  //   lists.push(html.find(".inventory")[1]);
+  //   lists.push(html.find(".magic-section"));
+  //   lists.push(html.find(".religion-section"));
+  //   lists.push(html.find(".notes-section"));
+  //   this.scrollPos = [];
+  //   for (let list of lists)
+  //   {
+  //     try {
+  //     this.scrollPos.push($(list).scrollTop());
+  //     }
+  //     catch
+  //     {
 
-  _setScrollPos()
-  {
-    const html = $(this.form).parent();
-    let lists = $(html.find(".inventory-list"));
-    lists.push(html.find(".combat-section"));
-    lists.push(html.find(".inventory"));
-    lists.push(html.find(".magic-section"));
-    lists.push(html.find(".religion-section"));
-    lists.push(html.find(".notes-section"));
-    for (let listIndex in lists)
-    {
-      ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
-    }
-  }
+  //     }
+  //   }
+  // }
+
+  // _setScrollPos()
+  // {
+  //   const html = $(this.form).parent();
+  //   let lists = $(html.find(".inventory-list"));
+  //   lists.push(html.find(".combat-section"));
+  //   lists.push(html.find(".inventory"));
+  //   lists.push(html.find(".magic-section"));
+  //   lists.push(html.find(".religion-section"));
+  //   lists.push(html.find(".notes-section"));
+  //   for (let listIndex in lists)
+  //   {
+  //     try {
+  //     ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
+  //     }
+  //     catch{}
+  //   }
+  // }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -2689,8 +2739,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       break;
 
     }
-
-
+    this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
     if (sheetData.actor.flags.autoCalcRun)
     {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
@@ -3160,10 +3209,18 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.skill-advances').focusout(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
-      console.log(itemToEdit);
       itemToEdit.data.advances.value = Number(event.target.value);
       await this.actor.updateOwnedItem(itemToEdit, true);      
     });
+
+    // html.find('.char-advances').focusout(async event => {
+    //   let char = event.target.attributes["data-characteristic"].value;
+    //   let characteristic = this.actor.data.data.characteristics[char];
+    //   characteristic.advances = Number(event.target.value);
+    //   characteristic.total = characteristic.advances + characteristic.initial;
+    //   characteristic.bonus = Math.floor(characteristic.total/10);
+    //   await this.actor.update({[`data.characteristic.${char}`] : characteristic})
+    // });
 
     html.find('.ammo-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
@@ -3263,7 +3320,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.item-edit, .item-name-edit').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let Item = CONFIG.Item.entityClass;
-      const item = new Item(this.actor.items.find(i => i.id === itemId), this.actor);
+      const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
       item.sheet.render(true);
     });
 
@@ -3923,25 +3980,32 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       }
 
     }
-
-    /*for (let talent of careerData.talents)
+    let talentList = [];
+    pack = game.packs.find(p => p.collection == "wfrp4e.talents")
+    await pack.getIndex().then(index => talentList = index);
+    for (let talent of careerData.talents)
     {
-      // TODO Redo for talent compendium
-      let talentList = game.items.entities.filter(i => i.type == "talent");
       let searchResult = talentList.find(t => t.name == talent);
 
+      try 
+      {
         if (!searchResult)
-          searchResult = talentList.find(t => t.name.split("(")[0].trim() == talent.split("(")[0].trim())          
+          searchResult = talentList.find(t => t.name == talent.split("(")[0].trim())          
         
         if (searchResult)
         {
-          let talentToAdd = duplicate(searchResult);
+          let talentToAdd;
+          await pack.getEntity(searchResult.id).then(packSkill => talentToAdd = packSkill);
           talentToAdd.data.name = talent;
           this.actor.createOwnedItem(talentToAdd.data);
+          console.log(talentToAdd)
         }
+      }
+      catch{
+        console.log("Something went wrong when adding talent " + talent);
+      }
 
-
-    }*/
+    }
     this.actor.update(updateObj);
   }
 
@@ -4114,6 +4178,17 @@ class WFRP_Utility
     return item;
   }
 
+  static _spellDescription (spell) {
+    let description = spell.data.description.value;
+    if (description && description.includes ("Lore:"))
+      return description
+    if (spell.data.lore.effect)
+      description += "\n\n <b>Lore:</b> " + spell.data.lore.effect;
+    else if (CONFIG.loreEffect[spell.data.lore.value])
+      description += "\n\n <b>Lore:</b> " + CONFIG.loreEffect[spell.data.lore.value];        
+    return description;
+  }
+
   static _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
 
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
@@ -4147,7 +4222,7 @@ class WFRP_Utility
         break;
 
         case 'none':
-        talent["numMax"] = null;
+        talent["numMax"] = "-";
         break;
 
         default:

@@ -34,8 +34,7 @@
               <h3 class="row-value">{{item.data.characteristic.num}}</h3>
             </div>
     
-            <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
-              data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
+            <input class="skill-advances" name="skill-{{item.id}}" data-item-id="{{item.id}}" type="text" data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
     
             <a class="skill-total">{{item.data.total.value}}</a>
     
@@ -82,9 +81,8 @@
                 <h3 class="row-value">{{item.data.characteristic.num}}</h3>
               </div>
       
-              <input class="skill-advances" name="item.data.advances.value" data-item-id="{{item.id}}" type="text"
-                data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
-      
+              <input class="skill-advances" name="skill-{{item.id}}" data-item-id="{{item.id}}" type="text" data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
+
               <a class="skill-total">{{item.data.total.value}}</a>
       
               {{#if ../owner}}
