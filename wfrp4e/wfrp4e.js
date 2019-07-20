@@ -742,21 +742,21 @@ class DiceWFRP {
     {
       case 1: 
         if (testData.extra.ingredient)
-          testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+          testResults.extra.nullminormis = "Minor Miscast"
         else 
-          testResults.extra.minormis = "<s>Minor Miscast</s>"
+          testResults.extra.minormis = "Minor Miscast"
       break;
       case 2:
           if (testData.extra.ingredient)
           {
-            testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+            testResults.extra.nullmajormis = "Major Miscast"
             testResults.extra.minormis = "Minor Miscast"
           }
          else 
-           testResults.extra.majormis = "<s>Major Miscast</s>"
+           testResults.extra.majormis = "Major Miscast<"
            break;
       case 3: 
-      testResults.extra.majormis = "<s>Major Miscast</s>"
+      testResults.extra.majormis = "Major Miscast"
       break;
     }
 
@@ -821,21 +821,21 @@ class DiceWFRP {
      {
        case 1: 
          if (testData.extra.ingredient)
-           testResults.extra.nullminormis = "<s>Minor Miscast</s>"
+           testResults.extra.nullminormis = "Minor Miscast"
          else 
-           testResults.extra.minormis = "<s>Minor Miscast</s>"
+           testResults.extra.minormis = "Minor Miscast"
        break;
        case 2:
            if (testData.extra.ingredient)
            {
-             testResults.extra.nullmajormis = "<s>Major Miscast</s>"
+             testResults.extra.nullmajormis = "Major Miscast"
              testResults.extra.minormis = "Minor Miscast"
            }
           else 
-            testResults.extra.majormis = "<s>Major Miscast</s>"
+            testResults.extra.majormis = "Major Miscast"
             break;
        case 3: 
-       testResults.extra.majormis = "<s>Major Miscast</s>"
+       testResults.extra.majormis = "Major Miscast"
        break;
      }
  
@@ -1358,6 +1358,8 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/actor-notes.html",
     "public/systems/wfrp4e/templates/actors/npc-main.html",
     "public/systems/wfrp4e/templates/actors/npc-notes.html",
+    "public/systems/wfrp4e/templates/actors/creature-main.html",
+    "public/systems/wfrp4e/templates/actors/creature-notes.html",
     "public/systems/wfrp4e/templates/chat/dialog-constant.html",
     "public/systems/wfrp4e/templates/chat/test-card.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
