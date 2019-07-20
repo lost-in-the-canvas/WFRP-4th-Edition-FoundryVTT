@@ -1,42 +1,48 @@
 <div class="characteristics">
-    <table class="characteristics-table">
-      <tr class="table-header">
-        <th></th>
-        {{#each actor.data.characteristics as |ch c|}}
-        <th title="{{ch.label}}" class="table-header">
-          {{ch.abrev}}
-        </th>
-        {{/each}}
-      </tr>
-      <tr class="table-row">
-        <td class="row-type">
-          Initial
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data">
-          <input name="data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
-        </td>
-        {{/each}}
-      </tr>
-      <tr class="table-row">
-        <td class="row-type">
-          Advances
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data">
-          <input class = "char-advances" data-characteristic = "{{c}}" name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
-        </td>
-        {{/each}}
-      </tr>
-      <tr class="table-row-bottom">
-        <td class="row-type">
-          Current
-        </td>
-        {{#each actor.data.characteristics as |ch c|}}
-        <td class="table-data ch-value" data-char="{{c}}"><a>{{ch.value}}</a></td>
-        {{/each}}
-      </tr>
-    </table>
+
+
+
+
+  <table class="characteristics-table">
+    <tr class="table-header">
+      <th></th>
+      {{#each actor.data.characteristics as |ch c|}}
+      <th title="{{ch.label}}" class="table-header">
+        {{ch.abrev}}
+      <a class="advancement-indicator">+</a>
+      </th>
+
+      {{/each}}
+    </tr>
+    <tr class="table-row">
+      <td class="row-type">
+        Initial
+      </td>
+      {{#each actor.data.characteristics as |ch c|}}
+      <td class="table-data">
+        <input name="data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
+      </td>
+      {{/each}}
+    </tr>
+    <tr class="table-row">
+      <td class="row-type">
+        Advances
+      </td>
+      {{#each actor.data.characteristics as |ch c|}}
+      <td class="table-data">
+        <input name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
+      </td>
+      {{/each}}
+    </tr>
+    <tr class="table-row-bottom">
+      <td class="row-type">
+        Current
+      </td>
+      {{#each actor.data.characteristics as |ch c|}}
+      <td class="table-data ch-value" data-char="{{c}}"><a>{{ch.value}}</a></td>
+      {{/each}}
+    </tr>
+  </table>
 </div>
 
 <div class="main-row">
@@ -78,6 +84,7 @@
       </div>
     </div>
   </div>
+
   <div class="fate-resilience">
     <div class="type">
       <span id="label-fortune">Fortune</span>
@@ -104,6 +111,7 @@
       </div>
     </div>
   </div>
+
   <div class="wounds">
     <div class="wounds-section">
       <div id="wounds-name">
