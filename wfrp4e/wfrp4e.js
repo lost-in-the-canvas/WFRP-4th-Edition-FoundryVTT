@@ -288,7 +288,8 @@ CONFIG.skillTypes = {
 };
 
 CONFIG.xpCost = {
-  "characteristics" : [25, 30, 40, 50, 70, 90, 120, 150, 190, 230, 280, 330, 390, 450, 520]
+  "characteristic" : [25, 30, 40, 50, 70, 90, 120, 150, 190, 230, 280, 330, 390, 450, 520],
+  "skill" : [10, 15, 20, 30, 40, 60, 80, 110, 140, 180, 220, 270, 320, 380, 440]
 }
 
 CONFIG.skillGroup = {
@@ -1208,15 +1209,9 @@ class DiceWFRP {
           propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
           let propertyKey;
           property = property.replace(/,/g, '').trim();
+    
+          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
 
-
-          for (let prop in properties)
-          {
-            if (properties[prop] == property.split(" ")[0])
-              propertyKey = prop;
-          }
-
-          
           let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
           propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
 
@@ -3341,6 +3336,42 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
       }
 
+      let untrainedSkills = []
+      let untrainedTalents = []
+      for (let career of careers)
+      {
+        if (career.data.current.value)
+        {
+          for (let sk of career.data.skills)
+          {
+            let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name == sk)
+            if (trainedSkill)
+            {
+              trainedSkill.career = true;
+            }
+            else
+            {
+              untrainedSkills.push(sk);
+            }
+          }
+
+          for (let talent of career.data.talents)
+          {
+            let trainedTalents = talents.find(t => t.name == talent)
+            if (trainedTalents)
+            {
+              trainedTalents.career = true;
+            }
+            else
+            {
+              untrainedTalents.push(talent);
+            }
+          }
+        }
+      }
+
+  
+
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
@@ -3363,6 +3394,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.psychology = psychology;
       actorData.flags.hasSpells = hasSpells;
       actorData.flags.hasPrayers = hasPrayers;
+      actorData.untrainedSkills = untrainedSkills;
+      actorData.untrainedTalents = untrainedTalents;
   
   
   
@@ -3905,11 +3938,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         else if (property != "Special")
         {
-          for (let prop in properties)
-          {
-            if (properties[prop] == property.split(" ")[0])
-              propertyKey = prop;
-          }
+          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
         }
         else{
           let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
@@ -3952,29 +3981,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         let weaponGroup = event.target.text;
         let weaponGroupKey = "";
-        for (let group in CONFIG.weaponGroups)
-        {
-          if (CONFIG.weaponGroups[group] == weaponGroup)
-            {
-              weaponGroupKey = group;
-              break;
-            }            
-        }
+        weaponGroupKey = WFRP_Utility.findKey(weaponGroup, CONFIG.weaponGroups);
         expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
       }
       else if (expandInfo == "weapon-reach")
       {
         let reach = event.target.text;
         let reachKey;
-
-        for (let r in CONFIG.weaponReaches)
-        {
-          if (CONFIG.weaponReaches[r] == reach)
-          {
-            reachKey = r;
-            break;
-          }
-        }
+        reachKey = WFRP_Utility.findKey(reach, CONFIG.weaponReaches);
         expansionText = CONFIG.reachDescription[reachKey];       
       }
       
@@ -4085,32 +4099,148 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find('.advancement-indicator').mousedown(async ev =>  {
-      let characteristic = $(ev.target).attr("data-char");
+    html.find(".untrained-skill").mousedown(async ev => {
 
+      let skill = await WFRP_Utility.findSkill(event.target.text);
 
-      let data = duplicate(this.actor.data.data);
-      let currentChar = this.actor.data.data.characteristics[characteristic];
-
-      if (ev.button == 0)
+      if (ev.button == 2)
       {
-        let cost = WFRP_Utility._calculateCharAdvCost(currentChar.advances);
-
-        data.characteristics[characteristic].advances++;
-        data.details.experience.spent = Number(data.details.experience.spent) + cost;
-        await this.actor.update({"data.characteristics" : data.characteristics,
-                                "data.details.experience" : data.details.experience});
+        skill.sheet.render(true);
       }
-      else if (ev.button == 2)
+      else
       {
-        if (currentChar.advances == 0)
-          return
-        let cost = WFRP_Utility._calculateCharAdvCost(currentChar.advances - 1);
+        new Dialog()
+        try 
+        {
 
-        data.characteristics[characteristic].advances--;
-        data.details.experience.spent = Number(data.details.experience.spent) - cost;
-        await this.actor.update({"data.characteristics" : data.characteristics,
-                                "data.details.experience" : data.details.experience});
+          new Dialog({
+            title: "Add Career Skill",
+            content: '<p>Do you want to add this skill?</p>',
+            buttons: {
+              yes: {
+                label: "Yes",
+                callback: dlg => {
+                  this.actor.createOwnedItem(skill.data);
+                }
+              },
+              cancel: {
+                label: "Cancel",
+                callback: dlg => {
+                  return    
+                }
+              },
+            },
+            default: 'yes'
+          }).render(true);
+        }
+        catch 
+        {
+          console.log(error)
+        }
+      }
+    })
+
+    html.find(".untrained-talent").mousedown(async ev => {
+
+      let talent = await WFRP_Utility.findTalent(event.target.text);
+
+      if (ev.button == 2)
+      {
+        talent.sheet.render(true);
+      }
+
+      else 
+      {
+        new Dialog()
+        try 
+        {
+          new Dialog({
+            title: "Add Career Talent",
+            content: '<p>Do you want to add this Talent?</p>',
+            buttons: {
+              yes: {
+                label: "Yes",
+                callback: dlg => {
+                  this.actor.createOwnedItem(talent.data);
+                  // this.actor.update({"data.details.experience.spent" : this.actor.data.data.details.experience.spent + 100})
+                }
+              },
+              cancel: {
+                label: "Cancel",
+                callback: dlg => {
+                  return    
+                }
+              },
+            },
+            default: 'yes'
+          }).render(true);
+        }
+        catch 
+        {
+          console.log(error)
+        }
+    }
+
+    })
+
+    html.find('.advancement-indicator').mousedown(async ev =>  {
+     let data = duplicate(this.actor.data.data);
+
+      let type = $(ev.target).attr("data-target");
+
+      if (type == "skill")
+      {
+        let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+        let item = this.actor.getOwnedItem(itemId);
+
+        if (ev.button == 0)
+        {
+          let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+          data.details.experience.spent = Number(data.details.experience.spent) + cost;
+          item.data.data.advances.value++;
+          this.actor.updateOwnedItem({id : itemId, "data.advances.value": item.data.data.advances.value});
+          this.actor.update({"data.details.experience.spent" : data.details.experience.spent});
+        }
+        else if (ev.button = 2)
+        {
+          if (item.data.data.advances.value == 0)
+            return;
+          item.data.data.advances.value--;
+          let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+          data.details.experience.spent = Number(data.details.experience.spent) - cost;
+          this.actor.updateOwnedItem({id : itemId, "data.advances.value": item.data.data.advances.value});
+          this.actor.update({"data.details.experience.spent" : data.details.experience.spent});
+        }
+      }
+      else if (type == "talent")
+      {
+
+      }
+      else
+      {
+        let characteristic = type;
+        let currentChar = this.actor.data.data.characteristics[characteristic];
+
+        if (ev.button == 0)
+        {
+          let cost = WFRP_Utility._calculateAdvCost(currentChar.advances, "characteristic");
+
+          data.characteristics[characteristic].advances++;
+          data.details.experience.spent = Number(data.details.experience.spent) + cost;
+          await this.actor.update({"data.characteristics" : data.characteristics,
+                                  "data.details.experience" : data.details.experience});
+        }
+        else if (ev.button == 2)
+        {
+          if (currentChar.advances == 0)
+            return
+          let cost = WFRP_Utility._calculateAdvCost(currentChar.advances - 1, "characteristic");
+
+          data.characteristics[characteristic].advances--;
+          data.details.experience.spent = Number(data.details.experience.spent) - cost;
+          await this.actor.update({"data.characteristics" : data.characteristics,
+                                  "data.details.experience" : data.details.experience});
+        }
       }
   });
 }
@@ -4226,10 +4356,10 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
     
     for (let skill of careerData.skills)
-      this._advanceSkill(skill, advancesNeeded);
+      await this._advanceSkill(skill, advancesNeeded);
 
     for (let talent of careerData.talents)
-      this._advanceTalent(talent);
+      await this._advanceTalent(talent);
 
     this.actor.update(updateObj);
   }
@@ -4301,35 +4431,20 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   }
 
   async _advanceSkill(skillName, advances){
-    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
-    let skillList = [];
-    await pack.getIndex().then(index => skillList = index);
-
-    let searchResult;
-    // Search for specific skill (won't find unlisted specializations)
-    searchResult = skillList.find(s => s.name == skillName)
-
+    let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    if (existingSkill)
+    {
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advancesNeeded : existingSkill.data.advances.value; 
+      await this.actor.updateOwnedItem(existingSkill);
+      return;
+    }
+    
+    // If does not already own skill, search through compendium
     try 
     {
-      if (!searchResult)
-        searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
-
-      let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
-      if (existingSkill)
-      {
-        existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advancesNeeded : existingSkill.data.advances.value; 
-        this.actor.updateOwnedItem(existingSkill);
-      }
-    
-      else
-      {
-        let skillToAdd;             
-        await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
-        skillToAdd.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+        let skillToAdd = await WFRP_Utility.findSkill(skillName) 
         skillToAdd.data.data.advances.value = advances;
         this.actor.createOwnedItem(skillToAdd.data);
-        console.log(skillToAdd);
-      }
     }
     catch(error) {
       console.log("Something went wrong when adding skill " + skillName +": " + error);
@@ -4337,25 +4452,11 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   }
 
   async _advanceTalent(talentName){
-    let talentList = [];
-    let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
-    await pack.getIndex().then(index => talentList = index);
-
-    let searchResult = talentList.find(t => t.name == talentName);
 
     try 
     {
-      if (!searchResult)
-        searchResult = talentList.find(t => t.name == talentName.split("(")[0].trim())          
-      
-      if (searchResult)
-      {
-        let talentToAdd;
-        await pack.getEntity(searchResult.id).then(packSkill => talentToAdd = packSkill);
-        talentToAdd.data.name = talentName;
-        this.actor.createOwnedItem(talentToAdd.data);
-        console.log(talentToAdd)
-      }
+      let talent = await WFRP_Utility.findTalent(talentName);
+      this.actor.createOwnedItem(talent.data);
     }
     catch{
       console.log("Something went wrong when adding talent " + talent);
@@ -4959,7 +5060,9 @@ class WFRP_Utility
     for (let char in CONFIG.characteristics)
     {
       if (average)
+      {
         characteristics[char] = parseInt(characteristicFormulae[char].split("+")[1]) + 10
+      }
       else
       {
         characteristics[char] = new Roll(characteristicFormulae[char]).roll().total;
@@ -4968,8 +5071,8 @@ class WFRP_Utility
     return characteristics
   }
 
-  static findKey(value, obj) {
-
+  static findKey(value, obj) 
+  {
     for (let key in obj)
     {
       if (obj[key] == value)
@@ -4978,9 +5081,44 @@ class WFRP_Utility
     throw "Could not find key corresponding to " + value + " in " + obj
   }
 
-  static findSkill(skillName)
+  static async findSkill(skillName)
   {
+    let skillList = [];
+    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    await pack.getIndex().then(index => skillList = index);
+    // Search for specific skill (won't find unlisted specializations)
+    let searchResult = skillList.find(s => s.name == skillName) 
+    if (!searchResult)
+      searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
 
+    if (!searchResult)
+      throw "Could not find skill (or specialization of) " + skillName + " in compendum"
+
+    let dbSkill;
+    await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
+    dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+    return dbSkill;
+    
+  }
+
+  static async findTalent(talentName)
+  {
+    let talentList = [];
+    let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
+    await pack.getIndex().then(index => talentList = index);
+    // Search for specific skill (won't find unlisted specializations)
+    let searchResult = talentList.find(t => t.name == talentName) 
+    if (!searchResult)
+      searchResult = talentList.find(t => t.name.split("(")[0].trim() == talentName.split("(")[0].trim())
+
+    if (!searchResult)
+      throw "Could not find skill (or specialization of) " + talentName + " in compendum"
+
+    let dbTalent;
+    await pack.getEntity(searchResult.id).then(packTalent  => dbTalent = packTalent);
+    dbTalent.data.name = talentName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+    return dbTalent;
+    
   }
 
   static nameSorter(a, b){
@@ -5008,14 +5146,14 @@ class WFRP_Utility
     return list;
   }
 
-  static _calculateCharAdvCost(currentAdvances)
+  static _calculateAdvCost(currentAdvances, type)
   {
     let index = Math.ceil((currentAdvances / 5) - 1);
     index = index < 0 ? 0 : index; // min 0
 
-    if (index >= CONFIG.xpCost["characteristics"].length)
-      return 520;
-    return CONFIG.xpCost["characteristics"][index];
+    if (index >= CONFIG.xpCost[type].length)
+      return CONFIG.xpCost[CONFIG.xpCost.length-1];
+    return CONFIG.xpCost[type][index];
   }
 }
 

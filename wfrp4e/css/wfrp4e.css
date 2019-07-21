@@ -2481,15 +2481,15 @@ input[type="text"], input[type="password"] {
         }
           .wfrp4e .skill-section .inventory-list .skill-char-title {
             position: relative;
-            left: 61px;
+            left: 73px;
           }
           .wfrp4e .skill-section .inventory-list .skill-adv-title {
             position: relative;
-            left: 56px;
+            left: 68px;
           }
           .wfrp4e .skill-section .inventory-list .skill-total-title {
             position: relative;
-            left: 32px;
+            left: 42px;
           }
           .wfrp4e .skill-section .inventory-list .item .item-controls {
             flex: 0 0 44px;
@@ -2596,6 +2596,10 @@ input[type="text"], input[type="password"] {
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
+        }
+
+        .skill-section .untrained-skill{
+          opacity : 0.5
         }
       /* ============================================================ */
 
@@ -2917,6 +2921,10 @@ input[type="text"], input[type="password"] {
         .wfrp4e.sheet .tab.talents ::-webkit-scrollbar-button {
           height: 18px;
           border: none;
+        }
+
+        .talents-section .untrained-talent{
+          opacity: 0.5;
         }
 
       /* ============================================================ */
