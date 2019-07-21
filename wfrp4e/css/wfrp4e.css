@@ -957,7 +957,12 @@ input[type="text"], input[type="password"] {
     .app.window-app.sheet.wfrp4e.actor.creature-sheet,
       .app.window-app.sheet.wfrp4e.actor.npc-sheet,
     .app.window-app.sheet.wfrp4e.actor.character-sheet {
-      background: url(../ui/ActorSheet-Character.png) no-repeat;
+      background: url(../ui/actor-sheet-character.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.character-sheet.token-actor {
+      background: url(../ui/actor-sheet-token.png) no-repeat;
       box-shadow: none;
       margin: 0px;
     }
@@ -1267,7 +1272,7 @@ input[type="text"], input[type="password"] {
       width: 72px;
       /* padding: 0px; */
       margin: 0px;
-      border-image: url(../ui/ActorSheet-TabBorder.png) 4 repeat;
+      border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
       border-image-width: 4px;
       border-image-outset: 0px;
       font-family: CaslonAntique;
@@ -5989,6 +5994,7 @@ input[type="text"], input[type="password"] {
     }
     .window-app.dialog .talent-selector {
       width: 100%;
+      margin-top: 3px;
     }
       #talentlist-label {
         flex: 2;
@@ -6007,7 +6013,7 @@ input[type="text"], input[type="password"] {
         width: inherit;
       }
       .window-app.dialog .talent-selector > select {
-        height: 95px;
+        height: 93px;
         overflow: auto;
         font-family: CaslonPro;
         font-weight: 500;
@@ -6072,6 +6078,15 @@ input[type="text"], input[type="password"] {
     font-size: 15px;
     padding-top: 5px;
     margin: 0px;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    /* box-shadow: inset 0 0 20px #000000; */
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+  } 
+  .window-app.dialog .dialog-buttons button:last-child:hover {
+    box-shadow: 0 0 5px #ff9f00;
   } 
 
 
@@ -6167,8 +6182,6 @@ input[type="text"], input[type="password"] {
 /*************************************************************/
 /*************************************************************/
 /*************************************************************/
-
-
 
 
 

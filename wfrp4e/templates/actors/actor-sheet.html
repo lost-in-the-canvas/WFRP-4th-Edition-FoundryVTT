@@ -125,4 +125,30 @@
       {{> public/systems/wfrp4e/templates/actors/actor-notes.html}}
    </div>
 </section>
+
+
+<script>
+
+    var textContainer = document.querySelectorAll('.window-title');
+    console.log(textContainer);
+    console.log(textContainer.textContent);
+    length = textContainer;
+    
+    for (i = 0; i < textContainer.length; i++) {
+      if (textContainer[i].textContent.includes("[Token]")) {
+        console.log("TRUE!");
+        new_red = document.getElementsByClassName("character-sheet")[i].id
+        console.log(new_red);
+        document.getElementById(new_red).className += " token-actor";
+      } 
+      else {
+        console.log("FALSE!");
+      }
+    }
+
+  
+    // console.log(checkIfToken);
+  </script>
+  
+
 </form>
