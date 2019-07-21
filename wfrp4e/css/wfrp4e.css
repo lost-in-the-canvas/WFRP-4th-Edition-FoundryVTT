@@ -1401,6 +1401,8 @@ input[type="text"], input[type="password"] {
           border: 1px solid #736953a6;
           text-shadow: 1px 0px 1px #6e6e716e;
         }   
+
+        .wfrp4e.actor.creature-sheet .characteristics-table .table-data, 
         .wfrp4e.actor.npc-sheet .characteristics-table .table-data {
           height: 20px;
         }
@@ -5601,7 +5603,8 @@ input[type="text"], input[type="password"] {
 /*=============== IV. ACTOR (NPC SHEET) =====================*/
 /*************************************************************/
 
-.wfrp4e.npc-sheet .characteristics-table .table-header > * {
+.wfrp4e.creature-sheet .characteristics-table .table-header > *,
+  .wfrp4e.npc-sheet .characteristics-table .table-header > * {
   text-align: center;
   border: 1px solid #736953a6;
   border: 1px solid #736953a6;
@@ -5873,31 +5876,6 @@ input[type="text"], input[type="password"] {
   font-size: 10px;
   color: #504f48a6;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   .wfrp4e.npc-sheet .careers {
     width: 506px;
     text-align: center;
@@ -5905,8 +5883,12 @@ input[type="text"], input[type="password"] {
   }   
 
 
+.wfrp4e.creature-sheet .creature-talents,
+.wfrp4e.creature-sheet .creature-skills {
+  display: flex;
+  flex-direction: row;
 
-
+}
 
 
 
