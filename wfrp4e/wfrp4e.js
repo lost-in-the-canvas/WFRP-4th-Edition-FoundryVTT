@@ -2396,7 +2396,7 @@ class ItemWfrp4e extends Item {
 
   static async create(data, options) {
 
-    data.img = "systems/wfrp4e/icons/blank.png";
+    //data.img = "systems/wfrp4e/icons/blank.png";
     super.create(data, options);
   }
   // Expand data is used in most dropdown infos
@@ -3324,10 +3324,21 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (otherPenalties)
           allPenaltiesOverflow["Other"] = otherPenalties;
 
-
-
         allPenalties = allPenaltiesOverflow;
+      }
 
+      let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
+      if (armorTrait)
+      {
+        for (let loc in AP)
+        {
+          try{
+            if (loc != "shield")
+              AP[loc] += parseInt(armorTrait.data.specification.value);
+          }
+          catch {//ignore
+          }
+        }
       }
 
       actorData.inventory = inventory;
@@ -4483,7 +4494,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   getData() {
     const sheetData = super.getData();
-
     // Return data for rendering
     return sheetData;
   }
