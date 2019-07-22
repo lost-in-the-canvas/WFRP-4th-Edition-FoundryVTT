@@ -961,7 +961,8 @@ input[type="text"], input[type="password"] {
       box-shadow: none;
       margin: 0px;
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet.token-actor {
+
+    .app.window-app.sheet.wfrp4e.actor.token-actor {
       background: url(../ui/actor-sheet-token.png) no-repeat;
       box-shadow: none;
       margin: 0px;
@@ -1158,12 +1159,12 @@ input[type="text"], input[type="password"] {
     }
     .wfrp4e.actor .general .charimg {
       flex-direction: row;
-      margin: 0px 8px 0px 0px;
+      margin: 2px 8px 0px 0px;
       border: none;
       min-width: 95px;
-      min-height: 100px;
+      min-height: 95px;
       max-width: 95px;
-      max-height: 100px;
+      max-height: 95px;
     }
     .wfrp4e.actor .general .items .row {
       display: flex;
@@ -5593,8 +5594,6 @@ input[type="text"], input[type="password"] {
         height: 18px;
         border: none;
       }
-
-
 /*************************************************************/
 /*************************************************************/
 /*************************************************************/
@@ -5894,6 +5893,368 @@ input[type="text"], input[type="password"] {
   flex-direction: row;
 
 }
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+/*************************************************************/
+/*=============== IV. ACTOR (CREATURE SHEET) ================*/
+/*************************************************************/
+.wfrp4e.actor.creature-sheet .characteristics-table,
+.wfrp4e.actor.npc-sheet .characteristics-table {
+  margin-top: 1px;
+  border: none;
+  background: none;
+  height: inherit;
+  width: inherit;
+}
+.wfrp4e.actor.creature-sheet .characteristics, 
+.wfrp4e.actor.npc-sheet .characteristics {
+  margin-top: 1px;
+  height: 25px;
+  width: 400px;
+  margin: 0px;
+}
+.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input, 
+.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
+  text-align: center;
+  width: 37px;
+  height: 21px;
+  vertical-align: middle;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  border-radius: 0px;
+  margin: 0px;
+  padding: 6px 0px 0px 0px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  color: #672323;
+  text-shadow: 1px 0px 1px #6e6e716e;
+}
+  .wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="wp"],
+  .wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
+    width: 38px;
+  }
+  .wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="fel"],
+  .wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
+    width: 38px;
+  }
+
+.wfrp4e.actor.creature-sheet .movement,
+.wfrp4e.actor.npc-sheet .movement {
+  display: flex;
+  margin: 0px;
+  margin-right: 6px;
+  width: 170px;
+  height: 43px;
+  border-top: 1px solid #736953a6;
+  border-right: 1px solid #736953a6;
+}
+  .wfrp4e.actor.creature-sheet .movement .move-value > input,
+  .wfrp4e.actor.npc-sheet .movement .move-value > input {
+    padding: 5px 0px 0px 0px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    text-align: center;
+    width: 50px;
+    height: 18px;
+    margin: 0px;
+    border-radius: 0px;
+  }
+
+.wfrp4e.actor.creature-sheet .wounds-section,
+.wfrp4e.actor.npc-sheet .wounds-section {
+  position: relative;
+  left: -91px;
+  height: 23px;
+}
+  .wfrp4e.actor.creature-sheet #wounds-box, 
+  .wfrp4e.actor.npc-sheet #wounds-box {
+    position: relative;
+    top: 0px;
+    left: 85px;
+    border: 2px solid #736953a6;
+    border: 1px solid #736953a6;
+    height: 20px;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-name,
+  .wfrp4e.actor.npc-sheet #wounds-name {
+    font-family: CaslonAntique;
+    font-weight: normal;
+    font-size: 16px;
+    color: #464331c4;
+    text-align: center;
+    border: 1px solid #736953a6;
+    border-top: none;
+    padding: 2px 0px 0px 0px;
+    height: 23px;
+    width: 132px;
+    box-shadow: 0 0 10px #00000052 inset;
+    padding-top: 2px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-value > input,
+  .wfrp4e.actor.npc-sheet #wounds-value > input {
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 0px 0px 0px;
+    height: 18px;
+    color: black;
+    position: relative;
+    top: -2px;
+    width: 30px;
+    left: -18px;
+    border-radius: 0px;
+    text-align: center;
+  }
+  .wfrp4e.actor.npc-sheet #wounds-max > input, .creature-sheet #wounds-max > input,
+  .wfrp4e.actor.creature-sheet #wounds-max > a, .npc-sheet #wounds-max > a {
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 7px 1px 0px 0px;
+    height: 22px;
+    color: black;
+    position: relative;
+    top: -22px;
+    margin: 0px 0px 0px 36px;
+    width: 30px;
+    border-radius: 0px;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-divisor,
+  .wfrp4e.actor.npc-sheet #wounds-divisor {
+    top: 0px;
+    left: -9px;
+    /* background: white; */
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 3px 0px 0px 0px;
+    height: 18px;
+    color: #000000;
+    position: absolute;
+    margin: 0px 0px 0px 36px;
+    width: 30px;
+    border-radius: 0px;
+    text-align: center;
+  }
+
+.wfrp4e.actor.creature-sheet .randomize-buttons,
+.wfrp4e.actor.npc-sheet .randomize-buttons {
+  position: relative;
+  left: -85px;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 0px 0px 0px;
+  height: 43px;
+  width: 136px;
+  color: black;
+  border: 1px solid #736953a6;
+  text-align: center;
+}
+  .wfrp4e.actor.creature-sheet .randomize-buttons .randomize, .wfrp4e.actor.npc-sheet .randomize-buttons .randomize {
+    display: inline-block;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    margin: 1px 0px 0px 0px;
+    padding: 1px 0px 0px 0px;
+    height: 16px;
+    width: 18px;
+    vertical-align: middle;
+    position: relative;
+    top: -6px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #6b0f0f87 inset;
+    border: 1px solid #7369538a;
+  }
+  .wfrp4e.actor.creature-sheet .randomize-buttons .randomize-label,
+  .wfrp4e.actor.npc-sheet .randomize-buttons .randomize-label {
+    display: inline-block;
+    font-family: CaslonAntique;
+    font-weight: 700;
+    font-size: 16px;
+    color: #464331c4;
+    border-top: 1px solid #736953a6;
+    margin: 0px;
+    padding: 2px 0px 0px 0px;
+    height: 23px;
+    width: 134px;
+    vertical-align: middle;
+    box-shadow: 0 0 10px #00000052 inset;
+    position: relative;
+    top: -5px;
+  }
+
+
+
+/* MAIN TAB */
+.wfrp4e.actor.creature-sheet .creature-lists {
+  overflow-y: scroll;
+  overscroll-behavior-y: auto;
+  overflow-x: hidden;
+  height: 360px;
+  margin-top: 6px;
+  padding-bottom: 5px;
+  width: 506px;
+}
+.wfrp4e.actor.creature-sheet .creature-overview-label {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: left;
+  border: 1px solid #736953a6;
+  margin: 0px;
+  padding: 1px 0px 0px 0px;
+  height: 21px;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  display: flex;
+  flex-direction: row;
+  padding-left: 4px;
+  border-radius: 0px;
+  width: 493px;
+}
+.wfrp4e.actor.creature-sheet .creature-overview {
+  border-left: 1px solid #736953a6;
+  border-right: 1px solid #736953a6;
+  width: 493px;
+  box-shadow: 0px 0px 1px inset black;
+}
+.wfrp4e.actor.creature-sheet .creature-overview > div:last-child {
+  border-bottom: 1px solid #736953a6;
+}
+  .wfrp4e.creature-sheet .creature-skills {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+    display: none;
+  }
+    .wfrp4e.creature-sheet .creature-lists .label {
+      display: inline-block;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      color: #464331f0;
+      border: 1px solid #00000038;
+      border-radius: 3px;
+      padding-top: 2px;
+      padding-left: 2px;
+      padding-right: 2px;
+      background: #774e000f;
+      box-shadow: 0 0 3px #6b3a0f2b inset;
+      width: fit-content;
+      height: 21px;
+    }
+    .wfrp4e.creature-sheet .creature-lists .content {
+      display: inline-block;
+      line-height: 18px;
+      padding-top: 1px;
+    }
+    .wfrp4e.creature-sheet .creature-lists .name {
+      
+    }
+    .wfrp4e.creature-sheet .creature-lists .total {
+      
+    }
+
+  .wfrp4e.creature-sheet .creature-talents {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-traits {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-mutations {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-psychology {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-injuries {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 492px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+    
+
+.wfrp4e.actor.creature-sheet .weapons {
+  margin-top: 6px;
+}
+
 
 
 
