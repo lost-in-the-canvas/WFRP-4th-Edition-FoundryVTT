@@ -4084,8 +4084,24 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+
+    // console.log("TESTING SHIT - CHARACTER");
+    // console.log(options);
+
+    // mergeObject(options, {
+    //   classes: options.classes.concat(["token-sheet"]),
+    // });
+
     return options;
   }
+
+  // get title() {
+
+    
+  //   return (this.token && !this.token.data.actorLink) ? `[Token] ${this.actor.name}` : this.actor.name;
+  // }
+
 
   /* -------------------------------------------- */
 
@@ -4096,7 +4112,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   get template() {
     const path = "public/systems/wfrp4e/templates/actors/";
    // if ( this.actor.limited ) return path + "limited-sheet.html";
-    return path + "actor-sheet.html";
+   return path + "actor-sheet.html";
+
   }
 
   /* -------------------------------------------- */
@@ -4348,6 +4365,9 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+    // console.log("TESTING SHIT - NPC");
+
     return options;
   }
 
@@ -4617,6 +4637,9 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+    // console.log("TESTING SHIT - CREATURE");
+
     return options;
   }
 
@@ -5372,6 +5395,7 @@ class WFRP_Tables {
     }
   }
 }
+
 
 
 /* -------------------------------------------- */
