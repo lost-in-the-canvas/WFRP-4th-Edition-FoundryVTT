@@ -1,4 +1,4 @@
-<div class="combat-section">
+<div class="combat-section save-scroll">
 
   <div class="weapons">
     <!-- <h3 class="melee-title">Melee Weapons</h3> -->
@@ -475,6 +475,9 @@
   <div class="injury-header">
     <a class="injury-label">Injury</a>
     <a class="location-label">Location</a>
+    <div class="item-controls">
+      <a class="item-control item-create" title="Create Item" data-type="injury"><i class="fas fa-plus"></i></a>
+    </div>
   </div>
 
   <div class="injury">
@@ -482,14 +485,9 @@
       <div class="injury-name">Injury
       </div>
       <div>Location</div>
-      {{#if owner}}
-      <div class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-          Add</a>
-      </div>
+
     </li>
-    <ol class="inventory-list crit-wound-list">
-      {{/if}}
+    <ol class="inventory-list crit-wound-list save-scroll">
       {{#each actor.injuries as |injury i|}}
       <li class="item" data-item-id="{{injury.id}}">
         <div class="item-name injury-name item-dropdown">

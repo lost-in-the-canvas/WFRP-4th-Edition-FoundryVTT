@@ -50,9 +50,9 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/surprised.png",
 ]
 
-CONFIG.JournalEntry.noteIcons = {
-  Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
-}
+// CONFIG.JournalEntry.noteIcons = {
+//   Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
+// }
 
 // Species
 CONFIG.species = {
@@ -243,6 +243,14 @@ CONFIG.speciesTalents = {
     "Read/Write",
     0
   ],
+}
+
+CONFIG.speciesMovement = {
+  "human" : 4,
+  "dwarf" : 3, 
+  "halfling" : 3,
+  "helf" : 5,
+  "welf" : 5
 }
 
 
@@ -2812,28 +2820,32 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
-  // async _render(force = false, options = {}) {
-  //   this._saveScrollPos();
-  //   await super._render(force, options);
-  //   this._setScrollPos();
-  // }
-  // /* -------------------------------------------- */
+    async _render(force = false, options = {}) {
+      this._saveScrollPos();
+      await super._render(force, options);
+      this._setScrollPos();
+    }
+    /* -------------------------------------------- */
 
   // // TODO: Add .savescroll class to all classes that need their position saved
   // // Currently, many that are saved don't need to be.
-  // _saveScrollPos()
-  // {
-  //   if (this.form === null)
-  //     return;
+   _saveScrollPos()
+   {
+      if (this.form === null)
+        return;
 
-  //   const html = $(this.form).parent();
-  //   let lists = $(html.find(".inventory-list"));
+      const html = $(this.form).parent();
+      this.scrollPos = [];
+     let lists = $(html.find(".save-scroll"));
+     for (let list of lists)
+     {
+       this.scrollPos.push($(list).scrollTop());
+     }
   //   lists.push(html.find(".combat-section"));
   //   lists.push(html.find(".inventory")[1]);
   //   lists.push(html.find(".magic-section"));
   //   lists.push(html.find(".religion-section"));
   //   lists.push(html.find(".notes-section"));
-  //   this.scrollPos = [];
   //   for (let list of lists)
   //   {
   //     try {
@@ -2844,25 +2856,20 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   //     }
   //   }
-  // }
+   }
 
-  // _setScrollPos()
-  // {
-  //   const html = $(this.form).parent();
-  //   let lists = $(html.find(".inventory-list"));
-  //   lists.push(html.find(".combat-section"));
-  //   lists.push(html.find(".inventory"));
-  //   lists.push(html.find(".magic-section"));
-  //   lists.push(html.find(".religion-section"));
-  //   lists.push(html.find(".notes-section"));
-  //   for (let listIndex in lists)
-  //   {
-  //     try {
-  //     ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
-  //     }
-  //     catch{}
-  //   }
-  // }
+      _setScrollPos()
+      {
+        if (this.scrollPos)
+        {
+          const html = $(this.form).parent();
+          let lists = $(html.find(".save-scroll"));
+          for (let i = 0; i < lists.length; i++)
+          {
+            $(lists[i]).scrollTop(this.scrollPos[i]);
+          }
+        }
+      }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -3008,6 +3015,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let hasPrayers = false;
   
       for ( let i of actorData.items ) {
+        try {
         i.img = i.img || DEFAULT_TOKEN;
         if (i.type === "talent")
         {
@@ -3134,6 +3142,11 @@ class ActorSheetWfrp4e extends ActorSheet {
                 i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
               }
             }
+            else if (i.data.trappingType.value == "tradeTools")
+            {
+              inventory["toolsAndKits"].items.push(i)
+              inventory["toolsAndKits"].show = true;
+            }
             else if (i.data.trappingType.value)
             {
               inventory[i.data.trappingType.value].items.push(i);
@@ -3238,6 +3251,10 @@ class ActorSheetWfrp4e extends ActorSheet {
           money.total += i.data.quantity.value * i.data.coinValue.value;
   
         }
+      }
+      catch (error){
+        console.log("Something went wrong while preparing item: " + i.name + ": " + error)
+      }
       }
   
       // If you have no spells, just put all ingredients in the miscellaneous section
@@ -3781,25 +3798,43 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     });
 
-    html.find('.disease-roll').click(async ev =>  {
+    html.find('.disease-roll').mousedown(async ev =>  {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       const disease = this.actor.items.find(i => i.id === itemId);
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
 
-      //let text = ev.target.text.split(' ').join('')
-      try 
+      if (ev.button == 0)
       {
-        let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
-        let timeUnit = disease.data[type].value.split(" ")[1];
-        disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+        try 
+        {
+          let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
+          let timeUnit = disease.data[type].value.split(" ")[1];
+          disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+        }
+        catch
+        {
+          disease.data[type].roll = disease.data[type].value;
+        }
+      
+        this.actor.updateOwnedItem(disease);
       }
-      catch
+      else if (ev.button == 2)
       {
-        disease.data[type].roll = disease.data[type].value;
+        if(disease.data[type].roll)
+        {
+          let number = Number(disease.data[type].roll.split(" ")[0]) - 1;
+          let timeUnit = disease.data[type].roll.split(" ")[1];
+          disease.data[type].roll = `${number} ${timeUnit}`;
+        }
+        this.actor.updateOwnedItem(disease);
       }
-    
-      await this.actor.updateOwnedItem(disease);
     })
+
+    // html.find('.penalties-input').focusout(async ev =>  {
+    //   console.log(ev.target.value);
+
+    //   await this.actor.update({"data.status.penalties.value" : ev.target.value})
+    // })
 
 
     //Item Dragging
@@ -4434,7 +4469,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
     let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
     if (existingSkill)
     {
-      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advancesNeeded : existingSkill.data.advances.value; 
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value; 
       await this.actor.updateOwnedItem(existingSkill);
       return;
     }
@@ -4512,6 +4547,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           for (let char in initialValues)
             await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
           await this.actor.update({"data.details.species.value" : species});
+          await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
         }
       });
 
@@ -5069,6 +5105,14 @@ class WFRP_Utility
       }
     }
     return characteristics
+  }
+
+  static speciesMovement(species)
+  {
+    let move = CONFIG.speciesMovement[species];
+    if(!move) // If input species was not a valid key, try finding it as a value
+     move = CONFIG.speciesMovement[this.findKey(species, CONFIG.species)]
+    return move;
   }
 
   static findKey(value, obj) 

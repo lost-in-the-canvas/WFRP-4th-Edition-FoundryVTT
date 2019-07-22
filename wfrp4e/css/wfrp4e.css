@@ -3725,6 +3725,15 @@ input[type="text"], input[type="password"] {
           flex-direction: row;
           padding-left: 4px;
         }
+        .wfrp4e.actor .injury-header .item-controls {
+          position: relative;
+            left: 400px;
+            width: 55px;
+            top: 2px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 12px;
+            color: #504f48a6;
+        }
           .wfrp4e.actor .injury-label  {
             position: relative;
             left: 0px;

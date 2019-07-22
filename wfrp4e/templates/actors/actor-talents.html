@@ -1,6 +1,6 @@
 <div class="tab talents" data-group="primary" data-tab="talents">
   <div class="talents-section">
-    <ol class="inventory-list talent-list">
+    <ol class="inventory-list talent-list save-scroll">
       <li class="inventory-header">
         <div class="item-name">Talent Name</div>
         <div class="item-taken">Times Taken</div>
@@ -52,13 +52,13 @@
       <div class="item-name">Creature Trait</div>
     </div>
 
-    <ol class="inventory-list trait-list">
+    <ol class="inventory-list trait-list save-scroll">
       <li class="inventory-header">
         <div class="item-image" style="background-image: url({{item.img}})"></div>
         <div class="item-name">Creature Trait</div>
         {{#if owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
+          <a class="item-control item-create" title="Create Item" data-type="trait"><i class="fas fa-plus"></i>
             Add</a>
         </div>
         {{/if}}
