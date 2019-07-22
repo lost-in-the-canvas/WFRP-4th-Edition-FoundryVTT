@@ -7696,6 +7696,13 @@ font-weight: bold;
   flex-direction: row;
   font-family: CaslonPro;
 }
+
+
+.wfrp4e.actor .penalties >* {
+  width: fit-content;
+}
+
+
 .wfrp4e.actor.npc-sheet .penalties {
   position: absolute;
   top: 608px;

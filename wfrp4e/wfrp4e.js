@@ -2756,7 +2756,7 @@ class ItemSheetWfrp4e extends ItemSheet {
       {
         case 'skills':
         {
-          await this.item.update({'data.skills': list});
+          await this.item.update({id: this.item.data.id, 'data.skills': list});
         }
         break;
 
@@ -2988,7 +2988,12 @@ class ActorSheetWfrp4e extends ActorSheet {
       const psychology = [];
       const mutations = [];
       const diseases = [];
-      let allPenalties = "";
+      let penalties = {
+        "Armour" : "",
+        "Injury" : "",
+        "Mutation" : "",
+        "Other" : ""
+      };
   
       // Inventory object is for the inventory tab
       const inventory = {
@@ -3101,7 +3106,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type == "injury")
         {
           injuries.push(i);
-          allPenalties += i.data.penalty.value;
+          penalties["Injury"] += i.data.penalty.value;
         }
   
         else if (i.type === "container")
@@ -3235,7 +3240,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
-            allPenalties += i.data.modifier.value;
+            penalties["Mutation"] += i.data.modifier.value;
         }
   
         else if (i.type === "money")
@@ -3305,11 +3310,14 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
   
+
+
+
       if (this.actor.data.data.status.penalties.value)
-        allPenalties += " " + this.actor.data.data.status.penalties.value
+       // penalties.other = this.actor.data.data.status.penalties.value
       
-      allPenalties += " " +  WFRP_Utility._calculateArmorPenalties(actorData, armour);
-      if (allPenalties.length > 78)
+      penalties["Armour"] += WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      if ((penalties["Other"] + penalties["Armour"] + penalties["Mutation"] + penalties["Injury"]).length > 78)
       {
         actorData.penaltyOverflow = true;
         let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
@@ -3399,7 +3407,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.diseases = diseases;
       actorData.mutations = mutations;
       actorData.armour = armour;
-      actorData.allPenalties = allPenalties;
+      actorData.penalties = penalties;
       actorData.AP = AP;
       actorData.injuries = injuries;
       actorData.grimoire = grimoire;
