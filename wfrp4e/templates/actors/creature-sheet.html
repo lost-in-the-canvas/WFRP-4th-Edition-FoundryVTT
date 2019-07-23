@@ -172,7 +172,12 @@
       console.log("TRUE!");
       new_red = document.getElementsByClassName("creature-sheet")[i].id;
       console.log(new_red);
-      document.getElementById(new_red).className += " token-actor";
+      if ( !document.getElementById(new_red).className.includes("token-actor") ) {
+        document.getElementById(new_red).className += " token-actor";
+      }
+      else {
+        console.log("FALSE!");
+      }
     } 
     else {
       console.log("FALSE!");
