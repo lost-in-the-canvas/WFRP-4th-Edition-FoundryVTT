@@ -5144,7 +5144,7 @@ input[type="text"], input[type="password"] {
           padding-bottom: 5px;
         }  
         .wfrp4e.npc-sheet .notes-section {
-          overflow-y:hidden
+          overflow-y:auto
         }
         .wfrp4e .notes-section > ol {
           list-style: none;
@@ -5171,7 +5171,7 @@ input[type="text"], input[type="password"] {
           margin-top: 6px;
         } 
         .wfrp4e.npc-sheet .notes-section .biography {
-          height: calc(100% - 5px);
+          height: 265px;
         }
         .wfrp4e .notes-section .gmnotes > h2,
           .wfrp4e .notes-section .biography > h2 {

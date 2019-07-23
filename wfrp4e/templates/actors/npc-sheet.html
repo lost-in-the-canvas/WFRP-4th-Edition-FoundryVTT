@@ -30,8 +30,8 @@
         <table class="characteristics-table">
           <tr class="table-header">
             {{#each actor.data.characteristics as |ch c|}}
-            <th title="{{ch.label}}" class="table-header">
-              {{ch.abrev}}
+            <th title="{{ch.label}}" data-char="{{ch}}" class="table-header">
+              <a  class ="ch-roll" data-char="{{c}}">{{ch.abrev}}</a>
             </th>
             {{/each}}
           </tr>

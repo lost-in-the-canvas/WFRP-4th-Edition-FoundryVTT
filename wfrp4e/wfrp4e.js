@@ -1615,8 +1615,12 @@ Hooks.on("chatMessage", async (html, content, msg) => {
  */
 class ActorWfrp4e extends Actor {
 
+
+  
   // Give new actor all Basic skills
   static async create(data, options) {
+
+
     if (data.type == "character")
     {
       let id = 1;
@@ -1641,43 +1645,96 @@ class ActorWfrp4e extends Actor {
             data.items.push(skillItem.data);
         }
       }
-    }
-    // Default auto calculation to true
-    data.flags = 
-    {
-      autoCalcRun :  true,
-      autoCalcWalk :  true,
-      autoCalcWounds :  true,
-      autoCalcCritW :  true,
-      autoCalcCorruption :  true,
-      autoCalcEnc :  true
-    }
-
-    /*for (let item of Item.collection.entities)
-    {
-      if (item.img.includes ("blank"))
+      // Default auto calculation to true
+      data.flags = 
       {
-        console.log("Test")
-        item.update({"img" : "systems/wfrp4e/icons/blank.png"});
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
       }
-    }*/
-    
+      super.create(data, options);
 
-    // let pack = game.packs.find(p => p.collection == "wfrp4e.injuries")
-    // let list;
-    // await pack.getIndex().then(index => list = index);
-    // for (let item of list)
-    // {
-    //   if (item.img.includes("mystery-man"))
-    //   {
-    //     await pack.updateEntity({_id: item.id, "img": "systems/wfrp4e/icons/blank.png"})
-    //     console.log("updated " + item.name)
-    //   }
-    // }
-    super.create(data, options);
-    
+    }
+
+    else if (data.type == "npc")
+    {
+      new Dialog({
+        title: "Add Basic Skills",
+        content: '<p>Add Basic Skills?</p>',
+        buttons: {
+          yes: {
+            label: "Yes",
+            callback: async dlg => {
+              let id = 1;
+              const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+              let skills = [];
+              console.log(pack);
+              await pack.getIndex().then(index => skills = index);
+              data.items = [];
+              for (let sk of skills)
+              {
+                let skillItem = undefined;
+                await pack.getEntity(sk.id).then(skill => skillItem = skill);
+                skillItem.data.id = id;
+                id++;
+                if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
+                  data.items.push(skillItem.data);
+                else if (skillItem.data.data.advanced.value == "bsc")
+                {
+                  let startParen = skillItem.data.name.indexOf("(")
+                  skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+                  if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
+                    data.items.push(skillItem.data);
+                }
+              }
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+          no: {
+            label: "No",
+            callback: async dlg => {
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+        },
+        default: 'yes'
+      }).render(true);
+    }
+    else
+    {
+      data.flags = 
+      {
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
+      }
+      super.create(data, options);
+    }
   }
-
   // Calculate dynamic data like Characteristic totals and movemen values
   prepareData(actorData) {
     try {
@@ -1759,6 +1816,7 @@ class ActorWfrp4e extends Actor {
    * @param {String} characteristicId     The characteristic id (e.g. "ws")
    */
   rollCharacteristic(characteristicId) {
+    this.addbasicSkills();
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " Test";
     let testData = {
@@ -2427,6 +2485,9 @@ class ItemWfrp4e extends Item {
   _mutationExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
+    data.properties.push(CONFIG.mutationTypes[this.data.data.mutationType.value]);
+    if (this.data.data.modifier.value)
+      data.properties.push(this.data.data.modifier.value)
     return data;
   }
 
@@ -4550,6 +4611,13 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           })
       });
 
+      
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+
       html.find('.npc-career').click(event => {
         event.preventDefault();
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
@@ -4702,6 +4770,25 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    
+      html.find(".item").hover(event => {
+        $(event.currentTarget).toggleClass("deletable");
+      })
+
+      html.find(".content").keypress(event => {
+        console.print(event);
+      })
+
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+  }
+
 }
 
 // Register NPC Sheet

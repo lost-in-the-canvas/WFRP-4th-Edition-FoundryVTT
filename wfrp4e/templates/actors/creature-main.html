@@ -19,11 +19,11 @@
     </div>
 
     {{#if actor.talents}}
-    <div class="list creature-talents">
+    <div class="list creature-talents item" data-item-id="{{item.id}}">
       <a class="creature-talents label">Talents:</a>
       {{#each actor.talents as |item i|}}
-      <div class="talents content" data-item-id="{{item.id}}">
-        <a class="talents name">{{item.name}} </a>
+      <div class="talents content item" data-item-id="{{item.id}}">
+        <a class="talents name item-dropdown">{{item.name}} </a>
         <a class="talents advances">{{item.data.advances.value}} </a>
       </div>
       {{/each}}
@@ -34,8 +34,8 @@
     <div class="list creature-traits">
       <a class="creature-traits label">Traits:</a>
       {{#each actor.traits as |item i|}}
-      <div class="traits content" data-item-id="{{item.id}}">
-        <a class="traits name">{{item.name}} </a>
+      <div class="traits content item" data-item-id="{{item.id}}">
+        <a class="traits name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -45,8 +45,8 @@
     <div class="list creature-mutations">
       <a class="creature-mutations label">Corruption & Mutations:</a>
       {{#each actor.mutations as |item i|}}
-      <div class="mutations content" data-item-id="{{item.id}}">
-        <a class="mutations name">{{item.name}} </a>
+      <div class="mutations content item" data-item-id="{{item.id}}">
+        <a class="mutations name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -56,8 +56,8 @@
     <div class="list creature-psychology">
       <a class="creature-psychology label">Psychology:</a>
       {{#each actor.psychology as |item i|}}
-      <div class="psychology content" data-item-id="{{item.id}}">
-        <a class="psychology name">{{item.name}} </a>
+      <div class="psychology content item" data-item-id="{{item.id}}">
+        <a class="psychology name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -68,8 +68,8 @@
     <div class="list creature-injuries">
       <a class="creature-injuries label">Injuries:</a>
       {{#each actor.injuries as |item i|}}
-      <div class="injuries content" data-item-id="{{item.id}}">
-        <a class="injuries name">{{item.name}} </a>
+      <div class="injuries content item" data-item-id="{{item.id}}">
+        <a class="injuries name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
