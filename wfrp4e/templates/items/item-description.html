@@ -1,3 +1,38 @@
 <div class="tab active" data-tab="description">
-    {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+  {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
 </div>
+
+
+<script>
+  console.log("ITEM SHEET BACKGROUND CHANGER!");
+  textContainer = document.querySelectorAll('.app.window-app.sheet');
+  console.log("textContainer");
+  console.log(textContainer);
+  length = textContainer.length;
+  console.log(length);
+  
+  for (i = 0; i < length; i++) {
+    console.log("textContainer[i]");
+    console.log(textContainer[i]);
+    console.log("textContainer[i].children[1].children[0].className");
+    console.log(textContainer[i].children[1].children[0].className);
+
+    if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
+      console.log("TRUE!");
+      new_red = document.getElementsByClassName("app window-app sheet")[i].id;
+      console.log(new_red);
+      if ( !document.getElementById(new_red).className.includes("item-sheet") ) {
+        document.getElementById(new_red).className += " item-sheet";
+      }
+      else {
+        console.log("FALSE!");
+      }
+    } 
+    else {
+      console.log("FALSE!");
+    }
+  }
+
+  console.log("ITEM SHEET BACKGROUND CHANGER END!");
+  // console.log(checkIfToken);
+</script>

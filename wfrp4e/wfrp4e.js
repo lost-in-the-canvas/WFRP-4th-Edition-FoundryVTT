@@ -754,6 +754,7 @@ class DiceWFRP {
     renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
       new Dialog({
           title: dialogOptions.title,
+          class: "red",
           content: dlg,
           buttons: dialogOptions.buttons,
           close: html => dialogOptions.callback(html, roll)
@@ -1615,6 +1616,8 @@ Hooks.on("chatMessage", async (html, content, msg) => {
  */
 class ActorWfrp4e extends Actor {
 
+
+
   // Give new actor all Basic skills
   static async create(data, options) {
     if (data.type == "character")
@@ -1780,6 +1783,7 @@ class ActorWfrp4e extends Actor {
           label: "Roll"
         }
       },
+      // class: "red",
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
@@ -1799,6 +1803,10 @@ class ActorWfrp4e extends Actor {
         roll();
         }
     };
+
+    console.log("CHAR")
+    console.log(this.data.data);
+
     let cardOptions = {
       actor : this.data.id,
       speaker: {
