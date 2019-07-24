@@ -13,7 +13,11 @@
 
     <div class ="form-group">
         <label>{{data.rollable.label}}</label>
-        <input type = "checkbox" name ="data.rollable.value" value = "{{data.rollable.value}}" data-dtype ="{{data.rollable.type}}" {{checked data.rollable.value}}/>
+        {{#if data.rollable.value}}
+        <a class="item-checkbox" data-target="rollable.value"><i class="far fa-check-circle"></i></a>
+        {{else}}
+        <a class="item-checkbox" data-target ="rollable.value" ><i class="far fa-circle"></i></a>
+        {{/if}}
     </div>
 
     {{#if data.rollable.value}}

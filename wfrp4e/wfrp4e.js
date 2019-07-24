@@ -2570,6 +2570,8 @@ class ItemWfrp4e extends Item {
     if (data.weaponGroup.value)
       properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
 
+    if (data.twohanded.value)
+      properties.push("Two Handed");
     if (data.reach.value)
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
@@ -2791,25 +2793,35 @@ class ItemSheetWfrp4e extends ItemSheet {
     }),
 
     
-    html.find('.char-checkbox').change(async event => {
-      let charChanged = event.target.attributes.name.value;
-      let newValue = event.target.checked;
+    html.find('.char-checkbox').click(async event => {
+      let charChanged = $(event.currentTarget).attr("name")
 
       let characteristicList = duplicate(this.item.data.data.characteristics);
-      
-      if (newValue)
-      {
-        if (!characteristicList.includes(charChanged))
-          characteristicList.push(charChanged);
-      }
+
+      if (characteristicList.includes(charChanged))
+        characteristicList.splice(characteristicList.findIndex(c => c == charChanged));
       else
-        characteristicList = characteristicList.filter(c => c != charChanged);
+        characteristicList.push(charChanged);
+      
+      // if (newValue)
+      // {
+      //   if (!characteristicList.includes(charChanged))
+      //     characteristicList.push(charChanged);
+      // }
+      // else
+      //   characteristicList = characteristicList.filter(c => c != charChanged);
       
       if (this.item.actor)
         this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
       else
         await this.item.update({'data.characteristics' : characteristicList})
 
+    }),
+
+    html.find(".item-checkbox").click(async event => {
+      let target = $(event.currentTarget).attr("data-target");
+      let path = target.split(".");
+      this.item.update({[`data.${target}`] : !this.item.data.data[path[0]][path[1]]})
     }),
 
     // This listener converts comma separated lists in the career section to arrays,
@@ -3056,10 +3068,9 @@ class ActorSheetWfrp4e extends ActorSheet {
       const mutations = [];
       const diseases = [];
       let penalties = {
-        "Armour" : "",
-        "Injury" : "",
-        "Mutation" : "",
-        "Other" : ""
+        "Armour" : {value : ""},
+        "Injury" : {value : ""},
+        "Mutation" : {value : ""},
       };
   
       // Inventory object is for the inventory tab
@@ -3173,7 +3184,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type == "injury")
         {
           injuries.push(i);
-          penalties["Injury"] += i.data.penalty.value;
+          penalties["Injury"].value += i.data.penalty.value;
         }
   
         else if (i.type === "container")
@@ -3307,7 +3318,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
-            penalties["Mutation"] += i.data.modifier.value;
+            penalties["Mutation"].value += i.data.modifier.value;
         }
   
         else if (i.type === "money")
@@ -3380,38 +3391,45 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
 
-      if (this.actor.data.data.status.penalties.value)
+      //if (this.actor.data.data.status.penalties.value)
        // penalties.other = this.actor.data.data.status.penalties.value
-      
-      penalties["Armour"] += WFRP_Utility._calculateArmorPenalties(actorData, armour);
-      if ((penalties["Other"] + penalties["Armour"] + penalties["Mutation"] + penalties["Injury"]).length > 78)
+      let penaltiesOverflow = false;
+      penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
       {
-        actorData.penaltyOverflow = true;
-        let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
-        let injuryPenalties = injuries.reduce(function (prev, cur) {
-          return prev += cur.data.penalty.value + " "
-        }, "");
-        let mutationPenalties = mutations.reduce(function (prev, cur) {
-          if (cur.data.modifiesSkills.value)
-            return prev += cur.data.modifier.value + " "
+        penaltiesOverflow = true;
+        for (let penaltyType in penalties)
+        {
+          if (penalties[penaltyType].value)
+            penalties[penaltyType].show = true;
           else
-            return prev;
-        }, "");
-        let otherPenalties = this.actor.data.data.status.penalties.value; 
-        let allPenaltiesOverflow = {};
-        if (armourPenalties)
-          allPenaltiesOverflow["Armour"] = armourPenalties;
+            penalties[penaltyType].show = false;
+        }
+        // let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
+        // let injuryPenalties = injuries.reduce(function (prev, cur) {
+        //   return prev += cur.data.penalty.value + " "
+        // }, "");
+        // let mutationPenalties = mutations.reduce(function (prev, cur) {
+        //   if (cur.data.modifiesSkills.value)
+        //     return prev += cur.data.modifier.value + " "
+        //   else
+        //     return prev;
+        // }, "");
+        // let otherPenalties = this.actor.data.data.status.penalties.value; 
+        // let allPenaltiesOverflow = {};
+        // if (armourPenalties)
+        //   allPenaltiesOverflow["Armour"] = armourPenalties;
 
-        if (injuryPenalties)
-          allPenaltiesOverflow["Injury"] = injuryPenalties;
+        // if (injuryPenalties)
+        //   allPenaltiesOverflow["Injury"] = injuryPenalties;
 
-        if (mutationPenalties)
-          allPenaltiesOverflow["Mutation"] = mutationPenalties;
+        // if (mutationPenalties)
+        //   allPenaltiesOverflow["Mutation"] = mutationPenalties;
 
-        if (otherPenalties)
-          allPenaltiesOverflow["Other"] = otherPenalties;
+        // if (otherPenalties)
+        //   allPenaltiesOverflow["Other"] = otherPenalties;
 
-        allPenalties = allPenaltiesOverflow;
+        // allPenalties = allPenaltiesOverflow;
       }
 
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
@@ -3475,6 +3493,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.mutations = mutations;
       actorData.armour = armour;
       actorData.penalties = penalties;
+      actorData.penaltyOverflow = penaltiesOverflow;
       actorData.AP = AP;
       actorData.injuries = injuries;
       actorData.grimoire = grimoire;
@@ -4814,6 +4833,10 @@ class WFRP_Utility
 
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    if (item.data.duration.extendable)
+    {
+      item.duration += "+";
+    }
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
     if (item.type == "spell")

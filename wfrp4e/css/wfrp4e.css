@@ -8257,7 +8257,7 @@ font-weight: bold;
   display: flex;
   flex-direction: row;
   font-family: CaslonPro;
-  margin-top: 6px;
+  margin-top: 3px;
   border: 1px solid #736953a6;
 }
 
@@ -8279,6 +8279,7 @@ font-weight: bold;
 }
 .wfrp4e.actor .penalties > div {
   width: fit-content;
+  margin-top: 5px;
 }
 .wfrp4e.actor .penalties .custom-penalty {
   width: inherit;
@@ -8298,15 +8299,9 @@ font-weight: bold;
   line-height: inherit;
   color: #111;
   width: inherit;
-  background: bisque;
   display: inline-flex;
   flex-direction: row;
   flex-grow: 2;
-}
-
-.wfrp4e.actor.npc-sheet .penalties {
-  position: absolute;
-  top: 608px;
 }
 
 .wfrp4e.actor .penalty {
@@ -8316,6 +8311,9 @@ font-weight: bold;
 .wfrp4e.actor .penalties > input{
   height: 18px;
   width: 100%;
+  margin-top: 3px;
+  margin-left :5px;
+
 }
  
 
