@@ -2334,6 +2334,9 @@ input[type="text"], input[type="password"] {
               position: absolute;
               left: 358px;
             }  
+            .wfrp4e.npc-sheet #List-Complete-label {
+              left: 329px;
+            }
             #List-Level-label {
               font-family: CaslonAntique;
               font-weight: 700;
@@ -2343,6 +2346,10 @@ input[type="text"], input[type="password"] {
               position: absolute;
               left: 417px;
             }   
+            .wfrp4e.npc-sheet #List-Level-label {
+              left: 388px;
+            }
+
             #List-Add-button {
               position: relative;
               top: 2px;
@@ -5693,6 +5700,11 @@ input[type="text"], input[type="password"] {
   padding: 3px 0px 0px 0px;
   box-shadow: 0 0 10px #00000052 inset;
 }
+.wfrp4e.creature-sheet .characteristics-table .table-header >a,
+.wfrp4e.npc-sheet .characteristics-table .table-header >a {
+  border: none;
+  box-shadow: none;
+}
 
 .wfrp4e.npc-sheet .movement {
   display: flex;
@@ -6006,7 +6018,6 @@ input[type="text"], input[type="password"] {
   position: relative;
   top: 0px;
   left: 0px;
-  color: #672323;
   text-shadow: 1px 0px 1px #6e6e716e;
 }
   .wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="wp"],

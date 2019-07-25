@@ -1762,7 +1762,9 @@ class ActorWfrp4e extends Actor {
     data.status.wounds.value = data.status.wounds.value
       
     if (actorData.flags.autoCalcEnc)
+    {
       actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
+    }
     
     return actorData;
     }
@@ -1817,7 +1819,6 @@ class ActorWfrp4e extends Actor {
    * @param {String} characteristicId     The characteristic id (e.g. "ws")
    */
   rollCharacteristic(characteristicId) {
-    this.addbasicSkills();
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " Test";
     let testData = {
@@ -2569,11 +2570,6 @@ class ItemWfrp4e extends Item {
 
     if (data.weaponGroup.value)
       properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
-
-    if (data.twohanded.value)
-      properties.push("Two Handed");
-    if (data.reach.value)
-      properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
     if (data.damage.meleeValue)
@@ -2582,6 +2578,11 @@ class ItemWfrp4e extends Item {
       properties.push("Ranged Damage: " + data.damage.rangedValue);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
+    if (data.twohanded.value)
+      properties.push("Two Handed");
+    if (data.reach.value)
+      properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+
     properties = properties.filter(p => p != "Special");
     if (data.special.value)
       properties.push ("Special: " + data.special.value);
@@ -3034,6 +3035,18 @@ class ActorSheetWfrp4e extends ActorSheet {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
         sheetData.actor.data.details.move.run += sheetData.actor.data.details.move.walk;
     } 
+
+    if (sheetData.actor.flags.autoCalcEnc)
+    {
+      let strongBackTalent = sheetData.actor.talents.find(t => t.name.toLowerCase() == "strong back")
+      let sturdyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase() == "sturdy")
+
+      if (strongBackTalent)
+        sheetData.actor.data.status.encumbrance.max += strongBackTalent.data.advances.value;
+      if (sturdyTalent)
+        sheetData.actor.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
+
+    }
     
     // Return data to the sheet
     sheetData.isToken = this.actor.token;
@@ -5042,61 +5055,20 @@ class WFRP_Utility
     let wearingPlate = false;
     for (let a of armorList)
     {
-      if (a.data.armorType.value == "mail")
-        wearingMail = true;
-      else if (a.data.armorType.value == "plate")
-        wearingPlate = true;
-
-      if (a.data.penalty.value.trim() == "")
-        continue;
-      
-      let penalties = a.data.penalty.value.split(",").map(function(item) {
-        return item.trim();
-      });
-
-      for(let p of penalties)
-      {
-        let penaltyandSkill = p.split(" ").map(function(item) {
-          return item.trim();
-        });
-        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
-
-        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
-        if (existingPenalty == -1)
-        {
-          armorPenalties.skill.push(penaltyandSkill[1]);
-          armorPenalties.penalty.push(penaltyandSkill[0]);
-        }
-        else
-        {
-          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
-        }
-      }
+      armorPenaltiesString += a.data.penalty.value + " ";
     }
 
     if (wearingMail || wearingPlate)
     {
-      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      if (stealthPenalty == -1)
-      {
-        armorPenalties.skill.push("Stealth");
-        armorPenalties.penalty.push(0);
-        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      }
-
+      let stealthPenaltyValue = 0;
       if (wearingMail)
-        armorPenalties.penalty[stealthPenalty] += -10;
+        stealthPenaltyValue += -10;
       if (wearingPlate)
-        armorPenalties.penalty[stealthPenalty] += -10;
-    }
+        stealthPenaltyValue += -10;
 
-    for (let i = 0; i < armorPenalties.skill.length; i++)
-    {
-      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
-      if (i != armorPenalties.skill.length - 1)
-        armorPenaltiesString = armorPenaltiesString.concat(", ");
-
+      armorPenaltiesString += a.data.penalty.value + " ";
     }
+    
     return armorPenaltiesString;
   }
 
