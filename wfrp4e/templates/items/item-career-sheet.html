@@ -1,94 +1,105 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
-    {{> public/systems/wfrp4e/templates/items/item-header.html}}
+  {{> public/systems/wfrp4e/templates/items/item-header.html}}
 
-    <nav class="sheet-tabs tabs" data-tab-container="primary">
-        <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="details">Details</a>
-    </nav>
+  <nav class="sheet-tabs tabs" data-tab-container="primary">
+    <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="details">Details</a>
+  </nav>
 
-    {{> public/systems/wfrp4e/templates/items/item-description.html}}
+  {{> public/systems/wfrp4e/templates/items/item-description.html}}
 
-    <div class="tab" data-tab="details">
-        <div class="form-group">
-            <label>{{data.class.label}}</label>
-            <input type="text" name="data.class.value" value="{{data.class.value}}" data-dtype="{{data.class.type}}"/>
-        </div>
-
-        <div class="form-group">
-            <label>{{data.careergroup.label}}</label>
-            <input type="text" name="data.careergroup.value" value="{{data.careergroup.value}}" data-dtype="{{data.careergroup.type}}"/>
-        </div>
-
-        <div class="form-group">
-            <label>{{data.level.label}}</label>
-            <select name="data.level.value" data-dtype="{{data.level.type}}">
-                {{#select data.level.value}}
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                {{/select}}
-            </select>
-        </div>
-
-        <div class="form-group">
-            <div class="form-group">
-            <label>Status Tier</label>
-                <select name="data.status.tier" data-dtype="String">
-                    {{#select data.status.tier}}
-                    <option value=""></option>
-                    {{#each statusTiers as |t tier|}}
-                    <option value="{{tier}}">{{t}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Status Standing</label>
-            <input type="text" name="data.status.standing" value="{{data.status.standing}}" data-dtype = "Number"/>
-        </div>
-
-
-        
-        <div class="form-group">
-            <div class="form-group">
-            <label>Characteristics</label>
-                {{#each characteristicList as |charValue charIndex|}}
-                <label>{{charValue.abrev}}</label>
-
-                {{#if charValue.checked}}
-                <a class="char-checkbox" name ={{charIndex}}><i class="far fa-check-circle"></i></a>
-                {{else}}
-                <a class="char-checkbox" name ={{charIndex}} ><i class="far fa-circle"></i></a>
-                {{/if}}
-                {{/each}}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Skills</label>
-            <input class="csv-input" data-dest = "skills"  value="{{skills}}"  type="text" data-dtype = "String"/>
-        </div>
-
-        
-        <div class="form-group">
-            <label>Earning Skill</label>
-            <input class="csv-input" data-dest = "earning" value="{{earningSkills}}"  type="text" data-dtype = "String"/>
-        </div>
-
-        
-        <div class="form-group">
-            <label>Talents</label>
-            <input class="csv-input" data-dest = "talents" value="{{talents}}"  type="text" data-dtype = "String"/>
-        </div>
-
-
-        
-        <div class="form-group">
-            <label>Trappings</label>
-            <input class="csv-input" data-dest = "trappings"  value="{{trappings}}"  type="text" data-dtype = "String"/>
-        </div>
+  <div class="tab details" data-tab="details">
+    <div class="form-group">
+      <label class="label-text">{{data.class.label}}</label>
+      <div class="input-box">
+        <input type="text" name="data.class.value" value="{{data.class.value}}" data-dtype="{{data.class.type}}" />
+      </div>
     </div>
+
+    <div class="form-group">
+      <label class="label-text">{{data.careergroup.label}}</label>
+      <div class="input-box">
+        <input type="text" name="data.careergroup.value" value="{{data.careergroup.value}}"
+          data-dtype="{{data.careergroup.type}}" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">{{data.level.label}}</label>
+      <select name="data.level.value" data-dtype="{{data.level.type}}">
+        {{#select data.level.value}}
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Status Tier</label>
+      <select name="data.status.tier" data-dtype="String">
+        {{#select data.status.tier}}
+        <option value=""></option>
+        {{#each statusTiers as |t tier|}}
+        <option value="{{tier}}">{{t}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Status Standing</label>
+      <div class="input-box">
+        <input type="text" name="data.status.standing" value="{{data.status.standing}}" data-dtype="Number" />
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label class="label-text">Characteristics</label>
+      {{#each characteristicList as |charValue charIndex|}}
+      <label class="label-text-char">{{charValue.abrev}}</label>
+
+      {{#if charValue.checked}}
+      <a class="char-checkbox" name={{charIndex}}><i class="far fa-check-circle"></i></a>
+      {{else}}
+      <a class="char-checkbox" name={{charIndex}}><i class="far fa-circle"></i></a>
+      {{/if}}
+      {{/each}}
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Skills</label>
+      <div class="input-box">
+        <input class="csv-input" data-dest="skills" value="{{skills}}" type="text" data-dtype="String" />
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="label-text">Earning Skill</label>
+      <div class="input-box">
+        <input class="csv-input" data-dest="earning" value="{{earningSkills}}" type="text" data-dtype="String" />
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="label-text">Talents</label>
+      <div class="input-box">
+        <input class="csv-input" data-dest="talents" value="{{talents}}" type="text" data-dtype="String" />
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label class="label-text">Trappings</label>
+      <div class="input-box">
+        <input class="csv-input" data-dest="trappings" value="{{trappings}}" type="text" data-dtype="String" />
+      </div>
+    </div>
+  </div>
 </form>

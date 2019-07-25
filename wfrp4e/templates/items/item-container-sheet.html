@@ -1,70 +1,86 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
-    {{> public/systems/wfrp4e/templates/items/item-header.html}}
+  {{> public/systems/wfrp4e/templates/items/item-header.html}}
+
+
+  <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+
+  <div class="item-details row1">
+    <label class="label-text">Quantity</label>
+    <div class="input-box">
+      <input class="input-text" type="text" name="data.quantity.value" value="{{data.quantity.value}}"
+        data-dtype="{{data.quantity.type}}" />
+    </div>
+    <label class="label-text">Enumbrance</label>
+    <div class="input-box">
+      <input class="input-text" type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}"
+        data-dtype="{{data.encumbrance.type}}" />
+    </div>
+    <label class="label-text">Price</label>
+    <div style="margin-right: 0px;" class="input-box">
+      <input class="input-text" type="text" name="data.price.gc" value="{{data.price.gc}}"
+        data-dtype="{{data.price.type}}" placeholder="GC" />
+    </div>
+  </div>
+
+  <div class="item-details row2">
+    <label class="label-text" style="flex-grow: 0; width: 69px;">Category</label>
+    <div class="input-box" style="margin-right: 0px; flex-grow: 2; text-align: center;">
+      <input class="input-text" type="text" />
+    </div>
+  </div>
+
+  <nav class="sheet-tabs tabs" data-tab-container="primary">
+    <a class="item active" data-tab="description">Description</a>
+    <a class="item" data-tab="details">Details</a>
+  </nav>
+  <div class="sheet-tabs edges left"></div>
+  <div class="sheet-tabs edges right"></div>
 
 
 
+  {{> public/systems/wfrp4e/templates/items/item-description.html}}
 
-    <nav class="sheet-tabs tabs" data-tab-container="primary">
-        <a class="item active" data-tab="description">Description</a>
-        <a class="item" data-tab="details">Details</a>
-    </nav>
+  <div class="tab details" data-tab="details">
 
-    <div class="tab" data-tab="description">
-    {{> public/systems/wfrp4e/templates/items/item-description.html}}
+    <div class="form-group">
+      <label class="label-text">Container</label>
+      <div class="input-box">
+        <input class="input-text" type="text" name="data.carries.value" value="{{data.carries.value}}"
+          data-dtype="{{data.carries.type}}" />
+      </div>
     </div>
 
-    <div class="tab" data-tab="details">
+    <div class="form-group">
+      <label class="label-text">{{data.availability.label}}</label>
+      <select name="data.availability.value" data-dtype={{data.availability.type}}>
+        {{#select data.availability.value}}
+        {{#each availability as |avail a|}}
+        <option value="{{a}}">{{avail}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
 
-    <ol class="item-details">
-        <li>
-            <label>Enc</label>
-            <input type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}" data-dtype="{{data.encumbrance.type}}"/>
-        </li>    
-        <li>
-            <label>Carries</label>
-            <input type="text" name="data.carries.value" value="{{data.carries.value}}" data-dtype="{{data.carries.type}}"/>
-        </li>   
-        <li>
-            <label>Price</label>
-            <input type="text" name="data.price.gc" value="{{data.price.gc}}" data-dtype="{{data.price.type}}" placeholder="GC"/>
-            GC
-            <input type="text" name="data.price.ss" value="{{data.price.ss}}" data-dtype="{{data.price.type}}" placeholder="SS"/>
-            /
-            <input type="text" name="data.price.bp" value="{{data.price.bp}}" data-dtype="{{data.price.type}}" placeholder="BP"/>
-        </li>
-    </ol>
-        <div class="form-group">
-            <label>{{data.availability.label}}</label>
-            <select name ="data.availability.value" data-dtype={{data.availability.type}}>
-                {{#select data.availability.value}}
-                {{#each availability as |avail a|}}
-                <option value="{{a}}">{{avail}}</option>
-                {{/each}}
-                {{/select}}
-            </select>
-        </div>
-        <div class = "form-group">
+    <div class="form-group">
+      <label class="label-text">Wearable</label>
+      {{#if data.wearable.value}}
+      <a class="item-checkbox" data-target="wearable.value"><i class="far fa-check-circle"></i></a>
+      {{else}}
+      <a class="item-checkbox" data-target="wearable.value"><i class="far fa-circle"></i></a>
+      {{/if}}
+    </div>
 
-            
+    <div class="form-group" title="Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)">
+      <label class="label-text">Count Enc</label>
+      {{#if data.countEnc.value}}
+      <a class="item-checkbox" data-target="countEnc.value"><i class="far fa-check-circle"></i></a>
+      {{else}}
+      <a class="item-checkbox" data-target="countEnc.value"><i class="far fa-circle"></i></a>
+      {{/if}}
+    </div>
+
+  </div>
 
 
-            <label>Wearable</label>
-            {{#if data.wearable.value}}
-            <a class="item-checkbox" data-target="wearable.value"><i class="far fa-check-circle"></i></a>
-            {{else}}
-            <a class="item-checkbox" data-target ="wearable.value" ><i class="far fa-circle"></i></a>
-            {{/if}}
-        </div>
 
-        <div class = "form-group" title = "Add this encumbrance to character's encumbrance (uncheck if not carried around e.g. a cart)">
-            <label>Count Enc</label>
-
-            {{#if data.countEnc.value}}
-            <a class="item-checkbox" data-target="countEnc.value"><i class="far fa-check-circle"></i></a>
-            {{else}}
-            <a class="item-checkbox" data-target ="countEnc.value" ><i class="far fa-circle"></i></a>
-            {{/if}}
-        </div>
-
-</div>
 </form>

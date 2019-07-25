@@ -45,7 +45,7 @@
       left: 0px !important;
     }
 
-  /* ==================== (A) BUTTON BEHAVIOR CHANGES =========== */
+  /* ==================== (B) BUTTON BEHAVIOR CHANGES =========== */
     a:hover {
       text-shadow: 0 0 8px #ff9f00;
     }
@@ -53,6 +53,10 @@
       box-shadow: 0 0 5px #ff9f00;
     }
 
+  /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
+  p {
+    font-family: CaslonPro;
+  }
 /******************************************************************/
 /******************************************************************/
 
@@ -554,7 +558,9 @@
   border-image-width: 59px;
   border-image-outset: 0px;
   min-width: 540px;
-  min-height: 616px;
+  min-height: 552px;
+  /* width: 540px !important; */
+  /* height: 552px !important; */
 }
 .app.window-app.sheet.item-sheet .window-header {
   flex: 0 0 30px;
@@ -618,6 +624,10 @@
     display: inline-block;
     box-shadow: 0px 0px 3px black inset;
     opacity: 0.9;
+  }
+  .app.window-app.sheet.item-sheet input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow:none;
+    outline: none;
   }
 
   .app.window-app.sheet.item-sheet .item-details > li > * {
@@ -709,21 +719,73 @@
         vertical-align: top;
         text-align: center;
       }
+      .app.window-app.sheet.item-sheet .item-details.row2 .input-text {
+        flex-grow: 2;
+        width: 100%;
+      }
       .app.window-app.sheet.item-sheet .item-details .input-text:hover {
         border: 1px dotted #463a3a;
         box-shadow: none;
       }
+    .app.window-app.sheet.item-sheet .sheet-tabs.edges.left {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 170px;
+      left: 59px;
+      z-index: 101;
+    }
+    .app.window-app.sheet.item-sheet .sheet-tabs.edges.right {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 170px;
+      right: 59px;
+      z-index: 101;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
     .app.window-app.sheet.item-sheet .sheet-tabs {
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: 6px 0px 0px 0px;
+      margin: -52px 0px 0px 0px;
+      height: 26px;
+      position: relative;
     }
-      .app.window-app.sheet.item-sheet .sheet-tabs > a {
-        border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat; 
-        border-image-width: 4px;
+      .app.window-app.sheet.item-sheet .sheet-tabs.tabs > a {
         border-image-outset: 0px;
+        color: #403f3e;
+        border: 1px solid blue;
+        border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
+        border-image-width: 4px;
+        padding: 3px 0px 0px 0px;
       }
+      .app.window-app.sheet.item-sheet .sheet-tabs.tabs .item.active {
+        border-radius: 0px;
+        border-bottom: none;
+        width: 72px;
+        color: #4a0404;
+        box-shadow: none;
+        text-shadow: none;
+      }
+
+    .app.window-app.sheet.item-sheet .tab.details.active {
+      display: flex;
+      flex-flow: column;
+      height: calc(100% - 129px);
+      overflow-y: scroll;
+    }
     .app.window-app.sheet.item-sheet .tab .label-text {
       font-family: CaslonAntique;
       font-weight: 700;
@@ -737,13 +799,14 @@
       padding: 0px 3px 0px 3px;
       flex-grow: 2;
       vertical-align: middle;
+      width: 406px;
     }
       .app.window-app.sheet.item-sheet .tab .form-group {
         clear: both;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin: 6px 0px 0px 0px;
+        margin: 6px 5px 0px 0px;
       }
       .app.window-app.sheet.item-sheet .tab .input-box {
         height: 25px;
@@ -796,13 +859,32 @@
         color: black;
         height: 25px;
       }
+      .app.window-app.sheet.item-sheet .tab .form-group .item-checkbox {
+        height: 25px;
+        border: 1px dotted #736953a6;
+        border-left: none;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: black;
+        padding-top: 5px;
+        margin-right: 0px;
+        width: 45px;
+        position: relative;
+        left: 0px;
+        text-align: center;
+      }
       .app.window-app.sheet.item-sheet .tab .form-group-stacked {
         clear: both;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin: 6px 0px 0px 0px;
+        margin: 6px 5px 0px 0px;
+        padding-top: 0px;
       }
+        .app.window-app.sheet.item-sheet .tab .form-group-stacked .label-text {
+          padding-top: 3px;
+        }
         .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-box {
           height: 24px;
           border: 1px solid #736953a6;
@@ -815,21 +897,81 @@
           margin-right: 0px;
           width: 45px;
           position: relative;
+          top: 0px;
           left: 0px;
         }
-.app.window-app.sheet.item-sheet .editor {
-  height: 24px;
-  border: 1px solid #736953a6;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: black;
-  padding-top: 0px;
-  margin-right: 0px;
-  width: 45px;
-  position: relative;
-  left: 0px;
-}
+        .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-text {
+          text-align: left;
+        }
+
+  .app.window-app.sheet.item-sheet .tab.active {
+    display: flex;
+    flex-flow: column;
+    height: calc(100% - 129px);
+  }      
+    .app.window-app.sheet.item-sheet .editor {
+      border: 1px solid #736953a6;
+      box-shadow: 0px 0px 1px inset black;
+      overflow: auto;
+      flex-grow: 1;
+      display: flex;
+      padding: 3px;
+    }
+
+
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar {
+    width: 10px;
+    /* margin-top: 6px;
+    margin-bottom: 6px; */
+    /* left:-100px; */
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 0px;
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-thumb {
+    outline: none;
+    border-radius: 3px;
+    background: none;
+    /* background: url(../ui/scrollbar.png) no-repeat;  */
+    border-image: url(../ui/sheet-scrollbar-thumb.png) 10 repeat;
+    border-image-width: 5px;
+    border-image-outset: 0px;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button {
+    background: #782e22;
+    height: 23px;
+    border: none;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:start:decrement {
+    background: url(../ui/sheet-scrollbar-button-vertical-decrement.png) no-repeat;
+    background-position: center;
+    box-shadow: none;
+    box-shadow: none; 
+    height: 16px;
+    background-position-y: 7px;
+  } 
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:end:increment {
+    background: url(../ui/sheet-scrollbar-button-vertical-increment.png) no-repeat;
+    background-position: center;
+    background-position-y: 0px;
+    box-shadow: none; 
+    height: 16px;
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:start:increment,
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:end:decrement {
+      display: none;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
+    background: url(../ui/sheet-scrollbar-track.png) repeat-y;
+    background-position: center;
+    background-size: 4px 68px;
+  
+    box-shadow: none;
+  }
 
 /******************************************************************/
 /******************************************************************/
@@ -5486,20 +5628,22 @@ input[type="text"], input[type="password"] {
         }
 
         .wfrp4e .notes-section .gmnotes,
-          .wfrp4e .notes-section .biography {
-          height: 160px;
+        .wfrp4e .notes-section .biography {
+          height: 260px;
           width: 493px;
           background-color: #9e856a0d;
           border: 1px solid #736953a6;
           margin: 0px;
           padding: 0px;
           margin-top: 6px;
+          display: flex;
+          flex-flow: column;
         } 
         .wfrp4e.npc-sheet .notes-section .biography {
           height: 265px;
         }
         .wfrp4e .notes-section .gmnotes > h2,
-          .wfrp4e .notes-section .biography > h2 {
+        .wfrp4e .notes-section .biography > h2 {
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
@@ -5519,19 +5663,26 @@ input[type="text"], input[type="password"] {
             display: flex;
             flex-direction: row;
             padding-left: 4px;
-          }
+        }
         .wfrp4e .notes-section .gmnotes .editor ,
-          .wfrp4e .notes-section .biography .editor {
-            height: 137px;
-            border: 0px #0000ff00 solid;
-            width: 100%;
-            padding-left: 5px;
-            padding-right: 5px;
-            box-shadow: 0px 0px 1px inset black;
-          }
+        .wfrp4e .notes-section .biography .editor {
+          height: 137px;
+          border: 0px #0000ff00 solid;
+          width: 100%;
+          padding-left: 5px;
+          padding-right: 5px;
+          box-shadow: 0px 0px 1px inset black;
+          flex-grow: 1;
+          display: flex;
+        }
 
           .wfrp4e.npc-sheet .notes-section .biography .editor {
             height: calc(100% - 20px);
+          }
+          .app.sheet .editor-content {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
           }
 
 
