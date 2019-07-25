@@ -56,8 +56,13 @@
             <div class="form-group">
             <label>Characteristics</label>
                 {{#each characteristicList as |charValue charIndex|}}
-                    <label>{{charValue.abrev}}</label>
-                    <input class="char-checkbox"type="checkbox" name="{{charIndex}}" value="{{charValue.checked}}" data-dtype="Boolean" {{checked charValue.checked}}/>
+                <label>{{charValue.abrev}}</label>
+
+                {{#if charValue.checked}}
+                <a class="char-checkbox" name ={{charIndex}}><i class="far fa-check-circle"></i></a>
+                {{else}}
+                <a class="char-checkbox" name ={{charIndex}} ><i class="far fa-circle"></i></a>
+                {{/if}}
                 {{/each}}
             </div>
         </div>

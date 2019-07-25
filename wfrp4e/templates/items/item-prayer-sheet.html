@@ -36,7 +36,12 @@
 
         <div class="form-group">
          <label>AoE</label>
-         <input type="checkbox" name="data.target.aoe" value="{{data.target.aoe}}" data-dtype="Boolean" {{checked data.target.aoe}}/>
+
+         {{#if data.target.aoe}}
+         <a class="item-checkbox" data-target="target.aoe"><i class="far fa-check-circle"></i></a>
+         {{else}}
+         <a class="item-checkbox" data-target ="target.aoe" ><i class="far fa-circle"></i></a>
+         {{/if}}
       </div>
 
       {{#unless data.target.aoe}}      

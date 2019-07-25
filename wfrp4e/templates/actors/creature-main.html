@@ -19,11 +19,11 @@
     </div>
 
     {{#if actor.talents}}
-    <div class="list creature-talents">
+    <div class="list creature-talents item" data-item-id="{{item.id}}">
       <a class="creature-talents label">Talents:</a>
       {{#each actor.talents as |item i|}}
-      <div class="talents content" data-item-id="{{item.id}}">
-        <a class="talents name">{{item.name}} </a>
+      <div class="talents content item" data-item-id="{{item.id}}">
+        <a class="talents name item-dropdown">{{item.name}} </a>
         <a class="talents advances">{{item.data.advances.value}} </a>
       </div>
       {{/each}}
@@ -34,8 +34,8 @@
     <div class="list creature-traits">
       <a class="creature-traits label">Traits:</a>
       {{#each actor.traits as |item i|}}
-      <div class="traits content" data-item-id="{{item.id}}">
-        <a class="traits name">{{item.name}} </a>
+      <div class="traits content item" data-item-id="{{item.id}}">
+        <a class="traits name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -45,8 +45,8 @@
     <div class="list creature-mutations">
       <a class="creature-mutations label">Corruption & Mutations:</a>
       {{#each actor.mutations as |item i|}}
-      <div class="mutations content" data-item-id="{{item.id}}">
-        <a class="mutations name">{{item.name}} </a>
+      <div class="mutations content item" data-item-id="{{item.id}}">
+        <a class="mutations name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -56,8 +56,8 @@
     <div class="list creature-psychology">
       <a class="creature-psychology label">Psychology:</a>
       {{#each actor.psychology as |item i|}}
-      <div class="psychology content" data-item-id="{{item.id}}">
-        <a class="psychology name">{{item.name}} </a>
+      <div class="psychology content item" data-item-id="{{item.id}}">
+        <a class="psychology name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
@@ -68,133 +68,14 @@
     <div class="list creature-injuries">
       <a class="creature-injuries label">Injuries:</a>
       {{#each actor.injuries as |item i|}}
-      <div class="injuries content" data-item-id="{{item.id}}">
-        <a class="injuries name">{{item.name}} </a>
+      <div class="injuries content item" data-item-id="{{item.id}}">
+        <a class="injuries name item-dropdown">{{item.name}} </a>
       </div>
       {{/each}}
     </div>
     {{/if}}
   </div>
 
-
-  <div class="weapons">
-    <div class="melee-type">
-      <div class="inventory-header melee-title">
-        <div class="header-name">Melee Weapon(s)<a class="fist-icon"><i class="fa fa-fist-raised"></i></a> </div>
-        <div class="header-group">Group</div>
-        <div class="header-damage">Damage</div>
-        <div class="header-reach">Reach</div>
-      </div>
-      <ol class="inventory-list weapon-list" weapon-type="melee">
-        {{#each actor.weapons as |item i|}}
-        {{#if item.meleeWeaponType}}
-        <li class="item" data-item-id="{{item.id}}">
-          <div class="weapon-name">
-            <a class="item-image" style="background-image: url({{item.img}})"></a>
-            <a class="weapon-item-name">{{item.name}}</a>
-          </div>
-          <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
-          <div class="weapon-damage">+{{item.data.damage.meleeValue}}</div>
-          <a class="weapon-reach">{{item.data.reach.value}}</a>
-          <div class="weapon-property">
-            <div>
-
-              {{#if item.properties.special}}
-              {{#each item.properties.special as |property p|}}
-              <a class='ranged-property-quality quality-label'>{{property}}</a>
-              {{/each}}
-              {{/if}}
-
-              {{#if item.properties.qualities}}
-              <span class="quality-label">Q:</span>
-              {{#each item.properties.qualities as |property p|}}
-              <a class='melee-property-quality'>{{property}},</a>
-              {{/each}}
-              {{/if}}
-
-              {{#if item.properties.flaws}}
-              <span class="flaw-label">F:</span>
-              {{#each item.properties.flaws as |property p|}}
-              <a class='melee-property-flaw'>{{property}},</a>
-              {{/each}}
-              {{/if}}
-            </div>
-        </li>
-        {{/if}}
-        {{/each}}
-      </ol>
-    </div>
-
-    <div class="ranged-type">
-      <div class="inventory-header ranged-title">
-        <div class="header-name">Ranged Weapon(s)</div>
-        <div class="header-group">Group</div>
-        <div class="header-ammo">Ammunition</div>
-        <div class="header-damage">Damage</div>
-        <div class="header-range">Range</div>
-      </div>
-      <ol class="inventory-list weapon-list" weapon-type="ranged">
-        {{#each actor.weapons as |item i|}}
-        {{#if item.rangedWeaponType}}
-        <li class="item" data-item-id="{{item.id}}">
-          <div class="weapon-name">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
-            <a class="weapon-item-name">{{item.name}}</a>
-          </div>
-          <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
-          {{#if item.data.ammunitionGroup.value}}
-          <div class="ammo-selector selector">
-            <select name="item.data.currentAmmo.value" data-item-id="{{item.id}}"
-              data-dtype="{{item.data.currentAmmo.type}}">
-              {{#select item.data.currentAmmo.value}}
-              <option class="ammo-option" value="0">None</option>
-              {{#each item.ammo as |ammo a|}}
-              <option class="ammo-option" value="{{ammo.id}}"> ({{ammo.data.quantity.value}}) {{ammo.name}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-          </div>
-          {{else}}
-          <div class="no-ammo">
-            None
-          </div>
-          {{/if}}
-          <div class="weapon-damage">+{{item.data.damage.rangedValue}}</div>
-          <a class="weapon-range">{{item.data.range.value}}</a>
-          <div class="weapon-property">
-
-            {{#if item.properties.special}}
-            {{#each item.properties.special as |property p|}}
-            <a class='ranged-property-quality quality-label'>{{property}}</a>
-            {{/each}}
-            {{/if}}
-
-            {{#if item.properties.qualities}}
-            <span class="quality-label">Q:</span>
-            {{#each item.properties.qualities as |property p|}}
-            <a class='ranged-property-quality'>{{property}},</a>
-            {{/each}}
-            {{/if}}
-
-            {{#if item.properties.flaws}}
-            <span class="flaw-label">F:</span>
-            {{#each item.properties.flaws as |property p|}}
-            <a class='ranged-property-flaw'>{{property}},</a>
-            {{/each}}
-            {{/if}}
-
-          </div>
-        </li>
-        {{/if}}
-        {{/each}}
-      </ol>
-    </div>
-  </div>
-
-
-
-
-  <!-- ARMOR BOXES -->
 
   <div class="penalties">
     <h3>Penalties</h3>

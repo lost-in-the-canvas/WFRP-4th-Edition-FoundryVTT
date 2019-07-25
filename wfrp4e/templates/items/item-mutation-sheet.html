@@ -25,7 +25,12 @@
 
          <div title = "Show the modifier in the Skills 'penalty' box" class="form-group">
             <label>{{data.modifiesSkills.label}}</label>
-            <input type="checkbox" name="data.modifiesSkills.value" value="{{data.modifiesSkills.value}}" data-dtype="Boolean" {{checked data.modifiesSkills.value}}/>
+
+            {{#if data.modifiesSkills.value}}
+            <a class="item-checkbox" data-target="modifiesSkills.value"><i class="far fa-check-circle"></i></a>
+            {{else}}
+            <a class="item-checkbox" data-target ="modifiesSkills.value" ><i class="far fa-circle"></i></a>
+            {{/if}}
          </div>
 
 </form>

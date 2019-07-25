@@ -1617,9 +1617,11 @@ Hooks.on("chatMessage", async (html, content, msg) => {
 class ActorWfrp4e extends Actor {
 
 
-
+  
   // Give new actor all Basic skills
   static async create(data, options) {
+
+
     if (data.type == "character")
     {
       let id = 1;
@@ -1644,43 +1646,96 @@ class ActorWfrp4e extends Actor {
             data.items.push(skillItem.data);
         }
       }
-    }
-    // Default auto calculation to true
-    data.flags = 
-    {
-      autoCalcRun :  true,
-      autoCalcWalk :  true,
-      autoCalcWounds :  true,
-      autoCalcCritW :  true,
-      autoCalcCorruption :  true,
-      autoCalcEnc :  true
-    }
-
-    /*for (let item of Item.collection.entities)
-    {
-      if (item.img.includes ("blank"))
+      // Default auto calculation to true
+      data.flags = 
       {
-        console.log("Test")
-        item.update({"img" : "systems/wfrp4e/icons/blank.png"});
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
       }
-    }*/
-    
+      super.create(data, options);
 
-    // let pack = game.packs.find(p => p.collection == "wfrp4e.injuries")
-    // let list;
-    // await pack.getIndex().then(index => list = index);
-    // for (let item of list)
-    // {
-    //   if (item.img.includes("mystery-man"))
-    //   {
-    //     await pack.updateEntity({_id: item.id, "img": "systems/wfrp4e/icons/blank.png"})
-    //     console.log("updated " + item.name)
-    //   }
-    // }
-    super.create(data, options);
-    
+    }
+
+    else if (data.type == "npc")
+    {
+      new Dialog({
+        title: "Add Basic Skills",
+        content: '<p>Add Basic Skills?</p>',
+        buttons: {
+          yes: {
+            label: "Yes",
+            callback: async dlg => {
+              let id = 1;
+              const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+              let skills = [];
+              console.log(pack);
+              await pack.getIndex().then(index => skills = index);
+              data.items = [];
+              for (let sk of skills)
+              {
+                let skillItem = undefined;
+                await pack.getEntity(sk.id).then(skill => skillItem = skill);
+                skillItem.data.id = id;
+                id++;
+                if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
+                  data.items.push(skillItem.data);
+                else if (skillItem.data.data.advanced.value == "bsc")
+                {
+                  let startParen = skillItem.data.name.indexOf("(")
+                  skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+                  if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
+                    data.items.push(skillItem.data);
+                }
+              }
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+          no: {
+            label: "No",
+            callback: async dlg => {
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+        },
+        default: 'yes'
+      }).render(true);
+    }
+    else
+    {
+      data.flags = 
+      {
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
+      }
+      super.create(data, options);
+    }
   }
-
   // Calculate dynamic data like Characteristic totals and movemen values
   prepareData(actorData) {
     try {
@@ -1762,6 +1817,7 @@ class ActorWfrp4e extends Actor {
    * @param {String} characteristicId     The characteristic id (e.g. "ws")
    */
   rollCharacteristic(characteristicId) {
+    this.addbasicSkills();
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " Test";
     let testData = {
@@ -2435,6 +2491,9 @@ class ItemWfrp4e extends Item {
   _mutationExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
+    data.properties.push(CONFIG.mutationTypes[this.data.data.mutationType.value]);
+    if (this.data.data.modifier.value)
+      data.properties.push(this.data.data.modifier.value)
     return data;
   }
 
@@ -2511,6 +2570,8 @@ class ItemWfrp4e extends Item {
     if (data.weaponGroup.value)
       properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
 
+    if (data.twohanded.value)
+      properties.push("Two Handed");
     if (data.reach.value)
       properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
@@ -2732,25 +2793,35 @@ class ItemSheetWfrp4e extends ItemSheet {
     }),
 
     
-    html.find('.char-checkbox').change(async event => {
-      let charChanged = event.target.attributes.name.value;
-      let newValue = event.target.checked;
+    html.find('.char-checkbox').click(async event => {
+      let charChanged = $(event.currentTarget).attr("name")
 
       let characteristicList = duplicate(this.item.data.data.characteristics);
-      
-      if (newValue)
-      {
-        if (!characteristicList.includes(charChanged))
-          characteristicList.push(charChanged);
-      }
+
+      if (characteristicList.includes(charChanged))
+        characteristicList.splice(characteristicList.findIndex(c => c == charChanged));
       else
-        characteristicList = characteristicList.filter(c => c != charChanged);
+        characteristicList.push(charChanged);
+      
+      // if (newValue)
+      // {
+      //   if (!characteristicList.includes(charChanged))
+      //     characteristicList.push(charChanged);
+      // }
+      // else
+      //   characteristicList = characteristicList.filter(c => c != charChanged);
       
       if (this.item.actor)
         this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
       else
         await this.item.update({'data.characteristics' : characteristicList})
 
+    }),
+
+    html.find(".item-checkbox").click(async event => {
+      let target = $(event.currentTarget).attr("data-target");
+      let path = target.split(".");
+      this.item.update({[`data.${target}`] : !this.item.data.data[path[0]][path[1]]})
     }),
 
     // This listener converts comma separated lists in the career section to arrays,
@@ -2997,10 +3068,9 @@ class ActorSheetWfrp4e extends ActorSheet {
       const mutations = [];
       const diseases = [];
       let penalties = {
-        "Armour" : "",
-        "Injury" : "",
-        "Mutation" : "",
-        "Other" : ""
+        "Armour" : {value : ""},
+        "Injury" : {value : ""},
+        "Mutation" : {value : ""},
       };
   
       // Inventory object is for the inventory tab
@@ -3114,7 +3184,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type == "injury")
         {
           injuries.push(i);
-          penalties["Injury"] += i.data.penalty.value;
+          penalties["Injury"].value += i.data.penalty.value;
         }
   
         else if (i.type === "container")
@@ -3248,7 +3318,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
-            penalties["Mutation"] += i.data.modifier.value;
+            penalties["Mutation"].value += i.data.modifier.value;
         }
   
         else if (i.type === "money")
@@ -3321,38 +3391,45 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
 
-      if (this.actor.data.data.status.penalties.value)
+      //if (this.actor.data.data.status.penalties.value)
        // penalties.other = this.actor.data.data.status.penalties.value
-      
-      penalties["Armour"] += WFRP_Utility._calculateArmorPenalties(actorData, armour);
-      if ((penalties["Other"] + penalties["Armour"] + penalties["Mutation"] + penalties["Injury"]).length > 78)
+      let penaltiesOverflow = false;
+      penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
       {
-        actorData.penaltyOverflow = true;
-        let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
-        let injuryPenalties = injuries.reduce(function (prev, cur) {
-          return prev += cur.data.penalty.value + " "
-        }, "");
-        let mutationPenalties = mutations.reduce(function (prev, cur) {
-          if (cur.data.modifiesSkills.value)
-            return prev += cur.data.modifier.value + " "
+        penaltiesOverflow = true;
+        for (let penaltyType in penalties)
+        {
+          if (penalties[penaltyType].value)
+            penalties[penaltyType].show = true;
           else
-            return prev;
-        }, "");
-        let otherPenalties = this.actor.data.data.status.penalties.value; 
-        let allPenaltiesOverflow = {};
-        if (armourPenalties)
-          allPenaltiesOverflow["Armour"] = armourPenalties;
+            penalties[penaltyType].show = false;
+        }
+        // let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
+        // let injuryPenalties = injuries.reduce(function (prev, cur) {
+        //   return prev += cur.data.penalty.value + " "
+        // }, "");
+        // let mutationPenalties = mutations.reduce(function (prev, cur) {
+        //   if (cur.data.modifiesSkills.value)
+        //     return prev += cur.data.modifier.value + " "
+        //   else
+        //     return prev;
+        // }, "");
+        // let otherPenalties = this.actor.data.data.status.penalties.value; 
+        // let allPenaltiesOverflow = {};
+        // if (armourPenalties)
+        //   allPenaltiesOverflow["Armour"] = armourPenalties;
 
-        if (injuryPenalties)
-          allPenaltiesOverflow["Injury"] = injuryPenalties;
+        // if (injuryPenalties)
+        //   allPenaltiesOverflow["Injury"] = injuryPenalties;
 
-        if (mutationPenalties)
-          allPenaltiesOverflow["Mutation"] = mutationPenalties;
+        // if (mutationPenalties)
+        //   allPenaltiesOverflow["Mutation"] = mutationPenalties;
 
-        if (otherPenalties)
-          allPenaltiesOverflow["Other"] = otherPenalties;
+        // if (otherPenalties)
+        //   allPenaltiesOverflow["Other"] = otherPenalties;
 
-        allPenalties = allPenaltiesOverflow;
+        // allPenalties = allPenaltiesOverflow;
       }
 
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
@@ -3416,6 +3493,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.mutations = mutations;
       actorData.armour = armour;
       actorData.penalties = penalties;
+      actorData.penaltyOverflow = penaltiesOverflow;
       actorData.AP = AP;
       actorData.injuries = injuries;
       actorData.grimoire = grimoire;
@@ -4558,6 +4636,13 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           })
       });
 
+      
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+
       html.find('.npc-career').click(event => {
         event.preventDefault();
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
@@ -4710,6 +4795,25 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    
+      html.find(".item").hover(event => {
+        $(event.currentTarget).toggleClass("deletable");
+      })
+
+      html.find(".content").keypress(event => {
+        console.print(event);
+      })
+
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+  }
+
 }
 
 // Register NPC Sheet
@@ -4729,6 +4833,10 @@ class WFRP_Utility
 
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    if (item.data.duration.extendable)
+    {
+      item.duration += "+";
+    }
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
     if (item.type == "spell")
