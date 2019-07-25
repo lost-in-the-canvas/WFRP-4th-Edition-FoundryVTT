@@ -21,7 +21,7 @@
     <select name="talentBonuses" multiple>
       {{#select talentBonuses}}
       {{#each talents as |talent t|}}
-      <option value="{{talent.SL}}">• {{talent.test}} [{{talent.SL}}]
+      <option title="{{talent.talentName}}" value="{{talent.SL}}">• {{talent.test}} [{{talent.SL}}]
       </option>
       {{/each}}
       {{/select}}

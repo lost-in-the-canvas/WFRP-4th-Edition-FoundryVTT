@@ -771,71 +771,89 @@ class DiceWFRP {
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
     let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let description = "";
 
-    if (roll.total >= 96)
+
+    // Test determination logic can be complicated due to SLBonus
+    // SLBonus is always applied, but doesn't change a failure to a success or vice versa
+    // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
+    // Additionally, the auto-success/failure range can complicate things even more.
+    if (roll.total >= 96 || roll.total > targetNum)
     {
-      if (SL > -1)
-        SL = -1;
-    }
-    else if (roll.total <= 5)
-    {
-      if (SL < 1)
-        SL = 1; 
-    }
-
-    let description;
-
-    if (SL > 0){
-      description = "Success"
-      SL = SL + successBonus;
-      SL = "+" + SL.toString()
-
-    }
-    else if(SL < 0){
       description = "Failure"
-      SL = SL.toString()
-    }
-    else // SL == 0
-    { 
-      if (targetNum > roll.total)
+      if (roll.total >= 96 && SL > -1) 
+        SL = -1;
+
+      switch(Math.abs(Number(SL)))
       {
-        description = "Success"
-        SL = SL + successBonus;
-        SL = "+" + SL.toString()
-      }
-      else
-      {
-        description = "Failure"
-        SL = "-" + SL.toString() // Should result in -0
-      }
-    }
-
-
-    // Find description according to outcome table
-    switch(Math.abs(Number(SL)))
-    {
-      case 6:
-        description = "Astounding " + description;
-        break;
-      
-      case 5:
-      case 4:
-        description = "Impressive " + description;
-        break;
-
-      case 3:
-      case 2:
-        break;
-
-      case 1:
-      case 0:
-        description = "Marginal " + description;
-        break;
-
-      default: 
-        if (Math.abs(Number(SL)) > 6)
+        case 6:
           description = "Astounding " + description;
+          break;
+        
+        case 5:
+        case 4:
+          description = "Impressive " + description;
+          break;
+  
+        case 3:
+        case 2:
+          break;
+  
+        case 1:
+        case 0:
+          description = "Marginal " + description;
+          break;
+  
+        default: 
+          if (Math.abs(Number(SL)) > 6)
+            description = "Astounding " + description;
+      }
+      if (SL > 0)
+      {
+        description = "Marginal Failure";
+        SL = "+" + SL.toString();
+      }
+      if (SL == 0)
+        SL = "-" + SL.toString()    
+        
+    }
+    else if (roll.total <= 5 || roll.total <= targetNum)
+    {
+      description = "Success"
+      SL += successBonus;
+      if (roll.total <= 96 && SL < 1) 
+        SL = 1;
 
+      switch(Math.abs(Number(SL)))
+      {
+        case 6:
+          description = "Astounding " + description;
+          break;
+        
+        case 5:
+        case 4:
+          description = "Impressive " + description;
+          break;
+  
+        case 3:
+        case 2:
+          break;
+  
+        case 1:
+        case 0:
+          description = "Marginal " + description;
+          break;
+  
+        default: 
+          if (Math.abs(Number(SL)) > 6)
+            description = "Astounding " + description;
+      }
+      if (SL < 0)
+        description = "Marginal Success";
+
+      if (SL >= 0)
+        SL = "+" + SL.toString()    
+        
     }
 
     let rollResults={
@@ -868,9 +886,9 @@ class DiceWFRP {
      
      let testResults = this.rollTest(testData);
 
-     if (testResults.roll > testResults.target)
+     if (testResults.description.includes("Failure"))
      {
-       if (testResults.roll % 11 == 0 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+       if (testResults.roll % 11 == 0 || testResults.total == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
        {
          testResults.extra.fumble = "Fumble"      
          if ((weapon.data.weaponGroup.value == "Blackpowder" ||
@@ -887,10 +905,8 @@ class DiceWFRP {
          testResults.extra.critical = "Critical"
        
        if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
-         testResults.extra.critical = "Critical"
-         
+         testResults.extra.critical = "Critical"   
      }
-
      return testResults;
   } 
 
@@ -899,39 +915,46 @@ class DiceWFRP {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
     let testResults = this.rollTest(testData);
-    if (spell.data.cn.SL >= spell.data.cn.value)
-      spell.data.cn.value = 0;
 
+    if (game.settings.get("wfrp4e", "partialChannelling"))
+    {
+      spell.data.cn.value -= spell.data.cn.SL;
+    }
+    else if (spell.data.cn.SL >= spell.data.cn.value)
+    {
+      spell.data.cn.value = 0;
+    }
     if (testData.extra.malignantInfluence)
       if (Number(testResults.roll.toString().split('').pop()) == 8)
-        miscastCounter++;
+        miscastCounter++; 
     let slOver = (Number(testResults.SL) - spell.data.cn.value)
-    if (testResults.roll > testResults.target)
+
+    if (testResults.description.includes("Failure")) // Failed Test
     {
       testResults.description = "Casting Failed"
-      if (testResults.roll % 11 == 0)
+      if (testResults.roll % 11 == 0 || testResults.roll == 100)
         miscastCounter++;
     }
-    else if (slOver < 0)
+    else if (slOver < 0) // Successful test, but unable to cast
     {
       testResults.description = "Casting Failed"
 
       // TODO: If no ID
-      if (testResults.roll % 11 == 0)
+      if ((testResults.roll % 11 == 0)&& !testData.extra.ID)
       {
         testResults.description = "Casting Succeeded"
         testResults.extra.critical = "Critical Cast"
         miscastCounter++;
       }
     }
-    else
+    else // Successful test, casted 
     {
       testResults.description = "Casting Succeeded"
       let overcasts = Math.floor(slOver / 2);
       testResults.overcasts = overcasts;
 
       // If no ID
-      if (testResults.roll % 11 == 0)
+      if (testResults.roll % 11 == 0 && !testData.extra.ID)
         miscastCounter++;
     }
 
@@ -977,18 +1000,17 @@ class DiceWFRP {
      if (testData.extra.malignantInfluence)
        if (Number(testResults.roll.toString().split('').pop()) == 8)
          miscastCounter++;
-       
-      
-     if (testResults.roll > testResults.target)
-     {
+    
+      if (testResults.description.includes("Failure")) // Failed Test
+      {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
         if (Number(SL) == 0) 
           SL = -1;
 
        testResults.description = "Channell Failed"
-       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0)
+       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0 || testResults.total == 100)
          miscastCounter += 2;
-     }
+      }
      else
      {
        testResults.description = "Channell Succeeded"
@@ -996,8 +1018,8 @@ class DiceWFRP {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
        if (Number(SL) == 0)
         SL = 1;
-       // If no ID
-       if (testResults.roll % 11 == 0)
+
+        if (testResults.roll % 11 == 0 && !testData.extra.AA)
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
@@ -1054,7 +1076,7 @@ class DiceWFRP {
   let currentSin = actor.data.data.status.sin.value;
 
 
-   if (testResults.roll > testResults.target)
+   if (testResults.description.includes("Failure"))
    {
      testResults.description = "Prayer Refused"
      if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
@@ -1543,6 +1565,17 @@ Hooks.once("init", () => {
       default: true,
       type: Boolean
     });
+
+    // Register Resolve/Resilience Cap
+    game.settings.register("wfrp4e", "partialChannelling", {
+      name: "Partial Channelling",
+      hint: "A common house rule that improves the flexibility of Channelling. Instead of requiring the SL to reach the spell's CN, you can instead cast at anytime with the CN reduced by the SL gained so far.",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    });
+    
 
   // Pre-load templates
   loadTemplates([
@@ -2129,6 +2162,8 @@ class ActorWfrp4e extends Actor {
   rollCast(spell) {
     let title = "Casting Test";
     let castSkill = this.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
+    let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
+
     // Prevent casting if they do not have Language (Magick)
     if (!castSkill)
     {
@@ -2142,7 +2177,8 @@ class ActorWfrp4e extends Actor {
       extra : {
         spell : preparedSpell,
         malignantInfluence : false,
-        ingredient : false
+        ingredient : false,
+        ID : instinctiveDiction
       }
     };
 
@@ -2225,6 +2261,7 @@ class ActorWfrp4e extends Actor {
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
     let spellLore = spell.data.lore.value;
     let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
+    let aethyricAttunement = (this.data.flags.talentTests.find(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
     if (channellSkills.length == 0)
     {
@@ -2234,9 +2271,10 @@ class ActorWfrp4e extends Actor {
     let testData = {
       target : 0,
       extra : {
-        spell : spell,
+        spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
         malignantInfluence : false,
-        ingredient : false
+        ingredient : false,
+        AA : aethyricAttunement
       }
     };
 
@@ -2284,7 +2322,7 @@ class ActorWfrp4e extends Actor {
           this.updateOwnedItem(ing);
         }
 
-        roll();
+        roll(this);
         },
         // Override generic roll with channell specific function
       rollOverride : (actor) => {
