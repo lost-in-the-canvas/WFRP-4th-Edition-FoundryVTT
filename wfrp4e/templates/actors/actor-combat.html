@@ -1,4 +1,4 @@
-<div class="combat-section">
+<div class="combat-section save-scroll">
 
   <div class="weapons">
     <!-- <h3 class="melee-title">Melee Weapons</h3> -->
@@ -24,10 +24,13 @@
           <div class="weapon-property">
             <div>
 
+              {{#if item.data.twohanded.value}}
+              <span class='melee-property-quality quality-label'>Two handed</span>
+              {{/if}}
 
               {{#if item.properties.special}}
               {{#each item.properties.special as |property p|}}
-              <a class='ranged-property-quality quality-label'>{{property}}</a>
+              <a class='melee-property-quality quality-label'>{{property}}</a>
               {{/each}}
               {{/if}}
 
@@ -111,6 +114,11 @@
           <div class="weapon-damage">+{{item.data.damage.rangedValue}}</div>
           <a class="weapon-range">{{item.data.range.value}}</a>
           <div class="weapon-property">
+
+
+            {{#if item.data.twohanded.value}}
+            <a class='ranged-property-quality quality-label'>Two handed</a>
+            {{/if}}
 
             {{#if item.properties.special}}
             {{#each item.properties.special as |property p|}}
@@ -202,7 +210,7 @@
             {{#if item.protectsHead}}
             <li class="item" data-item-id="{{item.id}}" data-location="head">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-              <a class="armor-item-name">{{item.name}}</a>
+              <a class="armor-item-name item-edit">{{item.name}}</a>
               <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
                 class="ap-value">{{item.data.currentAP.head}}</a>
 
@@ -248,7 +256,7 @@
             {{#if item.protectsBody}}
             <li class="item" data-item-id="{{item.id}}" data-location="body">
               <div class="item-image item-name" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-              <a class="armor-item-name">{{item.name}}</a>
+              <a class="armor-item-name item-edit">{{item.name}}</a>
               <a title="Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
                 class="ap-value">{{item.data.currentAP.body}}</a>
 
@@ -475,6 +483,9 @@
   <div class="injury-header">
     <a class="injury-label">Injury</a>
     <a class="location-label">Location</a>
+    <div class="item-controls">
+      <a class="item-control item-create" title="Create Item" data-type="injury"><i class="fas fa-plus"></i></a>
+    </div>
   </div>
 
   <div class="injury">
@@ -482,14 +493,9 @@
       <div class="injury-name">Injury
       </div>
       <div>Location</div>
-      {{#if owner}}
-      <div class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
-          Add</a>
-      </div>
+
     </li>
-    <ol class="inventory-list crit-wound-list">
-      {{/if}}
+    <ol class="inventory-list crit-wound-list save-scroll">
       {{#each actor.injuries as |injury i|}}
       <li class="item" data-item-id="{{injury.id}}">
         <div class="item-name injury-name item-dropdown">

@@ -9,7 +9,11 @@
       {{#each actor.data.characteristics as |ch c|}}
       <th title="{{ch.label}}" class="table-header">
         {{ch.abrev}}
-      <a class="advancement-indicator">+</a>
+      {{#if ch.career}}
+        <a class="advancement-indicator" data-target = "{{c}}">+</a>
+      {{else}}
+        <a class="advancement-indicator" style = "visibility : hidden" data-char = "{{c}}">+</a>
+      {{/if}}
       </th>
 
       {{/each}}
@@ -211,7 +215,7 @@
 
   <div class="careers">
     <!-- <a>Careers</a> -->
-    <ol class="inventory-list">
+    <ol class="inventory-list save-scroll">
       <li class="inventory-header item">
         <h4 id="List-Career-label" class="item-name">Career</h4>
         <h4 id="List-Current-label">Current</h4>

@@ -1,84 +1,984 @@
 
-/***************************************************/
-/*============== I. PRE-LOADED FONTS ==============*/
-/***************************************************/
-@font-face {
-  font-family: "CaslonAntique";
-  src: url('../fonts/CaslonAntique.ttf');
-}
-@font-face {
-  font-family: "CaslonAntique";
-  src: url('../fonts/CaslonAntique-Bold.ttf');
-  font-weight: bold;
-}
+/******************************************************************/
+/*=============== I. LOCAL FONTS =================================*/
+/******************************************************************/
 
-@font-face {
-  font-family: "CaslonPro";
-  src: url('../fonts/ACaslonPro-Regular.otf');
-}
-@font-face {
-  font-family: "CaslonPro";
-  src: url('../fonts/ACaslonPro-Bold.otf');
-  font-weight: bold;
-}
+  /* ==================== (A) CASLON ANTIQUE ==================== */
+    @font-face {
+      font-family: "CaslonAntique";
+      src: url('../fonts/CaslonAntique.ttf');
+    }
+    @font-face {
+      font-family: "CaslonAntique";
+      src: url('../fonts/CaslonAntique-Bold.ttf');
+      font-weight: bold;
+    }
+  
+  /* ==================== (B) ADOBE CASLON PRO ================== */
+    @font-face {
+      font-family: "CaslonPro";
+      src: url('../fonts/ACaslonPro-Regular.otf');
+    }
+    @font-face {
+      font-family: "CaslonPro";
+      src: url('../fonts/ACaslonPro-Bold.otf');
+      font-weight: bold;
+    }
 
-@font-face {
-  font-family: "Lusitana";
-  src: url('../fonts/Lusitana-Regular.ttf');
-}
-@font-face {
-  font-family: "Lusitana";
-  src: url('../fonts/Lusitana-Bold.ttf');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "CenturySchoolbook";
-  src: url('../fonts/CenturySchoolbook.ttf');
-}
-@font-face {
-  font-family: "CenturySchoolbook";
-  src: url('../fonts/CenturySchoolbook-Bold.ttf');
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: "AdobeJensonPro";
-  src: url('../fonts/AdobeJensonPro-Semibold.otf');
-}
-/***************************************************/
-/***************************************************/
+/******************************************************************/
+/******************************************************************/
 
 
-.fa-check:before {
-  content: "\f058" !important;
-}
-
-.fa-check-circle:before {
-  content: "\f058" !important;
-}
-
-.fa-check-circle:before {
-  content: "\f058" !important; 
-}
-
-.fa-trash:before {
-  content: "\f2ed" !important;
-  position: relative !important;
-  left: 0px !important;
-}
-
-.controls .control-tools .fa-trash {
-  content: "\f2ed" !important;
-}
 
 
-a:hover {
-  text-shadow: 0 0 8px #ff9f00;
+/******************************************************************/
+/*=============== II. GENERAL UI TWEAKS ==========================*/
+/******************************************************************/
+
+  /* ==================== (A) AWESOME FONT ICON CHANGES ========= */
+    .fa-check-circle:before {
+      content: "\f058" !important; 
+    }
+    .fa-trash:before {
+      content: "\f2ed" !important;
+      position: relative !important;
+      left: 0px !important;
+    }
+
+  /* ==================== (B) BUTTON BEHAVIOR CHANGES =========== */
+    a:hover {
+      text-shadow: 0 0 8px #ff9f00;
+    }
+    button:hover {
+      box-shadow: 0 0 5px #ff9f00;
+    }
+
+  /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
+  p {
+    font-family: CaslonPro;
+  }
+/******************************************************************/
+/******************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************/
+/*=============== III. SIDEBAR ===================================*/
+/******************************************************************/
+
+  /* ==================== (A) WINDOW FRAMEWORK ================== */
+  #sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100vh;
+    width: 456px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin: 0px;
+    padding: 0px;
+    background: url(../ui/sidebar.png) repeat;
+    border-radius: 0px;
+    box-shadow: 0 0 0px #000;
+  }
+  #sidebar.collapsed {
+    width: 50px !important;
+    height: 326px !important;
+    position: absolute;
+    top: 15px;
+    right: 0px;
+    padding-left: 3px;
+    background: url(../ui/sidebar-collapsed.png) repeat;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    box-shadow: -2px 0px 8px #000;
+  }
+  #sidebar.collapsed #sidebar-tabs {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    position: relative;
+    top: 126px;
+    left: -81px;
+    width: 35px;
+    height: 54px;
+    margin: 0px;
+    padding: 0px 0px 0px 90px;
+    border: none;
+    box-shadow: none;
+    background: none;
+  }
+  .sidebar-tab {
+    overflow: hidden;
+    margin: 0px 8px 0px 87px;
+  }
+  .sidebar-tab .directory-footer button {
+    width: 96%;
+    margin: 0 2%;
+    font-family: CaslonAntique;
+    font-weight: normal;
+    font-size: 19px;
+    color: #ececec;
+    text-shadow: 1px 1px 7px black;
+  }
+  .sidebar-tab .directory-footer .create-entity > i {
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  /* ==================== (B) SIDEBAR HEADER ==================== */
+    #sidebar-tabs {
+      display: flex;
+      flex: none;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      position: relative;
+      top: 0px;
+      left: 0px;
+      width: 456px;
+      height: 54px;
+      margin: 0px;
+      padding: 0px 0px 0px 82px;
+      border: none;
+      box-shadow: none;
+      background: url(../ui/sidebar-border.png) repeat;  
+    }
+
+    #sidebar-tabs > .item {
+      display: inline-block;
+      flex: none;
+      height: 30px;
+      width: 30px;
+      margin: 0px;
+      padding: 0px;
+      color: #ff000000;
+      border: none;
+      border-radius: 0px;
+      position: relative;
+      top: 8px;
+    }
+    #sidebar-tabs > .collapse {
+      display: inline-block;
+      flex: none;
+      height: 30px;
+      width: 30px;
+      margin: 0px;
+      padding: 0px;
+      color: #ff000000;
+      border: none;
+      border-radius: 0px;
+      position: relative;
+      top: 8px;
+      position: relative;
+      top: 8px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-settings-active.png);
+      background: url(../ui/sidebar-button-collapse.png);
+    }   
+    #sidebar.collapsed .collapse {
+      background: url(../ui/sidebar-button-collapse-active.png);
+    }
+    #sidebar-tabs .item > i {
+      height: inherit;
+      width: inherit;
+    }
+    #sidebar-tabs > .item.active {
+      display: inline-block;
+      flex: none;
+      height: 30px;
+      width: 30px;
+      margin: 0px;
+      padding: 0px;
+      color: #ff000000;
+      border: none;
+      border-radius: 0px;
+      box-shadow: none;
+      position: relative;
+      top: 0px;
+      visibility: hidden;
+    }
+
+    #sidebar-tabs > .item.active .fas.fa-comments {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-chat-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-fist-raised {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-combat-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-map {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-scenes-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-users {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-actors-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-suitcase {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-items-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-book-open {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-journal-active.png)
+    }
+    #sidebar-tabs > .item.active .fas.fa-music {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-playlists-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-atlas {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-compendium-active.png);
+    }
+    #sidebar-tabs > .item.active .fas.fa-question {
+      position: relative;
+      top: 0px;
+      left: 0px;
+      height: 30px;
+      width: 30px;
+      border-radius: 0px;
+      box-shadow: none;
+      border: none;
+      border-bottom: none;
+      text-shadow: 0 0 10px #ff000000;
+      visibility: visible;
+      background: url(../ui/sidebar-button-settings-active.png);
+    }
+
+    #sidebar-tabs > [title~="Chat"] {
+      background: url(../ui/sidebar-button-chat.png);
+    }
+    #sidebar-tabs > [title~="Tracker"] {
+      background: url(../ui/sidebar-button-combat.png);
+    }
+    #sidebar-tabs > [title~="Scenes"] {
+      background: url(../ui/sidebar-button-scenes.png);
+    }
+    #sidebar-tabs > [title~="Actors"] {
+      background: url(../ui/sidebar-button-actors.png);
+    }
+    #sidebar-tabs > [title~="Items"] {
+      background: url(../ui/sidebar-button-items.png);
+    }
+    #sidebar-tabs > [title~="Journal"] {
+      background: url(../ui/sidebar-button-journal.png);
+    }
+    #sidebar-tabs > [title~="Playlists"] {
+      background: url(../ui/sidebar-button-playlists.png);
+    }
+    #sidebar-tabs > [title~="Compendium"] {
+      background: url(../ui/sidebar-button-compendium.png);
+    }
+    #sidebar-tabs > [title~="Settings"] {
+      background: url(../ui/sidebar-button-settings.png);
+    }
+
+  /* ==================== (C) SIDEBAR CHAT LOG ================== */
+    #chat-log {
+      flex: none;
+      height: calc(100vh - 54px - 187px);
+      margin: 0px 0px 10px 0px;
+      padding: 0px;
+      overflow-y: auto;
+      list-style: none;
+    }
+    #chat-log .message {
+      padding: 4px 1px 4px 1px;
+      margin: 25px 21px 25px 16px;
+      border-image: url(../ui/chat-message-border.png) 21 repeat;
+      border-image-width: 10px;
+      border-image-outset: 8px;
+      border-radius: 0px;
+      background: url(../ui/chat-form.png) repeat;
+      box-shadow: none;
+      color: #000000;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      /* min-height: 80px; */
+      vertical-align: middle;
+    }
+
+    #chat-log .message .message-header {
+      line-height: normal;
+      border: 3px solid #380e0e80;
+      border-bottom: none;
+      box-shadow: none;
+      padding: 4px 4px 3px 4px;
+      vertical-align: middle;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      color: red;
+      background: #b5701814;
+    }
+      #chat-log .message .message-header .message-sender {
+        flex: 3;
+        margin: 0;
+        color: #790000;
+        text-shadow: 0px 0px 1px #00000087;
+      }
+      #chat-log .message .message-header .message-metadata {
+        text-align: right;
+        vertical-align: middle;
+        font-family: CaslonPro;
+        font-size: 14px;
+        font-weight: 500;
+        color: #1d1d1d;
+        text-shadow: 0px 0px 1px #00000087;
+      }
+        #chat-log .message .message-header .message-metadata .message-delete {
+          position: relative;
+          top: 1px;
+          right: 0px;
+          font-size: 13px;
+          color: #464331c4;
+          text-shadow: none;
+        }
+    #chat-log .message .message-content {
+      border: 3px solid #380e0e80;
+      border-top: none;
+      padding: 3px 4px 3px 4px;
+    }
+
+  /* ==================== (D) SIDEBAR CHAT CONTROLS ============= */
+    #chat-notification {
+      display: none;
+      color: #ff6400;
+      text-shadow: 0 0 5px #000;
+      position: absolute;
+      top: -2px;
+      right: -5px;
+    }
+    #chat-controls {
+      height: 28px;
+      margin: 0px 15px 15px 11px;
+      padding: 0px 0px 0px 0px;
+    }
+    #chat-controls i.fas {
+      font-size: 16px;
+      line-height: 28px;
+    }
+    #chat-controls div.roll-type-select select {
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+      text-align: left;
+      position: relative;
+      height: 24px;
+      top: -1px;
+      padding-top: 3px;
+      background: url(../ui/chat-form.png) repeat;
+          background-position-x: 0%;
+          background-position-y: 0%;
+      background-position: initial;
+      box-shadow: inset 0 0 10px #000000;
+      border-image: url(../ui/chat-controls-border.png) 4 repeat;
+          border-image-outset: 0;
+          border-image-width: 1;
+      border-image-width: 4px;
+      border-image-outset: 3px 2px 2px 2px;
+      color: #520000;
+    }
+    #chat-controls div.roll-type-select i.fas {
+      margin-right: 5px;
+    }
+    #chat-controls .control-buttons {
+      flex: 0 0 48px;
+    }
+    #chat-controls .control-buttons a {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+    }
+
+  /* ==================== (E) SIDEBAR CHAT FORM ================= */
+    #chat-form {
+      height: 100px;
+      flex: 0 0 100px;
+      margin: 0px 0px 0px 0px;
+    }
+    #chat-form textarea {
+      width: 90%;
+      height: 110%;
+      margin: 0 4.5% 50px 4.5%;
+      resize: none;
+      background: url(../ui/chat-form.png) repeat;
+      
+      border-image: url(../ui/chat-form-border.png) 10 repeat;
+      border-image-width: 10px;
+      border-image-outset: 8px 8px;
+      
+      box-shadow: inset 0 0 10px #000000;
+      color: #000000;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    textarea:focus {
+      outline: 2px solid #ff9f0087;
+      outline-color: rgba(255, 159, 0, 0.53);
+      outline-style: solid;
+      outline-width: 2px;
+      box-shadow: 0 0 10px #ff6400;
+    }
+
+/******************************************************************/
+/******************************************************************/     
+
+
+
+
+
+/******************************************************************/
+/*=============== III. ITEM SHEET ================================*/
+/******************************************************************/
+
+.app.window-app.sheet.item-sheet {
+  box-shadow: none;
+  background: none;
+  border: 1px solid blue;
+  border-image: url(../ui/item-sheet.png);
+  border-image-slice: 59;
+  border-image-width: 59px;
+  border-image-outset: 0px;
+  min-width: 540px;
+  min-height: 552px;
+  /* width: 540px !important; */
+  /* height: 552px !important; */
 }
-button:hover {
-  box-shadow: 0 0 5px #ff9f00;
+.app.window-app.sheet.item-sheet .window-header {
+  flex: 0 0 30px;
+  padding: 0 8px;
+  line-height: 30px;
+  border-bottom: none;
 }
+
+
+.app.window-app.sheet.item-sheet .window-content {
+  display: inline-block;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background: url(../ui/chat-form.png);
+  padding: 8px;
+  color: #111;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 28px 58px 58px 58px;
+  box-shadow: 0 0 8px #000000 inset;
+}
+.app.window-app.sheet.item-sheet .window-content .item-sheet.editable {
+  display: inline-block;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: #111;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+
+  .app.window-app.sheet.item-sheet .item-header h3 {
+      font-size: 2em;
+      height: inherit;
+      border-bottom: none;
+      margin: 0px;
+      color: white;
+      box-shadow: 0px 0px 10px black inset;
+  }
+  .app.window-app.sheet.item-sheet .item-header input[type="text"], input[type="password"] {
+    min-width: 20px;
+    background: none;
+    padding: 1px 3px;
+    margin: 0;
+    border: 1px solid blue;
+    border-image: url(../ui/item-sheet-header.png) repeat;
+    border-image-slice: 5;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    border-radius: 0px;
+    font-family: CaslonAntique;
+    font-size: 20px;
+    font-weight: 500;
+    color: #670c0c;
+    text-shadow: 0px 0px 1px #00000063;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0px 0px 3px black inset;
+    opacity: 0.9;
+  }
+  .app.window-app.sheet.item-sheet input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow:none;
+    outline: none;
+  }
+
+  .app.window-app.sheet.item-sheet .item-details > li > * {
+    flex: 1;
+    height: 25px;
+    border: 1px solid #736953a6;
+    border-left: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+    padding-top: 8px;
+  }
+
+  .app.window-app.sheet.item-sheet .item-header {
+    display: block;
+  }
+  .app.window-app.sheet.item-sheet .item-details {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 6px 0px 0px 0px;
+    justify-content: unset;
+    padding: 0px;
+    padding-left: 54px;
+    height: 25px;
+    width: 100%;
+    vertical-align: top;
+    /* background: #0000ff66; */
+    position: relative;
+    top: -58px;
+    left: 0px;
+  }
+    .app.window-app.sheet.item-sheet img {
+      box-sizing: border-box;
+      border: 1px solid #000;
+      border-radius: 2px;
+      max-height: 48px;
+      min-width: 48px;
+      min-height: 48px;
+      max-width: 48px;
+      display: inline-block;
+      margin-top: 6px;
+      margin-right: 6px;
+      padding: 0px;
+    }
+    .app.window-app.sheet.item-sheet .item-details .label-text {
+      font-family: CaslonAntique;
+      font-weight: 700;
+      font-size: 16px;
+      color: #464331c4;
+      text-align: center;
+      border: 1px solid #736953a6;
+      margin: 0px;
+      height: 25px;
+      box-shadow: 0 0 10px #00000052 inset;
+      padding: 3px 3px 0px 3px;
+      vertical-align: top;
+      flex-grow: 2;
+    }
+    .app.window-app.sheet.item-sheet .item-details .input-box {
+      height: 25px;
+      border: 1px solid #736953a6;
+      border-left: none;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+      color: black;
+      padding-top: 0px;
+      margin-right: 6px;
+      width: 45px;
+      position: relative;
+      left: 0px;
+    }
+      .app.window-app.sheet.item-sheet .item-details .input-text {
+        height: 23px;
+        border: 1px solid #73695300;
+        border-left: none;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: black;
+        padding-top: 7px;
+        margin-right: 6px;
+        width: 44px;
+        position: relative;
+        left: 0px;
+        vertical-align: top;
+        text-align: center;
+      }
+      .app.window-app.sheet.item-sheet .item-details.row2 .input-text {
+        flex-grow: 2;
+        width: 100%;
+      }
+      .app.window-app.sheet.item-sheet .item-details .input-text:hover {
+        border: 1px dotted #463a3a;
+        box-shadow: none;
+      }
+    .app.window-app.sheet.item-sheet .sheet-tabs.edges.left {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 170px;
+      left: 59px;
+      z-index: 101;
+    }
+    .app.window-app.sheet.item-sheet .sheet-tabs.edges.right {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 170px;
+      right: 59px;
+      z-index: 101;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
+    .app.window-app.sheet.item-sheet .sheet-tabs {
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      margin: -52px 0px 0px 0px;
+      height: 26px;
+      position: relative;
+    }
+      .app.window-app.sheet.item-sheet .sheet-tabs.tabs > a {
+        border-image-outset: 0px;
+        color: #403f3e;
+        border: 1px solid blue;
+        border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
+        border-image-width: 4px;
+        padding: 3px 0px 0px 0px;
+      }
+      .app.window-app.sheet.item-sheet .sheet-tabs.tabs .item.active {
+        border-radius: 0px;
+        border-bottom: none;
+        width: 72px;
+        color: #4a0404;
+        box-shadow: none;
+        text-shadow: none;
+      }
+
+    .app.window-app.sheet.item-sheet .tab.details.active {
+      display: flex;
+      flex-flow: column;
+      height: calc(100% - 129px);
+      overflow-y: scroll;
+    }
+    .app.window-app.sheet.item-sheet .tab .label-text {
+      font-family: CaslonAntique;
+      font-weight: 700;
+      font-size: 16px;
+      color: #464331c4;
+      text-align: center;
+      border: 1px solid #736953a6;
+      margin: 0px;
+      height: 25px;
+      box-shadow: 0 0 10px #00000052 inset;
+      padding: 0px 3px 0px 3px;
+      flex-grow: 2;
+      vertical-align: middle;
+      width: 406px;
+    }
+      .app.window-app.sheet.item-sheet .tab .form-group {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 6px 5px 0px 0px;
+      }
+      .app.window-app.sheet.item-sheet .tab .input-box {
+        height: 25px;
+        border: 1px solid #736953a6;
+        border-left: none;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: black;
+        padding-top: 0px;
+        margin-right: 0px;
+        width: 45px;
+        position: relative;
+        left: 0px;
+      }
+        .app.window-app.sheet.item-sheet .tab .input-text {
+          height: 23px;
+          border: 1px solid #73695300;
+          border-left: none;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 14px;
+          color: black;
+          padding-top: 7px;
+          margin-right: 6px;
+          position: relative;
+          left: 0px;
+          vertical-align: top;
+          text-align: center;
+          flex: 3;
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+        }
+        .app.window-app.sheet.item-sheet .tab .input-text:hover {
+          border: 1px dotted #463a3a;
+          box-shadow: none;
+        }
+      .app.window-app.sheet.item-sheet .tab .form-group > select {
+        width: inherit;
+        background: none;
+        border: 1px solid #736953a6;
+        border-left: none;
+        border-radius: 0px;
+        padding: 0px;
+        padding-top: 4px;
+        font-family: CaslonPro;
+        font-size: 14px;
+        font-weight: 500;
+        color: black;
+        height: 25px;
+      }
+      .app.window-app.sheet.item-sheet .tab .form-group .item-checkbox {
+        height: 25px;
+        border: 1px dotted #736953a6;
+        border-left: none;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: black;
+        padding-top: 5px;
+        margin-right: 0px;
+        width: 45px;
+        position: relative;
+        left: 0px;
+        text-align: center;
+      }
+      .app.window-app.sheet.item-sheet .tab .form-group-stacked {
+        clear: both;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 6px 5px 0px 0px;
+        padding-top: 0px;
+      }
+        .app.window-app.sheet.item-sheet .tab .form-group-stacked .label-text {
+          padding-top: 3px;
+        }
+        .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-box {
+          height: 24px;
+          border: 1px solid #736953a6;
+          border-top: none;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 14px;
+          color: black;
+          padding-top: 0px;
+          margin-right: 0px;
+          width: 45px;
+          position: relative;
+          top: 0px;
+          left: 0px;
+        }
+        .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-text {
+          text-align: left;
+        }
+
+  .app.window-app.sheet.item-sheet .tab.active {
+    display: flex;
+    flex-flow: column;
+    height: calc(100% - 129px);
+  }      
+    .app.window-app.sheet.item-sheet .editor {
+      border: 1px solid #736953a6;
+      box-shadow: 0px 0px 1px inset black;
+      overflow: auto;
+      flex-grow: 1;
+      display: flex;
+      padding: 3px;
+    }
+
+
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar {
+    width: 10px;
+    /* margin-top: 6px;
+    margin-bottom: 6px; */
+    /* left:-100px; */
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 0px;
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-thumb {
+    outline: none;
+    border-radius: 3px;
+    background: none;
+    /* background: url(../ui/scrollbar.png) no-repeat;  */
+    border-image: url(../ui/sheet-scrollbar-thumb.png) 10 repeat;
+    border-image-width: 5px;
+    border-image-outset: 0px;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button {
+    background: #782e22;
+    height: 23px;
+    border: none;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:start:decrement {
+    background: url(../ui/sheet-scrollbar-button-vertical-decrement.png) no-repeat;
+    background-position: center;
+    box-shadow: none;
+    box-shadow: none; 
+    height: 16px;
+    background-position-y: 7px;
+  } 
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:end:increment {
+    background: url(../ui/sheet-scrollbar-button-vertical-increment.png) no-repeat;
+    background-position: center;
+    background-position-y: 0px;
+    box-shadow: none; 
+    height: 16px;
+  }
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:start:increment,
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:end:decrement {
+      display: none;
+  }
+  
+  .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
+    background: url(../ui/sheet-scrollbar-track.png) repeat-y;
+    background-position: center;
+    background-size: 4px 68px;
+  
+    box-shadow: none;
+  }
+
+/******************************************************************/
+/******************************************************************/
+
+
+
+
 
 .wfrp4e.actor .close {
   color: #00e5ff00;
@@ -398,408 +1298,7 @@ input[type="text"], input[type="password"] {
 
 
 
-/******************************************************************/
-/*=============== II. SIDEBAR ====================================*/
-/******************************************************************/
 
-  /* ==================== (A) WINDOW FRAMEWORK ================== */
-    #sidebar {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      height: 100vh;
-      width: 456px;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      margin: 0px;
-      padding: 0px;
-      background: url(../ui/sidebar.png) repeat;
-      border-radius: 0px;
-      box-shadow: 0 0 0px #000;
-    }
-    .sidebar-tab {
-      overflow: hidden;
-      margin: 0px 8px 0px 87px;
-    }
-    .sidebar-tab .directory-footer button {
-      width: 96%;
-      margin: 0 2%;
-      font-family: CaslonAntique;
-      font-weight: normal;
-      font-size: 19px;
-      color: #ececec;
-      text-shadow: 1px 1px 7px black;
-    }
-
-    .sidebar-tab .directory-footer .create-entity > i {
-      font-size: 16px;
-      display: inline-block;
-    }
-
-  /* ============================================================ */
-
-  /* ==================== (B) SIDEBAR HEADER ==================== */
-    #sidebar-tabs {
-      display: flex;
-      flex: none;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-evenly;
-      position: relative;
-      top: 0px;
-      left: 0px;
-      width: 456px;
-      height: 54px;
-      margin: 0px;
-      padding: 0px 0px 0px 90px;
-      border: none;
-      box-shadow: none;
-      background: url(../ui/sidebar-border.png) repeat;
-    }
-
-    #sidebar-tabs > .item {
-      display: inline-block;
-      flex: none;
-      height: 30px;
-      width: 30px;
-      margin: 0px;
-      padding: 0px;
-      color: #ff000000;
-      border: none;
-      border-radius: 0px;
-      position: relative;
-      top: 8px;
-    }
-    #sidebar-tabs .item > i {
-      height: inherit;
-      width: inherit;
-    }
-    #sidebar-tabs > .item.active {
-      display: inline-block;
-      flex: none;
-      height: 30px;
-      width: 30px;
-      margin: 0px;
-      padding: 0px;
-      color: #ff000000;
-      border: none;
-      border-radius: 0px;
-      box-shadow: none;
-      position: relative;
-      top: 0px;
-      visibility: hidden;
-    }
-
-    #sidebar-tabs > .item.active .fas.fa-comments {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-chat-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-fist-raised {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-combat-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-map {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-scenes-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-users {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-actors-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-suitcase {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-items-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-book-open {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-journal-active.png)
-    }
-    #sidebar-tabs > .item.active .fas.fa-music {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-playlists-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-atlas {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-compendium-active.png);
-    }
-    #sidebar-tabs > .item.active .fas.fa-question {
-      position: relative;
-      top: 0px;
-      left: 0px;
-      height: 30px;
-      width: 30px;
-      border-radius: 0px;
-      box-shadow: none;
-      border: none;
-      border-bottom: none;
-      text-shadow: 0 0 10px #ff000000;
-      visibility: visible;
-      background: url(../ui/sidebar-button-settings-active.png);
-    }
-  
-    #sidebar-tabs > [title~="Chat"] {
-      background: url(../ui/sidebar-button-chat.png);
-    }
-    #sidebar-tabs > [title~="Tracker"] {
-      background: url(../ui/sidebar-button-combat.png);
-    }
-    #sidebar-tabs > [title~="Scenes"] {
-      background: url(../ui/sidebar-button-scenes.png);
-    }
-    #sidebar-tabs > [title~="Actors"] {
-      background: url(../ui/sidebar-button-actors.png);
-    }
-    #sidebar-tabs > [title~="Items"] {
-      background: url(../ui/sidebar-button-items.png);
-    }
-    #sidebar-tabs > [title~="Journal"] {
-      background: url(../ui/sidebar-button-journal.png);
-    }
-    #sidebar-tabs > [title~="Playlists"] {
-      background: url(../ui/sidebar-button-playlists.png);
-    }
-    #sidebar-tabs > [title~="Compendium"] {
-      background: url(../ui/sidebar-button-compendium.png);
-    }
-    #sidebar-tabs > [title~="Settings"] {
-      background: url(../ui/sidebar-button-settings.png);
-    }
-  /* ============================================================ */
-
-  /* ==================== (C) SIDEBAR CHAT LOG ================== */
-    #chat-log {
-      flex: none;
-      height: calc(100vh - 54px - 187px);
-      margin: 0px 0px 10px 0px;
-      padding: 0px;
-      overflow-y: auto;
-      list-style: none;
-    }
-    #chat-log .message {
-      padding: 4px 1px 4px 1px;
-      margin: 25px 21px 25px 16px;
-      border-image: url(../ui/chat-message-border.png) 21 repeat;
-      border-image-width: 10px;
-      border-image-outset: 8px;
-      border-radius: 0px;
-      background: url(../ui/chat-form.png) repeat;
-      box-shadow: none;
-      color: #000000;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
-      /* min-height: 80px; */
-      vertical-align: middle;
-    }
-
-    #chat-log .message .message-header {
-      line-height: normal;
-      border: 3px solid #380e0e80;
-      border-bottom: none;
-      box-shadow: none;
-      padding: 4px 4px 3px 4px;
-      vertical-align: middle;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
-      color: red;
-      background: #b5701814;
-    }
-      #chat-log .message .message-header .message-sender {
-        flex: 3;
-        margin: 0;
-        color: #790000;
-        text-shadow: 0px 0px 1px #00000087;
-      }
-      #chat-log .message .message-header .message-metadata {
-        text-align: right;
-        vertical-align: middle;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: #1d1d1d;
-        text-shadow: 0px 0px 1px #00000087;
-      }
-        #chat-log .message .message-header .message-metadata .message-delete {
-          position: relative;
-          top: 1px;
-          right: 0px;
-          font-size: 13px;
-          color: #464331c4;
-          text-shadow: none;
-        }
-    #chat-log .message .message-content {
-      border: 3px solid #380e0e80;
-      border-top: none;
-      padding: 3px 4px 3px 4px;
-    }
-  /* ============================================================ */
-
-  /* ==================== (D) SIDEBAR CHAT CONTROLS ============= */
-    #chat-notification {
-      display: none;
-      color: #ff6400;
-      text-shadow: 0 0 5px #000;
-      position: absolute;
-      top: -2px;
-      right: -5px;
-    }
-    #chat-controls {
-      height: 28px;
-      margin: 0px 15px 15px 11px;
-      padding: 0px 0px 0px 0px;
-    }
-    #chat-controls i.fas {
-      font-size: 16px;
-      line-height: 28px;
-    }
-    #chat-controls div.roll-type-select select {
-      font-family: CaslonPro;
-      font-weight: 500;
-      font-size: 14px;
-      text-align: left;
-      position: relative;
-      height: 24px;
-      top: -1px;
-      padding-top: 3px;
-      background: url(../ui/chat-form.png) repeat;
-          background-position-x: 0%;
-          background-position-y: 0%;
-      background-position: initial;
-      box-shadow: inset 0 0 10px #000000;
-      border-image: url(../ui/chat-controls-border.png) 4 repeat;
-          border-image-outset: 0;
-          border-image-width: 1;
-      border-image-width: 4px;
-      border-image-outset: 3px 2px 2px 2px;
-      color: #520000;
-    }
-    #chat-controls div.roll-type-select i.fas {
-      margin-right: 5px;
-    }
-    #chat-controls .control-buttons {
-      flex: 0 0 48px;
-    }
-    #chat-controls .control-buttons a {
-      display: inline-block;
-      width: 20px;
-      text-align: center;
-    }
-  /* ============================================================ */
-
-  /* ==================== (E) SIDEBAR CHAT FORM ================= */
-    #chat-form {
-      height: 100px;
-      flex: 0 0 100px;
-      margin: 0px 0px 0px 0px;
-    }
-    #chat-form textarea {
-      width: 90%;
-      height: 110%;
-      margin: 0 4.5% 50px 4.5%;
-      resize: none;
-      background: url(../ui/chat-form.png) repeat;
-      
-      border-image: url(../ui/chat-form-border.png) 10 repeat;
-      border-image-width: 10px;
-      border-image-outset: 8px 8px;
-      
-      box-shadow: inset 0 0 10px #000000;
-      color: #000000;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
-    }
-    
-    textarea:focus {
-      outline: 2px solid #ff9f0087;
-      outline-color: rgba(255, 159, 0, 0.53);
-      outline-style: solid;
-      outline-width: 2px;
-      box-shadow: 0 0 10px #ff6400;
-    }
-  /* ============================================================ */      
     
 
 
@@ -896,13 +1395,38 @@ input[type="text"], input[type="password"] {
 /*************************************************************/
 
   /* ==================== A. WINDOW FRAMEWORK =================== */
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet,
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet,
     .app.window-app.sheet.wfrp4e.actor.character-sheet {
-      background: url(../ui/ActorSheet-Character.png) no-repeat;
+      background: url(../ui/actor-sheet-character.png) no-repeat;
       box-shadow: none;
       margin: 0px;
     }
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet {
+      background: url(../ui/actor-sheet-creature.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet {
+      background: url(../ui/actor-sheet-npc.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+
+    .app.window-app.sheet.wfrp4e.actor.character-sheet.token-actor {
+      background: url(../ui/actor-sheet-token-character.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet.token-actor {
+      background: url(../ui/actor-sheet-token-creature.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet.token-actor {
+      background: url(../ui/actor-sheet-token-npc.png) no-repeat;
+      box-shadow: none;
+      margin: 0px;
+    }
+
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header,
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header,
     .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header {
@@ -1095,12 +1619,12 @@ input[type="text"], input[type="password"] {
     }
     .wfrp4e.actor .general .charimg {
       flex-direction: row;
-      margin: 0px 8px 0px 0px;
+      margin: 3px 8px 0px 0px;
       border: none;
       min-width: 95px;
-      min-height: 100px;
+      min-height: 95px;
       max-width: 95px;
-      max-height: 100px;
+      max-height: 95px;
     }
     .wfrp4e.actor .general .items .row {
       display: flex;
@@ -1209,7 +1733,7 @@ input[type="text"], input[type="password"] {
       width: 72px;
       /* padding: 0px; */
       margin: 0px;
-      border-image: url(../ui/ActorSheet-TabBorder.png) 4 repeat;
+      border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
       border-image-width: 4px;
       border-image-outset: 0px;
       font-family: CaslonAntique;
@@ -1343,6 +1867,8 @@ input[type="text"], input[type="password"] {
           border: 1px solid #736953a6;
           text-shadow: 1px 0px 1px #6e6e716e;
         }   
+
+        .wfrp4e.actor.creature-sheet .characteristics-table .table-data, 
         .wfrp4e.actor.npc-sheet .characteristics-table .table-data {
           height: 20px;
         }
@@ -2213,6 +2739,9 @@ input[type="text"], input[type="password"] {
               position: absolute;
               left: 358px;
             }  
+            .wfrp4e.npc-sheet #List-Complete-label {
+              left: 329px;
+            }
             #List-Level-label {
               font-family: CaslonAntique;
               font-weight: 700;
@@ -2222,6 +2751,10 @@ input[type="text"], input[type="password"] {
               position: absolute;
               left: 417px;
             }   
+            .wfrp4e.npc-sheet #List-Level-label {
+              left: 388px;
+            }
+
             #List-Add-button {
               position: relative;
               top: 2px;
@@ -2338,7 +2871,7 @@ input[type="text"], input[type="password"] {
           /* position: relative; */
           width: 250px;
           padding: 0px;
-          height: 292px;
+          height: 276px;
           box-shadow: 0px 0px 1px inset black;
           overflow-y: scroll;
           border: 1px solid #736953a6;
@@ -2421,15 +2954,15 @@ input[type="text"], input[type="password"] {
         }
           .wfrp4e .skill-section .inventory-list .skill-char-title {
             position: relative;
-            left: 61px;
+            left: 73px;
           }
           .wfrp4e .skill-section .inventory-list .skill-adv-title {
             position: relative;
-            left: 56px;
+            left: 68px;
           }
           .wfrp4e .skill-section .inventory-list .skill-total-title {
             position: relative;
-            left: 32px;
+            left: 42px;
           }
           .wfrp4e .skill-section .inventory-list .item .item-controls {
             flex: 0 0 44px;
@@ -2536,6 +3069,10 @@ input[type="text"], input[type="password"] {
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
+        }
+
+        .skill-section .untrained-skill{
+          opacity : 0.5
         }
       /* ============================================================ */
 
@@ -2857,6 +3394,10 @@ input[type="text"], input[type="password"] {
         .wfrp4e.sheet .tab.talents ::-webkit-scrollbar-button {
           height: 18px;
           border: none;
+        }
+
+        .talents-section .untrained-talent{
+          opacity: 0.5;
         }
 
       /* ============================================================ */
@@ -3657,6 +4198,15 @@ input[type="text"], input[type="password"] {
           flex-direction: row;
           padding-left: 4px;
         }
+        .wfrp4e.actor .injury-header .item-controls {
+          position: relative;
+            left: 400px;
+            width: 55px;
+            top: 2px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 12px;
+            color: #504f48a6;
+        }
           .wfrp4e.actor .injury-label  {
             position: relative;
             left: 0px;
@@ -3779,43 +4329,53 @@ input[type="text"], input[type="password"] {
           overscroll-behavior-y: none;
           overflow-y: hidden;
           margin-top: 6px;
+          display: inline-flex;
+          flex-direction: row;
         }
-          .wfrp4e .inventory .encumbrance-header .encumbrance-label {
-            text-align: right;
-            padding: 0px;
-            padding-top: 4px;
-            padding-right: 10px;
-            margin: 0px;
-            position: relative;
-            top: 0px;
-            left: 260px;
-            font-family: CaslonPro;
-            font-weight: 500;
-            font-size: 14px;
-            color: #464331;
-            display: inline-block;
-            width: 100px;
-            height: 20px;
-            /* background: red; */
+          .wfrp4e .inventory .encumbrance-header #encumbrance-text {
+            justify-self: left;
           } 
-          .wfrp4e .inventory .encumbrance-header .encumbrance-max {
+          .wfrp4e .inventory .encumbrance-header .encumbrance-counter-block {
+            flex-grow: 2;
             text-align: right;
-            padding: 0px;
-            padding-top: 4px;
-            padding-right: 10px;
-            margin: 0px;
-            position: relative;
-            top: 0px;
-            left: 164px;
-            font-family: CaslonPro;
-            font-weight: 500;
-            font-size: 14px;
-            color: #464331;
-            display: inline-block;
-            width: 100px;
-            height: 20px;
-            /* background: red; */
-          }
+            justify-content: unset;
+          } 
+            .wfrp4e .inventory .encumbrance-header .encumbrance-label {
+              text-align: right;
+              padding: 0px;
+              padding-top: 4px;
+              padding-right: 0px;
+              margin: 0px;
+              position: relative;
+              top: 0px;
+              left: 1px;
+              font-family: CaslonPro;
+              font-weight: 500;
+              font-size: 14px;
+              color: #464331;
+              display: inline-block;
+              width: fit-content;
+              height: 20px;
+              /* background: red; */
+            }
+            .wfrp4e .inventory .encumbrance-header .encumbrance-max {
+              text-align: right;
+              padding: 0px;
+              padding-top: 4px;
+              padding-right: 0px;
+              margin: 0px;
+              position: relative;
+              top: 0px;
+              left: 0px;
+              font-family: CaslonPro;
+              font-weight: 500;
+              font-size: 14px;
+              color: #464331;
+              display: inline-block;
+              width: fit-content;
+              height: 20px;
+              /* background: red; */
+            }
 
           /* doesnt work */
           .wfrp4e .inventory .encumbrance-header .encumbrance-max input {
@@ -5061,7 +5621,7 @@ input[type="text"], input[type="password"] {
           padding-bottom: 5px;
         }  
         .wfrp4e.npc-sheet .notes-section {
-          overflow-y:hidden
+          overflow-y:auto
         }
         .wfrp4e .notes-section > ol {
           list-style: none;
@@ -5078,20 +5638,22 @@ input[type="text"], input[type="password"] {
         }
 
         .wfrp4e .notes-section .gmnotes,
-          .wfrp4e .notes-section .biography {
-          height: 160px;
+        .wfrp4e .notes-section .biography {
+          height: 260px;
           width: 493px;
           background-color: #9e856a0d;
           border: 1px solid #736953a6;
           margin: 0px;
           padding: 0px;
           margin-top: 6px;
+          display: flex;
+          flex-flow: column;
         } 
         .wfrp4e.npc-sheet .notes-section .biography {
-          height: calc(100% - 5px);
+          height: 265px;
         }
         .wfrp4e .notes-section .gmnotes > h2,
-          .wfrp4e .notes-section .biography > h2 {
+        .wfrp4e .notes-section .biography > h2 {
             font-family: CaslonAntique;
             font-size: 16px;
             font-weight: 700;
@@ -5111,19 +5673,26 @@ input[type="text"], input[type="password"] {
             display: flex;
             flex-direction: row;
             padding-left: 4px;
-          }
+        }
         .wfrp4e .notes-section .gmnotes .editor ,
-          .wfrp4e .notes-section .biography .editor {
-            height: 137px;
-            border: 0px #0000ff00 solid;
-            width: 100%;
-            padding-left: 5px;
-            padding-right: 5px;
-            box-shadow: 0px 0px 1px inset black;
-          }
+        .wfrp4e .notes-section .biography .editor {
+          height: 137px;
+          border: 0px #0000ff00 solid;
+          width: 100%;
+          padding-left: 5px;
+          padding-right: 5px;
+          box-shadow: 0px 0px 1px inset black;
+          flex-grow: 1;
+          display: flex;
+        }
 
           .wfrp4e.npc-sheet .notes-section .biography .editor {
             height: calc(100% - 20px);
+          }
+          .app.sheet .editor-content {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
           }
 
 
@@ -5528,8 +6097,6 @@ input[type="text"], input[type="password"] {
         height: 18px;
         border: none;
       }
-
-
 /*************************************************************/
 /*************************************************************/
 /*************************************************************/
@@ -5543,7 +6110,8 @@ input[type="text"], input[type="password"] {
 /*=============== IV. ACTOR (NPC SHEET) =====================*/
 /*************************************************************/
 
-.wfrp4e.npc-sheet .characteristics-table .table-header > * {
+.wfrp4e.creature-sheet .characteristics-table .table-header > *,
+  .wfrp4e.npc-sheet .characteristics-table .table-header > * {
   text-align: center;
   border: 1px solid #736953a6;
   border: 1px solid #736953a6;
@@ -5555,6 +6123,11 @@ input[type="text"], input[type="password"] {
   height: 20px;
   padding: 3px 0px 0px 0px;
   box-shadow: 0 0 10px #00000052 inset;
+}
+.wfrp4e.creature-sheet .characteristics-table .table-header >a,
+.wfrp4e.npc-sheet .characteristics-table .table-header >a {
+  border: none;
+  box-shadow: none;
 }
 
 .wfrp4e.npc-sheet .movement {
@@ -5815,31 +6388,6 @@ input[type="text"], input[type="password"] {
   font-size: 10px;
   color: #504f48a6;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   .wfrp4e.npc-sheet .careers {
     width: 506px;
     text-align: center;
@@ -5847,7 +6395,372 @@ input[type="text"], input[type="password"] {
   }   
 
 
+.wfrp4e.creature-sheet .creature-talents,
+.wfrp4e.creature-sheet .creature-skills {
+  display: flex;
+  flex-direction: row;
 
+}
+/*************************************************************/
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+/*************************************************************/
+/*=============== IV. ACTOR (CREATURE SHEET) ================*/
+/*************************************************************/
+.wfrp4e.actor.creature-sheet .characteristics-table,
+.wfrp4e.actor.npc-sheet .characteristics-table {
+  margin-top: 1px;
+  border: none;
+  background: none;
+  height: inherit;
+  width: inherit;
+}
+.wfrp4e.actor.creature-sheet .characteristics, 
+.wfrp4e.actor.npc-sheet .characteristics {
+  margin-top: 1px;
+  height: 25px;
+  width: 400px;
+  margin: 0px;
+}
+.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input, 
+.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
+  text-align: center;
+  width: 37px;
+  height: 21px;
+  vertical-align: middle;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+  border-radius: 0px;
+  margin: 0px;
+  padding: 6px 0px 0px 0px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  text-shadow: 1px 0px 1px #6e6e716e;
+}
+  .wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="wp"],
+  .wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
+    width: 38px;
+  }
+  .wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="fel"],
+  .wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
+    width: 38px;
+  }
+
+.wfrp4e.actor.creature-sheet .movement,
+.wfrp4e.actor.npc-sheet .movement {
+  display: flex;
+  margin: 0px;
+  margin-right: 6px;
+  width: 170px;
+  height: 43px;
+  border-top: 1px solid #736953a6;
+  border-right: 1px solid #736953a6;
+}
+  .wfrp4e.actor.creature-sheet .movement .move-value > input,
+  .wfrp4e.actor.npc-sheet .movement .move-value > input {
+    padding: 5px 0px 0px 0px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    text-align: center;
+    width: 50px;
+    height: 18px;
+    margin: 0px;
+    border-radius: 0px;
+  }
+
+.wfrp4e.actor.creature-sheet .wounds-section,
+.wfrp4e.actor.npc-sheet .wounds-section {
+  position: relative;
+  left: -91px;
+  height: 23px;
+}
+  .wfrp4e.actor.creature-sheet #wounds-box, 
+  .wfrp4e.actor.npc-sheet #wounds-box {
+    position: relative;
+    top: 0px;
+    left: 85px;
+    border: 2px solid #736953a6;
+    border: 1px solid #736953a6;
+    height: 20px;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-name,
+  .wfrp4e.actor.npc-sheet #wounds-name {
+    font-family: CaslonAntique;
+    font-weight: normal;
+    font-size: 16px;
+    color: #464331c4;
+    text-align: center;
+    border: 1px solid #736953a6;
+    border-top: none;
+    padding: 2px 0px 0px 0px;
+    height: 23px;
+    width: 132px;
+    box-shadow: 0 0 10px #00000052 inset;
+    padding-top: 2px;
+    margin-top: 20px;
+    position: relative;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-value > input,
+  .wfrp4e.actor.npc-sheet #wounds-value > input {
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 0px 0px 0px;
+    height: 18px;
+    color: black;
+    position: relative;
+    top: -2px;
+    width: 30px;
+    left: -18px;
+    border-radius: 0px;
+    text-align: center;
+  }
+  .wfrp4e.actor.npc-sheet #wounds-max > input, .creature-sheet #wounds-max > input,
+  .wfrp4e.actor.creature-sheet #wounds-max > a, .npc-sheet #wounds-max > a {
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 7px 1px 0px 0px;
+    height: 22px;
+    color: black;
+    position: relative;
+    top: -22px;
+    margin: 0px 0px 0px 36px;
+    width: 30px;
+    border-radius: 0px;
+  }
+  .wfrp4e.actor.creature-sheet #wounds-divisor,
+  .wfrp4e.actor.npc-sheet #wounds-divisor {
+    top: 0px;
+    left: -9px;
+    /* background: white; */
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 3px 0px 0px 0px;
+    height: 18px;
+    color: #000000;
+    position: absolute;
+    margin: 0px 0px 0px 36px;
+    width: 30px;
+    border-radius: 0px;
+    text-align: center;
+  }
+
+.wfrp4e.actor.creature-sheet .randomize-buttons,
+.wfrp4e.actor.npc-sheet .randomize-buttons {
+  position: relative;
+  left: -85px;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 0px 0px 0px;
+  height: 43px;
+  width: 136px;
+  color: black;
+  border: 1px solid #736953a6;
+  text-align: center;
+}
+  .wfrp4e.actor.creature-sheet .randomize-buttons .randomize, .wfrp4e.actor.npc-sheet .randomize-buttons .randomize {
+    display: inline-block;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    margin: 1px 0px 0px 0px;
+    padding: 1px 0px 0px 0px;
+    height: 16px;
+    width: 18px;
+    vertical-align: middle;
+    position: relative;
+    top: -6px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #6b0f0f87 inset;
+    border: 1px solid #7369538a;
+  }
+  .wfrp4e.actor.creature-sheet .randomize-buttons .randomize-label,
+  .wfrp4e.actor.npc-sheet .randomize-buttons .randomize-label {
+    display: inline-block;
+    font-family: CaslonAntique;
+    font-weight: 700;
+    font-size: 16px;
+    color: #464331c4;
+    border-top: 1px solid #736953a6;
+    margin: 0px;
+    padding: 2px 0px 0px 0px;
+    height: 23px;
+    width: 134px;
+    vertical-align: middle;
+    box-shadow: 0 0 10px #00000052 inset;
+    position: relative;
+    top: -5px;
+  }
+
+
+
+/* MAIN TAB */
+.wfrp4e.actor.creature-sheet .creature-lists {
+  overflow-y: scroll;
+  overscroll-behavior-y: auto;
+  overflow-x: hidden;
+  height: 360px;
+  margin-top: 0px;
+  padding-bottom: 0px;
+  width: 506px;
+}
+.wfrp4e.actor.creature-sheet .creature-overview-label {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: left;
+  border: 1px solid #736953a6;
+  margin: 6px 0px 0px 0px;
+  padding: 1px 0px 0px 0px;
+  height: 21px;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  display: flex;
+  flex-direction: row;
+  padding-left: 4px;
+  border-radius: 0px;
+  width: 493px;
+}
+.wfrp4e.actor.creature-sheet .creature-overview {
+  border-left: 1px solid #736953a6;
+  border-right: 1px solid #736953a6;
+  width: 493px;
+  box-shadow: 0px 0px 1px inset black;
+}
+.wfrp4e.actor.creature-sheet .creature-overview > div:last-child {
+  border-bottom: 1px solid #736953a6;
+}
+  .wfrp4e.creature-sheet .creature-skills {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+    display: none;
+  }
+    .wfrp4e.creature-sheet .creature-lists .label {
+      display: inline-block;
+      font-family: CaslonPro;
+      font-size: 14px;
+      font-weight: 500;
+      color: #464331f0;
+      border: 1px solid #00000038;
+      border-radius: 3px;
+      padding-top: 2px;
+      padding-left: 2px;
+      padding-right: 2px;
+      background: #774e000f;
+      box-shadow: 0 0 3px #6b3a0f2b inset;
+      width: fit-content;
+      height: 21px;
+    }
+    .wfrp4e.creature-sheet .creature-lists .content {
+      display: inline-block;
+      line-height: 18px;
+      padding-top: 1px;
+    }
+    .wfrp4e.creature-sheet .creature-lists .name {
+      
+    }
+    .wfrp4e.creature-sheet .creature-lists .total {
+      
+    }
+
+  .wfrp4e.creature-sheet .creature-talents {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-traits {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-mutations {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-psychology {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 493px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+  .wfrp4e.creature-sheet .creature-injuries {
+    display: inline-block;
+    flex-direction: column;
+    /* border: 1px solid #736953a6; */
+    /* border-bottom: none; */
+    width: 492px;
+    font-family: CaslonPro;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    padding: 3px 3px 3px 3px;
+    overflow-wrap: normal;
+  }
+
+    
+
+.wfrp4e.actor.creature-sheet .weapons {
+  margin-top: 6px;
+}
 
 
 
@@ -5856,7 +6769,11 @@ input[type="text"], input[type="password"] {
 /*=============== IV. ROLL DIALOG ===========================*/
 /*************************************************************/
 
-.window-app.dialog {
+.window-app.dialog.characteristic-roll-dialog,
+.window-app.dialog.skill-roll-dialog,
+.window-app.dialog.weapon-roll-dialog,
+.window-app.dialog.spell-roll-dialog,
+.window-app.dialog.prayer-roll-dialog  {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -5867,7 +6784,20 @@ input[type="text"], input[type="password"] {
   /* height: 350px !important; */
   box-shadow: 3px 4px 10px #000;
 }
-.window-app.dialog .window-header {
+.window-app.dialog.characteristic-roll-dialog .roll-dialog-tag,
+.window-app.dialog.skill-roll-dialog .roll-dialog-tag,
+.window-app.dialog.weapon-roll-dialog .roll-dialog-tag,
+.window-app.dialog.spell-roll-dialog .roll-dialog-tag,
+.window-app.dialog.prayer-roll-dialog .roll-dialog-tag {
+  visibility: hidden;
+  height: 0px;
+}
+
+.window-app.dialog.characteristic-roll-dialog .window-header,
+.window-app.dialog.skill-roll-dialog .window-header,
+.window-app.dialog.weapon-roll-dialog .window-header,
+.window-app.dialog.spell-roll-dialog .window-header,
+.window-app.dialog.prayer-roll-dialog .window-header {
   flex: 0 0 45px;
   padding: 0px;
   margin: 0px;
@@ -5875,7 +6805,36 @@ input[type="text"], input[type="password"] {
   border-bottom: none;
   background: url(../ui/window-app-dialog-header.png) repeat;
 }
-  .window-app.dialog .window-header .close {
+  .window-app.dialog.characteristic-roll-dialog .window-header .window-title,
+  .window-app.dialog.skill-roll-dialog .window-header .window-title,
+  .window-app.dialog.weapon-roll-dialog .window-header .window-title,
+  .window-app.dialog.spell-roll-dialog .window-header .window-title,
+  .window-app.dialog.prayer-roll-dialog .window-header .window-title {
+    position: absolute;
+    top: 60px;
+    left: 26px;
+    visibility: visible;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    line-height: 24px;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000ed;
+    border-radius: 0px;
+    opacity: 1;
+    text-align: center;
+    width: 451px;
+    z-index: 4;
+    height: 26px;
+    padding: 2px 0px 0px 0px;
+  }
+  .window-app.dialog.characteristic-roll-dialog .window-header .close,
+.window-app.dialog.skill-roll-dialog .window-header .close,
+.window-app.dialog.weapon-roll-dialog .window-header .close,
+.window-app.dialog.spell-roll-dialog .window-header .close,
+.window-app.dialog.prayer-roll-dialog .window-header .close {
     color: #00e5ff00;
     text-align: center;
     background: url(../ui/button-close.png);
@@ -5883,18 +6842,19 @@ input[type="text"], input[type="password"] {
     width: 30px;
     position: relative;
     top: 9px;
-    left: -11px;
+    left: 470px;
   }
-.window-app.dialog .window-content {
+
+.window-app.dialog.characteristic-roll-dialog .window-content {
+  background: url(../ui/window-app-dialog-backgrounds-characteristic.png);
+  background-position: -43px -120px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  overflow-y: auto !important;
-  padding: 8px;
+  overflow-y: scroll !important;
+  padding: 23px 8px 8px 8px;
   margin: 8px;
   /* margin-bottom: 2px; */
-  background: url(../ui/window-app-dialog-backgrounds-1.png);
-  background-position: center;
   box-shadow: none;
   font-family: CaslonPro;
   font-weight: 500;
@@ -5907,6 +6867,96 @@ input[type="text"], input[type="password"] {
   border-image-width: 10px 13px 13px 13px;
   border-image-outset: 8px;
 }
+.window-app.dialog.skill-roll-dialog .window-content {
+  background: url(../ui/window-app-dialog-backgrounds-skill.png);
+  background-position: -43px -120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: scroll !important;
+  padding: 23px 8px 8px 8px;
+  margin: 8px;
+  /* margin-bottom: 2px; */
+  box-shadow: none;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 8px;
+}
+.window-app.dialog.weapon-roll-dialog .window-content {
+  background: url(../ui/window-app-dialog-backgrounds-weapon.png);
+  background-position: -43px -120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: scroll !important;
+  padding: 23px 8px 8px 8px;
+  margin: 8px;
+  /* margin-bottom: 2px; */
+  box-shadow: none;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 8px;
+}
+.window-app.dialog.spell-roll-dialog .window-content {
+  background: url(../ui/window-app-dialog-backgrounds-spell.png);
+  background-size: 102%;
+  background-position: -5px -10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: scroll !important;
+  padding: 23px 8px 8px 8px;
+  margin: 8px;
+  /* margin-bottom: 2px; */
+  box-shadow: none;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 8px;
+}
+.window-app.dialog.prayer-roll-dialog .window-content {
+  background: url(../ui/window-app-dialog-backgrounds-prayer.png);
+  background-position: -43px -120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-y: scroll !important;
+  padding: 23px 8px 8px 8px;
+  margin: 8px;
+  /* margin-bottom: 2px; */
+  box-shadow: none;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ececec;
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+  border-image-slice: 10 13 13 13;
+  border-image-width: 10px 13px 13px 13px;
+  border-image-outset: 8px;
+}
+
   .window-app.dialog .window-content .dialog-row {
     display: flex;
     flex-direction: row;
@@ -5914,7 +6964,7 @@ input[type="text"], input[type="password"] {
   }
     .window-app.dialog .window-content .dialog-row .bonus-column {
       width: 181px;
-      margin-right: 6px;
+      margin-right: 4px;
     }
     .window-app.dialog .form-group > label {
       flex: 2;
@@ -5931,6 +6981,7 @@ input[type="text"], input[type="password"] {
     }
     .window-app.dialog .talent-selector {
       width: 100%;
+      margin-top: 3px;
     }
       #talentlist-label {
         flex: 2;
@@ -5949,7 +7000,7 @@ input[type="text"], input[type="password"] {
         width: inherit;
       }
       .window-app.dialog .talent-selector > select {
-        height: 95px;
+        height: 93px;
         overflow: auto;
         font-family: CaslonPro;
         font-weight: 500;
@@ -5980,7 +7031,7 @@ input[type="text"], input[type="password"] {
       border: 1px solid #736953a6;
       border-left: none;
       box-shadow: 0px 0px 5px inset #000000cf;
-      background: #1c3a44b5;
+      background: #352516b5;
       border-radius: 0px;
       font-family: CaslonPro;
       font-weight: 500;
@@ -6014,6 +7065,15 @@ input[type="text"], input[type="password"] {
     font-size: 15px;
     padding-top: 5px;
     margin: 0px;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    /* box-shadow: inset 0 0 20px #000000; */
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+  } 
+  .window-app.dialog .dialog-buttons button:last-child:hover {
+    box-shadow: 0 0 5px #ff9f00;
   } 
 
 
@@ -6033,6 +7093,12 @@ input[type="text"], input[type="password"] {
     font-weight: 500;
     font-size: 15px;
     padding-top: 5px;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    /* box-shadow: inset 0 0 20px #000000; */
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
   }
 
 
@@ -6048,8 +7114,8 @@ input[type="text"], input[type="password"] {
   }
 
   .window-app.dialog .select-selected {
-    background: #1c3a44b5;
-  } 
+    background: #352516b5;
+  }
 
   /*style the arrow inside the select element:*/
   .window-app.dialog .select-selected:after {
@@ -6085,11 +7151,11 @@ input[type="text"], input[type="password"] {
   /*style items (options):*/
   .window-app.dialog .select-items {
     position: absolute;
-    background-color: #181d27ed;
+    background-color: #2b1806;
     color: #ecececbd;
     top: 100%;
     /* left: 180px; */
-    width: 60.3%;
+    width: 60.35%;
     right: 0;
     z-index: 99;
     border: 1px solid #736953a6;
@@ -6103,14 +7169,12 @@ input[type="text"], input[type="password"] {
   }
 
   .window-app.dialog .select-items div:hover, .same-as-selected {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+    background-color: #350404ed;
+  }  
 
 /*************************************************************/
 /*************************************************************/
 /*************************************************************/
-
-
 
 
 
@@ -6279,21 +7343,6 @@ input[type="text"], input[type="password"] {
 
 
 
-.window-app .window-content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  height: calc(100% - 30px);
-  max-height: 90vh;
-  background: url(../ui/chat-form.png) repeat;
-  padding: 8px;
-  color: #111;
-  border: 1px solid blue;
-  border-image: url(../ui/items-background-border.png) 21 fill repeat;
-  border-image-slice: 25;
-  border-image-width: 25;
-  border-image-outset: 22px 17px 16px 14px;
-}
 
 
 
@@ -6592,58 +7641,7 @@ font-weight: bold;
 
 
 
-/* ----------------------------------------- */
-/*  Item Sheet
-/* ----------------------------------------- */
-.wfrp4e.item-sheet .item-details,
-.wfrp4e.item-sheet .sheet-tabs {
-  flex: 0 0 30px;
-  padding: 5px 0;
-  margin: 0;
-}
-.wfrp4e.item-sheet .item-details {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  justify-content: space-between;
-}
-.wfrp4e.item-sheet .item-details > * {
-  flex: 1;
-}
-.wfrp4e.item-sheet .item-details > li {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  font-size: 14px;
-  text-align: center;
-}
-.wfrp4e.item-sheet .item-details > li > * {
-  flex: 1;
-}
-.wfrp4e.item-sheet .item-details label {
-  line-height: 20px;
-}
-.wfrp4e.item-sheet .consumable-charges input {
-  flex: 0 0 64px;
-  margin-left: 5px;
-  text-align: center;
-}
-.wfrp4e.item-sheet .sheet-tabs {
-  border-top: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
-  font-size: 14px;
-  font-weight: bold;
-}
-.wfrp4e.item-sheet .sheet-tabs .active {
-  text-decoration: underline;
-}
-.wfrp4e.item-sheet .editor {
-  height: 300px;
-}
+
 
 
 
@@ -7634,24 +8632,93 @@ font-weight: bold;
    font-size: 14px;
  }
 
- .wfrp4e.actor .penalties {
+
+
+
+
+
+.wfrp4e.actor .penalties {
   display: flex;
   flex-direction: row;
   font-family: CaslonPro;
+  margin-top: 3px;
+  border: 1px solid #736953a6;
 }
-.wfrp4e.actor.npc-sheet .penalties {
-  position: absolute;
-  top: 608px;
+.wfrp4e.actor .penalties > h3 {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: center;
+  border: 1px solid #736953a6;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  margin: 0px;
+  padding: 3px 0px 0px 0px;
+  height: 23px;
+  min-width: 54px;
+  box-shadow: 0 0 10px #00000052 inset;
+  display: inline-block;
 }
+.wfrp4e.actor .penalties > div {
+  width: fit-content;
+  margin-top: 5px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.wfrp4e.actor .penalties .custom-penalty {
+  width: inherit;
+  background: bisque;
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 2;
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 0px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+}
+  .wfrp4e.actor .penalties .custom-penalty .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
+  .wfrp4e.actor .penalties .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
 
-.wfrp4e.actor .penalty {
-  margin-left: 10px;
-}
 
-.wfrp4e.actor .penalties > input{
-  height: 18px;
-  width: 100%;
-}
+
+
  
 
  .wfrp4e.actor .armor-list-item .item-name {
@@ -7825,58 +8892,8 @@ font-weight: bold;
   line-height: 24px;
   margin-left: 6px;
 }
-/* ----------------------------------------- */
-/*  Item Sheet
-/* ----------------------------------------- */
-.wfrp4e.item-sheet .item-details,
-.wfrp4e.item-sheet .sheet-tabs {
-  flex: 0 0 30px;
-  padding: 5px 0;
-  margin: 0;
-}
-.wfrp4e.item-sheet .item-details {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  justify-content: space-between;
-}
-.wfrp4e.item-sheet .item-details > * {
-  flex: 1;
-}
-.wfrp4e.item-sheet .item-details > li {
-  flex: 0 0 30%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  font-size: 14px;
-  text-align: center;
-}
-.wfrp4e.item-sheet .item-details > li > * {
-  flex: 1;
-}
-.wfrp4e.item-sheet .item-details label {
-  line-height: 20px;
-}
-.wfrp4e.item-sheet .consumable-charges input {
-  flex: 0 0 64px;
-  margin-left: 5px;
-  text-align: center;
-}
-.wfrp4e.item-sheet .sheet-tabs {
-  border-top: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
-  font-size: 14px;
-  font-weight: bold;
-}
-.wfrp4e.item-sheet .sheet-tabs .active {
-  text-decoration: underline;
-}
-.wfrp4e.item-sheet .editor {
-  height: 300px;
-}
+
+
 /* ----------------------------------------- */
 /*  Chat Cards
 /* ----------------------------------------- */

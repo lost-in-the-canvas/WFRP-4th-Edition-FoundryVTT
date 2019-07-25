@@ -1,147 +1,194 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    <a id="section-header-personaldetails">Personal Details</a>
-  
-    <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
-      <h1 class="charname">
-        <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-        <a id="label-name">Name</a>
-      </h1>
-  
-      <div class="item">
-        <input id="input-species" name="data.details.species.value" type="text" value="{{data.details.species.value}}" placeholder="Species" />
-        <a id="label-species">Species</a>
+  <a id="section-header-personaldetails">Personal Details</a>
+
+  <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
+    <h1 class="charname">
+      <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <a id="label-name">Name</a>
+    </h1>
+
+    <div class="item">
+      <input id="input-species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
+        placeholder="Species" />
+      <a id="label-species">Species</a>
+    </div>
+
+    <div class="item">
+      <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
+        placeholder="Gender" />
+      <a id="label-gender">Gender</a>
+    </div>
+  </header>
+
+
+
+  <section class="general" ondragstart="return false;" ondrop="return false;">
+    <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
+    <div class="items">
+      <div class="characteristics">
+        <table class="characteristics-table">
+          <tr class="table-header">
+            {{#each actor.data.characteristics as |ch c|}}
+            <th title="{{ch.label}}" data-char="{{ch}}" class="table-header">
+              <a  class ="ch-roll" data-char="{{c}}">{{ch.abrev}}</a>
+            </th>
+            {{/each}}
+          </tr>
+          <tr class="table-row">
+            {{#each actor.data.characteristics as |ch c|}}
+            <td class="table-data">
+              <input class="ch-edit" data-char="{{c}}" type="text" value="{{ch.value}}" data-dtype="Number">
+            </td>
+            {{/each}}
+          </tr>
+        </table>
       </div>
-  
-      <div class="item">
-        <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}" placeholder="Gender" />
-        <a id="label-gender">Gender</a>
-      </div>
-    </header>
-  
-  
-  
-    <section class="general" ondragstart="return false;" ondrop="return false;">
-      <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
-      <div class="items">
-          <div class="characteristics">
-              <table class="characteristics-table">
-                <tr class="table-header">
-                  {{#each actor.data.characteristics as |ch c|}}
-                  <th title="{{ch.label}}" class="table-header">
-                    {{ch.abrev}}
-                  </th>
-                  {{/each}}
-                </tr>
-                <tr class="table-row">
-                  {{#each actor.data.characteristics as |ch c|}}
-                  <td class="table-data">
-                      <input class = "ch-edit" data-char="{{c}}" type="text" value="{{ch.value}}" data-dtype="Number">
-                    </td>
-                  {{/each}}
-                </tr>
-              </table>
+      <div class="main-row">
+        <div class="movement">
+          <div class="move-section">
+            <div id="movement-value-box" class="move-value">
+              <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
             </div>
-            <div class="main-row">
-                <div class="movement">
-                  <div class="move-section">
-                    <div id="movement-value-box" class="move-value">
-                      <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
-                    </div>
-                    <div class="move-name">
-                      <h4 id="movement-label">Movement</h4>
-                    </div>
-                  </div>
-                  <div class="move-section">
-                      <div class="move-value">
-            
-                    {{#if actor.flags.autoCalcWalk}}
-                      <a class ="auto-calc-toggle" toggle-type = "walk">{{actor.data.details.move.walk}} yds</a>
-                    {{else}}
-                    <input class="auto-calc-toggle" toggle-type = "walk" name="data.details.move.walk" type="text" value="{{data.details.move.walk}}" data-dtype="String">
-                    {{/if}}
-                  </div>
-            
-                    <div class="move-name">
-                      <h4 id="walk-label">Walk</h4>
-                    </div>
-                  </div>
-                  <div class="move-section">
-                      <div class="move-value">
-            
-                      {{#if actor.flags.autoCalcRun}}
-                          <a class ="auto-calc-toggle" toggle-type = "run">{{actor.data.details.move.run}} yds</a>
-                      {{else}}
-                      <input class ="auto-calc-toggle" toggle-type = "run" name="data.details.move.run" type="text" value="{{data.details.move.run}}" data-dtype="String">
-                      {{/if}}
-                    </div>
-            
-                    <div id="move-run" class="move-name">
-                      <h4 id="run-label">Run</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="wounds">
-                  <div class="wounds-section">
-                      <div id="wounds-box">
-                      <div id="wounds-value">
-                        <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
-                      </div>
-                      <div id="wounds-divisor" class="divisor">
-                        /
-                      </div>
-                      <div id="wounds-max">
-                        {{#if actor.flags.autoCalcWounds}}
-                        <a class ="auto-calc-toggle" toggle-type = "wounds">{{data.status.wounds.max}}</a>
-                        {{else}}
-                        <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="String">
-                        {{/if}}
-                      </div>
-                    </div>
-                    <div id="wounds-name">
-                      <h4 id="wound-label">Wounds</h4>
-                    </div>
-                  </div>
-                </div>
+            <div class="move-name">
+              <h4 id="movement-label">Movement</h4>
             </div>
-    </section>
-  
-    <!-- TABS -->
-    <section id="tab-sections">
-      <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;" ondrop="return false;">
-        <button class="item active" data-tab="main">Main</button>
-        <button class="item" data-tab="talents">Talents</button>
-        <button class="item" data-tab="combat">Combat</button>
-        <button class="item" data-tab="inventory">Trappings</button>
-        {{#if actor.flags.hasSpells}}
-        <button class="item" data-tab="magic">Magic</button>
-        {{/if}}
-        {{#if actor.flags.hasPrayers}}
-        <button class="item" data-tab="religion">Religion</button>
-        {{/if}}
-        <button class="item" data-tab="notes">Notes</button>
-     </nav>
-     <div class = "tab main" data-tab="main" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/npc-main.html}}
-     </div>
-     <div class = "tab talents" data-tab="talents" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
-     </div>
-     <div class="tab combat" data-tab="combat" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
-     </div>
-     <div class="tab inventory" data-tab="inventory" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-inventory.html}}
-     </div>
-     <div class="tab magic" data-tab="magic" data-group="primary">
-         {{> public/systems/wfrp4e/templates/actors/actor-magic.html}}
+          </div>
+          <div class="move-section">
+            <div class="move-value">
+
+              {{#if actor.flags.autoCalcWalk}}
+              <a class="auto-calc-toggle" toggle-type="walk">{{actor.data.details.move.walk}} yds</a>
+              {{else}}
+              <input class="auto-calc-toggle" toggle-type="walk" name="data.details.move.walk" type="text"
+                value="{{data.details.move.walk}}" data-dtype="String">
+              {{/if}}
+            </div>
+
+            <div class="move-name">
+              <h4 id="walk-label">Walk</h4>
+            </div>
+          </div>
+          <div class="move-section">
+            <div class="move-value">
+
+              {{#if actor.flags.autoCalcRun}}
+              <a class="auto-calc-toggle" toggle-type="run">{{actor.data.details.move.run}} yds</a>
+              {{else}}
+              <input class="auto-calc-toggle" toggle-type="run" name="data.details.move.run" type="text"
+                value="{{data.details.move.run}}" data-dtype="String">
+              {{/if}}
+            </div>
+
+            <div id="move-run" class="move-name">
+              <h4 id="run-label">Run</h4>
+            </div>
+          </div>
+        </div>
+        <div class="wounds">
+          <div class="wounds-section">
+            <div id="wounds-box">
+              <div id="wounds-value">
+                <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+              </div>
+              <div id="wounds-divisor" class="divisor">
+                /
+              </div>
+              <div id="wounds-max">
+                {{#if actor.flags.autoCalcWounds}}
+                <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
+                {{else}}
+                <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
+                  value="{{data.status.wounds.max}}" data-dtype="String">
+                {{/if}}
+              </div>
+            </div>
+            <div id="wounds-name">
+              <h4 id="wound-label">Wounds</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="randomize-buttons">
+          <a class="randomize" data-target="c">C</a>
+          <a class="randomize" data-target="s">S</a>
+          <a class="randomize" data-target="t">T</a>
+          <span class="randomize-label">Randomize Attributes</span>
+        </div>
       </div>
-      <div class="tab religion" data-tab="religion" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/actor-religion.html}}
-     </div>
-     <div class = "tab notes" data-tab="notes" data-group="primary">
-        {{> public/systems/wfrp4e/templates/actors/npc-notes.html}}
-     </div>
   </section>
-  </form>
+
+  <!-- TABS -->
+  <section id="tab-sections">
+    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
+      ondrop="return false;">
+      <button class="item active" data-tab="main">Main</button>
+      <button class="item" data-tab="talents">Talents</button>
+      <button class="item" data-tab="combat">Combat</button>
+      {{#if actor.flags.hasSpells}}
+      <button class="item" data-tab="magic">Magic</button>
+      {{/if}}
+      {{#if actor.flags.hasPrayers}}
+      <button class="item" data-tab="religion">Religion</button>
+      {{/if}}
+      <button class="item" data-tab="inventory">Trappings</button>
+      <button class="item" data-tab="notes">Notes</button>
+    </nav>
+    <div class="tab main" data-tab="main" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/npc-main.html}}
+    </div>
+    <div class="tab talents" data-tab="talents" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-talents.html}}
+    </div>
+    <div class="tab combat" data-tab="combat" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
+    </div>
+    <div class="tab magic" data-tab="magic" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-magic.html}}
+    </div>
+    <div class="tab religion" data-tab="religion" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-religion.html}}
+    </div>
+    <div class="tab inventory" data-tab="inventory" data-group="primary">
+        {{> public/systems/wfrp4e/templates/actors/actor-inventory.html}}
+      </div>
+    <div class="tab notes" data-tab="notes" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/npc-notes.html}}
+    </div>
+  </section>
   
+</form>
+
+<script>
+  console.log("NPC SHEET TOKEN BACKGROUND CHANGER!");
+  textContainer = document.querySelectorAll('.npc-sheet .window-title');
+  console.log("textContainer");
+  console.log(textContainer);
+  length = textContainer.length;
+  console.log(length);
+  
+  for (i = 0; i < length; i++) {
+    console.log("textContainer[i]");
+    console.log(textContainer[i]);
+    console.log("textContainer[i].innerHTML");
+    console.log(textContainer[i].innerHTML);
+
+    if (textContainer[i].innerHTML.includes("[Token]")) {
+      console.log("TRUE!");
+      new_red = document.getElementsByClassName("npc-sheet")[i].id;
+      console.log(new_red);
+      if ( !document.getElementById(new_red).className.includes("token-actor") ) {
+        document.getElementById(new_red).className += " token-actor";
+      }
+      else {
+        console.log("FALSE!");
+      }
+    } 
+    else {
+      console.log("FALSE!");
+    }
+  }
+
+  console.log("NPC SHEET TOKEN BACKGROUND CHANGER END!");
+  // console.log(checkIfToken);
+</script>

@@ -1,4 +1,4 @@
-<div class="notes-section">
+<div class="notes-section save-scroll">
   <div class="biography">
     <h2>Biography</h2>
     {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
@@ -53,7 +53,7 @@
       <span>Pyschology</span>
       {{#if owner}}
       <div id="psychology-add" class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+        <a class="item-control item-create" title="Create Item" data-type="psychology">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -61,7 +61,7 @@
     </li>
     {{#each actor.psychology as |psych p|}}
     <li class="item" data-item-id="{{psych.id}}">
-      <div class="item-name">
+      <div class="item-name item-dropdown">
         <div class="item-image" style="background-image: url({{psych.img}})"></div>
         <a>{{psych.name}}</a>
       </div>

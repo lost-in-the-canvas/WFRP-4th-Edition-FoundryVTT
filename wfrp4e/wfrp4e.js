@@ -50,9 +50,9 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/surprised.png",
 ]
 
-CONFIG.JournalEntry.noteIcons = {
-  Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
-}
+// CONFIG.JournalEntry.noteIcons = {
+//   Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
+// }
 
 // Species
 CONFIG.species = {
@@ -61,8 +61,199 @@ CONFIG.species = {
   "halfling": "Halfling",
   "helf": "High Elf",
   "welf": "Wood Elf",
-  "gnome": "Gnome"
+ // "gnome": "Gnome"
 };
+
+CONFIG.speciesCharacteristics = {
+  "human" :
+  {
+   "ws" : "2d10+20",
+   "bs" : "2d10+20",
+   "s"  : "2d10+20",
+   "t"  : "2d10+20",
+   "i"  : "2d10+20",
+   "ag" : "2d10+20",
+   "dex": "2d10+20",
+   "int": "2d10+20",
+   "wp" : "2d10+20",
+   "fel": "2d10+20"
+  },
+  "dwarf" :
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+20",
+    "s"  : "2d10+20",
+    "t"  : "2d10+30",
+    "i"  : "2d10+20",
+    "ag" : "2d10+10",
+    "dex": "2d10+30",
+    "int": "2d10+20",
+    "wp" : "2d10+40",
+    "fel": "2d10+10"
+  },
+  "halfling" :
+  {
+    "ws" : "2d10+10",
+    "bs" : "2d10+30",
+    "s"  : "2d10+10",
+    "t"  : "2d10+20",
+    "i"  : "2d10+20",
+    "ag" : "2d10+20",
+    "dex": "2d10+30",
+    "int": "2d10+20",
+    "wp" : "2d10+30",
+    "fel": "2d10+30"
+  },
+  "helf" : 
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+30",
+    "s"  : "2d10+20",
+    "t"  : "2d10+20",
+    "i"  : "2d10+40",
+    "ag" : "2d10+30",
+    "dex": "2d10+30",
+    "int": "2d10+30",
+    "wp" : "2d10+30",
+    "fel": "2d10+20"
+  },
+  "welf" : 
+  {
+    "ws" : "2d10+30",
+    "bs" : "2d10+30",
+    "s"  : "2d10+20",
+    "t"  : "2d10+20",
+    "i"  : "2d10+40",
+    "ag" : "2d10+30",
+    "dex": "2d10+30",
+    "int": "2d10+30",
+    "wp" : "2d10+30",
+    "fel": "2d10+20"
+  },
+
+}
+
+CONFIG.speciesSkills = {
+  "human" : [
+    "Animal Care",
+    "Charm",
+    "Cool",
+    "Evaluate",
+    "Gossip",
+    "Haggle",
+    "Language (Bretonnian)",
+    "Language (Wastelander)",
+    "Leadership",
+    "Lore (Reikland)",
+    "Melee (Basic)",
+    "Ranged (Bow)"
+  ],
+  "dwarf" : [
+    "Consume Alcohol",
+    "Cool",
+    "Endurance",
+    "Entertain (Storytelling)",
+    "Evaluate",
+    "Intimidate",
+    "Language (Khazalid)",
+    "Lore (Dwarfs)",
+    "Lore (Geology)",
+    "Lore (Metallurgy)",
+    "Melee (Basic)",
+    "Trade (any one)"
+  ],
+  "halfling" : [
+    "Charm",
+    "Consume Alcohol",
+    "Dodge",
+    "Gamble",
+    "Haggle",
+    "Intuition",
+    "Language (Mootish)",
+    "Lore (Reikland)",
+    "Lore (Perception)",
+    "Sleight of Hand",
+    "Stealth (Any)",
+    "Trade (Cook)"
+  ],
+  "helf" : [
+    "Cool",
+    "Entertain (Sing)",
+    "Evaluate",
+    "Language (Eltharin)",
+    "Leadership",
+    "Melee (Basic)",
+    "Navigation",
+    "Perception",
+    "Play (any one)",
+    "Ranged (Bow)",
+    "Sail",
+    "Swim"
+  ],
+  "welf" : [
+    "Athletics",
+    "Climb",
+    "Endurance",
+    "Entertain (Sing)",
+    "Intimidate",
+    "Language (Eltharin)",
+    "Melee (Basic)",
+    "Outdoor Survival",
+    "Perception",
+    "Ranged (Bow)",
+    "Stealth (Rural)",
+    "Track"
+  ],
+}
+
+CONFIG.speciesTalents = {
+  "human" : [
+    "Doomed",
+    "Savvy, Suave",
+    3
+  ],
+  "dwarf" : [
+    "Magic Resistance",
+    "Night Vision",
+    "Read/Write, Relentless",
+    "Resolute, Strong-minded",
+    "Sturdy",
+    0
+  ],
+  "halfling" : [
+    "Acute Sense (Taste)",
+    "Night Vision",
+    "Resistance (Chaos)",
+    "Small",
+    0
+  ],
+  "helf" : [
+    "Acute Sense (Sight)",
+    "Coolheaded, Savvy",
+    "Night Vision",
+    "Second Sight, Sixth Sense",
+    "Read/Write",
+    0
+  ],
+  "welf" : [
+    "Acute Sense (Sight)",
+    "Hardy, Second Sight",
+    "Night Vision",
+    "Second Sight, Sixth Sense",
+    "Read/Write",
+    0
+  ],
+}
+
+CONFIG.speciesMovement = {
+  "human" : 4,
+  "dwarf" : 3, 
+  "halfling" : 3,
+  "helf" : 5,
+  "welf" : 5
+}
+
+
 
 // Status Tiers
 CONFIG.statusTiers = {
@@ -103,6 +294,11 @@ CONFIG.skillTypes = {
   "bsc" : "Basic",
   "adv" : "Advanced"
 };
+
+CONFIG.xpCost = {
+  "characteristic" : [25, 30, 40, 50, 70, 90, 120, 150, 190, 230, 280, 330, 390, 450, 520],
+  "skill" : [10, 15, 20, 30, 40, 60, 80, 110, 140, 180, 220, 270, 320, 380, 440]
+}
 
 CONFIG.skillGroup = {
   "isSpec" : "Is Specialization",
@@ -558,6 +754,7 @@ class DiceWFRP {
     renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
       new Dialog({
           title: dialogOptions.title,
+          class: "red",
           content: dlg,
           buttons: dialogOptions.buttons,
           close: html => dialogOptions.callback(html, roll)
@@ -574,71 +771,89 @@ class DiceWFRP {
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
     let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let description = "";
 
-    if (roll.total >= 96)
+
+    // Test determination logic can be complicated due to SLBonus
+    // SLBonus is always applied, but doesn't change a failure to a success or vice versa
+    // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
+    // Additionally, the auto-success/failure range can complicate things even more.
+    if (roll.total >= 96 || roll.total > targetNum)
     {
-      if (SL > -1)
-        SL = -1;
-    }
-    else if (roll.total <= 5)
-    {
-      if (SL < 1)
-        SL = 1; 
-    }
-
-    let description;
-
-    if (SL > 0){
-      description = "Success"
-      SL = SL + successBonus;
-      SL = "+" + SL.toString()
-
-    }
-    else if(SL < 0){
       description = "Failure"
-      SL = SL.toString()
-    }
-    else // SL == 0
-    { 
-      if (targetNum > roll.total)
+      if (roll.total >= 96 && SL > -1) 
+        SL = -1;
+
+      switch(Math.abs(Number(SL)))
       {
-        description = "Success"
-        SL = SL + successBonus;
-        SL = "+" + SL.toString()
-      }
-      else
-      {
-        description = "Failure"
-        SL = "-" + SL.toString() // Should result in -0
-      }
-    }
-
-
-    // Find description according to outcome table
-    switch(Math.abs(Number(SL)))
-    {
-      case 6:
-        description = "Astounding " + description;
-        break;
-      
-      case 5:
-      case 4:
-        description = "Impressive " + description;
-        break;
-
-      case 3:
-      case 2:
-        break;
-
-      case 1:
-      case 0:
-        description = "Marginal " + description;
-        break;
-
-      default: 
-        if (Math.abs(Number(SL)) > 6)
+        case 6:
           description = "Astounding " + description;
+          break;
+        
+        case 5:
+        case 4:
+          description = "Impressive " + description;
+          break;
+  
+        case 3:
+        case 2:
+          break;
+  
+        case 1:
+        case 0:
+          description = "Marginal " + description;
+          break;
+  
+        default: 
+          if (Math.abs(Number(SL)) > 6)
+            description = "Astounding " + description;
+      }
+      if (SL > 0)
+      {
+        description = "Marginal Failure";
+        SL = "+" + SL.toString();
+      }
+      if (SL == 0)
+        SL = "-" + SL.toString()    
+        
+    }
+    else if (roll.total <= 5 || roll.total <= targetNum)
+    {
+      description = "Success"
+      SL += successBonus;
+      if (roll.total <= 96 && SL < 1) 
+        SL = 1;
 
+      switch(Math.abs(Number(SL)))
+      {
+        case 6:
+          description = "Astounding " + description;
+          break;
+        
+        case 5:
+        case 4:
+          description = "Impressive " + description;
+          break;
+  
+        case 3:
+        case 2:
+          break;
+  
+        case 1:
+        case 0:
+          description = "Marginal " + description;
+          break;
+  
+        default: 
+          if (Math.abs(Number(SL)) > 6)
+            description = "Astounding " + description;
+      }
+      if (SL < 0)
+        description = "Marginal Success";
+
+      if (SL >= 0)
+        SL = "+" + SL.toString()    
+        
     }
 
     let rollResults={
@@ -671,9 +886,9 @@ class DiceWFRP {
      
      let testResults = this.rollTest(testData);
 
-     if (testResults.roll > testResults.target)
+     if (testResults.description.includes("Failure"))
      {
-       if (testResults.roll % 11 == 0 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+       if (testResults.roll % 11 == 0 || testResults.total == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
        {
          testResults.extra.fumble = "Fumble"      
          if ((weapon.data.weaponGroup.value == "Blackpowder" ||
@@ -690,10 +905,8 @@ class DiceWFRP {
          testResults.extra.critical = "Critical"
        
        if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
-         testResults.extra.critical = "Critical"
-         
+         testResults.extra.critical = "Critical"   
      }
-
      return testResults;
   } 
 
@@ -702,39 +915,46 @@ class DiceWFRP {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
     let testResults = this.rollTest(testData);
-    if (spell.data.cn.SL >= spell.data.cn.value)
-      spell.data.cn.value = 0;
 
+    if (game.settings.get("wfrp4e", "partialChannelling"))
+    {
+      spell.data.cn.value -= spell.data.cn.SL;
+    }
+    else if (spell.data.cn.SL >= spell.data.cn.value)
+    {
+      spell.data.cn.value = 0;
+    }
     if (testData.extra.malignantInfluence)
       if (Number(testResults.roll.toString().split('').pop()) == 8)
-        miscastCounter++;
+        miscastCounter++; 
     let slOver = (Number(testResults.SL) - spell.data.cn.value)
-    if (testResults.roll > testResults.target)
+
+    if (testResults.description.includes("Failure")) // Failed Test
     {
       testResults.description = "Casting Failed"
-      if (testResults.roll % 11 == 0)
+      if (testResults.roll % 11 == 0 || testResults.roll == 100)
         miscastCounter++;
     }
-    else if (slOver < 0)
+    else if (slOver < 0) // Successful test, but unable to cast
     {
       testResults.description = "Casting Failed"
 
       // TODO: If no ID
-      if (testResults.roll % 11 == 0)
+      if ((testResults.roll % 11 == 0)&& !testData.extra.ID)
       {
         testResults.description = "Casting Succeeded"
         testResults.extra.critical = "Critical Cast"
         miscastCounter++;
       }
     }
-    else
+    else // Successful test, casted 
     {
       testResults.description = "Casting Succeeded"
       let overcasts = Math.floor(slOver / 2);
       testResults.overcasts = overcasts;
 
       // If no ID
-      if (testResults.roll % 11 == 0)
+      if (testResults.roll % 11 == 0 && !testData.extra.ID)
         miscastCounter++;
     }
 
@@ -780,18 +1000,17 @@ class DiceWFRP {
      if (testData.extra.malignantInfluence)
        if (Number(testResults.roll.toString().split('').pop()) == 8)
          miscastCounter++;
-       
-      
-     if (testResults.roll > testResults.target)
-     {
+    
+      if (testResults.description.includes("Failure")) // Failed Test
+      {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
         if (Number(SL) == 0) 
           SL = -1;
 
        testResults.description = "Channell Failed"
-       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0)
+       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0 || testResults.total == 100)
          miscastCounter += 2;
-     }
+      }
      else
      {
        testResults.description = "Channell Succeeded"
@@ -799,8 +1018,8 @@ class DiceWFRP {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
        if (Number(SL) == 0)
         SL = 1;
-       // If no ID
-       if (testResults.roll % 11 == 0)
+
+        if (testResults.roll % 11 == 0 && !testData.extra.AA)
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
@@ -835,7 +1054,7 @@ class DiceWFRP {
             testResults.extra.majormis = "Major Miscast"
             break;
        case 3: 
-       testResults.extra.majormis = "Major Miscast"
+          testResults.extra.majormis = "Major Miscast"
        break;
      }
  
@@ -857,7 +1076,7 @@ class DiceWFRP {
   let currentSin = actor.data.data.status.sin.value;
 
 
-   if (testResults.roll > testResults.target)
+   if (testResults.description.includes("Failure"))
    {
      testResults.description = "Prayer Refused"
      if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
@@ -1021,15 +1240,9 @@ class DiceWFRP {
           propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
           let propertyKey;
           property = property.replace(/,/g, '').trim();
+    
+          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
 
-
-          for (let prop in properties)
-          {
-            if (properties[prop] == property.split(" ")[0])
-              propertyKey = prop;
-          }
-
-          
           let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
           propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
 
@@ -1064,9 +1277,59 @@ class DiceWFRP {
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-
-
-
+  /*
+    console.log("Activating TinyMCE Editor Change");
+    tinyMCE.init({
+      selector: 'textarea',  // change this value according to your HTML
+      content_css : 'systems/wfrp4e/css/myLayout.css', // resolved to http://domain.mine/myLayout.css
+      menu: {
+        format: { title: "Format", items: "forecolor backcolor" }
+      },
+      toolbar: "forecolor backcolor",
+      color_map: [
+        "000000", "Black",
+        "993300", "Burnt orange",
+        "333300", "Dark olive",
+        "003300", "Dark green",
+        "003366", "Dark azure",
+        "000080", "Navy Blue",
+        "333399", "Indigo",
+        "333333", "Very dark gray",
+        "800000", "Maroon",
+        "FF6600", "Orange",
+        "808000", "Olive",
+        "008000", "Green",
+        "008080", "Teal",
+        "0000FF", "Blue",
+        "666699", "Grayish blue",
+        "808080", "Gray",
+        "FF0000", "Red",
+        "FF9900", "Amber",
+        "99CC00", "Yellow green",
+        "339966", "Sea green",
+        "33CCCC", "Turquoise",
+        "3366FF", "Royal blue",
+        "800080", "Purple",
+        "999999", "Medium gray",
+        "FF00FF", "Magenta",
+        "FFCC00", "Gold",
+        "FFFF00", "Yellow",
+        "00FF00", "Lime",
+        "00FFFF", "Aqua",
+        "00CCFF", "Sky blue",
+        "993366", "Red violet",
+        "FFFFFF", "White",
+        "FF99CC", "Pink",
+        "FFCC99", "Peach",
+        "FFFF99", "Light yellow",
+        "CCFFCC", "Pale green",
+        "CCFFFF", "Pale cyan",
+        "99CCFF", "Light sky blue",
+        "CC99FF", "Plum"
+      ]
+    });
+    console.log("Ending TinyMCE Editor Change");
+  */
 
   // fetch ("fgdb.json").then (r => r.json()).then(async records => {
   //   var fgtable = records["tables"]["category"]["id-00001"];
@@ -1342,6 +1605,28 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+    
+    // Register Resolve/Resilience Cap
+    game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
+      name: "Set Average NPC Characteristics",
+      hint: "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+    // Register Resolve/Resilience Cap
+    game.settings.register("wfrp4e", "partialChannelling", {
+      name: "Partial Channelling",
+      hint: "A common house rule that improves the flexibility of Channelling. Instead of requiring the SL to reach the spell's CN, you can instead cast at anytime with the CN reduced by the SL gained so far.",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    });
+    
+
   // Pre-load templates
   loadTemplates([
     "public/systems/wfrp4e/templates/actors/actor-attributes.html",
@@ -1366,6 +1651,9 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/items/item-description.html",
   ]);
 });
+
+
+
 
 
 
@@ -1414,8 +1702,12 @@ Hooks.on("chatMessage", async (html, content, msg) => {
  */
 class ActorWfrp4e extends Actor {
 
+
+  
   // Give new actor all Basic skills
   static async create(data, options) {
+
+
     if (data.type == "character")
     {
       let id = 1;
@@ -1440,45 +1732,99 @@ class ActorWfrp4e extends Actor {
             data.items.push(skillItem.data);
         }
       }
-    }
-    // Default auto calculation to true
-    data.flags = 
-    {
-      autoCalcRun :  true,
-      autoCalcWalk :  true,
-      autoCalcWounds :  true,
-      autoCalcCritW :  true,
-      autoCalcCorruption :  true,
-      autoCalcEnc :  true
-    }
-
-    /*for (let item of Item.collection.entities)
-    {
-      if (item.img.includes ("blank"))
+      // Default auto calculation to true
+      data.flags = 
       {
-        console.log("Test")
-        item.update({"img" : "systems/wfrp4e/icons/blank.png"});
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
       }
-    }*/
-    
+      super.create(data, options);
 
-    // let pack = game.packs.find(p => p.collection == "wfrp4e.injuries")
-    // let list;
-    // await pack.getIndex().then(index => list = index);
-    // for (let item of list)
-    // {
-    //   if (item.img.includes("mystery-man"))
-    //   {
-    //     await pack.updateEntity({_id: item.id, "img": "systems/wfrp4e/icons/blank.png"})
-    //     console.log("updated " + item.name)
-    //   }
-    // }
-    super.create(data, options);
-    
+    }
+
+    else if (data.type == "npc")
+    {
+      new Dialog({
+        title: "Add Basic Skills",
+        content: '<p>Add Basic Skills?</p>',
+        buttons: {
+          yes: {
+            label: "Yes",
+            callback: async dlg => {
+              let id = 1;
+              const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+              let skills = [];
+              console.log(pack);
+              await pack.getIndex().then(index => skills = index);
+              data.items = [];
+              for (let sk of skills)
+              {
+                let skillItem = undefined;
+                await pack.getEntity(sk.id).then(skill => skillItem = skill);
+                skillItem.data.id = id;
+                id++;
+                if (skillItem.data.data.advanced.value == "bsc" && skillItem.data.data.grouped.value == "noSpec")
+                  data.items.push(skillItem.data);
+                else if (skillItem.data.data.advanced.value == "bsc")
+                {
+                  let startParen = skillItem.data.name.indexOf("(")
+                  skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+                  if (data.items.filter(x => x.name.includes(skillItem.data.name)).length <= 0)
+                    data.items.push(skillItem.data);
+                }
+              }
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+          no: {
+            label: "No",
+            callback: async dlg => {
+              data.flags = 
+              {
+                autoCalcRun :  true,
+                autoCalcWalk :  true,
+                autoCalcWounds :  true,
+                autoCalcCritW :  true,
+                autoCalcCorruption :  true,
+                autoCalcEnc :  true
+              }
+              super.create(data, options);
+            }
+          },
+        },
+        default: 'yes'
+      }).render(true);
+    }
+    else
+    {
+      data.flags = 
+      {
+        autoCalcRun :  true,
+        autoCalcWalk :  true,
+        autoCalcWounds :  true,
+        autoCalcCritW :  true,
+        autoCalcCorruption :  true,
+        autoCalcEnc :  true
+      }
+      super.create(data, options);
+    }
   }
-
   // Calculate dynamic data like Characteristic totals and movemen values
   prepareData(actorData) {
+    try {
     actorData = super.prepareData(actorData);
     const data = actorData.data;
 
@@ -1502,9 +1848,16 @@ class ActorWfrp4e extends Actor {
     data.status.wounds.value = data.status.wounds.value
       
     if (actorData.flags.autoCalcEnc)
+    {
       actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
+    }
     
     return actorData;
+    }
+    catch(error)
+    {
+      console.log("Something went wrong with preparing actor data: " + error)
+    }
 
   }
 
@@ -1541,6 +1894,18 @@ class ActorWfrp4e extends Actor {
 
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
@@ -1573,6 +1938,7 @@ class ActorWfrp4e extends Actor {
           label: "Roll"
         }
       },
+      // class: "red",
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
@@ -1592,6 +1958,10 @@ class ActorWfrp4e extends Actor {
         roll();
         }
     };
+
+    console.log("CHAR")
+    console.log(this.data.data);
+
     let cardOptions = {
       actor : this.data.id,
       speaker: {
@@ -1857,6 +2227,8 @@ class ActorWfrp4e extends Actor {
   rollCast(spell) {
     let title = "Casting Test";
     let castSkill = this.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
+    let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
+
     // Prevent casting if they do not have Language (Magick)
     if (!castSkill)
     {
@@ -1870,7 +2242,8 @@ class ActorWfrp4e extends Actor {
       extra : {
         spell : preparedSpell,
         malignantInfluence : false,
-        ingredient : false
+        ingredient : false,
+        ID : instinctiveDiction
       }
     };
 
@@ -1953,6 +2326,7 @@ class ActorWfrp4e extends Actor {
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
     let spellLore = spell.data.lore.value;
     let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
+    let aethyricAttunement = (this.data.flags.talentTests.find(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
     if (channellSkills.length == 0)
     {
@@ -1962,9 +2336,10 @@ class ActorWfrp4e extends Actor {
     let testData = {
       target : 0,
       extra : {
-        spell : spell,
+        spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
         malignantInfluence : false,
-        ingredient : false
+        ingredient : false,
+        AA : aethyricAttunement
       }
     };
 
@@ -2012,7 +2387,7 @@ class ActorWfrp4e extends Actor {
           this.updateOwnedItem(ing);
         }
 
-        roll();
+        roll(this);
         },
         // Override generic roll with channell specific function
       rollOverride : (actor) => {
@@ -2192,7 +2567,7 @@ class ItemWfrp4e extends Item {
 
   static async create(data, options) {
 
-    data.img = "systems/wfrp4e/icons/blank.png";
+    //data.img = "systems/wfrp4e/icons/blank.png";
     super.create(data, options);
   }
   // Expand data is used in most dropdown infos
@@ -2220,6 +2595,9 @@ class ItemWfrp4e extends Item {
   _mutationExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
+    data.properties.push(CONFIG.mutationTypes[this.data.data.mutationType.value]);
+    if (this.data.data.modifier.value)
+      data.properties.push(this.data.data.modifier.value)
     return data;
   }
 
@@ -2295,9 +2673,6 @@ class ItemWfrp4e extends Item {
 
     if (data.weaponGroup.value)
       properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
-
-    if (data.reach.value)
-      properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
     if (data.range.value)
       properties.push("Range: " + data.range.value);
     if (data.damage.meleeValue)
@@ -2306,6 +2681,11 @@ class ItemWfrp4e extends Item {
       properties.push("Ranged Damage: " + data.damage.rangedValue);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
       properties.push(prop);
+    if (data.twohanded.value)
+      properties.push("Two Handed");
+    if (data.reach.value)
+      properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+
     properties = properties.filter(p => p != "Special");
     if (data.special.value)
       properties.push ("Special: " + data.special.value);
@@ -2508,7 +2888,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         if (inputLore == CONFIG.magicLores[lore])
         {
           await this.item.update({'data.lore.value' : lore}); 
-          await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
+          //await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
           return;
         }
       }
@@ -2517,25 +2897,35 @@ class ItemSheetWfrp4e extends ItemSheet {
     }),
 
     
-    html.find('.char-checkbox').change(async event => {
-      let charChanged = event.target.attributes.name.value;
-      let newValue = event.target.checked;
+    html.find('.char-checkbox').click(async event => {
+      let charChanged = $(event.currentTarget).attr("name")
 
       let characteristicList = duplicate(this.item.data.data.characteristics);
-      
-      if (newValue)
-      {
-        if (!characteristicList.includes(charChanged))
-          characteristicList.push(charChanged);
-      }
+
+      if (characteristicList.includes(charChanged))
+        characteristicList.splice(characteristicList.findIndex(c => c == charChanged));
       else
-        characteristicList = characteristicList.filter(c => c != charChanged);
+        characteristicList.push(charChanged);
+      
+      // if (newValue)
+      // {
+      //   if (!characteristicList.includes(charChanged))
+      //     characteristicList.push(charChanged);
+      // }
+      // else
+      //   characteristicList = characteristicList.filter(c => c != charChanged);
       
       if (this.item.actor)
         this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
       else
         await this.item.update({'data.characteristics' : characteristicList})
 
+    }),
+
+    html.find(".item-checkbox").click(async event => {
+      let target = $(event.currentTarget).attr("data-target");
+      let path = target.split(".");
+      this.item.update({[`data.${target}`] : !this.item.data.data[path[0]][path[1]]})
     }),
 
     // This listener converts comma separated lists in the career section to arrays,
@@ -2549,7 +2939,7 @@ class ItemSheetWfrp4e extends ItemSheet {
       {
         case 'skills':
         {
-          await this.item.update({'data.skills': list});
+          await this.item.update({id: this.item.data.id, 'data.skills': list});
         }
         break;
 
@@ -2613,28 +3003,32 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
-  // async _render(force = false, options = {}) {
-  //   this._saveScrollPos();
-  //   await super._render(force, options);
-  //   this._setScrollPos();
-  // }
-  // /* -------------------------------------------- */
+    async _render(force = false, options = {}) {
+      this._saveScrollPos();
+      await super._render(force, options);
+      this._setScrollPos();
+    }
+    /* -------------------------------------------- */
 
   // // TODO: Add .savescroll class to all classes that need their position saved
   // // Currently, many that are saved don't need to be.
-  // _saveScrollPos()
-  // {
-  //   if (this.form === null)
-  //     return;
+   _saveScrollPos()
+   {
+      if (this.form === null)
+        return;
 
-  //   const html = $(this.form).parent();
-  //   let lists = $(html.find(".inventory-list"));
+      const html = $(this.form).parent();
+      this.scrollPos = [];
+     let lists = $(html.find(".save-scroll"));
+     for (let list of lists)
+     {
+       this.scrollPos.push($(list).scrollTop());
+     }
   //   lists.push(html.find(".combat-section"));
   //   lists.push(html.find(".inventory")[1]);
   //   lists.push(html.find(".magic-section"));
   //   lists.push(html.find(".religion-section"));
   //   lists.push(html.find(".notes-section"));
-  //   this.scrollPos = [];
   //   for (let list of lists)
   //   {
   //     try {
@@ -2645,25 +3039,20 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   //     }
   //   }
-  // }
+   }
 
-  // _setScrollPos()
-  // {
-  //   const html = $(this.form).parent();
-  //   let lists = $(html.find(".inventory-list"));
-  //   lists.push(html.find(".combat-section"));
-  //   lists.push(html.find(".inventory"));
-  //   lists.push(html.find(".magic-section"));
-  //   lists.push(html.find(".religion-section"));
-  //   lists.push(html.find(".notes-section"));
-  //   for (let listIndex in lists)
-  //   {
-  //     try {
-  //     ($(lists[listIndex]).scrollTop(this.scrollPos[listIndex]));
-  //     }
-  //     catch{}
-  //   }
-  // }
+      _setScrollPos()
+      {
+        if (this.scrollPos)
+        {
+          const html = $(this.form).parent();
+          let lists = $(html.find(".save-scroll"));
+          for (let i = 0; i < lists.length; i++)
+          {
+            $(lists[i]).scrollTop(this.scrollPos[i]);
+          }
+        }
+      }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -2749,8 +3138,21 @@ class ActorSheetWfrp4e extends ActorSheet {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
         sheetData.actor.data.details.move.run += sheetData.actor.data.details.move.walk;
     } 
+
+    if (sheetData.actor.flags.autoCalcEnc)
+    {
+      let strongBackTalent = sheetData.actor.talents.find(t => t.name.toLowerCase() == "strong back")
+      let sturdyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase() == "sturdy")
+
+      if (strongBackTalent)
+        sheetData.actor.data.status.encumbrance.max += strongBackTalent.data.advances.value;
+      if (sturdyTalent)
+        sheetData.actor.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
+
+    }
     
     // Return data to the sheet
+    sheetData.isToken = this.actor.token;
     return sheetData;
   }
 
@@ -2781,7 +3183,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       const psychology = [];
       const mutations = [];
       const diseases = [];
-      let allPenalties = "";
+      let penalties = {
+        "Armour" : {value : ""},
+        "Injury" : {value : ""},
+        "Mutation" : {value : ""},
+      };
   
       // Inventory object is for the inventory tab
       const inventory = {
@@ -2808,6 +3214,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let hasPrayers = false;
   
       for ( let i of actorData.items ) {
+        try {
         i.img = i.img || DEFAULT_TOKEN;
         if (i.type === "talent")
         {
@@ -2893,7 +3300,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (i.type == "injury")
         {
           injuries.push(i);
-          allPenalties += i.data.penalty.value;
+          penalties["Injury"].value += i.data.penalty.value;
         }
   
         else if (i.type === "container")
@@ -2933,6 +3340,11 @@ class ActorSheetWfrp4e extends ActorSheet {
                 i.encumbrance = i.encumbrance - 1;
                 i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
               }
+            }
+            else if (i.data.trappingType.value == "tradeTools")
+            {
+              inventory["toolsAndKits"].items.push(i)
+              inventory["toolsAndKits"].show = true;
             }
             else if (i.data.trappingType.value)
             {
@@ -2979,6 +3391,12 @@ class ActorSheetWfrp4e extends ActorSheet {
             actorData.currentCareer = i.name;
             actorData.currentCareerGroup = i.data.careergroup.value;
             actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+            let availableCharacteristics = i.data.characteristics
+            for (let char in actorData.data.characteristics)
+            {
+              if (availableCharacteristics.includes(char))
+                actorData.data.characteristics[char].career = true;
+            }
           }
           careers.push(i);
         }
@@ -3016,7 +3434,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
-            allPenalties += i.data.modifier.value;
+            penalties["Mutation"].value += i.data.modifier.value;
         }
   
         else if (i.type === "money")
@@ -3032,6 +3450,10 @@ class ActorSheetWfrp4e extends ActorSheet {
           money.total += i.data.quantity.value * i.data.coinValue.value;
   
         }
+      }
+      catch (error){
+        console.log("Something went wrong while preparing item: " + i.name + ": " + error)
+      }
       }
   
       // If you have no spells, just put all ingredients in the miscellaneous section
@@ -3082,42 +3504,99 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
   
-      if (this.actor.data.data.status.penalties.value)
-        allPenalties += " " + this.actor.data.data.status.penalties.value
-      
-      allPenalties += " " +  WFRP_Utility._calculateArmorPenalties(actorData, armour);
-      if (allPenalties.length > 78)
+
+
+
+      //if (this.actor.data.data.status.penalties.value)
+       // penalties.other = this.actor.data.data.status.penalties.value
+      let penaltiesOverflow = false;
+      penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
       {
-        actorData.penaltyOverflow = true;
-        let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
-        let injuryPenalties = injuries.reduce(function (prev, cur) {
-          return prev += cur.data.penalty.value + " "
-        }, "");
-        let mutationPenalties = mutations.reduce(function (prev, cur) {
-          if (cur.data.modifiesSkills.value)
-            return prev += cur.data.modifier.value + " "
+        penaltiesOverflow = true;
+        for (let penaltyType in penalties)
+        {
+          if (penalties[penaltyType].value)
+            penalties[penaltyType].show = true;
           else
-            return prev;
-        }, "");
-        let otherPenalties = this.actor.data.data.status.penalties.value; 
-        let allPenaltiesOverflow = {};
-        if (armourPenalties)
-          allPenaltiesOverflow["Armour"] = armourPenalties;
+            penalties[penaltyType].show = false;
+        }
+        // let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
+        // let injuryPenalties = injuries.reduce(function (prev, cur) {
+        //   return prev += cur.data.penalty.value + " "
+        // }, "");
+        // let mutationPenalties = mutations.reduce(function (prev, cur) {
+        //   if (cur.data.modifiesSkills.value)
+        //     return prev += cur.data.modifier.value + " "
+        //   else
+        //     return prev;
+        // }, "");
+        // let otherPenalties = this.actor.data.data.status.penalties.value; 
+        // let allPenaltiesOverflow = {};
+        // if (armourPenalties)
+        //   allPenaltiesOverflow["Armour"] = armourPenalties;
 
-        if (injuryPenalties)
-          allPenaltiesOverflow["Injury"] = injuryPenalties;
+        // if (injuryPenalties)
+        //   allPenaltiesOverflow["Injury"] = injuryPenalties;
 
-        if (mutationPenalties)
-          allPenaltiesOverflow["Mutation"] = mutationPenalties;
+        // if (mutationPenalties)
+        //   allPenaltiesOverflow["Mutation"] = mutationPenalties;
 
-        if (otherPenalties)
-          allPenaltiesOverflow["Other"] = otherPenalties;
+        // if (otherPenalties)
+        //   allPenaltiesOverflow["Other"] = otherPenalties;
 
-
-
-        allPenalties = allPenaltiesOverflow;
-
+        // allPenalties = allPenaltiesOverflow;
       }
+
+      let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
+      if (armorTrait)
+      {
+        for (let loc in AP)
+        {
+          try{
+            if (loc != "shield")
+              AP[loc] += parseInt(armorTrait.data.specification.value);
+          }
+          catch {//ignore
+          }
+        }
+      }
+
+      let untrainedSkills = []
+      let untrainedTalents = []
+      for (let career of careers)
+      {
+        if (career.data.current.value)
+        {
+          for (let sk of career.data.skills)
+          {
+            let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name == sk)
+            if (trainedSkill)
+            {
+              trainedSkill.career = true;
+            }
+            else
+            {
+              untrainedSkills.push(sk);
+            }
+          }
+
+          for (let talent of career.data.talents)
+          {
+            let trainedTalents = talents.find(t => t.name == talent)
+            if (trainedTalents)
+            {
+              trainedTalents.career = true;
+            }
+            else
+            {
+              untrainedTalents.push(talent);
+            }
+          }
+        }
+      }
+
+  
 
       actorData.inventory = inventory;
       actorData.containers = containers;
@@ -3129,7 +3608,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.diseases = diseases;
       actorData.mutations = mutations;
       actorData.armour = armour;
-      actorData.allPenalties = allPenalties;
+      actorData.penalties = penalties;
+      actorData.penaltyOverflow = penaltiesOverflow;
       actorData.AP = AP;
       actorData.injuries = injuries;
       actorData.grimoire = grimoire;
@@ -3141,6 +3621,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.psychology = psychology;
       actorData.flags.hasSpells = hasSpells;
       actorData.flags.hasPrayers = hasPrayers;
+      actorData.untrainedSkills = untrainedSkills;
+      actorData.untrainedTalents = untrainedTalents;
   
   
   
@@ -3389,13 +3871,36 @@ class ActorSheetWfrp4e extends ActorSheet {
       let item = this.actor.items.find(i => i.id === itemId );
       item.data[type].value = !item.data[type].value;
 
+
+       if (type == "current")
+       {
+         let availableCharacteristics = item.data.characteristics
+         let characteristics = this.actor.data.data.characteristics;
+         if (item.data.current.value)
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+             if (availableCharacteristics.includes(char))
+               characteristics[char].career = true;
+           }
+         }
+         else
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+           }
+         }
+      this.actor.update({"data.characteristics" : characteristics})
+      }
+
       // Only one career can be current - make all other careers not current 
       // Dislike iterating through every item: TODO - different approach
       if (type == "current" && item.data.current.value == true)
         for (let i of this.actor.items)
           if (i.type == "career" && i != item)
             i.data.current.value = false;
-
       this.actor.updateOwnedItem(item);
     });
 
@@ -3503,25 +4008,43 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     });
 
-    html.find('.disease-roll').click(async ev =>  {
+    html.find('.disease-roll').mousedown(async ev =>  {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       const disease = this.actor.items.find(i => i.id === itemId);
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
 
-      //let text = ev.target.text.split(' ').join('')
-      try 
+      if (ev.button == 0)
       {
-        let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
-        let timeUnit = disease.data[type].value.split(" ")[1];
-        disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+        try 
+        {
+          let rollValue = new Roll(disease.data[type].value.split(" ")[0]).roll().total    
+          let timeUnit = disease.data[type].value.split(" ")[1];
+          disease.data[type].roll = rollValue.toString() + " " + timeUnit;
+        }
+        catch
+        {
+          disease.data[type].roll = disease.data[type].value;
+        }
+      
+        this.actor.updateOwnedItem(disease);
       }
-      catch
+      else if (ev.button == 2)
       {
-        disease.data[type].roll = disease.data[type].value;
+        if(disease.data[type].roll)
+        {
+          let number = Number(disease.data[type].roll.split(" ")[0]) - 1;
+          let timeUnit = disease.data[type].roll.split(" ")[1];
+          disease.data[type].roll = `${number} ${timeUnit}`;
+        }
+        this.actor.updateOwnedItem(disease);
       }
-    
-      await this.actor.updateOwnedItem(disease);
     })
+
+    // html.find('.penalties-input').focusout(async ev =>  {
+    //   console.log(ev.target.value);
+
+    //   await this.actor.update({"data.status.penalties.value" : ev.target.value})
+    // })
 
 
     //Item Dragging
@@ -3660,11 +4183,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         else if (property != "Special")
         {
-          for (let prop in properties)
-          {
-            if (properties[prop] == property.split(" ")[0])
-              propertyKey = prop;
-          }
+          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
         }
         else{
           let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
@@ -3707,29 +4226,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         let weaponGroup = event.target.text;
         let weaponGroupKey = "";
-        for (let group in CONFIG.weaponGroups)
-        {
-          if (CONFIG.weaponGroups[group] == weaponGroup)
-            {
-              weaponGroupKey = group;
-              break;
-            }            
-        }
+        weaponGroupKey = WFRP_Utility.findKey(weaponGroup, CONFIG.weaponGroups);
         expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
       }
       else if (expandInfo == "weapon-reach")
       {
         let reach = event.target.text;
         let reachKey;
-
-        for (let r in CONFIG.weaponReaches)
-        {
-          if (CONFIG.weaponReaches[r] == reach)
-          {
-            reachKey = r;
-            break;
-          }
-        }
+        reachKey = WFRP_Utility.findKey(reach, CONFIG.weaponReaches);
         expansionText = CONFIG.reachDescription[reachKey];       
       }
       
@@ -3782,8 +4286,24 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+
+    // console.log("TESTING SHIT - CHARACTER");
+    // console.log(options);
+
+    // mergeObject(options, {
+    //   classes: options.classes.concat(["token-sheet"]),
+    // });
+
     return options;
   }
+
+  // get title() {
+
+    
+  //   return (this.token && !this.token.data.actorLink) ? `[Token] ${this.actor.name}` : this.actor.name;
+  // }
+
 
   /* -------------------------------------------- */
 
@@ -3794,7 +4314,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   get template() {
     const path = "public/systems/wfrp4e/templates/actors/";
    // if ( this.actor.limited ) return path + "limited-sheet.html";
-    return path + "actor-sheet.html";
+   return path + "actor-sheet.html";
+
   }
 
   /* -------------------------------------------- */
@@ -3836,6 +4357,155 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
     return numCoins / 50;
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find(".untrained-skill").mousedown(async ev => {
+
+      let skill = await WFRP_Utility.findSkill(event.target.text);
+
+      if (ev.button == 2)
+      {
+        skill.sheet.render(true);
+      }
+      else
+      {
+        new Dialog()
+        try 
+        {
+
+          new Dialog({
+            title: "Add Career Skill",
+            content: '<p>Do you want to add this skill?</p>',
+            buttons: {
+              yes: {
+                label: "Yes",
+                callback: dlg => {
+                  this.actor.createOwnedItem(skill.data);
+                }
+              },
+              cancel: {
+                label: "Cancel",
+                callback: dlg => {
+                  return    
+                }
+              },
+            },
+            default: 'yes'
+          }).render(true);
+        }
+        catch 
+        {
+          console.log(error)
+        }
+      }
+    })
+
+    html.find(".untrained-talent").mousedown(async ev => {
+
+      let talent = await WFRP_Utility.findTalent(event.target.text);
+
+      if (ev.button == 2)
+      {
+        talent.sheet.render(true);
+      }
+
+      else 
+      {
+        new Dialog()
+        try 
+        {
+          new Dialog({
+            title: "Add Career Talent",
+            content: '<p>Do you want to add this Talent?</p>',
+            buttons: {
+              yes: {
+                label: "Yes",
+                callback: dlg => {
+                  this.actor.createOwnedItem(talent.data);
+                  // this.actor.update({"data.details.experience.spent" : this.actor.data.data.details.experience.spent + 100})
+                }
+              },
+              cancel: {
+                label: "Cancel",
+                callback: dlg => {
+                  return    
+                }
+              },
+            },
+            default: 'yes'
+          }).render(true);
+        }
+        catch 
+        {
+          console.log(error)
+        }
+    }
+
+    })
+
+    html.find('.advancement-indicator').mousedown(async ev =>  {
+     let data = duplicate(this.actor.data.data);
+
+      let type = $(ev.target).attr("data-target");
+
+      if (type == "skill")
+      {
+        let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+        let item = this.actor.getOwnedItem(itemId);
+
+        if (ev.button == 0)
+        {
+          let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+          data.details.experience.spent = Number(data.details.experience.spent) + cost;
+          item.data.data.advances.value++;
+          this.actor.updateOwnedItem({id : itemId, "data.advances.value": item.data.data.advances.value});
+          this.actor.update({"data.details.experience.spent" : data.details.experience.spent});
+        }
+        else if (ev.button = 2)
+        {
+          if (item.data.data.advances.value == 0)
+            return;
+          item.data.data.advances.value--;
+          let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+          data.details.experience.spent = Number(data.details.experience.spent) - cost;
+          this.actor.updateOwnedItem({id : itemId, "data.advances.value": item.data.data.advances.value});
+          this.actor.update({"data.details.experience.spent" : data.details.experience.spent});
+        }
+      }
+      else if (type == "talent")
+      {
+
+      }
+      else
+      {
+        let characteristic = type;
+        let currentChar = this.actor.data.data.characteristics[characteristic];
+
+        if (ev.button == 0)
+        {
+          let cost = WFRP_Utility._calculateAdvCost(currentChar.advances, "characteristic");
+
+          data.characteristics[characteristic].advances++;
+          data.details.experience.spent = Number(data.details.experience.spent) + cost;
+          await this.actor.update({"data.characteristics" : data.characteristics,
+                                  "data.details.experience" : data.details.experience});
+        }
+        else if (ev.button == 2)
+        {
+          if (currentChar.advances == 0)
+            return
+          let cost = WFRP_Utility._calculateAdvCost(currentChar.advances - 1, "characteristic");
+
+          data.characteristics[characteristic].advances--;
+          data.details.experience.spent = Number(data.details.experience.spent) - cost;
+          await this.actor.update({"data.characteristics" : data.characteristics,
+                                  "data.details.experience" : data.details.experience});
+        }
+      }
+  });
+}
   /* -------------------------------------------- */
 
   // _getHeaderButtons() {
@@ -3897,6 +4567,9 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+    // console.log("TESTING SHIT - NPC");
+
     return options;
   }
 
@@ -3941,76 +4614,118 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    */
   async _advanceNPC(careerData) {
     let updateObj = {};
-    let skillList = [];
     let advancesNeeded = careerData.level.value * 5;
-    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
-    await pack.getIndex().then(index => skillList = index);
     
     for (let advChar of careerData.characteristics)
-    {
       if (this.actor.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
         updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-    }
+    
     for (let skill of careerData.skills)
-    {
-      let searchResult;
-      // Search for specific skill (won't find unlisted specializations)
-      searchResult = skillList.find(s => s.name == skill)
+      await this._advanceSkill(skill, advancesNeeded);
 
-      try 
-      {
-        if (!searchResult)
-          searchResult = skillList.find(s => s.name.split("(")[0].trim() == skill.split("(")[0].trim())
-
-        let existingSkill = this.actor.data.items.find(i => i.name.trim() == skill && i.type == "skill")
-        if (existingSkill)
-        {
-          existingSkill.data.advances.value = (existingSkill.data.advances.value < advancesNeeded) ? advancesNeeded : existingSkill.data.advances.value; 
-          this.actor.updateOwnedItem(existingSkill);
-        }
-      
-        else
-        {
-          let skillToAdd;             
-          await pack.getEntity(searchResult.id).then(packSkill => skillToAdd = packSkill);
-          skillToAdd.data.name = skill; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
-          skillToAdd.data.data.advances.value = advancesNeeded;
-          this.actor.createOwnedItem(skillToAdd.data);
-          console.log(skillToAdd);
-        }
-      }
-      catch {
-        console.log("Something went wrong when adding skill " + skill);
-      }
-
-    }
-    let talentList = [];
-    pack = game.packs.find(p => p.collection == "wfrp4e.talents")
-    await pack.getIndex().then(index => talentList = index);
     for (let talent of careerData.talents)
-    {
-      let searchResult = talentList.find(t => t.name == talent);
+      await this._advanceTalent(talent);
 
-      try 
-      {
-        if (!searchResult)
-          searchResult = talentList.find(t => t.name == talent.split("(")[0].trim())          
-        
-        if (searchResult)
-        {
-          let talentToAdd;
-          await pack.getEntity(searchResult.id).then(packSkill => talentToAdd = packSkill);
-          talentToAdd.data.name = talent;
-          this.actor.createOwnedItem(talentToAdd.data);
-          console.log(talentToAdd)
-        }
-      }
-      catch{
-        console.log("Something went wrong when adding talent " + talent);
-      }
-
-    }
     this.actor.update(updateObj);
+  }
+
+  async _advanceSpeciesSkills() {
+    let skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
+    if (!skillList)
+    {
+      skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+      if (!skillList)
+        throw "Could not add skills for species " + this.actor.data.data.details.species.value;
+    }
+    let skillSelector = new Roll(`1d${skillList.length}- 1`);
+    skillSelector.roll().total;
+
+    let skillsSelected = [];
+    while (skillsSelected.length < 6)
+    {
+      skillSelector = skillSelector.reroll()
+      if (!skillsSelected.includes(skillSelector.total))
+        skillsSelected.push(skillSelector.total);
+    }
+    
+    for (let skillIndex in skillsSelected)
+    {
+      if (skillIndex <= 2)
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
+      else
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
+    }
+  }
+
+  
+  async _advanceSpeciesTalents() {
+    let talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
+    if (!talentList)
+    {
+      talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+      if (!talentList)
+        throw "Could not add talents for species " + this.actor.data.data.details.species.value;
+    }
+    let talentSelector; 
+    for (let talent of talentList)
+    {
+      if (!isNaN(talent)) // If is a number, roll on random talents
+      {
+        for (let i = 0; i < talent; i++)
+        {
+          let result = WFRP_Tables.rollTable("talents")
+          await this._advanceTalent(result.name);
+        }
+        continue
+      }
+      let talentOptions = talent.split(',').map(function(item) {
+        return item.trim();
+      });
+
+      if (talentOptions.length > 1)
+      {
+        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
+          await this._advanceTalent(talentOptions[talentSelector.roll().total])
+      }
+      else
+      {
+        await this._advanceTalent(talent)
+      }
+    }
+    
+  }
+
+  async _advanceSkill(skillName, advances){
+    let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    if (existingSkill)
+    {
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value; 
+      await this.actor.updateOwnedItem(existingSkill);
+      return;
+    }
+    
+    // If does not already own skill, search through compendium
+    try 
+    {
+        let skillToAdd = await WFRP_Utility.findSkill(skillName) 
+        skillToAdd.data.data.advances.value = advances;
+        this.actor.createOwnedItem(skillToAdd.data);
+    }
+    catch(error) {
+      console.log("Something went wrong when adding skill " + skillName +": " + error);
+    }
+  }
+
+  async _advanceTalent(talentName){
+
+    try 
+    {
+      let talent = await WFRP_Utility.findTalent(talentName);
+      this.actor.createOwnedItem(talent.data);
+    }
+    catch{
+      console.log("Something went wrong when adding talent " + talent);
+    }
   }
 
   /* -------------------------------------------- */
@@ -4037,6 +4752,13 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           })
       });
 
+      
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+
       html.find('.npc-career').click(event => {
         event.preventDefault();
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
@@ -4050,15 +4772,46 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
 
       html.find('#input-species').focusout(async event => {
         event.preventDefault();
-        let species = event.target.value;
 
-        let initialValues = WFRP_Utility.speciesAverage(species);
+        if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
+        {
+          let species = event.target.value;
 
-        // Could not get assigning the whole object to work
-        // Error was something about fields not allowing "."
-        for (let char in initialValues)
-          await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
-        await this.actor.update({"data.details.species.value" : species});
+          let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
+
+          // Could not get assigning the whole object to work
+          // Error was something about fields not allowing "."
+          for (let char in initialValues)
+            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+          await this.actor.update({"data.details.species.value" : species});
+          await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
+        }
+      });
+
+      
+      html.find('.randomize').click(async event => {
+        event.preventDefault();
+        let species = this.actor.data.data.details.species.value;;
+
+        switch(event.target.text)
+        {
+          case "C":
+            let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+            for (let char in rolledCharacteristics)
+              await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+            return
+
+          case "S":
+            this._advanceSpeciesSkills()  
+            return
+
+          case "T":
+            this._advanceSpeciesTalents()  
+            return
+        }
+
+
+
       });
   }
 
@@ -4093,6 +4846,9 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
+
+    // console.log("TESTING SHIT - CREATURE");
+
     return options;
   }
 
@@ -4115,7 +4871,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   getData() {
     const sheetData = super.getData();
-
     // Return data for rendering
     return sheetData;
   }
@@ -4156,6 +4911,25 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    
+      html.find(".item").hover(event => {
+        $(event.currentTarget).toggleClass("deletable");
+      })
+
+      html.find(".content").keypress(event => {
+        console.print(event);
+      })
+
+      html.find('.ch-roll').click(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.rollCharacteristic(characteristic, event);
+      });
+  }
+
 }
 
 // Register NPC Sheet
@@ -4175,6 +4949,10 @@ class WFRP_Utility
 
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    if (item.data.duration.extendable)
+    {
+      item.duration += "+";
+    }
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
     
     if (item.type == "spell")
@@ -4216,9 +4994,7 @@ class WFRP_Utility
       if (!existingTalent.numMax){
         talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
-      if (existingTalent.data.advances.value < existingTalent.numMax){
         existingTalent.data.advances.value++;
-      }
     }
     else{
       switch(talent.data.max.value){
@@ -4347,30 +5123,6 @@ class WFRP_Utility
       }
     });
 
-    // Commented code is part of process of removing unrecognized qualities/flaws
-    // Unsure if this should even be done (it won't allow people to make up their own)
-    /*let invalidQualities = [];
-    let invalidFlaws = [];
-    for (let q in Object.values(qualities))
-    {
-      if (!Object.values(CONFIG.weaponQualities).includes(q.split(" ")[0])
-      || !Object.values(CONFIG.itemQualities).includes(q.split(" ")[0]));
-      {
-        invalidQualities.push(q)
-      }
-    }
-
-    for (let f in Object.values(flaws))
-    {
-      if (!Object.values(CONFIG.weaponflaws).includes(flaws[f].split(" ")[0])
-      || !Object.values(CONFIG.itemflaws).includes(flaws[f].split(" ")[0]));
-      {
-        invalidFlaws.push(f)
-      }
-    } */
-
-    // Remove Invalid qualities/flaws
-
 
     if (!item.data.special.value)
       return qualities.concat(flaws).sort().filter(p => !!p);
@@ -4406,61 +5158,20 @@ class WFRP_Utility
     let wearingPlate = false;
     for (let a of armorList)
     {
-      if (a.data.armorType.value == "mail")
-        wearingMail = true;
-      else if (a.data.armorType.value == "plate")
-        wearingPlate = true;
-
-      if (a.data.penalty.value.trim() == "")
-        continue;
-      
-      let penalties = a.data.penalty.value.split(",").map(function(item) {
-        return item.trim();
-      });
-
-      for(let p of penalties)
-      {
-        let penaltyandSkill = p.split(" ").map(function(item) {
-          return item.trim();
-        });
-        penaltyandSkill[0] = parseInt(penaltyandSkill[0])
-
-        let existingPenalty = armorPenalties.skill.indexOf(penaltyandSkill[1]);
-        if (existingPenalty == -1)
-        {
-          armorPenalties.skill.push(penaltyandSkill[1]);
-          armorPenalties.penalty.push(penaltyandSkill[0]);
-        }
-        else
-        {
-          armorPenalties.penalty[existingPenalty] += penaltyandSkill[0];
-        }
-      }
+      armorPenaltiesString += a.data.penalty.value + " ";
     }
 
     if (wearingMail || wearingPlate)
     {
-      let stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      if (stealthPenalty == -1)
-      {
-        armorPenalties.skill.push("Stealth");
-        armorPenalties.penalty.push(0);
-        stealthPenalty = armorPenalties.skill.indexOf("Stealth");
-      }
-
+      let stealthPenaltyValue = 0;
       if (wearingMail)
-        armorPenalties.penalty[stealthPenalty] += -10;
+        stealthPenaltyValue += -10;
       if (wearingPlate)
-        armorPenalties.penalty[stealthPenalty] += -10;
-    }
+        stealthPenaltyValue += -10;
 
-    for (let i = 0; i < armorPenalties.skill.length; i++)
-    {
-      armorPenaltiesString = armorPenaltiesString.concat(armorPenalties.penalty[i] + " " + armorPenalties.skill[i]);
-      if (i != armorPenalties.skill.length - 1)
-        armorPenaltiesString = armorPenaltiesString.concat(", ");
-
+      armorPenaltiesString += a.data.penalty.value + " ";
     }
+    
     return armorPenaltiesString;
   }
 
@@ -4582,22 +5293,98 @@ class WFRP_Utility
     return formula;
   }
 
-
-  static speciesAverage(species)
+  /**
+   * Roll characteristics given a species
+   * @param {string} species      Key or value for species in CONFIG      
+   * @param {bool} average           Take average or not
+   */
+  static speciesCharacteristics(species, average)
   {
-    let averageCharacteristics = {};
+    let characteristics = {};
+    let characteristicFormulae = CONFIG.speciesCharacteristics[species];
+    if(!characteristicFormulae) // If input species was not a valid key, try finding it as a value
+     characteristicFormulae = CONFIG.speciesCharacteristics[this.findKey(species, CONFIG.species)]
+
+    if (!characteristicFormulae)
+    {
+      for (let char in CONFIG.characteristics)
+      {
+        characteristics[char] = 20;
+      }
+      console.log("Could not find species " + species)
+      return characteristics;
+    }
+
     for (let char in CONFIG.characteristics)
     {
-      averageCharacteristics[char] = 0;
-    }
-    if (species == "Human")
-    {
-      for (let char in averageCharacteristics)
+      if (average)
       {
-        averageCharacteristics[char] = 30;
+        characteristics[char] = parseInt(characteristicFormulae[char].split("+")[1]) + 10
+      }
+      else
+      {
+        characteristics[char] = new Roll(characteristicFormulae[char]).roll().total;
       }
     }
-    return averageCharacteristics;
+    return characteristics
+  }
+
+  static speciesMovement(species)
+  {
+    let move = CONFIG.speciesMovement[species];
+    if(!move) // If input species was not a valid key, try finding it as a value
+     move = CONFIG.speciesMovement[this.findKey(species, CONFIG.species)]
+    return move;
+  }
+
+  static findKey(value, obj) 
+  {
+    for (let key in obj)
+    {
+      if (obj[key] == value)
+        return key;
+    }
+    throw "Could not find key corresponding to " + value + " in " + obj
+  }
+
+  static async findSkill(skillName)
+  {
+    let skillList = [];
+    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    await pack.getIndex().then(index => skillList = index);
+    // Search for specific skill (won't find unlisted specializations)
+    let searchResult = skillList.find(s => s.name == skillName) 
+    if (!searchResult)
+      searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
+
+    if (!searchResult)
+      throw "Could not find skill (or specialization of) " + skillName + " in compendum"
+
+    let dbSkill;
+    await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
+    dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+    return dbSkill;
+    
+  }
+
+  static async findTalent(talentName)
+  {
+    let talentList = [];
+    let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
+    await pack.getIndex().then(index => talentList = index);
+    // Search for specific skill (won't find unlisted specializations)
+    let searchResult = talentList.find(t => t.name == talentName) 
+    if (!searchResult)
+      searchResult = talentList.find(t => t.name.split("(")[0].trim() == talentName.split("(")[0].trim())
+
+    if (!searchResult)
+      throw "Could not find skill (or specialization of) " + talentName + " in compendum"
+
+    let dbTalent;
+    await pack.getEntity(searchResult.id).then(packTalent  => dbTalent = packTalent);
+    dbTalent.data.name = talentName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+    return dbTalent;
+    
   }
 
   static nameSorter(a, b){
@@ -4624,6 +5411,16 @@ class WFRP_Utility
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
   }
+
+  static _calculateAdvCost(currentAdvances, type)
+  {
+    let index = Math.ceil((currentAdvances / 5) - 1);
+    index = index < 0 ? 0 : index; // min 0
+
+    if (index >= CONFIG.xpCost[type].length)
+      return CONFIG.xpCost[CONFIG.xpCost.length-1];
+    return CONFIG.xpCost[type][index];
+  }
 }
 
 class WFRP_Tables {
@@ -4640,6 +5437,8 @@ class WFRP_Tables {
       // cap at 100
       let die = this[table].die;
       let tableSize = this[table].rows.length - 1;
+      if (!die)
+        die = `1d${tableSize}`;
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
       let rollValue = roll.total;
       let displayTotal = roll.total;
@@ -4787,6 +5586,7 @@ class WFRP_Tables {
     }
   }
 }
+
 
 
 /* -------------------------------------------- */

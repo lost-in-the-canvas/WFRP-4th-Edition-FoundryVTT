@@ -1,7 +1,7 @@
 <div class="skill-section" ondragstart="return false;" ondrop="return false;">
   <div id="basic-skills-list" class="skill-type">
     <h3>Basic Skills</h3>
-    <ol class="inventory-list">
+    <ol class="inventory-list save-scroll">
       <li class="inventory-header item">
         <div class="item-name">Skill</div>
         <div class="skill-char-title">Char.</div>
@@ -23,7 +23,14 @@
           <a>{{item.name}}</a>
         </div>
 
-        <div class="row">
+        {{#if item.career}}
+        <a class = "advancement-indicator" data-target = "skill">+</a>       
+        {{else}}
+        <a style = "visibility : hidden" class = "advancement-indicator">+</a>
+        {{/if}}
+
+
+        <div class="row"> 
           <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>
           <h3 class="row-value">{{item.data.characteristic.num}}</h3>
         </div>
@@ -45,7 +52,7 @@
 
   <div id="advanced-skills-list" class="skill-type">
       <h3>Grouped & Advanced Skills</h3>
-      <ol class="inventory-list">
+      <ol class="inventory-list save-scroll">
         <li class="inventory-header item">
           <div class="item-name">Skill</div>
           <div class="skill-char-title">Char.</div>
@@ -66,6 +73,12 @@
             <div class="item-name-edit">
             <a>{{item.name}}</a>
           </div>
+
+          {{#if item.career}}
+          <a class = "advancement-indicator" data-target = "skill">+</a>
+          {{else}}
+          <a style = "visibility : hidden" class = "advancement-indicator">+</a>
+          {{/if}}
   
           <div class="row">
             <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>
@@ -83,23 +96,35 @@
           {{/if}}
         </li>
         {{/each}}
+        {{#each actor.untrainedSkills as |item i|}}
+        <li class="item">
+            <div>
+            <a class="untrained-skill">{{item}}</a>
+          </div>
+        </li>
+        {{/each}}
+
+
+
       </ol>
     </div>
   
 </div>
 <div class="penalties">
-  <h3>Penalties: </h3>
+  <h3>Penalties</h3> 
   {{#if actor.penaltyOverflow}}
-  {{#each actor.allPenalties as |penalty p|}}
-  <a class = "penalty" title = "{{penalty}}">{{p}}</a>
-  {{/each}}
-  <input class = "penalties-input" type="text" name="data.status.penalties.value" data-dtype = "String" onfocus="this.value=''">
+    {{#each actor.penalties as |penalty p|}}
+    {{#if penalty.show}}
+    <div class ="penalty" title = "{{penalty.value}}"><a>{{p}}</a></div>
+    {{/if}}
+    {{/each}}
+    <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
   {{else}}
-  <input class = "penalties-input" type="text" name="data.status.penalties.value" placeholder="{{actor.allPenalties}}" data-dtype = "String" onfocus="this.value=''">
-
+    {{#each actor.penalties as |penalty p|}}
+    <div class ="penalty">{{penalty.value}}</div>
+    {{/each}}
+    <div class = "custom-penalty">
+    <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
+    </div>
   {{/if}}
-  
-
-
-  
 </div>
