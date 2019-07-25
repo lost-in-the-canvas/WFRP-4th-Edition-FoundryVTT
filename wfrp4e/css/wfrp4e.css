@@ -8472,7 +8472,6 @@ font-weight: bold;
   margin-top: 3px;
   border: 1px solid #736953a6;
 }
-
 .wfrp4e.actor .penalties > h3 {
   font-family: CaslonAntique;
   font-size: 16px;
@@ -8486,12 +8485,19 @@ font-weight: bold;
   margin: 0px;
   padding: 3px 0px 0px 0px;
   height: 23px;
-  width: 54px;
+  min-width: 54px;
   box-shadow: 0 0 10px #00000052 inset;
+  display: inline-block;
 }
 .wfrp4e.actor .penalties > div {
   width: fit-content;
   margin-top: 5px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 .wfrp4e.actor .penalties .custom-penalty {
   width: inherit;
@@ -8499,34 +8505,48 @@ font-weight: bold;
   display: inline-flex;
   flex-direction: row;
   flex-grow: 2;
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 0px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.wfrp4e.actor .penalties .custom-penalty .penalties-input {
-  min-width: 20px;
-  padding: 1px 3px;
-  margin: 0;
-  border-radius: 0px;
-  font-family: inherit;
-  font-size: inherit;
-  text-align: inherit;
-  line-height: inherit;
-  color: #111;
-  width: inherit;
-  display: inline-flex;
-  flex-direction: row;
-  flex-grow: 2;
-}
+  .wfrp4e.actor .penalties .custom-penalty .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
+  .wfrp4e.actor .penalties .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
 
-.wfrp4e.actor .penalty {
-  margin-left: 10px;
-}
 
-.wfrp4e.actor .penalties > input{
-  height: 18px;
-  width: 100%;
-  margin-top: 3px;
-  margin-left :5px;
 
-}
+
  
 
  .wfrp4e.actor .armor-list-item .item-name {
