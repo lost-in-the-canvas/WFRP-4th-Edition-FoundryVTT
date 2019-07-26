@@ -36,7 +36,7 @@
           <tr class="table-row">
             {{#each actor.data.characteristics as |ch c|}}
             <td class="table-data">
-              <input class="ch-edit" data-char="{{c}}" type="text" value="{{ch.value}}" data-dtype="Number">
+              <input class="ch-edit" data-char="{{c}}" type="text" name="data.characteristics.{{c}}.initial" value="{{ch.value}}" data-dtype="Number">
             </td>
             {{/each}}
           </tr>

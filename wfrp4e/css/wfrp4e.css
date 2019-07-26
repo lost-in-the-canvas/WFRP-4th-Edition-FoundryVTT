@@ -2695,7 +2695,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name > *,          
           .inventory-list .item .spell-name > *,          
           .inventory-list .item .weapon-name > *,          
-          .inventory-list .item .item-name-edit > *,
+          .inventory-list .item .skill-name > *,
           .inventory-list .item .item-name > *{
             overflow: hidden; 
             flex: 1; 
@@ -2704,7 +2704,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name,
           .inventory-list .item .spell-name,
           .inventory-list .item .weapon-name,
-          .inventory-list .item .item-name-edit,
+          .inventory-list .item .skill-name,
           .inventory-list .item .item-name {
             display: flex;
             flex-direction: row;
@@ -2993,7 +2993,7 @@ input[type="text"], input[type="password"] {
           }
 
 
-        .skill-section .inventory-list .item .item-name-edit > *,
+        .skill-section .inventory-list .item .skill-name > *,
         .skill-section .inventory-list .item .item-name > * {
           flex: 1;
           width: 95px;
@@ -3236,6 +3236,9 @@ input[type="text"], input[type="password"] {
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
+          }
+          .wfrp4e .trait-list .item .excluded-trait {
+            opacity: 0.5;
           }
             .wfrp4e.actor .trait-list .item-image {
               flex: 0 0 30px;
@@ -6311,7 +6314,7 @@ input[type="text"], input[type="password"] {
   }
 
 
-.wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name-edit > *,
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .skill-name > *,
 .wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name > * {
   flex: 1;
   width: 95px;
