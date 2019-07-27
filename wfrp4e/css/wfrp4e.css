@@ -6724,6 +6724,7 @@ input[type="text"], input[type="password"] {
       display: inline-block;
       line-height: 18px;
       padding-top: 1px;
+      outline: none;
     }
     .wfrp4e.creature-sheet .creature-lists .name {
       
@@ -6788,6 +6789,7 @@ input[type="text"], input[type="password"] {
     overflow-wrap: normal;
   }
 
+  .wfrp4e.creature-sheet .creature-diseases,
   .wfrp4e.creature-sheet .creature-injuries {
     display: inline-block;
     flex-direction: column;

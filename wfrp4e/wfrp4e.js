@@ -1022,7 +1022,7 @@ class DiceWFRP {
       if (testResults.description.includes("Failure")) // Failed Test
       {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
-        if (Number(SL) == 0) 
+        if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests")) 
           SL = -1;
 
        testResults.description = "Channell Failed"
@@ -1034,7 +1034,7 @@ class DiceWFRP {
        testResults.description = "Channell Succeeded"
 
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
-       if (Number(SL) == 0)
+       if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
 
         if (testResults.roll % 11 == 0 && !testData.extra.AA)
@@ -1120,7 +1120,6 @@ class DiceWFRP {
       actor.update({"data.status.sin.value" : currentSin});
      }
     extensions = Math.floor(SL/2);
-
    }
 
 
@@ -1603,6 +1602,18 @@ Hooks.once("init", () => {
     type: Boolean
   });
 
+  
+    // Register 
+    game.settings.register("wfrp4e", "extendedTests", {
+      name: "Extended Tests and 0 SL",
+      hint: "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    });
+    
+
     // Register Fate/Fortune Cap
     game.settings.register("wfrp4e", "fortuneCap", {
       name: "Cap Fortune to Fate",
@@ -1623,7 +1634,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
     
-    // Register Resolve/Resilience Cap
+    // Register NPC Species Randomization
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
       name: "Set Average NPC Characteristics",
       hint: "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species",
@@ -1633,7 +1644,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Resolve/Resilience Cap
+    // Register Partial Channelling
     game.settings.register("wfrp4e", "partialChannelling", {
       name: "Partial Channelling",
       hint: "A common house rule that improves the flexibility of Channelling. Instead of requiring the SL to reach the spell's CN, you can instead cast at anytime with the CN reduced by the SL gained so far.",
@@ -2506,8 +2517,8 @@ class ActorWfrp4e extends Actor {
   }
 
   /**
-   * Roll a Prayer Test
-   * @param prayer {Object}   prayer being invoked
+   * Roll a test associated with a trait
+   * @param prayer {Object}   Trait being tested
    */
   rollTrait(trait) {
     if (!trait.data.rollable.value)
@@ -5003,7 +5014,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
             advAmt = 10;
           else if (event.ctrlKey)
             advAmt = 1;
-
         }
 
         if (event.button == 0)
@@ -5033,6 +5043,19 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
             item.sheet.render(true);
           }
         }
+      })
+
+      html.find(".traits.content").mousedown(event => {
+        let trait = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id")));
+        
+        if (event.button == 2 || !trait.data.data.rollable.value)
+        {
+          this._onCreatureItemSummary(event);
+          return;
+        }
+
+        this.actor.rollTrait(trait.data);
+
       })
 
       html.find('.ch-roll').click(event => {

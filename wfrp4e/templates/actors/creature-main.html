@@ -74,12 +74,38 @@
       {{/each}}
     </div>
     {{/if}}
+
+    {{#if actor.diseases}}
+    <div class="list creature-diseases">
+      <a class="creature-diseases label">Diseases:</a>
+      {{#each actor.diseases as |item i|}}
+      <div class="diseases content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
+        <a class="diseases name item-dropdown">{{item.name}} </a>
+      </div>
+      {{/each}}
+    </div>
+    {{/if}}
+
   </div>
 
 
+
   <div class="penalties">
-    <h3>Penalties</h3>
-    <input class="penalties-input" type="text" name="data.status.penalties.value" placeholder="{{actor.allPenalties}}"
-      data-dtype="String" onfocus="this.value=''">
+    <h3>Penalties</h3> 
+    {{#if actor.penaltyOverflow}}
+      {{#each actor.penalties as |penalty p|}}
+      {{#if penalty.show}}
+      <div class ="penalty" title = "{{penalty.value}}"><a>{{p}}</a></div>
+      {{/if}}
+      {{/each}}
+      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
+    {{else}}
+      {{#each actor.penalties as |penalty p|}}
+      <div class ="penalty">{{penalty.value}}</div>
+      {{/each}}
+      <div class = "custom-penalty">
+      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
+      </div>
+    {{/if}}
   </div>
 </div>
