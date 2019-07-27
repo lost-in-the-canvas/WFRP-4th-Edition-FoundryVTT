@@ -820,6 +820,14 @@ class DiceWFRP {
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
       description = "Success"
+      if (game.settings.get("wfrp4e", "fastSL"))
+      {
+        let rollString = roll.total.toString();
+        if (rollString.length == 2)
+          SL = Number(rollString.split('')[0])
+        else
+          SL = 0;
+      }
       SL += successBonus;
       if (roll.total <= 96 && SL < 1) 
         SL = 1;
@@ -850,10 +858,20 @@ class DiceWFRP {
       }
       if (SL < 0)
         description = "Marginal Success";
+        
+
+      if (game.settings.get("wfrp4e", "testAbove100"))
+      {
+        if (targetNum > 100)
+        {
+          let addSL = Math.floor((targetNum - 100) / 10)
+          SL += addSL;
+        }
+      }
 
       if (SL >= 0)
         SL = "+" + SL.toString()    
-        
+
     }
 
     let rollResults={
@@ -1568,7 +1586,7 @@ Hooks.once("init", () => {
   // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
     name: "Fast SL",
-    hint: "(NOT IMPLEMENTED) Determine SL with Fast SL as described on page 152",
+    hint: "Determine SL with the Fast SL optional rule as described on page 152",
     scope: "world",
     config: true,
     default: false,
@@ -1578,7 +1596,7 @@ Hooks.once("init", () => {
   // Register Tests above 100% Rule
   game.settings.register("wfrp4e", "testAbove100", {
     name: "Tests Above 100%",
-    hint: "(NOT IMPLEMENTED) Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
+    hint: "Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
     scope: "world",
     config: true,
     default: false,
@@ -3088,7 +3106,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
 
-    let tbMultiplier = (hardyTrait || 0)
+    let tbMultiplier = (hardyTrait ? 1 : 0)
     if (hardyTalent)
       tbMultiplier += hardyTalent.data.advances.value || 0
 
@@ -3132,7 +3150,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       break;
 
     }
-    this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
+    //this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
     if (sheetData.actor.flags.autoCalcRun)
     {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
@@ -3803,12 +3821,28 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
     // Update Inventory Item
-    html.find('.item-edit, .item-name-edit').click(ev => {
+    html.find('.item-edit').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let Item = CONFIG.Item.entityClass;
       const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
       item.sheet.render(true);
     });
+
+    html.find('.skill-name').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      if (ev.button == 0)
+      {
+        let skill = this.actor.items.find(i => i.id === itemId);
+        this.actor.rollSkill(skill, event);
+      }
+      else if (ev.button == 2)
+      {
+        let Item = CONFIG.Item.entityClass;
+        const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+        item.sheet.render(true);
+      }
+    });
+
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
@@ -4374,7 +4408,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         new Dialog()
         try 
         {
-
           new Dialog({
             title: "Add Career Skill",
             content: '<p>Do you want to add this skill?</p>',
@@ -4883,6 +4916,11 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   _prepareItems(actorData) {
    super._prepareItems(actorData); 
+   let includedTraits = actorData.traits.filter(t => t.data.include || t.data.include == undefined);
+   let excludedTraits = actorData.traits.filter(t => t.data.include == false);
+   actorData.includedTraits = includedTraits;
+   actorData.traits = includedTraits;
+   actorData.excludedTraits = excludedTraits;
   }
 
 
@@ -4927,6 +4965,18 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         event.preventDefault();
         let characteristic = $(event.currentTarget).attr("data-char");
         this.actor.rollCharacteristic(characteristic, event);
+      });
+
+      html.find('.trait-name').click(event => {
+        event.preventDefault();
+        let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+        let trait = this.actor.getOwnedItem(traitId);
+        if (trait.data.data.include || trait.data.data.include == undefined)
+          trait.data.data.include = false;
+        else
+          trait.data.data.include = true;
+
+          this.actor.updateOwnedItem(trait.data);
       });
   }
 
