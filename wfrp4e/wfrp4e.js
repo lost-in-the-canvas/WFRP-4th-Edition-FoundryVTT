@@ -1622,7 +1622,6 @@ Hooks.once("init", () => {
       default: true,
       type: Boolean
     });
-
     
     // Register Resolve/Resilience Cap
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
@@ -2595,8 +2594,6 @@ class ItemWfrp4e extends Item {
     data.description.value = enrichHTML(data.description.value, htmlOptions);
     return data;
   }
-
-  /* -------------------------------------------- */
 
   _trappingExpandData() {
     const data = duplicate(this.data.data);
@@ -4950,15 +4947,92 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     super._updateObject(event, formData);
   }
 
+  _onCreatureItemSummary(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parent('.list'),
+        item = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id"))),
+        expandData = item.getExpandData({secrets: this.actor.owner});
+        
+
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = "";
+      div = $(`<div class="item-summary"><b>${item.data.name}:</b>${expandData.description.value}</div>`);
+
+      let props = $(`<div class="item-properties"></div>`);
+      expandData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      div.append(props);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
   activateListeners(html) {
     super.activateListeners(html);
     
-      html.find(".item").hover(event => {
-        $(event.currentTarget).toggleClass("deletable");
-      })
+      // html.find(".item").hover(event => {
+      //   $(event.currentTarget).toggleClass("deletable");
+      // })   
+      
+      
+        html.find(".content").hover(event => {
+          console.log('mouseover')
+          $(event.currentTarget).focus();
+        })       
+        html.find('.content').keydown(event => {
+          console.log(event.keyCode);
+          if (event.keyCode == 46)
+          {
+            let itemId = $(event.currentTarget).attr("data-item-id");
+            this.actor.deleteOwnedItem(itemId, true);
+          }
+       });
+      html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
 
-      html.find(".content").keypress(event => {
-        console.print(event);
+
+      html.find(".skills.name, .skills.total").mousedown(event => {
+        let newAdv
+        let advAmt;
+        let skill = this.actor.getOwnedItem(Number($(event.currentTarget).parents(".content").attr("data-item-id")));
+        
+        if (event.shiftKey || event.ctrlKey)
+        {
+          if (event.shiftKey)
+            advAmt = 10;
+          else if (event.ctrlKey)
+            advAmt = 1;
+
+        }
+
+        if (event.button == 0)
+        {
+          if (advAmt)
+          {
+            newAdv = skill.data.data.advances.value + advAmt;
+            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
+          }
+          else 
+            this.actor.rollSkill(skill.data);
+        }
+        else if (event.button == 2)
+        {
+          if (advAmt)
+          {
+            newAdv = skill.data.data.advances.value - advAmt;
+            if (newAdv < 0)
+              newAdv = 0;
+            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
+          }
+          else
+          {
+            let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
+            let Item = CONFIG.Item.entityClass;
+            const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+            item.sheet.render(true);
+          }
+        }
       })
 
       html.find('.ch-roll').click(event => {

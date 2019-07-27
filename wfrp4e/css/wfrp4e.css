@@ -6659,7 +6659,6 @@ input[type="text"], input[type="password"] {
     color: black;
     padding: 3px 3px 3px 3px;
     overflow-wrap: normal;
-    display: none;
   }
     .wfrp4e.creature-sheet .creature-lists .label {
       display: inline-block;
