@@ -4405,6 +4405,10 @@ input[type="text"], input[type="password"] {
               height: 20px;
               /* background: red; */
             }
+
+            
+
+
             .wfrp4e .inventory .encumbrance-header .encumbrance-max {
               text-align: right;
               padding: 0px;
@@ -4424,24 +4428,9 @@ input[type="text"], input[type="password"] {
               /* background: red; */
             }
 
-          /* doesnt work */
+                      /* doesnt work */
           .wfrp4e .inventory .encumbrance-header .encumbrance-max input {
-            text-align: right;
-            padding: 0px;
-            padding-top: 4px;
-            padding-right: 10px;
-            margin: 0px;
-            position: relative;
-            top: 0px;
-            left: 164px;
-            font-family: CaslonPro;
-            font-weight: 500;
-            font-size: 14px;
-            color: #464331;
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            /* background: red; */
+            width: 25px;
           }
 
 
