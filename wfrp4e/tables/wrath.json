@@ -45,23 +45,23 @@
     },
     {
       "name": "Heed My Lessons",
-      "description": "You suffer a penalty of 10 to your Pray Skill for the next 1d10+Sin points Rounds."
+      "description": "You suffer a penalty of -10 to your Pray Skill for the next 1d10+Sin points Rounds."
     },
     {
       "name": "Heed My Lessons",
-      "description": "You suffer a penalty of 10 to your Pray Skill for the next 1d10+Sin points Rounds."
+      "description": "You suffer a penalty of -10 to your Pray Skill for the next 1d10+Sin points Rounds."
     },
     {
       "name": "Heed My Lessons",
-      "description": "You suffer a penalty of 10 to your Pray Skill for the next 1d10+Sin points Rounds."
+      "description": "You suffer a penalty of -10 to your Pray Skill for the next 1d10+Sin points Rounds."
     },
     {
       "name": "Heed My Lessons",
-      "description": "You suffer a penalty of 10 to your Pray Skill for the next 1d10+Sin points Rounds."
+      "description": "You suffer a penalty of -10 to your Pray Skill for the next 1d10+Sin points Rounds."
     },
     {
       "name": "Heed My Lessons",
-      "description": "You suffer a penalty of 10 to your Pray Skill for the next 1d10+Sin points Rounds."
+      "description": "You suffer a penalty of -10 to your Pray Skill for the next 1d10+Sin points Rounds."
     },
     {
       "name": "Prove Your Devotion",
@@ -105,23 +105,23 @@
     },
     {
       "name": "You Do Not Understand My Intent",
-      "description": "You suffer a penalty of 10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
+      "description": "You suffer a penalty of -10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
     },
     {
       "name": "You Do Not Understand My Intent",
-      "description": "You suffer a penalty of 10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
+      "description": "You suffer a penalty of -10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
     },
     {
       "name": "You Do Not Understand My Intent",
-      "description": "You suffer a penalty of 10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
+      "description": "You suffer a penalty of -10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
     },
     {
       "name": "You Do Not Understand My Intent",
-      "description": "You suffer a penalty of 10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
+      "description": "You suffer a penalty of -10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
     },
     {
       "name": "You Do Not Understand My Intent",
-      "description": "You suffer a penalty of 10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
+      "description": "You suffer a penalty of -10 to any Skills associated with your deity (as determined by the GM) for the next 1d10+Sin points hours."
     },
     {
       "name": "I Find Your Lack of Faith Disturbing",
@@ -225,23 +225,23 @@
     },
     {
       "name": "I Shall Not Aid You",
-      "description": "You suffer a penalty of 10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
+      "description": "You suffer a penalty of -10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
     },
     {
       "name": "I Shall Not Aid You",
-      "description": "You suffer a penalty of 10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
+      "description": "You suffer a penalty of -10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
     },
     {
       "name": "I Shall Not Aid You",
-      "description": "You suffer a penalty of 10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
+      "description": "You suffer a penalty of -10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
     },
     {
       "name": "I Shall Not Aid You",
-      "description": "You suffer a penalty of 10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
+      "description": "You suffer a penalty of -10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
     },
     {
       "name": "I Shall Not Aid You",
-      "description": "You suffer a penalty of 10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
+      "description": "You suffer a penalty of -10 to a Skill associated with your deity (as determined by the GM) for the next 1d10+Sin Points days."
     },
     {
       "name": "Divine Wounds",
@@ -285,23 +285,23 @@
     },
     {
       "name": "What Will You Sacrifice?",
-      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (10) Endurance Test. If you fail gain one Stunned Condition."
+      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (-10) Endurance Test. If you fail gain one Stunned Condition."
     },
     {
       "name": "What Will You Sacrifice?",
-      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (10) Endurance Test. If you fail gain one Stunned Condition."
+      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (-10) Endurance Test. If you fail gain one Stunned Condition."
     },
     {
       "name": "What Will You Sacrifice?",
-      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (10) Endurance Test. If you fail gain one Stunned Condition."
+      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (-10) Endurance Test. If you fail gain one Stunned Condition."
     },
     {
       "name": "What Will You Sacrifice?",
-      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (10) Endurance Test. If you fail gain one Stunned Condition."
+      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (-10) Endurance Test. If you fail gain one Stunned Condition."
     },
     {
       "name": "What Will You Sacrifice?",
-      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (10) Endurance Test. If you fail gain one Stunned Condition."
+      "description": "You suffer 1d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Difficult (-10) Endurance Test. If you fail gain one Stunned Condition."
     },
     {
       "name": "You Have Sinned Against Me",
@@ -325,31 +325,31 @@
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Purge the Flesh",
-      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (20) Endurance Test. If you fail gain one Stunned Condition. If you fail with 4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
+      "description": "You suffer 2d10+Sin points Wounds, ignoring Toughness Bonus and APs. Also attempt a Hard (-20) Endurance Test. If you fail gain one Stunned Condition. If you fail with -4 SL or fewer, gain an Unconscious Condition that lasts a minimum of 1d10 Rounds."
     },
     {
       "name": "Daemonic Interference",
@@ -545,23 +545,23 @@
     },
     {
       "name": "Excommunication",
-      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Excommunication",
-      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Excommunication",
-      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Excommunication",
-      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Excommunication",
-      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You lose the Invoke and Bless Talents until you perform 2 Penances; the first Penance returns the Bless Talent, and the second returns the Invoke Talent. All cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Prove Your Worth",
@@ -585,27 +585,27 @@
     },
     {
       "name": "I Cast You Out",
-      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "I Cast You Out",
-      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "I Cast You Out",
-      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "I Cast You Out",
-      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "I Cast You Out",
-      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (30), and may not be positively modified above this."
+      "description": "You are abandoned by your god. You permanently lose the Bless and Invoke Talents, and lose all Pray Advances. Further, all cultists of your god are automatically aware of your circumstance; all Tests to interact with them are automatically Very Hard (-30), and may not be positively modified above this."
     },
     {
       "name": "Called to Account",
-      "description": "You are summoned before your god to face final judgement. Unless you have a Fate Point, you never return. If you spend a Fate Point, you are returned at a point of the GMs choosing, and also suffer the effects of I Cast You Out."
+      "description": "You are summoned before your god to face final judgement. Unless you have a Fate Point, you never return. If you spend a Fate Point, you are returned at a point of the GM's choosing, and also suffer the effects of I Cast You Out."
     }
   ]
 }

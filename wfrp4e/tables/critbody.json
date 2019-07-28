@@ -181,27 +181,27 @@
     {
       "name": "Bruised Ribs",
       "wounds": "2",
-      "description": "All Agility-based Tests suffer a 10 penalty for 1d10 days."
+      "description": "All Agility-based Tests suffer a -10 penalty for 1d10 days."
     },
     {
       "name": "Bruised Ribs",
       "wounds": "2",
-      "description": "All Agility-based Tests suffer a 10 penalty for 1d10 days."
+      "description": "All Agility-based Tests suffer a -10 penalty for 1d10 days."
     },
     {
       "name": "Bruised Ribs",
       "wounds": "2",
-      "description": "All Agility-based Tests suffer a 10 penalty for 1d10 days."
+      "description": "All Agility-based Tests suffer a -10 penalty for 1d10 days."
     },
     {
       "name": "Bruised Ribs",
       "wounds": "2",
-      "description": "All Agility-based Tests suffer a 10 penalty for 1d10 days."
+      "description": "All Agility-based Tests suffer a -10 penalty for 1d10 days."
     },
     {
       "name": "Bruised Ribs",
       "wounds": "2",
-      "description": "All Agility-based Tests suffer a 10 penalty for 1d10 days."
+      "description": "All Agility-based Tests suffer a -10 penalty for 1d10 days."
     },
     {
       "name": "Wrenched Collar Bone",
@@ -281,52 +281,52 @@
     {
       "name": "Gaping Wound",
       "wounds": "3",
-      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you\\nreceive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
+      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
     },
     {
       "name": "Gaping Wound",
       "wounds": "3",
-      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you\\nreceive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
+      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
     },
     {
       "name": "Gaping Wound",
       "wounds": "3",
-      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you\\nreceive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
+      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
     },
     {
       "name": "Gaping Wound",
       "wounds": "3",
-      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you\\nreceive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
+      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
     },
     {
       "name": "Gaping Wound",
       "wounds": "3",
-      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you\\nreceive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
+      "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens."
     },
     {
       "name": "Painful Cut",
       "wounds": "3",
-      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (20)\\nEndurance Test or gain the Unconscious Condition as you black out from the\\npain. Unless you achieve 4+ SL, you also scream out in agony."
+      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (-20) Endurance Test or gain the Unconscious Condition as you black out from the pain. Unless you achieve 4+ SL, you also scream out in agony."
     },
     {
       "name": "Painful Cut",
       "wounds": "3",
-      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (20)\\nEndurance Test or gain the Unconscious Condition as you black out from the\\npain. Unless you achieve 4+ SL, you also scream out in agony."
+      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (-20) Endurance Test or gain the Unconscious Condition as you black out from the pain. Unless you achieve 4+ SL, you also scream out in agony."
     },
     {
       "name": "Painful Cut",
       "wounds": "3",
-      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (20)\\nEndurance Test or gain the Unconscious Condition as you black out from the\\npain. Unless you achieve 4+ SL, you also scream out in agony."
+      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (-20) Endurance Test or gain the Unconscious Condition as you black out from the pain. Unless you achieve 4+ SL, you also scream out in agony."
     },
     {
       "name": "Painful Cut",
       "wounds": "3",
-      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (20)\\nEndurance Test or gain the Unconscious Condition as you black out from the\\npain. Unless you achieve 4+ SL, you also scream out in agony."
+      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (-20) Endurance Test or gain the Unconscious Condition as you black out from the pain. Unless you achieve 4+ SL, you also scream out in agony."
     },
     {
       "name": "Painful Cut",
       "wounds": "3",
-      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (20)\\nEndurance Test or gain the Unconscious Condition as you black out from the\\npain. Unless you achieve 4+ SL, you also scream out in agony."
+      "description": "Gain 2 Bleeding Conditions and a Stunned Condition. Take a Hard (-20) Endurance Test or gain the Unconscious Condition as you black out from the pain. Unless you achieve 4+ SL, you also scream out in agony."
     },
     {
       "name": "Arterial Damage",
@@ -381,27 +381,27 @@
     {
       "name": "Fractured Hip",
       "wounds": "4",
-      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also\\ngain the Prone Condition. Suffer a Broken Bone (Minor) injury."
+      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also gain the Prone Condition. Suffer a Broken Bone (Minor) injury."
     },
     {
       "name": "Fractured Hip",
       "wounds": "4",
-      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also\\ngain the Prone Condition. Suffer a Broken Bone (Minor) injury."
+      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also gain the Prone Condition. Suffer a Broken Bone (Minor) injury."
     },
     {
       "name": "Fractured Hip",
       "wounds": "4",
-      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also\\ngain the Prone Condition. Suffer a Broken Bone (Minor) injury."
+      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also gain the Prone Condition. Suffer a Broken Bone (Minor) injury."
     },
     {
       "name": "Fractured Hip",
       "wounds": "4",
-      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also\\ngain the Prone Condition. Suffer a Broken Bone (Minor) injury."
+      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also gain the Prone Condition. Suffer a Broken Bone (Minor) injury."
     },
     {
       "name": "Fractured Hip",
       "wounds": "4",
-      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also\\ngain the Prone Condition. Suffer a Broken Bone (Minor) injury."
+      "description": "Gain a Stunned Condition. Take a Challenging (+0) Endurance Test or also gain the Prone Condition. Suffer a Broken Bone (Minor) injury."
     },
     {
       "name": "Major Chest Wound",
@@ -431,42 +431,42 @@
     {
       "name": "Gut Wound",
       "wounds": "4",
-      "description": "Contract a Festering Wound and gain 2 Bleeding\\nConditions."
+      "description": "Contract a Festering Wound and gain 2 Bleeding Conditions."
     },
     {
       "name": "Gut Wound",
       "wounds": "4",
-      "description": "Contract a Festering Wound and gain 2 Bleeding\\nConditions."
+      "description": "Contract a Festering Wound and gain 2 Bleeding Conditions."
     },
     {
       "name": "Gut Wound",
       "wounds": "4",
-      "description": "Contract a Festering Wound and gain 2 Bleeding\\nConditions."
+      "description": "Contract a Festering Wound and gain 2 Bleeding Conditions."
     },
     {
       "name": "Gut Wound",
       "wounds": "4",
-      "description": "Contract a Festering Wound and gain 2 Bleeding\\nConditions."
+      "description": "Contract a Festering Wound and gain 2 Bleeding Conditions."
     },
     {
       "name": "Gut Wound",
       "wounds": "4",
-      "description": "Contract a Festering Wound and gain 2 Bleeding\\nConditions."
+      "description": "Contract a Festering Wound and gain 2 Bleeding Conditions."
     },
     {
       "name": "Smashed Rib Cage",
       "wounds": "5",
-      "description": "Gain a Stunned Condition that can only be removed through Medical\\nAttention, and suffer a Broken Bone (Major) injury."
+      "description": "Gain a Stunned Condition that can only be removed through Medical Attention, and suffer a Broken Bone (Major) injury."
     },
     {
       "name": "Smashed Rib Cage",
       "wounds": "5",
-      "description": "Gain a Stunned Condition that can only be removed through Medical\\nAttention, and suffer a Broken Bone (Major) injury."
+      "description": "Gain a Stunned Condition that can only be removed through Medical Attention, and suffer a Broken Bone (Major) injury."
     },
     {
       "name": "Smashed Rib Cage",
       "wounds": "5",
-      "description": "Gain a Stunned Condition that can only be removed through Medical\\nAttention, and suffer a Broken Bone (Major) injury."
+      "description": "Gain a Stunned Condition that can only be removed through Medical Attention, and suffer a Broken Bone (Major) injury."
     },
     {
       "name": "Broken Collar Bone",
@@ -501,7 +501,7 @@
     {
       "name": "Torn Apart",
       "wounds": "Death",
-      "description": "You are hacked in two. The top half lands in a random direction, and all\\ncharacters within 2 yards are showered in blood."
+      "description": "You are hacked in two. The top half lands in a random direction, and all characters within 2 yards are showered in blood."
     }
   ]
 }

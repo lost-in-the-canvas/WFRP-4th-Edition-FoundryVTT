@@ -1154,36 +1154,47 @@ class DiceWFRP {
 
     html.on('mousedown', '.table-click', ev => {
       ev.preventDefault();
+      let sin = Number($(ev.currentTarget).attr("data-sin"));
+      let modifier = sin * 10 || 0;
+      let html;
+      let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
+      let senderId = game.messages.get(messageId).user._id;
+      
       if (ev.button == 0)
       {
-        let sin = Number($(ev.currentTarget).attr("data-sin"));
-        let modifier = sin * 10 || 0;
-        let html;
         if (sin)
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});      
         else
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
-        let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
-        let senderId = game.messages.get(messageId).user._id;
+
         ChatMessage.create({content : html, user : senderId})
+
       }
       else if (ev.button == 2)
       {
+        renderTemplate('public/systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+
         new Dialog({
           title: "Table Modifier",
-          content: '',
+          content: html,
           buttons: {
             roll: {
               label: "Roll",
               callback: (html) => {
                 let tableModifier = html.find('[name="tableModifier"]').val();
                 let minOne = html.find('[name="minOne"]').is(':checked');
+                html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
+                ChatMessage.create({content : html, user : senderId})
+
               }
             },
           },
           default: 'roll'
         }).render(true);
+      })
+
       }
+
 
 
     })
@@ -5606,6 +5617,7 @@ class WFRP_Tables {
       case "critbody":
       case "critarm":
       case "critleg":
+      case "crit":
         return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description} (${result.roll})`
       
       case "minormis":
@@ -5669,7 +5681,6 @@ class WFRP_Tables {
             let html = "";
             for (let part in result)
               html += result[part] + "<br>"
-            return html +  ` (${result.roll})`;
           }
           else 
             throw ""
