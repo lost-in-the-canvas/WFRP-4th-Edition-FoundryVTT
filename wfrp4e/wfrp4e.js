@@ -730,7 +730,6 @@ class DiceWFRP {
     mergeObject(cardOptions, 
       {
         user : game.user._id,
-        rollMode : undefined,
       })
   
     var roll;
@@ -740,8 +739,6 @@ class DiceWFRP {
     else // Otherwise use a generic test
       roll = () =>{
       let roll = DiceWFRP.rollTest(testData);
-      if (testData.hitLocation)
-        console.log(WFRP_Tables.hitloc)
       if (testData.extra)
         mergeObject(roll, testData.extra);
       DiceWFRP.renderRollCard(cardOptions, roll);
@@ -820,6 +817,14 @@ class DiceWFRP {
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
       description = "Success"
+      if (game.settings.get("wfrp4e", "fastSL"))
+      {
+        let rollString = roll.total.toString();
+        if (rollString.length == 2)
+          SL = Number(rollString.split('')[0])
+        else
+          SL = 0;
+      }
       SL += successBonus;
       if (roll.total <= 96 && SL < 1) 
         SL = 1;
@@ -850,10 +855,20 @@ class DiceWFRP {
       }
       if (SL < 0)
         description = "Marginal Success";
+        
+
+      if (game.settings.get("wfrp4e", "testAbove100"))
+      {
+        if (targetNum > 100)
+        {
+          let addSL = Math.floor((targetNum - 100) / 10)
+          SL += addSL;
+        }
+      }
 
       if (SL >= 0)
         SL = "+" + SL.toString()    
-        
+
     }
 
     let rollResults={
@@ -1004,7 +1019,7 @@ class DiceWFRP {
       if (testResults.description.includes("Failure")) // Failed Test
       {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
-        if (Number(SL) == 0) 
+        if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests")) 
           SL = -1;
 
        testResults.description = "Channell Failed"
@@ -1016,7 +1031,7 @@ class DiceWFRP {
        testResults.description = "Channell Succeeded"
 
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
-       if (Number(SL) == 0)
+       if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
 
         if (testResults.roll % 11 == 0 && !testData.extra.AA)
@@ -1102,7 +1117,6 @@ class DiceWFRP {
       actor.update({"data.status.sin.value" : currentSin});
      }
     extensions = Math.floor(SL/2);
-
    }
 
 
@@ -1115,7 +1129,8 @@ class DiceWFRP {
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
-     testData : testData
+     testData : testData,
+     gm : game.user.isGM
    }
   // Generate HTML from the requested chat template
   return renderTemplate(chatOptions.template, chatData).then(html => {
@@ -1139,37 +1154,47 @@ class DiceWFRP {
 
     html.on('mousedown', '.table-click', ev => {
       ev.preventDefault();
+      let sin = Number($(ev.currentTarget).attr("data-sin"));
+      let modifier = sin * 10 || 0;
+      let html;
+      let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
+      let senderId = game.messages.get(messageId).user._id;
+      
       if (ev.button == 0)
       {
-        let sin = Number($(ev.currentTarget).attr("data-sin"));
-        let modifier = sin * 10 || 0;
-        let html;
         if (sin)
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});      
         else
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
-        let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
-        let senderId = game.messages.get(messageId).user._id;
+
         ChatMessage.create({content : html, user : senderId})
+
       }
       else if (ev.button == 2)
       {
+        renderTemplate('public/systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+
         new Dialog({
           title: "Table Modifier",
-          content: '',
+          content: html,
           buttons: {
             roll: {
               label: "Roll",
               callback: (html) => {
                 let tableModifier = html.find('[name="tableModifier"]').val();
                 let minOne = html.find('[name="minOne"]').is(':checked');
-                console.log(minOne);
+                html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
+                ChatMessage.create({content : html, user : senderId})
+
               }
             },
           },
           default: 'roll'
         }).render(true);
+      })
+
       }
+
 
 
     })
@@ -1381,7 +1406,7 @@ Hooks.once("init", () => {
         })
       }
       catch(error) {
-       console.log("Error reading " + file + ": " + error) 
+       console.error("Error reading " + file + ": " + error) 
       }
     }
   })
@@ -1568,7 +1593,7 @@ Hooks.once("init", () => {
   // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
     name: "Fast SL",
-    hint: "(NOT IMPLEMENTED) Determine SL with Fast SL as described on page 152",
+    hint: "Determine SL with the Fast SL optional rule as described on page 152",
     scope: "world",
     config: true,
     default: false,
@@ -1578,12 +1603,24 @@ Hooks.once("init", () => {
   // Register Tests above 100% Rule
   game.settings.register("wfrp4e", "testAbove100", {
     name: "Tests Above 100%",
-    hint: "(NOT IMPLEMENTED) Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
+    hint: "Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
     scope: "world",
     config: true,
     default: false,
     type: Boolean
   });
+
+  
+    // Register 
+    game.settings.register("wfrp4e", "extendedTests", {
+      name: "Extended Tests and 0 SL",
+      hint: "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    });
+    
 
     // Register Fate/Fortune Cap
     game.settings.register("wfrp4e", "fortuneCap", {
@@ -1604,9 +1641,8 @@ Hooks.once("init", () => {
       default: true,
       type: Boolean
     });
-
     
-    // Register Resolve/Resilience Cap
+    // Register NPC Species Randomization
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
       name: "Set Average NPC Characteristics",
       hint: "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species",
@@ -1616,7 +1652,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Resolve/Resilience Cap
+    // Register Partial Channelling
     game.settings.register("wfrp4e", "partialChannelling", {
       name: "Partial Channelling",
       hint: "A common house rule that improves the flexibility of Channelling. Instead of requiring the SL to reach the spell's CN, you can instead cast at anytime with the CN reduced by the SL gained so far.",
@@ -1686,7 +1722,6 @@ Hooks.on("canvasInit", () => {
 
 Hooks.on("chatMessage", async (html, content, msg) => {
   content = content.toLowerCase();
-  console.log(content.substring(0,6));
   let command = content.split(" ").map(function(item) {
     return item.trim();
   })
@@ -1713,7 +1748,6 @@ class ActorWfrp4e extends Actor {
       let id = 1;
       const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
       let skills = [];
-      console.log(pack);
       await pack.getIndex().then(index => skills = index);
       data.items = [];
       for (let sk of skills)
@@ -1758,7 +1792,6 @@ class ActorWfrp4e extends Actor {
               let id = 1;
               const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
               let skills = [];
-              console.log(pack);
               await pack.getIndex().then(index => skills = index);
               data.items = [];
               for (let sk of skills)
@@ -1856,7 +1889,11 @@ class ActorWfrp4e extends Actor {
     }
     catch(error)
     {
-      console.log("Something went wrong with preparing actor data: " + error)
+      console.error("Something went wrong with preparing actor data: " + error)
+      ui.notifications.error("Something went wrong with preparing actor data: " + error)
+      if (error.includes("max"))
+        this.actor.update({"data.encumbrance" : {max: 0, current: 0, type: "Number", label : "Encumbrance"}}) // Adds compatibility with alpha - TODO: Remove
+
     }
 
   }
@@ -1958,9 +1995,6 @@ class ActorWfrp4e extends Actor {
         roll();
         }
     };
-
-    console.log("CHAR")
-    console.log(this.data.data);
 
     let cardOptions = {
       actor : this.data.id,
@@ -2489,8 +2523,8 @@ class ActorWfrp4e extends Actor {
   }
 
   /**
-   * Roll a Prayer Test
-   * @param prayer {Object}   prayer being invoked
+   * Roll a test associated with a trait
+   * @param prayer {Object}   Trait being tested
    */
   rollTrait(trait) {
     if (!trait.data.rollable.value)
@@ -2577,8 +2611,6 @@ class ItemWfrp4e extends Item {
     data.description.value = enrichHTML(data.description.value, htmlOptions);
     return data;
   }
-
-  /* -------------------------------------------- */
 
   _trappingExpandData() {
     const data = duplicate(this.data.data);
@@ -2879,8 +2911,6 @@ class ItemSheetWfrp4e extends ItemSheet {
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
 
 
-    html.find('.weapon-type').change(event => {console.log(event)});
-
     html.find('.lore-input').change(async event => {
       let inputLore = event.target.value;
       for (let lore in CONFIG.magicLores)
@@ -3088,7 +3118,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
 
-    let tbMultiplier = (hardyTrait || 0)
+    let tbMultiplier = (hardyTrait ? 1 : 0)
     if (hardyTalent)
       tbMultiplier += hardyTalent.data.advances.value || 0
 
@@ -3132,7 +3162,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       break;
 
     }
-    this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
+    //this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
     if (sheetData.actor.flags.autoCalcRun)
     {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
@@ -3233,8 +3263,8 @@ class ActorSheetWfrp4e extends ActorSheet {
      /*     let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
           if (existingAmmo) {
             existingAmmo.data.quantity.value += i.data.quantity.value;
+            
             existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
-  
           }
           else{*/
             i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
@@ -3452,7 +3482,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
       }
       catch (error){
-        console.log("Something went wrong while preparing item: " + i.name + ": " + error)
+        console.error("Something went wrong with preparing item: " + error)
+        ui.notifications.error("Something went wrong with preparing item: " + error)
       }
       }
   
@@ -3505,10 +3536,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.data.flags.combatSkills.push(skill);
   
 
-
-
-      //if (this.actor.data.data.status.penalties.value)
-       // penalties.other = this.actor.data.data.status.penalties.value
       let penaltiesOverflow = false;
       penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
       if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
@@ -3521,31 +3548,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           else
             penalties[penaltyType].show = false;
         }
-        // let armourPenalties = WFRP_Utility._calculateArmorPenalties(actorData,armour);
-        // let injuryPenalties = injuries.reduce(function (prev, cur) {
-        //   return prev += cur.data.penalty.value + " "
-        // }, "");
-        // let mutationPenalties = mutations.reduce(function (prev, cur) {
-        //   if (cur.data.modifiesSkills.value)
-        //     return prev += cur.data.modifier.value + " "
-        //   else
-        //     return prev;
-        // }, "");
-        // let otherPenalties = this.actor.data.data.status.penalties.value; 
-        // let allPenaltiesOverflow = {};
-        // if (armourPenalties)
-        //   allPenaltiesOverflow["Armour"] = armourPenalties;
-
-        // if (injuryPenalties)
-        //   allPenaltiesOverflow["Injury"] = injuryPenalties;
-
-        // if (mutationPenalties)
-        //   allPenaltiesOverflow["Mutation"] = mutationPenalties;
-
-        // if (otherPenalties)
-        //   allPenaltiesOverflow["Other"] = otherPenalties;
-
-        // allPenalties = allPenaltiesOverflow;
       }
 
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
@@ -3555,7 +3557,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           try{
             if (loc != "shield")
-              AP[loc] += parseInt(armorTrait.data.specification.value);
+              AP[loc] += parseInt(armorTrait.data.specification.value) || 0;
           }
           catch {//ignore
           }
@@ -3624,17 +3626,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.untrainedSkills = untrainedSkills;
       actorData.untrainedTalents = untrainedTalents;
   
-  
-  
-      // Calculate ammo encumbrance after the loop (since it gets aggregated) (TODO: Redo since aggregation was scrapped )
-     /* for (let amIndex = 0; amIndex<inventory.ammunition.items.length; amIndex++)
+      let enc;
+      try
       {
-        totalEnc += Math.ceil(inventory.ammunition.items[amIndex].data.quantity.value / inventory.ammunition.items[amIndex].data.quantityPerEnc.value);
-      }*/
-      let enc = {
-        max: actorData.data.status.encumbrance.max,
-        value: Math.round(totalEnc * 10) / 10,
-      };
+        enc = {
+          max: actorData.data.status.encumbrance.max,
+          value: Math.round(totalEnc * 10) / 10,
+        };
+      }
+      catch
+      {
+        this.actor.data.flags.autoCalcEnc = true;
+        this.actor.update({"data.status.encumbrance" : {max: 0, current: 0, type: "Number", label : "Encumbrance"}}) // Compatibility with alpha - TODO: Remove
+        return
+      }
       enc.pct = Math.min(enc.value * 100 / enc.max, 100);
       enc.state = enc.value / enc.max;
       if (enc.state > 3)
@@ -3803,12 +3808,28 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
     // Update Inventory Item
-    html.find('.item-edit, .item-name-edit').click(ev => {
+    html.find('.item-edit').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let Item = CONFIG.Item.entityClass;
       const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
       item.sheet.render(true);
     });
+
+    html.find('.skill-name').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      if (ev.button == 0)
+      {
+        let skill = this.actor.items.find(i => i.id === itemId);
+        this.actor.rollSkill(skill, event);
+      }
+      else if (ev.button == 2)
+      {
+        let Item = CONFIG.Item.entityClass;
+        const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+        item.sheet.render(true);
+      }
+    });
+
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
@@ -4169,9 +4190,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
         propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
 
-        console.log(property);
         property = property.replace(/,/g, '').trim();
-        console.log(property);
         
         let propertyKey = "";
         if (property == "Special Ammo")
@@ -4288,9 +4307,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     });
 
 
-    // console.log("TESTING SHIT - CHARACTER");
-    // console.log(options);
-
     // mergeObject(options, {
     //   classes: options.classes.concat(["token-sheet"]),
     // });
@@ -4374,7 +4390,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         new Dialog()
         try 
         {
-
           new Dialog({
             title: "Add Career Skill",
             content: '<p>Do you want to add this skill?</p>',
@@ -4397,7 +4412,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         }
         catch 
         {
-          console.log(error)
+          console.error(error)
+          ui.notifications.error(error)
         }
       }
     })
@@ -4439,7 +4455,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         }
         catch 
         {
-          console.log(error)
+          console.error(error)
+          ui.notifications(error)
         }
     }
 
@@ -4568,7 +4585,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       showUnpreparedSpells: true
     });
 
-    // console.log("TESTING SHIT - NPC");
 
     return options;
   }
@@ -4712,7 +4728,8 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         this.actor.createOwnedItem(skillToAdd.data);
     }
     catch(error) {
-      console.log("Something went wrong when adding skill " + skillName +": " + error);
+      console.error("Something went wrong when adding skill " + skillName +": " + error);
+      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
     }
   }
 
@@ -4723,8 +4740,9 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       let talent = await WFRP_Utility.findTalent(talentName);
       this.actor.createOwnedItem(talent.data);
     }
-    catch{
-      console.log("Something went wrong when adding talent " + talent);
+    catch(error) {
+      console.error("Something went wrong when adding talent " + talent +": " + error);
+      ui.notifications.error("Something went wrong when adding talent " + talent +": " + error);
     }
   }
 
@@ -4847,7 +4865,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       showUnpreparedSpells: true
     });
 
-    // console.log("TESTING SHIT - CREATURE");
 
     return options;
   }
@@ -4883,6 +4900,11 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   _prepareItems(actorData) {
    super._prepareItems(actorData); 
+   let includedTraits = actorData.traits.filter(t => t.data.include || t.data.include == undefined);
+   let excludedTraits = actorData.traits.filter(t => t.data.include == false);
+   actorData.includedTraits = includedTraits;
+   actorData.traits = includedTraits;
+   actorData.excludedTraits = excludedTraits;
   }
 
 
@@ -4912,21 +4934,120 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     super._updateObject(event, formData);
   }
 
+  _onCreatureItemSummary(event) {
+    event.preventDefault();
+    let li = $(event.currentTarget).parent('.list'),
+        item = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id"))),
+        expandData = item.getExpandData({secrets: this.actor.owner});
+        
+
+    if ( li.hasClass("expanded") ) {
+      let summary = li.children(".item-summary");
+      summary.slideUp(200, () => summary.remove());
+    } else {
+      let div = "";
+      div = $(`<div class="item-summary"><b>${item.data.name}:</b>${expandData.description.value}</div>`);
+
+      let props = $(`<div class="item-properties"></div>`);
+      expandData.properties.forEach(p => props.append(`<span class="tag">${p}</span>`));
+      div.append(props);
+      li.append(div.hide());
+      div.slideDown(200);
+    }
+    li.toggleClass("expanded");
+  }
   activateListeners(html) {
     super.activateListeners(html);
     
-      html.find(".item").hover(event => {
-        $(event.currentTarget).toggleClass("deletable");
+      // html.find(".item").hover(event => {
+      //   $(event.currentTarget).toggleClass("deletable");
+      // })   
+      
+      
+        html.find(".content").hover(event => {
+          $(event.currentTarget).focus();
+        })       
+        html.find('.content').keydown(event => {
+          if (event.keyCode == 46)
+          {
+            let itemId = $(event.currentTarget).attr("data-item-id");
+            this.actor.deleteOwnedItem(itemId, true);
+          }
+       });
+      html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
+
+
+      html.find(".skills.name, .skills.total").mousedown(event => {
+        let newAdv
+        let advAmt;
+        let skill = this.actor.getOwnedItem(Number($(event.currentTarget).parents(".content").attr("data-item-id")));
+        
+        if (event.shiftKey || event.ctrlKey)
+        {
+          if (event.shiftKey)
+            advAmt = 10;
+          else if (event.ctrlKey)
+            advAmt = 1;
+        }
+
+        if (event.button == 0)
+        {
+          if (advAmt)
+          {
+            newAdv = skill.data.data.advances.value + advAmt;
+            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
+          }
+          else 
+            this.actor.rollSkill(skill.data);
+        }
+        else if (event.button == 2)
+        {
+          if (advAmt)
+          {
+            newAdv = skill.data.data.advances.value - advAmt;
+            if (newAdv < 0)
+              newAdv = 0;
+            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
+          }
+          else
+          {
+            let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
+            let Item = CONFIG.Item.entityClass;
+            const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+            item.sheet.render(true);
+          }
+        }
       })
 
-      html.find(".content").keypress(event => {
-        console.print(event);
+      html.find(".traits.content").mousedown(event => {
+        let trait = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id")));
+        
+        if (event.button == 2 || !trait.data.data.rollable.value)
+        {
+          this._onCreatureItemSummary(event);
+          return;
+        }
+
+        this.actor.rollTrait(trait.data);
+
       })
 
       html.find('.ch-roll').click(event => {
         event.preventDefault();
         let characteristic = $(event.currentTarget).attr("data-char");
         this.actor.rollCharacteristic(characteristic, event);
+      });
+
+      html.find('.trait-name').click(event => {
+        event.preventDefault();
+        let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+        let trait = this.actor.getOwnedItem(traitId);
+        if (trait.data.data.include || trait.data.data.include == undefined)
+          trait.data.data.include = false;
+        else
+          trait.data.data.include = true;
+
+          this.actor.updateOwnedItem(trait.data);
       });
   }
 
@@ -5311,7 +5432,7 @@ class WFRP_Utility
       {
         characteristics[char] = 20;
       }
-      console.log("Could not find species " + species)
+      console.warn("Could not find species " + species)
       return characteristics;
     }
 
@@ -5496,6 +5617,7 @@ class WFRP_Tables {
       case "critbody":
       case "critarm":
       case "critleg":
+      case "crit":
         return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description} (${result.roll})`
       
       case "minormis":
@@ -5559,7 +5681,6 @@ class WFRP_Tables {
             let html = "";
             for (let part in result)
               html += result[part] + "<br>"
-            return html +  ` (${result.roll})`;
           }
           else 
             throw ""

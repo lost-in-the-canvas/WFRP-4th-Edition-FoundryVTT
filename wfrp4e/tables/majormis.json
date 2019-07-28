@@ -1,6 +1,6 @@
 {
   "name": "Major Miscast Table",
-  "die" : "1d100",
+  "die": "1d100",
   "rows": [
     "-",
     {
@@ -145,23 +145,23 @@
     },
     {
       "name": "Swarmed",
-      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GMs choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
+      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
     },
     {
       "name": "Swarmed",
-      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GMs choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
+      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
     },
     {
       "name": "Swarmed",
-      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GMs choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
+      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
     },
     {
       "name": "Swarmed",
-      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GMs choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
+      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
     },
     {
       "name": "Swarmed",
-      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GMs choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
+      "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After 1d10 rounds, if not yet destroyed, the swarm retreats."
     },
     {
       "name": "Ragdoll",
@@ -205,23 +205,23 @@
     },
     {
       "name": "Darkling Sight",
-      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of 20 for the duration."
+      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of -20 for the duration."
     },
     {
       "name": "Darkling Sight",
-      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of 20 for the duration."
+      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of -20 for the duration."
     },
     {
       "name": "Darkling Sight",
-      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of 20 for the duration."
+      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of -20 for the duration."
     },
     {
       "name": "Darkling Sight",
-      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of 20 for the duration."
+      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of -20 for the duration."
     },
     {
       "name": "Darkling Sight",
-      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of 20 for the duration."
+      "description": "You lose the benefit of the Second Sight Talent for 1d10 hours. Channelling Tests also suffer a penalty of -20 for the duration."
     },
     {
       "name": "Chaotic Foresight",
@@ -385,23 +385,23 @@
     },
     {
       "name": "Aethyric Feedback",
-      "description": "Everyone within a number of yards equal to your Willpower Bonus  friend and foe alike  suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
+      "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
     },
     {
       "name": "Aethyric Feedback",
-      "description": "Everyone within a number of yards equal to your Willpower Bonus  friend and foe alike  suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
+      "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
     },
     {
       "name": "Aethyric Feedback",
-      "description": "Everyone within a number of yards equal to your Willpower Bonus  friend and foe alike  suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
+      "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
     },
     {
       "name": "Aethyric Feedback",
-      "description": "Everyone within a number of yards equal to your Willpower Bonus  friend and foe alike  suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
+      "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
     },
     {
       "name": "Aethyric Feedback",
-      "description": "Everyone within a number of yards equal to your Willpower Bonus  friend and foe alike  suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
+      "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers 1d10 wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly."
     }
   ]
 }

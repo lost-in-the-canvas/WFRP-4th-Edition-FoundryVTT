@@ -306,52 +306,52 @@
     {
       "name": "Major Ear Wound",
       "wounds": "3",
-      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a 20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
+      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a -20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
     },
     {
       "name": "Major Ear Wound",
       "wounds": "3",
-      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a 20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
+      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a -20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
     },
     {
       "name": "Major Ear Wound",
       "wounds": "3",
-      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a 20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
+      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a -20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
     },
     {
       "name": "Major Ear Wound",
       "wounds": "3",
-      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a 20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
+      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a -20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
     },
     {
       "name": "Major Ear Wound",
       "wounds": "3",
-      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a 20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
+      "description": "The blow damages your ear, leaving you with permanent hearing loss in one ear. Suffer a -20 penalty on all Tests relating to hearing. If you suffer this result again, your hearing is permanently lost as the second ear falls quiet. Only magic can heal this."
     },
     {
       "name": "Broken Nose",
       "wounds": "3",
-      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
+      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/-1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
     },
     {
       "name": "Broken Nose",
       "wounds": "3",
-      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
+      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/-1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
     },
     {
       "name": "Broken Nose",
       "wounds": "3",
-      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
+      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/-1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
     },
     {
       "name": "Broken Nose",
       "wounds": "3",
-      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
+      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/-1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
     },
     {
       "name": "Broken Nose",
       "wounds": "3",
-      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
+      "description": "A solid blow to the centre of your face causing blood to pour. Gain 2 Bleeding Conditions. Make a Challenging (+0) Endurance Test, or also gain a Stunned Condition. After this wound has healed, gain +1/-1 SL on social rolls, depending on context, unless Surgery is used to reset the nose."
     },
     {
       "name": "Broken Jaw",
@@ -406,97 +406,97 @@
     {
       "name": "Smashed Mouth",
       "wounds": "4",
-      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth  Amputation (Easy). \\n8690 Mangled Ear 4 Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth — Amputation (Easy)."
     },
     {
       "name": "Smashed Mouth",
       "wounds": "4",
-      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth  Amputation (Easy). \\n8690 Mangled Ear 4 Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth — Amputation (Easy)."
     },
     {
       "name": "Smashed Mouth",
       "wounds": "4",
-      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth  Amputation (Easy). \\n8690 Mangled Ear 4 Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth — Amputation (Easy)."
     },
     {
       "name": "Smashed Mouth",
       "wounds": "4",
-      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth  Amputation (Easy). \\n8690 Mangled Ear 4 Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth — Amputation (Easy)."
     },
     {
       "name": "Smashed Mouth",
       "wounds": "4",
-      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth  Amputation (Easy). \\n8690 Mangled Ear 4 Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose 1d10 teeth — Amputation (Easy)."
     },
     {
       "name": "Mangled Ear",
       "wounds": "4",
-      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2\\nBleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear — Amputation (Average)."
     },
     {
       "name": "Mangled Ear",
       "wounds": "4",
-      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2\\nBleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear — Amputation (Average)."
     },
     {
       "name": "Mangled Ear",
       "wounds": "4",
-      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2\\nBleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear — Amputation (Average)."
     },
     {
       "name": "Mangled Ear",
       "wounds": "4",
-      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2\\nBleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear — Amputation (Average)."
     },
     {
       "name": "Mangled Ear",
       "wounds": "4",
-      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2\\nBleeding Conditions. Lose your ear  Amputation (Average)."
+      "description": "Little is left of your ear as the blow tears it apart. You gain 3 Deafened and 2 Bleeding Conditions. Lose your ear — Amputation (Average)."
     },
     {
       "name": "Devastated Eye",
       "wounds": "5",
-      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye  Amputation (Difficult)."
+      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye — Amputation (Difficult)."
     },
     {
       "name": "Devastated Eye",
       "wounds": "5",
-      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye  Amputation (Difficult)."
+      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye — Amputation (Difficult)."
     },
     {
       "name": "Devastated Eye",
       "wounds": "5",
-      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye  Amputation (Difficult)."
+      "description": "A strike to your eye completely bursts it, causing extraordinary pain. Gain 3 Blinded , 2 Bleeding , and 1 Stunned Condition. Lose your eye — Amputation (Difficult)."
     },
     {
       "name": "Disfiguring Blow",
       "wounds": "5",
-      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose  Amputation (Hard)."
+      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose — Amputation (Hard)."
     },
     {
       "name": "Disfiguring Blow",
       "wounds": "5",
-      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose  Amputation (Hard)."
+      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose — Amputation (Hard)."
     },
     {
       "name": "Disfiguring Blow",
       "wounds": "5",
-      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose  Amputation (Hard)."
+      "description": "The blow smashes your entire face, destroying your eye and nose in a cloud of blood. Gain 3 Bleeding , 3 Blinded and 2 Stunned Conditions. Lose your eye and nose — Amputation (Hard)."
     },
     {
       "name": "Mangled Jaw",
       "wounds": "5",
-      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth  Amputation (Hard)."
+      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (-30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth — Amputation (Hard)."
     },
     {
       "name": "Mangled Jaw",
       "wounds": "5",
-      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth  Amputation (Hard)."
+      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (-30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth — Amputation (Hard)."
     },
     {
       "name": "Mangled Jaw",
       "wounds": "5",
-      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth  Amputation (Hard)."
+      "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (-30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and 1d10 teeth — Amputation (Hard)."
     },
     {
       "name": "Decapitated",

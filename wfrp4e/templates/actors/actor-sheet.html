@@ -129,35 +129,21 @@
 
 
 <script>
-  console.log("CHARACTER SHEET TOKEN BACKGROUND CHANGER!");
   textContainer = document.querySelectorAll('.character-sheet .window-title');
-  console.log("textContainer");
-  console.log(textContainer);
   length = textContainer.length;
-  console.log(length);
   
   for (i = 0; i < length; i++) {
-    console.log("textContainer[i]");
-    console.log(textContainer[i]);
-    console.log("textContainer[i].innerHTML");
-    console.log(textContainer[i].innerHTML);
 
     if (textContainer[i].innerHTML.includes("[Token]")) {
-      console.log("TRUE!");
       new_red = document.getElementsByClassName("character-sheet")[i].id;
-      console.log(new_red);
       if ( !document.getElementById(new_red).className.includes("token-actor") ) {
         document.getElementById(new_red).className += " token-actor";
       }
       else {
-        console.log("FALSE!");
       }
     } 
     else {
-      console.log("FALSE!");
     }
   }
-
-  console.log("CHARACTER SHEET TOKEN BACKGROUND CHANGER END!");
   // console.log(checkIfToken);
 </script>
