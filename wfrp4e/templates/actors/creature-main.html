@@ -30,10 +30,10 @@
     </div>
     {{/if}}
 
-    {{#if actor.includedTraits}}
+    {{#if actor.traits}}
     <div class="list creature-traits">
       <a class="creature-traits label">Traits:</a>
-      {{#each actor.includedTraits as |item i|}}
+      {{#each actor.traits as |item i|}}
       <div class="traits content item" data-item-id="{{item.id}}">
         <a class="traits name item-dropdown">{{item.name}} </a>
       </div>
