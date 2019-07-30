@@ -54,6 +54,9 @@
     }
 
   /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
+  p {
+    font-family: CaslonPro;
+  }
 /******************************************************************/
 /******************************************************************/
 
@@ -662,7 +665,7 @@
       }
         .app.window-app.sheet.item-sheet img {
           box-sizing: border-box;
-          border: 1px solid #00000000;
+          border: 1px solid #000;
           border-radius: 2px;
           max-height: 48px;
           min-width: 48px;
@@ -1106,7 +1109,6 @@
     
       box-shadow: none;
     }
-
 
 /******************************************************************/
 /******************************************************************/
@@ -2830,7 +2832,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name > *,          
           .inventory-list .item .spell-name > *,          
           .inventory-list .item .weapon-name > *,          
-          .inventory-list .item .item-name-edit > *,
+          .inventory-list .item .skill-name > *,
           .inventory-list .item .item-name > *{
             overflow: hidden; 
             flex: 1; 
@@ -2839,7 +2841,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name,
           .inventory-list .item .spell-name,
           .inventory-list .item .weapon-name,
-          .inventory-list .item .item-name-edit,
+          .inventory-list .item .skill-name,
           .inventory-list .item .item-name {
             display: flex;
             flex-direction: row;
@@ -3128,7 +3130,7 @@ input[type="text"], input[type="password"] {
           }
 
 
-        .skill-section .inventory-list .item .item-name-edit > *,
+        .skill-section .inventory-list .item .skill-name > *,
         .skill-section .inventory-list .item .item-name > * {
           flex: 1;
           width: 95px;
@@ -3453,6 +3455,9 @@ input[type="text"], input[type="password"] {
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
+          }
+          .wfrp4e .trait-list .item .excluded-trait {
+            opacity: 0.5;
           }
             .wfrp4e.actor .trait-list .item-image {
               flex: 0 0 30px;
@@ -6517,7 +6522,7 @@ input[type="text"], input[type="password"] {
   }
 
 
-.wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name-edit > *,
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .skill-name > *,
 .wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name > * {
   flex: 1;
   width: 95px;
@@ -7125,29 +7130,6 @@ input[type="text"], input[type="password"] {
 }
 .window-app.dialog.spell-roll-dialog .window-content {
   background: url(../ui/window-app-dialog-backgrounds-spell.png);
-  background-size: 102%;
-  background-position: -5px -10px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
-.window-app.dialog.channell-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-channell.png);
   background-size: 102%;
   background-position: -5px -10px;
   display: flex;
@@ -8760,6 +8742,85 @@ font-weight: bold;
 }
 
 
+
+.wfrp4e.actor .penalties {
+  display: flex;
+  flex-direction: row;
+  font-family: CaslonPro;
+  margin-top: 3px;
+  border: 1px solid #736953a6;
+}
+.wfrp4e.actor .penalties > h3 {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: center;
+  border: 1px solid #736953a6;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  margin: 0px;
+  padding: 3px 0px 0px 0px;
+  height: 23px;
+  min-width: 54px;
+  box-shadow: 0 0 10px #00000052 inset;
+  display: inline-block;
+}
+.wfrp4e.actor .penalties > div {
+  width: fit-content;
+  margin-top: 5px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.wfrp4e.actor .penalties .custom-penalty {
+  width: inherit;
+  background: bisque;
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 2;
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 0px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+}
+  .wfrp4e.actor .penalties .custom-penalty .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
+  .wfrp4e.actor .penalties .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
 
 
 
