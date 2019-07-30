@@ -1,19 +1,59 @@
 <form>
-    {{> public/systems/wfrp4e/templates/chat/dialog-constant.html}}
-    <div class="form-group">
-        <label>Channell Skill</label>
-        <select name="skillSelected">
-            {{#select defaultSelection}}
-            {{#each channellSkills as |skill skillIndex|}}
-                <option value="{{skillIndex}}">{{skill.name}}</option>
-            {{/each}}
-            {{/select}}
-            </select>
-    </div>
+  {{> public/systems/wfrp4e/templates/chat/dialog-constant.html}}
+  <div class="form-group">
+    <label>Channell Skill</label>
+    <select name="skillSelected">
+      {{#select defaultSelection}}
+      {{#each channellSkills as |skill skillIndex|}}
+      <option value="{{skillIndex}}">{{skill.name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
 
-    <div class="form-group">
-        <label title="Include a roll on the hit location table">Malignant Influence 
-            <input type="checkbox" name="malignantInfluence" data-dtype = "Boolean" {{checked malignantInfluence}}/>
-        </label>
-    </div>
+  <div class="form-group">
+    <label title="Include a roll on the hit location table">Malignant Influence
+      <input type="checkbox" name="malignantInfluence" data-dtype="Boolean" {{checked malignantInfluence}} />
+    </label>
+  </div>
+
+  <div class="roll-dialog-tag">channell</div>
 </form>
+
+
+<script>
+  console.log("ROLL DIALOG BACKGROUND CHANGER!");
+  textContainer = document.querySelectorAll('.app.window-app.dialog');
+  console.log("textContainer");
+  console.log(textContainer);
+  length = textContainer.length;
+  console.log(length);
+
+  for (i = 0; i < length; i++) {
+    console.log("textContainer[i]");
+    console.log(textContainer[i]);
+    console.log("textContainer.children");
+    try {
+      console.log(textContainer[i].getElementsByClassName("roll-dialog-tag"));
+      var rollDialogId = textContainer[i].children[1].children[0].getElementsByClassName("roll-dialog-tag")[0].textContent;
+    }
+    catch {
+
+    }
+    if (rollDialogId == "channell") {
+      console.log("TRUE!");
+      new_red = document.getElementsByClassName("app window-app dialog")[i].id;
+      console.log(new_red);
+      if (!document.getElementById(new_red).className.includes("channell-roll-dialog")) {
+        console.log("GREAT SUCCESS");
+        document.getElementById(new_red).className += " channell-roll-dialog";
+      } else {
+        console.log("FALSE!");
+      }
+    } else {
+      console.log("FALSE!");
+    }
+  }
+
+  console.log("ROLL DIALOG BACKGROUND CHANGER END!");
+</script>
