@@ -751,7 +751,6 @@ class DiceWFRP {
     renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
       new Dialog({
           title: dialogOptions.title,
-          class: "red",
           content: dlg,
           buttons: dialogOptions.buttons,
           close: html => dialogOptions.callback(html, roll)
@@ -3006,7 +3005,6 @@ CONFIG.Item.sheetClass = ItemSheetWfrp4e;
  */
 class ActorSheetWfrp4e extends ActorSheet {
 
-  
   /**
    * Return the type of the current Actor
    * @type {String}
@@ -3665,6 +3663,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
       });
     });
+
 
     // Item summaries
     html.find('.item-dropdown').click(event => this._onItemSummary(event));

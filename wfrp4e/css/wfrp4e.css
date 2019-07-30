@@ -54,9 +54,6 @@
     }
 
   /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
-    /* p {
-      font-family: CaslonPro;
-    } */
 /******************************************************************/
 /******************************************************************/
 
@@ -665,7 +662,7 @@
       }
         .app.window-app.sheet.item-sheet img {
           box-sizing: border-box;
-          border: 1px solid #000;
+          border: 1px solid #00000000;
           border-radius: 2px;
           max-height: 48px;
           min-width: 48px;
@@ -735,7 +732,7 @@
           background: url(../ui/item-sheet-tab-edges.png) repeat;
           background-position-x: right;
           position: absolute;
-          top: 170px;
+          top: 169px;
           left: 59px;
           z-index: 101;
         }
@@ -746,7 +743,7 @@
           background: url(../ui/item-sheet-tab-edges.png) repeat;
           background-position-x: right;
           position: absolute;
-          top: 170px;
+          top: 169px;
           right: 59px;
           z-index: 101;
           -moz-transform: scaleX(-1);
@@ -859,6 +856,7 @@
             font-weight: 500;
             color: black;
             height: 25px;
+            text-align-last: center;
           }
           .app.window-app.sheet.item-sheet .tab .form-group .item-checkbox {
             height: 25px;
@@ -925,10 +923,38 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -21px 0px 0px 0px;
+      margin: -29px 0px 0px 0px;
       height: 26px;
       position: relative;
     }
+      .app.window-app.sheet.item-sheet.career-sheet .sheet-tabs.edges.left {
+        margin: 0px;
+        height: 25px;
+        width: 7px;
+        background: url(../ui/item-sheet-tab-edges.png) repeat;
+        background-position-x: right;
+        position: absolute;
+        top: 161px;
+        left: 59px;
+        z-index: 101;
+      }
+      .app.window-app.sheet.item-sheet.career-sheet .sheet-tabs.edges.right {
+        margin: 0px;
+        height: 25px;
+        width: 7px;
+        background: url(../ui/item-sheet-tab-edges.png) repeat;
+        background-position-x: right;
+        position: absolute;
+        top: 161px;
+        right: 59px;
+        z-index: 101;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+      }
     .app.window-app.sheet.item-sheet.career-sheet #characteristics-label {
       height: auto;
       padding-top: 10px;
@@ -952,6 +978,70 @@
         color: black;
         padding-top: 5px;
       }
+
+  /* ==================== (B) DISEASES ========================== */
+  .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs {
+    font-family: CaslonAntique;
+    font-size: 16px;
+    font-weight: 700;
+    margin: -29px 0px 0px 0px;
+    height: 26px;
+    position: relative;
+  }
+    .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs.edges.left {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 161px;
+      left: 59px;
+      z-index: 101;
+    }
+    .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs.edges.right {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 161px;
+      right: 59px;
+      z-index: 101;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
+  .app.window-app.sheet.item-sheet.disease-sheet .tab .input-text {
+    height: 23px;
+    border: 1px solid #73695300;
+    border-left: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+    padding-top: 7px;
+    margin-right: 6px;
+    position: relative;
+    left: 0px;
+    vertical-align: top;
+    text-align: center;
+    flex: 3;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: none;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .app.window-app.sheet.item-sheet.disease-sheet .tab .input-text:hover {
+    border: 1px dotted #463a3a;
+    box-shadow: none;
+  }
 
   /* ==================== (C) SIDEBAR CHAT FORM ================= */
   /* ==================== (D) SIDEBAR CHAT FORM ================= */
@@ -1016,6 +1106,7 @@
     
       box-shadow: none;
     }
+
 
 /******************************************************************/
 /******************************************************************/
@@ -7228,7 +7319,7 @@ input[type="text"], input[type="password"] {
   .window-app.dialog.channell-roll-dialog .dialog-buttons button,
   .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
     flex: 2;
-    margin: 0 5px 0 0;
+    margin: 0px 0px 0px 0px;
     line-height: 24px;
     border: 3px double #736953a6;
     box-shadow: 0px 0px 10px inset black;
@@ -7250,7 +7341,7 @@ input[type="text"], input[type="password"] {
   }
 
 
-  /* WAS WORKING HERE */
+  /* CUSTOM DROPDOWN */
   /*the container must be positioned relative:*/
   .window-app.dialog .custom-select {
     position: relative;
