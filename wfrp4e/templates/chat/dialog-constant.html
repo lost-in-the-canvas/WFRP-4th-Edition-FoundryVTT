@@ -66,6 +66,7 @@
   // console.log(beta);
   // console.log(beta.length);
 
+
   for (i = document.getElementsByClassName("select-selected").length; i < x.length; i++) {
     selElmnt = x[i].getElementsByTagName("select")[0];
     /*for each element, create a new DIV that will act as the selected item:*/
@@ -76,7 +77,7 @@
     /*for each element, create a new DIV that will contain the option list:*/
     b = document.createElement("DIV");
     b.setAttribute("class", "select-items select-hide");
-    for (j = 0; j < selElmnt.length; j++) {
+    for (j = 1; j < selElmnt.length; j++) {
       /*for each option in the original select element,
       create a new DIV that will act as an option item:*/
       c = document.createElement("DIV");
