@@ -485,12 +485,12 @@ CONFIG.qualityDescriptions = {
   "trapblade": "Some weapons are designed to trap other weapons, and sometimes even break them. If you score a Critical when defending against an attack from a bladed weapon you can choose to trap it instead of causing a Critical Hit. If you choose to do this, enact an Opposed Strength Test, adding your SL from the previous Melee Test. If you succeed, your opponent drops the blade as it is yanked free. If you score an Astounding Success, you not only disarm your opponent, but the force of your maneuver breaks their blade unless it has the Unbreakable quality. If you fail the Test, your opponent frees the blade and may fight on as normal.",
   "unbreakable": "The weapon is exquisitely well-made or constructed from an especially strong material. Under almost all circumstances, this weapon will not break, corrode, or lose its edge.",
   "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades.",
-  "flexible": "Flexible",
-  "impenetrable": "Impenetrable",
-  "durable": "Durable",
-  "fine": "Fine",
-  "lightweight": "Lightweight",
-  "practical": "Practical",
+  "flexible": "Flexible armor can be worn under a layer of non-Flexible armor if you wish. If you do so, you gain the benefit of both.",
+  "impenetrable": "The armor is especially resilient, meaning most attacks simply cannot penetrate it. All Critical Wounds caused by an odd number to hit you, such as 11 or 33, are ignored.",
+  "durable": "Laboriously crafted using strong materials, the item can take +Durable Damage points before it suﬀers any negatives and gains a saving throw of 9+ on a 1d10 roll against instant breakage from sources like Trap Blade. This Quality can be taken multiple times. Each time it is taken, the saving throw improves by 1 (e.g. From 9+ to 8+).",
+  "fine": "Meticulously crafted to please the eye. This Quality is a sign of social status and can be taken multiple times. The higher the quality, the more impressive it seems.",
+  "lightweight": "Cleverly crafted for ease of carrying. Reduce Encumbrance points by 1.",
+  "practical": "Expertly crafted with utility in mind. A failed test using this item receives +1 SL. If the item is a piece of armor, any penalties for wearing it are reduced by one level (for example from -30 to -20).",
 };
 
 // Weapon Flaw Descriptions (used in dropdown info)
@@ -501,12 +501,12 @@ CONFIG.flawDescriptions = {
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
   "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.",
   "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
-  "partial": "Partial",
-  "weakpoints": "Weakpoints",
-  "ugly": "Ugly",
-  "shoddy": "Shoddy",
-  "unreliable": "Unreliable",
-  "bulky": "Bulky"
+  "partial": "The armor does not cover the entire hit location. An opponent that rolls an even number to hit, or rolls a Critical Hit, ignores the partial armor’s APs.",
+  "weakpoints": "The armor has small weakpoints where a blade can slip in if your opponent is sufficiently skilled or lucky. If your opponent has a weapon with the Impale Quality and scores a Critical, the APs of your armor are ignored.",
+  "ugly": "Crafted without any aesthetic awareness whatsoever, Ugly items attract negative attention, and related Fellowship Tests might even suﬀer a –10 penalty.",
+  "shoddy": "Hastily crafted by an amateur or fraudster. The item breaks when used in any failed Test rolling a double. Similarly, Shoddy armor breaks if any Critical Hit is sustained to a Hit Location it protects.",
+  "unreliable": "Crafted without attention to functionality, a failed test using this item receives –1 SL. Further, penalties for wearing Unreliable armor are doubled.",
+  "bulky": "An awkward design crafted clumsily. Increase Encumbrance by +1 (small trinkets cannot normally have this ﬂaw). Bulky clothing and armor are Enc 1 even when worn, and Fatigue penalties for armor are doubled."
 };
 
 // Armor Qualities
@@ -893,6 +893,9 @@ class DiceWFRP {
              testResults.roll % 2 == 0)
          testResults.extra.misfire = "Misfire"
        }
+
+       if (weapon.data.weaponGroup.value == "Throwing")
+        testResults.extra.scatter = "Scatter";
 
      }
      else
@@ -2242,7 +2245,7 @@ class ActorWfrp4e extends Actor {
    * @param spell {Object}   Spell being cast
    */
   rollCast(spell) {
-    let title = "Casting Test";
+    let title = "Casting Test - " + spell.name;
     let castSkill = this.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
     let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
 
@@ -2339,7 +2342,7 @@ class ActorWfrp4e extends Actor {
    * @param spell {Object}   Spell being channelled
    */
   rollChannell(spell) {
-    let title = "Channelling Test";
+    let title = "Channelling Test - " + spell.name;
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
     let spellLore = spell.data.lore.value;
     let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
@@ -2434,7 +2437,7 @@ class ActorWfrp4e extends Actor {
    * @param prayer {Object}   prayer being invoked
    */
   rollPrayer(prayer, options) {
-    let title = "Prayer Test";
+    let title = "Prayer Test - " + prayer.name;
     let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
     // Prevent test if character does not have pray
     if (!praySkill)
@@ -3643,7 +3646,137 @@ class ActorSheetWfrp4e extends ActorSheet {
         enc["notEncumbered"] = true;
       actorData.encumbrance = enc;
   }
+
+
+
+  
+  /* -------------------------------------------- */
+  /*  Auto Advancement Functions
+  /* -------------------------------------------- */
+  async _advanceSpeciesSkills() {
+    let skillList
+    try 
+    {
+      skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
+      if (!skillList)
+      {
+        skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+        if (!skillList)
+        {
+          throw "Could not add skills for species " + this.actor.data.data.details.species.value;
+        }
+      }
+    }
+    catch(error)
+    {
+        ui.notifications.info("Could not find species" + this.actor.data.data.details.species.value)
+        console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
+        throw error
+    }
+    let skillSelector = new Roll(`1d${skillList.length}- 1`);
+    skillSelector.roll().total;
+
+    let skillsSelected = [];
+    while (skillsSelected.length < 6)
+    {
+      skillSelector = skillSelector.reroll()
+      if (!skillsSelected.includes(skillSelector.total))
+        skillsSelected.push(skillSelector.total);
+    }
+    
+    for (let skillIndex = 0; skillIndex < skillsSelected.length; skillIndex++)
+    {
+      if (skillIndex <= 2)
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
+      else
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
+    }
+  }
+
+  
+  async _advanceSpeciesTalents() {
+    let talentList
+    try
+    {
+      talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
+      if (!talentList)
+      {
+        talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+        if (!talentList)
+          throw "Could not add talents for species " + this.actor.data.data.details.species.value;
+      }
+    }
+    catch (error)
+    {
+      ui.notifications.info("Could not find species" + this.actor.data.data.details.species.value)
+      console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
+      throw error
+    }
+    let talentSelector; 
+    for (let talent of talentList)
+    {
+      if (!isNaN(talent)) // If is a number, roll on random talents
+      {
+        for (let i = 0; i < talent; i++)
+        {
+          let result = WFRP_Tables.rollTable("talents")
+          await this._advanceTalent(result.name);
+        }
+        continue
+      }
+      let talentOptions = talent.split(',').map(function(item) {
+        return item.trim();
+      });
+
+      if (talentOptions.length > 1)
+      {
+        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
+          await this._advanceTalent(talentOptions[talentSelector.roll().total])
+      }
+      else
+      {
+        await this._advanceTalent(talent)
+      }
+    }
+    
+  }
+
+  async _advanceSkill(skillName, advances){
+    let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    if (existingSkill)
+    {
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value; 
+      await this.actor.updateOwnedItem(existingSkill);
+      return;
+    }
+    
+    // If does not already own skill, search through compendium
+    try 
+    {
+        let skillToAdd = await WFRP_Utility.findSkill(skillName) 
+        skillToAdd.data.data.advances.value = advances;
+        this.actor.createOwnedItem(skillToAdd.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding skill " + skillName +": " + error);
+      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
+    }
+  }
+
+  async _advanceTalent(talentName){
+
+    try 
+    {
+      let talent = await WFRP_Utility.findTalent(talentName);
+      this.actor.createOwnedItem(talent.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding talent " + talentName +": " + error);
+      ui.notifications.error("Something went wrong when adding talent " + talentName +": " + error);
+    }
+  }
  
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -4027,6 +4160,65 @@ class ActorSheetWfrp4e extends ActorSheet {
         this.actor.updateOwnedItem(disease);
       }
     })
+
+    /*****************************************************
+    * Randomization options used by NPC and Creature sheets
+    ******************************************************/
+
+    // Entering a recognized species sets the characteristics to the average values
+    html.find('#input-species').focusout(async event => {
+      event.preventDefault();
+
+      if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
+      {
+        let species = event.target.value;
+        try 
+        {
+          let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
+
+          // Could not get assigning the whole object to work
+          // Error was something about fields not allowing "."
+          for (let char in initialValues)
+            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+          await this.actor.update({"data.details.species.value" : species});
+          await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
+        }
+        catch 
+        {
+          // Do nothing if exception trying to find species
+        }
+      }
+    });
+
+    // Randomization buttons that randomize characteristics, skills, and talents, of a recognized species
+    html.find('.randomize').click(async event => {
+      event.preventDefault();
+      let species = this.actor.data.data.details.species.value;
+
+      try 
+      {
+        switch(event.target.text)
+        {
+          case "C":
+            let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+            for (let char in rolledCharacteristics)
+              await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+            return
+
+          case "S":
+            this._advanceSpeciesSkills()  
+            return
+
+          case "T":
+            this._advanceSpeciesTalents()  
+            return
+        }
+      }
+      catch (error)
+      {
+        console.log("Could not randomize: " + error)
+      }
+    });
 
     // html.find('.penalties-input').focusout(async ev =>  {
     //   console.log(ev.target.value);
@@ -4613,107 +4805,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
     this.actor.update(updateObj);
   }
 
-  async _advanceSpeciesSkills() {
-    let skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
-    if (!skillList)
-    {
-      skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
-      if (!skillList)
-        throw "Could not add skills for species " + this.actor.data.data.details.species.value;
-    }
-    let skillSelector = new Roll(`1d${skillList.length}- 1`);
-    skillSelector.roll().total;
-
-    let skillsSelected = [];
-    while (skillsSelected.length < 6)
-    {
-      skillSelector = skillSelector.reroll()
-      if (!skillsSelected.includes(skillSelector.total))
-        skillsSelected.push(skillSelector.total);
-    }
-    
-    for (let skillIndex in skillsSelected)
-    {
-      if (skillIndex <= 2)
-        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
-      else
-        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
-    }
-  }
-
-  
-  async _advanceSpeciesTalents() {
-    let talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
-    if (!talentList)
-    {
-      talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
-      if (!talentList)
-        throw "Could not add talents for species " + this.actor.data.data.details.species.value;
-    }
-    let talentSelector; 
-    for (let talent of talentList)
-    {
-      if (!isNaN(talent)) // If is a number, roll on random talents
-      {
-        for (let i = 0; i < talent; i++)
-        {
-          let result = WFRP_Tables.rollTable("talents")
-          await this._advanceTalent(result.name);
-        }
-        continue
-      }
-      let talentOptions = talent.split(',').map(function(item) {
-        return item.trim();
-      });
-
-      if (talentOptions.length > 1)
-      {
-        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
-          await this._advanceTalent(talentOptions[talentSelector.roll().total])
-      }
-      else
-      {
-        await this._advanceTalent(talent)
-      }
-    }
-    
-  }
-
-  async _advanceSkill(skillName, advances){
-    let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
-    if (existingSkill)
-    {
-      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value; 
-      await this.actor.updateOwnedItem(existingSkill);
-      return;
-    }
-    
-    // If does not already own skill, search through compendium
-    try 
-    {
-        let skillToAdd = await WFRP_Utility.findSkill(skillName) 
-        skillToAdd.data.data.advances.value = advances;
-        this.actor.createOwnedItem(skillToAdd.data);
-    }
-    catch(error) {
-      console.error("Something went wrong when adding skill " + skillName +": " + error);
-      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
-    }
-  }
-
-  async _advanceTalent(talentName){
-
-    try 
-    {
-      let talent = await WFRP_Utility.findTalent(talentName);
-      this.actor.createOwnedItem(talent.data);
-    }
-    catch(error) {
-      console.error("Something went wrong when adding talent " + talent +": " + error);
-      ui.notifications.error("Something went wrong when adding talent " + talent +": " + error);
-    }
-  }
-
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -4754,50 +4845,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           this._advanceNPC(careerItem.data.data)
 
         this.actor.updateOwnedItem({id : id, 'data' : careerItem.data.data});
-      });
-
-      html.find('#input-species').focusout(async event => {
-        event.preventDefault();
-
-        if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
-        {
-          let species = event.target.value;
-
-          let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
-
-          // Could not get assigning the whole object to work
-          // Error was something about fields not allowing "."
-          for (let char in initialValues)
-            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
-          await this.actor.update({"data.details.species.value" : species});
-          await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
-        }
-      });
-
-      
-      html.find('.randomize').click(async event => {
-        event.preventDefault();
-        let species = this.actor.data.data.details.species.value;;
-
-        switch(event.target.text)
-        {
-          case "C":
-            let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
-            for (let char in rolledCharacteristics)
-              await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
-            return
-
-          case "S":
-            this._advanceSpeciesSkills()  
-            return
-
-          case "T":
-            this._advanceSpeciesTalents()  
-            return
-        }
-
-
-
       });
   }
 
@@ -5241,15 +5288,11 @@ class WFRP_Utility
       if (wearingPlate)
         stealthPenaltyValue += -10;
 
-      armorPenaltiesString += a.data.penalty.value + " ";
+      armorPenaltiesString += (stealthPenaltyValue + " Stealth");
     }
-    
     return armorPenaltiesString;
   }
-
-
-
-  
+    
   static _calculateRangeOrDamage(actorData, formula){    
     try {formula = formula.toLowerCase();}
     catch {return formula}
@@ -5374,17 +5417,16 @@ class WFRP_Utility
   {
     let characteristics = {};
     let characteristicFormulae = CONFIG.speciesCharacteristics[species];
-    if(!characteristicFormulae) // If input species was not a valid key, try finding it as a value
-     characteristicFormulae = CONFIG.speciesCharacteristics[this.findKey(species, CONFIG.species)]
-
-    if (!characteristicFormulae)
+    try 
     {
-      for (let char in CONFIG.characteristics)
-      {
-        characteristics[char] = 20;
-      }
-      console.warn("Could not find species " + species)
-      return characteristics;
+      if(!characteristicFormulae) // If input species was not a valid key, try finding it as a value
+        characteristicFormulae = CONFIG.speciesCharacteristics[this.findKey(species, CONFIG.species)]
+    }
+    catch (error)
+    {
+      ui.notifications.info("Could not find species " + species)
+      console.log("Could not find species " + species + ": " + error);
+      throw error
     }
 
     for (let char in CONFIG.characteristics)
@@ -5416,7 +5458,7 @@ class WFRP_Utility
       if (obj[key] == value)
         return key;
     }
-    throw "Could not find key corresponding to " + value + " in " + obj
+    throw "Could not find key corresponding to " + value
   }
 
   static async findSkill(skillName)
