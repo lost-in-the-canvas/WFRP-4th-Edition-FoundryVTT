@@ -1110,9 +1110,12 @@ class DiceWFRP {
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
-     testData : testData,
-     gm : game.user.isGM
+     testData : testData
    }
+
+   if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+   if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+
   // Generate HTML from the requested chat template
   return renderTemplate(chatOptions.template, chatData).then(html => {
 
@@ -1154,26 +1157,24 @@ class DiceWFRP {
       else if (ev.button == 2)
       {
         renderTemplate('public/systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+          new Dialog({
+            title: "Table Modifier",
+            content: html,
+            buttons: {
+              roll: {
+                label: "Roll",
+                callback: (html) => {
+                  let tableModifier = html.find('[name="tableModifier"]').val();
+                  let minOne = html.find('[name="minOne"]').is(':checked');
+                  html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
+                  ChatMessage.create({content : html, user : senderId})
 
-        new Dialog({
-          title: "Table Modifier",
-          content: html,
-          buttons: {
-            roll: {
-              label: "Roll",
-              callback: (html) => {
-                let tableModifier = html.find('[name="tableModifier"]').val();
-                let minOne = html.find('[name="minOne"]').is(':checked');
-                html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
-                ChatMessage.create({content : html, user : senderId})
-
-              }
+                }
+              },
             },
-          },
-          default: 'roll'
-        }).render(true);
-      })
-
+            default: 'roll'
+          }).render(true);
+        })
       }
 
 
@@ -2213,26 +2214,27 @@ class ActorWfrp4e extends Actor {
 
   // Roll spell Dialog - choose between Casting or Channelling
   rollSpell(spell, options) {
-    new Dialog({
-      title: "Cast or Channell",
-      content: '<p>Cast or Channell this spell?</p>',
-      buttons: {
-        cast: {
-          label: "Cast",
-          callback: dlg => {
-            this.rollCast(spell, options);
-          }
+    renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
+      new Dialog({
+        title: "Cast or Channell",
+        content: dlg,
+        buttons: {
+          cast: {
+            label: "Cast",
+            callback: btn => {
+              this.rollCast(spell, options);
+            }
+          },
+          channell: {
+            label: "Channell",
+            callback: btn => {
+              this.rollChannell(spell, options);
+            }
+          },
         },
-        channell: {
-          label: "Channell",
-          callback: dlg => {
-            this.rollChannell(spell, options);
-
-          }
-        },
-      },
-      default: 'cast'
-    }).render(true);
+        default: 'cast'
+      }).render(true);
+    })
   }
 
   /**
