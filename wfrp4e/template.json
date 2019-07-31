@@ -281,6 +281,7 @@
     "npc": {
     },
     "creature": {
+      "excludedTraits" : []
     }
   },
   "item": {

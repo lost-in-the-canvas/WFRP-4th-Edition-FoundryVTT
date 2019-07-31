@@ -4962,8 +4962,9 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   _prepareItems(actorData) {
    super._prepareItems(actorData); 
-   let includedTraits = actorData.traits.filter(t => t.data.include || t.data.include == undefined);
-   let excludedTraits = actorData.traits.filter(t => t.data.include == false);
+   let includedTraits = actorData.traits.filter(t => !this.actor.data.data.excludedTraits.includes(t.id));
+   let excludedTraits = actorData.traits.filter(t => this.actor.data.data.excludedTraits.includes(t.id));
+
    actorData.includedTraits = includedTraits;
    actorData.traits = includedTraits;
    actorData.excludedTraits = excludedTraits;
@@ -5100,16 +5101,18 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.rollCharacteristic(characteristic, event);
       });
 
-      html.find('.trait-name').click(event => {
+      html.find('.trait-name').click(async event => {
         event.preventDefault();
         let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let trait = this.actor.getOwnedItem(traitId);
-        if (trait.data.data.include || trait.data.data.include == undefined)
-          trait.data.data.include = false;
-        else
-          trait.data.data.include = true;
+        let newExcludedTraits = this.actor.data.data.excludedTraits;
 
-          this.actor.updateOwnedItem(trait.data);
+        if (this.actor.data.data.excludedTraits.includes(traitId))
+          newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+        else 
+          newExcludedTraits.push(traitId);
+
+         await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+         this.actor.sheet.render(true);
       });
   }
 
