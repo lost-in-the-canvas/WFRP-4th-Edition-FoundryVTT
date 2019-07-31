@@ -11,14 +11,16 @@
              <div class="skill-char-title">Char.</div>
              <div class="skill-adv-title">Adv.</div>
              <div class="skill-total-title">Total</div>
-             {{#if owner}}
+             {{#if isGM}}
              <div class="item-controls">
+             {{else}}
+             <div style = "visibility : hidden" class="item-controls">
+             {{/if}}
                 <a class="item-control item-create" title="Create Item" data-type="skill">
                 <i class="fas fa-plus"></i>
                 </a>
                 <!-- <h4 id="List-Add-label">Add</h4> -->
              </div>
-             {{/if}}
           </li>
           {{#each actor.basicSkills as |item i|}}
           <li class="item" data-item-id="{{item.id}}">
@@ -50,14 +52,16 @@
              <div class="skill-char-title">Char.</div>
              <div class="skill-adv-title">Adv.</div>
              <div class="skill-total-title">Total</div>
-             {{#if owner}}
+             {{#if isGM}}
              <div class="item-controls">
+             {{else}}
+             <div style = "visibility : hidden" class="item-controls">
+             {{/if}}
                 <a class="item-control item-create" title="Create Item" data-type="skill">
                 <i class="fas fa-plus"></i>
                 </a>
                 <!-- <h4 id="List-Add-label">Add</h4> -->
              </div>
-             {{/if}}
           </li>
           {{#each actor.advancedOrGroupedSkills as |item i|}}
           <li class="item" data-item-id="{{item.id}}">
@@ -87,14 +91,16 @@
              <h4 id="List-Career-label" class="item-name">Career</h4>
              <h4 id="List-Complete-label">Complete</h4>
              <div id="List-Level-label">Level</div>
-             {{#if owner}}
+             {{#if isGM}}
              <div id="item-controls">
+             {{else}}
+             <div style = "visibility : hidden" id="item-controls">
+             {{/if}}
                 <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="career">
                    <i class="fas fa-plus"></i>
                    <!-- <h4 id="List-Add-label">Add</h4> -->
                 </a>
              </div>
-             {{/if}}
           </li>
           {{#each actor.careers as |item i|}}
           <li id="testlist" class="item" data-item-id="{{item.id}}">

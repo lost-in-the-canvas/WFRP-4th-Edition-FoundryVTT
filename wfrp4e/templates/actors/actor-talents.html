@@ -5,12 +5,14 @@
         <div class="item-name">Talent Name</div>
         <div class="item-taken">Times Taken</div>
         <div class="item-tests">Tests</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </li>
 
       {{#each actor.talents as |item i|}}

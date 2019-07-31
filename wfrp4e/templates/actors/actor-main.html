@@ -221,14 +221,16 @@
         <h4 id="List-Current-label">Current</h4>
         <h4 id="List-Complete-label">Complete</h4>
         <div id="List-Level-label">Level</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div id="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" id="item-controls">
+        {{/if}}
           <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="career">
             <i class="fas fa-plus"></i>
             <!-- <h4 id="List-Add-label">Add</h4> -->
           </a>
         </div>
-        {{/if}}
       </li>
 
       {{#each actor.careers as |item i|}}

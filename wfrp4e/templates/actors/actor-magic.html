@@ -3,13 +3,15 @@
     <ol class="inventory-list petty-list">
       <li class="inventory-header item petty-header ">
         <div class="item-name">Petty Spell</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div id="petty-add" class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
+        {{else}}
+        <div style = "visibility : hidden" id="petty-add" class="item-controls">
+        {{/if}}
+          <a class="item-control item-create" title="Create Item" data-type="spell" data-spell-type="petty">
             <i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </li>
 
       {{#each actor.petty as |item i|}}
@@ -37,11 +39,14 @@
         <div class="spell-attr">CN</div>
         <div class="spell-attr">SL</div>
         <div title="Memorized" class="spell-attr spell-memorized">M</div>
-        {{#if owner}}
+        
+        {{#if isGM}}
         <div id="lore-add" class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
-        </div>
+        {{else}}
+        <div style = "visibility : hidden" id="lore-add" class="item-controls">
         {{/if}}
+          <a class="item-control item-create" title="Create Item" data-type="spell" data-spell-type=""><i class="fas fa-plus"></i></a>
+        </div>
       </li>
 
       {{#each actor.grimoire as |item i|}}

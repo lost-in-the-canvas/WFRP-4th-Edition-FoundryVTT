@@ -483,7 +483,11 @@
   <div class="injury-header">
     <a class="injury-label">Injury</a>
     <a class="location-label">Location</a>
+    {{#if isGM}}
     <div class="item-controls">
+    {{else}}
+    <div style = "visibility : hidden" class="item-controls">
+    {{/if}}
       <a class="item-control item-create" title="Create Item" data-type="injury"><i class="fas fa-plus"></i></a>
     </div>
   </div>

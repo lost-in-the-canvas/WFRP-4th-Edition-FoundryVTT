@@ -3184,9 +3184,10 @@ class ActorSheetWfrp4e extends ActorSheet {
         sheetData.actor.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
 
     }
-    
-    // Return data to the sheet
+
     sheetData.isToken = this.actor.token;
+    sheetData.isGM = game.user.isGM;    
+    // Return data to the sheet
     return sheetData;
   }
 
@@ -4477,6 +4478,19 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (event.currentTarget.attributes["data-type"].value == "trapping")
       data = mergeObject(data, {"data.trappingType.value" : event.currentTarget.attributes["item-section"].value})
 
+    else if (data.type == "spell" || data.type == "prayer")
+    {
+      let itemSpecification = event.currentTarget.attributes[`data-${data.type}-type`].value;
+
+      if (data.type == "spell")
+      {
+        data = mergeObject(data, {"data.lore.value" : itemSpecification});
+      }
+      else if (data.type == "prayer")
+      {
+        data = mergeObject(data, {"data.type.value" : itemSpecification});
+      }
+    }
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
