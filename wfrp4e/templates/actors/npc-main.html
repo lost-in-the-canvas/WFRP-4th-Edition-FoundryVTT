@@ -24,7 +24,7 @@
           </li>
           {{#each actor.basicSkills as |item i|}}
           <li class="item" data-item-id="{{item.id}}">
-             <div class="item-name-edit">
+             <div class="skill-name">
                 <a>{{item.name}}</a>
              </div>
              <div class="row">
@@ -65,8 +65,8 @@
           </li>
           {{#each actor.advancedOrGroupedSkills as |item i|}}
           <li class="item" data-item-id="{{item.id}}">
-             <div class="item-name-edit">
-                <a>{{item.name}}</a>
+             <div class="skill-name">
+                  <a>{{item.name}}</a>
              </div>
              <div class="row">
                 <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>

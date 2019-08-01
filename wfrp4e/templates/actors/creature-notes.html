@@ -20,31 +20,13 @@
         {{/if}}
       </li>
 
-      {{#each actor.includedTraits as |item i|}}
+      {{#each actor.notesTraits as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
+        {{#if item.included}}
         <div class="trait-name">
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          {{#if item.data.rollable.value}}
-          <a class = "trait-include">{{item.name}}</a>
-          {{else}}
-          <a class = "item-dropdown">{{item.name}}</a>
-          {{/if}}
-        </div>
-
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-
-      
-      {{#each actor.excludedTraits as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
+        {{else}}
         <div class="excluded-trait trait-name">
+        {{/if}}
           <div class="item-image" style="background-image: url({{item.img}})"></div>
           {{#if item.data.rollable.value}}
           <a class = "trait-include">{{item.name}}</a>

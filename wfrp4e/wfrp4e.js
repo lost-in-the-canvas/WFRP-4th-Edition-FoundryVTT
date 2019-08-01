@@ -4962,12 +4962,24 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    */
   _prepareItems(actorData) {
    super._prepareItems(actorData); 
-   let includedTraits = actorData.traits.filter(t => !this.actor.data.data.excludedTraits.includes(t.id));
-   let excludedTraits = actorData.traits.filter(t => this.actor.data.data.excludedTraits.includes(t.id));
 
-   actorData.includedTraits = includedTraits;
-   actorData.traits = includedTraits;
-   actorData.excludedTraits = excludedTraits;
+   for (let trait of actorData.traits)
+   {
+     if (actorData.data.excludedTraits.includes(trait.id))
+     {
+       trait.included = false;
+     }
+     else
+     {
+       trait.included = true;
+     }
+   }
+
+   actorData.notesTraits = actorData.traits; // Display all traits in the notes section of a creature
+   actorData.traits = actorData.traits.filter(t => t.included);
+
+   actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
+   // Use only included traits for calculation
   }
 
 
@@ -5100,6 +5112,14 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         let characteristic = $(event.currentTarget).attr("data-char");
         this.actor.rollCharacteristic(characteristic, event);
       });
+
+
+      html.find('.ch-edit').focusout(event => {
+        event.preventDefault();
+        let characteristic = $(event.currentTarget).attr("data-char");
+        this.actor.update({[`data.characteristics.${characteristic}.initial`] : parseInt(event.target.value)})
+      });
+
 
       html.find('.trait-name').click(async event => {
         event.preventDefault();
