@@ -50,9 +50,67 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/surprised.png",
 ]
 
-// CONFIG.JournalEntry.noteIcons = {
-//   Capital : "systems/wfrp4e/icons/buildings/empire_city_altdorf5.png",
-// }
+ CONFIG.JournalEntry.noteIcons = {
+   "Apothecary" : "systems/wfrp4e/icons/buildings/apothecary.png",
+   "Beastmen Herd 1" : "systems/wfrp4e/icons/buildings/beastmen_camp1.png",
+   "Besatmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
+   "Blacksmith" : "systems/wfrp4e/icons/buildings/blacksmith.png",
+   "Bretonnian City 1" : "systems/wfrp4e/icons/buildings/bret_city1.png",
+   "Bretonnian City 2" : "systems/wfrp4e/icons/buildings/bret_city2.png",
+   "Bretonnian City 3" : "systems/wfrp4e/icons/buildings/bret_city3.png",
+   "Bretonnian Worship" : "systems/wfrp4e/icons/buildings/bretonnia_worhsip.png",
+   "Caste Hill 1" : "systems/wfrp4e/icons/buildings/castle_hill1.png",
+   "Caste Hill 2" : "systems/wfrp4e/icons/buildings/castle_hill2.png",
+   "Caste Hill 3" : "systems/wfrp4e/icons/buildings/castle_hill3.png",
+   "Castle Wall" : "systems/wfrp4e/icons/buildings/castle_wall.png",
+   "Cave 1" : "systems/wfrp4e/icons/buildings/cave1.png",
+   "Cave 2" : "systems/wfrp4e/icons/buildings/cave2.png",
+   "Cave 3" : "systems/wfrp4e/icons/buildings/cave3.png",
+   "Cemetery" : "systems/wfrp4e/icons/buildings/cemetery.png",
+   "Chaos Portal" : "systems/wfrp4e/icons/buildings/chaos_portal.png",
+   "Chaos Worship" : "systems/wfrp4e/icons/buildings/chaos_worship.png",
+   "Dwarf Hold 1" : "systems/wfrp4e/icons/buildings/dwarf_hold1.png",
+   "Dwarf Hold 2" : "systems/wfrp4e/icons/buildings/dwarf_hold2.png",
+   "Dwarf Hold 3" : "systems/wfrp4e/icons/buildings/dwarf_hold3.png",
+   "Empire Barracks" : "systems/wfrp4e/icons/buildings/empire_barracks.png",
+   "Empire City 1" : "systems/wfrp4e/icons/buildings/empire_city1.png",
+   "Empire City 2" : "systems/wfrp4e/icons/buildings/empire_city2.png",
+   "Empire City 3" : "systems/wfrp4e/icons/buildings/empire_city3.png",
+   "Farm" : "systems/wfrp4e/icons/buildings/farms.png",
+   "Guard Post" : "systems/wfrp4e/icons/buildings/guards.png",
+   "Haunted Hill" : "systems/wfrp4e/icons/buildings/haunted_hill.png",
+   "Haunted Wood" : "systems/wfrp4e/icons/buildings/haunted_wood.png",
+   "Inn 1" : "systems/wfrp4e/icons/buildings/inn1.png",
+   "Inn 2" : "systems/wfrp4e/icons/buildings/inn2.png",
+   "Kislev City 1" : "systems/wfrp4e/icons/buildings/kislev_city1.png",
+   "Kislev City 2" : "systems/wfrp4e/icons/buildings/kislev_city2.png",
+   "Kislev City 3" : "systems/wfrp4e/icons/buildings/kislev_city3.png",
+   "Scroll" : "systems/wfrp4e/icons/buildings/scroll.png",
+   "Magic" : "systems/wfrp4e/icons/buildings/magic.png",
+   "Mountain 1" : "systems/wfrp4e/icons/buildings/mountains1.png",
+   "Mountain 2" : "systems/wfrp4e/icons/buildings/mountains2.png",
+   "Orcs" : "systems/wfrp4e/icons/buildings/orcs.png",
+   "Orc Camp" : "systems/wfrp4e/icons/buildings/orc_city.png",
+   "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
+   "Port" : "systems/wfrp4e/icons/buildings/port.png",
+   "Road" : "systems/wfrp4e/icons/buildings/roads.png",
+   "Ruins" : "systems/wfrp4e/icons/buildings/ruins.png",
+   "Sigmar" : "systems/wfrp4e/icons/buildings/sigmar_worship.png",
+   "Stables" : "systems/wfrp4e/icons/buildings/stables.png",
+   "Standing Stones" : "systems/wfrp4e/icons/buildings/standing_stones.png",
+   "Temple" : "systems/wfrp4e/icons/buildings/temple.png",
+   "Tower 1" : "systems/wfrp4e/icons/buildings/tower1.png",
+   "Tower 2" : "systems/wfrp4e/icons/buildings/tower2.png",
+   "Tower Hill" : "systems/wfrp4e/icons/buildings/tower_hill.png",
+   "Wizard Tower" : "systems/wfrp4e/icons/buildings/wizard_tower.png",
+   "Ulric" : "systems/wfrp4e/icons/buildings/ulric_worship.png",
+   "Village 1" : "systems/wfrp4e/icons/buildings/village1.png",
+   "Village 2" : "systems/wfrp4e/icons/buildings/village2.png",
+   "Village 3" : "systems/wfrp4e/icons/buildings/village3.png",
+   "Wood Elves 1" : "systems/wfrp4e/icons/buildings/welves1.png",
+   "Wood Elves 2" : "systems/wfrp4e/icons/buildings/welves2.png",
+   "Wood Elves 3" : "systems/wfrp4e/icons/buildings/welves3.png"
+ }
 
 // Species
 CONFIG.species = {
@@ -710,6 +768,10 @@ class DiceWFRP {
    */
   static prepareTest({dialogOptions, testData, cardOptions, onClose}) {
     let rollMode = game.settings.get("core", "rollMode");
+    if (game.user.isGM)
+    {
+      rollMode = "gmroll";
+    }
 
     // Merge input with generic properties constant between all tests
     mergeObject(testData, 
@@ -762,7 +824,6 @@ class DiceWFRP {
   // Roll a standard Test and determine success
   static rollTest(testData){
     let roll = new Roll("1d100").roll();
-    testData.includeCriticalsFumbles = true;
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
@@ -882,7 +943,7 @@ class DiceWFRP {
       rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
     
 
-      if (testData.includeCriticalsFumbles)
+      if (testData.hitLocation)
       {
         if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
           rollResults.extra.fumble = "Fumble";
@@ -2534,11 +2595,14 @@ class ActorWfrp4e extends Actor {
     if (!trait.data.rollable.value)
       return;
     let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
-    let title =  trait.name + " Test";
+    let title =   CONFIG.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
     let testData = {
       target : char.value,
-      hitLocation : true
+      hitLocation : false
     };
+
+    if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
+      testData.hitLocation = true;
 
     let dialogOptions = {
       title: title,
@@ -4429,11 +4493,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (expandInfo == "weapon-range")
       {
         let range = parseInt(event.target.text);
-        expansionText = "0 yd - " + range / 10 + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
-        range / 10 + " yds - " + range / 2 + "yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
-        range / 2 + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
-        range + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
-        range * 2 + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
+        expansionText = "0 yd - " + Math.ceil(range / 10) + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
+        (Math.ceil(range / 10) + 1) + " yds - " + Math.ceil(range / 2) + " yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
+        (Math.ceil(range / 2) + 1) + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
+        (range + 1) + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
+        (range * 2 + 1) + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
       }
       else if (expandInfo == "weapon-group")
       {
