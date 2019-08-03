@@ -51,6 +51,7 @@ CONFIG.statusEffects =
 ]
 
  CONFIG.JournalEntry.noteIcons = {
+   "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
    "Apothecary" : "systems/wfrp4e/icons/buildings/apothecary.png",
    "Beastmen Herd 1" : "systems/wfrp4e/icons/buildings/beastmen_camp1.png",
    "Besatmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
@@ -85,16 +86,15 @@ CONFIG.statusEffects =
    "Kislev City 1" : "systems/wfrp4e/icons/buildings/kislev_city1.png",
    "Kislev City 2" : "systems/wfrp4e/icons/buildings/kislev_city2.png",
    "Kislev City 3" : "systems/wfrp4e/icons/buildings/kislev_city3.png",
-   "Scroll" : "systems/wfrp4e/icons/buildings/scroll.png",
    "Magic" : "systems/wfrp4e/icons/buildings/magic.png",
    "Mountain 1" : "systems/wfrp4e/icons/buildings/mountains1.png",
    "Mountain 2" : "systems/wfrp4e/icons/buildings/mountains2.png",
    "Orcs" : "systems/wfrp4e/icons/buildings/orcs.png",
    "Orc Camp" : "systems/wfrp4e/icons/buildings/orc_city.png",
-   "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
    "Port" : "systems/wfrp4e/icons/buildings/port.png",
    "Road" : "systems/wfrp4e/icons/buildings/roads.png",
    "Ruins" : "systems/wfrp4e/icons/buildings/ruins.png",
+   "Scroll" : "systems/wfrp4e/icons/buildings/scroll.png",
    "Sigmar" : "systems/wfrp4e/icons/buildings/sigmar_worship.png",
    "Stables" : "systems/wfrp4e/icons/buildings/stables.png",
    "Standing Stones" : "systems/wfrp4e/icons/buildings/standing_stones.png",
@@ -759,8 +759,10 @@ CONFIG.encumbrancePenalties = {
 
 class DiceWFRP {
   /**
-   * A standardized helper function for managing preparing, rolling, and displaying WFRP tests"
-   *
+   * Prepare Test is called by the setup functions for the actors (see setupCharacteristic() for info on their usage)
+   * The setup functions give 3 main objects to this function, which it expands with data used by all different
+   * types of tests. It renders the dialog and creates the Roll object (rolled in the callback function, located
+   * in the "setup" functions). It then calls renderRollCard() to post the results of the test to chat
    *
    * @param {Object} dialogOptions      Dialog template, buttons, everything associated with the dialog      
    * @param {Object} testData           Test info: target number, SL bonus, success bonus, etc
@@ -768,10 +770,6 @@ class DiceWFRP {
    */
   static prepareTest({dialogOptions, testData, cardOptions, onClose}) {
     let rollMode = game.settings.get("core", "rollMode");
-    if (game.user.isGM)
-    {
-      rollMode = "gmroll";
-    }
 
     // Merge input with generic properties constant between all tests
     mergeObject(testData, 
@@ -835,6 +833,8 @@ class DiceWFRP {
     // SLBonus is always applied, but doesn't change a failure to a success or vice versa
     // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
     // Additionally, the auto-success/failure range can complicate things even more.
+
+    // Failure
     if (roll.total >= 96 || roll.total > targetNum)
     {
       description = "Failure"
@@ -874,6 +874,7 @@ class DiceWFRP {
         SL = "-" + SL.toString()    
         
     }
+    // Success 
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
       description = "Success"
@@ -1152,6 +1153,7 @@ class DiceWFRP {
    let SL = testResults.SL;
   let extensions = 0;
   let currentSin = actor.data.data.status.sin.value;
+  testData.extra.sin = currentSin;
 
 
    if (testResults.description.includes("Failure"))
@@ -1188,7 +1190,10 @@ class DiceWFRP {
    return testResults;
 } 
 
-// Take roll data and display it in a chat card template
+/** Take roll data and display it in a chat card template
+* @param {Object} chatOptions - Object concerning display of the card like the template or which actor is testing
+* @param {Object} testData - Test results, values to display, etc.
+*/
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
@@ -1752,12 +1757,6 @@ Hooks.once("init", () => {
   ]);
 });
 
-
-
-
-
-
-
 /**
  * Activate certain behaviors on Canvas Initialization hook
  */
@@ -1800,13 +1799,9 @@ Hooks.on("chatMessage", async (html, content, msg) => {
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
  */
 class ActorWfrp4e extends Actor {
-
-
   
   // Give new actor all Basic skills
   static async create(data, options) {
-
-
     if (data.type == "character")
     {
       let id = 1;
@@ -1830,7 +1825,7 @@ class ActorWfrp4e extends Actor {
             data.items.push(skillItem.data);
         }
       }
-      // Default auto calculation to true
+     // Default auto calculation to true
       data.flags = 
       {
         autoCalcRun :  true,
@@ -1931,8 +1926,6 @@ class ActorWfrp4e extends Actor {
       ch.bonus = Math.floor(ch.value / 10)
     }
 
-    //this.update({"data.characteristics" : duplicate(data.characteristics)})
-
     // Prepare Character data
     if ( actorData.type === "character" ) this._prepareCharacterData(data);
     else if ( actorData.type === "npc" ) this._prepareNPCData(data);
@@ -1962,7 +1955,6 @@ class ActorWfrp4e extends Actor {
 
   }
 
-  /* -------------------------------------------- */
 
   /**
    * Prepare Character type specific data
@@ -1986,7 +1978,6 @@ class ActorWfrp4e extends Actor {
 
   }
 
-  /* -------------------------------------------- */
 
   /**
    * Prepare NPC type specific data
@@ -1995,29 +1986,29 @@ class ActorWfrp4e extends Actor {
 
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   /* -------------------------------------------- */
-  /*  Rolls                                       */
+  /* Rolls
+  /*
+  /* All "setup______" functions gather the data needed to roll a certain test. These are in 3 main objects.
+  /* These 3 objects are then given to DiceWFRP.prepareTest(), see that function for its usage.
+  /*
+  /* The 3 Main objects: 
+  /* testData - Data associated with modifications to rolling the test itself, or results of the test. 
+  /*            Examples of this are whether hit locations are found, Weapon qualities that may cause
+                criticals/fumbles more often or ingredients for spells that cancel miscasts.
+     dialogOptions - Data for rendering the dialog that's important for a specific test type. 
+                     Example: when casting or channelling, there should be an option for Malignant 
+                     Influences, but only for those tests.                       
+    cardOptions - Which card to use, the title of the card, the name of the actor, etc.
   /* -------------------------------------------- */
 
 
   /**
-   * Roll a characteristic test.
+   * Setup a characteristic test.
    * Prompt the user for input on which variety of roll they want to do.
    * @param {String} characteristicId     The characteristic id (e.g. "ws")
    */
-  rollCharacteristic(characteristicId) {
+  setupCharacteristic(characteristicId) {
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " Test";
     let testData = {
@@ -2079,10 +2070,10 @@ class ActorWfrp4e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Roll a Skill Test
+   * Setup a Skill Test
    * @param skill {object}  The Skill Object owned by a character
    */
-  rollSkill(skill) {
+  setupSkill(skill) {
     let char = this.data.data.characteristics[skill.data.characteristic.value];
     let title = skill.name + " Test";
     let testData = {
@@ -2152,7 +2143,7 @@ class ActorWfrp4e extends Actor {
    * @param weapon {Object}   Weapon being used
    * @param event {Object}    Event fired to initiate the roll
    */
-  rollWeapon(weapon, event) {
+  setupWeapon(weapon, event) {
     let skillCharList = [];
     let ammo;
     let title = "Weapon Test - " + weapon.name;
@@ -2295,7 +2286,7 @@ class ActorWfrp4e extends Actor {
   }
 
   // Roll spell Dialog - choose between Casting or Channelling
-  rollSpell(spell, options) {
+  spellDialog(spell, options) {
     renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
       new Dialog({
         title: "Cast or Channell",
@@ -2304,13 +2295,13 @@ class ActorWfrp4e extends Actor {
           cast: {
             label: "Cast",
             callback: btn => {
-              this.rollCast(spell, options);
+              this.setupCast(spell, options);
             }
           },
           channell: {
             label: "Channell",
             callback: btn => {
-              this.rollChannell(spell, options);
+              this.setupChannel(spell, options);
             }
           },
         },
@@ -2320,10 +2311,10 @@ class ActorWfrp4e extends Actor {
   }
 
   /**
-   * Roll a Cast Test
+   * Setup a Cast Test
    * @param spell {Object}   Spell being cast
    */
-  rollCast(spell) {
+  setupCast(spell) {
     let title = "Casting Test - " + spell.name;
     let castSkill = this.items.find(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill")
     let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
@@ -2417,10 +2408,10 @@ class ActorWfrp4e extends Actor {
   }
 
  /**
-   * Roll a Channelling Test
+   * Setup a Channelling Test
    * @param spell {Object}   Spell being channelled
    */
-  rollChannell(spell) {
+  setupChannell(spell) {
     let title = "Channelling Test - " + spell.name;
     let channellSkills = this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill")
     let spellLore = spell.data.lore.value;
@@ -2512,10 +2503,10 @@ class ActorWfrp4e extends Actor {
   }
 
    /**
-   * Roll a Prayer Test
+   * Setup a Prayer Test
    * @param prayer {Object}   prayer being invoked
    */
-  rollPrayer(prayer, options) {
+  preparePrayer(prayer, options) {
     let title = "Prayer Test - " + prayer.name;
     let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
     // Prevent test if character does not have pray
@@ -2530,7 +2521,6 @@ class ActorWfrp4e extends Actor {
       hitLocation : true,
       extra : {
         prayer : preparedPrayer,
-        sin : this.data.data.status.sin.value
       }
     };
 
@@ -2797,8 +2787,6 @@ class ItemWfrp4e extends Item {
   _armourExpandData() {
     const data = duplicate(this.data.data);
      const properties = [];
-     //if (data.currentAP.value == -1 || data.currentAP.value == data.maxAP.value)
-     // properties.push("AP: " data.maxAP.value)
      properties.push(CONFIG.armorTypes[data.armorType.value]);
      for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
        properties.push(prop);
@@ -2966,14 +2954,12 @@ class ItemSheetWfrp4e extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    // Activate tabs
-    new Tabs(html.find(".tabs"));
 
-        // Activate tabs
-      new Tabs(html.find(".tabs"), {
-        initial: this.item.data.flags["_sheetTab"],
-        callback: clicked => this.item.data.flags["_sheetTab"] = clicked.attr("data-tab")
-      });
+      // Activate tabs
+    new Tabs(html.find(".tabs"), {
+      initial: this.item.data.flags["_sheetTab"],
+      callback: clicked => this.item.data.flags["_sheetTab"] = clicked.attr("data-tab")
+    });
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
@@ -3004,14 +2990,6 @@ class ItemSheetWfrp4e extends ItemSheet {
         characteristicList.splice(characteristicList.findIndex(c => c == charChanged));
       else
         characteristicList.push(charChanged);
-      
-      // if (newValue)
-      // {
-      //   if (!characteristicList.includes(charChanged))
-      //     characteristicList.push(charChanged);
-      // }
-      // else
-      //   characteristicList = characteristicList.filter(c => c != charChanged);
       
       if (this.item.actor)
         this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
@@ -3059,8 +3037,6 @@ class ItemSheetWfrp4e extends ItemSheet {
       
           }
           await this.item.update({'data.incomeSkill': earningSkills});
-
-          
         }
         break;
         case 'talents':
@@ -3106,10 +3082,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       await super._render(force, options);
       this._setScrollPos();
     }
-    /* -------------------------------------------- */
 
-  // // TODO: Add .savescroll class to all classes that need their position saved
-  // // Currently, many that are saved don't need to be.
+    // Add the class "save-scroll" to a div to save it's scroll position
    _saveScrollPos()
    {
       if (this.form === null)
@@ -3122,35 +3096,20 @@ class ActorSheetWfrp4e extends ActorSheet {
      {
        this.scrollPos.push($(list).scrollTop());
      }
-  //   lists.push(html.find(".combat-section"));
-  //   lists.push(html.find(".inventory")[1]);
-  //   lists.push(html.find(".magic-section"));
-  //   lists.push(html.find(".religion-section"));
-  //   lists.push(html.find(".notes-section"));
-  //   for (let list of lists)
-  //   {
-  //     try {
-  //     this.scrollPos.push($(list).scrollTop());
-  //     }
-  //     catch
-  //     {
-
-  //     }
-  //   }
    }
 
-      _setScrollPos()
+    _setScrollPos()
+    {
+      if (this.scrollPos)
       {
-        if (this.scrollPos)
+        const html = $(this.form).parent();
+        let lists = $(html.find(".save-scroll"));
+        for (let i = 0; i < lists.length; i++)
         {
-          const html = $(this.form).parent();
-          let lists = $(html.find(".save-scroll"));
-          for (let i = 0; i < lists.length; i++)
-          {
-            $(lists[i]).scrollTop(this.scrollPos[i]);
-          }
+          $(lists[i]).scrollTop(this.scrollPos[i]);
         }
       }
+    }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -3257,7 +3216,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   _prepareItems(actorData)
   {
-      // These conta-* / rs are for the various different tabs
+      // These containers are for the various different tabs
       const careers = [];
       const basicSkills = [];
       const advancedOrGroupedSkills = [];
@@ -3305,7 +3264,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       const containers = {items: [], show : false};
       const inContainers = [];
   
-      // Money and ingredients are not in inventory objecet because they need more customization
+      // Money and ingredients are not in inventory object because they need more customization
   
       // Iterate through items, allocating to containers
       let totalEnc = 0;
@@ -3328,24 +3287,15 @@ class ActorSheetWfrp4e extends ActorSheet {
   
         else if (i.type === "ammunition")
         {
-          // Aggregate ammo option
-     /*     let existingAmmo = inventory.ammunition.items.find(a => a.name == i.name);
-          if (existingAmmo) {
-            existingAmmo.data.quantity.value += i.data.quantity.value;
-            
-            existingAmmo.data.encumbrance.value = Math.ceil(existingAmmo.data.quantity.value / existingAmmo.data.quantityPerEnc.value);
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            inventory.ammunition.items.push(i);
+            inventory.ammunition.show = true
+            totalEnc += i.encumbrance;
           }
-          else{*/
-            i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-            if (i.data.location.value == 0){
-              inventory.ammunition.items.push(i);
-              inventory.ammunition.show = true
-              totalEnc += i.encumbrance;
-            }
-            else{
-              inContainers.push(i);
-            }
-        //}
+          else{
+            inContainers.push(i);
+          }
         }
   
         else if (i.type === "weapon")
@@ -3556,7 +3506,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
       }
   
-      // If you have no spells, just put all ingredients in the miscellaneous section
+      // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
       if (grimoire.length > 0 && ingredients.items.length > 0)
       {
         ingredients.show = true;
@@ -3568,30 +3518,32 @@ class ActorSheetWfrp4e extends ActorSheet {
         inventory.misc.items = inventory.misc.items.concat(ingredients.items);
       
       
+      // Container Setup
       var containerMissing = inContainers.filter(i => containers.items.find(c => c.id == i.data.location.value) == undefined);
-      for (var itemNoContainer of containerMissing)
+      for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
       {
         itemNoContainer.data.location.value = 0;
         this.actor.updateOwnedItem(itemNoContainer, true);;
-      }
-      for (var cont of containers.items)
+      }                 
+      for (var cont of containers.items) // For each container 
       {
+        // All items referencing (inside) that container
         var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
-        itemsInside.map(function(item){
-          if (item.type == "trapping")
-            item.type = CONFIG.trappingCategories[item.data.trappingType.value];
-          else
-            item.type = CONFIG.trappingCategories[item.type];
-        } )
-        cont["carrying"] = itemsInside.filter(i => i.type != "Container");
-        cont["packsInside"] = itemsInside.filter(i => i.type == "Container");
-        cont["holding"] = itemsInside.reduce(function (prev, cur){
+        itemsInside.map(function(item){ // Add category of item to be displayed
+        if (item.type == "trapping")
+          item.type = CONFIG.trappingCategories[item.data.trappingType.value];
+        else
+          item.type = CONFIG.trappingCategories[item.type];
+      } )
+        cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
+        cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
+        cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
           return prev + cur.encumbrance;
         }, 0);
         cont.holding = Math.floor(cont.holding)
       }
   
-      containers.items = containers.items.filter(c => c.data.location.value == 0);
+      containers.items = containers.items.filter(c => c.data.location.value == 0); // Do not show containers inside other containers as top level (a location value of 0 means not inside a container)
   
       // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
       // instead of iterating through every item again to find talents when rolling
@@ -3605,6 +3557,8 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.data.flags.combatSkills.push(skill);
   
 
+      // Penalties box setup
+      // If too much text, divide the penalties into groups 
       let penaltiesOverflow = false;
       penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
       if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
@@ -3624,11 +3578,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         for (let loc in AP)
         {
-          try{
+          try
+          {
             if (loc != "shield")
               AP[loc] += parseInt(armorTrait.data.specification.value) || 0;
           }
-          catch {//ignore
+          catch
+          {
+            //ignore armor traits with invalid values
           }
         }
       }
@@ -3877,6 +3834,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let tabs = $(el),
         group = el.getAttribute("data-group"),
         initial = this.actor.data.flags[`_sheetTab-${group}`];
+        console.log(tabs);
       new Tabs(tabs, {
         initial: initial,
         callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
@@ -3903,15 +3861,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       await this.actor.updateOwnedItem(itemToEdit, true);      
     });
 
-    // html.find('.char-advances').focusout(async event => {
-    //   let char = event.target.attributes["data-characteristic"].value;
-    //   let characteristic = this.actor.data.data.characteristics[char];
-    //   characteristic.advances = Number(event.target.value);
-    //   characteristic.total = characteristic.advances + characteristic.initial;
-    //   characteristic.bonus = Math.floor(characteristic.total/10);
-    //   await this.actor.update({[`data.characteristic.${char}`] : characteristic})
-    // });
-
     html.find('.ammo-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
@@ -3934,16 +3883,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       await this.actor.updateOwnedItem(spell, true);      
     });
 
-    /* -------------------------------------------- */
-    /*  Abilities, Skills, and Traits
-     /* -------------------------------------------- */
-
-    // Ability Proficiency
-    html.find('.ability-proficiency').click(ev => {
-      let field = $(ev.currentTarget).siblings('input[type="hidden"]');
-      this.actor.update({[field[0].name]: 1 - parseInt(field[0].value)});
-    });
-
     // Characteristic Tests
     html.find('.ch-value').click(event => {
       event.preventDefault();
@@ -3955,7 +3894,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let skill = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollSkill(skill, event);
+      this.actor.setupSkill(skill, event);
     })    
 
     html.find('.weapon-item-name').click(event => {
@@ -3963,7 +3902,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollWeapon(duplicate(weapon), {attackType : attackType});
+      this.actor.setupWeapon(duplicate(weapon), {attackType : attackType});
     })  
 
     html.find('.fist-icon').click(async event => {
@@ -3973,7 +3912,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       await pack.getIndex().then(index => weapons = index);
       let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed"); 
       let unarmed = await pack.getEntity(unarmedId.id);
-      this.actor.rollWeapon(duplicate(unarmed.data), {attackType : "melee"})
+      this.actor.setupWeapon(duplicate(unarmed.data), {attackType : "melee"})
       // Roll Fist Attack
     })  
 
@@ -3988,14 +3927,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let spell = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollSpell(duplicate(spell));
+      this.actor.spellDialog(duplicate(spell));
     })  
 
     html.find('.prayer-roll').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let prayer = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollPrayer(duplicate(prayer));
+      this.actor.preparePrayer(duplicate(prayer));
     })  
 
     /* -------------------------------------------- */
@@ -4019,7 +3958,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (ev.button == 0)
       {
         let skill = this.actor.items.find(i => i.id === itemId);
-        this.actor.rollSkill(skill, event);
+        this.actor.setupSkill(skill, event);
       }
       else if (ev.button == 2)
       {
@@ -4319,12 +4258,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
     });
 
-    // html.find('.penalties-input').focusout(async ev =>  {
-    //   console.log(ev.target.value);
-
-    //   await this.actor.update({"data.status.penalties.value" : ev.target.value})
-    // })
-
 
     //Item Dragging
     let handler = ev => this._onDragItemStart(ev);
@@ -4332,21 +4265,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       li.setAttribute("draggable", true);
       li.addEventListener("dragstart", handler, false);
     });
-    /*
-    // Item Rolling
-    html.find('.item .item-image').click(event => this._onItemRoll(event));
-
-    // Re-render the sheet when toggling visibility of spells
-    html.find('.prepared-toggle').click(ev => {
-      this.options.showUnpreparedSpells = !this.options.showUnpreparedSpells;
-      this.render()
-    });*/
   }
 
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers                */
-  /* -------------------------------------------- */
-
   /* -------------------------------------------- */
 
   _onDragItemStart(event) {
@@ -4359,7 +4281,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     }));
   }
 
-  
   async _onDrop(event) {
       var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
@@ -4377,8 +4298,6 @@ class ActorSheetWfrp4e extends ActorSheet {
             ui.notifications.error("Remove the container before changing its location");
             throw "Remove the container before changing its location";
           }
-            
-          
         }
         dragItem.data.data.location.value = dropID;
 
@@ -4396,34 +4315,15 @@ class ActorSheetWfrp4e extends ActorSheet {
     else
       super._onDrop(event)
   }
-  /* -------------------------------------------- */
 
-  /**
-   * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
-   * @private
-   */
-  _onItemRoll(event) {/*
-    event.preventDefault();
-    let itemId = ,
-        item = this.actor.getOwnedItem(itemId);
-    item.roll();*/
-  }
 
-  /* -------------------------------------------- */
-
-  /**
-   * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
-   * @private
-   */
   _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
         item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
         expandData = item.getExpandData({secrets: this.actor.owner});
 
-    // Toggle summary
-
-
+    // Toggle summary for an item
     if ( li.hasClass("expanded") ) {
       let summary = li.children(".item-summary");
       summary.slideUp(200, () => summary.remove());
@@ -4440,6 +4340,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.toggleClass("expanded");
   }
 
+  // Summary for specific property selected - like a Quality description
   _expandProperty(event) {
     event.preventDefault();
 
@@ -4472,8 +4373,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
         if (propertyDescription.includes("(Rating)"))
           propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
-    // Toggle summary
 
+    // Toggle summary
     if ( li.hasClass("expanded") ) {
       let summary = li.children(".item-summary");
       summary.slideUp(200, () => summary.remove());
@@ -4542,6 +4443,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (event.currentTarget.attributes["data-type"].value == "trapping")
       data = mergeObject(data, {"data.trappingType.value" : event.currentTarget.attributes["item-section"].value})
 
+    // Conditional for creating spells/prayers from their tabs, create the item with the correct type
     else if (data.type == "spell" || data.type == "prayer")
     {
       let itemSpecification = event.currentTarget.attributes[`data-${data.type}-type`].value;
@@ -4576,21 +4478,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       height: 740,
       showUnpreparedSpells: true
     });
-
-
-    // mergeObject(options, {
-    //   classes: options.classes.concat(["token-sheet"]),
-    // });
-
     return options;
   }
-
-  // get title() {
-
-    
-  //   return (this.token && !this.token.data.actorLink) ? `[Token] ${this.actor.name}` : this.actor.name;
-  // }
-
 
   /* -------------------------------------------- */
 
@@ -4599,13 +4488,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/wfrp4e/templates/actors/";
-   // if ( this.actor.limited ) return path + "limited-sheet.html";
-   return path + "actor-sheet.html";
-
+    return "public/systems/wfrp4e/templates/actors/actor-sheet.html";
   }
-
-  /* -------------------------------------------- */
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -4618,31 +4502,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       sheetData.actor.data.status.corruption.max = tb + wpb;
 
     return sheetData;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Organize and classify Items for Character sheets
-   * @private
-   */
-  /*_prepareItems(actorData) {
-  
-  
-  }*/
- /* -------------------------------------------- */
-
-  /**
-   * Compute the weight of carried currency across all denominations by applying the standard rule from the
-   * PHB pg. 143
-   *
-   * @param {Object} currency   An object describing the amount of currency carried by denomination
-   * @return {Number}           The total weight of carried currency
-   * @private
-   */
-  _computeCurrencyWeight(currency) {
-    const numCoins = Object.values(currency).reduce((val, denom) => val += denom.value, 0);
-    return numCoins / 50;
   }
 
   activateListeners(html) {
@@ -4793,49 +4652,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         }
       }
   });
-}
-  /* -------------------------------------------- */
-
-  // _getHeaderButtons() {
-  //   return [
-  //     {
-  //       label: "dabiggayClose",
-  //       class: "close",
-  //       icon: "fas fa-times",
-  //       onclick: ev => this.close()
-  //     }
-  //   ];
-  // }
-
-
-  /*_getHeaderButtons() {
-    let buttons = super._getHeaderButtons();
-    if ( game.user.isGM && this.options.editable ) {
-      buttons = [
-        {
-          // label: "Close",
-          class: "close",
-          icon: "fas fa-times",
-          onclick: ev => this.close()
-        },
-        {
-          // label: "Sheet",
-          class: "configure-sheet",
-          icon: "fas fa-times",
-          onclick: ev => this._onConfigureSheet(ev)
-        },
-        {
-          // label: "Token",
-          class: "configure-token",
-          icon: "fas fa-times",
-          onclick: ev => this._onConfigureToken(ev)
-        }
-      ];
-    }
-    return buttons
-  }*/
-
-
+  }
 }
 
 // Register Character Sheet
@@ -4860,19 +4677,15 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
     return options;
   }
 
-  /* -------------------------------------------- */
 
   /**
    * Get the correct HTML template path to use for rendering this particular sheet
    * @type {String}
    */
   get template() {
-    const path = "public/systems/wfrp4e/templates/actors/";
-   // if ( this.actor.limited ) return path + "limited-sheet.html";
-    return path + "npc-sheet.html";
+    return "public/systems/wfrp4e/templates/actors/npc-sheet.html";
   }
 
-  /* -------------------------------------------- */
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -4944,7 +4757,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       html.find('.ch-roll').click(event => {
         event.preventDefault();
         let characteristic = $(event.currentTarget).attr("data-char");
-        this.actor.rollCharacteristic(characteristic, event);
+        this.actor.setupCharacteristic(characteristic, event);
       });
 
       html.find('.npc-career').click(event => {
@@ -5002,9 +4815,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    * @type {String}
    */
   get template() {
-    const path = "public/systems/wfrp4e/templates/actors/";
-   // if ( this.actor.limited ) return path + "limited-sheet.html";
-    return path + "creature-sheet.html";
+    return "public/systems/wfrp4e/templates/actors/creature-sheet.html";
   }
 
   /* -------------------------------------------- */
@@ -5096,113 +4907,108 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     li.toggleClass("expanded");
   }
   activateListeners(html) {
-    super.activateListeners(html);
-    
-      // html.find(".item").hover(event => {
-      //   $(event.currentTarget).toggleClass("deletable");
-      // })   
+    super.activateListeners(html);      
+  
+    html.find(".content").hover(event => {
+      $(event.currentTarget).focus();
+    })       
+    html.find('.content').keydown(event => {
+      if (event.keyCode == 46)
+      {
+        let itemId = $(event.currentTarget).attr("data-item-id");
+        this.actor.deleteOwnedItem(itemId, true);
+      }
+    });
+    html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
+
+
+    html.find(".skills.name, .skills.total").mousedown(event => {
+      let newAdv
+      let advAmt;
+      let skill = this.actor.getOwnedItem(Number($(event.currentTarget).parents(".content").attr("data-item-id")));
       
-      
-        html.find(".content").hover(event => {
-          $(event.currentTarget).focus();
-        })       
-        html.find('.content').keydown(event => {
-          if (event.keyCode == 46)
-          {
-            let itemId = $(event.currentTarget).attr("data-item-id");
-            this.actor.deleteOwnedItem(itemId, true);
-          }
-       });
-      html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
+      if (event.shiftKey || event.ctrlKey)
+      {
+        if (event.shiftKey)
+          advAmt = 10;
+        else if (event.ctrlKey)
+          advAmt = 1;
+      }
 
-
-      html.find(".skills.name, .skills.total").mousedown(event => {
-        let newAdv
-        let advAmt;
-        let skill = this.actor.getOwnedItem(Number($(event.currentTarget).parents(".content").attr("data-item-id")));
-        
-        if (event.shiftKey || event.ctrlKey)
+      if (event.button == 0)
+      {
+        if (advAmt)
         {
-          if (event.shiftKey)
-            advAmt = 10;
-          else if (event.ctrlKey)
-            advAmt = 1;
+          newAdv = skill.data.data.advances.value + advAmt;
+          this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
         }
-
-        if (event.button == 0)
-        {
-          if (advAmt)
-          {
-            newAdv = skill.data.data.advances.value + advAmt;
-            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
-          }
-          else 
-            this.actor.rollSkill(skill.data);
-        }
-        else if (event.button == 2)
-        {
-          if (advAmt)
-          {
-            newAdv = skill.data.data.advances.value - advAmt;
-            if (newAdv < 0)
-              newAdv = 0;
-            this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
-          }
-          else
-          {
-            let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
-            let Item = CONFIG.Item.entityClass;
-            const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
-            item.sheet.render(true);
-          }
-        }
-      })
-
-      html.find(".traits.content").mousedown(event => {
-        let trait = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id")));
-        
-        if (event.button == 2 || !trait.data.data.rollable.value)
-        {
-          this._onCreatureItemSummary(event);
-          return;
-        }
-
-        this.actor.rollTrait(trait.data);
-
-      })
-
-      html.find('.ch-roll').click(event => {
-        event.preventDefault();
-        let characteristic = $(event.currentTarget).attr("data-char");
-        this.actor.rollCharacteristic(characteristic, event);
-      });
-
-
-      html.find('.ch-edit').focusout(event => {
-        event.preventDefault();
-        let characteristic = $(event.currentTarget).attr("data-char");
-        this.actor.update({[`data.characteristics.${characteristic}.initial`] : parseInt(event.target.value)})
-      });
-
-
-      html.find('.trait-name').click(async event => {
-        event.preventDefault();
-        let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let newExcludedTraits = this.actor.data.data.excludedTraits;
-
-        if (this.actor.data.data.excludedTraits.includes(traitId))
-          newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
         else 
-          newExcludedTraits.push(traitId);
+          this.actor.rollSkill(skill.data);
+      }
+      else if (event.button == 2)
+      {
+        if (advAmt)
+        {
+          newAdv = skill.data.data.advances.value - advAmt;
+          if (newAdv < 0)
+            newAdv = 0;
+          this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
+        }
+        else
+        {
+          let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
+          let Item = CONFIG.Item.entityClass;
+          const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+          item.sheet.render(true);
+        }
+      }
+    })
 
-         await this.actor.update({"data.excludedTraits" : newExcludedTraits});
-         this.actor.sheet.render(true);
-      });
+    html.find(".traits.content").mousedown(event => {
+      let trait = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id")));
+      
+      if (event.button == 2 || !trait.data.data.rollable.value)
+      {
+        this._onCreatureItemSummary(event);
+        return;
+      }
+
+      this.actor.rollTrait(trait.data);
+
+    })
+
+    html.find('.ch-roll').click(event => {
+      event.preventDefault();
+      let characteristic = $(event.currentTarget).attr("data-char");
+      this.actor.setupCharacteristic(characteristic, event);
+    });
+
+
+    html.find('.ch-edit').focusout(event => {
+      event.preventDefault();
+      let characteristic = $(event.currentTarget).attr("data-char");
+      this.actor.update({[`data.characteristics.${characteristic}.initial`] : parseInt(event.target.value)})
+    });
+
+
+    html.find('.trait-name').click(async event => {
+      event.preventDefault();
+      let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+      let newExcludedTraits = this.actor.data.data.excludedTraits;
+
+      if (this.actor.data.data.excludedTraits.includes(traitId))
+        newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+      else 
+        newExcludedTraits.push(traitId);
+
+        await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+        this.actor.sheet.render(true);
+    });
   }
 
 }
 
-// Register NPC Sheet
+// Register Creature Sheet
 Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
   types: ["creature"],
   makeDefault: true
@@ -5213,10 +5019,7 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
 
 class WFRP_Utility
 {
-
   static _prepareSpellOrPrayer(actorData, item) {
-    
-
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
     if (item.data.duration.extendable)
@@ -5246,6 +5049,8 @@ class WFRP_Utility
     return description;
   }
 
+  /* -------------------------------------------- */
+
   static _prepareSkill(actorData, basicSkills, advOrGrpSkills, skill) {
 
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
@@ -5257,6 +5062,8 @@ class WFRP_Utility
     else
       basicSkills.push(skill);
    }
+
+  /* -------------------------------------------- */
 
    static  _prepareTalent(actorData, talent, talentList) {
     let existingTalent = talentList.find(t => t.name == talent.name)
@@ -5287,6 +5094,8 @@ class WFRP_Utility
     }
    }
 
+  /* -------------------------------------------- */
+
   // Prepare a weapon to be displayed in the combat tab (assign ammo, calculate range, organize qualities/flaws)
   static _prepareWeaponCombat(actorData, weapon){
     weapon["properties"] = this._prepareQualitiesFlaws(weapon);
@@ -5307,16 +5116,7 @@ class WFRP_Utility
       weapon["ammo"] = [];
       for ( let a of actorData.items ) {
         if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
-       //aggregate ammo option
-        /* {
-          let existingAmmo = i.ammo.find(x => x.name == a.name);
-          if (existingAmmo)
-            existingAmmo.data.quantity.value += a.data.quantity.value;
-          else
-          {*/
             weapon.ammo.push(a);
-          //}
-       // }
       }
       this._prepareWeaponWithAmmo(actorData, weapon);
     }
@@ -5328,6 +5128,8 @@ class WFRP_Utility
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
     return weapon;
   }
+
+  /* -------------------------------------------- */
 
   // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
   static _prepareArmorCombat(actorData, armor, AP){ // -1 means currentAP is maxAP
@@ -5373,6 +5175,8 @@ class WFRP_Utility
     return armor;
   }
 
+  /* -------------------------------------------- */
+
   static _prepareQualitiesFlaws(item){
     let qualities = item.data.qualities.value.split(",").map(function(item) {
       if (item)
@@ -5399,8 +5203,10 @@ class WFRP_Utility
     else
       return qualities.concat(flaws).sort().concat("Special").filter(p => !!p);
     
-
   }
+
+  /* -------------------------------------------- */
+
 
   static _separateQualitiesFlaws(properties){
     let qualities = [],
@@ -5420,9 +5226,10 @@ class WFRP_Utility
     return {qualities : qualities,flaws : flaws,special : special}
   }
 
+  /* -------------------------------------------- */
+
   static _calculateArmorPenalties(actorData, armorList){
     // Parsing armor penalties for the combat tab
-    let armorPenalties = {skill: [], penalty: []}
     let armorPenaltiesString = "";
     let wearingMail = false;
     let wearingPlate = false;
@@ -5444,6 +5251,8 @@ class WFRP_Utility
     return armorPenaltiesString;
   }
     
+  /* -------------------------------------------- */
+
   static _calculateRangeOrDamage(actorData, formula){    
     try {formula = formula.toLowerCase();}
     catch {return formula}
@@ -5459,6 +5268,8 @@ class WFRP_Utility
     
     return eval(formula);
   }
+
+  /* -------------------------------------------- */
 
   static _prepareWeaponWithAmmo(actorData, weapon){    
     let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
@@ -5525,7 +5336,8 @@ class WFRP_Utility
     weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
 
-    
+  /* -------------------------------------------- */
+
   static _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
     formula = formula.toLowerCase();
 
@@ -5558,6 +5370,8 @@ class WFRP_Utility
       formula = "AoE (" + formula + ")";
     return formula;
   }
+
+  /* -------------------------------------------- */
 
   /**
    * Roll characteristics given a species
@@ -5594,6 +5408,8 @@ class WFRP_Utility
     return characteristics
   }
 
+  /* -------------------------------------------- */
+
   static speciesMovement(species)
   {
     let move = CONFIG.speciesMovement[species];
@@ -5601,6 +5417,8 @@ class WFRP_Utility
      move = CONFIG.speciesMovement[this.findKey(species, CONFIG.species)]
     return move;
   }
+
+  /* -------------------------------------------- */
 
   static findKey(value, obj) 
   {
@@ -5611,6 +5429,8 @@ class WFRP_Utility
     }
     throw "Could not find key corresponding to " + value
   }
+
+  /* -------------------------------------------- */
 
   static async findSkill(skillName)
   {
@@ -5632,6 +5452,8 @@ class WFRP_Utility
     
   }
 
+  /* -------------------------------------------- */
+
   static async findTalent(talentName)
   {
     let talentList = [];
@@ -5652,6 +5474,8 @@ class WFRP_Utility
     
   }
 
+  /* -------------------------------------------- */
+
   static nameSorter(a, b){
     if (a.name.toLowerCase() < b.name.toLowerCase())
       return -1;
@@ -5659,6 +5483,8 @@ class WFRP_Utility
       return 1;
     return 0;
   }
+
+  /* -------------------------------------------- */
 
   static qualityList()
   {
@@ -5668,6 +5494,9 @@ class WFRP_Utility
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
   }
+
+  /* -------------------------------------------- */
+
   static flawList()
   {
     let weapon = duplicate(CONFIG.weaponFlaws);
@@ -5676,6 +5505,8 @@ class WFRP_Utility
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
   }
+
+  /* -------------------------------------------- */
 
   static _calculateAdvCost(currentAdvances, type)
   {
@@ -5687,6 +5518,8 @@ class WFRP_Utility
     return CONFIG.xpCost[type][index];
   }
 }
+
+  /* -------------------------------------------- */
 
 class WFRP_Tables {
 
@@ -5706,7 +5539,7 @@ class WFRP_Tables {
         die = `1d${tableSize}`;
       let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
       let rollValue = roll.total;
-      let displayTotal = roll.total;
+      let displayTotal = roll.result;
       if (rollValue <= 0 && minOne)
         rollValue = 1;
 
@@ -5733,6 +5566,8 @@ class WFRP_Tables {
     }
   }
 
+  /* -------------------------------------------- */
+
   static generalizeTable (table)
   {
     table = table.toLowerCase();
@@ -5742,6 +5577,8 @@ class WFRP_Tables {
     table = table.replace("larm", "arm");
     return table;
   }
+
+  /* -------------------------------------------- */
   
   // Wrapper for rollTable to format rolls from chat commands nicely
   static formatChatRoll (table, options = {})
@@ -5851,8 +5688,3 @@ class WFRP_Tables {
     }
   }
 }
-
-
-
-/* -------------------------------------------- */
-
