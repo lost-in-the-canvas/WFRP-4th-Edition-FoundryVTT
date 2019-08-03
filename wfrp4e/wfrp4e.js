@@ -119,7 +119,6 @@ CONFIG.species = {
   "halfling": "Halfling",
   "helf": "High Elf",
   "welf": "Wood Elf",
- // "gnome": "Gnome"
 };
 
 CONFIG.speciesCharacteristics = {
@@ -1774,12 +1773,13 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", async () => {
 
     
-  // let pack = game.packs.find(p => p.collection == "wfrp4e.traits")
-  // let list = await pack.getIndex();
-  // for (let skill of list)
-  // {
-  //   await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/traits/trait.png"})
-  // }
+  //  let pack = game.packs.find(p => p.collection == "world.psychologies")
+  //  let list = await pack.getIndex();
+  //  for (let skill of list)
+  //  {
+     
+  //    await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/psychologies/psychology.png"})
+  //  }
 
   /**
    * Double every other diagonal movement
@@ -1958,7 +1958,7 @@ class ActorWfrp4e extends Actor {
       
     if (actorData.flags.autoCalcEnc)
     {
-      actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
+     actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     }
     
     return actorData;
@@ -3870,11 +3870,92 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+
+     // This disgusting mess allows characteristics to be tabbed through. (Used only by Creature and NPC sheets, placed here to maintain DRY code)
+     html.find(".ch-edit").keydown(event => {
+      if (event.keyCode == 9) // If Tabing out of an characteristic input, save the new value (and future values) in updateObj
+      {
+        let characteristics = this.actor.data.data.characteristics 
+        let ch = event.currentTarget.attributes["data-char"].value;
+        let newValue  = Number(event.target.value);
+
+        if (!this.updateObj) // Create a new updateObj (every time updateObj is used for an update, it is deleted, see below)
+          this.updateObj = duplicate(this.actor.data.data.characteristics);;
+
+
+        if (!(newValue == characteristics[ch].initial + characteristics[ch].advances)) // don't update a characteristic if it wasn't changed
+        {
+         this.updateObj[ch].initial = newValue;
+         this.updateObj[ch].advances = 0;
+        }
+        this.charUpdateFlag = false;
+      }
+      else
+        this.charUpdateFlag = true; // If the user did not click tab, OK to update
+    })
+
+    html.find('.ch-edit').focusout(async event => {
+      event.preventDefault();
+      
+      if (!this.charUpdateFlag) // Do not proceed with an update until the listener aboves sets this flag to true
+        return                  // When this flag is true, that means the focus out was not from a tab
+
+      // This conditional allows for correctly updating only a single characteristic. If the user editted only one characteristic, the above listener wasn't called, meaning no updateObj 
+      if (!this.updateObj)
+        this.updateObj = duplicate(this.actor.data.data.characteristics)
+      
+      // In order to correctly update the last element, we use the normal procedure (similar to above)
+      let characteristics = this.actor.data.data.characteristics 
+      let ch = event.currentTarget.attributes["data-char"].value;
+      let newValue  = Number(event.target.value);
+
+      if (!(newValue == characteristics[ch].initial + characteristics[ch].advances))
+      {
+       this.updateObj[ch].initial = newValue;
+       this.updateObj[ch].advances = 0;
+      }
+
+      // Finally, update and delete the updateObj
+      await this.actor.update({"data.characteristics" : this.updateObj})
+      this.updateObj = undefined;
+
+    });
+
+
+
+
+    html.find('.skill-advances').keydown(async event => {
+      if (event.keyCode == 9) // Wait to update if user tabbed to another skill 
+      {
+        this.skillUpdateFlag = false;
+        console.log('tab');
+      }   
+      else  
+      {
+        this.skillUpdateFlag = true;
+      }
+    });
+
+
     html.find('.skill-advances').focusout(async event => {
+
       let itemId = Number(event.target.attributes["data-item-id"].value);
       const itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.advances.value = Number(event.target.value);
-      await this.actor.updateOwnedItem(itemToEdit, true);      
+      if (!this.skillUpdateFlag)
+        return;
+
+      // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
+      let skills = this.actor.items.filter(i => i.type == "skill")
+      for(let skill of skills)
+      {
+        await this.actor.updateOwnedItem(skill, true);      
+      }
+    });
+
+    
+    html.find('.skill-advances').focusin(async event => {
+      event.target.focus();
     });
 
     html.find('.ammo-selector').change(async event => {
@@ -4755,20 +4836,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
    */
   activateListeners(html) {
     super.activateListeners(html);
-
-
-      html.find('.ch-edit').focusout(async event => {
-        event.preventDefault();
-        let characteristic = event.currentTarget.attributes["data-char"].value;
-        let newValue  = Number(event.target.value);
-
-        await this.actor.update(
-          {
-            [`data.characteristics.${characteristic}.initial`] : newValue,
-            [`data.characteristics.${characteristic}.advances`] : 0
-          })
-      });
-
       
       html.find('.ch-roll').click(event => {
         event.preventDefault();
@@ -4900,6 +4967,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     super._updateObject(event, formData);
   }
 
+  // Creature sheet dropdowns need specific implementation to correctly display
   _onCreatureItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parent('.list'),
@@ -4937,6 +5005,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     });
     html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
 
+    
 
     html.find(".skills.name, .skills.total").mousedown(event => {
       let newAdv
@@ -4998,14 +5067,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       let characteristic = $(event.currentTarget).attr("data-char");
       this.actor.setupCharacteristic(characteristic, event);
     });
-
-
-    html.find('.ch-edit').focusout(event => {
-      event.preventDefault();
-      let characteristic = $(event.currentTarget).attr("data-char");
-      this.actor.update({[`data.characteristics.${characteristic}.initial`] : parseInt(event.target.value)})
-    });
-
 
     html.find('.trait-name').click(async event => {
       event.preventDefault();
