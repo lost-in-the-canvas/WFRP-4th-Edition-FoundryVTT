@@ -108,20 +108,20 @@
           "type": "Number",
           "label": "Wounds",
           "abrev": "W",
-          "value": 0,
-          "max": 0
+          "value": 8,
+          "max": 8
         },
         "advantage" : {
           "type" : "Number",
           "label" : "Advantage",
           "value" : 0,
-          "max" : 0
+          "max" : 10
         },
         "criticalWounds": {
           "type": "Number",
           "label": "Critical Wounds",
           "value": 0,
-          "max" : 0,
+          "max" : 2,
           "descriptions" : ""
         },
         "sin": {
@@ -163,6 +163,11 @@
           "type" : "String",
           "label": "God",
           "value": ""
+        },
+        "hitLocationTable" : {
+          "value" : "hitloc",
+          "type" : "String",
+          "label" : "Hit Location Table"
         }
       }    
     },

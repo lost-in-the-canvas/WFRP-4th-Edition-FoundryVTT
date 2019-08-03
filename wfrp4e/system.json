@@ -51,5 +51,8 @@
   "languages": ["en"],
   "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
   "gridDistance": 2,
-  "gridUnits": "yd"
+  "gridUnits": "yd",
+  "primaryTokenAttribute": "status.wounds",
+  "secondaryTokenAttribute": "status.advantage",
+  "minimumCoreVersion": "0.3.0"
 }

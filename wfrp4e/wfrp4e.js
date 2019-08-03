@@ -1659,6 +1659,17 @@ Hooks.once("init", () => {
     }
   }
 
+  
+  // // Register Advantage cap
+  // game.settings.register("wfrp4e", "capAdvantageIB", {
+  //   name: "Cap Advantage at IB",
+  //   hint: "Sets the max value of Advantage as the character's Initiative Bonus",
+  //   scope: "world",
+  //   config: true,
+  //   default: false,
+  //   type: Boolean
+  // });
+
   // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
     name: "Fast SL",
@@ -1760,7 +1771,15 @@ Hooks.once("init", () => {
 /**
  * Activate certain behaviors on Canvas Initialization hook
  */
-Hooks.on("canvasInit", () => {
+Hooks.on("canvasInit", async () => {
+
+    
+  // let pack = game.packs.find(p => p.collection == "wfrp4e.traits")
+  // let list = await pack.getIndex();
+  // for (let skill of list)
+  // {
+  //   await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/traits/trait.png"})
+  // }
 
   /**
    * Double every other diagonal movement
@@ -3208,6 +3227,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     }
 
+    //if (game.settings.get("wfrp4e", "capAdvantageIB"))
+     // sheetData.actor.data.status.advantage.max = sheetData.actor.data.characteristics.i.bonus
+
     sheetData.isToken = this.actor.token;
     sheetData.isGM = game.user.isGM;    
     // Return data to the sheet
@@ -3828,17 +3850,11 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   activateListeners(html) {
     super.activateListeners(html);
-    
+
     // Activate tabs
-    html.find('.tabs').each((_, el) => {
-      let tabs = $(el),
-        group = el.getAttribute("data-group"),
-        initial = this.actor.data.flags[`_sheetTab-${group}`];
-        console.log(tabs);
-      new Tabs(tabs, {
-        initial: initial,
-        callback: clicked => this.actor.data.flags[`_sheetTab-${group}`] = clicked.attr("data-tab")
-      });
+    new Tabs(html.find(".tabs"), {
+      initial: this.actor.data.flags["_sheetTab"],
+      callback: clicked => this.actor.data.flags["_sheetTab"] = clicked.attr("data-tab")
     });
 
     // Item summaries
@@ -3887,7 +3903,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.ch-value').click(event => {
       event.preventDefault();
       let characteristic = event.currentTarget.attributes["data-char"].value;
-      this.actor.rollCharacteristic(characteristic, event);
+      this.actor.setupCharacteristic(characteristic, event);
     });
 
     html.find('.skill-total').click(event => {
@@ -4943,7 +4959,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
           this.actor.updateOwnedItem({id: skill.data.id, "data.advances.value" : newAdv})   
         }
         else 
-          this.actor.rollSkill(skill.data);
+          this.actor.setupSkill(skill.data);
       }
       else if (event.button == 2)
       {

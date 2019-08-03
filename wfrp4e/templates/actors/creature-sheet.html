@@ -13,12 +13,6 @@
         placeholder="Species" />
       <span id="label-species">Species</span>
     </div>
-
-    <div class="item">
-      <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
-        placeholder="Gender" />
-      <span id="label-gender">Gender</span>
-    </div>
   </header>
 
   <section class="general" ondragstart="return false;" ondrop="return false;">
@@ -120,16 +114,16 @@
   <section id="tab-sections">
     <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
       ondrop="return false;">
-      <button class="item active" data-tab="main">Main</button>
-      <button class="item" data-tab="combat">Combat</button>
+      <a class="item active" data-tab="main">Main</a>
+      <a class="item" data-tab="combat">Combat</a>
       {{#if actor.flags.hasSpells}}
-      <button class="item" data-tab="magic">Magic</button>
+      <a class="item" data-tab="magic">Magic</a>
       {{/if}}
       {{#if actor.flags.hasPrayers}}
-      <button class="item" data-tab="religion">Religion</button>
+      <a class="item" data-tab="religion">Religion</a>
       {{/if}}
-      <button class="item" data-tab="inventory">Trappings</button>
-      <button class="item" data-tab="notes">Notes</button>
+      <a class="item" data-tab="inventory">Trappings</a>
+      <a class="item" data-tab="notes">Notes</a>
     </nav>
     <div class="tab main" data-tab="main" data-group="primary">
       {{> public/systems/wfrp4e/templates/actors/creature-main.html}}
