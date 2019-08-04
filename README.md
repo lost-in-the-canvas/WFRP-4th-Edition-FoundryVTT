@@ -1,4 +1,4 @@
-# WFRP-4th-Edition-FoundryVTT
+# Warhamer Fantasy Role-Play 4th Ed. (A System for FoundryVTT)
 
 Current Version: Alpha
 
