@@ -7,6 +7,14 @@
   "scripts": ["wfrp4e.js"],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
+  	{
+      "name": "bestiary",
+      "label": "Bestiary",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/bestiary.db",
+      "entity": "Actor"
+    },
   	 {
       "name": "skills",
       "label": "Skills",
@@ -52,7 +60,7 @@
       "label": "Injuries",
       "path": "./packs/injuries.db",
       "entity": "Item",
-      "module": "world",
+      "module": "wfrp4e",
       "system": "wfrp4e"
     },
     {

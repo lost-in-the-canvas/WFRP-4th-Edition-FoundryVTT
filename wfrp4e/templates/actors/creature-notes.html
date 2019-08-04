@@ -28,11 +28,7 @@
         <div class="excluded-trait trait-name">
         {{/if}}
           <div class="item-image" style="background-image: url({{item.img}})"></div>
-          {{#if item.data.rollable.value}}
           <a class = "trait-include">{{item.name}}</a>
-          {{else}}
-          <a class = "item-dropdown">{{item.name}}</a>
-          {{/if}}
         </div>
 
         {{#if ../owner}}

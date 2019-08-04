@@ -1953,8 +1953,6 @@ class ActorWfrp4e extends Actor {
       data.details.move.walk = parseInt(data.details.move.value)* 2;
     if (actorData.flags.autoCalcRun)
       data.details.move.run = parseInt(data.details.move.value) * 4;
-
-    data.status.wounds.value = data.status.wounds.value
       
     if (actorData.flags.autoCalcEnc)
     {
@@ -2678,7 +2676,7 @@ class ItemWfrp4e extends Item {
 
   static async create(data, options) {
 
-    //data.img = "systems/wfrp4e/icons/blank.png";
+    data.img = "systems/wfrp4e/icons/blank.png";
     super.create(data, options);
   }
   // Expand data is used in most dropdown infos
@@ -3175,40 +3173,53 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (sheetData.actor.flags.autoCalcCritW)
       sheetData.actor.data.status.criticalWounds.max = tb;
 
+    let newWounds;
+
 
    if (sheetData.actor.flags.autoCalcWounds)
-    switch (sheetData.actor.data.details.size.value){
+   {
+     if (sheetData.actor.traits.find(t => t.name.toLowerCase().includes("construct")))
+      wpb = sb;
+    switch (sheetData.actor.data.details.size.value)
+    {
     
       case "tiny":
-      sheetData.actor.data.status.wounds.max = 1 + tb * tbMultiplier;
+      newWounds = 1 + tb * tbMultiplier;
       break;
 
       case "ltl":
-      sheetData.actor.data.status.wounds.max = tb + tb * tbMultiplier;
+      newWounds = tb + tb * tbMultiplier;
       break;
     
       case "sml":
-      sheetData.actor.data.status.wounds.max = 2 * tb + wpb + tb * tbMultiplier;
+      newWounds = 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "avg":
-      sheetData.actor.data.status.wounds.max = sb + 2 * tb + wpb + tb * tbMultiplier;
+      newWounds = sb + 2 * tb + wpb + tb * tbMultiplier;
       break;
 
       case "lrg":
-      sheetData.actor.data.status.wounds.max = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      newWounds = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
 
       case "enor":
-      sheetData.actor.data.status.wounds.max = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      newWounds = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
       
       case "mnst":
-      sheetData.actor.data.status.wounds.max = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      newWounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
       break;
-
     }
-    //this.actor.update({"data.status.wounds.max" : sheetData.actor.data.status.wounds.max})
+
+      if (sheetData.actor.data.status.wounds.max != newWounds)
+      {
+        this.actor.update({"data.status.wounds.max" : newWounds})
+        this.actor.update({"data.status.wounds.value" : Number(newWounds)})
+
+      }
+    }
+
     if (sheetData.actor.flags.autoCalcRun)
     {
       if(sheetData.actor.traits.find(t => t.name.toLowerCase() == "stride"))
@@ -4933,7 +4944,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
      }
    }
 
-   actorData.notesTraits = actorData.traits; // Display all traits in the notes section of a creature
+   actorData.notesTraits = actorData.traits.sort(WFRP_Utility.nameSorter); // Display all traits in the notes section of a creature
    actorData.traits = actorData.traits.filter(t => t.included);
 
    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
@@ -5071,7 +5082,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     html.find('.trait-name').click(async event => {
       event.preventDefault();
       let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let newExcludedTraits = this.actor.data.data.excludedTraits;
+      let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
 
       if (this.actor.data.data.excludedTraits.includes(traitId))
         newExcludedTraits = newExcludedTraits.filter(i => i != traitId)

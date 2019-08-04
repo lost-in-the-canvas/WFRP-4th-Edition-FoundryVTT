@@ -5841,6 +5841,11 @@ input[type="text"], input[type="password"] {
           /* height: calc(100% - 20px); */
           overflow-y: hidden;
         }  
+
+        .wfrp4e.creature-sheet .notes-section > ol {
+          overflow-y:auto
+        }
+
         .wfrp4e .notes-sections .inventory-list {
           overscroll-behavior-x: none;
           overflow-x: hidden;

@@ -87,7 +87,7 @@
           <div class="wounds-section">
             <div id="wounds-box">
               <div id="wounds-value">
-                <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+                  <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}" data-dtype="{{data.status.wounds.type}}">
               </div>
               <div id="wounds-divisor" class="divisor">
                 /
@@ -96,8 +96,7 @@
                 {{#if actor.flags.autoCalcWounds}}
                 <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
                 {{else}}
-                <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
-                  value="{{data.status.wounds.max}}" data-dtype="String">
+                <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="Number">
                 {{/if}}
               </div>
             </div>
