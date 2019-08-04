@@ -1,5 +1,5 @@
-# Warhamer Fantasy Role-Play 4th Ed. (A System for FoundryVTT)
-
+# Warhamer Fantasy Role-Play 4th Ed. 
+# (FoundryVTT)
 Current Version: Alpha
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
