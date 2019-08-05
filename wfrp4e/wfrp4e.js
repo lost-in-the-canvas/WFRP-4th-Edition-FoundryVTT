@@ -2753,10 +2753,11 @@ class ItemWfrp4e extends Item {
     data.properties.push("Range: " + preparedSpell.range);
     data.properties.push("Target: " + preparedSpell.target);
     data.properties.push("Duration: " + preparedSpell.duration);
-    if (preparedSpell.data.damage.value)
-      data.properties.push("Damage: " + preparedSpell.data.damage.value);
     if (data.magicMissile.value)
-      data.properties.push("Magic Missile: +" + eval( this.actor.data.data.characteristics.wp.bonus + preparedSpell.data.damage.value));
+      data.properties.push("Magic Missile: +" + preparedSpell.damage);
+    else if (preparedSpell.data.damage.value)
+      data.properties.push("Damage: +" + preparedSpell.data.damage.value);
+
     return data;
   }
 
@@ -2988,8 +2989,13 @@ class ItemSheetWfrp4e extends ItemSheet {
       {
         if (inputLore == CONFIG.magicLores[lore])
         {
+          let folder = game.folders.entities.find(f => f.name == "Lore of " + CONFIG.magicLores[lore])
+          
           await this.item.update({'data.lore.value' : lore}); 
-          //await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
+          await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
+          await this.item.update({"name" : this.item.data.name + " ("+CONFIG.magicLores[lore]+")"});
+          if (folder)
+            await this.item.update({"folder" : folder.id})
           return;
         }
       }
@@ -3016,6 +3022,7 @@ class ItemSheetWfrp4e extends ItemSheet {
     }),
 
     html.find(".item-checkbox").click(async event => {
+      this._onSubmit(event);
       let target = $(event.currentTarget).attr("data-target");
       let path = target.split(".");
       this.item.update({[`data.${target}`] : !this.item.data.data[path[0]][path[1]]})
@@ -5115,6 +5122,7 @@ class WFRP_Utility
       item.duration += "+";
     }
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
+    item['damage'] = this._calculateSpellDamage(actorData, item.data.damage.value, item.data.magicMissile.value);
     
     if (item.type == "spell")
     {
@@ -5457,6 +5465,33 @@ class WFRP_Utility
     if (aoe)
       formula = "AoE (" + formula + ")";
     return formula;
+  }
+
+  static _calculateSpellDamage(actorData, formula, isMagicMissile){    
+    formula = formula.toLowerCase();
+
+    if (isMagicMissile)
+    {
+      formula += "+ willpower bonus"
+    }
+
+    for(let ch in actorData.data.characteristics)
+    {
+
+      while (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      {
+        if (formula.includes('bonus'))
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+        }
+        else 
+        {
+          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+        }
+      } 
+    }
+
+    return eval(formula);
   }
 
   /* -------------------------------------------- */
