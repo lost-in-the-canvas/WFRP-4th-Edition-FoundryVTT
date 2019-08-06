@@ -74,7 +74,7 @@
         },
         "int": {
           "type": "Number",
-          "label": "Intellegence",
+          "label": "Intelligence",
           "abrev": "Int",
           "initial": 20,
           "advances": 0,

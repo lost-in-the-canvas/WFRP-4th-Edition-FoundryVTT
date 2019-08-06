@@ -2756,7 +2756,7 @@ class ItemWfrp4e extends Item {
     if (data.magicMissile.value)
       data.properties.push("Magic Missile: +" + preparedSpell.damage);
     else if (preparedSpell.data.damage.value)
-      data.properties.push("Damage: +" + preparedSpell.data.damage.value);
+      data.properties.push("Damage: +" + preparedSpell.damage);
 
     return data;
   }
@@ -5437,34 +5437,28 @@ class WFRP_Utility
   static _calculateSpellRangeOrDuration(actorData, formula, aoe=false){    
     formula = formula.toLowerCase();
 
-    if (formula == "you")
-      return "You"
-
-    if (formula == "special")
-      return "Special"
-
-      if (formula == "instant")
-      return "Instant"
-
-    for(let ch in actorData.data.characteristics)
+    if (formula != "you" && formula != "special" && formula != "instant")
     {
-
-      if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      for(let ch in actorData.data.characteristics)
       {
-        if (formula.includes('bonus'))
+
+        if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
         {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
-        }
-        else 
-        {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
-        }
-      } 
+          if (formula.includes('bonus'))
+          {
+            formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+          }
+          else 
+          {
+            formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+          }
+        } 
+      }
     }
     
     if (aoe)
-      formula = "AoE (" + formula + ")";
-    return formula;
+      formula = "AoE (" + formula.capitalize() + ")";
+    return formula.capitalize();
   }
 
   static _calculateSpellDamage(actorData, formula, isMagicMissile){    
