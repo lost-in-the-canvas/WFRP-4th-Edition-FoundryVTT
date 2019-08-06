@@ -56,8 +56,7 @@
         </div>
 
         <div class="ingredient-selector selector">
-          <select name="item.data.currentIng.value" data-item-id="{{item.id}}"
-            data-dtype="{{item.data.currentIng.type}}">
+          <select name="ingredient-{{item.id}}" data-item-id="{{item.id}}" data-dtype="{{item.data.currentIng.type}}">
             {{#select item.data.currentIng.value}}
             <option value="0">None</option>
             {{#each item.data.ingredients as |ing i|}}
