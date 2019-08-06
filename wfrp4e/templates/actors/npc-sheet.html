@@ -5,23 +5,21 @@
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname">
       <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-      <a id="label-name">Name</a>
+      <span id="label-name">Name</span>
     </h1>
 
     <div class="item">
       <input id="input-species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
         placeholder="Species" />
-      <a id="label-species">Species</a>
+      <span id="label-species">Species</span>
     </div>
 
     <div class="item">
       <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
         placeholder="Gender" />
-      <a id="label-gender">Gender</a>
+      <span id="label-gender">Gender</span>
     </div>
   </header>
-
-
 
   <section class="general" ondragstart="return false;" ondrop="return false;">
     <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
@@ -89,7 +87,7 @@
           <div class="wounds-section">
             <div id="wounds-box">
               <div id="wounds-value">
-                <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+                  <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}" data-dtype="{{data.status.wounds.type}}">
               </div>
               <div id="wounds-divisor" class="divisor">
                 /
@@ -98,8 +96,7 @@
                 {{#if actor.flags.autoCalcWounds}}
                 <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
                 {{else}}
-                <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
-                  value="{{data.status.wounds.max}}" data-dtype="String">
+                <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="Number">
                 {{/if}}
               </div>
             </div>
@@ -122,17 +119,17 @@
   <section id="tab-sections">
     <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
       ondrop="return false;">
-      <button class="item active" data-tab="main">Main</button>
-      <button class="item" data-tab="talents">Talents</button>
-      <button class="item" data-tab="combat">Combat</button>
+      <a class="item active" data-tab="main">Main</a>
+      <a class="item" data-tab="talents">Talents</a>
+      <a class="item" data-tab="combat">Combat</a>
       {{#if actor.flags.hasSpells}}
-      <button class="item" data-tab="magic">Magic</button>
+      <a class="item" data-tab="magic">Magic</a>
       {{/if}}
       {{#if actor.flags.hasPrayers}}
-      <button class="item" data-tab="religion">Religion</button>
+      <a class="item" data-tab="religion">Religion</a>
       {{/if}}
-      <button class="item" data-tab="inventory">Trappings</button>
-      <button class="item" data-tab="notes">Notes</button>
+      <a class="item" data-tab="inventory">Trappings</a>
+      <a class="item" data-tab="notes">Notes</a>
     </nav>
     <div class="tab main" data-tab="main" data-group="primary">
       {{> public/systems/wfrp4e/templates/actors/npc-main.html}}
@@ -153,7 +150,7 @@
         {{> public/systems/wfrp4e/templates/actors/actor-inventory.html}}
       </div>
     <div class="tab notes" data-tab="notes" data-group="primary">
-      {{> public/systems/wfrp4e/templates/actors/npc-notes.html}}
+      {{> public/systems/wfrp4e/templates/actors/actor-notes.html}}
     </div>
   </section>
   

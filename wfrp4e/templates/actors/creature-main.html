@@ -2,21 +2,16 @@
   <div class="creature-overview-label">Creature Overview</div>
 
   <div class="creature-overview">
+  {{#if actor.skills}}
     <div class="list creature-talents">
       <a class="creature-skills label">Skills:</a>
-      {{#each actor.basicSkills as |item i|}}
+      {{#each actor.skills as |item i|}}
       <div class="skills content" tabindex="0" data-item-id="{{item.id}}">
-        <a class="skills name">{{item.name}} </a>
-        <a class="skills total">{{item.data.total.value}}</a>
-      </div>
-      {{/each}}
-      {{#each actor.advancedOrGroupedSkills as |item i|}}
-      <div class="skills content" tabindex="0" data-item-id="{{item.id}}">
-        <a class="skills name">{{item.name}} </a>
-        <a class="skills total">{{item.data.total.value}}</a>
+        <a class="skills name">{{item.name}}  {{item.data.total.value}}</a>
       </div>
       {{/each}}
     </div>
+    {{/if}}
 
     {{#if actor.talents}}
     <div class="list creature-talents">
@@ -33,8 +28,8 @@
     {{#if actor.traits}}
     <div class="list creature-traits">
       <a class="creature-traits label">Traits:</a>
-      {{#each actor.includedTraits as |item i|}}
-      <div class="traits content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
+      {{#each actor.traits as |item i|}}
+      <div class="traits content" tabindex="0" data-item-id="{{item.id}}">
         <a class="traits name">{{item.name}} </a>
       </div>
       {{/each}}

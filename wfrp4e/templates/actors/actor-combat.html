@@ -96,7 +96,7 @@
           <a class="weapon-group">{{item.data.weaponGroup.value}}</a>
           {{#if item.data.ammunitionGroup.value}}
           <div class="ammo-selector selector">
-            <select name="item.data.currentAmmo.value" data-item-id="{{item.id}}"
+            <select name="current-Ammo-{{item.id}}" data-item-id="{{item.id}}"
               data-dtype="{{item.data.currentAmmo.type}}">
               {{#select item.data.currentAmmo.value}}
               <option class="ammo-option" value="0">None</option>
@@ -483,7 +483,11 @@
   <div class="injury-header">
     <a class="injury-label">Injury</a>
     <a class="location-label">Location</a>
+    {{#if isGM}}
     <div class="item-controls">
+    {{else}}
+    <div style = "visibility : hidden" class="item-controls">
+    {{/if}}
       <a class="item-control item-create" title="Create Item" data-type="injury"><i class="fas fa-plus"></i></a>
     </div>
   </div>

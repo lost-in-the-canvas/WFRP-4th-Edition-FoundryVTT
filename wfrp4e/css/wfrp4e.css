@@ -54,9 +54,9 @@
     }
 
   /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
-    /* p {
-      font-family: CaslonPro;
-    } */
+  p {
+    font-family: CaslonPro;
+  }
 /******************************************************************/
 /******************************************************************/
 
@@ -735,7 +735,7 @@
           background: url(../ui/item-sheet-tab-edges.png) repeat;
           background-position-x: right;
           position: absolute;
-          top: 170px;
+          top: 169px;
           left: 59px;
           z-index: 101;
         }
@@ -746,7 +746,7 @@
           background: url(../ui/item-sheet-tab-edges.png) repeat;
           background-position-x: right;
           position: absolute;
-          top: 170px;
+          top: 169px;
           right: 59px;
           z-index: 101;
           -moz-transform: scaleX(-1);
@@ -859,6 +859,7 @@
             font-weight: 500;
             color: black;
             height: 25px;
+            text-align-last: center;
           }
           .app.window-app.sheet.item-sheet .tab .form-group .item-checkbox {
             height: 25px;
@@ -925,10 +926,38 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -21px 0px 0px 0px;
+      margin: -29px 0px 0px 0px;
       height: 26px;
       position: relative;
     }
+      .app.window-app.sheet.item-sheet.career-sheet .sheet-tabs.edges.left {
+        margin: 0px;
+        height: 25px;
+        width: 7px;
+        background: url(../ui/item-sheet-tab-edges.png) repeat;
+        background-position-x: right;
+        position: absolute;
+        top: 161px;
+        left: 59px;
+        z-index: 101;
+      }
+      .app.window-app.sheet.item-sheet.career-sheet .sheet-tabs.edges.right {
+        margin: 0px;
+        height: 25px;
+        width: 7px;
+        background: url(../ui/item-sheet-tab-edges.png) repeat;
+        background-position-x: right;
+        position: absolute;
+        top: 161px;
+        right: 59px;
+        z-index: 101;
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+      }
     .app.window-app.sheet.item-sheet.career-sheet #characteristics-label {
       height: auto;
       padding-top: 10px;
@@ -952,6 +981,70 @@
         color: black;
         padding-top: 5px;
       }
+
+  /* ==================== (B) DISEASES ========================== */
+  .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs {
+    font-family: CaslonAntique;
+    font-size: 16px;
+    font-weight: 700;
+    margin: -29px 0px 0px 0px;
+    height: 26px;
+    position: relative;
+  }
+    .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs.edges.left {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 161px;
+      left: 59px;
+      z-index: 101;
+    }
+    .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs.edges.right {
+      margin: 0px;
+      height: 25px;
+      width: 7px;
+      background: url(../ui/item-sheet-tab-edges.png) repeat;
+      background-position-x: right;
+      position: absolute;
+      top: 161px;
+      right: 59px;
+      z-index: 101;
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
+  .app.window-app.sheet.item-sheet.disease-sheet .tab .input-text {
+    height: 23px;
+    border: 1px solid #73695300;
+    border-left: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: black;
+    padding-top: 7px;
+    margin-right: 6px;
+    position: relative;
+    left: 0px;
+    vertical-align: top;
+    text-align: center;
+    flex: 3;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background: none;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .app.window-app.sheet.item-sheet.disease-sheet .tab .input-text:hover {
+    border: 1px dotted #463a3a;
+    box-shadow: none;
+  }
 
   /* ==================== (C) SIDEBAR CHAT FORM ================= */
   /* ==================== (D) SIDEBAR CHAT FORM ================= */
@@ -2739,7 +2832,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name > *,          
           .inventory-list .item .spell-name > *,          
           .inventory-list .item .weapon-name > *,          
-          .inventory-list .item .item-name-edit > *,
+          .inventory-list .item .skill-name > *,
           .inventory-list .item .item-name > *{
             overflow: hidden; 
             flex: 1; 
@@ -2748,7 +2841,7 @@ input[type="text"], input[type="password"] {
           .inventory-list .item .prayer-name,
           .inventory-list .item .spell-name,
           .inventory-list .item .weapon-name,
-          .inventory-list .item .item-name-edit,
+          .inventory-list .item .skill-name,
           .inventory-list .item .item-name {
             display: flex;
             flex-direction: row;
@@ -3037,7 +3130,7 @@ input[type="text"], input[type="password"] {
           }
 
 
-        .skill-section .inventory-list .item .item-name-edit > *,
+        .skill-section .inventory-list .item .skill-name > *,
         .skill-section .inventory-list .item .item-name > * {
           flex: 1;
           width: 95px;
@@ -3362,6 +3455,9 @@ input[type="text"], input[type="password"] {
             flex-shrink: 0;
             margin-right: 5px;
             line-height: 16px;
+          }
+          .wfrp4e .trait-list .item .excluded-trait {
+            opacity: 0.5;
           }
             .wfrp4e.actor .trait-list .item-image {
               flex: 0 0 30px;
@@ -5680,7 +5776,7 @@ input[type="text"], input[type="password"] {
 
           #blessing-add {
             position: relative;
-            left: 279px;
+            left: 36px;
             top: 1px;
             width: fit-content;
             font-family: "Font Awesome 5 Free";
@@ -5745,6 +5841,11 @@ input[type="text"], input[type="password"] {
           /* height: calc(100% - 20px); */
           overflow-y: hidden;
         }  
+
+        .wfrp4e.creature-sheet .notes-section > ol {
+          overflow-y:auto
+        }
+
         .wfrp4e .notes-sections .inventory-list {
           overscroll-behavior-x: none;
           overflow-x: hidden;
@@ -6426,7 +6527,7 @@ input[type="text"], input[type="password"] {
   }
 
 
-.wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name-edit > *,
+.wfrp4e.npc-sheet .skill-section .inventory-list .item .skill-name > *,
 .wfrp4e.npc-sheet .skill-section .inventory-list .item .item-name > * {
   flex: 1;
   width: 95px;
@@ -7055,29 +7156,6 @@ input[type="text"], input[type="password"] {
   border-image-width: 10px 13px 13px 13px;
   border-image-outset: 8px;
 }
-.window-app.dialog.channell-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-channell.png);
-  background-size: 102%;
-  background-position: -5px -10px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
 .window-app.dialog.prayer-roll-dialog .window-content {
   background: url(../ui/window-app-dialog-backgrounds-prayer.png);
   background-position: -43px -120px;
@@ -7228,7 +7306,7 @@ input[type="text"], input[type="password"] {
   .window-app.dialog.channell-roll-dialog .dialog-buttons button,
   .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
     flex: 2;
-    margin: 0 5px 0 0;
+    margin: 0px 0px 0px 0px;
     line-height: 24px;
     border: 3px double #736953a6;
     box-shadow: 0px 0px 10px inset black;
@@ -7250,7 +7328,7 @@ input[type="text"], input[type="password"] {
   }
 
 
-  /* WAS WORKING HERE */
+  /* CUSTOM DROPDOWN */
   /*the container must be positioned relative:*/
   .window-app.dialog .custom-select {
     position: relative;
@@ -8669,6 +8747,85 @@ font-weight: bold;
 }
 
 
+
+.wfrp4e.actor .penalties {
+  display: flex;
+  flex-direction: row;
+  font-family: CaslonPro;
+  margin-top: 3px;
+  border: 1px solid #736953a6;
+}
+.wfrp4e.actor .penalties > h3 {
+  font-family: CaslonAntique;
+  font-size: 16px;
+  font-weight: 700;
+  color: #464331c4;
+  text-align: center;
+  border: 1px solid #736953a6;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  margin: 0px;
+  padding: 3px 0px 0px 0px;
+  height: 23px;
+  min-width: 54px;
+  box-shadow: 0 0 10px #00000052 inset;
+  display: inline-block;
+}
+.wfrp4e.actor .penalties > div {
+  width: fit-content;
+  margin-top: 5px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.wfrp4e.actor .penalties .custom-penalty {
+  width: inherit;
+  background: bisque;
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 2;
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 0px;
+  overflow-wrap: unset;
+  text-overflow: unset;
+  white-space: nowrap;
+  overflow: hidden;
+}
+  .wfrp4e.actor .penalties .custom-penalty .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
+  .wfrp4e.actor .penalties .penalties-input {
+    min-width: 20px;
+    padding: 3px 3px 0px 3px;
+    margin: 0;
+    border-radius: 0px;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    color: #111;
+    width: inherit;
+    display: inline-flex;
+    flex-direction: row;
+    flex-grow: 2;
+  }
 
 
 

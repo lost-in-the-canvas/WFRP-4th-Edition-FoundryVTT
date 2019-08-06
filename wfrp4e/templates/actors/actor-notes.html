@@ -48,16 +48,19 @@
   </div>
 
 
+  {{#if actor.psychology}}
   <ol class="inventory-list psychology-list">
     <li class="inventory-header item">
       <span>Pyschology</span>
-      {{#if owner}}
+      {{#if isGM}}
       <div id="psychology-add" class="item-controls">
+      {{else}}
+      <div id="psychology-add" style="visibility: hidden" class="item-controls">
+      {{/if}}
         <a class="item-control item-create" title="Create Item" data-type="psychology">
           <i class="fas fa-plus"></i>
         </a>
       </div>
-      {{/if}}
     </li>
     {{#each actor.psychology as |psych p|}}
     <li class="item" data-item-id="{{psych.id}}">
@@ -74,19 +77,23 @@
       {{/if}}
     </li>
     {{/each}}
-  </ol>
+  </ol> 
+  {{/if}}
 
 
+{{#if actor.mutations}}
   <ol class="inventory-list mutation-list">
     <li id="mutation-header" class="inventory-header item mutation-header">
       <span id="mutation-name" class="item-name">Corruption & Mutation</span>
-      {{#if owner}}
+      {{#if isGM}}
       <div id="mutation-add" class="item-controls">
+      {{else}}
+      <div id="mutation-add" style="visibility: hidden" class="item-controls">
+      {{/if}}
         <a class="item-control item-create" title="Create Item" data-type="mutation">
           <i class="fas fa-plus"></i>
         </a>
       </div>
-      {{/if}}
     </li>
     {{#each actor.mutations as |item i|}}
     <li class="item" data-item-id="{{item.id}}">
@@ -104,8 +111,9 @@
     </li>
     {{/each}}
   </ol>
+{{/if}}
 
-
+  {{#if isGM}}
   <ol class="inventory-list disease-list">
     <li id="disease-header" class="inventory-header item disease-header">
       <span id="disease-name" class="item-name">Disease</span>
@@ -113,13 +121,11 @@
       <span id="disease-attr-incubation">Incubation</span>
       <span id="disease-attr-duration">Duration</span>
 
-      {{#if owner}}
       <div id="disease-add" class="item-controls">
         <a class="item-control item-create" title="Create Item" data-type="disease">
           <i class="fas fa-plus"></i>
         </a>
       </div>
-      {{/if}}
     </li>
     {{#each actor.diseases as |item i|}}
     <li class="item" data-item-id="{{item.id}}">
@@ -148,4 +154,6 @@
     <h2>GM Notes</h2>
     {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
   </div>
+  {{/if}}
+
 <div>

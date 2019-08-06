@@ -7,23 +7,15 @@
   "scripts": ["wfrp4e.js"],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
-    {
-      "name": "traits",
-      "label": "Traits",
+  	{
+      "name": "bestiary",
+      "label": "Bestiary",
       "system": "wfrp4e",
       "module": "wfrp4e",
-      "path": "./packs/traits.db",
-      "entity": "Item"
+      "path": "./packs/bestiary.db",
+      "entity": "Actor"
     },
-     {
-      "name": "talents",
-      "label": "Talents",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/talents.db",
-      "entity": "Item"
-    },
-    {
+  	 {
       "name": "skills",
       "label": "Skills",
       "system": "wfrp4e",
@@ -32,17 +24,49 @@
       "entity": "Item"
     },
     {
-      "name": "diseases",
-      "label": "Diseases",
-      "path": "./packs/diseases.db",
+      "name": "talents",
+      "label": "Talents",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/talents.db",
+      "entity": "Item"
+    },
+    {
+      "name": "traits",
+      "label": "Traits",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/traits.db",
+      "entity": "Item"
+    },
+    {
+      "name": "psychologies",
+      "label": "Psychologies",
+      "path": "./packs/psychologies.db",
       "entity": "Item",
-      "module": "world",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "mutations",
+      "label": "Mutations",
+      "path": "./packs/mutations.db",
+      "entity": "Item",
+      "module": "wfrp4e",
       "system": "wfrp4e"
     },
     {
       "name": "injuries",
       "label": "Injuries",
       "path": "./packs/injuries.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "diseases",
+      "label": "Diseases",
+      "path": "./packs/diseases.db",
       "entity": "Item",
       "module": "world",
       "system": "wfrp4e"
@@ -51,5 +75,8 @@
   "languages": ["en"],
   "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
   "gridDistance": 2,
-  "gridUnits": "yd"
+  "gridUnits": "yd",
+  "primaryTokenAttribute": "status.wounds",
+  "secondaryTokenAttribute": "status.advantage",
+  "minimumCoreVersion": "0.3.0"
 }

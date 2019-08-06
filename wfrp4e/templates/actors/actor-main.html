@@ -123,7 +123,7 @@
       </div>
       <div id="wounds-box">
         <div id="wounds-value">
-          <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+          <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}" data-dtype="{{data.status.wounds.type}}">
         </div>
         <div id="wounds-divisor" class="divisor">
           /
@@ -132,7 +132,7 @@
           {{#if actor.flags.autoCalcWounds}}
           <a class ="auto-calc-toggle" toggle-type = "wounds">{{data.status.wounds.max}}</a>
           {{else}}
-          <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="String">
+          <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="Number">
           {{/if}}
         </div>
       </div>
@@ -221,14 +221,16 @@
         <h4 id="List-Current-label">Current</h4>
         <h4 id="List-Complete-label">Complete</h4>
         <div id="List-Level-label">Level</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div id="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" id="item-controls">
+        {{/if}}
           <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="career">
             <i class="fas fa-plus"></i>
             <!-- <h4 id="List-Add-label">Add</h4> -->
           </a>
         </div>
-        {{/if}}
       </li>
 
       {{#each actor.careers as |item i|}}

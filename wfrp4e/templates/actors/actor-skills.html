@@ -7,19 +7,21 @@
         <div class="skill-char-title">Char.</div>
         <div class="skill-adv-title">Adv.</div>
         <div class="skill-total-title">Total</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
           <!-- <h4 id="List-Add-label">Add</h4> -->
         </div>
-        {{/if}}
       </li>
 
       {{#each actor.basicSkills as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
-          <div class="item-name-edit">
+          <div class="skill-name">
           <a>{{item.name}}</a>
         </div>
 
@@ -58,19 +60,21 @@
           <div class="skill-char-title">Char.</div>
           <div class="skill-adv-title">Adv.</div>
           <div class="skill-total-title">Total</div>
-          {{#if owner}}
+          {{#if isGM}}
           <div class="item-controls">
+          {{else}}
+          <div style = "visibility : hidden" class="item-controls">
+          {{/if}}
             <a class="item-control item-create" title="Create Item" data-type="skill">
               <i class="fas fa-plus"></i>
             </a>
             <!-- <h4 id="List-Add-label">Add</h4> -->
           </div>
-          {{/if}}
         </li>
   
         {{#each actor.advancedOrGroupedSkills as |item i|}}
         <li class="item" data-item-id="{{item.id}}">
-            <div class="item-name-edit">
+            <div class="skill-name">
             <a>{{item.name}}</a>
           </div>
 
