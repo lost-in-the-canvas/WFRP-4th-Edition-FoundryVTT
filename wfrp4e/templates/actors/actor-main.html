@@ -1,19 +1,15 @@
 <div class="characteristics">
-
-
-
-
   <table class="characteristics-table">
     <tr class="table-header">
       <th></th>
       {{#each actor.data.characteristics as |ch c|}}
       <th title="{{ch.label}}" class="table-header">
         {{ch.abrev}}
-      {{#if ch.career}}
-        <a class="advancement-indicator" data-target = "{{c}}">+</a>
-      {{else}}
-        <a class="advancement-indicator" style = "visibility : hidden" data-char = "{{c}}">+</a>
-      {{/if}}
+        {{#if ch.career}}
+        <a class="advancement-indicator" data-target="{{c}}">+</a>
+        {{else}}
+        <a class="advancement-indicator" style="visibility : hidden" data-char="{{c}}">+</a>
+        {{/if}}
       </th>
 
       {{/each}}
@@ -49,10 +45,10 @@
   </table>
 </div>
 
-<div class="main-row">
-  <div class="movement">
+<div class="main-row first">
+  <div class="movement row-section">
     <div class="move-section">
-      <div id="movement-value-box" class="move-value">
+      <div class="move-value">
         <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
       </div>
       <div class="move-name">
@@ -60,184 +56,172 @@
       </div>
     </div>
     <div class="move-section">
-        <div class="move-value">
-
-      {{#if actor.flags.autoCalcWalk}}
-        <a class ="auto-calc-toggle" toggle-type = "walk">{{actor.data.details.move.walk}} yds</a>
-      {{else}}
-      <input class="auto-calc-toggle" toggle-type = "walk" name="data.details.move.walk" type="text" value="{{data.details.move.walk}}" data-dtype="String">
-      {{/if}}
-    </div>
-
+      <div class="move-value">
+        {{#if actor.flags.autoCalcWalk}}
+        <a class="auto-calc-toggle" toggle-type="walk">{{actor.data.details.move.walk}} yds</a>
+        {{else}}
+        <input class="auto-calc-toggle" toggle-type="walk" name="data.details.move.walk" type="text"
+          value="{{data.details.move.walk}}" data-dtype="String">
+        {{/if}}
+      </div>
       <div class="move-name">
         <h4 id="walk-label">Walk</h4>
       </div>
     </div>
     <div class="move-section">
-        <div class="move-value">
-
+      <div class="move-value">
         {{#if actor.flags.autoCalcRun}}
-            <a class ="auto-calc-toggle" toggle-type = "run">{{actor.data.details.move.run}} yds</a>
+        <a class="auto-calc-toggle" toggle-type="run">{{actor.data.details.move.run}} yds</a>
         {{else}}
-        <input class ="auto-calc-toggle" toggle-type = "run" name="data.details.move.run" type="text" value="{{data.details.move.run}}" data-dtype="String">
+        <input class="auto-calc-toggle" toggle-type="run" name="data.details.move.run" type="text"
+          value="{{data.details.move.run}}" data-dtype="String">
         {{/if}}
       </div>
-
-      <div id="move-run" class="move-name">
+      <div class="move-name">
         <h4 id="run-label">Run</h4>
       </div>
     </div>
   </div>
 
-  <div class="fate-resilience">
-    <div class="type">
-      <span id="label-fortune">Fortune</span>
-      <span id="label-fate">Fate</span>
-      <div class="upper">
-        <!-- Fortune: -->
+  <div class="fate-resilience row-section">
+    <div class="fate-resilience-section">
+      <span class="top label">Fortune</span>
+      <span class="bottom label">Fate</span>
+    </div>
+    <div class="fate-resilience-section values">
+      <div class="top value">
         <input name="data.status.fortune.value" type="text" value="{{data.status.fortune.value}}" data-dtype="Number">
       </div>
-      <div class="lower">
-        <!-- Fate: -->
+      <div class="bottom value">
         <input name="data.status.fate.value" type="text" value="{{data.status.fate.value}}" data-dtype="Number">
       </div>
     </div>
-    <div class="type">
-      <span id="label-resolve">Resolve</span>
-      <span id="label-resilience">Resilience</span>
-      <div class="upper">
-        <!-- Resolve: -->
+    <div class="fate-resilience-section">
+      <span class="top label">Resolve</span>
+      <span class="bottom label">Resilience</span>
+    </div>
+    <div class="fate-resilience-section values">
+      <div class="top value">
         <input name="data.status.resolve.value" type="text" value="{{data.status.resolve.value}}" data-dtype="Number">
       </div>
-      <div class="lower">
-        <!-- Resilience: -->
-        <input name="data.status.resilience.value" type="text" value="{{data.status.resilience.value}}" data-dtype="Number">
+      <div class="bottom value">
+        <input name="data.status.resilience.value" type="text" value="{{data.status.resilience.value}}"
+          data-dtype="Number">
       </div>
     </div>
   </div>
 
-  <div class="wounds">
+  <div class="wounds row-section">
     <div class="wounds-section">
-      <div id="wounds-name">
-        <h4 id="wound-label">Wounds</h4>
-      </div>
-      <div id="wounds-box">
-        <div id="wounds-value">
-          <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}" data-dtype="{{data.status.wounds.type}}">
+      <span class="top label">Wounds</span>
+      <div class="wounds-value-box">
+        <div id="value">
+          <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
         </div>
-        <div id="wounds-divisor" class="divisor">
+        <div id="divisor">
           /
         </div>
         <div id="wounds-max">
           {{#if actor.flags.autoCalcWounds}}
-          <a class ="auto-calc-toggle" toggle-type = "wounds">{{data.status.wounds.max}}</a>
+          <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
           {{else}}
-          <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="Number">
+          <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
+            value="{{data.status.wounds.max}}" data-dtype="String">
           {{/if}}
         </div>
       </div>
     </div>
   </div>
 </div>
-  
-<div id="main-row-2" class="main-row">
-  <div class="criticalWounds">
+
+<div class="main-row second">
+  <div class="criticalWounds row-section">
     <div class="criticalWounds-section">
-      <div id="criticalWounds-name">
-        <h4 id="criticalWounds-label">Critical Wounds</h4>
-      </div>
-      <div id="criticalWounds-box">
-        <div id="criticalWounds-value">
+      <span class="top label">Critical Wounds</span>
+      <div class="criticalWounds-value-box">
+        <div id="value">
           <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
         </div>
-        <div id="criticalWounds-divisor" class="divisor">
+        <div id="divisor" class="divisor">
           /
         </div>
         <div id="criticalWounds-max">
-          {{#if actor.flags.autoCalcCritW}}       
-          <a class ="auto-calc-toggle" toggle-type = "critW" >{{data.status.criticalWounds.max}}</a>
+          {{#if actor.flags.autoCalcCritW}}
+          <a class="auto-calc-toggle" toggle-type="critW">{{data.status.criticalWounds.max}}</a>
           {{else}}
-          <input class ="auto-calc-toggle" toggle-type = "critW" name="data.status.criticalWounds.max" type="text" value="{{data.status.criticalWounds.max}}">
+          <input class="auto-calc-toggle" toggle-type="critW" name="data.status.criticalWounds.max" type="text"
+            value="{{data.status.criticalWounds.max}}">
           {{/if}}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="corruption">
+  <div class="corruption row-section">
     <div class="corruption-section">
-      <div id="corruption-name">
-        <h4 id="corruption-label">Corruption</h4>
-      </div>
-      <div id="corruption-box">
-        <div id="corruption-value">
+      <span class="top label">Corruption</span>
+      <div class="corruption-value-box">
+        <div id="value">
           <input name="data.status.corruption.value" type="text" value="{{data.status.corruption.value}}">
         </div>
-        <div id="corruption-divisor" class="divisor">
+        <div id="divisor" class="divisor">
           /
         </div>
         <div id="corruption-max">
-          {{#if actor.flags.autoCalcCorruption}}       
-          <a class ="auto-calc-toggle" toggle-type = "corruption" >{{data.status.corruption.max}}</a>
+          {{#if actor.flags.autoCalcCorruption}}
+          <a class="auto-calc-toggle" toggle-type="corruption">{{data.status.corruption.max}}</a>
           {{else}}
-          <input class ="auto-calc-toggle" toggle-type = "corruption" name="data.status.corruption.max" type="text" value="{{data.status.corruption.max}}">
+          <input class="auto-calc-toggle" toggle-type="corruption" name="data.status.corruption.max" type="text"
+            value="{{data.status.corruption.max}}">
           {{/if}}
         </div>
       </div>
     </div>
   </div>
 
-  <div class="experienceSection">
-    <div id="experience-name">
-      <h4 id="experience-label" class="experience-label">Experience</h4>
+  <div class="experience row-section">
+    <div class="experience-section">
+      <span class="top label">Experience</span>
     </div>
-    <div id="experience-current">
-      <h4 id="experience-current-label" class="experience-label">Current</h4>
-    </div>
-    <div id="xp-current-value" class="xp-value">
-      <input id="xp-current-input" name="data.details.experience.current" type="text"
-        value="{{data.details.experience.current}}">
-    </div>
-    <div id="experience-spent">
-      <h4 id="experience-spent-label" class="experience-label">Spent</h4>
-    </div>
-    <div id="xp-spent-value" class="xp-value">
-      <input name="data.details.experience.spent" type="text" value="{{data.details.experience.spent}}">
-    </div>
-    <div id="experience-total">
-      <h4 id="experience-total-label" class="experience-label">Total</h4>
-    </div>
-    <div id="xp-total-value" class="xp-value">
-      <input id="xp-total-input" name="data.details.experience.total" type="text"
-        value="{{data.details.experience.total}}">
+    <div class="experience-section">
+      <span class="bottom label">Current</span>
+      <div id="value">
+        <input name="data.details.experience.current" type="text" value="{{data.details.experience.current}}" />
+      </div>
+      <span class="bottom label">Spent</span>
+      <div id="value">
+        <input name="data.details.experience.spent" type="text" value="{{data.details.experience.spent}}" />
+      </div>
+      <span class="bottom label">Total</span>
+      <div id="value">
+        <input name="data.details.experience.total" type="text" value="{{data.details.experience.total}}" />
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="careers">
-    <!-- <a>Careers</a> -->
-    <ol class="inventory-list save-scroll">
-      <li class="inventory-header item">
-        <h4 id="List-Career-label" class="item-name">Career</h4>
-        <h4 id="List-Current-label">Current</h4>
-        <h4 id="List-Complete-label">Complete</h4>
-        <div id="List-Level-label">Level</div>
-        {{#if isGM}}
-        <div id="item-controls">
-        {{else}}
-        <div style = "visibility : hidden" id="item-controls">
-        {{/if}}
-          <a id="List-Add-button" class="item-control item-create" title="Create Item" data-type="career">
-            <i class="fas fa-plus"></i>
-            <!-- <h4 id="List-Add-label">Add</h4> -->
-          </a>
-        </div>
-      </li>
+<div class="career-list">
+  <div class="inventory-header item">
+    <span id="career">Career</span>
+    <span id="current">Current</span>
+    <span id="complete">Complete</span>
+    <span id="level">Level</span>
+    {{#if owner}}
+    <div class="item-controls">
+      <a id="add-button" class="item-control item-create" title="Create Item" data-type="career">
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+    {{/if}}
+  </div>
 
-      {{#each actor.careers as |item i|}}
-      <li id="testlist" class="item" data-item-id="{{item.id}}">
+  <ol class="inventory-list save-scroll">
+    {{#each actor.careers as |item i|}}
+    <li class="item career-item" data-item-id="{{item.id}}">
+      <div class="content">
         <div class="item-name item-dropdown">
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a class="careerlevel-name">{{item.name}}</a>
+          <div class="image" style="background-image: url({{item.img}})"></div>
+          <a class="name">{{item.name}}</a>
         </div>
         {{#if item.data.current.value}}
         <a class="career-current career-toggle" toggle-type="current"><i class="far fa-check-circle"></i></a>
@@ -251,21 +235,22 @@
         {{/if}}
         <div class="career-level">{{item.data.level.value}}</div>
 
-
         {{#if ../owner}}
         <div class="item-controls">
+          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
           <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
           <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </div>
         {{/if}}
 
-        <script>
-          $(document).ready(function () {
-            $('#testlist li:nth-child(odd)').addClass('alternate');
-          });
-        </script>
-      </li>
-      {{/each}}
-    </ol>
-  </div>
+      </div>
+
+      <script>
+        $(document).ready(function () {
+          $('#testlist li:nth-child(odd)').addClass('alternate');
+        });
+      </script>
+    </li>
+    {{/each}}
+  </ol>
 </div>
