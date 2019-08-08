@@ -1,12 +1,14 @@
 <div class="inventory-header item petty-header">
   <div class="name">Petty Spell</div>
-  {{#if owner}}
+  {{#if isGM}}
   <div id="petty-add" class="item-controls">
+  {{else}}
+  <div style = "visibility : hidden" id="petty-add" class="item-controls">
+  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="{{sid}}">
       <i class="fas fa-plus"></i>
     </a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list petty-list">
@@ -36,11 +38,13 @@
   <div title="Casting Number" class="casting-number">CN</div>
   <div title="Sucess Level" class="success-lvl">SL</div>
   <div title="Memorized" class="memorized">M</div>
-  {{#if owner}}
+  {{#if isGM}}
   <div id="lore-add" class="item-controls">
+  {{else}}
+  <div style = "visibility : hidden" id="lore-add" class="item-controls">
+  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
   </div>
-  {{/if}}
 </li>
 
 <ol class="inventory-list lore-list">
@@ -53,7 +57,7 @@
       </div>
 
       <div class="ingredient-selector selector">
-        <select name="item.data.currentIng.value" data-item-id="{{item.id}}"
+        <select name="ingredient-{{item.id}}" data-item-id="{{item.id}}"
           data-dtype="{{item.data.currentIng.type}}">
           {{#select item.data.currentIng.value}}
           <option value="0">None</option>

@@ -40,11 +40,13 @@
       <span id="currency-name" class="item-name">Money (Total: {{actor.money.total}}d) 1 GC : 20 SS : 240 BP</span>
       <a id="currency-quantity" class="item-quantity">Qty.</a>
       <span id="currency-weight" class="item-weight">Enc.</span>
-      {{#if owner}}
+      {{#if isGM}}
       <div class="item-controls">
+      {{else}}
+      <div style = "visibility : hidden" class="item-controls">
+      {{/if}}
         <a class="item-control item-create" title="Create Item" data-type="money"><i class="fas fa-plus"></i> Add</a>
       </div>
-      {{/if}}
     </li>
 
     {{#each actor.money.coins as |item i|}}
@@ -86,13 +88,15 @@
         <a class="item-quantity">Qty.</a>
 
         <span class="item-weight">Enc.</span>
-        {{#if ../owner}}
+        {{#if ../isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" item-section="{{sid}}"
             data-type="{{section.dataType}}"><i class="fas fa-plus"></i>
             Add</a>
         </div>
-        {{/if}}
       </li>
       {{#each section.items as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
@@ -142,12 +146,14 @@
         <span class="item-quantity">Qty.</span>
         {{/if}}
         <span class="item-weight">Enc.</span>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i>
             Add</a>
         </div>
-        {{/if}}
       </li>
       {{#each actor.ingredients.items as |item i|}}
       <li class="item" data-item-id="{{item.id}}">
@@ -157,7 +163,7 @@
         </div>
 
         <div class="spell-selector selector">
-          <select name="item.data.spellIngredient.value" data-item-id="{{item.id}}"
+          <select name="spell-select-{{item.id}}" data-item-id="{{item.id}}"
             data-dtype="{{item.data.spellIngredient.type}}">
             {{#select item.data.spellIngredient.value}}
             <option value="0">-</option>

@@ -6,13 +6,15 @@
         <div class="char">Char.</div>
         <div class="adv">Adv.</div>
         <div class="total">Total</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </div>
 
       <ol class="inventory-list save-scroll">
@@ -53,13 +55,15 @@
         <div class="char">Char.</div>
         <div class="adv">Adv.</div>
         <div class="total">Total</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </div>
 
       <ol class="inventory-list save-scroll">
