@@ -721,7 +721,7 @@
       }
       .app.window-app.sheet.item-sheet.skill-sheet {
         border: 1px solid blue;
-        border-image: url(../ui/item-sheet-gray.png);
+        border-image: url(../ui/item-sheet-yellow.png);
         border-image-slice: 59;
         border-image-width: 59px;
         border-image-outset: 0px;
@@ -1906,7 +1906,7 @@
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .window-resizable-handle {
-      display: none;
+      display: none !important;
     }
 
   /* ==================== (B) WINDOW HEADER ===================== */
@@ -1919,7 +1919,7 @@
       padding: 27px 13px 7px 13px;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .window-title {
-        display: none;
+        display: none !important;
         padding: 0px;
         margin: 0px;
       }
@@ -5183,7 +5183,7 @@
         overflow-x: hidden;
         overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
+        margin-top: 0px;
         display: inline-flex;
         flex-direction: row;
       }
@@ -5297,227 +5297,363 @@
         }
 
     /* ================== 2. GENERIC EQUIPMENT LISTS ============ */
-      .wfrp4e.actor .inventory .inventory-list:not(.container-lists) {
-        margin: 0px 3px 0px 0px;
-        padding: 0px;
-        height: fit-content;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header {
         width: 100%;
+        height: 20px;
+        margin: 6px 0px 0px 0px;
+        padding: 0px 6px;
         border: 1px solid #736953a6;
-        border-top: none;
-        border-left: none;
-        border-right: none;
-      }
-
-      .wfrp4e .inventory {
-        overflow-y: scroll;
-        overscroll-behavior-y: auto;
-        overflow-x: hidden;
-        height: 360px;
-        margin-top: 0px;
-        padding-bottom: 5px;
-        /* margin-left: calc(100vw - 100%); */
-      }  
-      .wfrp4e .inventory > ol {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        /* height: calc(100% - 20px); */
-        overflow-y: hidden;
-      }  
-      .wfrp4e .inventory .inventory-list {
-        overscroll-behavior-x: none;
-        overflow-x: hidden;
-        overscroll-behavior-y: none;
-        overflow-y: hidden;
-      }
-
-      .wfrp4e .inventory .inventory-list .item:not(.inventory-header) {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        line-height: 17px;
-        padding-left: 4px;
-        width: 493px;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
-      }
-        .wfrp4e .inventory .item .item-name {
-          flex-basis: 304px;
-          /* background: blue; */
-        }
-          .wfrp4e .inventory .item .item-name > a {
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 10px;
-          }
-          .wfrp4e .inventory .item .item-image {
-            flex: 0 0 30px;
-            margin-right: 4px;
-            background-size: 30px;
-            background-repeat: no-repeat;
-            /* max-height: 33px; */
-            min-height: 30px;
-            margin-top: 2px;
-            margin-bottom: 2px;
-          }
-        .wfrp4e .inventory .item .item-toggle {
-          padding-top: 10px;
-          text-align: center;
-          width: 50px;
-          margin-right: 3px;
-          /* background: grey; */
-          position: relative;
-          left: 0px;
-        }
-        .wfrp4e .inventory .item .item-quantity {
-          padding-top: 10px;
-          text-align: center;
-          width: 50px;
-          margin-right: 3px;
-        }
-        .wfrp4e .inventory .item .item-weight {
-          padding-top: 10px;
-          text-align: center;
-          width: 30px;
-          margin-right: 12px;
-        }
-        .wfrp4e .inventory .item-controls {
-          position: relative;
-          left: 0px;
-          width: 30px;
-          top: 9px;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: #504f48a6;
-        }
-
-          
-      /* ITEMS HEADERS   */
-      #currency-header {
-        margin-top: 6px;
-      }
-        #non-toggle-name,
-        #currency-name {
-          display: block;
-          flex: none;
-          width: 356px;
-          /* background: red; */
-        }
-        #currency-quantity {
-          padding-top: 0px;
-          margin-right: 3px;
-          position: relative;
-          left: 0px;
-        }
-        #currency-weight {
-          padding-top: 0px;
-          margin-right: 6px;
-          position: relative;
-          left: 0px;
-        }
-        .wfrp4e .inventory .item .non-toggle-name,
-        .wfrp4e .inventory .item .currency-name {
-          flex: none;
-          flex-basis: 357px;
-          /* background: blue; */
-        }
-
-      #ingredient-name {
-        width: 248px;
-      }
-      #spell-label {
-        padding-top: 0px;
-        margin-right: 3px;
-        position: relative;
-        left: 0px;
-        text-align: left;
-        width: 106px;
-        /* background: grey; */
-      }
-        #spell-name {
-          flex: none;
-          width: 248px;
-          /* background: red; */
-        }
-        .wfrp4e .inventory .item .spell-selector {
-          width: 106px;
-          margin-top: 7px;
-          /* background: pink; */
-          margin-right: 3px;
-        }
-
-      .wfrp4e .inventory .inventory-header {
-        height: 21px;
-        width: 493px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
-        border: 1px solid #736953a6;
-        font-family: CaslonAntique;
-        font-weight: 700;
-        font-size: 16px;
-        color: #464331c4;
+        font-family: var(--actor-label-font-family);
+        font-size: var(--actor-label-font-size);
+        font-weight: var(--actor-label-font-weight);
+        color: var(--actor-label-color);
         background: none;
         box-shadow: 0 0 10px #6b3a0f87 inset;
-        overscroll-behavior-x: none;
+        text-align: left;
+        display: inline-block;
+        flex-grow: 0;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
       }
-        .wfrp4e .inventory .inventory-header .item-name {
-          display: block;
-          flex: none;
-          width: 303px;
-          /* background: red; */
-          padding: 0px;
-          margin: 0px;
-        }
-        .wfrp4e .inventory .inventory-header .item-toggle {
-          padding-top: 0px;
-          margin-right: 3px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .name {
           position: relative;
           left: 0px;
-          text-align: center;
+          height: 18px;
+          width: 243px;
+          display: inline-block;
         }
-        .wfrp4e .inventory .inventory-header .item-quantity {
-          padding-top: 0px;
-          margin-right: 3px;
-        }
-        .wfrp4e .inventory .inventory-header .item-weight {
-          padding-top: 0px;
-          margin-right: 6px;
-        }
-        .wfrp4e .inventory .inventory-header .item-controls {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .quantity {
           position: relative;
-          left: 26px;
-          width: 30px;
-          top: 1px;
+          left: 116px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          background: beige;
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .weight {
+          position: relative;
+          left: 139px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          background: beige;
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .item-controls {
+          position: relative;
+          top: -1px;
+          left: 168px;
+          height: fit-content;
+          width: fit-content;
+          display: inline-block;
           font-family: "Font Awesome 5 Free";
-          font-size: 11px;
-          color: #504f48a6;
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 0px;
         }
 
-
-
-
-
-      .wfrp4e.actor .inventory .inventory-list:not(.container-lists) {
-        margin-right: 3px;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
         border: 1px solid #736953a6;
         border-top: none;
-        border-left: none;
-        border-right: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: -4px 0px 0px 0px;
+        padding: 0px;
       }
-      .wfrp4e.actor .inventory .inventory-list.container-lists {
-        margin-right: 0px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content {
+          width: 100%;
+          text-align: left;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 2px 2px;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0px 0px 1px inset black;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content {
+            width: 100%;
+            text-align: center;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            margin: 0px 0px;
+            padding: 0px 0px;
+            display: flex;
+            flex-direction: row;
+            font-family: var(--actor-input-font-family);
+            font-size: var(--actor-input-font-size);
+            font-weight: var(--actor-input-font-weight);
+            color: var(--actor-input-color);
+            justify-content: space-between;
+            /* background: var(--debug-background-color-green); */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 290px;
+            max-width: 290px;
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .item-toggle {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 43px;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 30px;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
+
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour {
+        width: 100%;
+        height: 20px;
+        margin: 6px 0px 0px 0px;
+        padding: 0px 6px;
+        border: 1px solid #736953a6;
+        font-family: var(--actor-label-font-family);
+        font-size: var(--actor-label-font-size);
+        font-weight: var(--actor-label-font-weight);
+        color: var(--actor-label-color);
+        background: none;
+        box-shadow: 0 0 10px #6b3a0f87 inset;
+        text-align: left;
+        display: inline-block;
+        flex-grow: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
       }
-      .wfrp4e.actor .inventory .inventory-list.container-lists .item:last-child {
-        /* background:blue; */
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .name {
+          position: relative;
+          left: 0px;
+          height: 18px;
+          width: 243px;
+          display: inline-block;
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-toggle {
+          position: relative;
+          left: 63px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          background: beige;
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .quantity {
+          position: relative;
+          left: 82px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .weight {
+          position: relative;
+          left: 108px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-controls {
+          position: relative;
+          top: -1px;
+          left: 168px;
+          height: fit-content;
+          width: fit-content;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 0px;
+        }
+
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: -4px 0px 0px 0px;
+        padding: 0px;
       }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content {
+          width: 100%;
+          text-align: left;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 2px 2px;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0px 0px 1px inset black;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content {
+            width: 100%;
+            text-align: center;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            margin: 0px 0px;
+            padding: 0px 0px;
+            display: flex;
+            flex-direction: row;
+            font-family: var(--actor-input-font-family);
+            font-size: var(--actor-input-font-size);
+            font-weight: var(--actor-input-font-weight);
+            color: var(--actor-input-color);
+            justify-content: space-between;
+            /* background: var(--debug-background-color-green); */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 290px;
+            max-width: 290px;
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-toggle {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 9px;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 11px;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 14px;
+            background: aqua;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
+
+
+ 
+
+
+
+
+
 
 
       /* CONTAINER - LEVEL 1 */
