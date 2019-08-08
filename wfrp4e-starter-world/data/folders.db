@@ -37,7 +37,6 @@
 {"_id":"FlNWhq4NxOEjudN9","name":"Other","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13800000,"color":""}
 {"_id":"HQk4srGmhItmPvP2","name":"Flagellant","type":"Item","parent":"my4FvSUiD2BuEAEn","sort":3500000}
 {"_id":"HyEHexI3wJ4tOfdd","name":"Outlaw","type":"Item","parent":"iomrYBt356ob6Nk7","sort":3600000}
-{"_id":"Il8t365W3mzOjutn","name":"Traits","type":"Item","parent":null,"sort":3700000}
 {"_id":"JXknLnpe4L1ylvc5","name":"Duellist","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":3800000}
 {"_id":"Jg6IbohHOIErVu7m","name":"Seaman","type":"Item","parent":"TTJJEP8bXUQdbeU0","sort":3900000}
 {"_id":"JtxVVZqTEK9ZRPZ8","name":"Prayers","type":"Item","parent":null,"sort":4000000}
@@ -120,7 +119,6 @@
 {"_id":"oB1ZYqsdtB17nGWe","name":"Food, Drink, and Lodging","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":11300000}
 {"_id":"otO6kZWiq9GBtHtZ","name":"Apothecary","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":11400000}
 {"_id":"p8R2Q2Jo6ccR1D3d","name":"Herbalist","type":"Item","parent":"z2q9HQ3MaOBWOSu5","sort":11500000}
-{"_id":"pjiErcgRLaudVyR8","name":"Talents","type":"Item","parent":null,"sort":11600000}
 {"_id":"pwzePn3jFLQYQ4iA","name":"Mystic","type":"Item","parent":"z2q9HQ3MaOBWOSu5","sort":11700000}
 {"_id":"qrSZfUnOIruhUzLr","name":"Lore of Shadow","type":"Item","parent":"gq63Du7x7meVEF1y","sort":11800000}
 {"_id":"rdBQzOvPrXRs1Lhz","name":"Beggar","type":"Item","parent":"Rp4F3ve4zbDnNFT4","sort":11900000}
