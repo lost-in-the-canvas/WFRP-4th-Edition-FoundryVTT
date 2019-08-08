@@ -3,24 +3,3 @@
     <input name="name" class="item-header" type="text" value="{{item.name}}" placeholder="Name"/>
   </h1>
 </header>
-
-<script>
-  textContainer = document.querySelectorAll('.app.window-app.sheet');
-  length = textContainer.length;
-  
-  for (i = 0; i < length; i++) {
-
-    if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
-      new_red = document.getElementsByClassName("app window-app sheet")[i].id;
-      if ( !document.getElementById(new_red).className.includes("item-sheet") ) {
-        document.getElementById(new_red).className += " item-sheet";
-      }
-      else {
-      }
-    } 
-    else {
-    }
-  }
-
-  // console.log(checkIfToken);
-</script>

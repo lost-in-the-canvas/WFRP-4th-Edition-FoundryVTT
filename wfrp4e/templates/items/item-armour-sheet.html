@@ -37,7 +37,6 @@
 
   {{> public/systems/wfrp4e/templates/items/item-description.html}}
 
-
   <div class="tab details" data-tab="details">
 
 
@@ -66,10 +65,10 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.armorType.label}}</label>
-      <select name="data.armorType.value" data-dtype={{data.armorType.type}}>
-        {{#select data.armorType.value}}
-        {{#each armorTypes as |type t|}}
+      <label class="label-text">{{data.armourType.label}}</label>
+      <select name="data.armourType.value" data-dtype={{data.armourType.type}}>
+        {{#select data.armourType.value}}
+        {{#each armourTypes as |type t|}}
         <option value="{{t}}">{{type}}</option>
         {{/each}}
         {{/select}}
@@ -122,8 +121,8 @@
     <div class="form-group">
       <label class="label-text">{{data.penalty.label}}</label>
       <div class="input-box">
-        <input class="input-text" type="text" title="Comma-separated if multiple (-20 Stealth, -10 Perception)" name="data.penalty.value"
-          value="{{data.penalty.value}}" data-dtype="{{data.penalty.type}}" />
+        <input class="input-text" type="text" title="Comma-separated if multiple (-20 Stealth, -10 Perception)"
+          name="data.penalty.value" value="{{data.penalty.value}}" data-dtype="{{data.penalty.type}}" />
       </div>
     </div>
 
@@ -138,7 +137,8 @@
     <div class="form-group-stacked">
       <label class="label-text">Flaws (comma-separated)</label>
       <div class="input-box">
-        <input class="input-text" type="text" name="data.flaws.value" value="{{data.flaws.value}}" data-dtype="{{data.properties.type}}" />
+        <input class="input-text" type="text" name="data.flaws.value" value="{{data.flaws.value}}"
+          data-dtype="{{data.properties.type}}" />
       </div>
     </div>
 
@@ -152,3 +152,68 @@
 
   </div>
 </form>
+
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.sheet');
+  length = textContainer.length;
+
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
+      new_red = document.getElementsByClassName("app window-app sheet")[i].id;
+      if (document.getElementById(new_red).className.includes("career-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("ammo-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("career-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("consumable-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("container-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("disease-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("injury-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("money-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("mutation-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("prayer-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("psychology-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("skill-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("spell-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("talent-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("trait-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("trapping-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("weapon-sheet")) {
+        continue;
+      } 
+      document.getElementById(new_red).className += " armour-sheet";
+    } else {}
+  }
+
+  // console.log(checkIfToken);
+</script>

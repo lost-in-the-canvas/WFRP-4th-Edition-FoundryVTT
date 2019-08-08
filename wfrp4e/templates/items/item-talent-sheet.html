@@ -1,33 +1,110 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
-        {{> public/systems/wfrp4e/templates/items/item-header.html}}
+  {{> public/systems/wfrp4e/templates/items/item-header.html}}
+
   <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
 
-    
-        <nav class="sheet-tabs tabs" data-tab-container="primary">
-            <a class="item active" data-tab="description">Description</a>
-            <a class="item" data-tab="details">Details</a>
-        </nav>
-    <div class = "tab" data-tab = "description">
-        {{> public/systems/wfrp4e/templates/items/item-description.html}}
+  <div class="item-details row2">
+    <label class="label-text" style="flex-grow: 0; width: 69px;">Category</label>
+    <div class="input-box" style="margin-right: 0px; flex-grow: 2; padding-top: 0px; text-align: center;">
+      <input class="input-text" type="text" />
     </div>
-        <!-- Ability Details -->
-        <div class="tab" data-tab="details">
-    
-            <div class="form-group">
-                <label>Max</label>
-                <select name="data.max.value" data-dtype="{{data.max.type}}">
-                    {{#select data.max.value}}
-                    {{#each talentMaxs as |Max max|}}
-                    <option value="{{max}}">{{Max}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-    
-            <div class="form-group">
-                <label>Skill Type</label>
-                <input name = "data.tests.value" data-dtype = "{{data.tests.type}}" value = "{{data.tests.value}}"/>
-            </div>
-        </div>
-    </form>
-    
+  </div>
+
+
+  <nav class="sheet-tabs tabs" data-tab-container="primary">
+    <a class="item active" data-tab="description">Description</a>
+    <a class="item" data-tab="details">Details</a>
+  </nav>
+  <div class="sheet-tabs edges left" ></div>
+  <div class="sheet-tabs edges right" ></div>
+
+  {{> public/systems/wfrp4e/templates/items/item-description.html}}
+
+  <!-- Ability Details -->
+  <div class="tab details" data-tab="details">
+
+    <div class="form-group">
+      <label class="label-text">Max</label>
+      <select name="data.max.value" data-dtype="{{data.max.type}}">
+        {{#select data.max.value}}
+        {{#each talentMaxs as |Max max|}}
+        <option value="{{max}}">{{Max}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Skill Type</label>
+      <div class="input-box">
+        <input class="input-text" name="data.tests.value" data-dtype="{{data.tests.type}}" value="{{data.tests.value}}" />
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.sheet');
+  length = textContainer.length;
+
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
+      new_red = document.getElementsByClassName("app window-app sheet")[i].id;
+      if (document.getElementById(new_red).className.includes("career-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("ammo-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("career-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("consumable-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("container-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("disease-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("injury-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("money-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("mutation-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("prayer-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("psychology-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("skill-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("spell-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("talent-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("trait-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("trapping-sheet")) {
+        continue;
+      } 
+      if (document.getElementById(new_red).className.includes("weapon-sheet")) {
+        continue;
+      } 
+      document.getElementById(new_red).className += " talent-sheet";
+    } else {}
+  }
+
+  // console.log(checkIfToken);
+</script>
