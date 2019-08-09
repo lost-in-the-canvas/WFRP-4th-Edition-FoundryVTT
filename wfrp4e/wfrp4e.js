@@ -782,7 +782,7 @@ class DiceWFRP {
       {
         testDifficulty : "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : 0,
+        testModifier : dialogOptions.data.advantage * 10 || 0,
         slBonus : 0,
         successBonus : 0,
       });
@@ -2051,6 +2051,7 @@ class ActorWfrp4e extends Actor {
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2119,7 +2120,8 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
-        characteristicToUse : skill.data.characteristic.value  
+        characteristicToUse : skill.data.characteristic.value,
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2226,7 +2228,8 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         skillCharList : skillCharList,
-        defaultSelection : skillCharList.indexOf(defaultSelection)
+        defaultSelection : skillCharList.indexOf(defaultSelection),    
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2318,7 +2321,7 @@ class ActorWfrp4e extends Actor {
           channell: {
             label: "Channell",
             callback: btn => {
-              this.setupChannel(spell, options);
+              this.setupChannell(spell, options);
             }
           },
         },
@@ -2366,6 +2369,7 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         malignantInfluence : testData.malignantInfluence,
         talents : this.data.flags.talentTests,
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2463,6 +2467,7 @@ class ActorWfrp4e extends Actor {
         channellSkills : channellSkills,
         defaultSelection: defaultSelection,
         talents : this.data.flags.talentTests,
+        advantage : "N/A"
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2552,6 +2557,7 @@ class ActorWfrp4e extends Actor {
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -2623,7 +2629,8 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         characteristicList : CONFIG.characteristics,
-        characteristicToUse : trait.data.rollable.rollCharacteristic 
+        characteristicToUse : trait.data.rollable.rollCharacteristic,
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -4524,9 +4531,9 @@ class ActorSheetWfrp4e extends ActorSheet {
   _expandInfo(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item");
-    let expandInfo = event.target.attributes.class.value;
+    let classes = $(event.currentTarget);
     let  expansionText = "";
-      if (expandInfo == "weapon-range")
+      if (classes.hasClass("weapon-range"))
       {
         let range = parseInt(event.target.text);
         expansionText = "0 yd - " + Math.ceil(range / 10) + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
@@ -4535,14 +4542,14 @@ class ActorSheetWfrp4e extends ActorSheet {
         (range + 1) + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
         (range * 2 + 1) + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
       }
-      else if (expandInfo == "weapon-group")
+      else if (classes.hasClass("weapon-group"))
       {
         let weaponGroup = event.target.text;
         let weaponGroupKey = "";
         weaponGroupKey = WFRP_Utility.findKey(weaponGroup, CONFIG.weaponGroups);
         expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
       }
-      else if (expandInfo == "weapon-reach")
+      else if (classes.hasClass("weapon-reach"))
       {
         let reach = event.target.text;
         let reachKey;
