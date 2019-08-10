@@ -786,6 +786,11 @@
         color: white;
         box-shadow: 0px 0px 10px black inset;
     }
+    .app.window-app.sheet.item-sheet .item-header h1 {
+      border: none;
+      margin: 0px;
+      padding: 0px;
+    }
     .app.window-app.sheet.item-sheet .item-header input[type="text"], input[type="password"] {
       min-width: 20px;
       background: none;
@@ -881,7 +886,7 @@
         font-weight: 500;
         font-size: 14px;
         color: black;
-        padding-top: 0px;
+        padding-top: 5px !important;
         margin-right: 6px;
         width: 45px;
         position: relative;
@@ -902,6 +907,7 @@
           left: 0px;
           vertical-align: top;
           text-align: center;
+          background: none;
         }
         .app.window-app.sheet.item-sheet .item-details.row2 .input-text {
           flex-grow: 2;
@@ -1028,6 +1034,7 @@
             flex-direction: row;
             width: 100%;
             box-shadow: none;
+            background: none;
           }
           .app.window-app.sheet.item-sheet .tab .input-text:hover {
             border: 1px dotted #463a3a;
