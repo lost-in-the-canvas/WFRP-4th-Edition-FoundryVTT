@@ -1773,21 +1773,22 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", async () => {
 
     
-  //  let pack = game.packs.find(p => p.collection == "world.psychologies")
-  //  let list = await pack.getIndex();
-  //  for (let skill of list)
-  //  {
-     
-  //    await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/psychologies/psychology.png"})
-  //  }
+    // let pack = game.packs.find(p => p.collection == "world.careers")
+    // let list = await pack.getIndex();
+    // let counter = 0;
+    // for (let skill of list)
+    // {
+    //   counter++;   
+    // }
+    // console.log(counter);
 
-  let weapons = game.items.entities.filter(x => x.type == "armour");
-  for (let wep of weapons)
-  {
-    let filename = wep.data.name.toLowerCase().replace(" ", "-") + ".png";
-    console.log(filename);
-    wep.update({"img" : `systems/wfrp4e/icons/equipment/armour/${filename}`})
-  }
+  // let weapons = game.items.entities.filter(x => x.type == "career");
+  // for (let wep of weapons)
+  // {
+  //   let filename = wep.data.data.careergroup.value.toLowerCase().replace(" ", "-") + `-0${wep.data.data.level.value}.png`;
+  //   console.log(filename);
+  //   wep.update({"img" : `systems/wfrp4e/icons/careers/${filename}`})
+  // }
 
   /**
    * Double every other diagonal movement
@@ -2697,7 +2698,8 @@ class ItemWfrp4e extends Item {
 
   static async create(data, options) {
 
-    data.img = "systems/wfrp4e/icons/blank.png";
+    if (!data.img)
+      data.img = "systems/wfrp4e/icons/blank.png";
     super.create(data, options);
   }
   // Expand data is used in most dropdown infos
