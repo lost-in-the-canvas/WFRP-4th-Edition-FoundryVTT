@@ -76,7 +76,31 @@
       "label": "Diseases",
       "path": "./packs/diseases.db",
       "entity": "Item",
-      "module": "world",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "./packs/spells.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+	{
+      "name": "prayers",
+      "label": "Prayers",
+      "path": "./packs/prayers.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "trappings",
+      "label": "Trappings",
+      "path": "./packs/trappings.db",
+      "entity": "Item",
+      "module": "wfrp4e",
       "system": "wfrp4e"
     }
   ],

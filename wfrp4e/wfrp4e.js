@@ -1773,21 +1773,20 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", async () => {
 
     
-    // let pack = game.packs.find(p => p.collection == "world.careers")
-    // let list = await pack.getIndex();
-    // let counter = 0;
-    // for (let skill of list)
-    // {
-    //   counter++;   
-    // }
-    // console.log(counter);
+  //  let pack = game.packs.find(p => p.collection == "world.psychologies")
+  //  let list = await pack.getIndex();
+  //  for (let skill of list)
+  //  {
+     
+  //    await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/psychologies/psychology.png"})
+  //  }
 
-  // let weapons = game.items.entities.filter(x => x.type == "career");
+  // pack = game.packs.find(p => p.collection == "world.spells")
+  // let list = await pack.getIndex();
+  // let weapons = game.items.entities.filter(x => x.type == "spell");
   // for (let wep of weapons)
   // {
-  //   let filename = wep.data.data.careergroup.value.toLowerCase().replace(" ", "-") + `-0${wep.data.data.level.value}.png`;
-  //   console.log(filename);
-  //   wep.update({"img" : `systems/wfrp4e/icons/careers/${filename}`})
+  //   await pack.createEntity(wep.data);
   // }
 
   /**
