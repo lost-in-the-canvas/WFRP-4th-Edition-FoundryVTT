@@ -4,20 +4,19 @@
   </h1>
 </header>
 
-<script>
+<!-- <script>
     textContainer = document.querySelectorAll('.app.window-app.sheet');
     length = textContainer.length;
   
     for (i = 0; i < length; i++) {
       if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
         new_red = document.getElementsByClassName("app window-app sheet")[i].id;
+        console.log("new_red");
+        console.log(new_red);
         if (document.getElementById(new_red).className.includes("career-sheet")) {
           continue;
         } 
         if (document.getElementById(new_red).className.includes("ammo-sheet")) {
-          continue;
-        } 
-        if (document.getElementById(new_red).className.includes("career-sheet")) {
           continue;
         } 
         if (document.getElementById(new_red).className.includes("consumable-sheet")) {
@@ -62,9 +61,9 @@
         if (document.getElementById(new_red).className.includes("weapon-sheet")) {
           continue;
         } 
-        document.getElementById(new_red).className += " armour-sheet";
+        document.getElementById(new_red).className += " armour-sheet item-sheet";
       } else {}
     }
   
     // console.log(checkIfToken);
-  </script>
+  </script> -->
