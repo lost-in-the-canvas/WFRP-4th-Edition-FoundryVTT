@@ -1,69 +1,61 @@
-<div class="notes-section save-scroll">
-  <div class="biography">
-    <h2>Biography</h2>
-    {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+<h2 class="note-section label">Biography</h2>
+<div class="note-section biography">
+  {{editor content=data.biography.value target="data.biography.value" button=true owner=owner editable=editable}}
+</div>
+
+<div class="ambition-section">
+  <h4>Personal Ambitions</h4>
+  <div class="ambition first-row">
+    <a class="label-details">Short Term</a>
+    <input class="input-details" name="data.details.personal-ambitions.short-term" type="text"
+      value="{{data.details.personal-ambitions.short-term}}" />
   </div>
 
+  <div class="ambition">
+    <a class="label-details">Long Term</a>
+    <input class="input-details" name="data.details.personal-ambitions.long-term" type="text"
+      value="{{data.details.personal-ambitions.long-term}}" />
+  </div>
+</div>
 
-  <div class="ambitions">
-    <div class="ambition-sections">
-      <div class="ambition-section">
-        <h4>Personal Ambitions</h4>
-        <div class="ambition first-row">
-          <a class="label-details">Short Term</a>
-          <input class="input-details" name="data.details.personal-ambitions.short-term" type="text"
-            value="{{data.details.personal-ambitions.short-term}}" />
-        </div>
-
-        <div class="ambition">
-          <a class="label-details">Long Term</a>
-          <input class="input-details" name="data.details.personal-ambitions.long-term" type="text"
-            value="{{data.details.personal-ambitions.long-term}}" />
-        </div>
-      </div>
-
-
-      <div class="ambition-section">
-        <h4 id="party-ambition">Party Ambitions</h4>
-        <div class="ambition first-row">
-          <a class="label-details">Short Term</a>
-          <input class="input-details" name="data.details.party-ambitions.short-term" type="text"
-            value="{{data.details.party-ambitions.short-term}}" />
-        </div>
-
-        <div class="ambition">
-          <a class="label-details">Long Term</a>
-          <input class="input-details" name="data.details.party-ambitions.long-term" type="text"
-            value="{{data.details.party-ambitions.long-term}}" />
-        </div>
-      </div>
-    </div>
+<div class="ambition-section">
+  <h4 id="party-ambition">Party Ambitions</h4>
+  <div class="ambition first-row">
+    <a class="label-details">Short Term</a>
+    <input class="input-details" name="data.details.party-ambitions.short-term" type="text"
+      value="{{data.details.party-ambitions.short-term}}" />
   </div>
 
-
-  <div class="motivation">
-    <div class="label-motivation">Motivation</div>
-    <input id="input-motivation" name="data.details.motivation.value" type="text"
-      value="{{data.details.motivation.value}}" />
+  <div class="ambition">
+    <a class="label-details">Long Term</a>
+    <input class="input-details" name="data.details.party-ambitions.long-term" type="text"
+      value="{{data.details.party-ambitions.long-term}}" />
   </div>
+</div>
 
 
-  <ol class="inventory-list psychology-list">
-    <li class="inventory-header item">
-      <span>Pyschology</span>
-      {{#if owner}}
-      <div id="psychology-add" class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="psychology">
-          <i class="fas fa-plus"></i>
-        </a>
-      </div>
-      {{/if}}
-    </li>
-    {{#each actor.psychology as |psych p|}}
-    <li class="item" data-item-id="{{psych.id}}">
+<div class="motivation">
+  <div class="label-motivation">Motivation</div>
+  <input class="input-details" name="data.details.motivation.value" type="text"
+    value="{{data.details.motivation.value}}" />
+</div>
+
+<div class="inventory-header item psychology-header">
+  <div id="name">Psychology</div>
+  {{#if owner}}
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
+    </a>
+  </div>
+  {{/if}}
+</div>
+<ol class="inventory-list psychology-list save-scroll">
+  {{#each actor.psychology as |psych p|}}
+  <li class="item" data-item-id="{{psych.id}}">
+    <div class="content">
       <div class="item-name item-dropdown">
-        <div class="item-image" style="background-image: url({{psych.img}})"></div>
-        <a>{{psych.name}}</a>
+        <div class="image item-image" style="background-image: url({{psych.img}})"></div>
+        <a class="name">{{psych.name}}</a>
       </div>
 
       {{#if ../owner}}
@@ -72,80 +64,76 @@
         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
       </div>
       {{/if}}
-    </li>
-    {{/each}}
-  </ol>
+    </div>
+  </li>
+  {{/each}}
+</ol>
 
-
-  <ol class="inventory-list mutation-list">
-    <li id="mutation-header" class="inventory-header item mutation-header">
-      <span id="mutation-name" class="item-name">Corruption & Mutation</span>
-      {{#if owner}}
-      <div id="mutation-add" class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="mutation">
-          <i class="fas fa-plus"></i>
-        </a>
-      </div>
-      {{/if}}
-    </li>
-    {{#each actor.mutations as |item i|}}
-    <li class="item" data-item-id="{{item.id}}">
-      <div class="item-name currency-name item-dropdown">
-        <div class="item-image" style="background-image: url({{item.img}})"></div>
-        <a>{{item.name}}</a>
-      </div>
-
-      {{#if ../owner}}
-      <div class="item-controls">
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-      </div>
-      {{/if}}
-    </li>
-    {{/each}}
-  </ol>
-
-
-  <ol class="inventory-list disease-list">
-    <li id="disease-header" class="inventory-header item disease-header">
-      <span id="disease-name" class="item-name">Disease</span>
-
-      <span id="disease-attr-incubation">Incubation</span>
-      <span id="disease-attr-duration">Duration</span>
-
-      {{#if owner}}
-      <div id="disease-add" class="item-controls">
-        <a class="item-control item-create" title="Create Item" data-type="disease">
-          <i class="fas fa-plus"></i>
-        </a>
-      </div>
-      {{/if}}
-    </li>
-    {{#each actor.diseases as |item i|}}
-    <li class="item" data-item-id="{{item.id}}">
-      <div class="item-name currency-name item-dropdown">
-        <div class="item-image" style="background-image: url({{item.img}})"></div>
-        <a>{{item.name}}</a>
-      </div>
-
-      
-      <a class="incubation disease-roll">{{item.data.incubation.roll}}</a>
-      <a class="duration disease-roll">{{item.data.duration.roll}}</a>
-
-      
-      {{#if ../owner}}
-      <div class="item-controls">
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-      </div>
-      {{/if}}
-    </li>
-    {{/each}}
-  </ol>
-
-
-  <div class="gmnotes">
-    <h2>GM Notes</h2>
-    {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
+<div class="inventory-header item mutation-header">
+  <span id="name">Corruption & Mutation</span>
+  {{#if owner}}
+  <div class="item-controls">
+    <a class="item-control item-create" title="Create Item" data-type="mutation">
+      <i class="fas fa-plus"></i>
+    </a>
   </div>
-<div>
+  {{/if}}
+</div>
+<ol class="inventory-list mutation-list save-scroll">
+  {{#each actor.mutations as |item i|}}
+  <li class="item" data-item-id="{{item.id}}">
+    <div class="content">
+      <div class="item-name currency-name item-dropdown">
+        <div class="image item-image" style="background-image: url({{item.img}})"></div>
+        <a class="name">{{item.name}}</a>
+      </div>
+
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </div>
+  </li>
+  {{/each}}
+</ol>
+
+<div class="inventory-header item disease-header">
+    <div id="name">Psychology</div>
+    <div id="incubation">Incubation</div>
+    <div id="duration">Duration</div>
+    {{#if owner}}
+    <div class="item-controls">
+      <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
+      </a>
+    </div>
+    {{/if}}
+  </div>
+<ol class="inventory-list disease-list">
+  {{#each actor.diseases as |item i|}}
+  <li class="item" data-item-id="{{item.id}}">
+    <div class="item-name currency-name item-dropdown">
+      <div class="image item-image" style="background-image: url({{item.img}})"></div>
+      <a class="name">{{item.name}}</a>
+    </div>
+
+    
+    <a class="incubation disease-roll">{{item.data.incubation.roll}}</a>
+    <a class="duration disease-roll">{{item.data.duration.roll}}</a>
+
+    
+    {{#if ../owner}}
+    <div class="item-controls">
+      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+    </div>
+    {{/if}}
+  </li>
+  {{/each}}
+</ol>
+
+<h2 class="note-section label">GM Notes</h2>
+<div class="note-section gmnotes">
+  {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
+</div>
