@@ -5328,7 +5328,7 @@
           height: 18px;
           width: fit-content;
           display: inline-block;
-          background: beige;
+          /* background: beige; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .weight {
           position: relative;
@@ -5336,12 +5336,12 @@
           height: 18px;
           width: fit-content;
           display: inline-block;
-          background: beige;
+          /* background: beige; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header .item-controls {
           position: relative;
           top: -1px;
-          left: 168px;
+          left: 166px;
           height: fit-content;
           width: fit-content;
           display: inline-block;
@@ -5368,40 +5368,25 @@
         width: 100%;
         margin: -4px 0px 0px 0px;
         padding: 0px;
+        box-shadow: 0px 0px 1px inset black;
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content {
           width: 100%;
-          text-align: left;
+          text-align: center;
           overflow-x: hidden;
           overflow-y: hidden;
           margin: 0px 0px;
-          padding: 2px 2px;
+          padding: 0px 0px;
           display: flex;
-          flex-direction: column;
-          box-shadow: 0px 0px 1px inset black;
+          flex-direction: row;
           font-family: var(--actor-input-font-family);
           font-size: var(--actor-input-font-size);
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           justify-content: space-between;
+          box-shadow: 0px 0px 1px inset black;
           /* background: var(--debug-background-color-green); */
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: row;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .item-name {
             display: flex;
             flex-direction: row;
@@ -5430,7 +5415,7 @@
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 0;
-            background: aqua;
+            /* background: aqua; */
           }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .quantity {
             min-width: 30px;
@@ -5442,7 +5427,7 @@
             flex-basis: 0;
             position: relative;
             left: 43px;
-            background: aqua;
+            /* background: aqua; */
           }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .weight {
             min-width: 30px;
@@ -5454,7 +5439,7 @@
             flex-basis: 0;
             position: relative;
             left: 30px;
-            background: aqua;
+            /* background: aqua; */
           }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .item .content .item-controls {
             padding: 11px 4px 0px 0px;
@@ -5467,7 +5452,8 @@
             flex-grow: 0;
           }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour {
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour,
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing {
         width: 100%;
         height: 20px;
         margin: 6px 0px 0px 0px;
@@ -5485,22 +5471,25 @@
         overflow-x: hidden;
         overflow-y: hidden;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .name {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .name,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing .name {
           position: relative;
           left: 0px;
           height: 18px;
           width: 243px;
           display: inline-block;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-toggle {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-toggle,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing .item-toggle {
           position: relative;
           left: 63px;
           height: 18px;
           width: fit-content;
           display: inline-block;
-          background: beige;
+          /* background: beige; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .quantity {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .quantity,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing .quantity {
           position: relative;
           left: 82px;
           height: 18px;
@@ -5508,18 +5497,20 @@
           display: inline-block;
           /* background: beige; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .weight {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .weight,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing .weight {
           position: relative;
-          left: 108px;
+          left: 105px;
           height: 18px;
           width: fit-content;
           display: inline-block;
           /* background: beige; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-controls {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour .item-controls,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing .item-controls {
           position: relative;
           top: -1px;
-          left: 168px;
+          left: 133px;
           height: fit-content;
           width: fit-content;
           display: inline-block;
@@ -5530,7 +5521,72 @@
           padding: 0px;
         }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour {
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons {
+        width: 100%;
+        height: 20px;
+        margin: 6px 0px 0px 0px;
+        padding: 0px 6px;
+        border: 1px solid #736953a6;
+        font-family: var(--actor-label-font-family);
+        font-size: var(--actor-label-font-size);
+        font-weight: var(--actor-label-font-weight);
+        color: var(--actor-label-color);
+        background: none;
+        box-shadow: 0 0 10px #6b3a0f87 inset;
+        text-align: left;
+        display: inline-block;
+        flex-grow: 0;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons .name {
+          position: relative;
+          left: 0px;
+          height: 18px;
+          width: 243px;
+          display: inline-block;
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons .item-toggle {
+          position: relative;
+          left: 55px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons .quantity {
+          position: relative;
+          left: 65px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons .weight {
+          position: relative;
+          left: 88px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Weapons .item-controls {
+          position: relative;
+          top: -1px;
+          left: 116px;
+          height: fit-content;
+          width: fit-content;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 0px;
+        }
+
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour,
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons,
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing {
         overscroll-behavior-x: unset;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -5547,16 +5603,17 @@
         margin: -4px 0px 0px 0px;
         padding: 0px;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content {
           width: 100%;
-          text-align: left;
+          text-align: center;
           overflow-x: hidden;
           overflow-y: hidden;
           margin: 0px 0px;
-          padding: 2px 2px;
+          padding: 0px 0px;
           display: flex;
-          flex-direction: column;
-          box-shadow: 0px 0px 1px inset black;
+          flex-direction: row;
           font-family: var(--actor-input-font-family);
           font-size: var(--actor-input-font-size);
           font-weight: var(--actor-input-font-weight);
@@ -5564,29 +5621,17 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: row;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-name {
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-name,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .item-name,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .item-name {
             display: flex;
             flex-direction: row;
             min-width: 290px;
             max-width: 290px;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .image {
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .image,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .image,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .image {
               background-size: 32px;
               background-repeat: no-repeat;
               min-height: 32px;
@@ -5594,13 +5639,17 @@
               min-width: 32px;
               max-width: 32px;
             }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .name {
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .name,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .name,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .name {
               text-align: left;
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
               overflow: hidden;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-toggle {
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-toggle,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .item-toggle,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .item-toggle {
             min-width: 30px;
             max-width: 30px;
             padding: 11px 0px 0px 0px;
@@ -5610,9 +5659,11 @@
             flex-basis: 0;
             position: relative;
             left: 9px;
-            background: aqua;
+            /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .quantity {
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .quantity,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .quantity,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .quantity {
             min-width: 30px;
             max-width: 30px;
             padding: 11px 0px 0px 0px;
@@ -5622,9 +5673,11 @@
             flex-basis: 0;
             position: relative;
             left: 11px;
-            background: aqua;
+            /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .weight {
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .weight,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .weight,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .weight {
             min-width: 30px;
             max-width: 30px;
             padding: 11px 0px 0px 0px;
@@ -5634,9 +5687,11 @@
             flex-basis: 0;
             position: relative;
             left: 14px;
-            background: aqua;
+            /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-controls {
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
             padding: 11px 4px 0px 0px;
             font-family: "Font Awesome 5 Free";
             font-size: 10px;
@@ -5647,554 +5702,1261 @@
             flex-grow: 0;
           }
 
-
- 
-
-
-
-
-
-
-
-      /* CONTAINER - LEVEL 1 */
-      .wfrp4e .inventory .inventory-container {
-        height: 36px;
-        width: 493px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
+    /* ================== 3. INGREDIENTS EQUIPMENT LISTS ======== */
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients {
+        width: 100%;
+        height: 20px;
+        margin: 6px 0px 0px 0px;
+        padding: 0px 6px;
         border: 1px solid #736953a6;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
+        font-family: var(--actor-label-font-family);
+        font-size: var(--actor-label-font-size);
+        font-weight: var(--actor-label-font-weight);
+        color: var(--actor-label-color);
         background: none;
-        box-shadow: 0 0 10px #48484887 inset;
-        overscroll-behavior-x: none;
+        box-shadow: 0 0 10px #6b3a0f87 inset;
+        text-align: left;
+        display: inline-block;
+        flex-grow: 0;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-right: 0px;
       }
-        .wfrp4e .inventory .inventory-container .item-name {
-          margin-right: 4px;
-          background-size: 30px;
-          background-repeat: no-repeat;
-          min-height: 34px;
-          max-height: 34px;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          /* background: blue; */
-          width: 203px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients .name {
+          position: relative;
+          left: 0px;
+          height: 18px;
+          width: 243px;
+          display: inline-block;
         }
-          .wfrp4e .inventory .inventory-container .item-image {
-            display: block;
-            margin-right: 4px;
-            background-size: 30px;
-            background-repeat: no-repeat;
-            min-height: 30px;
-            max-height: 30px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients .item-toggle {
+          position: relative;
+          left: 17px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients .quantity {
+          position: relative;
+          left: 86px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients .weight {
+          position: relative;
+          left: 109px;
+          height: 18px;
+          width: fit-content;
+          display: inline-block;
+          /* background: beige; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Ingredients .item-controls {
+          position: relative;
+          top: -1px;
+          left: 136px;
+          height: fit-content;
+          width: fit-content;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 0px;
+        }
+
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: -4px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content {
+          width: 100%;
+          text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 197px;
+            max-width: 197px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 7px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector > select {
+              background: none;
+              border: 1px solid #737373;
+              border-radius: 2px;
+              padding: 0px;
+              margin: 0px;
+              font-family: var(--actor-input-font-family);
+              font-size: var(--actor-input-font-size);
+              font-weight: var(--actor-input-font-weight);
+              color: var(--actor-input-color);
+              height: 19px;
+              width: 100%;
+              text-overflow: ellipsis;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .quantity {
             min-width: 30px;
             max-width: 30px;
-            margin-top: 2px;
-            margin-bottom: 2px;
-          }
-          .wfrp4e .inventory .inventory-container .item-name .item-label {
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
             position: relative;
-            top: -26px;
-            left: 33px;
-            text-align: left;
-            width: 170px;
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 2px;
-            /* background: red; */
+            left: -2px;
+            /* background: aqua; */
           }
-        .wfrp4e .inventory .inventory-container .item-carries {
-          width: 100px;
-          position: relative;
-          top: 2px;
-          left: 57px;
-          height: fit-content;
-          /* background: aqua; */
-          vertical-align: middle;
-          text-align: left;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
+
+    /* ================== 4. CONTAINERS EQUIPMENT LISTS ========= */
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-section.container {
+        height: fit-content;
+        width: 100%;
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-section.container .inventory-list.container-lists {
+        height: fit-content;
+        width: 98%;
+        margin-top: 6px;
+        border: none;
+        box-shadow: none;
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .level-two-item:last-of-type {
+        border-bottom: 1px solid #736953a6;
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .level-three-item:last-of-type {
+        border-bottom: 1px solid #736953a6;
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .level-four-item:last-of-type {
+        border-bottom: 1px solid #736953a6;
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .level-five-item:last-of-type {
+        border-bottom: 1px solid #736953a6;
+      }
+
+      /* CONTAINER - LEVEL 1 */
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one {
+        width: 100%;
+        height: 40px;
+        margin: 6px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+        border: 1px solid #736953a6;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        background: none;
+        box-shadow: 0 0 10px #48484887 inset;
+        text-align: left;
+        display: inline-flex;
+        align-items: end;
+        justify-content: flex-end;
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .item-name {
+          display: flex;
+          flex-direction: row;
+          height: 38px;
+          max-width: 203px;
+          margin-right: 5px;
+          text-overflow: clip;
+          /* background: aquamarine; */
         }
-        .wfrp4e .inventory .inventory-container .toggle-enc {
-          width: 100px;
-          position: relative;
-          top: 19px;
-          left: -43px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
-          text-align: left;
-        }
-        .wfrp4e .inventory .inventory-container .worn-container {
-          width: 55px;
-          position: relative;
-          top: 10px;
-          left: -201px;
-          height: 26px;
-          /* background: #5db747; */
-          vertical-align: middle;
-          text-align: left;
-        }
-        .wfrp4e .inventory .inventory-container .item-quantity {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 316px;
-          height: fit-content;
-          /* background: #4192da; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .image {
+            background-size: 32px;
+            background-repeat: no-repeat;
+            min-height: 32px;
+            max-height: 32px;
+            min-width: 32px;
+            max-width: 32px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .name {
+            text-align: left;
+            vertical-align: middle;
+            padding: 12px 0px 0px 4px;
+            overflow: hidden;
+            height: 38px;
+            position: inherit;
+            white-space: nowrap;
+            text-overflow: clip;
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .worn-container {
           text-align: center;
+          min-width: 55px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 5px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container .item-weight {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 404px;
-          height: fit-content;
-          /* background: #429458; */
-          vertical-align: middle;
-          text-align: center;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .column-section {
+          display: flex;
+          flex-direction: column;
+          height: 38px;
+          min-width: 90px;
+          max-width: 90px;
+          margin-right: 9px;
         }
-        .wfrp4e .inventory .inventory-container .item-controls {
-          width: 35px;
-          position: relative;
-          top: -26px;
-          left: 357px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .item-carries {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: orange; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .toggle-enc {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: aqua; */
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .item-quantity {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 20px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .item-weight {
+          text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 10px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-one .item-controls {
+          height: 38px;
+          min-width: 30px;
+          max-width: 30px;
+          text-align: right;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 14px 0px 0px 0px;
+          position: inherit;
+          margin-right: 4px;
+          /* background: burlywood; */
         }
 
-        .wfrp4e .inventory .inventory-list .level-one-item .item-name {
-          flex-basis: 237px;
-        }
-        .wfrp4e .inventory .inventory-list .level-one-item .item-type {
-          padding-top: 3px;
-          margin: 0px;
-          vertical-align: middle;
-          line-height: normal;
-          height: 34px;
-          width: 120px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-          -webkit-box-align: center;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-left: 1px solid #736953a6;
+        border-right: 1px solid #736953a6;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content {
+          width: 100%;
           text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
         }
-        .wfrp4e .inventory .inventory-list .level-one-item .item:last-child {
-          border-bottom: 1px solid #736953a6;
-        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 197px;
+            max-width: 197px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .item-type {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: -2px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.level-one .item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
 
       /* CONTAINER - LEVEL 2 */
-      .wfrp4e .inventory .inventory-container.level-two {
-        height: 36px;
-        width: 483px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two {
+        width: 100%;
+        height: 40px;
+        margin: 0px;
+        padding: 0px 0px;
         border: 1px solid #736953a6;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
         background: none;
         box-shadow: 0 0 10px #48484887 inset;
-        overscroll-behavior-x: none;
+        text-align: left;
+        display: inline-flex;
+        align-items: end;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-right: 0px;
       }
-        .wfrp4e .inventory .inventory-container.level-two .item-name {
-          margin-right: 4px;
-          background-size: 30px;
-          background-repeat: no-repeat;
-          min-height: 34px;
-          max-height: 34px;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          /* background: blue; */
-          width: 193px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .item-name {
+          display: flex;
+          flex-direction: row;
+          height: 38px;
+          max-width: 193px;
+          margin-right: 5px;
+          text-overflow: clip;
+          /* background: aquamarine; */
         }
-          .wfrp4e .inventory .inventory-container.level-two .item-name .item-label {
-            position: relative;
-            top: -26px;
-            left: 33px;
-            text-align: left;
-            width: 160px;
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 2px;
-            /* background: red; */
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .image {
+            background-size: 32px;
+            background-repeat: no-repeat;
+            min-height: 32px;
+            max-height: 32px;
+            min-width: 32px;
+            max-width: 32px;
           }
-        .wfrp4e .inventory .inventory-container.level-two .item-weight {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 394px;
-          height: fit-content;
-          /* background: #429458; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .name {
+            text-align: left;
+            vertical-align: middle;
+            padding: 12px 0px 0px 4px;
+            overflow: hidden;
+            height: 38px;
+            position: inherit;
+            white-space: nowrap;
+            text-overflow: clip;
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .worn-container {
           text-align: center;
+          min-width: 55px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 5px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-two .item-quantity {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 306px;
-          height: fit-content;
-          /* background: #4192da; */
-          vertical-align: middle;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .column-section {
+          display: flex;
+          flex-direction: column;
+          height: 38px;
+          min-width: 90px;
+          max-width: 90px;
+          margin-right: 9px;
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .item-carries {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: orange; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .toggle-enc {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: aqua; */
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .item-quantity {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 20px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-two .item-controls {
-          width: 35px;
-          position: relative;
-          top: -26px;
-          left: 347px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .item-weight {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 10px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-
-        .wfrp4e .inventory .level-two-item {
-          width: 483px !important;
-        }
-        .wfrp4e .inventory .inventory-list .level-two-item .item-name {
-          flex-basis: 227px;
-        }
-        .wfrp4e .inventory .inventory-list .level-two-item .item-type {
-          padding-top: 3px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-two .item-controls {
+          height: 38px;
+          min-width: 30px;
+          max-width: 30px;
+          text-align: right;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
           margin: 0px;
-          vertical-align: middle;
-          line-height: normal;
-          height: 34px;
-          width: 120px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-          -webkit-box-align: center;
-          text-align: center;
-        }
-        .wfrp4e .inventory .inventory-list .level-two-item:last-of-type {
-          border-bottom: 1px solid #736953a6 !important;
+          padding: 14px 0px 0px 0px;
+          position: inherit;
+          margin-right: 4px;
+          /* background: burlywood; */
         }
 
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-left: 1px solid #736953a6;
+        border-right: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content {
+          width: 100%;
+          text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 187px;
+            max-width: 187px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .item-type {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: -2px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-two-item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
+  
       /* CONTAINER - LEVEL 3 */
-      .wfrp4e .inventory .inventory-container.level-three {
-        height: 36px;
-        width: 473px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three {
+        width: 100%;
+        height: 40px;
+        margin: 0px;
+        padding: 0px 0px;
         border: 1px solid #736953a6;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
         background: none;
         box-shadow: 0 0 10px #48484887 inset;
-        overscroll-behavior-x: none;
+        text-align: left;
+        display: inline-flex;
+        align-items: end;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-right: 0px;
       }
-        .wfrp4e .inventory .inventory-container.level-three .item-name {
-          margin-right: 4px;
-          background-size: 30px;
-          background-repeat: no-repeat;
-          min-height: 34px;
-          max-height: 34px;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          /* background: blue; */
-          width: 183px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .item-name {
+          display: flex;
+          flex-direction: row;
+          height: 38px;
+          max-width: 183px;
+          margin-right: 5px;
+          text-overflow: clip;
+          /* background: aquamarine; */
         }
-          .wfrp4e .inventory .inventory-container.level-three .item-name .item-label {
-            position: relative;
-            top: -26px;
-            left: 33px;
-            text-align: left;
-            width: 150px;
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 2px;
-            /* background: red; */
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .image {
+            background-size: 32px;
+            background-repeat: no-repeat;
+            min-height: 32px;
+            max-height: 32px;
+            min-width: 32px;
+            max-width: 32px;
           }
-        .wfrp4e .inventory .inventory-container.level-three .item-weight {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 384px;
-          height: fit-content;
-          /* background: #429458; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .name {
+            text-align: left;
+            vertical-align: middle;
+            padding: 12px 0px 0px 4px;
+            overflow: hidden;
+            height: 38px;
+            position: inherit;
+            white-space: nowrap;
+            text-overflow: clip;
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .worn-container {
           text-align: center;
+          min-width: 55px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 5px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-three .item-quantity {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 296px;
-          height: fit-content;
-          /* background: #4192da; */
-          vertical-align: middle;
-          text-align: center;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .column-section {
+          display: flex;
+          flex-direction: column;
+          height: 38px;
+          min-width: 90px;
+          max-width: 90px;
+          margin-right: 9px;
         }
-        .wfrp4e .inventory .inventory-container.level-three .item-controls {
-          width: 35px;
-          position: relative;
-          top: -26px;
-          left: 337px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .item-carries {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: orange; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .toggle-enc {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: aqua; */
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .item-quantity {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 20px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .item-weight {
+          text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 10px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-three .item-controls {
+          height: 38px;
+          min-width: 30px;
+          max-width: 30px;
+          text-align: right;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 14px 0px 0px 0px;
+          position: inherit;
+          margin-right: 4px;
+          /* background: burlywood; */
         }
 
-        .wfrp4e .inventory .level-three-item {
-          width: 473px !important;
-        }
-        .wfrp4e .inventory .inventory-list .level-three-item .item-name {
-          flex-basis: 217px;
-        }
-        .wfrp4e .inventory .inventory-list .level-three-item .item-type {
-          padding-top: 3px;
-          margin: 0px;
-          vertical-align: middle;
-          line-height: normal;
-          height: 34px;
-          width: 120px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-          -webkit-box-align: center;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-left: 1px solid #736953a6;
+        border-right: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content {
+          width: 100%;
           text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
         }
-        .wfrp4e .inventory .inventory-list .level-three-item:last-of-type {
-          border-bottom: 1px solid #736953a6 !important;
-        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 177px;
+            max-width: 177px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .item-type {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: -2px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-three-item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
 
       /* CONTAINER - LEVEL 4 */
-      .wfrp4e .inventory .inventory-container.level-four {
-        height: 36px;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four {
         width: 463px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
+        height: 40px;
+        margin: 0px;
+        padding: 0px 0px;
         border: 1px solid #736953a6;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
         background: none;
         box-shadow: 0 0 10px #48484887 inset;
-        overscroll-behavior-x: none;
+        text-align: left;
+        display: inline-flex;
+        align-items: end;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-right: 0px;
       }
-        .wfrp4e .inventory .inventory-container.level-four .item-name {
-          margin-right: 4px;
-          background-size: 30px;
-          background-repeat: no-repeat;
-          min-height: 34px;
-          max-height: 34px;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          /* background: blue; */
-          width: 173px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .item-name {
+          display: flex;
+          flex-direction: row;
+          height: 38px;
+          max-width: 173px;
+          margin-right: 5px;
+          text-overflow: clip;
+          /* background: aquamarine; */
         }
-          .wfrp4e .inventory .inventory-container.level-four .item-name .item-label {
-            position: relative;
-            top: -26px;
-            left: 33px;
-            text-align: left;
-            width: 140px;
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 2px;
-            /* background: red; */
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .image {
+            background-size: 32px;
+            background-repeat: no-repeat;
+            min-height: 32px;
+            max-height: 32px;
+            min-width: 32px;
+            max-width: 32px;
           }
-        .wfrp4e .inventory .inventory-container.level-four .item-weight {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 374px;
-          height: fit-content;
-          /* background: #429458; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .name {
+            text-align: left;
+            vertical-align: middle;
+            padding: 12px 0px 0px 4px;
+            overflow: hidden;
+            height: 38px;
+            position: inherit;
+            white-space: nowrap;
+            text-overflow: clip;
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .worn-container {
           text-align: center;
+          min-width: 55px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 5px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-four .item-quantity {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 286px;
-          height: fit-content;
-          /* background: #4192da; */
-          vertical-align: middle;
-          text-align: center;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .column-section {
+          display: flex;
+          flex-direction: column;
+          height: 38px;
+          min-width: 90px;
+          max-width: 90px;
+          margin-right: 9px;
         }
-        .wfrp4e .inventory .inventory-container.level-four .item-controls {
-          width: 35px;
-          position: relative;
-          top: -26px;
-          left: 327px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .item-carries {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: orange; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .toggle-enc {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: aqua; */
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .item-quantity {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 20px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .item-weight {
+          text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 10px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
+        }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-four .item-controls {
+          height: 38px;
+          min-width: 30px;
+          max-width: 30px;
+          text-align: right;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
+          margin: 0px;
+          padding: 14px 0px 0px 0px;
+          position: inherit;
+          margin-right: 4px;
+          /* background: burlywood; */
         }
 
-        .wfrp4e .inventory .level-four-item {
-          width: 463px !important;
-        }
-        .wfrp4e .inventory .inventory-list .level-four-item .item-name {
-          flex-basis: 207px;
-        }
-        .wfrp4e .inventory .inventory-list .level-four-item .item-type {
-          padding-top: 3px;
-          margin: 0px;
-          vertical-align: middle;
-          line-height: normal;
-          height: 34px;
-          width: 120px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-          -webkit-box-align: center;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-left: 1px solid #736953a6;
+        border-right: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 463px;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content {
+          width: 100%;
           text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
         }
-        .wfrp4e .inventory .inventory-list .level-four-item:last-of-type {
-          border-bottom: 1px solid #736953a6 !important;
-        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 167px;
+            max-width: 167px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .item-type {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: -2px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-four-item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
 
       /* CONTAINER - LEVEL 5 */
-      .wfrp4e .inventory .inventory-container.level-five {
-        height: 36px;
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five {
         width: 453px;
-        padding-left: 4px;
-        padding-right: 4px;
-        line-height: 19px;
+        height: 40px;
+        margin: 0px;
+        padding: 0px 0px;
         border: 1px solid #736953a6;
-        font-family: CaslonPro;
-        font-size: 14px;
-        font-weight: 500;
-        color: black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
         background: none;
         box-shadow: 0 0 10px #48484887 inset;
-        overscroll-behavior-x: none;
+        text-align: left;
+        display: inline-flex;
+        align-items: end;
         overflow-x: hidden;
-        overscroll-behavior-y: none;
         overflow-y: hidden;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        margin-right: 0px;
       }
-        .wfrp4e .inventory .inventory-container.level-five .item-name {
-          margin-right: 4px;
-          background-size: 30px;
-          background-repeat: no-repeat;
-          min-height: 34px;
-          max-height: 34px;
-          margin-top: 0px;
-          margin-bottom: 0px;
-          /* background: blue; */
-          width: 163px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .item-name {
+          display: flex;
+          flex-direction: row;
+          height: 38px;
+          max-width: 163px;
+          margin-right: 5px;
+          text-overflow: clip;
+          /* background: aquamarine; */
         }
-          .wfrp4e .inventory .inventory-container.level-five .item-name .item-label {
-            position: relative;
-            top: -26px;
-            left: 33px;
-            text-align: left;
-            width: 130px;
-            vertical-align: middle;
-            margin-right: 6px;
-            padding-top: 2px;
-            /* background: red; */
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .image {
+            background-size: 32px;
+            background-repeat: no-repeat;
+            min-height: 32px;
+            max-height: 32px;
+            min-width: 32px;
+            max-width: 32px;
           }
-        .wfrp4e .inventory .inventory-container.level-five .item-weight {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 364px;
-          height: fit-content;
-          /* background: #429458; */
-          vertical-align: middle;
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .name {
+            text-align: left;
+            vertical-align: middle;
+            padding-top: 11px;
+            overflow: hidden;
+            height: 38px;
+            position: inherit;
+            white-space: nowrap;
+            text-overflow: clip;
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .worn-container {
           text-align: center;
+          min-width: 55px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 5px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-five .item-quantity {
-          width: 40px;
-          position: relative;
-          top: -24px;
-          left: 276px;
-          height: fit-content;
-          /* background: #4192da; */
-          vertical-align: middle;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .column-section {
+          display: flex;
+          flex-direction: column;
+          height: 38px;
+          min-width: 90px;
+          max-width: 90px;
+          margin-right: 9px;
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .item-carries {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: orange; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .toggle-enc {
+            display: flex;
+            flex-direction: row;
+            height: 19px;
+            padding-top: 3px;
+            /* background: aqua; */
+          }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .item-quantity {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 20px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-        .wfrp4e .inventory .inventory-container.level-five .item-controls {
-          width: 35px;
-          position: relative;
-          top: -26px;
-          left: 317px;
-          height: fit-content;
-          /* background: #ffbe00; */
-          vertical-align: middle;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .item-weight {
           text-align: center;
+          min-width: 30px;
+          max-width: 55px;
+          height: 38px;
+          margin-right: 10px;
+          padding-top: 11px;
+          /* background: #ff00ea; */
         }
-
-        .wfrp4e .inventory .level-five-item {
-          width: 453px !important;
-        }
-        .wfrp4e .inventory .inventory-list .level-five-item .item-name {
-          flex-basis: 197px;
-        }
-        .wfrp4e .inventory .inventory-list .level-five-item .item-type {
-          padding-top: 3px;
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.inventory-container.level-five .item-controls {
+          height: 38px;
+          min-width: 30px;
+          max-width: 30px;
+          text-align: right;
+          display: inline-block;
+          font-family: "Font Awesome 5 Free";
+          font-size: 10px;
+          color: var(--actor-label-color);
           margin: 0px;
-          vertical-align: middle;
-          line-height: normal;
-          height: 34px;
-          width: 120px;
-          display: -webkit-box;
-          -webkit-box-pack: center;
-          -webkit-box-align: center;
-          text-align: center;
-        }
-        .wfrp4e .inventory .inventory-list .level-five-item:last-of-type {
-          border-bottom: 1px solid #736953a6 !important;
+          padding: 14px 0px 0px 0px;
+          position: inherit;
+          margin-right: 4px;
+          /* background: burlywood; */
         }
 
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item {
+        overscroll-behavior-x: unset;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        border-left: 1px solid #736953a6;
+        border-right: 1px solid #736953a6;
+        border-top: none;
+        list-style: none;
+        box-shadow: 0px 0px 1px inset black;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        height: fit-content;
+        width: 453px;
+        margin: 0px 0px 0px 0px;
+        padding: 0px;
+      }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content {
+          width: 100%;
+          text-align: center;
+          overflow-x: hidden;
+          overflow-y: hidden;
+          margin: 0px 0px;
+          padding: 0px 0px;
+          display: flex;
+          flex-direction: row;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          justify-content: space-between;
+          /* background: var(--debug-background-color-green); */
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .item-name {
+            display: flex;
+            flex-direction: row;
+            min-width: 157px;
+            max-width: 157px;
+            /* background: aqua; */
+          }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .image {
+              background-size: 32px;
+              background-repeat: no-repeat;
+              min-height: 32px;
+              max-height: 32px;
+              min-width: 32px;
+              max-width: 32px;
+            }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .name {
+              text-align: left;
+              vertical-align: middle;
+              padding: 11px 0px 0px 4px;
+              overflow: hidden;
+            }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .item-type {
+            min-width: 150px;
+            max-width: 150px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .quantity {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: -2px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .weight {
+            min-width: 30px;
+            max-width: 30px;
+            padding: 11px 0px 0px 0px;
+            text-align: center;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 0;
+            position: relative;
+            left: 7px;
+            /* background: aqua; */
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list .level-five-item .content .item-controls {
+            padding: 11px 4px 0px 0px;
+            font-family: "Font Awesome 5 Free";
+            font-size: 10px;
+            color: #504f48a6;
+            text-align: right;
+            min-width: 40px;
+            max-width: 40px;
+            flex-grow: 0;
+          }
 
 
 
