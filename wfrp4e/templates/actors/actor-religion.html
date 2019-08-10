@@ -18,13 +18,11 @@
 
 <div class="inventory-header item blessing-header">
   <div class="name">Blessing</div>
-  {{#if isGM}}
+  {{#if owner}}
   <div id="blessing-add" class="item-controls">
-  {{else}}
-  <div id="blessing-add" style="visibility : hidden" class="item-controls">
-  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
   </div>
+  {{/if}}
 </div>
 
 <ol class="inventory-list blessing-list">
@@ -49,13 +47,11 @@
 
 <div class="inventory-header item miracle-header">
   <div class="name">Miracle</div>
-  {{#if isGM}}
+  {{#if owner}}
   <div id="miracle-add" class="item-controls">
-  {{else}}
-  <div id="miracle-add" style="visibility : hidden" class="item-controls">
-  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
   </div>
+  {{/if}}
 </div>
   
 <ol class="inventory-list miracle-list">

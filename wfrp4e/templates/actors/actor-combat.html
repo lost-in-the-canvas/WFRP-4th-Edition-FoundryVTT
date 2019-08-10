@@ -74,7 +74,7 @@
       <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
       {{#if item.data.ammunitionGroup.value}}
       <div class="ammo-selector selector">
-        <select name="currentAmmo-{{item.id}}" data-item-id="{{item.id}}"
+        <select name="item.data.currentAmmo.value" data-item-id="{{item.id}}"
           data-dtype="{{item.data.currentAmmo.type}}">
           {{#select item.data.currentAmmo.value}}
           <option class="ammo-option" value="0">None</option>
