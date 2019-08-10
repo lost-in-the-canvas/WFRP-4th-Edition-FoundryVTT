@@ -206,13 +206,15 @@
     <span id="current">Current</span>
     <span id="complete">Complete</span>
     <span id="level">Level</span>
-    {{#if owner}}
+    {{#if isGM}}
     <div class="item-controls">
+    {{else}}
+    <div style = "visibility : hidden" class="item-controls">
+    {{/if}}
       <a id="add-button" class="item-control item-create" title="Create Item" data-type="career">
         <i class="fas fa-plus"></i>
       </a>
     </div>
-    {{/if}}
   </div>
 
   <ol class="inventory-list save-scroll">

@@ -6,20 +6,22 @@
         <div class="char">Char.</div>
         <div class="adv">Adv.</div>
         <div class="total">Total</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </div>
 
       <ol class="inventory-list save-scroll">
         {{#each actor.basicSkills as |item i|}}
         <li class="item" data-item-id="{{item.id}}">
           <div class="skill-name">
-            <a class="name">{{item.name}}</a>
+            <a class="name skill-select">{{item.name}}</a>
             {{#if item.career}}
             <a class="advancement-indicator" data-target="skill">+</a>
             {{else}}
@@ -53,25 +55,27 @@
         <div class="char">Char.</div>
         <div class="adv">Adv.</div>
         <div class="total">Total</div>
-        {{#if owner}}
+        {{#if isGM}}
         <div class="item-controls">
+        {{else}}
+        <div style = "visibility : hidden" class="item-controls">
+        {{/if}}
           <a class="item-control item-create" title="Create Item" data-type="skill">
             <i class="fas fa-plus"></i>
           </a>
         </div>
-        {{/if}}
       </div>
 
       <ol class="inventory-list save-scroll">
         {{#each actor.advancedOrGroupedSkills as |item i|}}
         <li class="item skill-item" data-item-id="{{item.id}}">
           <div class="skill-name">
-            <a class="name">{{item.name}}</a>
+            <a class="name skill-select">{{item.name}}</a>
             {{#if item.career}}
             <a class="advancement-indicator" data-target="skill">+</a>
             {{else}}
             <a style="visibility : hidden" class="advancement-indicator">+</a>
-            {{/if}}
+            {{/if}}  
           </div>
 
           <h3 class="row-label">{{item.data.characteristic.abrev}}</h3>

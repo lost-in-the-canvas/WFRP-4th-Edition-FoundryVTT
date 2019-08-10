@@ -730,7 +730,7 @@ CONFIG.loreEffect = {
   "life": "Receive a +10 bonus to Casting and Channeling rolls when in a rural or wilderness environment. Living creatures — e.g. those without the Daemonic or Undead Creature Traits — targeted by Arcane Spells from the Lore of Life have all Fatigued and Bleeding Conditions removed after any other eﬀects have been applied as life magic ﬂoods through them. Creatures with the Undead Creature Trait, on the other hand, suﬀer additional Damage equal to your Willpower Bonus, ignoring Toughness Bonus and Armor Points, if aﬀected by any spell cast with the Lore of Life.",
   "light": "You may inﬂict one Blinded Condition on those targeted by Lore of Light spells, unless they possess the Arcane Magic (Light) Talent. If a target has the Daemonic or Undead Creature Traits, spells also inﬂict an additional hit with Damage equal to your Intelligence Bonus that ignores Toughness Bonus and Armor Points.",
   "shadow": "All spells cast from the Lore of Shadows inﬂicting Damage ignore all non-magical Armor Points.",
-  "hedgecraft": "",
+  "hedgecraft": "Hedgecraft spells cannot be cast without ingredients, which are an integral part of their spellcasting process.<br><br>Fortunately, the ingredients they use are easily found on the fringes of settlements and are usually herbs or plants. You receive 1 + SL ingredients on a successful foraging roll, using Lore (Herbs), as described under Gathering Food and Herbs, or you can buy them for 5 brass pennies each.",
   "witchcraft": "Each time practitioners of Witchcraft roll on a Miscast table, they also gain 1 Corruption point. Further, you may inﬂict one Bleeding Condition on anyone targeted by spells from the Lore of Witchcraft. Lastly, channeling or casting spells from this Lore automatically require a roll on the Minor Miscast table unless cast with an ingredient, where the ingredient provides no further protection should you roll a Miscast. Fortunately, ingredients for the Lore of Witchcraft are cheap and readily available: body parts of small animals for the most part. Ingredients cost a spell’s CN in brass pennies, instead of silver shillings, to purchase. Alternatively, a Witch may forage for parts, using the Outdoor Survival skill: a successful foraging roll receives 1 + SL ingredients, as described under Gathering Food and Herbs",
   "daemonology": "",
   "necromancy": "",
@@ -1781,6 +1781,14 @@ Hooks.on("canvasInit", async () => {
   //    await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/psychologies/psychology.png"})
   //  }
 
+  let weapons = game.items.entities.filter(x => x.type == "armour");
+  for (let wep of weapons)
+  {
+    let filename = wep.data.name.toLowerCase().replace(" ", "-") + ".png";
+    console.log(filename);
+    wep.update({"img" : `systems/wfrp4e/icons/equipment/armour/${filename}`})
+  }
+
   /**
    * Double every other diagonal movement
    */
@@ -1821,6 +1829,12 @@ class ActorWfrp4e extends Actor {
   
   // Give new actor all Basic skills
   static async create(data, options) {
+    if (data.items.length > 0) // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
+    {
+      super.create(data, options);
+      return
+    }
+
     if (data.type == "character")
     {
       let id = 1;
@@ -3548,8 +3562,10 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
       }
       catch (error){
-        console.error("Something went wrong with preparing item: " + error)
-        ui.notifications.error("Something went wrong with preparing item: " + error)
+        console.error("Something went wrong with preparing item " + i.name + ": " + error)
+        ui.notifications.error("Something went wrong with preparing item "+ i.name + ": " + error)
+        ui.notifications.error("Deleting "+ i.name);
+        this.actor.deleteOwnedItem(i.id, true);
       }
       }
   
@@ -4075,7 +4091,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       item.sheet.render(true);
     });
 
-    html.find('.skill-name').mousedown(ev => {
+    html.find('.skill-select').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       if (ev.button == 0)
       {
@@ -4360,9 +4376,29 @@ class ActorSheetWfrp4e extends ActorSheet {
         switch(event.target.text)
         {
           case "C":
-            let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
-            for (let char in rolledCharacteristics)
-              await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+            if (this.actor.data.type == "creature")
+            {
+              let roll = new Roll("2d10");
+              roll.roll();
+              let characteristics = duplicate (this.actor.data.data.characteristics);
+              for (let char in characteristics)
+              {
+                if (characteristics[char].initial == 0)
+                  continue
+
+                characteristics[char].initial -= 10;
+                characteristics[char].initial += roll.reroll().total;
+                if (characteristics[char].initial < 0)
+                  characteristics[char].initial = 0
+              }
+              await this.actor.update({"data.characteristics" : characteristics});
+            }
+            else
+            {
+              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+              for (let char in rolledCharacteristics)
+                await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+            }
             return
 
           case "S":
@@ -5129,8 +5165,11 @@ class WFRP_Utility
       item.duration += "+";
     }
     item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
-    item['damage'] = this._calculateSpellDamage(actorData, item.data.damage.value, item.data.magicMissile.value);
-    
+    if (item.type == "spell")
+      item['damage'] = this._calculateSpellDamage(actorData, item.data.damage.value, item.data.magicMissile.value);
+    else
+      item['damage'] = this._calculateSpellDamage(actorData, item.data.damage.value, false);
+
     if (item.type == "spell")
     {
       item.data.description.value = this._spellDescription(item);
@@ -5449,15 +5488,15 @@ class WFRP_Utility
       for(let ch in actorData.data.characteristics)
       {
 
-        if (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+        if (formula.includes(CONFIG.characteristics[ch].toLowerCase()))
         {
           if (formula.includes('bonus'))
           {
-            formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+            formula = formula.replace(CONFIG.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
           }
           else 
           {
-            formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+            formula = formula.replace(CONFIG.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
           }
         } 
       }

@@ -2,12 +2,14 @@
   <div id="talent-name">Talent</div>
   <div id="times-taken">Times Taken</div>
   <div id="tests">Tests</div>
-  {{#if owner}}
+  {{#if isGM}}
   <div class="item-controls">
+  {{else}}
+  <div style = "visibility : hidden" class="item-controls">
+  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
     </a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list talent-list save-scroll">
@@ -46,12 +48,14 @@
 {{#if actor.traits}}
 <div class="inventory-header item trait-header">
   <div id="trait-name">Creature Trait</div>
-  {{#if owner}}
+  {{#if isGM}}
   <div class="item-controls">
+  {{else}}
+  <div style = "visibility : hidden" class="item-controls">
+  {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
     </a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list trait-list save-scroll">
