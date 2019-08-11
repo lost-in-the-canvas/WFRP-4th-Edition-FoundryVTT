@@ -1830,7 +1830,7 @@ class ActorWfrp4e extends Actor {
   
   // Give new actor all Basic skills
   static async create(data, options) {
-    if (data.items.length > 0) // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
+    if (data.items) // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
     {
       super.create(data, options);
       return
@@ -3903,7 +3903,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Item summaries
     html.find('.item-dropdown').click(event => this._onItemSummary(event));
     
-    html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armor-quality, .armor-flaw').click(event => this._expandProperty(event));
+    html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armour-quality, .armour-flaw').click(event => this._expandProperty(event));
 
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
