@@ -1773,12 +1773,13 @@ Hooks.once("init", () => {
 Hooks.on("canvasInit", async () => {
 
     
-  //  let pack = game.packs.find(p => p.collection == "world.psychologies")
+  //  let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
   //  let list = await pack.getIndex();
   //  for (let skill of list)
   //  {
-     
-  //    await pack.updateEntity({_id: skill.id, img : "systems/wfrp4e/icons/psychologies/psychology.png"})
+  //    let filename = skill.name.toLowerCase().replace(" ", "-").replace(" ", "-") + ".png";
+  //    console.log(filename);
+  //    await pack.updateEntity({_id: skill.id, img : `systems/wfrp4e/icons/talents/${filename}`})
   //  }
 
   // pack = game.packs.find(p => p.collection == "world.spells")
@@ -1829,7 +1830,7 @@ class ActorWfrp4e extends Actor {
   
   // Give new actor all Basic skills
   static async create(data, options) {
-    if (data.items.length > 0) // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
+    if (data.items) // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
     {
       super.create(data, options);
       return
@@ -2542,7 +2543,7 @@ class ActorWfrp4e extends Actor {
    * Setup a Prayer Test
    * @param prayer {Object}   prayer being invoked
    */
-  preparePrayer(prayer, options) {
+  setupPrayer(prayer, options) {
     let title = "Prayer Test - " + prayer.name;
     let praySkill = this.items.find(i => i.name.toLowerCase() == "pray" && i.type == "skill")
     // Prevent test if character does not have pray
@@ -2751,13 +2752,13 @@ class ItemWfrp4e extends Item {
   _careerExpandData() {
     const data = duplicate(this.data.data);
     data.properties=[];
-    data.properties.push("Class: " + this.data.data.class.value);
-    data.properties.push("Group: " + this.data.data.careergroup.value);
+    data.properties.push("<b>Class</b>: " + this.data.data.class.value);
+    data.properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
     data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-    data.properties.push("Characteristics: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
-    data.properties.push("Skills: " + this.data.data.skills.map(i => i = " " + i));
-    data.properties.push("Talents: " + this.data.data.talents.map (i => i = " " + i));
-    data.properties.push("Income: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+    data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
+    data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
+    data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
+    data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
     return data;
   }
 
@@ -4039,14 +4040,14 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-item-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let attackType = $(event.currentTarget).parents(".weapon-list").attr("weapon-type");
+      let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
       let weapon = this.actor.items.find(i => i.id === itemId);
       this.actor.setupWeapon(duplicate(weapon), {attackType : attackType});
     })  
 
     html.find('.fist-icon').click(async event => {
       event.preventDefault();
-      let pack = game.packs.find(p => p.collection == "world.weapons");
+      let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
       let weapons;
       await pack.getIndex().then(index => weapons = index);
       let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed"); 
@@ -4073,7 +4074,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let prayer = this.actor.items.find(i => i.id === itemId);
-      this.actor.preparePrayer(duplicate(prayer));
+      this.actor.setupPrayer(duplicate(prayer));
     })  
 
     /* -------------------------------------------- */
@@ -4198,7 +4199,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (type == "current" && item.data.current.value == true)
         for (let i of this.actor.items)
           if (i.type == "career" && i != item)
-            i.data.current.value = false;
+            await this.actor.updateOwnedItem({"id" : i.id, "data.current.value" : false});
       this.actor.updateOwnedItem(item);
     });
 
@@ -4658,8 +4659,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     let tb = sheetData.actor.data.characteristics.t.bonus;
     let wpb =sheetData.actor.data.characteristics.wp.bonus;
     if (sheetData.actor.flags.autoCalcCorruption)
+    {
       sheetData.actor.data.status.corruption.max = tb + wpb;
-
+      let pureSoulTalent = sheetData.actor.talents.find(x => x.name.toLowerCase() == "pure soul")
+      if (pureSoulTalent)
+        sheetData.actor.data.status.corruption.max += pureSoulTalent.data.advances.value;
+    }
     return sheetData;
   }
 

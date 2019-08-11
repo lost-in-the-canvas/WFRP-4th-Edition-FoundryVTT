@@ -8,7 +8,7 @@
   <div id="reach">Reach</div>
 </div>
 
-<ol class="inventory-list melee-weapon-list save-scroll" weapon-type="melee">
+<ol class="inventory-list melee-weapon-list save-scroll" data-weapon-type="melee">
   {{#each actor.weapons as |item i|}}
   {{#if item.meleeWeaponType}}
   <li class="item" data-item-id="{{item.id}}">
@@ -62,7 +62,7 @@
   <div id="range">Range</div>
 </div>
 
-<ol class="inventory-list ranged-weapon-list save-scroll" weapon-type="ranged">
+<ol class="inventory-list ranged-weapon-list save-scroll" data-weapon-type="ranged">
   {{#each actor.weapons as |item i|}}
   {{#if item.rangedWeaponType}}
   <li class="item" data-item-id="{{item.id}}">
