@@ -235,6 +235,59 @@
   </div>
 
   <div class="second row">
+      <div class="larm column">
+          <div class="armour-header">
+            <span class="armour-total" title="Armour AP">{{actor.AP.lArm}}</span>
+            <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+            <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+            <span class="armour-label">Left Arm</span>
+            <span class="armour-ap">AP</span>
+          </div>
+          <div class="armour-box">
+            <ol class="inventory-list armour-list">
+              {{#each actor.armour as |item i|}}
+              {{#if item.protectslArm}}
+              <li class="item" data-item-id="{{item.id}}" data-location="lArm">
+                <div class="content">
+                  <div class="item-name">
+                    <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+                    <a class="name armour-item-name item-edit">{{item.name}}</a>
+                  </div>
+                  <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+                    class="ap-value">{{item.data.currentAP.lArm}}</a>
+                </div>
+                <div class="content">
+                  <div class="armour-property">
+                    <!--Copy this into the other list items once its been styled-->
+                    {{#if item.properties.special}}
+                    {{#each item.properties.special as |property p|}}
+                    <a class='armour-quality quality label'>{{property}}</a>
+                    {{/each}}
+                    {{/if}}
+    
+                    {{#if item.properties.qualities}}
+                    <span class="quality label">Q: </span>
+                    {{#each item.properties.qualities as |property p|}}
+                    <a class='text armour-quality'>{{property}},&nbsp;</a>
+                    {{/each}}
+                    {{/if}}
+    
+                    {{#if item.properties.flaws}}
+                    <span class="flaw label">F:</span>
+                    {{#each item.properties.flaws as |property p|}}
+                    <a class='text armour-flaw'>{{property}},&nbsp;</a>
+                    {{/each}}
+                    {{/if}}
+                    <!-- Copy ends here-->
+                  </div>
+                </div>
+              </li>
+              {{/if}}
+              {{/each}}
+            </ol>
+          </div>
+        </div>
+        
     <div class="rarm column">
       <div class="armour-header">
         <span class="armour-total" title="Armour AP">{{actor.AP.rArm}}</span>
@@ -287,62 +340,62 @@
         </ol>
       </div>
     </div>
-
-    <div class="larm column">
-      <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.lArm}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
-        <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-        <span class="armour-label">Left Arm</span>
-        <span class="armour-ap">AP</span>
-      </div>
-      <div class="armour-box">
-        <ol class="inventory-list armour-list">
-          {{#each actor.armour as |item i|}}
-          {{#if item.protectslArm}}
-          <li class="item" data-item-id="{{item.id}}" data-location="lArm">
-            <div class="content">
-              <div class="item-name">
-                <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                <a class="name armour-item-name item-edit">{{item.name}}</a>
-              </div>
-              <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
-                class="ap-value">{{item.data.currentAP.lArm}}</a>
-            </div>
-            <div class="content">
-              <div class="armour-property">
-                <!--Copy this into the other list items once its been styled-->
-                {{#if item.properties.special}}
-                {{#each item.properties.special as |property p|}}
-                <a class='armour-quality quality label'>{{property}}</a>
-                {{/each}}
-                {{/if}}
-
-                {{#if item.properties.qualities}}
-                <span class="quality label">Q: </span>
-                {{#each item.properties.qualities as |property p|}}
-                <a class='text armour-quality'>{{property}},&nbsp;</a>
-                {{/each}}
-                {{/if}}
-
-                {{#if item.properties.flaws}}
-                <span class="flaw label">F:</span>
-                {{#each item.properties.flaws as |property p|}}
-                <a class='text armour-flaw'>{{property}},&nbsp;</a>
-                {{/each}}
-                {{/if}}
-                <!-- Copy ends here-->
-              </div>
-            </div>
-          </li>
-          {{/if}}
-          {{/each}}
-        </ol>
-      </div>
-    </div>
   </div>
 
   <div class="third row">
+      <div class="lleg column">
+          <div class="armour-header">
+            <span class="armour-total" title="Armour AP">{{actor.AP.lLeg}}</span>
+            <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+            <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+            <span class="armour-label">Left Leg</span>
+            <span class="armour-ap">AP</span>
+          </div>
+          <div class="armour-box">
+            <ol class="inventory-list armour-list">
+              {{#each actor.armour as |item i|}}
+              {{#if item.protectslLeg}}
+              <li class="item" data-item-id="{{item.id}}" data-location="lLeg">
+                <div class="content">
+                  <div class="item-name">
+                    <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
+                    <a class="name armour-item-name item-edit">{{item.name}}</a>
+                  </div>
+                  <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
+                    class="ap-value">{{item.data.currentAP.rLeg}}</a>
+                </div>
+                <div class="content">
+                  <div class="armour-property">
+                    <!--Copy this into the other list items once its been styled-->
+                    {{#if item.properties.special}}
+                    {{#each item.properties.special as |property p|}}
+                    <a class='armour-quality quality label'>{{property}}</a>
+                    {{/each}}
+                    {{/if}}
+    
+                    {{#if item.properties.qualities}}
+                    <span class="quality label">Q: </span>
+                    {{#each item.properties.qualities as |property p|}}
+                    <a class='text armour-quality'>{{property}},&nbsp;</a>
+                    {{/each}}
+                    {{/if}}
+    
+                    {{#if item.properties.flaws}}
+                    <span class="flaw label">F:</span>
+                    {{#each item.properties.flaws as |property p|}}
+                    <a class='text armour-flaw'>{{property}},&nbsp;</a>
+                    {{/each}}
+                    {{/if}}
+                    <!-- Copy ends here-->
+                  </div>
+                </div>
+              </li>
+              {{/if}}
+              {{/each}}
+            </ol>
+          </div>
+        </div>
+
     <div class="rleg column">
       <div class="armour-header rLeg">
         <span class="armour-total" title="Armour AP">{{actor.AP.rLeg}}</span>
@@ -390,59 +443,6 @@
               </div>
             </div>
 
-          </li>
-          {{/if}}
-          {{/each}}
-        </ol>
-      </div>
-    </div>
-
-    <div class="lleg column">
-      <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.lLeg}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
-        <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-        <span class="armour-label">Left Leg</span>
-        <span class="armour-ap">AP</span>
-      </div>
-      <div class="armour-box">
-        <ol class="inventory-list armour-list">
-          {{#each actor.armour as |item i|}}
-          {{#if item.protectslLeg}}
-          <li class="item" data-item-id="{{item.id}}" data-location="lLeg">
-            <div class="content">
-              <div class="item-name">
-                <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
-                <a class="name armour-item-name item-edit">{{item.name}}</a>
-              </div>
-              <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
-                class="ap-value">{{item.data.currentAP.rLeg}}</a>
-            </div>
-            <div class="content">
-              <div class="armour-property">
-                <!--Copy this into the other list items once its been styled-->
-                {{#if item.properties.special}}
-                {{#each item.properties.special as |property p|}}
-                <a class='armour-quality quality label'>{{property}}</a>
-                {{/each}}
-                {{/if}}
-
-                {{#if item.properties.qualities}}
-                <span class="quality label">Q: </span>
-                {{#each item.properties.qualities as |property p|}}
-                <a class='text armour-quality'>{{property}},&nbsp;</a>
-                {{/each}}
-                {{/if}}
-
-                {{#if item.properties.flaws}}
-                <span class="flaw label">F:</span>
-                {{#each item.properties.flaws as |property p|}}
-                <a class='text armour-flaw'>{{property}},&nbsp;</a>
-                {{/each}}
-                {{/if}}
-                <!-- Copy ends here-->
-              </div>
-            </div>
           </li>
           {{/if}}
           {{/each}}

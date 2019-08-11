@@ -3626,7 +3626,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       // If too much text, divide the penalties into groups 
       let penaltiesOverflow = false;
       penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
-      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 60)
+      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 50)
       {
         penaltiesOverflow = true;
         for (let penaltyType in penalties)
@@ -3663,7 +3663,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           for (let sk of career.data.skills)
           {
-            let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name == sk)
+            let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name.toLowerCase() == sk.toLowerCase())
             if (trainedSkill)
             {
               trainedSkill.career = true;
@@ -4164,7 +4164,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item);
     });
 
-    html.find('.career-toggle').click(ev => {
+    html.find('.career-toggle').click(async ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let type = $(ev.currentTarget).attr("toggle-type")
       let item = this.actor.items.find(i => i.id === itemId );
@@ -5502,7 +5502,7 @@ class WFRP_Utility
           }
           else 
           {
-            formula = formula.replace(CONFIG.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+            formula = formula.replace(CONFIG.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
           }
         } 
       }
@@ -5528,11 +5528,11 @@ class WFRP_Utility
       {
         if (formula.includes('bonus'))
         {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+          formula = formula.replace(CONFIG.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
         }
         else 
         {
-          formula = formula.replace(actorData.data.characteristics[ch].label.toLowerCase(),  actorData.data.characteristics[ch].value);
+          formula = formula.replace(CONFIG.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
         }
       } 
     }

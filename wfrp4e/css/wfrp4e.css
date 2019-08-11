@@ -4242,15 +4242,15 @@
         flex-direction: row;
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .head.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rarm.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rleg.column {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .larm.column,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .lleg.column {
           width: 50%;
           margin: 0px 3px 0px 0px;
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .body.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .larm.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .lleg.column {
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rarm.column,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rleg.column {
           width: 50%;
           margin: 0px 0px 0px 3px;
           /* background: aqua; */

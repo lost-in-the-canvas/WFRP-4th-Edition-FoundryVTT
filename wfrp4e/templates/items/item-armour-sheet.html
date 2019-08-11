@@ -52,10 +52,10 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.armourType.label}}</label>
-      <select name="data.armourType.value" data-dtype={{data.armourType.type}}>
-        {{#select data.armourType.value}}
-        {{#each armourTypes as |type t|}}
+      <label class="label-text">{{data.armorType.label}}</label>
+      <select name="data.armorType.value" data-dtype={{data.armorType.type}}>
+        {{#select data.armorType.value}}
+        {{#each armorTypes as |type t|}}
         <option value="{{t}}">{{type}}</option>
         {{/each}}
         {{/select}}
