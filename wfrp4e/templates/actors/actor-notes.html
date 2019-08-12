@@ -46,11 +46,12 @@
   <div class="item-controls">
   {{else}}
   <div class="item-controls" style="visibility : hidden">
-  {{/if}}
+    {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
     </a>
   </div>
 </div>
+
 <ol class="inventory-list psychology-list save-scroll">
   {{#each actor.psychology as |psych p|}}
   <li class="item" data-item-id="{{psych.id}}">
@@ -77,12 +78,14 @@
   <div class="item-controls">
   {{else}}
   <div class="item-controls" style="visibility : hidden">
-  {{/if}}
+    {{/if}}
     <a class="item-control item-create" title="Create Item" data-type="mutation">
       <i class="fas fa-plus"></i>
     </a>
   </div>
 </div>
+
+
 <ol class="inventory-list mutation-list save-scroll">
   {{#each actor.mutations as |item i|}}
   <li class="item" data-item-id="{{item.id}}">
@@ -105,38 +108,40 @@
 
 {{#if isGM}}
 <div class="inventory-header item disease-header">
-    <div id="name">Disease</div>
-    <div id="incubation">Incubation</div>
-    <div id="duration">Duration</div>
-    {{#if isGM}}
-    <div class="item-controls">
+  <div id="name">Disease</div>
+  <div id="incubation">Incubation</div>
+  <div id="duration">Duration</div>
+  {{#if isGM}}
+  <div class="item-controls">
     {{else}}
     <div class="item-controls" style="visibility : hidden">
-    {{/if}}
+      {{/if}}
       <a class="item-control item-create" title="Create Item" data-type="talent"><i class="fas fa-plus"></i>
       </a>
     </div>
-  </div>
+</div>
 
- <ol class="inventory-list disease-list">
+<ol class="inventory-list disease-list save-scroll">
   {{#each actor.diseases as |item i|}}
   <li class="item" data-item-id="{{item.id}}">
-    <div class="item-name currency-name item-dropdown">
-      <div class="image item-image" style="background-image: url({{item.img}})"></div>
-      <a class="name">{{item.name}}</a>
-    </div>
+    <div class="content">
+      <div class="item-name currency-name item-dropdown">
+        <div class="image item-image" style="background-image: url({{item.img}})"></div>
+        <a class="name">{{item.name}}</a>
+      </div>
 
-    
-    <a class="incubation disease-roll">{{item.data.incubation.roll}}</a>
-    <a class="duration disease-roll">{{item.data.duration.roll}}</a>
 
-    
-    {{#if ../owner}}
-    <div class="item-controls">
-      <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-      <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      <a class="incubation disease-roll">{{item.data.incubation.roll}}</a>
+      <a class="duration disease-roll">{{item.data.duration.roll}}</a>
+
+
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
     </div>
-    {{/if}}
   </li>
   {{/each}}
 </ol>
