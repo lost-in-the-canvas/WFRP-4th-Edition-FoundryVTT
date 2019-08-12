@@ -131,15 +131,10 @@
           <div class="image" style="background-image: url({{item.img}})"></div>
           <a class="name">{{item.name}}</a>
         </div>
-        {{#if item.data.current.value}}
-        <a class="career-current career-toggle" toggle-type="current"><i class="far fa-check-circle"></i></a>
-        {{else}}
-        <a class="career-current career-toggle" toggle-type="current"><i class="far fa-circle"></i></a>
-        {{/if}}
         {{#if item.data.complete.value}}
-        <a class="career-complete career-toggle" toggle-type="complete"><i class="far fa-check-circle"></i></a>
+        <a class="career-complete npc-career career-toggle" toggle-type="complete"><i class="far fa-check-circle"></i></a>
         {{else}}
-        <a class="career-complete career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
+        <a class="career-complete npc-career career-toggle" toggle-type="complete"><i class="far fa-circle"></i></a>
         {{/if}}
         <div class="career-level">{{item.data.level.value}}</div>
 
