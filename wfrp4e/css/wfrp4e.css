@@ -723,7 +723,7 @@
     width: 30px;
     position: absolute;
     top: 19px;
-    right: 38px;
+    right: 32px;
     margin: 0px;
     padding: 0px;
     overflow: hidden;
@@ -1661,7 +1661,7 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -29px 0px 0px 0px;
+      margin: -21px 0px 0px 0px;
       height: 26px;
       position: relative;
     } 
@@ -1756,10 +1756,13 @@
       }
 
   /* ==================== (I) PSYCHOLOGY ======================== */
-    .app.window-app.sheet.item-sheet.psychology-sheet .tab.active {
-      display: flex;
-      flex-flow: column;
-      height: calc(100% - 35px);
+    .app.window-app.sheet.item-sheet.psychology-sheet .sheet-tabs {
+      font-family: CaslonAntique;
+      font-size: 16px;
+      font-weight: 700;
+      margin: -21px 0px 0px 0px;
+      height: 26px;
+      position: relative;
     }
 
   /* ==================== (J) SKILL ============================= */
