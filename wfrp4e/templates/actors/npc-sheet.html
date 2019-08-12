@@ -1,23 +1,23 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-  <a id="section-header-personaldetails">Personal Details</a>
+  <span id="header-personal-details">Personal Details</span>
 
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
-    <h1 class="charname">
-      <input id="input-name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-      <span id="label-name">Name</span>
+    <h1 class="charname item">
+      <input class="input name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <span class="label name">Name</span>
     </h1>
 
     <div class="item">
-      <input id="input-species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
+      <input class="input species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
         placeholder="Species" />
-      <span id="label-species">Species</span>
+      <span class="label species">Species</span>
     </div>
 
-    <div class="item">
-      <input id="input-gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
+    <div id="field-gender" class="item">
+      <input class="input gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
         placeholder="Gender" />
-      <span id="label-gender">Gender</span>
+      <span class="label gender">Gender</span>
     </div>
   </header>
 
@@ -42,10 +42,12 @@
           </tr>
         </table>
       </div>
+
       <div class="main-row">
-        <div class="movement">
+
+        <div class="movement row-section">
           <div class="move-section">
-            <div id="movement-value-box" class="move-value">
+            <div class="move-value">
               <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
             </div>
             <div class="move-name">
@@ -54,7 +56,6 @@
           </div>
           <div class="move-section">
             <div class="move-value">
-
               {{#if actor.flags.autoCalcWalk}}
               <a class="auto-calc-toggle" toggle-type="walk">{{actor.data.details.move.walk}} yds</a>
               {{else}}
@@ -62,14 +63,12 @@
                 value="{{data.details.move.walk}}" data-dtype="String">
               {{/if}}
             </div>
-
             <div class="move-name">
               <h4 id="walk-label">Walk</h4>
             </div>
           </div>
           <div class="move-section">
             <div class="move-value">
-
               {{#if actor.flags.autoCalcRun}}
               <a class="auto-calc-toggle" toggle-type="run">{{actor.data.details.move.run}} yds</a>
               {{else}}
@@ -77,31 +76,30 @@
                 value="{{data.details.move.run}}" data-dtype="String">
               {{/if}}
             </div>
-
-            <div id="move-run" class="move-name">
+            <div class="move-name">
               <h4 id="run-label">Run</h4>
             </div>
           </div>
         </div>
-        <div class="wounds">
+      
+        <div class="wounds row-section">
           <div class="wounds-section">
-            <div id="wounds-box">
-              <div id="wounds-value">
-                  <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}" data-dtype="{{data.status.wounds.type}}">
+            <span class="top label">Wounds</span>
+            <div class="wounds-value-box">
+              <div id="value">
+                <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
               </div>
-              <div id="wounds-divisor" class="divisor">
+              <div id="divisor">
                 /
               </div>
               <div id="wounds-max">
                 {{#if actor.flags.autoCalcWounds}}
                 <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
                 {{else}}
-                <input class ="auto-calc-toggle" toggle-type = "wounds" name="data.status.wounds.max" type="text" value="{{data.status.wounds.max}}" data-dtype="Number">
+                <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
+                  value="{{data.status.wounds.max}}" data-dtype="String">
                 {{/if}}
               </div>
-            </div>
-            <div id="wounds-name">
-              <h4 id="wound-label">Wounds</h4>
             </div>
           </div>
         </div>
@@ -113,6 +111,7 @@
           <span class="randomize-label">Randomize Attributes</span>
         </div>
       </div>
+      
   </section>
 
   <!-- TABS -->
