@@ -18322,14 +18322,99 @@
 }
 /*************************************************************/
 /*************************************************************/
+
+
+
+
+
 /*************************************************************/
+/*=============== XII. GAME SETTINGS ========================*/
+/*************************************************************/
+#client-settings {
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/game-settings-border.png) 5 repeat;
+  border-image-slice: 162 81 67 80;
+  border-image-width: 162px 81px 67px 80px;
+  border-image-outset: 0px;
+  background: none;
+  height: 802px !important;
+  width: 800px !important;
+  box-shadow: none;
+}
+#client-settings .window-header {
+  border: none;
+  min-height: 152px;
+  background: none;
+}
+#client-settings .window-content {
+  margin: 0px 70px 57px 70px;
+  padding: 0px;
+  border: none;
+  background: url(../ui/game-settings-background.png);
+  background-size: 199%;
+  background-position-x: center;
+}
+#client-settings .window-content form {
+  padding: 12px;
+  border: none;
+  background: none;
+  box-shadow: inset 0px 0px 4px black;
+}
+  #client-settings .window-content form .form-group {
+    flex: 2;
+    line-height: 24px;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border-radius: 0px;
+    opacity: 0.9;
+    min-width: 93px;
+    color: #efefef;
+    padding: 6px;
+    margin: 8px 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  #client-settings .window-content form .form-group > label {
+    flex: 2;
+    line-height: normal;
+    padding: 5px 0px 0px 0px;
+    font-size: 16px;
+    color: #e2e2e2;
+    /* text-shadow: 1px 1px 1px #ffc80069; */
+  }
+  #client-settings .window-content form .hint {
+    flex: 0 0 100%;
+    font-size: 14px;
+    color: #a09c88;
+    margin: 3px 0 0;
+    line-height: initial;
+  }
+  #client-settings .window-content button {
+    width: 100%;
+    margin: 0px;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    box-shadow: 4px 4px 1px #000000;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+    color: #feffef;
+    font-family: CaslonAntique;
+    font-size: 20px;
+    font-weight: 500;
+    text-shadow: 0px 0px 1px #00000063;
+  }
+  #client-settings .window-content .far.fa-save {
+    display: none;
+  }
 
 
 
-
-
-
-
+/*************************************************************/
+/*************************************************************/
 
 
 
