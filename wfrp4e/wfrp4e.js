@@ -523,7 +523,7 @@ CONFIG.weaponFlaws = {
 // Weapon Quality Descriptions (Used in dropdown info)
 CONFIG.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
-  "blackpowder": "The crack of gunfire followed by gouts of smoke and confusioncan be terrifying. If you are targeted by a Blackpowder weapon,you must pass an Average (+20) Cool Test or take a BrokenCondition, even if the shot misses.",
+  "blackpowder": "The crack of gunfire followed by gouts of smoke and confusion can be terrifying. If you are targeted by a Blackpowder weapon, you must pass an Average (+20) Cool Test or take a Broken Condition, even if the shot misses.",
   "blast": "All Characters within (Rating) yards of the struck target pointtake SL+Weapon Damage, and suffer any Conditions theweapon inflicts.",
   "damaging": "A Damaging weapon can use the higher score from either the units die or the SL to determine the Damage caused from a successful hit. For example, if you roll 34 in your attack Test and the target number was 52 you can choose to use the SL, which in this case is 2, or the units die result, which is 4. An Undamaging weapon can never also be Damaging (Undamaging takes precedent).",
   "defensive": "Defensive weapons are designed to parry incoming attacks. If you are wielding such a weapon, gain a bonus of +1 SL to any Melee Test when you oppose an incoming attack.",
@@ -1229,6 +1229,11 @@ class DiceWFRP {
       let html;
       let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
       let senderId = game.messages.get(messageId).user._id;
+      let chatOptions = {user : senderId, rollMode : game.settings.get("core", "rollMode")};
+             
+   
+      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
       
       if (ev.button == 0)
       {
@@ -1237,7 +1242,8 @@ class DiceWFRP {
         else
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
 
-        ChatMessage.create({content : html, user : senderId})
+         chatOptions["content"] = html;
+        ChatMessage.create(chatOptions);
 
       }
       else if (ev.button == 2)
@@ -1253,8 +1259,8 @@ class DiceWFRP {
                   let tableModifier = html.find('[name="tableModifier"]').val();
                   let minOne = html.find('[name="minOne"]').is(':checked');
                   html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
-                  ChatMessage.create({content : html, user : senderId})
-
+                  chatOptions["content"] = html;
+                  ChatMessage.create(chatOptions);
                 }
               },
             },
@@ -1701,25 +1707,25 @@ Hooks.once("init", () => {
     });
     
 
-    // Register Fate/Fortune Cap
-    game.settings.register("wfrp4e", "fortuneCap", {
-      name: "Cap Fortune to Fate",
-      hint: "Fortune can never be higher than Fate",
-      scope: "world",
-      config: true,
-      default: true,
-      type: Boolean
-    });
+    // // Register Fate/Fortune Cap
+    // game.settings.register("wfrp4e", "fortuneCap", {
+    //   name: "Cap Fortune to Fate",
+    //   hint: "Fortune can never be higher than Fate",
+    //   scope: "world",
+    //   config: true,
+    //   default: true,
+    //   type: Boolean
+    // });
 
-    // Register Resolve/Resilience Cap
-    game.settings.register("wfrp4e", "resolveCap", {
-      name: "Cap Resolve to Resilience",
-      hint: "Resolve can never be higher than Resilience",
-      scope: "world",
-      config: true,
-      default: true,
-      type: Boolean
-    });
+    // // Register Resolve/Resilience Cap
+    // game.settings.register("wfrp4e", "resolveCap", {
+    //   name: "Cap Resolve to Resilience",
+    //   hint: "Resolve can never be higher than Resilience",
+    //   scope: "world",
+    //   config: true,
+    //   default: true,
+    //   type: Boolean
+    // });
     
     // Register NPC Species Randomization
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
@@ -1767,19 +1773,49 @@ Hooks.once("init", () => {
   ]);
 });
 
+Hooks.on("ready", async () => {
+  let activeModules = game.settings.get("core", "moduleConfiguration");
+
+  for (let m in activeModules)
+  {
+    let module;
+    if (activeModules[m])
+    {
+      game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
+        for (var file of resp.files)
+        {
+          try {
+            if (!file.includes(".json"))
+              throw "Not JSON file"
+            let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
+
+            fetch(file).then(r=>r.json()).then(async records => {
+             WFRP_Tables[filename] = records;
+            })
+          }
+          catch(error) {
+           console.error("Error reading " + file + ": " + error) 
+          }
+        }
+      })
+    }
+  }
+})
+
 /**
  * Activate certain behaviors on Canvas Initialization hook
  */
 Hooks.on("canvasInit", async () => {
 
     
-  //  let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
+  //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
   //  let list = await pack.getIndex();
   //  for (let skill of list)
   //  {
-  //    let filename = skill.name.toLowerCase().replace(" ", "-").replace(" ", "-") + ".png";
-  //    console.log(filename);
-  //    await pack.updateEntity({_id: skill.id, img : `systems/wfrp4e/icons/talents/${filename}`})
+  //   let item = await pack.getEntity(skill.id);
+  //   item.data.data.skills[0] = item.data.data.skills[0].replace("Channeling", "Channelling");
+  //   console.log(item);
+  //   await pack.updateEntity(item.data);
   //  }
 
   // pack = game.packs.find(p => p.collection == "world.spells")
@@ -1820,6 +1856,10 @@ Hooks.on("chatMessage", async (html, content, msg) => {
   {
     modifier = parseInt(command[2]);
     msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
+
+    let rollMode = game.settings.get("core", "rollMode");
+    if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( rollMode === "blindroll" ) msg["blind"] = true;
   }
 });
 
@@ -1994,17 +2034,17 @@ class ActorWfrp4e extends Actor {
   _prepareCharacterData(data) {
 
 
-    // Cap fortune to fate
-    if (game.settings.get("wfrp4e", "fortuneCap") && data.status.fate.value < data.status.fortune.value)
-    {
-      data.status.fortune.value = data.status.fate.value;
-    }
+    // // Cap fortune to fate
+    // if (game.settings.get("wfrp4e", "fortuneCap") && data.status.fate.value < data.status.fortune.value)
+    // {
+    //   data.status.fortune.value = data.status.fate.value;
+    // }
 
-    // Cap resolve to resilience
-    if (game.settings.get("wfrp4e", "resolveCap") &&data.status.resilience.value < data.status.resolve.value)
-    {
-      data.status.resolve.value = data.status.resilience.value;
-    }
+    // // Cap resolve to resilience
+    // if (game.settings.get("wfrp4e", "resolveCap") &&data.status.resilience.value < data.status.resolve.value)
+    // {
+    //   data.status.resolve.value = data.status.resilience.value;
+    // }
 
     data.details.experience.current = data.details.experience.total - data.details.experience.spent;
 
@@ -3028,6 +3068,7 @@ class ItemSheetWfrp4e extends ItemSheet {
 
     
     html.find('.char-checkbox').click(async event => {
+      this._onSubmit(event);
       let charChanged = $(event.currentTarget).attr("name")
 
       let characteristicList = duplicate(this.item.data.data.characteristics);
@@ -3054,6 +3095,7 @@ class ItemSheetWfrp4e extends ItemSheet {
     // This listener converts comma separated lists in the career section to arrays,
     // placing them in the correct location using update
     html.find('.csv-input').change(async event => {
+        this._onSubmit(event);
         let list = event.target.value.split(",").map(function(item) {
         return item.trim();
       });       
@@ -3775,7 +3817,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     catch(error)
     {
-        ui.notifications.info("Could not find species" + this.actor.data.data.details.species.value)
+        ui.notifications.info("Could not find species " + this.actor.data.data.details.species.value)
         console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
         throw error
     }
@@ -3814,7 +3856,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     catch (error)
     {
-      ui.notifications.info("Could not find species" + this.actor.data.data.details.species.value)
+      ui.notifications.info("Could not find species " + this.actor.data.data.details.species.value)
       console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
       throw error
     }
@@ -3861,7 +3903,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
         let skillToAdd = await WFRP_Utility.findSkill(skillName) 
         skillToAdd.data.data.advances.value = advances;
-        this.actor.createOwnedItem(skillToAdd.data);
+        await this.actor.createOwnedItem(skillToAdd.data);
     }
     catch(error) {
       console.error("Something went wrong when adding skill " + skillName +": " + error);
@@ -3874,7 +3916,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     try 
     {
       let talent = await WFRP_Utility.findTalent(talentName);
-      this.actor.createOwnedItem(talent.data);
+      await this.actor.createOwnedItem(talent.data);
     }
     catch(error) {
       console.error("Something went wrong when adding talent " + talentName +": " + error);
@@ -4211,7 +4253,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     
-    html.find('.item-quantity').mousedown(ev => {
+    html.find('.quantity-click').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let item = this.actor.items.find(i => i.id === itemId );
       switch (event.button)
@@ -5830,7 +5872,16 @@ class WFRP_Tables {
           {
             let html = "";
             for (let part in result)
-              html += result[part] + "<br>"
+            {
+              if (part == "name")
+                html += `<b>${result[part]}</b><br>`
+              else if (part == "roll")
+                html += "<b>Roll</b>: "+ eval(result[part])
+              else
+                html += result[part] + "<br>"
+            }
+            return html;          
+
           }
           else 
             throw ""
