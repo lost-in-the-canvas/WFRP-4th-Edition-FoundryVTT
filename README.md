@@ -1,6 +1,8 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Alpha
+Current Version: Beta
+
+![](https://i.imgur.com/esCwB7f.png)
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
@@ -14,7 +16,7 @@ Place `wfrp4e` in your `public/systems` folder
 
 ## Current State
 
-This alpha release marks the character sheet being mostly finished, and we are looking for people to provide feedback and testing.
+This beta release marks the system being entirely playable, with character, NPC, and creature sheets available. Enjoy! Feedback is very much welcome.
 
 If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E) 
 

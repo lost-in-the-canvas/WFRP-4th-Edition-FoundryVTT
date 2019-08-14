@@ -7,7 +7,7 @@
       <a class="creature-skills label">Skills:</a>
       {{#each actor.skills as |item i|}}
       <div class="skills content" tabindex="0" data-item-id="{{item.id}}">
-        <a class="skills name">{{item.name}}  {{item.data.total.value}}</a>
+        <a class="skills name">{{item.name}}  {{item.data.total.value}}</a>,
       </div>
       {{/each}}
     </div>
@@ -19,7 +19,7 @@
       {{#each actor.talents as |item i|}}
       <div class="talents content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
         <a class="talents name">{{item.name}} </a>
-        <a class="talents advances">{{item.data.advances.value}} </a>
+        <a class="talents advances">{{item.data.advances.value}}</a>,
       </div>
       {{/each}}
     </div>
@@ -30,7 +30,7 @@
       <a class="creature-traits label">Traits:</a>
       {{#each actor.traits as |item i|}}
       <div class="traits content" tabindex="0" data-item-id="{{item.id}}">
-        <a class="traits name">{{item.name}} </a>
+        <a class="traits name">{{item.name}}</a>,
       </div>
       {{/each}}
     </div>
@@ -41,7 +41,7 @@
       <a class="creature-mutations label">Corruption & Mutations:</a>
       {{#each actor.mutations as |item i|}}
       <div class="mutations content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
-        <a class="mutations name">{{item.name}} </a>
+        <a class="mutations name">{{item.name}}</a>,
       </div>
       {{/each}}
     </div>
@@ -52,7 +52,7 @@
       <a class="creature-psychology label">Psychology:</a>
       {{#each actor.psychology as |item i|}}
       <div class="psychology content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
-        <a class="psychology name item-dropdown">{{item.name}} </a>
+        <a class="psychology name item-dropdown">{{item.name}} </a>,
       </div>
       {{/each}}
     </div>
@@ -64,7 +64,7 @@
       <a class="creature-injuries label">Injuries:</a>
       {{#each actor.injuries as |item i|}}
       <div class="injuries content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
-        <a class="injuries name item-dropdown">{{item.name}} </a>
+        <a class="injuries name item-dropdown">{{item.name}} </a>,
       </div>
       {{/each}}
     </div>
@@ -75,7 +75,7 @@
       <a class="creature-diseases label">Diseases:</a>
       {{#each actor.diseases as |item i|}}
       <div class="diseases content creature-dropdown" tabindex="0" data-item-id="{{item.id}}">
-        <a class="diseases name item-dropdown">{{item.name}} </a>
+        <a class="diseases name item-dropdown">{{item.name}} </a>,
       </div>
       {{/each}}
     </div>
@@ -83,24 +83,85 @@
 
   </div>
 
+  <div class="armour-section">
+    <div class="row">
+      <div class="head column">
+        <div class="armour-header">
+          <span class="armour-label">Head</span>
+          <span class="armour-total" title="Armour AP">{{actor.AP.head}}</span>
+          <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+        </div>
+      </div>
 
+      <div class="body column">
+        <div class="armour-header">
+          <span class="armour-label">Body</span>
+          <span class="armour-total" title="Armour AP">{{actor.AP.body}}</span>
+          <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+        </div>
+      </div>
+
+      <div class="larm column">
+        <div class="armour-header">
+          <span class="armour-label">Left Arm</span>
+          <span class="armour-total" title="Armour AP">{{actor.AP.lArm}}</span>
+          <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+        </div>
+      </div>
+          
+      <div class="rarm column">
+        <div class="armour-header">
+          <span class="armour-label">Right Arm</span>
+          <span class="armour-total" title="Armour AP">{{actor.AP.rArm}}</span>
+          <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+        </div>
+      </div>
+
+      <div class="lleg column">
+          <div class="armour-header">
+            <span class="armour-label">Left Leg</span>
+            <span class="armour-total" title="Armour AP">{{actor.AP.lLeg}}</span>
+            <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+            <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+          </div>
+      </div>
+
+      <div class="rleg column">
+        <div class="armour-header rLeg">
+          <span class="armour-label">Right Leg</span>
+          <span class="armour-total" title="Armour AP">{{actor.AP.rLeg}}</span>
+          <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="penalties">
-    <h3>Penalties</h3> 
-    {{#if actor.penaltyOverflow}}
+      <h3>Penalties</h3>
+      {{#if actor.penaltyOverflow}}
       {{#each actor.penalties as |penalty p|}}
       {{#if penalty.show}}
-      <div class ="penalty" title = "{{penalty.value}}"><a>{{p}}</a></div>
+      <div class="penalty" title="{{penalty.value}}"><a>{{p}}</a></div>
       {{/if}}
       {{/each}}
-      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
-    {{else}}
-      {{#each actor.penalties as |penalty p|}}
-      <div class ="penalty">{{penalty.value}}</div>
-      {{/each}}
-      <div class = "custom-penalty">
-      <input class = "penalties-input" type="text" name="data.status.penalties.value" value = "{{data.status.penalties.value}}" data-dtype = "String"> 
+      <div class="custom-penalty">
+        <input class="penalties-input" type="text" name="data.status.penalties.value"
+          value="{{data.status.penalties.value}}" data-dtype="String">
       </div>
-    {{/if}}
+      {{else}}
+      {{#each actor.penalties as |penalty p|}}
+      <div class="penalty">{{penalty.value}}</div>
+      {{/each}}
+      <div class="custom-penalty">
+        <input class="penalties-input" type="text" name="data.status.penalties.value"
+          value="{{data.status.penalties.value}}" data-dtype="String">
+      </div>
+      {{/if}}
   </div>
+
 </div>

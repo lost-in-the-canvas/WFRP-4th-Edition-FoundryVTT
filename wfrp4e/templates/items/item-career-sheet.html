@@ -5,8 +5,8 @@
 
   <div class="item-details row2">
     <label class="label-text" style="flex-grow: 0; width: 69px;">Category</label>
-    <div class="input-box" style="margin-right: 0px; flex-grow: 2; padding-top: 0px; text-align: center;">
-      <input class="input-text" type="text" />
+    <div class="input-box category" style="margin-right: 0px; flex-grow: 2; padding-top: 0px; text-align: center;">
+      Career
     </div>
   </div>
 
@@ -15,8 +15,8 @@
     <a class="item active" data-tab="description">Description</a>
     <a class="item" data-tab="details">Details</a>
   </nav>
-  <div class="sheet-tabs edges left" ></div>
-  <div class="sheet-tabs edges right" ></div>
+  <div class="sheet-tabs edges left"></div>
+  <div class="sheet-tabs edges right"></div>
 
   {{> public/systems/wfrp4e/templates/items/item-description.html}}
 
@@ -24,7 +24,8 @@
     <div class="form-group">
       <label class="label-text">{{data.class.label}}</label>
       <div class="input-box">
-        <input class="input-text" type="text" name="data.class.value" value="{{data.class.value}}" data-dtype="{{data.class.type}}" />
+        <input class="input-text" type="text" name="data.class.value" value="{{data.class.value}}"
+          data-dtype="{{data.class.type}}" />
       </div>
     </div>
 
@@ -63,7 +64,8 @@
     <div class="form-group">
       <label class="label-text">Status Standing</label>
       <div class="input-box">
-        <input class="input-text" type="text" name="data.status.standing" value="{{data.status.standing}}" data-dtype="Number" />
+        <input class="input-text" type="text" name="data.status.standing" value="{{data.status.standing}}"
+          data-dtype="Number" />
       </div>
     </div>
 
@@ -95,7 +97,8 @@
     <div class="form-group">
       <label class="label-text">Earning Skill</label>
       <div class="input-box">
-        <input class="input-text csv-input" data-dest="earning" value="{{earningSkills}}" type="text" data-dtype="String" />
+        <input class="input-text csv-input" data-dest="earning" value="{{earningSkills}}" type="text"
+          data-dtype="String" />
       </div>
     </div>
 
@@ -111,7 +114,8 @@
     <div class="form-group">
       <label class="label-text">Trappings</label>
       <div class="input-box">
-        <input class="input-text csv-input" data-dest="trappings" value="{{trappings}}" type="text" data-dtype="String" />
+        <input class="input-text csv-input" data-dest="trappings" value="{{trappings}}" type="text"
+          data-dtype="String" />
       </div>
     </div>
   </div>
@@ -120,18 +124,64 @@
 <script>
   textContainer = document.querySelectorAll('.app.window-app.sheet');
   length = textContainer.length;
-  
+
   for (i = 0; i < length; i++) {
-    if (textContainer[i].children[1].children[0].className.includes("item-sheet editable")) {
+    if (textContainer[i].children[1].children[0].className.includes("item-sheet")) {
       new_red = document.getElementsByClassName("app window-app sheet")[i].id;
-      if ( !document.getElementById(new_red).className.includes("career-sheet") ) {
-        document.getElementById(new_red).className += " career-sheet";
-      }
+      console.log("new_red");
+      console.log(new_red);
+      if (document.getElementById(new_red).className.includes("career-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("ammo-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("consumable-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("container-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("disease-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("injury-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("money-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("mutation-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("prayer-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("psychology-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("skill-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("spell-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("talent-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("trait-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("trapping-sheet")) {
+        continue;
+      } 
+      else if (document.getElementById(new_red).className.includes("weapon-sheet")) {
+        continue;
+      } 
       else {
+        document.getElementById(new_red).className += " career-sheet item-sheet";
       }
-    } 
-    else {
-    }
+    } else {}
   }
 
   // console.log(checkIfToken);

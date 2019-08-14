@@ -1,45 +1,33 @@
-<div class="notes-section save-scroll">
-    <div class="biography">
-      <h2>Biography</h2>
-      {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
-    </div>
-
-    <div class="traits-header">
-      <div class="item-name">Creature Trait</div>
-    </div>
-
-    <ol class="inventory-list trait-list save-scroll">
-      <li class="inventory-header">
-        <div class="item-image" style="background-image: url({{item.img}})"></div>
-        <div class="item-name">Creature Trait</div>
-        {{#if owner}}
-        <div class="item-controls">
-          <a class="item-control item-create" title="Create Item" data-type="trait"><i class="fas fa-plus"></i>
-            Add</a>
-        </div>
-        {{/if}}
-      </li>
-
-      {{#each actor.notesTraits as |item i|}}
-      <li class="item" data-item-id="{{item.id}}">
-        {{#if item.included}}
-        <div class="trait-name">
-        {{else}}
-        <div class="excluded-trait trait-name">
-        {{/if}}
-          <div class="item-image" style="background-image: url({{item.img}})"></div>
-          <a class = "trait-include">{{item.name}}</a>
-        </div>
-
-        {{#if ../owner}}
-        <div class="item-controls">
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </div>
-        {{/if}}
-      </li>
-      {{/each}}
-    </ol>
-  </div>
+<h2 class="note-section label">Biography</h2>
+<div class="note-section biography">
+  {{editor content=data.biography.value target="data.biography.value" button=true owner=owner editable=editable}}
 </div>
+
+<div class="inventory-header trait-header">
+  <div id="trait-name">Toggle Creature Trait(s)</div>
+</div>
+
+<ol class="inventory-list trait-list save-scroll">
+  {{#each actor.notesTraits as |item i|}}
+  <li class="item" data-item-id="{{item.id}}">
+    <div class="content">
+      {{#if item.included}}
+      <div class="item-name trait-name">
+      {{else}}
+      <div class="excluded-trait item-name trait-name">
+      {{/if}}
+        <div class="image item-image" style="background-image: url({{item.img}})"></div>
+        <a class = "name trait-include">{{item.name}}</a>
+      </div>
+
+      {{#if ../owner}}
+      <div class="item-controls">
+        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+      </div>
+      {{/if}}
+    </div>
+  </li>
+  {{/each}}
+</ol>

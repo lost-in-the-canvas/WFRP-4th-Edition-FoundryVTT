@@ -1,4 +1,4 @@
-<form>
+<form class="spell-test">
   {{> public/systems/wfrp4e/templates/chat/dialog-constant.html}}
 
   <div class="form-group">
@@ -14,25 +14,28 @@
   <div class="roll-dialog-tag">spell</div>
 </form>
 
+
 <script>
   textContainer = document.querySelectorAll('.app.window-app.dialog');
   length = textContainer.length;
 
-  for (i = 0; i < length; i++) {
-    try {
-      var rollDialogId = textContainer[i].children[1].children[0].getElementsByClassName("roll-dialog-tag")[0].textContent;
-    }
-    catch {
+  // console.log("textContainer");
+  // console.log(textContainer);
+  // console.log(textContainer[0].children[1].children[0].children[0].className);
 
-    }
-    if (rollDialogId == "spell") {
-      new_red = document.getElementsByClassName("app window-app dialog")[i].id;
-      if (!document.getElementById(new_red).className.includes("spell-roll-dialog")) {
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].children[0].className.includes("spell-test")) {
+      new_red = textContainer[i].id;
+      // console.log("new_red");
+      // console.log(new_red);
+      if (document.getElementById(new_red).className.includes("spell-roll-dialog")) {
+        continue;
+      } 
+      else {
         document.getElementById(new_red).className += " spell-roll-dialog";
-      } else {
       }
-    } else {
-    }
+    } else {}
   }
 
+  // console.log(checkIfToken);
 </script>

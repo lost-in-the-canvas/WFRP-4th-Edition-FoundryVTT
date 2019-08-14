@@ -5,7 +5,7 @@
 
     {{#if testData.weapon.properties.qualities}}
     <div class="card-content" roll-desrciption = {{description}}>
-        <span>Qualities: </span>
+        <span><b>Qualities</b>: </span>
         {{#each testData.weapon.properties.qualities as |quality q|}}
         <a class ="item-property">{{quality}} </a>
         {{/each}}
@@ -14,7 +14,7 @@
 
     {{#if testData.weapon.properties.flaws}}
     <div class="card-content" roll-desrciption = {{description}}>
-            <span>Flaws: </span>
+            <span><b>Flaws</b>: </span>
             {{#each testData.weapon.properties.flaws as |flaw f|}}
             <a class ="item-property">{{flaw}} </a>
             {{/each}}
