@@ -1,23 +1,49 @@
-<form>
-    {{> public/systems/wfrp4e/templates/chat/dialog-constant.html}}
+<form class="weapon-test">
+  {{> public/systems/wfrp4e/templates/chat/dialog-constant.html}}
 
-    <div class="form-group">
-            <label>Skill</label>
-            <select name="skillSelected">
-                {{#select defaultSelection}}
-                {{#each skillCharList as |skill index|}}
-                    <option value="{{index}}">{{skill}}</option>
-                {{/each}}
-                {{/select}}
-                </select>
-    </div>
+  <div class="form-group custom-select">
+    <label>Skill</label>
+    <select name="skillSelected">
+        {{#select defaultSelection}}
+        {{#each skillCharList as |skill index|}}
+            <option value="{{index}}">{{skill}}</option>
+        {{/each}}
+        {{/select}}
+        </select>
+  </div>
 
-    <div class="form-group">
-        <label title="SL that is only applied on success (e.g. Talents)">Hit Location 
-            <input type="checkbox" name="hitLocation" {{checked hitLocation}}/>
-        </label>
-    </div>
+  <div class="form-group">
+      <label title="Include a roll on the hit location table">Hit Location 
+          <input type="checkbox" name="hitLocation" data-dtype = "Boolean" {{checked hitLocation}}/>
+      </label>
+  </div>
 
-   <!--<a class="item-control edit-weapon" title="Modify weapon for this Test"><i class="fa fa-cog"></i>-->
+  <!--<a class="item-control edit-weapon" title="Modify weapon for this Test"><i class="fa fa-cog"></i>-->
 
+  <div class="roll-dialog-tag">weapon</div>
 </form>
+  
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.dialog');
+  length = textContainer.length;
+
+  // console.log("textContainer");
+  // console.log(textContainer);
+  // console.log(textContainer[0].children[1].children[0].children[0].className);
+
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].children[0].className.includes("weapon-test")) {
+      new_red = textContainer[i].id;
+      // console.log("new_red");
+      // console.log(new_red);
+      if (document.getElementById(new_red).className.includes("weapon-roll-dialog")) {
+        continue;
+      } 
+      else {
+        document.getElementById(new_red).className += " weapon-roll-dialog";
+      }
+    } else {}
+  }
+
+  // console.log(checkIfToken);
+</script>

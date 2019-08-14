@@ -1,51 +1,128 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
-        {{> public/systems/wfrp4e/templates/items/item-header.html}}
-    
-        <nav class="sheet-tabs tabs" data-tab-container="primary">
-            <a class="item active" data-tab="description">Description</a>
-            <a class="item" data-tab="details">Details</a>
-        </nav>
-    
-        {{> public/systems/wfrp4e/templates/items/item-description.html}}
-    
-        <!-- Ability Details -->
-        <div class="tab" data-tab="details">
-    
-            <div class="form-group">
-                <label>{{data.characteristic.label}}</label>
-                <select name="data.characteristic.value" data-dtype="{{data.characteristic.type}}">
-                    {{#select data.characteristic.value}}
-                    {{#each characteristics as |ch char|}}
-                    <option value="{{char}}">{{ch}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-    
-            <div class="form-group">
-                <label>Skill Type</label>
-                <select name="data.advanced.value" data-dtype="{{data.advanced.type}}">
-                    {{#select data.advanced.value}}
-                    <option value=""></option>
-                    {{#each skillTypes as |type sktype|}}
-                    <option value="{{sktype}}">{{type}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
+  {{> public/systems/wfrp4e/templates/items/item-header.html}}
 
-            <div class="form-group">
-                <label>Specialization</label>
-                <select name="data.grouped.value" data-dtype="{{data.grouped.type}}">
-                    {{#select data.grouped.value}}
-                    <option value=""></option>
-                    {{#each skillGroup as |grouped skgroup|}}
-                    <option value="{{skgroup}}">{{grouped}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </div>
+  <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
 
-        </div>
-    </form>
-    
+  <div class="item-details row2">
+    <label class="label-text" style="flex-grow: 0; width: 69px;">Category</label>
+    <div class="input-box category" style="margin-right: 0px; flex-grow: 2; padding-top: 0px; text-align: center;">
+      Skill
+    </div>
+  </div>
+
+
+  <nav class="sheet-tabs tabs" data-tab-container="primary">
+    <a class="item active" data-tab="description">Description</a>
+    <a class="item" data-tab="details">Details</a>
+  </nav>
+  <div class="sheet-tabs edges left"></div>
+  <div class="sheet-tabs edges right"></div>
+
+  {{> public/systems/wfrp4e/templates/items/item-description.html}}
+
+  <!-- Ability Details -->
+  <div class="tab details" data-tab="details">
+
+    <div class="form-group">
+      <label class="label-text">{{data.characteristic.label}}</label>
+      <select name="data.characteristic.value" data-dtype="{{data.characteristic.type}}">
+        {{#select data.characteristic.value}}
+        {{#each characteristics as |ch char|}}
+        <option value="{{char}}">{{ch}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Skill Type</label>
+      <select name="data.advanced.value" data-dtype="{{data.advanced.type}}">
+        {{#select data.advanced.value}}
+        <option value=""></option>
+        {{#each skillTypes as |type sktype|}}
+        <option value="{{sktype}}">{{type}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="label-text">Specialization</label>
+      <select name="data.grouped.value" data-dtype="{{data.grouped.type}}">
+        {{#select data.grouped.value}}
+        <option value=""></option>
+        {{#each skillGroup as |grouped skgroup|}}
+        <option value="{{skgroup}}">{{grouped}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+  </div>
+</form>
+
+<script>
+    textContainer = document.querySelectorAll('.app.window-app.sheet');
+    length = textContainer.length;
+  
+    for (i = 0; i < length; i++) {
+      if (textContainer[i].children[1].children[0].className.includes("item-sheet")) {
+        new_red = document.getElementsByClassName("app window-app sheet")[i].id;
+        console.log("new_red");
+        console.log(new_red);
+        if (document.getElementById(new_red).className.includes("career-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("ammo-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("consumable-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("container-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("disease-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("injury-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("money-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("mutation-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("prayer-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("psychology-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("skill-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("spell-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("talent-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("trait-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("trapping-sheet")) {
+          continue;
+        } 
+        else if (document.getElementById(new_red).className.includes("weapon-sheet")) {
+          continue;
+        } 
+        else {
+          document.getElementById(new_red).className += " skill-sheet item-sheet";
+        }
+      } else {}
+    }
+  
+    // console.log(checkIfToken);
+  </script>

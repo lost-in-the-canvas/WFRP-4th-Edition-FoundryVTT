@@ -2,11 +2,43 @@
   "name": "wfrp4e",
   "title": "Warhammer Fantasy Roleplay (4th Ed.)",
   "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Roleplay in the Foundry VTT environment.",
-  "version": "Alpha 0.2",
-  "author": "CatoThe1stElder, Moo Man, and Hooking",
+  "version": "Beta 0.8",
+  "author": "CatoThe1stElder, Moo Man",
   "scripts": ["wfrp4e.js"],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
+  	{
+      "name": "bestiary",
+      "label": "Bestiary",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/bestiary.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "careers",
+      "label": "Careers",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/careers.db",
+      "entity": "Item"
+    },
+  	 {
+      "name": "skills",
+      "label": "Skills",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/skills.db",
+      "entity": "Item"
+    },
+    {
+      "name": "talents",
+      "label": "Talents",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/talents.db",
+      "entity": "Item"
+    },
     {
       "name": "traits",
       "label": "Traits",
@@ -16,19 +48,19 @@
       "entity": "Item"
     },
     {
-      "name": "skills",
-      "label": "Skills",
-      "system": "wfrp4e",
+      "name": "psychologies",
+      "label": "Psychologies",
+      "path": "./packs/psychologies.db",
+      "entity": "Item",
       "module": "wfrp4e",
-      "path": "./packs/skills.db",
-      "entity": "Item"
+      "system": "wfrp4e"
     },
     {
-      "name": "diseases",
-      "label": "Diseases",
-      "path": "./packs/diseases.db",
+      "name": "mutations",
+      "label": "Mutations",
+      "path": "./packs/mutations.db",
       "entity": "Item",
-      "module": "world",
+      "module": "wfrp4e",
       "system": "wfrp4e"
     },
     {
@@ -36,12 +68,47 @@
       "label": "Injuries",
       "path": "./packs/injuries.db",
       "entity": "Item",
-      "module": "world",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "diseases",
+      "label": "Diseases",
+      "path": "./packs/diseases.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "./packs/spells.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+	{
+      "name": "prayers",
+      "label": "Prayers",
+      "path": "./packs/prayers.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "trappings",
+      "label": "Trappings",
+      "path": "./packs/trappings.db",
+      "entity": "Item",
+      "module": "wfrp4e",
       "system": "wfrp4e"
     }
   ],
   "languages": ["en"],
   "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
   "gridDistance": 2,
-  "gridUnits": "yd"
+  "gridUnits": "yd",
+  "primaryTokenAttribute": "status.wounds",
+  "secondaryTokenAttribute": "status.advantage",
+  "minimumCoreVersion": "0.3.0"
 }

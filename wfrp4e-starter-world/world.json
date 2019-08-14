@@ -1,11 +1,11 @@
 {
+  "banner": "",
+  "coreVersion": "0.3.4",
+  "description": "",
   "name": "WFRP 4th Edition (Starter World)",
-  "description": "<p>This world has all the items organized.</p>",
-  "system": "wfrp4e",
-  "coreVersion": "0.3.2",
-  "systemVersion": "Alpha 0.2",
   "packs": [],
   "scripts": [],
   "styles": [],
-  "id": "wfrp4e-starter-world"
+  "system": "wfrp4e",
+  "systemVersion": "Alpha 0.2"
 }

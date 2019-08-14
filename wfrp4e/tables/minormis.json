@@ -1,0 +1,406 @@
+{
+  "name": "Minor Miscast Table",
+  "rows": [
+    "-",
+    {
+      "name": "Witchsign",
+      "description": "The next living creature born within 1 mile is mutated."
+    },
+    {
+      "name": "Witchsign",
+      "description": "The next living creature born within 1 mile is mutated."
+    },
+    {
+      "name": "Witchsign",
+      "description": "The next living creature born within 1 mile is mutated."
+    },
+    {
+      "name": "Witchsign",
+      "description": "The next living creature born within 1 mile is mutated."
+    },
+    {
+      "name": "Witchsign",
+      "description": "The next living creature born within 1 mile is mutated."
+    },
+    {
+      "name": "Soured Milk",
+      "description": "All milk within 1d100 yards goes sour instantly."
+    },
+    {
+      "name": "Soured Milk",
+      "description": "All milk within 1d100 yards goes sour instantly."
+    },
+    {
+      "name": "Soured Milk",
+      "description": "All milk within 1d100 yards goes sour instantly."
+    },
+    {
+      "name": "Soured Milk",
+      "description": "All milk within 1d100 yards goes sour instantly."
+    },
+    {
+      "name": "Soured Milk",
+      "description": "All milk within 1d100 yards goes sour instantly."
+    },
+    {
+      "name": "Blight",
+      "description": "Willpower Bonus fields within Willpower Bonus miles suffer a blight, and all crops rot overnight."
+    },
+    {
+      "name": "Blight",
+      "description": "Willpower Bonus fields within Willpower Bonus miles suffer a blight, and all crops rot overnight."
+    },
+    {
+      "name": "Blight",
+      "description": "Willpower Bonus fields within Willpower Bonus miles suffer a blight, and all crops rot overnight."
+    },
+    {
+      "name": "Blight",
+      "description": "Willpower Bonus fields within Willpower Bonus miles suffer a blight, and all crops rot overnight."
+    },
+    {
+      "name": "Blight",
+      "description": "Willpower Bonus fields within Willpower Bonus miles suffer a blight, and all crops rot overnight."
+    },
+    {
+      "name": "Soulwax",
+      "description": "Your ears clog instantly with a thick wax. Gain 1 Deafened Condition, which is not removed until someone cleans them for you (with a successful use of the Heal Skill)."
+    },
+    {
+      "name": "Soulwax",
+      "description": "Your ears clog instantly with a thick wax. Gain 1 Deafened Condition, which is not removed until someone cleans them for you (with a successful use of the Heal Skill)."
+    },
+    {
+      "name": "Soulwax",
+      "description": "Your ears clog instantly with a thick wax. Gain 1 Deafened Condition, which is not removed until someone cleans them for you (with a successful use of the Heal Skill)."
+    },
+    {
+      "name": "Soulwax",
+      "description": "Your ears clog instantly with a thick wax. Gain 1 Deafened Condition, which is not removed until someone cleans them for you (with a successful use of the Heal Skill)."
+    },
+    {
+      "name": "Soulwax",
+      "description": "Your ears clog instantly with a thick wax. Gain 1 Deafened Condition, which is not removed until someone cleans them for you (with a successful use of the Heal Skill)."
+    },
+    {
+      "name": "Witchlight",
+      "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for 1d10 Rounds."
+    },
+    {
+      "name": "Witchlight",
+      "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for 1d10 Rounds."
+    },
+    {
+      "name": "Witchlight",
+      "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for 1d10 Rounds."
+    },
+    {
+      "name": "Witchlight",
+      "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for 1d10 Rounds."
+    },
+    {
+      "name": "Witchlight",
+      "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for 1d10 Rounds."
+    },
+    {
+      "name": "Fell Whispers",
+      "description": "Pass a Routine (+20) Willpower Test or gain 1 Corruption point."
+    },
+    {
+      "name": "Fell Whispers",
+      "description": "Pass a Routine (+20) Willpower Test or gain 1 Corruption point."
+    },
+    {
+      "name": "Fell Whispers",
+      "description": "Pass a Routine (+20) Willpower Test or gain 1 Corruption point."
+    },
+    {
+      "name": "Fell Whispers",
+      "description": "Pass a Routine (+20) Willpower Test or gain 1 Corruption point."
+    },
+    {
+      "name": "Fell Whispers",
+      "description": "Pass a Routine (+20) Willpower Test or gain 1 Corruption point."
+    },
+    {
+      "name": "Rupture",
+      "description": "Your nose, eyes, and ears bleed profusely. Gain 1d10 Bleeding Conditions."
+    },
+    {
+      "name": "Rupture",
+      "description": "Your nose, eyes, and ears bleed profusely. Gain 1d10 Bleeding Conditions."
+    },
+    {
+      "name": "Rupture",
+      "description": "Your nose, eyes, and ears bleed profusely. Gain 1d10 Bleeding Conditions."
+    },
+    {
+      "name": "Rupture",
+      "description": "Your nose, eyes, and ears bleed profusely. Gain 1d10 Bleeding Conditions."
+    },
+    {
+      "name": "Rupture",
+      "description": "Your nose, eyes, and ears bleed profusely. Gain 1d10 Bleeding Conditions."
+    },
+    {
+      "name": "Soulquake",
+      "description": "Gain the Prone Condition."
+    },
+    {
+      "name": "Soulquake",
+      "description": "Gain the Prone Condition."
+    },
+    {
+      "name": "Soulquake",
+      "description": "Gain the Prone Condition."
+    },
+    {
+      "name": "Soulquake",
+      "description": "Gain the Prone Condition."
+    },
+    {
+      "name": "Soulquake",
+      "description": "Gain the Prone Condition."
+    },
+    {
+      "name": "Unfasten",
+      "description": "On your person, every buckle unfastens, and every lace unties, which may cause belts to fall, pouches to open, bags to fall, and armour to slip."
+    },
+    {
+      "name": "Unfasten",
+      "description": "On your person, every buckle unfastens, and every lace unties, which may cause belts to fall, pouches to open, bags to fall, and armour to slip."
+    },
+    {
+      "name": "Unfasten",
+      "description": "On your person, every buckle unfastens, and every lace unties, which may cause belts to fall, pouches to open, bags to fall, and armour to slip."
+    },
+    {
+      "name": "Unfasten",
+      "description": "On your person, every buckle unfastens, and every lace unties, which may cause belts to fall, pouches to open, bags to fall, and armour to slip."
+    },
+    {
+      "name": "Unfasten",
+      "description": "On your person, every buckle unfastens, and every lace unties, which may cause belts to fall, pouches to open, bags to fall, and armour to slip."
+    },
+    {
+      "name": "Wayward Garb",
+      "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of 1d10×5 to resist."
+    },
+    {
+      "name": "Wayward Garb",
+      "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of 1d10×5 to resist."
+    },
+    {
+      "name": "Wayward Garb",
+      "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of 1d10×5 to resist."
+    },
+    {
+      "name": "Wayward Garb",
+      "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of 1d10×5 to resist."
+    },
+    {
+      "name": "Wayward Garb",
+      "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of 1d10×5 to resist."
+    },
+    {
+      "name": "Curse of Temperence",
+      "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul."
+    },
+    {
+      "name": "Curse of Temperence",
+      "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul."
+    },
+    {
+      "name": "Curse of Temperence",
+      "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul."
+    },
+    {
+      "name": "Curse of Temperence",
+      "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul."
+    },
+    {
+      "name": "Curse of Temperence",
+      "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul."
+    },
+    {
+      "name": "Souldrain",
+      "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours."
+    },
+    {
+      "name": "Souldrain",
+      "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours."
+    },
+    {
+      "name": "Souldrain",
+      "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours."
+    },
+    {
+      "name": "Souldrain",
+      "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours."
+    },
+    {
+      "name": "Souldrain",
+      "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours."
+    },
+    {
+      "name": "Driven to Distraction",
+      "description": "If engaged in combat, gain the Surprised Condition. Otherwise, you are completely startled, your heart racing, and unable to concentrate for a few moments."
+    },
+    {
+      "name": "Driven to Distraction",
+      "description": "If engaged in combat, gain the Surprised Condition. Otherwise, you are completely startled, your heart racing, and unable to concentrate for a few moments."
+    },
+    {
+      "name": "Driven to Distraction",
+      "description": "If engaged in combat, gain the Surprised Condition. Otherwise, you are completely startled, your heart racing, and unable to concentrate for a few moments."
+    },
+    {
+      "name": "Driven to Distraction",
+      "description": "If engaged in combat, gain the Surprised Condition. Otherwise, you are completely startled, your heart racing, and unable to concentrate for a few moments."
+    },
+    {
+      "name": "Driven to Distraction",
+      "description": "If engaged in combat, gain the Surprised Condition. Otherwise, you are completely startled, your heart racing, and unable to concentrate for a few moments."
+    },
+    {
+      "name": "Unholy Visions",
+      "description": "Fleeting visions of profane and unholy acts harass you. Receive a Blinded Condition; pass a Challenging (+0) Cool Test or gain another."
+    },
+    {
+      "name": "Unholy Visions",
+      "description": "Fleeting visions of profane and unholy acts harass you. Receive a Blinded Condition; pass a Challenging (+0) Cool Test or gain another."
+    },
+    {
+      "name": "Unholy Visions",
+      "description": "Fleeting visions of profane and unholy acts harass you. Receive a Blinded Condition; pass a Challenging (+0) Cool Test or gain another."
+    },
+    {
+      "name": "Unholy Visions",
+      "description": "Fleeting visions of profane and unholy acts harass you. Receive a Blinded Condition; pass a Challenging (+0) Cool Test or gain another."
+    },
+    {
+      "name": "Unholy Visions",
+      "description": "Fleeting visions of profane and unholy acts harass you. Receive a Blinded Condition; pass a Challenging (+0) Cool Test or gain another."
+    },
+    {
+      "name": "Cloying Tongue",
+      "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds."
+    },
+    {
+      "name": "Cloying Tongue",
+      "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds."
+    },
+    {
+      "name": "Cloying Tongue",
+      "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds."
+    },
+    {
+      "name": "Cloying Tongue",
+      "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds."
+    },
+    {
+      "name": "Cloying Tongue",
+      "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds."
+    },
+    {
+      "name": "The Horror!",
+      "description": "Pass a Hard (-20) Cool Test or gain 1 Broken Condition."
+    },
+    {
+      "name": "The Horror!",
+      "description": "Pass a Hard (-20) Cool Test or gain 1 Broken Condition."
+    },
+    {
+      "name": "The Horror!",
+      "description": "Pass a Hard (-20) Cool Test or gain 1 Broken Condition."
+    },
+    {
+      "name": "The Horror!",
+      "description": "Pass a Hard (-20) Cool Test or gain 1 Broken Condition."
+    },
+    {
+      "name": "The Horror!",
+      "description": "Pass a Hard (-20) Cool Test or gain 1 Broken Condition."
+    },
+    {
+      "name": "Curse of Corruption",
+      "description": "Gain 1 Corruption point."
+    },
+    {
+      "name": "Curse of Corruption",
+      "description": "Gain 1 Corruption point."
+    },
+    {
+      "name": "Curse of Corruption",
+      "description": "Gain 1 Corruption point."
+    },
+    {
+      "name": "Curse of Corruption",
+      "description": "Gain 1 Corruption point."
+    },
+    {
+      "name": "Curse of Corruption",
+      "description": "Gain 1 Corruption point."
+    },
+    {
+      "name": "Double Trouble",
+      "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences."
+    },
+    {
+      "name": "Double Trouble",
+      "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences."
+    },
+    {
+      "name": "Double Trouble",
+      "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences."
+    },
+    {
+      "name": "Double Trouble",
+      "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences."
+    },
+    {
+      "name": "Double Trouble",
+      "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences."
+    },
+    {
+      "name": "Multiplying Misfortune",
+      "description": "Roll twice on this table, rerolling any results between 91-00."
+    },
+    {
+      "name": "Multiplying Misfortune",
+      "description": "Roll twice on this table, rerolling any results between 91-00."
+    },
+    {
+      "name": "Multiplying Misfortune",
+      "description": "Roll twice on this table, rerolling any results between 91-00."
+    },
+    {
+      "name": "Multiplying Misfortune",
+      "description": "Roll twice on this table, rerolling any results between 91-00."
+    },
+    {
+      "name": "Multiplying Misfortune",
+      "description": "Roll twice on this table, rerolling any results between 91-00."
+    },
+    {
+      "name": "Cascading Chaos",
+      "description": "Roll again on the Major Miscast Table."
+    },
+    {
+      "name": "Cascading Chaos",
+      "description": "Roll again on the Major Miscast Table."
+    },
+    {
+      "name": "Cascading Chaos",
+      "description": "Roll again on the Major Miscast Table."
+    },
+    {
+      "name": "Cascading Chaos",
+      "description": "Roll again on the Major Miscast Table."
+    },
+    {
+      "name": "Cascading Chaos",
+      "description": "Roll again on the Major Miscast Table."
+    }
+  ]
+}
