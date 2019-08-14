@@ -10,7 +10,6 @@
 {"_id":"3YovCR8T0OWqulv9","name":"Lore of Life","type":"Item","parent":"gq63Du7x7meVEF1y","sort":900000}
 {"_id":"3ZwkvBlUmWiiJNki","name":"Cavalryman","type":"Item","parent":"Z6AZPqCv92fnoCS2","sort":1000000}
 {"_id":"45ZviiDTBipr9QXk","name":"Grave Robber","type":"Item","parent":"iomrYBt356ob6Nk7","sort":1100000}
-{"_id":"46KQkiGUpCj2088n","name":"Skills","type":"Item","parent":null,"sort":1200000}
 {"_id":"4QxeZepugYYBHTRn","name":"Engineer","type":"Item","parent":"DmO6ykKAFj2dLSKK","sort":1300000}
 {"_id":"4iST6AJtpGRLqMal","name":"Lore of Death","type":"Item","parent":"gq63Du7x7meVEF1y","sort":1400000}
 {"_id":"4sWcMOarfHJov7XB","name":"Leg","type":"Item","parent":"Es0u4U68vLPe70Lv","sort":13500000,"color":""}
@@ -133,3 +132,5 @@
 {"_id":"wPWH8ZgPEvdPPdkJ","name":"Lore of Metal","type":"Item","parent":"gq63Du7x7meVEF1y","sort":12700000}
 {"_id":"yvKm3BXywCm12LgA","name":"Taal","type":"Item","parent":"1w1PNu0u0r4vorit","sort":12800000}
 {"_id":"z2q9HQ3MaOBWOSu5","name":"Peasants","type":"Item","parent":"K6EzwV4HagHawMPX","sort":12900000}
+{"$$deleted":true,"_id":"Mgv42GltsRfPeAuW"}
+{"$$deleted":true,"_id":"laswwW0Ynbrumnui"}
