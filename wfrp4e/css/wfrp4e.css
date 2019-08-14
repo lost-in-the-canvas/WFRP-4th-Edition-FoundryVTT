@@ -1,3 +1,25 @@
+/******************************************************************/
+/*=============== TABLE OF CONTENTS ==============================*/
+/******************************************************************/
+/*   I. LOCAL FONTS                                               */
+/*   II. GENERAL USER INTERFACE                                   */
+/*   III. SIDEBAR                                                 */
+/*   IV. ITEM SHEET                                               */
+/*   V. ACTOR SHEET (CHARACTER)                                   */ 
+/*   VI. ACTOR SHEET (NPC)                                        */
+/*   VII. ACTOR SHEET (CREATURE)                                  */
+/*   VIII. ACTOR SHEET (TOKEN)                                    */
+/*   IX. PLAYERS LIST                                             */
+/*   X. NAVIGATION BAR                                            */
+/*   XI. SCENE CONTROLS                                           */ 
+/*   XII. GAME SETTINGS                                           */
+/*   XIII. ROLL DIALOG                                            */
+/*   XIV. MISCELLANEOUS GAME WINDOWS                              */
+/******************************************************************/
+/******************************************************************/
+
+
+
 
 /******************************************************************/
 /*=============== I. LOCAL FONTS =================================*/
@@ -157,6 +179,127 @@
       box-shadow: none;
       border-radius: 0px;
       /* background: blue; */
+    }
+
+    
+    #sidebar ::-webkit-scrollbar {
+      width: 14px;
+    }
+    #sidebar ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat;  */
+      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      border-image-width: 25px;
+      border-image-outset: 0px;
+    }
+    #sidebar ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 25px;
+      border: none;
+    }
+    #sidebar ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    } 
+    #sidebar ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    }
+    #sidebar ::-webkit-scrollbar-button:vertical:start:increment,
+    #sidebar ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    #sidebar ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 9px 110px;
+      box-shadow: none;
+    }
+
+    .app.window-app.form ::-webkit-scrollbar {
+      width: 14px;
+    }
+    .app.window-app.form ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat;  */
+      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      border-image-width: 25px;
+      border-image-outset: 0px;
+    }
+    .app.window-app.form ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 25px;
+      border: none;
+    }
+    .app.window-app.form ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    } 
+    .app.window-app.form ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    }
+    .app.window-app.form ::-webkit-scrollbar-button:vertical:start:increment,
+    .app.window-app.form ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    .app.window-app.form ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 9px 110px;
+      box-shadow: none;
+    }
+
+    .app.window-app.dialog ::-webkit-scrollbar {
+      width: 14px;
+    }
+    .app.window-app.dialog ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat;  */
+      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      border-image-width: 25px;
+      border-image-outset: 0px;
+    }
+    .app.window-app.dialog ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 25px;
+      border: none;
+    }
+    .app.window-app.dialog ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    } 
+    .app.window-app.dialog ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    }
+    .app.window-app.dialog ::-webkit-scrollbar-button:vertical:start:increment,
+    .app.window-app.dialog ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    .app.window-app.dialog ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 9px 110px;
+      box-shadow: none;
     }
 
   /* ==================== (G) LIST STYLING ====================== */
@@ -478,7 +621,7 @@
       background: url(../ui/sidebar-button-settings.png);
     }
 
-  /* ==================== (C) SIDEBAR CHAT LOG ================== */
+  /* ==================== (C) SIDEBAR (CHAT) ================ */
     #chat-log {
       flex: none;
       height: calc(100vh - 54px - 187px);
@@ -546,7 +689,6 @@
       padding: 3px 4px 3px 4px;
     }
 
-  /* ==================== (D) SIDEBAR CHAT CONTROLS ============= */
     #chat-notification {
       display: none;
       color: #ff6400;
@@ -597,7 +739,6 @@
       text-align: center;
     }
 
-  /* ==================== (E) SIDEBAR CHAT FORM ================= */
     #chat-form {
       height: 100px;
       flex: 0 0 100px;
@@ -701,6 +842,20 @@
         font-size: 16px;
         display: none;
       }
+
+  /* ==================== (D) SIDEBAR (COMBAT TRACKER) ====== */
+    #sidebar #combat .directory-footer .fas {
+      font-size: 16px;
+      display: inline-block;
+    }
+
+  /* ==================== (E) SIDEBAR (SCENES) ============== */
+  /* ==================== (F) SIDEBAR (ACTORS) ============== */
+  /* ==================== (G) SIDEBAR (ITEMS) =============== */
+  /* ==================== (H) SIDEBAR (JOURNAL) ============= */
+  /* ==================== (I) SIDEBAR (PLAYLISTS) =========== */
+  /* ==================== (J) SIDEBAR (COMPENDIUM) ========== */
+  /* ==================== (K) SIDEBAR (SETTINGS) ============ */
 
 /******************************************************************/
 /******************************************************************/     
@@ -3431,6 +3586,8 @@
           font-size: var(--actor-input-font-size);
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
           padding: 2px 2px 0px 0px;
@@ -3962,6 +4119,8 @@
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
               overflow: hidden;
+              color: #672323;
+              text-shadow: 1px 0px 1px #6e6e716e;
             }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
             min-width: 90px;
@@ -4161,6 +4320,8 @@
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
               overflow: hidden;
+              color: #672323;
+              text-shadow: 1px 0px 1px #6e6e716e;
             }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
             min-width: 90px;
@@ -4764,6 +4925,8 @@
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
+            color: #672323;
+            text-shadow: 1px 0px 1px #6e6e716e;
           }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
           padding: 11px 4px 0px 0px;
@@ -4916,6 +5079,8 @@
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
+            color: #672323;
+            text-shadow: 1px 0px 1px #6e6e716e;
           }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
           min-width: 130px;
@@ -5177,6 +5342,8 @@
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
+            color: #672323;
+            text-shadow: 1px 0px 1px #6e6e716e;
           }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.religion.active .inventory-list.blessing-list .item .content .item-controls {
           padding: 11px 4px 0px 0px;
@@ -5297,6 +5464,8 @@
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
+            color: #672323;
+            text-shadow: 1px 0px 1px #6e6e716e;
           }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.religion.active .inventory-list.miracle-list .item .content .item-controls {
           padding: 11px 4px 0px 0px;
@@ -5604,7 +5773,7 @@
           overflow-x: hidden;
           overflow-y: hidden;
           margin: 0px 0px;
-          padding: 0px 0px;
+          padding: 2px 2px;
           display: flex;
           flex-direction: row;
           font-family: var(--actor-input-font-family);
@@ -7797,70 +7966,8 @@
 
 
 
-  /* ==================== (E) SCROLLBAR ========================= */
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar {
-      width: 10px;
-      /* margin-top: 6px;
-      margin-bottom: 6px; */
-      /* left:-100px; */
-    }
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
-      box-shadow: none;
-      border-radius: 0px;
-    }
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-thumb {
-      outline: none;
-      border-radius: 3px;
-      background: none;
-      /* background: url(../ui/scrollbar.png) no-repeat;  */
-      border-image: url(../ui/sheet-scrollbar-thumb.png) 10 repeat;
-      border-image-width: 5px;
-      border-image-outset: 0px;
-    }
-    
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button {
-      background: #782e22;
-      height: 23px;
-      border: none;
-    }
-    
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:start:decrement {
-      background: url(../ui/sheet-scrollbar-button-vertical-decrement.png) no-repeat;
-      background-position: center;
-      box-shadow: none;
-      box-shadow: none; 
-      height: 16px;
-      background-position-y: 7px;
-    } 
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:end:increment {
-      background: url(../ui/sheet-scrollbar-button-vertical-increment.png) no-repeat;
-      background-position: center;
-      background-position-y: 0px;
-      box-shadow: none; 
-      height: 16px;
-    }
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:start:increment,
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:end:decrement {
-        display: none;
-    }
-    
-    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
-      background: url(../ui/sheet-scrollbar-track.png) repeat-y;
-      background-position: center;
-      background-size: 4px 68px;
-    
-      box-shadow: none;
-    }
-
-/******************************************************************/
-
-
-
-
-
-
 /*************************************************************/
-/*=============== VI. ACTOR (NPC SHEET) =====================*/
+/*=============== VI. ACTOR SHEET (NPC) =====================*/
 /*************************************************************/
 
   /* ==================== (A) WINDOW FRAMEWORK ================== */
@@ -8954,6 +9061,7 @@
           height: 18px;
           width: fit-content;
           display: inline-block;
+          visibility: hidden;
           /* background: bisque; */
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-header #complete {
@@ -9059,6 +9167,8 @@
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 0;
+            position: relative;
+            left: 45px;
             /* background: aqua; */
           }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list .item .content .career-level {
@@ -9068,6 +9178,8 @@
             flex-grow: 0;
             flex-shrink: 0;
             flex-basis: 0;
+            position: relative;
+            left: 22px;
             /* background: aqua; */
           }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
@@ -13432,9 +13544,8 @@
 
 
 
-
 /*************************************************************/
-/*=============== VII. ACTOR (CREATURE SHEET) ===============*/
+/*=============== VII. ACTOR SHEET (CREATURE) ===============*/
 /*************************************************************/
 
   /* ==================== (A) WINDOW FRAMEWORK ================== */
@@ -18174,7 +18285,7 @@
 
 
 /*************************************************************/
-/*=============== VIII. ACTOR (TOKEN SHEETS) ================*/
+/*=============== VIII. ACTOR SHEET (TOKEN) =================*/
 /*************************************************************/
   .app.window-app.sheet.wfrp4e.actor.character-sheet.token-actor {
     background: url(../ui/actor-sheet-token-character.png) no-repeat;
@@ -18235,50 +18346,50 @@
 /*************************************************************/
 /*=============== X. NAVIGATION BAR =========================*/
 /*************************************************************/
-#navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
-  cursor: default;
-  color: #FFF;
-  background: url(../ui/sidebar_button-background_red.png) repeat;
-  background-origin: padding-box;
-  border-image: url(../ui/footer-button.png) 10 repeat;
-  border-image-width: 4px;
-  border-image-outset: 0px;
-  box-shadow: 0 0 3px #ff6400;
-}
-
-#navigation #scene-list .scene.gm {
-  cursor: default;
-  color: #FFF;
-  background: url(../ui/sidebar_button-background_cyan.png) repeat;
-  background-origin: padding-box;
-  border-image: url(../ui/footer-button.png) 10 repeat;
-  border-image-width: 4px;
-  border-image-outset: 0px;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  padding-top: 2px;
-}
-#navigation #scene-list .scene.gm.active {
-  background: url(../ui/sidebar_button-background_red.png) repeat;
-}
-  #navigation #scene-list .scene li.scene-player {
-    float: left;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px 0 0;
-    line-height: 12px;
-    padding-top: 1px;
-    text-align: center;
-    color: #000000e8;
-    font-weight: 600;
-    background: #97dff4;
-    border: 1px solid #000;
-    border-radius: 8px;
-    font-family: "Signika", "Palatino Linotype", serif;
-    font-size: 13px;
-    box-shadow: inset 0 0 3px #000000;
+  #navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
+    cursor: default;
+    color: #FFF;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    box-shadow: 0 0 3px #ff6400;
   }
+
+  #navigation #scene-list .scene.gm {
+    cursor: default;
+    color: #FFF;
+    background: url(../ui/sidebar_button-background_cyan.png) repeat;
+    background-origin: padding-box;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    padding-top: 2px;
+  }
+  #navigation #scene-list .scene.gm.active {
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+  }
+    #navigation #scene-list .scene li.scene-player {
+      float: left;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px 0 0;
+      line-height: 12px;
+      padding-top: 1px;
+      text-align: center;
+      color: #000000e8;
+      font-weight: 600;
+      background: #97dff4;
+      border: 1px solid #000;
+      border-radius: 8px;
+      font-family: "Signika", "Palatino Linotype", serif;
+      font-size: 13px;
+      box-shadow: inset 0 0 3px #000000;
+    }
 /*************************************************************/
 /*************************************************************/
 
@@ -18324,540 +18435,754 @@
 }
 /*************************************************************/
 /*************************************************************/
+
+
+
+
+
 /*************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ----------------------------------------- */
-/* DIALOG Sidebar Scrollbar                  */
-/* ----------------------------------------- */
-.window-app.dialog ::-webkit-scrollbar {
-  width: 14px;
-  /* margin-top: 6px;
-  margin-bottom: 6px; */
-  /* left:-100px; */
-}
-.window-app.dialog ::-webkit-scrollbar-track {
-  box-shadow: none;
-  border-radius: 4px;
-}
-.window-app.dialog ::-webkit-scrollbar-thumb {
-  outline: none;
-  border-radius: 3px;
-  background: none;
-  /* background: url(../ui/scrollbar.png) no-repeat;  */
-  border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
-  border-image-width: 25px;
+/*=============== XII. GAME SETTINGS ========================*/
+/*************************************************************/
+#client-settings {
+  border: 1px solid blue;
+  border-width: 10px;
+  border-image: url(../ui/game-settings-border.png) 5 repeat;
+  border-image-slice: 162 81 67 80;
+  border-image-width: 162px 81px 67px 80px;
   border-image-outset: 0px;
-}
-
-.window-app.dialog ::-webkit-scrollbar-button {
-  background: #782e22;
-  height: 25px;
-  border: none;
-}
-
-.window-app.dialog ::-webkit-scrollbar-button:start:decrement {
-  background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
-  background-position: center;
-  box-shadow: none;
-  box-shadow: none; 
-} 
-.window-app.dialog ::-webkit-scrollbar-button:end:increment {
-  background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
-  background-position: center;
-  box-shadow: none;
-  box-shadow: none; 
-}
-.window-app.dialog ::-webkit-scrollbar-button:vertical:start:increment,
-.window-app.dialog ::-webkit-scrollbar-button:vertical:end:decrement {
-    display: none;
-}
-
-.window-app.dialog ::-webkit-scrollbar-track {
-  background: url(../ui/scrollbar-track.png) repeat-y;
-  background-position: center;
-  background-size: 9px 110px;
-
-  box-shadow: none;
-}
-/* ----------------------------------------- */
-/* ----------------------------------------- */
-
-
-
-
-
-
-
-/*************************************************************/
-/*************************************************************/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*************************************************************/
-/*=============== IV. ROLL DIALOG ===========================*/
-/*************************************************************/
-
-.window-app.dialog.characteristic-roll-dialog,
-.window-app.dialog.skill-roll-dialog,
-.window-app.dialog.weapon-roll-dialog,
-.window-app.dialog.spell-roll-dialog,
-.window-app.dialog.channell-roll-dialog,
-.window-app.dialog.prayer-roll-dialog  {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
   background: none;
-  padding: 0px !important;
-  color: #111;
-  width: 517px !important;
-  /* height: 350px !important; */
-  box-shadow: 3px 4px 10px #000;
+  height: 802px !important;
+  width: 800px !important;
+  box-shadow: none;
 }
-.window-app.dialog.characteristic-roll-dialog .roll-dialog-tag,
-.window-app.dialog.skill-roll-dialog .roll-dialog-tag,
-.window-app.dialog.weapon-roll-dialog .roll-dialog-tag,
-.window-app.dialog.spell-roll-dialog .roll-dialog-tag,
-.window-app.dialog.channell-roll-dialog .roll-dialog-tag,
-.window-app.dialog.prayer-roll-dialog .roll-dialog-tag {
-  visibility: hidden;
-  height: 0px;
+#client-settings .window-header {
+  border: none;
+  min-height: 152px;
+  background: none;
 }
-
-.window-app.dialog.characteristic-roll-dialog .window-header,
-.window-app.dialog.skill-roll-dialog .window-header,
-.window-app.dialog.weapon-roll-dialog .window-header,
-.window-app.dialog.spell-roll-dialog .window-header,
-.window-app.dialog.channell-roll-dialog .window-header,
-.window-app.dialog.prayer-roll-dialog .window-header {
-  flex: 0 0 45px;
-  padding: 0px;
-  margin: 0px;
-  line-height: 30px;
-  border-bottom: none;
-  background: url(../ui/window-app-dialog-header.png) repeat;
-}
-  .window-app.dialog.characteristic-roll-dialog .window-header .window-title,
-  .window-app.dialog.skill-roll-dialog .window-header .window-title,
-  .window-app.dialog.weapon-roll-dialog .window-header .window-title,
-  .window-app.dialog.spell-roll-dialog .window-header .window-title,
-  .window-app.dialog.channell-roll-dialog .window-header .window-title, 
-  .window-app.dialog.prayer-roll-dialog .window-header .window-title {
-    position: absolute;
-    top: 60px;
-    left: 26px;
-    visibility: visible;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 14px;
-    color: #ececec;
-    line-height: 24px;
-    border: 1px solid #736953a6;
-    box-shadow: 0px 0px 10px inset black;
-    background: #000000ed;
-    border-radius: 0px;
-    opacity: 1;
-    text-align: center;
-    width: 451px;
-    z-index: 4;
-    height: 26px;
-    padding: 2px 0px 0px 0px;
+  #client-settings .window-header h4 {
+    display: none;
   }
-  .window-app.dialog.characteristic-roll-dialog .window-header .close,
-  .window-app.dialog.skill-roll-dialog .window-header .close,
-  .window-app.dialog.weapon-roll-dialog .window-header .close,
-  .window-app.dialog.spell-roll-dialog .window-header .close,
-  .window-app.dialog.channell-roll-dialog .window-header .close,
-  .window-app.dialog.prayer-roll-dialog .window-header .close {
+  #client-settings .window-header .close {
     color: #00e5ff00;
     text-align: center;
     background: url(../ui/button-close.png);
     height: 30px;
     width: 30px;
-    position: relative;
-    top: 9px;
-    left: 470px;
+    position: absolute;
+    top: 97px;
+    right: 24px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    /* background: var(--debug-background-color-blue); */
+  }
+#client-settings .window-content {
+  margin: 0px 70px 57px 70px;
+  padding: 0px;
+  border: none;
+  background: url(../ui/game-settings-background.png);
+  background-size: 199%;
+  background-position-x: center;
+}
+#client-settings .window-content form {
+  padding: 6px;
+  margin: 0px 8px 0px 0px;
+  border: none;
+  background: none;
+  box-shadow: inset 0px 0px 4px black;
+  overflow-y: scroll;
+}
+  #client-settings .window-content form .form-group {
+    flex: 2;
+    line-height: 24px;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border-radius: 0px;
+    opacity: 0.9;
+    min-width: 93px;
+    color: #efefef;
+    padding: 6px;
+    margin: 8px 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  #client-settings .window-content form .form-group > label {
+    flex: 2;
+    line-height: normal;
+    padding: 5px 0px 0px 0px;
+    font-size: 16px;
+    color: #e2e2e2;
+    /* text-shadow: 1px 1px 1px #ffc80069; */
+  }
+  #client-settings .window-content form h2 {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    color: #ccc6c6;
+    font-family: CaslonAntique;
+    font-size: 24px;
+    font-weight: 500;
+    text-shadow: 1px 1px 5px #000000;
+    text-align: center;
+    border: 3px double #736953a6;
+    background: #310a0a91;
+    box-shadow: inset 0px 0px 5px black;
+  }
+  #client-settings .window-content form .form-group select {
+    height: 25px;
+    max-width: 340px;
+    background: #352516;
+    color: #e2e2e2;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    border-radius: 4px;
+    padding: 3px 0px 0px 0px;
+    text-overflow: ellipsis;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  #client-settings .window-content form .hint {
+    flex: 0 0 100%;
+    font-size: 14px;
+    color: #a09c88;
+    margin: 6px 0 0;
+    line-height: initial;
+  }
+  #client-settings .window-content button {
+    flex: 2;
+    margin: 0px 0px 0px 0px;
+    padding: 3px 0px 3px 0px;
+    line-height: normal;
+    border: 3px double #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    border-radius: 0px;
+    opacity: 0.9;
+    text-align: center;
+    min-width: 93px;
+    color: #e2e2e2;
+    font-family: CaslonAntique;
+    font-weight: 500;
+    font-size: 19px;
+    text-shadow: 1px 1px 6px black;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+  }
+  #client-settings .window-content .far.fa-save {
+    display: none;
   }
 
-.window-app.dialog.characteristic-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-characteristic.png);
-  background-position: -43px -120px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
-.window-app.dialog.skill-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-skill.png);
-  background-position: -43px -120px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
-.window-app.dialog.weapon-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-weapon.png);
-  background-position: -43px -120px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
-.window-app.dialog.spell-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-spell.png);
-  background-size: 102%;
-  background-position: -5px -10px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
-.window-app.dialog.prayer-roll-dialog .window-content {
-  background: url(../ui/window-app-dialog-backgrounds-prayer.png);
-  background-position: -43px -120px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: scroll !important;
-  padding: 23px 8px 8px 8px;
-  margin: 8px;
-  /* margin-bottom: 2px; */
-  box-shadow: none;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-  color: #ececec;
-  border: 1px solid blue;
-  border-width: 10px;
-  border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
-  border-image-slice: 10 13 13 13;
-  border-image-width: 10px 13px 13px 13px;
-  border-image-outset: 8px;
-}
+  #client-settings input[type="checkbox"]:checked + label {
+    background: none;
+    border: 1px solid white;
+  }
 
-  .window-app.dialog .window-content .dialog-row {
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+
+/*************************************************************/
+/*=============== XIII. ROLL DIALOG =========================*/
+/*************************************************************/
+
+  .window-app.dialog.characteristic-roll-dialog,
+  .window-app.dialog.skill-roll-dialog,
+  .window-app.dialog.weapon-roll-dialog,
+  .window-app.dialog.spell-roll-dialog,
+  .window-app.dialog.channell-roll-dialog,
+  .window-app.dialog.prayer-roll-dialog  {
     display: flex;
-    flex-direction: row;
-    height: 122px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: none;
+    padding: 0px !important;
+    color: #111;
+    width: 517px !important;
+    /* height: 350px !important; */
+    box-shadow: 3px 4px 10px #000;
   }
-    .window-app.dialog .window-content .dialog-row .bonus-column {
-      width: 181px;
-      margin-right: 4px;
+  .window-app.dialog.characteristic-roll-dialog .roll-dialog-tag,
+  .window-app.dialog.skill-roll-dialog .roll-dialog-tag,
+  .window-app.dialog.weapon-roll-dialog .roll-dialog-tag,
+  .window-app.dialog.spell-roll-dialog .roll-dialog-tag,
+  .window-app.dialog.channell-roll-dialog .roll-dialog-tag,
+  .window-app.dialog.prayer-roll-dialog .roll-dialog-tag {
+    visibility: hidden;
+    height: 0px;
+  }
+
+  .window-app.dialog.characteristic-roll-dialog .window-header,
+  .window-app.dialog.skill-roll-dialog .window-header,
+  .window-app.dialog.weapon-roll-dialog .window-header,
+  .window-app.dialog.spell-roll-dialog .window-header,
+  .window-app.dialog.channell-roll-dialog .window-header,
+  .window-app.dialog.prayer-roll-dialog .window-header {
+    flex: 0 0 45px;
+    padding: 0px;
+    margin: 0px;
+    line-height: 30px;
+    border-bottom: none;
+    background: url(../ui/window-app-dialog-header.png) repeat;
+  }
+    .window-app.dialog.characteristic-roll-dialog .window-header .window-title,
+    .window-app.dialog.skill-roll-dialog .window-header .window-title,
+    .window-app.dialog.weapon-roll-dialog .window-header .window-title,
+    .window-app.dialog.spell-roll-dialog .window-header .window-title,
+    .window-app.dialog.channell-roll-dialog .window-header .window-title, 
+    .window-app.dialog.prayer-roll-dialog .window-header .window-title {
+      position: absolute;
+      top: 60px;
+      left: 26px;
+      visibility: visible;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 24px;
+      border-radius: 0px;
+      opacity: 1;
+      width: 465px;
+      z-index: 4;
+      height: 26px;
+      margin: 0px;
+      padding: 0px;
+      color: #ccc6c6;
+      text-shadow: 1px 1px 5px #000000;
+      text-align: center;
+      border: 3px double #736953a6;
+      background: #310a0ae8;
+      box-shadow: inset 0px 0px 5px black;
     }
-    .window-app.dialog .form-group > label {
+    .window-app.dialog.characteristic-roll-dialog .window-header .close,
+    .window-app.dialog.skill-roll-dialog .window-header .close,
+    .window-app.dialog.weapon-roll-dialog .window-header .close,
+    .window-app.dialog.spell-roll-dialog .window-header .close,
+    .window-app.dialog.channell-roll-dialog .window-header .close,
+    .window-app.dialog.prayer-roll-dialog .window-header .close {
+      color: #00e5ff00;
+      text-align: center;
+      background: url(../ui/button-close.png);
+      height: 30px;
+      width: 30px;
+      position: relative;
+      top: 9px;
+      left: 470px;
+    }
+
+  .window-app.dialog.characteristic-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-characteristic.png);
+    background-position: -43px -120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+  .window-app.dialog.skill-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-skill.png);
+    background-position: -43px -120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+  .window-app.dialog.weapon-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-weapon.png);
+    background-position: -43px -120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+  .window-app.dialog.spell-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-spell.png);
+    background-size: 102%;
+    background-position: -5px -10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+  .window-app.dialog.channell-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-channell.png);
+    background-size: 102%;
+    background-position: -5px -10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+  .window-app.dialog.prayer-roll-dialog .window-content {
+    background: url(../ui/window-app-dialog-backgrounds-prayer.png);
+    background-position: -43px -120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    padding: 23px 8px 8px 8px;
+    margin: 8px;
+    /* margin-bottom: 2px; */
+    box-shadow: none;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+    border: 1px solid blue;
+    border-width: 10px;
+    border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+    border-image-slice: 10 13 13 13;
+    border-image-width: 10px 13px 13px 13px;
+    border-image-outset: 8px;
+  }
+
+    .window-app.dialog .window-content .dialog-row {
+      display: flex;
+      flex-direction: row;
+      height: 124px;
+    }
+      .window-app.dialog .window-content .dialog-row .bonus-column {
+        width: 181px;
+        margin-right: 4px;
+      }
+      .window-app.dialog .form-group > label {
+        flex: 2;
+        line-height: 24px;
+        border: 1px solid #736953a6;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        min-width: 93px;
+        color: #ececec;
+        padding-top: 2px;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+      }
+      .window-app.dialog .talent-selector {
+        width: 100%;
+        margin-top: 3px;
+      }
+        .window-app.dialog #talentlist-label {
+          flex: 2;
+          line-height: normal;
+          border: 1px solid #736953a6;
+          box-shadow: 0px 0px 10px inset black;
+          background: #000000b0;
+          border-radius: 0px;
+          opacity: 0.9;
+          text-align: center;
+          min-width: 93px;
+          min-height: 26px;
+          position: relative;
+          display: block;
+          padding-top: 5px;
+          width: inherit;
+          box-shadow: 0px 0px 10px inset black;
+          background: #000000e8;
+        }
+        .window-app.dialog .talent-selector > select {
+          height: 95px;
+          overflow: auto;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 14px;
+          padding: 6px;
+          color: #ecececbd;
+          border: 1px solid #736953a6;
+          border-top: none;
+          box-shadow: 0px 0px 5px inset black;
+          background: url(../ui/chat-form-dark.png);
+          border-radius: 0px;
+          opacity: 1;
+          width: inherit;
+        }
+      .window-app.dialog .bonus-column .form-group > input {
+        border: 1px solid #736953a6;
+        border-left: none;
+        box-shadow: 0px 0px 5px inset black;
+        background: url(../ui/chat-form-dark.png);
+        border-radius: 0px;
+        opacity: 1;
+        color: #ececec91;
+        padding: 6px 5px 0px 5px;
+        text-align: center;
+      }
+      .window-app.dialog .form-group > * {
+        color: #ecececbd;
+        border: 1px solid #736953a6;
+        border-left: none;
+        box-shadow: 0px 0px 5px inset #000000cf;
+        background: #352516b5;
+        border-radius: 0px;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+      } 
+
+
+    .window-app.dialog option {
+      /* wrap text in compatible browsers */
+      -moz-white-space: pre-wrap;
+      -o-white-space: pre-wrap;
+      white-space: pre-wrap;
+      /* hide text that can't wrap with an ellipsis */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      /* add border after every option */
+    }
+    .window-app.dialog .dialog-buttons button:last-child {
       flex: 2;
       line-height: 24px;
-      border: 1px solid #736953a6;
+      border: 3px double #736953a6;
       box-shadow: 0px 0px 10px inset black;
-      background: #000000b0;
+      background: #3a0527b5;
       border-radius: 0px;
       opacity: 0.9;
       text-align: center;
       min-width: 93px;
       color: #ececec;
-      padding-top: 2px;
-    }
-    .window-app.dialog .talent-selector {
-      width: 100%;
-      margin-top: 3px;
-    }
-      #talentlist-label {
-        flex: 2;
-        line-height: 24px;
-        border: 1px solid #736953a6;
-        box-shadow: 0px 0px 10px inset black;
-        background: #000000b0;
-        border-radius: 0px;
-        opacity: 0.9;
-        text-align: center;
-        min-width: 93px;
-        min-height: 24px;
-        position: relative;
-        display: block;
-        padding-top: 0px;
-        width: inherit;
-      }
-      .window-app.dialog .talent-selector > select {
-        height: 93px;
-        overflow: auto;
-        font-family: CaslonPro;
-        font-weight: 500;
-        font-size: 14px;
-        padding: 6px;
-        color: #ecececbd;
-        border: 1px solid #736953a6;
-        border-top: none;
-        box-shadow: 0px 0px 5px inset black;
-        background: url(../ui/chat-form-dark.png);
-        border-radius: 0px;
-        opacity: 1;
-        width: inherit;
-      }
-    .window-app.dialog .bonus-column .form-group > input {
-      border: 1px solid #736953a6;
-      border-left: none;
-      box-shadow: 0px 0px 5px inset black;
-      background: url(../ui/chat-form-dark.png);
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 15px;
+      padding-top: 5px;
+      margin: 0px;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      /* box-shadow: inset 0 0 20px #000000; */
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+      background-origin: padding-box;
+    } 
+    .window-app.dialog .dialog-buttons button:last-child:hover {
+      box-shadow: 0 0 5px #ff9f00;
+    } 
+
+
+    .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
+    .window-app.dialog.skill-roll-dialog .dialog-buttons button,
+    .window-app.dialog.weapon-roll-dialog .dialog-buttons button,
+    .window-app.dialog.spell-roll-dialog .dialog-buttons button,
+    .window-app.dialog.channell-roll-dialog .dialog-buttons button,
+    .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
+      flex: 2;
+      margin: 0px 0px 0px 0px;
+      line-height: 24px;
+      border: 3px double #736953a6;
+      box-shadow: 0px 0px 10px inset black;
+      background: #3a0527b5;
       border-radius: 0px;
-      opacity: 1;
-      color: #ececec91;
-      padding: 6px 5px 0px 5px;
+      opacity: 0.9;
       text-align: center;
+      min-width: 93px;
+      color: #ececec;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 15px;
+      padding-top: 5px;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+      background-origin: padding-box;
     }
-    .window-app.dialog .form-group > * {
+
+
+    /* CUSTOM DROPDOWN */
+    /*the container must be positioned relative:*/
+    .window-app.dialog .custom-select {
+      position: relative;
+      font-family: blue;
+    }
+    
+    /* <----------------- EDIT THIS------------------------> */
+    .window-app.dialog .custom-select select { 
+      display: none; /*hide original SELECT element:*/
+      display: block;
       color: #ecececbd;
       border: 1px solid #736953a6;
       border-left: none;
-      box-shadow: 0px 0px 5px inset #000000cf;
-      background: #352516b5;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
       border-radius: 0px;
       font-family: CaslonPro;
       font-weight: 500;
       font-size: 14px;
+      margin: 0px;
+      padding: 3px 0px 0px 0px;
+      text-overflow: ellipsis;
+    }
+    /* <----------------- ^EDIT THIS------------------------> */
+
+    .window-app.dialog .select-selected {
+      background: #352516b5;
+    }
+
+    /*style the arrow inside the select element:*/
+    .window-app.dialog .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 13px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 4px solid transparent;
+      border-color: #fff transparent transparent transparent;
+    }
+
+    /*point the arrow upwards when the select box is open (active):*/
+    .window-app.dialog .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #fff transparent;
+      top: 7px;
+    }
+
+    /*style the items (options), including the selected item:*/
+    .window-app.dialog .select-items div, .select-selected {
+      padding: 6px 0px 0px 4px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+      user-select: none;
+      border: 1px solid #736953a6;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    /*style items (options):*/
+    .window-app.dialog .select-items {
+      position: absolute;
+      background-color: #2b1806;
+      color: #ecececbd;
+      top: 100%;
+      /* left: 180px; */
+      width: 60.35%;
+      right: 0;
+      z-index: 99;
+      border: 1px solid #736953a6;
+      border-bottom: none;
+      border-top: none;
+    }
+
+    /*hide the items when the select box is closed:*/
+    .window-app.dialog .select-hide {
+      display: none;
+    }
+
+    .window-app.dialog .select-items div:hover, .same-as-selected {
+      background-color: #350404ed;
+    }  
+
+/*************************************************************/
+/*************************************************************/
+
+
+
+
+
+/******************************************************************/
+/*=============== XIV. MISCELLANEOUS GAME WINDOWS ================*/
+/******************************************************************/
+
+  /* ==================== (A) CAST OR CHANNELL ================== */
+    .window-app.dialog.cast-channell  {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      background: none;
+      padding: 0px !important;
+      color: #111;
+      width: 517px !important;
+      /* height: 350px !important; */
+      box-shadow: 3px 4px 10px #000;
+    }
+    .window-app.dialog.cast-channell .window-header {
+      flex: 0 0 45px;
+      padding: 0px;
+      margin: 0px;
+      line-height: 30px;
+      border-bottom: none;
+      background: url(../ui/window-app-dialog-header.png) repeat;
     } 
+      .window-app.dialog.cast-channell .window-header .window-title {
+        position: absolute;
+        top: 60px;
+        left: 26px;
+        visibility: visible;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        border-radius: 0px;
+        opacity: 1;
+        width: 465px;
+        z-index: 4;
+        height: 26px;
+        margin: 0px;
+        padding: 0px;
+        color: #ccc6c6;
+        text-shadow: 1px 1px 5px #000000;
+        text-align: center;
+        border: 3px double #736953a6;
+        background: #310a0ae8;
+        display: none;
+        box-shadow: inset 0px 0px 5px black;
+      }
+      .window-app.dialog.cast-channell .window-header .close {
+        color: #00e5ff00;
+        text-align: center;
+        background: url(../ui/button-close.png);
+        height: 30px;
+        width: 30px;
+        position: relative;
+        top: 9px;
+        left: 470px;
+      }
 
+    .window-app.dialog.cast-channell .window-content {
+      background: url(../ui/window-app-dialog-backgrounds-characteristic.png);
+      background-position: -43px -120px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+      padding: 0px 8px 8px 8px;
+      margin: 8px;
+      /* margin-bottom: 2px; */
+      box-shadow: none;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+      color: #ececec;
+      border: 1px solid blue;
+      border-width: 10px;
+      border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+      border-image-slice: 10 13 13 13;
+      border-image-width: 10px 13px 13px 13px;
+      border-image-outset: 8px;
+    }
+      .window-app.dialog.cast-channell .selection {
+        flex: 2;
+        line-height: normal;
+        min-height: 28px;
+        border: 1px solid #736953a6;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        color: #ececec;
+        padding: 7px 0px 0px 0px;
+        margin: 3px 0px;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+      }
+      .window-app.dialog.cast-channell .dialog-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 4px 0px 0px 0px;
+      }
+      .window-app.dialog.cast-channell .dialog-buttons button {
+        flex: 2;
+        line-height: 24px;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        max-width: 49%;
+        color: #ececec;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 15px;
+        padding-top: 5px;
+        margin: 0px;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      } 
 
-  .window-app.dialog option {
-    /* wrap text in compatible browsers */
-    -moz-white-space: pre-wrap;
-    -o-white-space: pre-wrap;
-    white-space: pre-wrap;
-    /* hide text that can't wrap with an ellipsis */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* add border after every option */
-  }
-  .window-app.dialog .dialog-buttons button:last-child {
-    flex: 2;
-    line-height: 24px;
-    border: 3px double #736953a6;
-    box-shadow: 0px 0px 10px inset black;
-    background: #3a0527b5;
-    border-radius: 0px;
-    opacity: 0.9;
-    text-align: center;
-    min-width: 93px;
-    color: #ececec;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 15px;
-    padding-top: 5px;
-    margin: 0px;
-    border-image: url(../ui/footer-button.png) 10 repeat;
-    border-image-width: 4px;
-    border-image-outset: 0px;
-    /* box-shadow: inset 0 0 20px #000000; */
-    background: url(../ui/sidebar_button-background_red.png) repeat;
-    background-origin: padding-box;
-  } 
-  .window-app.dialog .dialog-buttons button:last-child:hover {
-    box-shadow: 0 0 5px #ff9f00;
-  } 
+  /* ==================== (B) ADOBE CASLON PRO ================== */
 
-
-  .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
-  .window-app.dialog.skill-roll-dialog .dialog-buttons button,
-  .window-app.dialog.weapon-roll-dialog .dialog-buttons button,
-  .window-app.dialog.spell-roll-dialog .dialog-buttons button,
-  .window-app.dialog.channell-roll-dialog .dialog-buttons button,
-  .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
-    flex: 2;
-    margin: 0px 0px 0px 0px;
-    line-height: 24px;
-    border: 3px double #736953a6;
-    box-shadow: 0px 0px 10px inset black;
-    background: #3a0527b5;
-    border-radius: 0px;
-    opacity: 0.9;
-    text-align: center;
-    min-width: 93px;
-    color: #ececec;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 15px;
-    padding-top: 5px;
-    border-image: url(../ui/footer-button.png) 10 repeat;
-    border-image-width: 4px;
-    border-image-outset: 0px;
-    background: url(../ui/sidebar_button-background_red.png) repeat;
-    background-origin: padding-box;
-  }
-
-
-  /* CUSTOM DROPDOWN */
-  /*the container must be positioned relative:*/
-  .window-app.dialog .custom-select {
-    position: relative;
-    font-family: blue;
-  }
-
-  .window-app.dialog .custom-select select {
-    display: none; /*hide original SELECT element:*/
-  }
-
-  .window-app.dialog .select-selected {
-    background: #352516b5;
-  }
-
-  /*style the arrow inside the select element:*/
-  .window-app.dialog .select-selected:after {
-    position: absolute;
-    content: "";
-    top: 13px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-    border-color: #fff transparent transparent transparent;
-  }
-
-  /*point the arrow upwards when the select box is open (active):*/
-  .window-app.dialog .select-selected.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 7px;
-  }
-
-  /*style the items (options), including the selected item:*/
-  .window-app.dialog .select-items div, .select-selected {
-    padding: 6px 0px 0px 4px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid #736953a6;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
-  /*style items (options):*/
-  .window-app.dialog .select-items {
-    position: absolute;
-    background-color: #2b1806;
-    color: #ecececbd;
-    top: 100%;
-    /* left: 180px; */
-    width: 60.35%;
-    right: 0;
-    z-index: 99;
-    border: 1px solid #736953a6;
-    border-bottom: none;
-    border-top: none;
-  }
-
-  /*hide the items when the select box is closed:*/
-  .window-app.dialog .select-hide {
-    display: none;
-  }
-
-  .window-app.dialog .select-items div:hover, .same-as-selected {
-    background-color: #350404ed;
-  }  
-
-/*************************************************************/
-/*************************************************************/
-/*************************************************************/
+/******************************************************************/
+/******************************************************************/
 
 
 
