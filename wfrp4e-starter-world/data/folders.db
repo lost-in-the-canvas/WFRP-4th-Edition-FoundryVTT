@@ -48,7 +48,6 @@
 {"_id":"LgHx29wK5ehvZDwz","name":"Warden","type":"Item","parent":"DvqwSttK7C6C8eYo","sort":4600000}
 {"_id":"LpnvQKIoXEq2j4TX","name":"Lore of Witchcraft","type":"Item","parent":"gq63Du7x7meVEF1y","sort":4700000}
 {"_id":"MTBvpVR07hf02uhc","name":"Bawd","type":"Item","parent":"iomrYBt356ob6Nk7","sort":4800000}
-{"_id":"Mgv42GltsRfPeAuW","name":"Diseases","type":"Item","parent":null,"sort":4900000}
 {"_id":"N1YH5FM92pUfxB89","name":"Ranged","type":"Item","parent":"R2h7YszdQ9x1UDSE","sort":5000000}
 {"_id":"N5xBlFhdPsEcaTwy","name":"Equipment","type":"Item","parent":null,"sort":5100000}
 {"_id":"NkuvsdJgskGQH5u3","name":"Mental","type":"Item","parent":"v6A6IaWm5P8IuCrP","sort":13300000,"color":""}
@@ -107,7 +106,6 @@
 {"_id":"kpGeo02KTySWJSS0","name":"Miscellaneous","type":"Item","parent":"N5xBlFhdPsEcaTwy","sort":10200000}
 {"_id":"lAZERPHiqNSp5ZOB","name":"Racketeer","type":"Item","parent":"iomrYBt356ob6Nk7","sort":10300000}
 {"_id":"lOgs7hmyryeaX4Fc","name":"Stevedore","type":"Item","parent":"TTJJEP8bXUQdbeU0","sort":10400000}
-{"_id":"laswwW0Ynbrumnui","name":"Psychologies","type":"Item","parent":null,"sort":10500000}
 {"_id":"lcDXsruTaO5flTpp","name":"Coachman","type":"Item","parent":"my4FvSUiD2BuEAEn","sort":10600000}
 {"_id":"littnmmYgCqAT37Q","name":"Lore of Tzeentch","type":"Item","parent":"v1749wPV9rPtVXuT","sort":10700000}
 {"_id":"my4FvSUiD2BuEAEn","name":"Rangers","type":"Item","parent":"K6EzwV4HagHawMPX","sort":10800000}
@@ -132,5 +130,3 @@
 {"_id":"wPWH8ZgPEvdPPdkJ","name":"Lore of Metal","type":"Item","parent":"gq63Du7x7meVEF1y","sort":12700000}
 {"_id":"yvKm3BXywCm12LgA","name":"Taal","type":"Item","parent":"1w1PNu0u0r4vorit","sort":12800000}
 {"_id":"z2q9HQ3MaOBWOSu5","name":"Peasants","type":"Item","parent":"K6EzwV4HagHawMPX","sort":12900000}
-{"$$deleted":true,"_id":"Mgv42GltsRfPeAuW"}
-{"$$deleted":true,"_id":"laswwW0Ynbrumnui"}
