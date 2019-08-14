@@ -886,7 +886,7 @@ class DiceWFRP {
           SL = 0;
       }
       SL += successBonus;
-      if (roll.total <= 96 && SL < 1) 
+      if (roll.total <= 5 && SL < 1) 
         SL = 1;
 
       switch(Math.abs(Number(SL)))
@@ -4155,9 +4155,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.item-delete').click(ev => {
       let li = $(ev.currentTarget).parents(".item"),
         itemId = Number(li.attr("data-item-id"));
-        new Dialog({
+        renderTemplate('public/systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
+          new Dialog({
           title: "Delete Confirmation",
-          content: '<p>Are you sure you want to delete this item?</p>',
+          content: html,
           buttons: {
             Yes: {
               icon: '<i class="fa fa-check"></i>',
@@ -4173,10 +4174,9 @@ class ActorSheetWfrp4e extends ActorSheet {
             },
           },
           default: 'Yes'
-        }).render(true);
-
+        }).render(true)
     });
-
+  });
     
     // Remove Inventory Item from Container
     html.find('.item-remove').click(ev => {
@@ -4203,45 +4203,6 @@ class ActorSheetWfrp4e extends ActorSheet {
         item.data.equipped = !item.data.equipped;
       else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
         item.data.worn = !item.data.worn;
-      this.actor.updateOwnedItem(item);
-    });
-
-    html.find('.career-toggle').click(async ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let type = $(ev.currentTarget).attr("toggle-type")
-      let item = this.actor.items.find(i => i.id === itemId );
-      item.data[type].value = !item.data[type].value;
-
-
-       if (type == "current")
-       {
-         let availableCharacteristics = item.data.characteristics
-         let characteristics = this.actor.data.data.characteristics;
-         if (item.data.current.value)
-         {
-           for (let char in characteristics)
-           {
-             characteristics[char].career = false;
-             if (availableCharacteristics.includes(char))
-               characteristics[char].career = true;
-           }
-         }
-         else
-         {
-           for (let char in characteristics)
-           {
-             characteristics[char].career = false;
-           }
-         }
-      this.actor.update({"data.characteristics" : characteristics})
-      }
-
-      // Only one career can be current - make all other careers not current 
-      // Dislike iterating through every item: TODO - different approach
-      if (type == "current" && item.data.current.value == true)
-        for (let i of this.actor.items)
-          if (i.type == "career" && i != item)
-            await this.actor.updateOwnedItem({"id" : i.id, "data.current.value" : false});
       this.actor.updateOwnedItem(item);
     });
 
@@ -4386,7 +4347,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     ******************************************************/
 
     // Entering a recognized species sets the characteristics to the average values
-    html.find('#input-species').focusout(async event => {
+    html.find('.input.species').focusout(async event => {
       event.preventDefault();
 
       if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
@@ -4713,6 +4674,45 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find('.career-toggle').click(async ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let type = $(ev.currentTarget).attr("toggle-type")
+      let item = this.actor.items.find(i => i.id === itemId );
+      item.data[type].value = !item.data[type].value;
+
+
+       if (type == "current")
+       {
+         let availableCharacteristics = item.data.characteristics
+         let characteristics = this.actor.data.data.characteristics;
+         if (item.data.current.value)
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+             if (availableCharacteristics.includes(char))
+               characteristics[char].career = true;
+           }
+         }
+         else
+         {
+           for (let char in characteristics)
+           {
+             characteristics[char].career = false;
+           }
+         }
+      this.actor.update({"data.characteristics" : characteristics})
+      }
+
+      // Only one career can be current - make all other careers not current 
+      // Dislike iterating through every item: TODO - different approach
+      if (type == "current" && item.data.current.value == true)
+        for (let i of this.actor.items)
+          if (i.type == "career" && i != item)
+            await this.actor.updateOwnedItem({"id" : i.id, "data.current.value" : false});
+      this.actor.updateOwnedItem(item);
+    });
+
     html.find(".untrained-skill").mousedown(async ev => {
 
       let skill = await WFRP_Utility.findSkill(event.target.text);
@@ -4723,7 +4723,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       }
       else
       {
-        new Dialog()
         try 
         {
           new Dialog({
@@ -4765,7 +4764,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
 
       else 
       {
-        new Dialog()
         try 
         {
           new Dialog({
@@ -4955,12 +4953,12 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       html.find('.npc-career').click(event => {
         event.preventDefault();
         let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let careerItem = this.actor.getOwnedItem(id);
-        careerItem.data.data.complete.value = !careerItem.data.data.complete.value
-        if (careerItem.data.data.complete.value)
-          this._advanceNPC(careerItem.data.data)
+        let careerItem = duplicate(this.actor.getOwnedItem(id).data);
+        careerItem.data.complete.value = !careerItem.data.complete.value
+        if (careerItem.data.complete.value)
+          this._advanceNPC(careerItem.data)
 
-        this.actor.updateOwnedItem({id : id, 'data' : careerItem.data.data});
+        this.actor.updateOwnedItem({id : id, 'data' : careerItem.data});
       });
   }
 

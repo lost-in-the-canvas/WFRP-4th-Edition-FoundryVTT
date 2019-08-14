@@ -37,14 +37,14 @@
         {{#if item.properties.qualities}}
         <span class="label">Q:</span>
         {{#each item.properties.qualities as |property p|}}
-        <a class='text melee-property-quality'>{{property}}</a>
+        <a class='text melee-property-quality'>{{property}},</a>
         {{/each}}
         {{/if}}
 
         {{#if item.properties.flaws}}
         <span class="label">F:</span>
         {{#each item.properties.flaws as |property p|}}
-        <a class='text melee-property-flaw'>{{property}}</a>
+        <a class='text melee-property-flaw'>{{property}},</a>,
         {{/each}}
         {{/if}}
       </div>
@@ -108,14 +108,14 @@
         {{#if item.properties.qualities}}
         <span class="label">Q:</span>
         {{#each item.properties.qualities as |property p|}}
-        <a class='text ranged-property-quality'>{{property}}</a>
+        <a class='text ranged-property-quality'>{{property}},</a>
         {{/each}}
         {{/if}}
 
         {{#if item.properties.flaws}}
         <span class="label">F:</span>
         {{#each item.properties.flaws as |property p|}}
-        <a class='text ranged-property-flaw'>{{property}}</a>
+        <a class='text ranged-property-flaw'>{{property}},</a>
         {{/each}}
         {{/if}}
       </div>

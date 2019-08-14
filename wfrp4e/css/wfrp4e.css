@@ -7690,7 +7690,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .inventory-header.disease-header .item-controls {
         position: relative;
         top: -1px;
-        left: 324px;
+        left: 259px;
         height: fit-content;
         width: fit-content;
         display: inline-block;
@@ -8697,11 +8697,13 @@
 
     /* ================== 1. SKILLS LIST ======================== */
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section {
-        display:flex;
+        display: flex;
         flex-direction: row;
         flex-shrink: 1;
         margin: 6px 0px 0px 0px;
         /* background: red; */
+        min-height: 200px;
+        flex-grow: 1;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type {
         display:flex;
@@ -8964,7 +8966,7 @@
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-header #level {
           position: relative;
-          left: 247px;
+          left: 269px;
           height: 18px;
           width: fit-content;
           display: inline-block;
@@ -8973,7 +8975,7 @@
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-header .item-controls {
           position: relative;
           top: -1px;
-          left: 320px;
+          left: 360px;
           height: fit-content;
           width: fit-content;
           display: inline-block;
@@ -13323,7 +13325,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .inventory-header.disease-header .item-controls {
         position: relative;
         top: -1px;
-        left: 324px;
+        left: 259px;
         height: fit-content;
         width: fit-content;
         display: inline-block;
@@ -18901,6 +18903,9 @@
 /*************************************************************/
 
 
+#chat-log .message.ic .message-content {
+  font-style : normal;
+}
 
 
 

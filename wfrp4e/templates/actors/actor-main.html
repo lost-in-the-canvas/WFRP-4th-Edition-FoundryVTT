@@ -116,7 +116,7 @@
       <span class="top label">Wounds</span>
       <div class="wounds-value-box">
         <div id="value">
-          <input name="data.status.wounds.value" type="text" value="{{data.status.wounds.value}}">
+          <input name="data.status.wounds.value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
         </div>
         <div id="divisor">
           /
@@ -126,7 +126,7 @@
           <a class="auto-calc-toggle" toggle-type="wounds">{{data.status.wounds.max}}</a>
           {{else}}
           <input class="auto-calc-toggle" toggle-type="wounds" name="data.status.wounds.max" type="text"
-            value="{{data.status.wounds.max}}" data-dtype="String">
+            value="{{data.status.wounds.max}}" data-dtype="{{data.status.wounds.type}}">
           {{/if}}
         </div>
       </div>

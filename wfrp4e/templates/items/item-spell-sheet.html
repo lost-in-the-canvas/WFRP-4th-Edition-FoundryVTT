@@ -18,7 +18,10 @@
   <div class="sheet-tabs edges left"></div>
   <div class="sheet-tabs edges right"></div>
 
-  {{> public/systems/wfrp4e/templates/items/item-description.html}}
+  <div class="tab description active" data-tab="description">
+    {{editor content=descriptionAndLore target="data.description.value" button=true owner=owner editable=editable}}
+  </div>
+  
   
   <!-- Spell Details -->
   <div class="tab details" data-tab="details">
