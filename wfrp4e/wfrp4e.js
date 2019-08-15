@@ -1909,6 +1909,21 @@ class ActorWfrp4e extends Actor {
         autoCalcCorruption :  true,
         autoCalcEnc :  true
       }
+
+      const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+      let trappingsIndex = [];
+      await trappings.getIndex().then(index => trappingsIndex = index);
+
+      let money = trappingsIndex.filter (t => t.name.toLowerCase() == "gold crown" || t.name.toLowerCase() == "silver shilling" || t.name.toLowerCase() == "brass penny")
+
+      for (let m of money)
+      {
+        let moneyItem = await trappings.getEntity(m.id);
+        moneyItem.data.id = id;
+        id++;
+        moneyItem.data.data.quantity.value = 0;
+        data.items.push(moneyItem.data);
+      }
       super.create(data, options);
 
     }
@@ -1951,6 +1966,20 @@ class ActorWfrp4e extends Actor {
                 autoCalcCritW :  true,
                 autoCalcCorruption :  true,
                 autoCalcEnc :  true
+              }
+              const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+              let trappingsIndex = [];
+              await trappings.getIndex().then(index => trappingsIndex = index);
+        
+              let money = trappingsIndex.filter (t => t.name.toLowerCase() == "gold crown" || t.name.toLowerCase() == "silver shilling" || t.name.toLowerCase() == "brass penny")
+        
+              for (let m of money)
+              {
+                let moneyItem = await trappings.getEntity(m.id);
+                moneyItem.data.id = id;
+                id++;
+                moneyItem.data.data.quantity.value = 0;
+                data.items.push(moneyItem.data);
               }
               super.create(data, options);
             }
