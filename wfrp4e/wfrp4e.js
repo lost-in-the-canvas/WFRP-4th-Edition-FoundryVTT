@@ -4011,7 +4011,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.ch-edit').focusout(async event => {
       event.preventDefault();
       
-      if (!this.charUpdateFlag) // Do not proceed with an update until the listener aboves sets this flag to true
+      if (!this.charUpdateFlag && event.currentTarget.attributes["data-char"].value != "fel") // Do not proceed with an update until the listener aboves sets this flag to true or the last characteristic was tabbed
         return                  // When this flag is true, that means the focus out was not from a tab
 
       // This conditional allows for correctly updating only a single characteristic. If the user editted only one characteristic, the above listener wasn't called, meaning no updateObj 
