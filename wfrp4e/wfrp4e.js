@@ -1158,7 +1158,10 @@ class DiceWFRP {
    if (testResults.description.includes("Failure"))
    {
      testResults.description = "Prayer Refused"
-     if (testResults.roll % 11 == 0 || Number(testResults.roll.toString().split('').pop()) <= currentSin)
+     let unitResult = Number(testResults.roll.toString().split('').pop())
+     if (unitResult == 0)
+      unitResult = 10;
+     if (testResults.roll % 11 == 0 || unitResult <= currentSin)
        {
          testResults.extra.wrath = "Wrath of the Gods"
          currentSin--;
@@ -1171,8 +1174,10 @@ class DiceWFRP {
    else
    {
      testResults.description = "Prayer Granted"
-
-     if (Number(testResults.roll.toString().split('').pop()) <= currentSin)
+     let unitResult = Number(testResults.roll.toString().split('').pop())
+     if (unitResult == 0)
+      unitResult = 10;
+     if (unitResult <= currentSin)
      {
        testResults.extra.wrath = "Wrath of the Gods"       
        currentSin--;
