@@ -1005,6 +1005,10 @@ class DiceWFRP {
     if (testData.extra.malignantInfluence)
       if (Number(testResults.roll.toString().split('').pop()) == 8)
         miscastCounter++; 
+    
+    if (spell.data.lore.value == "witchcraft")
+      miscastCounter++;
+
     let slOver = (Number(testResults.SL) - spell.data.cn.value)
 
     if (testResults.description.includes("Failure")) // Failed Test
@@ -1079,6 +1083,9 @@ class DiceWFRP {
        if (Number(testResults.roll.toString().split('').pop()) == 8)
          miscastCounter++;
     
+      if (spell.data.lore.value == "witchcraft")
+        miscastCounter++;
+
       if (testResults.description.includes("Failure")) // Failed Test
       {
         // Optional Rule: If SL in extended test is -/+0, counts as -/+1
