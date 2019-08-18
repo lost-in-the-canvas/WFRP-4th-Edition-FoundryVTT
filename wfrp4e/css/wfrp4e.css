@@ -12969,7 +12969,7 @@
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .note-section.biography,
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .note-section.gmnotes {
-        height: 270px;
+        height: 200px;
         width: 100%;
         margin: -4px 0px 0px 0px;
         padding: 0px;
@@ -18138,7 +18138,7 @@
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.biography,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.gmnotes {
-        height: 270px;
+        height: 175px;
         width: 100%;
         margin: -4px 0px 0px 0px;
         padding: 0px;
@@ -19232,7 +19232,9 @@
   font-style : normal;
 }
 
-
+.app.sheet .editor-content {
+  padding: 5px
+}
 
 
 
