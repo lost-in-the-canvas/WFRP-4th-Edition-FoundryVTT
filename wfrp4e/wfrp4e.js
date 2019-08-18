@@ -3778,10 +3778,12 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       let untrainedSkills = []
       let untrainedTalents = []
+      let hasCurrentCareer = false;
       for (let career of careers)
       {
         if (career.data.current.value)
         {
+          hasCurrentCareer = true;
           for (let sk of career.data.skills)
           {
             let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name.toLowerCase() == sk.toLowerCase())
@@ -3808,6 +3810,11 @@ class ActorSheetWfrp4e extends ActorSheet {
             }
           }
         }
+      }
+      if (!hasCurrentCareer)
+      {
+        for (let char in actorData.data.characteristics)
+          actorData.data.characteristics[char].career = false;
       }
 
 
@@ -4428,7 +4435,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Entering a recognized species sets the characteristics to the average values
     html.find('.input.species').focusout(async event => {
       event.preventDefault();
-
+      if (this.actor.data.type == "character")
+        return
       if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
       {
         let species = event.target.value;
