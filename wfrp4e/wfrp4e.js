@@ -3546,7 +3546,7 @@ class ActorSheetWfrp4e extends ActorSheet {
             i.encumbrance = i.encumbrance - 1;
             i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
           }
-          totalEnc += i.data.encumbrance.value;
+          totalEnc += i.encumbrance;
           }
           else{
             inContainers.push(i);
@@ -4688,6 +4688,13 @@ class ActorSheetWfrp4e extends ActorSheet {
     event.preventDefault();
     let header = event.currentTarget,
         data = duplicate(header.dataset);
+
+
+    // Conditional for creating skills from the skills tab - sets to the correct skill type depending on column
+    if (event.currentTarget.attributes["data-type"].value == "skill")
+    {
+      data = mergeObject(data, {"data.advanced.value" : event.currentTarget.attributes["data-skill-type"].value});
+    }
 
     // Conditional for creating Trappings from the Trapping tab - sets to the correct trapping type
     if (event.currentTarget.attributes["data-type"].value == "trapping")
