@@ -184,6 +184,51 @@
       border-radius: 0px;
       /* background: blue; */
     }
+
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar {
+      width: 10px;
+      box-shadow: inset 0 0 
+    }
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat;  */
+      border-image: url(../ui/scrollbars/sheet-light-scrollbar-thumb.png) 10 repeat;
+      border-image-width: 5px;
+      border-image-outset: 0px;
+    }
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 23px;
+      border: none;
+    }
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-decrement.png) no-repeat;
+      box-shadow: none;
+      height: 16px;
+      background-position-y: 0px;
+      /* background: red; */
+    } 
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-increment.png) no-repeat;
+      background-position-y: 0px;
+      box-shadow: none; 
+      height: 16px;
+      /* background: red; */
+    }
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:start:increment,
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    .app.window-app.sheet.item-sheet ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbars/sheet-light-scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 4px 68px;
+      box-shadow: none;
+      border-radius: 0px;
+      /* background: blue; */
+    }
     
     #sidebar ::-webkit-scrollbar {
       width: 14px;
@@ -392,6 +437,86 @@
       background-position: center;
       background-size: 9px 110px;
       box-shadow: none;
+    }
+
+    #sidebar #chat-form ::-webkit-scrollbar {
+      width: 10px !important;
+    }
+    #sidebar #chat-form ::-webkit-scrollbar-thumb {
+      outline: none !important;
+      border-radius: 3px !important;
+      background: none !important;
+      border-image: url(../ui/scrollbars/sheet-dark-scrollbar-thumb.png) 10 repeat !important;
+      border-image-width: 5px !important;
+      border-image-outset: 0px !important;
+    }
+    #sidebar #chat-form ::-webkit-scrollbar-button {
+      background: #782e22 !important;
+      height: 23px !important;
+      border: none !important;
+    }
+    #sidebar #chat-form ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-decrement.png) no-repeat !important;
+      box-shadow: none !important;
+      height: 16px !important;
+      background-position-y: 1px !important;
+    } 
+    #sidebar #chat-form ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
+      background-position-y: -1px !important;
+      box-shadow: none !important; 
+      height: 16px !important;
+    }
+    #sidebar #chat-form ::-webkit-scrollbar-button:vertical:start:increment,
+    #sidebar #chat-form ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none !important;
+    }
+    #sidebar #chat-form ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-track.png) repeat-y !important;
+      background-position: center !important;
+      background-size: 4px 68px !important;
+      box-shadow: none !important;
+      border-radius: 0px !important;
+    }
+
+    .window-app.dialog .talent-selector ::-webkit-scrollbar {
+      width: 10px !important;
+    }
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-thumb {
+      outline: none !important;
+      border-radius: 3px !important;
+      background: none !important;
+      border-image: url(../ui/scrollbars/sheet-dark-scrollbar-thumb.png) 10 repeat !important;
+      border-image-width: 5px !important;
+      border-image-outset: 0px !important;
+    }
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-button {
+      background: #782e22 !important;
+      height: 23px !important;
+      border: none !important;
+    }
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-decrement.png) no-repeat !important;
+      box-shadow: none !important;
+      height: 16px !important;
+      background-position-y: 1px !important;
+    } 
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
+      background-position-y: -1px !important;
+      box-shadow: none !important; 
+      height: 16px !important;
+    }
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-button:vertical:start:increment,
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none !important;
+    }
+    .window-app.dialog .talent-selector ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-track.png) repeat-y !important;
+      background-position: center !important;
+      background-size: 4px 68px !important;
+      box-shadow: none !important;
+      border-radius: 0px !important;
     }
 
   /* ==================== (G) LIST STYLING ====================== */
@@ -1039,46 +1164,6 @@
       #sidebar #chat-form textarea:focus {
         outline: none;
         box-shadow: none;
-      }
-
-      #sidebar #chat-form ::-webkit-scrollbar {
-        width: 10px !important;
-      }
-      #sidebar #chat-form ::-webkit-scrollbar-thumb {
-        outline: none !important;
-        border-radius: 3px !important;
-        background: none !important;
-        border-image: url(../ui/scrollbars/sheet-dark-scrollbar-thumb.png) 10 repeat !important;
-        border-image-width: 5px !important;
-        border-image-outset: 0px !important;
-      }
-      #sidebar #chat-form ::-webkit-scrollbar-button {
-        background: #782e22 !important;
-        height: 23px !important;
-        border: none !important;
-      }
-      #sidebar #chat-form ::-webkit-scrollbar-button:start:decrement {
-        background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-decrement.png) no-repeat !important;
-        box-shadow: none !important;
-        height: 16px !important;
-        background-position-y: 1px !important;
-      } 
-      #sidebar #chat-form ::-webkit-scrollbar-button:end:increment {
-        background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
-        background-position-y: -1px !important;
-        box-shadow: none !important; 
-        height: 16px !important;
-      }
-      #sidebar #chat-form ::-webkit-scrollbar-button:vertical:start:increment,
-      #sidebar #chat-form ::-webkit-scrollbar-button:vertical:end:decrement {
-          display: none !important;
-      }
-      #sidebar #chat-form ::-webkit-scrollbar-track {
-        background: url(../ui/scrollbars/sheet-dark-scrollbar-track.png) repeat-y !important;
-        background-position: center !important;
-        background-size: 4px 68px !important;
-        box-shadow: none !important;
-        border-radius: 0px !important;
       }
 
   /* ==================== (D) SIDEBAR (COMBAT TRACKER) ========== */
@@ -1871,6 +1956,9 @@
             top: 0px;
             left: 0px;
           }
+            .app.window-app.sheet.item-sheet .tab.details.active .input-box:last-of-type {
+              margin-bottom: 3px;
+            }
           .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-text {
             text-align: left;
           }
@@ -4719,7 +4807,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -4730,13 +4839,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
@@ -4954,7 +5075,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -4965,13 +5107,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
     /* ================== 2. ARMOUR ============================= */
@@ -10330,7 +10484,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -10341,13 +10516,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
@@ -10563,7 +10750,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -10574,13 +10782,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
     /* ================== 2. ARMOUR ============================= */
@@ -15520,7 +15740,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -15531,13 +15772,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
@@ -15753,7 +16006,28 @@
           padding: 0px;
           display: flex;
           flex-direction: row;
+          flex-wrap: wrap;
         }
+        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
+          height: auto;
+          width: auto;
+          padding: 0px 0px 0px 0px;
+          margin: 0px 4px 0px 0px;
+          flex: 1;
+          flex-direction: row;
+          /* background: beige; */
+          display: inline-flex;
+        }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
+            font-size: 13px;
+            color: #464331f0;
+            border: 1px solid #00000038;
+            border-radius: 3px;
+            margin-right: 4px;
+            padding: 2px 2px 0px 2px;
+            background: #774e000f;
+            box-shadow: 0 0 3px #6b3a0f2b inset;        
+          }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
@@ -15764,13 +16038,25 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
+            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
+              flex-grow: 1;
+            }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
+            margin-right: 0px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
+          }
+          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
+            display: none;
+            margin-right: 0px;
+            padding: 0px;
           }
 
     /* ================== 2. ARMOUR ============================= */
@@ -19271,7 +19557,7 @@
       height: 26px;
       margin: 0px;
       padding: 0px;
-      color: #f5f5f500;
+      color: #ecececde;
       text-shadow: 1px 1px 5px #000000;
       text-align: center;
       border: 3px double #736953a6;
@@ -19517,11 +19803,11 @@
           font-weight: 500;
           font-size: 14px;
           padding: 6px;
-          color: #d8d8d8;
+          color: #000000;
           border: 1px solid #736953a6;
           border-top: none;
-          box-shadow: 0px 0px 5px inset black;
-          background: url(../ui/chat-form-dark.png);
+          box-shadow: 0px 0px 20px inset #000000c2;
+          background: url(../ui/frames/parchment-texture.png);
           border-radius: 0px;
           opacity: 1;
           width: inherit;
@@ -19613,6 +19899,16 @@
     .window-app.dialog .dialog-buttons button:last-child:hover {
       box-shadow: 0 0 5px #ff9f00;
     } 
+
+    .window-app.dialog.characteristic-roll-dialog input[name="hitLocation"],
+    .window-app.dialog.skill-roll-dialog input[name="hitLocation"],
+    .window-app.dialog.weapon-roll-dialog input[name="hitLocation"],
+    .window-app.dialog.spell-roll-dialog input[name="hitLocation"],
+    .window-app.dialog.channell-roll-dialog input[name="hitLocation"],
+    .window-app.dialog.prayer-roll-dialog input[name="hitLocation"] {
+      position: relative;
+      top: 2px;
+    }
 
     .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
     .window-app.dialog.skill-roll-dialog .dialog-buttons button,
