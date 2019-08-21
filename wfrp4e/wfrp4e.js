@@ -3192,6 +3192,42 @@ Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 // Override CONFIG
 CONFIG.Item.sheetClass = ItemSheetWfrp4e;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
  * This sheet is an Abstract layer which is not used.
@@ -4352,6 +4388,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.disease-roll').mousedown(async ev =>  {
+      console.log("DISEASE ROLL");
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       const disease = this.actor.items.find(i => i.id === itemId);
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
@@ -4381,7 +4418,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.updateOwnedItem(disease);
       }
-    })
+    });
 
     /*****************************************************
     * Randomization options used by NPC and Creature sheets

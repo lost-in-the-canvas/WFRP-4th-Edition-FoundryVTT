@@ -70,7 +70,7 @@
 
   /* ==================== (B) BUTTON BEHAVIOR CHANGES =========== */
     a:hover {
-      text-shadow: 0 0 8px #ff9f00;
+      text-shadow: 0 0 8px #ff9f00 !important;
     }
     button:hover {
       box-shadow: 0 0 5px #ff9f00 !important;
@@ -145,7 +145,7 @@
       border-radius: 3px;
       background: none;
       /* background: url(../ui/scrollbar.png) no-repeat;  */
-      border-image: url(../ui/sheet-scrollbar-thumb.png) 10 repeat;
+      border-image: url(../ui/scrollbars/sheet-light-scrollbar-thumb.png) 10 repeat;
       border-image-width: 5px;
       border-image-outset: 0px;
     }
@@ -155,14 +155,14 @@
       border: none;
     }
     .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar-button:start:decrement {
-      background: url(../ui/sheet-scrollbar-button-vertical-decrement.png) no-repeat;
+      background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-decrement.png) no-repeat;
       box-shadow: none;
       height: 16px;
       background-position-y: 0px;
       /* background: red; */
     } 
     .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar-button:end:increment {
-      background: url(../ui/sheet-scrollbar-button-vertical-increment.png) no-repeat;
+      background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-increment.png) no-repeat;
       background-position-y: 0px;
       box-shadow: none; 
       height: 16px;
@@ -173,14 +173,13 @@
         display: none;
     }
     .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar-track {
-      background: url(../ui/sheet-scrollbar-track.png) repeat-y;
+      background: url(../ui/scrollbars/sheet-light-scrollbar-track.png) repeat-y;
       background-position: center;
       background-size: 4px 68px;
       box-shadow: none;
       border-radius: 0px;
       /* background: blue; */
     }
-
     
     #sidebar ::-webkit-scrollbar {
       width: 14px;
@@ -189,10 +188,11 @@
       outline: none;
       border-radius: 3px;
       background: none;
-      /* background: url(../ui/scrollbar.png) no-repeat;  */
-      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      /* background: url(../ui/scrollbar.png) no-repeat; */
+      border-image: url(../ui/scrollbars/scrollbar-thumb.png) 25 repeat;
       border-image-width: 25px;
       border-image-outset: 0px;
+      min-height: 40px;
     }
     #sidebar ::-webkit-scrollbar-button {
       background: #782e22;
@@ -200,13 +200,13 @@
       border: none;
     }
     #sidebar ::-webkit-scrollbar-button:start:decrement {
-      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
     } 
     #sidebar ::-webkit-scrollbar-button:end:increment {
-      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
@@ -216,7 +216,7 @@
         display: none;
     }
     #sidebar ::-webkit-scrollbar-track {
-      background: url(../ui/scrollbar-track.png) repeat-y;
+      background: url(../ui/scrollbars/scrollbar-track.png) repeat-y;
       background-position: center;
       background-size: 9px 110px;
       box-shadow: none;
@@ -229,10 +229,11 @@
       outline: none;
       border-radius: 3px;
       background: none;
-      /* background: url(../ui/scrollbar.png) no-repeat;  */
-      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      /* background: url(../ui/scrollbar.png) no-repeat; */
+      border-image: url(../ui/scrollbars/scrollbar-thumb.png) 25 repeat;
       border-image-width: 25px;
       border-image-outset: 0px;
+      min-height: 40px;
     }
     .app.window-app.form ::-webkit-scrollbar-button {
       background: #782e22;
@@ -240,13 +241,13 @@
       border: none;
     }
     .app.window-app.form ::-webkit-scrollbar-button:start:decrement {
-      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
     } 
     .app.window-app.form ::-webkit-scrollbar-button:end:increment {
-      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
@@ -256,7 +257,7 @@
         display: none;
     }
     .app.window-app.form ::-webkit-scrollbar-track {
-      background: url(../ui/scrollbar-track.png) repeat-y;
+      background: url(../ui/scrollbars/scrollbar-track.png) repeat-y;
       background-position: center;
       background-size: 9px 110px;
       box-shadow: none;
@@ -269,10 +270,11 @@
       outline: none;
       border-radius: 3px;
       background: none;
-      /* background: url(../ui/scrollbar.png) no-repeat;  */
-      border-image: url(../ui/scrollbar-thumb.png) 25 repeat;
+      /* background: url(../ui/scrollbar.png) no-repeat; */
+      border-image: url(../ui/scrollbars/scrollbar-thumb.png) 25 repeat;
       border-image-width: 25px;
       border-image-outset: 0px;
+      min-height: 40px;
     }
     .app.window-app.dialog ::-webkit-scrollbar-button {
       background: #782e22;
@@ -280,13 +282,13 @@
       border: none;
     }
     .app.window-app.dialog ::-webkit-scrollbar-button:start:decrement {
-      background: url(../ui/scrollbar-button-vertical-decrement.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
     } 
     .app.window-app.dialog ::-webkit-scrollbar-button:end:increment {
-      background: url(../ui/scrollbar-button-vertical-increment.png) no-repeat;
+      background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
       background-position: center;
       box-shadow: none;
       box-shadow: none; 
@@ -296,7 +298,48 @@
         display: none;
     }
     .app.window-app.dialog ::-webkit-scrollbar-track {
-      background: url(../ui/scrollbar-track.png) repeat-y;
+      background: url(../ui/scrollbars/scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 9px 110px;
+      box-shadow: none;
+    }
+
+    .app.window-app ::-webkit-scrollbar {
+      width: 14px;
+    }
+    .app.window-app ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat; */
+      border-image: url(../ui/scrollbars/scrollbar-thumb.png) 25 repeat;
+      border-image-width: 25px;
+      border-image-outset: 0px;
+      min-height: 40px;
+    }
+    .app.window-app ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 25px;
+      border: none;
+    }
+    .app.window-app ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    } 
+    .app.window-app ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
+      background-position: center;
+      box-shadow: none;
+      box-shadow: none; 
+    }
+    .app.window-app ::-webkit-scrollbar-button:vertical:start:increment,
+    .app.window-app ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    .app.window-app ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbars/scrollbar-track.png) repeat-y;
       background-position: center;
       background-size: 9px 110px;
       box-shadow: none;
@@ -383,6 +426,161 @@
       background-position-y: 45px;
       border-radius: 0px;
       box-shadow: 0 0 0px #000;
+    }
+    #sidebar .sidebar-tab {
+      flex: 1;
+      height: calc(100vh - 54px);
+      margin: 0px 0px 0px 80px;
+      padding: 0px 0px 0px 0px;
+    }
+
+    #sidebar.collapsed {
+      width: 50px !important;
+      height: 326px !important;
+      position: absolute;
+      top: 15px;
+      right: 0px;
+      padding-left: 3px;
+      background: url(../ui/sidebar-collapsed.png) repeat;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      box-shadow: -2px 0px 8px #000;
+    }
+    #sidebar.collapsed #sidebar-tabs {
+      display: flex;
+      flex: none;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      position: relative;
+      top: 126px;
+      left: -81px;
+      width: 35px;
+      height: 54px;
+      margin: 0px;
+      padding: 0px 0px 0px 90px;
+      border: none;
+      box-shadow: none;
+      background: none;
+    }
+    
+    .sidebar-tab .directory-header {
+      height: 38px;
+      line-height: 32px;
+      text-align: center;
+      margin: 0;
+      border-bottom: 1px solid #444;
+    }
+    .sidebar-tab .directory-header .header-search {
+      flex: 1;
+      justify-content: left;
+      text-align: center;
+    }
+      .sidebar-tab .directory-header .header-search input {
+        line-height: 20px;
+        width: calc(100% - 45px);
+        margin: 3px;
+        background: url(../ui/frames/parchment-texture.png);
+        box-shadow: inset 0 0 10px #000000;
+        border: 2px groove #564d3a;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 2px 2px 2px 2px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-family);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        text-align: left;
+      }
+      .sidebar-tab .directory-header .header-search input::placeholder {
+        text-align: center;
+        color: #000000b8;
+        position: relative;
+        top: 2px;
+      }
+      .sidebar-tab .directory-header .header-search .fas.fa-search {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -6px;
+        left: 3px;
+        background: url(../ui/frames/search-field-icon.png);
+        color: #ffffff00;
+      }
+    .sidebar-tab .directory-header .header-control {
+      display: block;
+      flex: 0 0 24px;
+      height: 32px;
+      position: relative;
+      top: -1px;
+      left: -6px;
+    }
+      .sidebar-tab .directory-header .fas.fa-sort-amount-up {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: 2px;
+        left: 3px;
+        background: url(../ui/buttons/sidebar-search-buttons-collapse-all.png);
+        color: #ffffff00;
+        font-size: 23px;
+        padding-top: 6px;
+      }
+
+    .sidebar-tab.sidebar-directory .directory-list {
+      height: calc(100% - 38px - 50px);
+    }
+    .sidebar-tab.sidebar-directory .directory-list header {
+      padding: 9px 3px 4px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: normal;
+      background: #02090ad9;
+      font-family: var(--actor-input-font-family);
+      font-size: 16px;
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+      text-shadow: 1px 1px 2px black;
+    }
+    .sidebar-tab.sidebar-directory .directory-list .subdirectory .directory-item  {
+      margin-left: 10px;
+      /* background: grey; */
+    }
+
+    #sidebar .directory-footer {
+      margin: 7px 0px 0px 0px;
+      border-top: none;
+      min-height: 50px;
+      max-height: 50px;
+    }
+      #sidebar .directory-footer button {
+        margin: 0 2%;
+        padding: 2px 0px 0px 0px;
+        height: 34px;
+        border: 1px solid black;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        box-shadow: 4px 4px 1px #00000085;
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+        color: #dadada;
+        font-family: CaslonAntique;
+        font-size: 20px;
+        font-weight: 500;
+        text-shadow: 0px 0px 1px #00000063;
+      }
+      #sidebar .directory-footer i {
+        display: none;
+      }
+
+    .sidebar-tab .directory-list .directory-item.context, .sidebar-tab .directory-list .directory-item.active {
+      margin-top: 0px;
+      padding: 3px 3px !important;
+      border-top: 1px solid red !important;
+      border-bottom: 1px solid #ff6400 !important;
+      box-shadow: 0 0 3px #ff6400 !important;
+      background: #270601b0 !important;
     }
 
   /* ==================== (B) SIDEBAR HEADER ==================== */
@@ -621,241 +819,534 @@
       background: url(../ui/sidebar-button-settings.png);
     }
 
-  /* ==================== (C) SIDEBAR (CHAT) ================ */
-    #chat-log {
-      flex: none;
-      height: calc(100vh - 54px - 187px);
-      margin: 0px 0px 10px 0px;
-      padding: 0px;
-      overflow-y: auto;
-      list-style: none;
-    }
-    #chat-log .message {
-      padding: 4px 1px 4px 1px;
-      margin: 25px 21px 25px 16px;
-      border-image: url(../ui/chat-message-border.png) 21 repeat;
-      border-image-width: 10px;
-      border-image-outset: 8px;
-      border-radius: 0px;
-      background: url(../ui/chat-form.png) repeat;
-      box-shadow: none;
-      color: #000000;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
-      /* min-height: 80px; */
-      vertical-align: middle;
-    }
-
-    #chat-log .message .message-header {
-      line-height: normal;
-      border: 3px solid #380e0e80;
-      border-bottom: none;
-      box-shadow: none;
-      padding: 4px 4px 3px 4px;
-      vertical-align: middle;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
-      color: red;
-      background: #b5701814;
-    }
-      #chat-log .message .message-header .message-sender {
-        flex: 3;
-        margin: 0;
-        color: #790000;
-        text-shadow: 0px 0px 1px #00000087;
+  /* ==================== (C) SIDEBAR (CHAT) ==================== */
+    /* ================== 1. CHAT LOG =========================== */
+      #sidebar .sidebar-tab #chat-log {
+        flex: none;
+        height: calc(100% - 199px);
+        width: 100%;
+        margin: 0px 0px 0px -5px;
+        padding: 0px 0px 0px 0px;
+        overflow-y: auto;
+        list-style: none;
+        /* background: pink; */
       }
-      #chat-log .message .message-header .message-metadata {
-        text-align: right;
+
+      #chat-log .message {
+        padding: 17px;
+        margin: 14px 10px 14px 17px;
+        border-image: url(../ui/frames/chat-message-border.png) 31 repeat;
+        border-image-slice: 31 fill;
+        border-image-width: 31px;
+        border-image-outset: 8px;
+        border-radius: 0px;
+        box-shadow: none;
+        background: none;
+        color: #000000;
+        font-family: CaslonPro;
+        font-size: 14px;
+        font-weight: 500;
+        vertical-align: middle;
+        min-height: 90px;
+      }
+      #chat-log .message .message-header {
+        margin: 0px;
+        padding: 8px 4px 0px 4px;
+        line-height: normal;
+        box-shadow: 0px 0px 1px black inset;
         vertical-align: middle;
         font-family: CaslonPro;
         font-size: 14px;
         font-weight: 500;
-        color: #1d1d1d;
-        text-shadow: 0px 0px 1px #00000087;
+        color: red;
+        min-height: 35px;
+        border: 3px double #3e000078;
+        background: #0000000d;
       }
+        #chat-log .message .message-header .message-sender {
+          flex: 3;
+          margin: 0;
+          color: #790000;
+          text-shadow: 0px 0px 1px #00000087;
+        }
+        #chat-log .message .message-header .message-metadata {
+          text-align: right;
+          vertical-align: middle;
+          font-family: CaslonPro;
+          font-size: 14px;
+          font-weight: 500;
+          color: #1d1d1d;
+          text-shadow: 0px 0px 1px #00000087;
+        }
         #chat-log .message .message-header .message-metadata .message-delete {
           position: relative;
-          top: 1px;
+          top: 0px;
           right: 0px;
           font-size: 13px;
-          color: #464331c4;
+          color: #1f1f1dc4;
           text-shadow: none;
         }
-    #chat-log .message .message-content {
-      border: 3px solid #380e0e80;
-      border-top: none;
-      padding: 3px 4px 3px 4px;
-    }
+      #chat-log .message .message-content {
+        margin: 0px 0px;
+        padding: 4px 4px 0px 4px;
+        border-top: none;
+        /* background: #0000000d; */
+      }
 
-    #chat-notification {
-      display: none;
-      color: #ff6400;
-      text-shadow: 0 0 5px #000;
-      position: absolute;
-      top: -2px;
-      right: -5px;
-    }
-    #chat-controls {
-      height: 28px;
-      margin: 0px 15px 15px 11px;
-      padding: 0px 0px 0px 0px;
-    }
-    #chat-controls i.fas {
-      font-size: 16px;
-      line-height: 28px;
-    }
-    #chat-controls div.roll-type-select select {
-      font-family: CaslonPro;
-      font-weight: 500;
-      font-size: 14px;
-      text-align: left;
-      position: relative;
-      height: 24px;
-      top: -1px;
-      padding-top: 3px;
-      background: url(../ui/chat-form.png) repeat;
-          background-position-x: 0%;
-          background-position-y: 0%;
-      background-position: initial;
-      box-shadow: inset 0 0 10px #000000;
-      border-image: url(../ui/chat-controls-border.png) 4 repeat;
-          border-image-outset: 0;
-          border-image-width: 1;
-      border-image-width: 4px;
-      border-image-outset: 3px 2px 2px 2px;
-      color: #520000;
-    }
-    #chat-controls div.roll-type-select i.fas {
-      margin-right: 5px;
-    }
-    #chat-controls .control-buttons {
-      flex: 0 0 48px;
-    }
-    #chat-controls .control-buttons a {
-      display: inline-block;
-      width: 20px;
+    /* ================== 2. CHAT CONTROLS ====================== */
+      #sidebar .sidebar-tab #chat-controls {
+        position: absolute;
+        bottom: 154px;
+        right: 0px;
+        min-height: 45px;
+        max-height: 45px;
+        min-width: 376px;
+        max-width: 376px;
+        margin: 0px;
+        padding: 0px;
+        background: none;
+      }
+
+      #sidebar .sidebar-tab #chat-controls label {
+        color: #f0f8ff00;
+      }
+      #sidebar .sidebar-tab #chat-controls i {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: 7px;
+        background: url(../ui/buttons/chat-button-d20.png);
+      }
+
+      #sidebar .sidebar-tab #chat-controls div.roll-type-select select {
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        text-align: left;
+        position: relative;
+        height: 24px;
+        top: 7px;
+        padding-top: 3px;
+        background: url(../ui/frames/parchment-texture.png) repeat;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        background-position: initial;
+        box-shadow: inset 0 0 10px #000000;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 3px 2px 2px 2px;
+        color: #520000;
+      }
+      #sidebar .sidebar-tab #chat-controls div.roll-type-select i.fas {
+        margin-right: 5px;
+      }
+
+      #sidebar .sidebar-tab #chat-controls .control-buttons a {
+        color: #f0f8ff00;
+      }
+      #sidebar .sidebar-tab #chat-controls .control-buttons .export-log i {
+        background: url(../ui/buttons/chat-button-export.png);
+        position: relative;
+        right: 20px;
+      }
+      #sidebar .sidebar-tab #chat-controls .control-buttons .delete i {
+        background: url(../ui/buttons/chat-button-clear.png);
+        position: relative;
+        right: 10px;
+      }
+
+    /* ================== 3. CHAT FORM ========================== */
+      #sidebar .sidebar-tab #chat-form {
+        min-height: 154px;
+        max-height: 154px;
+        min-width: 376px;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        display: flex;
+        background: url(../ui/frames/parchment-texture.png) repeat;
+        border: 1px solid black;
+        border-image: url(../ui/chat-form-border.png) 10 repeat;
+        border-image-width: 10px;
+        border-image-outset: 0px 0px;
+        box-shadow: inset 0 0 40px #000000;
+      }
+      #sidebar #chat-form textarea {
+        height: auto;
+        width: 100%;
+        margin: 11px 11px 11px 11px;
+        padding: 5px;
+        resize: none;
+        border: none;
+        border-radius: 0px;
+        background: none;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        line-height: normal;
+        border: 3px double #3e000078;
+      }
+      #sidebar #chat-form textarea:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      #sidebar #chat-form ::-webkit-scrollbar {
+        width: 10px !important;
+      }
+      #sidebar #chat-form ::-webkit-scrollbar-thumb {
+        outline: none !important;
+        border-radius: 3px !important;
+        background: none !important;
+        border-image: url(../ui/scrollbars/sheet-dark-scrollbar-thumb.png) 10 repeat !important;
+        border-image-width: 5px !important;
+        border-image-outset: 0px !important;
+      }
+      #sidebar #chat-form ::-webkit-scrollbar-button {
+        background: #782e22 !important;
+        height: 23px !important;
+        border: none !important;
+      }
+      #sidebar #chat-form ::-webkit-scrollbar-button:start:decrement {
+        background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-decrement.png) no-repeat !important;
+        box-shadow: none !important;
+        height: 16px !important;
+        background-position-y: 1px !important;
+      } 
+      #sidebar #chat-form ::-webkit-scrollbar-button:end:increment {
+        background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
+        background-position-y: -1px !important;
+        box-shadow: none !important; 
+        height: 16px !important;
+      }
+      #sidebar #chat-form ::-webkit-scrollbar-button:vertical:start:increment,
+      #sidebar #chat-form ::-webkit-scrollbar-button:vertical:end:decrement {
+          display: none !important;
+      }
+      #sidebar #chat-form ::-webkit-scrollbar-track {
+        background: url(../ui/scrollbars/sheet-dark-scrollbar-track.png) repeat-y !important;
+        background-position: center !important;
+        background-size: 4px 68px !important;
+        box-shadow: none !important;
+        border-radius: 0px !important;
+      }
+
+  /* ==================== (D) SIDEBAR (COMBAT TRACKER) ========== */
+    #sidebar #combat #combat-round {
+      flex: 0 0 64px;
+      min-height: 73px;
+      max-height: 73px;
+      line-height: 32px;
       text-align: center;
+      border-bottom: 2px groove #444;
+      font-family: CaslonAntique;
+      font-size: 20px;
+      font-weight: 500;
+      text-shadow: 0px 0px 1px #00000063;
+    }
+      #sidebar #combat #combat-round .encounters h4 {
+        flex: 1;
+        margin: 0;
+        padding: 0px;
+        position: relative;
+        top: 2px;
+        color: #AAA;
+        text-align: center;
+        text-shadow: 1px 1px 4px #000000;
+        font-family: var(--actor-input-font-family);
+        font-size: 17px;
+        font-weight: var(--actor-input-font-weight);
+      }
+      #sidebar #combat #combat-round .encounters h3 {
+        flex: 1;
+        margin: 0px 30px;
+        height: 34px;
+        font-size: 23px;
+        text-align: center;
+        color: #f1f1f1;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000a8;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-shadow: 1px 1px 5px #000000;
+      }
+      #sidebar #combat #combat-round a[title="Activate Previous Encounter"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-previous-encounter.png);
+      }
+      #sidebar #combat #combat-round a[title="Activate Next Encounter"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-next-encounter.png);
+      }
+      #sidebar #combat #combat-round a[title="Reset Initiative"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-reset-initiative.png);
+      }
+      #sidebar #combat #combat-round a[title="Tracker Settings"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-tracker-settings.png);
+      }
+      #sidebar #combat #combat-round a[title="Create Encounter"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-create-encounter.png);
+      }
+      #sidebar #combat #combat-round a[title="Roll NPCs"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-roll-npcs.png);
+      }
+      #sidebar #combat #combat-round a[title="Roll All"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-roll-all.png);
+      }
+      #sidebar #combat #combat-round a[title="Delete Encounter"] {
+        padding: 0px;
+        margin: 0px;
+        width: 30px;
+        height: 30px;
+        color: #00ffff00;
+        text-shadow: none;
+        position: relative;
+        top: 0px;
+        background: url(../ui/buttons/combat-button-delete-encounter.png);
+      }
+      
+    #sidebar #combat #combat-tracker {
+      height: calc(100% - 73px - 50px);
+      padding: 1px 0;
+      color: #feffefd6;
+    }
+    #sidebar #combat .directory-list .directory-item {
+      padding: 1px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: 48px;
+      background: #000000b5;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+    }
+      #sidebar #combat li.combatant .roll {
+        display: block;
+        width: 40px;
+        height: 48px;
+        background: url(../ui/buttons/d10.png) no-repeat 50% 50%;
+        background-size: 32px;
+        margin: 0 0.5em;
+        opacity: 0.7;
+      }
+        #sidebar #combat li.combatant .roll:hover {
+          background-image: url(../ui/buttons/d10-highlight.png);
+        }
+      #sidebar #combat li.combatant .token-initiative {
+        flex: 0 0 48px;
+        text-align: center;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: #feffefd6;
+      }
+        #combat li.combatant.active .initiative {
+          font-weight: normal;
+        }
+
+    #sidebar #combat #combat-controls {
+      margin: 7px 0px 0px 0px;
+      border-top: none;
+      min-height: 50px;
+      max-height: 50px;
+    }
+    #sidebar #combat #combat-controls a {
+      margin: 0 2%;
+      padding: 2px 0px 0px 0px;
+      height: 34px;
+      border: 1px solid black;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      box-shadow: 4px 4px 1px #00000085;
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+      background-origin: padding-box;
+      color: #dadada;
+      font-family: CaslonAntique;
+      font-size: 20px;
+      font-weight: 500;
+      text-shadow: 0px 0px 1px #00000063;
+    }
+    #sidebar #combat #combat-controls a:hover {
+      box-shadow: 0 0 5px #ff9f00 !important;
+    }
+    #sidebar #combat #combat-controls .combat-control i {
+      display: contents;
+      color: #d0d0d0;
+    }
+      #sidebar #combat #combat-controls a[title="End Combat"] {
+        padding: 0px 0px 0px 0px;
+      }
+      #sidebar #combat #combat-controls a[title="Begin Combat"] {
+        padding: 0px 0px 0px 0px;
+      }
+
+  /* ==================== (E) SIDEBAR (SCENES) ================== */
+    #sidebar #scenes .directory-list .directory-item {
+        border: 3px groove #564d3a;
+    }
+    #sidebar #scenes .directory-list .directory-item .entity-name a {
+      background: #000000d4;
+      border-radius: 2px;
+      border: 3px double #564d3a;
+      padding: 10px;
+      box-shadow: 0 0 5px #000000 inset;
+      font-family: var(--actor-input-font-family);
+      font-size: 18px;
+      font-weight: var(--actor-input-font-weight);
+      position: relative;
+      top: -2px;
     }
 
-    #chat-form {
-      height: 100px;
-      flex: 0 0 100px;
-      margin: 0px 0px 0px 0px;
+  /* ==================== (F) SIDEBAR (ACTORS) ================== */
+    #sidebar #actors .directory-list .directory-item {
+      padding: 1px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: normal;
+      background: #000000b5;
+      font-family: var(--actor-input-font-family);
+      font-size: 16px;
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+      text-shadow: 1px 1px 2px black;
     }
-    #chat-form textarea {
-      width: 90%;
-      height: 110%;
-      margin: 0 4.5% 50px 4.5%;
-      resize: none;
-      background: url(../ui/chat-form.png) repeat;
-      
-      border-image: url(../ui/chat-form-border.png) 10 repeat;
-      border-image-width: 10px;
-      border-image-outset: 8px 8px;
-      
-      box-shadow: inset 0 0 10px #000000;
-      color: #000000;
-      font-family: CaslonPro;
-      font-size: 14px;
-      font-weight: 500;
+    #sidebar #actors .directory-list .directory-item a {
+      position: relative;
+      top: 17px;
     }
     
-    textarea:focus {
-      outline: 2px solid #ff9f0087;
-      outline-color: rgba(255, 159, 0, 0.53);
-      outline-style: solid;
-      outline-width: 2px;
-      box-shadow: 0 0 10px #ff6400;
+  /* ==================== (G) SIDEBAR (ITEMS) =================== */
+    #sidebar #items .directory-list .directory-item {
+      padding: 1px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: normal;
+      background: #000000b5;
+      font-family: var(--actor-input-font-family);
+      font-size: 16px;
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+      text-shadow: 1px 1px 2px black;
+    }
+    #sidebar #items .directory-list .directory-item a {
+      position: relative;
+      top: 17px;
     }
 
-    #sidebar .directory-list {
-      height: calc(100% - 152px);
+  /* ==================== (H) SIDEBAR (JOURNAL) ================= */
+    #sidebar #journal .directory-list .directory-item {
+      padding: 1px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: normal;
+      background: #000000b5;
+      font-family: var(--actor-input-font-family);
+      font-size: 16px;
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+      text-shadow: 1px 1px 2px black;
+    }
+    #sidebar #journal .directory-list .directory-item a {
+      position: relative;
+      top: 1px;
+    }
+
+  /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
+    #sidebar #playlists .directory-list {
+      flex: 1;
+      height: calc(100% - 50px);
+      list-style: none;
+      margin: 0;
+      padding: 0;
       overflow-y: auto;
     }
-    #sidebar.collapsed {
-      width: 50px !important;
-      height: 326px !important;
-      position: absolute;
-      top: 15px;
-      right: 0px;
-      padding-left: 3px;
-      background: url(../ui/sidebar-collapsed.png) repeat;
-      border-top-left-radius: 7px;
-      border-bottom-left-radius: 7px;
-      box-shadow: -2px 0px 8px #000;
-    }
-    #sidebar.collapsed #sidebar-tabs {
-      display: flex;
-      flex: none;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      justify-content: space-evenly;
-      position: relative;
-      top: 126px;
-      left: -81px;
-      width: 35px;
-      height: 54px;
-      margin: 0px;
-      padding: 0px 0px 0px 90px;
-      border: none;
-      box-shadow: none;
-      background: none;
-    }
-    .sidebar-tab {
-      overflow: hidden;
-      margin: 0px 8px 0px 87px;
-    }
-      .sidebar-tab .directory-footer {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        flex: 0 0 32px;
-        position: absolute;
-        right: 0px;
-        bottom: 0px;
-        background: purple;
-        background: url(../ui/sidebar-bottom-button-background.png) repeat;
-        width: 377px;
-        height: 120px;
-        margin: 0px;
-        padding: 62px 10px 27px 10px;
-      }
-      .sidebar-tab .directory-footer button {
-        width: 96%;
-        margin: 0 2%;
-        border-image: url(../ui/footer-button.png) 10 repeat;
-        border-image-width: 4px;
-        border-image-outset: 0px;
-        box-shadow: 4px 4px 1px #000000;
-        background: url(../ui/sidebar_button-background_red.png) repeat;
-        background-origin: padding-box;
-        color: #feffef;
-        font-family: CaslonAntique;
-        font-size: 20px;
-        font-weight: 500;
-        text-shadow: 0px 0px 1px #00000063;
-      }
-      .sidebar-tab .directory-footer .fas {
-        font-size: 16px;
-        display: none;
-      }
 
-  /* ==================== (D) SIDEBAR (COMBAT TRACKER) ====== */
-    #sidebar #combat .directory-footer .fas {
+  /* ==================== (J) SIDEBAR (COMPENDIUM) ============== */
+    #sidebar #compendium .directory-list {
+      flex: 1;
+      height: calc(100% - 50px);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+    }
+
+    #sidebar #compendium .directory-list .compendium-list .compendium-pack {
+      padding: 1px 3px;
+      border: 3px groove #564d3a;
+      box-shadow: 0 0 6px #000 inset;
+      line-height: normal;
+      background: #000000b5;
+      font-family: var(--actor-input-font-family);
       font-size: 16px;
-      display: inline-block;
+      font-weight: var(--actor-input-font-weight);
+      color: #dadada;
+      text-shadow: 1px 1px 2px black;
+    }
+    #sidebar #compendium .directory-list .compendium-list .compendium-pack a {
+      position: relative;
+      top: 0px;
     }
 
-  /* ==================== (E) SIDEBAR (SCENES) ============== */
-  /* ==================== (F) SIDEBAR (ACTORS) ============== */
-  /* ==================== (G) SIDEBAR (ITEMS) =============== */
-  /* ==================== (H) SIDEBAR (JOURNAL) ============= */
-  /* ==================== (I) SIDEBAR (PLAYLISTS) =========== */
-  /* ==================== (J) SIDEBAR (COMPENDIUM) ========== */
-  /* ==================== (K) SIDEBAR (SETTINGS) ============ */
+  /* ==================== (K) SIDEBAR (SETTINGS) ================ */
 
 /******************************************************************/
 /******************************************************************/     
@@ -873,7 +1364,7 @@
   .app.window-app.sheet.item-sheet .close {
     color: #00e5ff00;
     text-align: center;
-    background: url(../ui/button-close.png);
+    background: url(../ui/buttons/button-close.png);
     height: 30px;
     width: 30px;
     position: absolute;
@@ -988,7 +1479,7 @@
       display: inline-block;
       flex-direction: column;
       flex-wrap: nowrap;
-      background: url(../ui/chat-form.png);
+      background: url(../ui/frames/parchment-texture.png);
       padding: 8px;
       color: #111;
       overflow-y: hidden;
@@ -2149,10 +2640,11 @@
 
   /* ==================== (A) WINDOW FRAMEWORK ================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet {
-      background: url(../ui/actor-sheet-character.png) no-repeat;
+      background: url(../ui/frames/actor-sheet-character.png) no-repeat;
       box-shadow: none;
       margin: 0px;
       padding: 0px;
+      max-height: none !important;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .window-resizable-handle {
       display: none !important;
@@ -2166,6 +2658,7 @@
       background: none;
       margin: 0px 20px 0px 0px;
       padding: 27px 13px 7px 13px;
+      border: none;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .window-title {
         display: none !important;
@@ -2175,7 +2668,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .configure-sheet {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-sheet.png);
+        background: url(../ui/buttons/button-configure-sheet.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -2188,7 +2681,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .configure-token {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-token.png);
+        background: url(../ui/buttons/button-configure-token.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -2202,7 +2695,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .close {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-close.png);
+        background: url(../ui/buttons/button-close.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -3756,7 +4249,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.talents.active .inventory-list.talent-list .item {
@@ -3895,7 +4388,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.talents.active .inventory-list.trait-list .item {
@@ -4064,7 +4557,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
@@ -4265,7 +4758,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
@@ -4559,7 +5052,7 @@
           }
 
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-box {
-          margin: -4px 0px 0px 0px;
+          margin: -5px 0px 0px 0px;
           padding: 0px;
           width: 100%;
         }
@@ -4728,7 +5221,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item {
@@ -4870,7 +5363,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item {
@@ -5024,7 +5517,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item {
@@ -5287,7 +5780,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.religion.active .inventory-list.blessing-list .item {
@@ -5409,7 +5902,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.religion.active .inventory-list.miracle-list .item {
@@ -5763,7 +6256,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         box-shadow: 0px 0px 1px inset black;
       }
@@ -5997,7 +6490,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Armour .item .content,
@@ -6177,7 +6670,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-list.Ingredients .item .content {
@@ -7393,7 +7886,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .note-section.gmnotes {
         height: 270px;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         border: 1px solid #736953a6;
         border-top: none;
@@ -7431,7 +7924,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .ambition-section .ambition {
         width: 100%;
         height: 24px;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 2px 0px 0px 0px;
         border: 1px solid #736953a6;
         border-top: none;
@@ -7589,7 +8082,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .inventory-list.psychology-list .item {
@@ -7727,7 +8220,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .inventory-list.mutation-list .item {
@@ -7883,7 +8376,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.notes.active .inventory-list.disease-list .item {
@@ -7972,9 +8465,10 @@
 
   /* ==================== (A) WINDOW FRAMEWORK ================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet {
-      background: url(../ui/actor-sheet-npc.png) no-repeat;
+      background: url(../ui/frames/actor-sheet-npc.png) no-repeat;
       box-shadow: none;
       margin: 0px;
+      max-height: none !important;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-resizable-handle {
       display: none !important;
@@ -7988,6 +8482,7 @@
       background: none;
       margin: 0px 20px 0px 0px;
       padding: 27px 13px 7px 13px;
+      border: none;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .window-title {
         display: none !important;
@@ -7997,7 +8492,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .configure-sheet {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-sheet.png);
+        background: url(../ui/buttons/button-configure-sheet.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -8010,7 +8505,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .configure-token {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-token.png);
+        background: url(../ui/buttons/button-configure-token.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -8024,7 +8519,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .close {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-close.png);
+        background: url(../ui/buttons/button-close.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -9348,7 +9843,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.talents.active .inventory-list.talent-list .item {
@@ -9487,7 +9982,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.talents.active .inventory-list.trait-list .item {
@@ -9655,7 +10150,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
@@ -9854,7 +10349,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
@@ -10146,7 +10641,7 @@
           }
 
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-box {
-          margin: -4px 0px 0px 0px;
+          margin: -5px 0px 0px 0px;
           padding: 0px;
           width: 100%;
         }
@@ -10315,7 +10810,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item {
@@ -10456,7 +10951,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item {
@@ -10608,7 +11103,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item {
@@ -10869,7 +11364,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.religion.active .inventory-list.blessing-list .item {
@@ -10989,7 +11484,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.religion.active .inventory-list.miracle-list .item {
@@ -11341,7 +11836,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         box-shadow: 0px 0px 1px inset black;
       }
@@ -11575,7 +12070,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-list.Armour .item .content,
@@ -11755,7 +12250,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-list.Ingredients .item .content {
@@ -12971,7 +13466,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .note-section.gmnotes {
         height: 270px;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         border: 1px solid #736953a6;
         border-top: none;
@@ -13009,7 +13504,7 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .ambition-section .ambition {
         width: 100%;
         height: 24px;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 2px 0px 0px 0px;
         border: 1px solid #736953a6;
         border-top: none;
@@ -13167,7 +13662,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .inventory-list.psychology-list .item {
@@ -13305,7 +13800,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .inventory-list.mutation-list .item {
@@ -13461,7 +13956,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .inventory-list.disease-list .item {
@@ -13550,9 +14045,10 @@
 
   /* ==================== (A) WINDOW FRAMEWORK ================== */
     .app.window-app.sheet.wfrp4e.actor.creature-sheet {
-      background: url(../ui/actor-sheet-creature.png) no-repeat;
+      background: url(../ui/frames/actor-sheet-creature.png) no-repeat;
       box-shadow: none;
       margin: 0px;
+      max-height: none !important;
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-resizable-handle {
       display: none !important;
@@ -13566,6 +14062,7 @@
       background: none;
       margin: 0px 20px 0px 0px;
       padding: 27px 13px 7px 13px;
+      border: none;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .window-title {
         display: none !important;
@@ -13575,7 +14072,7 @@
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .configure-sheet {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-sheet.png);
+        background: url(../ui/buttons/button-configure-sheet.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -13588,7 +14085,7 @@
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .configure-token {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-configure-token.png);
+        background: url(../ui/buttons/button-configure-token.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -13602,7 +14099,7 @@
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .close {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-close.png);
+        background: url(../ui/buttons/button-close.png);
         height: 30px;
         width: 30px;
         position: absolute;
@@ -14823,7 +15320,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
@@ -15022,7 +15519,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
@@ -15314,7 +15811,7 @@
           }
 
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-box {
-          margin: -4px 0px 0px 0px;
+          margin: -5px 0px 0px 0px;
           padding: 0px;
           width: 100%;
         }
@@ -15483,7 +15980,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item {
@@ -15625,7 +16122,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item {
@@ -15777,7 +16274,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item {
@@ -16038,7 +16535,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.religion.active .inventory-list.blessing-list .item {
@@ -16158,7 +16655,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.religion.active .inventory-list.miracle-list .item {
@@ -16510,7 +17007,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         box-shadow: 0px 0px 1px inset black;
       }
@@ -16744,7 +17241,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-list.Armour .item .content,
@@ -16924,7 +17421,7 @@
         color: var(--actor-input-color);
         height: fit-content;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
       }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-list.Ingredients .item .content {
@@ -18140,7 +18637,7 @@
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.gmnotes {
         height: 270px;
         width: 100%;
-        margin: -4px 0px 0px 0px;
+        margin: -5px 0px 0px 0px;
         padding: 0px;
         border: 1px solid #736953a6;
         border-top: none;
@@ -18207,7 +18704,7 @@
       color: var(--actor-input-color);
       height: fit-content;
       width: 100%;
-      margin: -4px 0px 0px 0px;
+      margin: -5px 0px 0px 0px;
       padding: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item {
@@ -18288,19 +18785,22 @@
 /*=============== VIII. ACTOR SHEET (TOKEN) =================*/
 /*************************************************************/
   .app.window-app.sheet.wfrp4e.actor.character-sheet.token-actor {
-    background: url(../ui/actor-sheet-token-character.png) no-repeat;
+    background: url(../ui/frames/actor-sheet-token-character.png) no-repeat;
     box-shadow: none;
     margin: 0px;
+    max-height: none !important;
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet.token-actor {
-    background: url(../ui/actor-sheet-token-creature.png) no-repeat;
+    background: url(../ui/frames/actor-sheet-token-creature.png) no-repeat;
     box-shadow: none;
     margin: 0px;
+    max-height: none !important;
   }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet.token-actor {
-    background: url(../ui/actor-sheet-token-npc.png) no-repeat;
+    background: url(../ui/frames/actor-sheet-token-npc.png) no-repeat;
     box-shadow: none;
     margin: 0px;
+    max-height: none !important;
   }
 
 /*************************************************************/
@@ -18325,11 +18825,15 @@
     border-image-outset: 22px 17px 16px 14px;
     border-radius: 0px;
     box-shadow: inset 0 0 10px #000000;
-    background: #000000c4;
+    background: #000000e8;
     font-family: CaslonPro;
     font-weight: 500;
     font-size: 14px;
   }
+    #players h3 .fas.fa-users {
+      margin-right: 10px;
+      display: none;
+    }
   #players ol .player-name {
     overflow: hidden;
     white-space: nowrap;
@@ -18466,7 +18970,7 @@
   #client-settings .window-header .close {
     color: #00e5ff00;
     text-align: center;
-    background: url(../ui/button-close.png);
+    background: url(../ui/buttons/button-close.png);
     height: 30px;
     width: 30px;
     position: absolute;
@@ -18607,7 +19111,7 @@
     padding: 0px !important;
     color: #111;
     width: 517px !important;
-    /* height: 350px !important; */
+    height: auto !important;
     box-shadow: 3px 4px 10px #000;
   }
   .window-app.dialog.characteristic-roll-dialog .roll-dialog-tag,
@@ -18630,7 +19134,7 @@
     padding: 0px;
     margin: 0px;
     line-height: 30px;
-    border-bottom: none;
+    border: none;
     background: url(../ui/window-app-dialog-header.png) repeat;
   }
     .window-app.dialog.characteristic-roll-dialog .window-header .window-title,
@@ -18639,6 +19143,7 @@
     .window-app.dialog.spell-roll-dialog .window-header .window-title,
     .window-app.dialog.channell-roll-dialog .window-header .window-title, 
     .window-app.dialog.prayer-roll-dialog .window-header .window-title {
+      display: block;
       position: absolute;
       top: 60px;
       left: 26px;
@@ -18669,12 +19174,12 @@
     .window-app.dialog.prayer-roll-dialog .window-header .close {
       color: #00e5ff00;
       text-align: center;
-      background: url(../ui/button-close.png);
+      background: url(../ui/buttons/button-close.png);
       height: 30px;
       width: 30px;
-      position: relative;
-      top: 9px;
-      left: 470px;
+      position: absolute;
+      top: 8px;
+      right: 5px;
     }
 
   .window-app.dialog.characteristic-roll-dialog .window-content {
@@ -18812,6 +19317,20 @@
     border-image-outset: 8px;
   }
 
+  .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content,
+  .window-app.dialog.skill-roll-dialog .window-content .dialog-content,
+  .window-app.dialog.weapon-roll-dialog .window-content .dialog-content,
+  .window-app.dialog.spell-roll-dialog .window-content .dialog-content,
+  .window-app.dialog.channell-roll-dialog .window-content .dialog-content,
+  .window-app.dialog.prayer-roll-dialog .window-content .dialog-content {
+    min-height: fit-content;
+    max-height: fit-content;
+    padding: 0px;
+    margin: 0px;
+    box-shadow: none;
+    background: none;
+  }
+
     .window-app.dialog .window-content .dialog-row {
       display: flex;
       flex-direction: row;
@@ -18940,16 +19459,17 @@
     .window-app.dialog.spell-roll-dialog .dialog-buttons button,
     .window-app.dialog.channell-roll-dialog .dialog-buttons button,
     .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
-      flex: 2;
-      margin: 0px 0px 0px 0px;
+      flex-grow: 1;
+      min-width: -webkit-fill-available;
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
       line-height: 24px;
       border: 3px double #736953a6;
       box-shadow: 0px 0px 10px inset black;
-      background: #3a0527b5;
       border-radius: 0px;
       opacity: 0.9;
-      text-align: center;
-      min-width: 93px;
+      text-align: center !important;
       color: #ececec;
       font-family: CaslonPro;
       font-weight: 500;
@@ -19068,7 +19588,7 @@
       padding: 0px !important;
       color: #111;
       width: 517px !important;
-      /* height: 350px !important; */
+      height: 157px !important;
       box-shadow: 3px 4px 10px #000;
     }
     .window-app.dialog.cast-channell .window-header {
@@ -19076,7 +19596,7 @@
       padding: 0px;
       margin: 0px;
       line-height: 30px;
-      border-bottom: none;
+      border: none;
       background: url(../ui/window-app-dialog-header.png) repeat;
     } 
       .window-app.dialog.cast-channell .window-header .window-title {
@@ -19106,12 +19626,12 @@
       .window-app.dialog.cast-channell .window-header .close {
         color: #00e5ff00;
         text-align: center;
-        background: url(../ui/button-close.png);
+        background: url(../ui/buttons/button-close.png);
         height: 30px;
         width: 30px;
-        position: relative;
-        top: 9px;
-        left: 470px;
+        position: absolute;
+        top: 8px;
+        right: 5px;
       }
 
     .window-app.dialog.cast-channell .window-content {
@@ -19136,6 +19656,21 @@
       border-image-width: 10px 13px 13px 13px;
       border-image-outset: 8px;
     }
+    .window-app.dialog.cast-channell .window-content .dialog-content {
+      flex: 2;
+      line-height: normal;
+      min-height: 28px;
+      max-height: 28px;
+      border: none;
+      border-radius: 0px;
+      opacity: 0.9;
+      text-align: center;
+      color: #ececec;
+      padding: 0px 0px 0px 0px;
+      margin: 0px 0px;
+      box-shadow: 0px 0px 10px inset black;
+      /* background: #000000e8; */
+    }
       .window-app.dialog.cast-channell .selection {
         flex: 2;
         line-height: normal;
@@ -19146,9 +19681,9 @@
         text-align: center;
         color: #ececec;
         padding: 7px 0px 0px 0px;
-        margin: 3px 0px;
+        margin: 0px 0px;
         box-shadow: 0px 0px 10px inset black;
-        background: #000000e8;
+        /* background: #000000e8; */
       }
       .window-app.dialog.cast-channell .dialog-buttons {
         display: flex;
@@ -19179,7 +19714,212 @@
         background-origin: padding-box;
       } 
 
-  /* ==================== (B) ADOBE CASLON PRO ================== */
+  /* ==================== (B) DEFAULT WINDOWS =================== */
+    .window-app.app  {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      background: none;
+      padding: 0px;
+      color: #111;
+      width: 517px;
+      max-height: 650px !important;
+      box-shadow: 3px 4px 10px #000;
+    }
+    .window-app.app .window-header {
+      flex: 0 0 45px;
+      padding: 0px 30px;
+      margin: 0px;
+      border: 1px solid blue;
+      border-image: url(../ui/frames/window-app-dialog-header-clear.png) 5 repeat;
+      border-image-slice: 19 21 19 21 fill;
+      border-image-width: 19px 21px 19px 21px;
+      border-image-outset: 0px;
+      align-items: center;
+      align-content: center;
+      text-align: center;
+      justify-content: center;
+    } 
+      .window-app.app .window-header .window-title {
+        flex-grow: 0;
+        flex-basis: auto;
+        display: flex;
+        visibility: visible;
+        font-family: CaslonAntique;
+        font-weight: normal;
+        font-size: 19px;
+        line-height: normal;
+        color: #dcdcdc;
+        border-radius: 0px;
+        opacity: 1;
+        z-index: 4;
+        height: 25px;
+        margin: 0px;
+        padding: 0px 60px;
+        border: 1px solid blue;
+        border-image: url(../ui/frames/window-app-dialog-title-blank.png) 5 repeat;
+        border-image-slice: 13 69 11 69 fill;
+        border-image-width: 13px 69px 11px 69px;
+        border-image-outset: 10px 0px 10px 0px;
+        -webkit-font-smoothing: subpixel-antialiased;
+      }
+      .window-app.app .window-header .close {
+        color: #00c2d800;
+        text-align: center;
+        background: url(../ui/buttons/button-close.png);
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 8px;
+        right: 5px;
+        overflow: hidden;
+      }
+    .window-app.app .window-content {
+      background: url(../ui/window-app-dialog-backgrounds-characteristic.png);
+      background-position: -43px -120px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      overflow-y: hidden;
+      padding: 0px 0px 0px 0px;
+      margin: 8px;
+      /* margin-bottom: 2px; */
+      box-shadow: none;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 14px;
+      color: #ececec;
+      border: 1px solid blue;
+      border-width: 10px;
+      border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+      border-image-slice: 10 13 13 13;
+      border-image-width: 10px 13px 13px 13px;
+      border-image-outset: 8px;
+    }
+
+    /* ================== 1. COMPENDIUM PACK ==================== */
+      .window-app.app .compendium .compendium-search .fas.fa-search {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -6px;
+        left: 3px;
+        background: url(../ui/frames/search-field-icon.png);
+        color: #ffffff00;
+      }
+      .window-app.app .compendium .compendium-search input {
+        line-height: 20px;
+        width: calc(100% - 40px);
+        margin: 3px;
+        background: url(../ui/frames/parchment-texture.png);
+        box-shadow: inset 0 0 10px #000000;
+        border: 2px groove #564d3a;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 2px 2px 2px 2px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-family);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        text-align: left;
+      }
+        .window-app.app .compendium .compendium-search input::placeholder {
+          text-align: center;
+          color: #000000b8;
+          position: relative;
+          top: 2px;
+        }
+      .window-app.app .compendium .pack-content {
+        height: calc(100% - 43px);
+        margin: 0;
+        overflow-y: auto;
+      }
+      .window-app.app .compendium .directory-list .pack-entry {
+        padding: 1px 3px;
+        border: 3px groove #564d3a;
+        box-shadow: 0 0 6px #000 inset;
+        line-height: normal;
+        background: #000000b5;
+        font-family: var(--actor-input-font-family);
+        font-size: 16px;
+        font-weight: var(--actor-input-font-weight);
+        color: #dadada;
+        text-shadow: 1px 1px 2px black;
+      }
+      .window-app.app .compendium .directory-list .pack-entry a {
+        position: relative;
+        top: 17px;
+      }
+
+    /* ================== 2. DELETE ITEM ======================== */
+      .window-app.dialog .window-content .dialog-content {
+        flex: 2;
+        line-height: normal;
+        min-height: 28px;
+        max-height: 28px;
+        border: none;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        color: #ececec;
+        padding: 0px 0px 0px 0px;
+        margin: 0px 0px;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+      }
+      .window-app.dialog .selection {
+        flex: 1;
+        line-height: normal;
+        min-height: fit-content;
+        border: 1px solid #736953a6;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        color: #ececec;
+        padding: 4px 0px 4px 0px;
+        margin: 0px 0px;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+        vertical-align: middle;
+      }
+        .window-app.dialog .dialog-buttons {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin: 4px 0px 0px 0px;
+        }
+        .window-app.dialog .dialog-buttons button {
+          flex: 2;
+          line-height: 24px;
+          border: 3px double #736953a6;
+          box-shadow: 0px 0px 10px inset black;
+          border-radius: 0px;
+          opacity: 0.9;
+          text-align: center;
+          max-width: 49%;
+          color: #ececec;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 15px;
+          padding-top: 5px;
+          margin: 0px;
+          border-image: url(../ui/footer-button.png) 10 repeat;
+          border-image-width: 4px;
+          border-image-outset: 0px;
+          background: url(../ui/sidebar_button-background_red.png) repeat;
+          background-origin: padding-box;
+        } 
+        .window-app.dialog .dialog-buttons button i {
+          display: none;
+        } 
+
+    /* ================== 3. JOUNRAL ENTRIES ==================== */
+
+
+
+
+    /* ================== 2. GENERIC EQUIPMENT LISTS ============ */
 
 /******************************************************************/
 /******************************************************************/
