@@ -1766,6 +1766,49 @@ Hooks.on("ready", async () => {
  */
 Hooks.on("canvasInit", async () => {
 
+  // let pack = game.packs.find(p => p.collection == "wfrp4e.trappings")
+  // let list = await pack.getIndex();
+  // let pathList = [];
+  // await game.socket.emit("getFiles", "systems/wfrp4e/icons/equipment", {}, async resp => {
+  //   for (var folder of resp.dirs)
+  //   {
+  //     await game.socket.emit("getFiles", folder, {}, async respItems => {
+  //       for (let file of respItems.files)
+  //         pathList.push(file);
+  //     })
+  //   }
+  // })  
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace("/", '-')
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
     
   //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
   //  let list = await pack.getIndex();
@@ -3138,42 +3181,6 @@ Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
 CONFIG.Item.sheetClass = ItemSheetWfrp4e;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
