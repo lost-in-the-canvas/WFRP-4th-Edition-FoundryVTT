@@ -75,6 +75,10 @@
     button:hover {
       box-shadow: 0 0 5px #ff9f00 !important;
     }
+    input[type="text"]:focus, input[type="password"]:focus {
+      box-shadow: 0 0 5px #ff9f00 !important;
+      outline: none;
+    }
 
   /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
   
@@ -261,6 +265,51 @@
       background-position: center;
       background-size: 9px 110px;
       box-shadow: none;
+    }
+
+    .window-app.app.filepicker ::-webkit-scrollbar {
+      width: 10px;
+      box-shadow: inset 0 0 
+    }
+    .window-app.app.filepicker ::-webkit-scrollbar-thumb {
+      outline: none;
+      border-radius: 3px;
+      background: none;
+      /* background: url(../ui/scrollbar.png) no-repeat;  */
+      border-image: url(../ui/scrollbars/sheet-dark-scrollbar-thumb.png) 10 repeat;
+      border-image-width: 5px;
+      border-image-outset: 0px;
+    }
+    .window-app.app.filepicker ::-webkit-scrollbar-button {
+      background: #782e22;
+      height: 23px;
+      border: none;
+    }
+    .window-app.app.filepicker ::-webkit-scrollbar-button:start:decrement {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-decrement.png) no-repeat;
+      box-shadow: none;
+      height: 16px;
+      background-position-y: 0px;
+      /* background: red; */
+    } 
+    .window-app.app.filepicker ::-webkit-scrollbar-button:end:increment {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat;
+      background-position-y: 0px;
+      box-shadow: none; 
+      height: 16px;
+      /* background: red; */
+    }
+    .window-app.app.filepicker ::-webkit-scrollbar-button:vertical:start:increment,
+    .window-app.app.filepicker ::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    .window-app.app.filepicker ::-webkit-scrollbar-track {
+      background: url(../ui/scrollbars/sheet-dark-scrollbar-track.png) repeat-y;
+      background-position: center;
+      background-size: 4px 68px;
+      box-shadow: none;
+      border-radius: 0px;
+      /* background: blue; */
     }
 
     .app.window-app.dialog ::-webkit-scrollbar {
@@ -535,7 +584,7 @@
       border: 3px groove #564d3a;
       box-shadow: 0 0 6px #000 inset;
       line-height: normal;
-      background: #02090ad9;
+      background: #290a0ad9;
       font-family: var(--actor-input-font-family);
       font-size: 16px;
       font-weight: var(--actor-input-font-weight);
@@ -1240,7 +1289,8 @@
 
   /* ==================== (E) SIDEBAR (SCENES) ================== */
     #sidebar #scenes .directory-list .directory-item {
-        border: 3px groove #564d3a;
+      border: 3px groove #564d3a;
+      padding: 0px 20px;
     }
     #sidebar #scenes .directory-list .directory-item .entity-name a {
       background: #000000d4;
@@ -1473,6 +1523,7 @@
       padding: 0 8px;
       line-height: 30px;
       border-bottom: none;
+      border: none;
     }
 
     .app.window-app.sheet.item-sheet .window-content {
@@ -1486,6 +1537,7 @@
       overflow-x: hidden;
       margin: 28px 58px 58px 58px;
       box-shadow: 0 0 8px #000000 inset;
+      border: none;
     }
     .app.window-app.sheet.item-sheet .window-content .item-sheet.editable {
       display: inline-block;
@@ -4129,28 +4181,29 @@
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties > div {
           width: fit-content;
-          margin-top: 5px;
+          flex-shrink: 0;
+          margin: 4px 0px 0px 0px;
+          padding: 0px 2px 0px 2px;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
-          margin-left: 2px;
-          margin-right: 2px;
-          font-size: 14px;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties .custom-penalty {
           width: inherit;
           /* background: bisque; */
           display: inline-flex;
           flex-direction: row;
-          flex-grow: 2;
-          margin-top: 0px;
-          margin-left: 2px;
-          margin-right: 0px;
+          flex-grow: 1;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
+          margin: 0px 0px 0px 0px;
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties .custom-penalty .penalties-input {
           min-width: 20px;
@@ -6341,6 +6394,25 @@
             max-width: 40px;
             flex-grow: 0;
           }
+
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.currency-header .name {
+        height: 18px;
+        min-width: 360px;
+        max-width: 360px;
+        /* background: red; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.currency-header .quantity {
+        left: -2px;
+        /* background: #0000ff4f; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.currency-header .weight {
+        left: 21px;
+        /* background: #0000ff47; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.currency-header .item-controls {
+        left: 52px;
+        /* background: #0000ff47; */
+      }
 
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Armour,
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.inventory.active .inventory-header.Clothing {
@@ -9723,28 +9795,29 @@
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties > div {
           width: fit-content;
-          margin-top: 5px;
+          flex-shrink: 0;
+          margin: 4px 0px 0px 0px;
+          padding: 0px 2px 0px 2px;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
-          margin-left: 2px;
-          margin-right: 2px;
-          font-size: 14px;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties .custom-penalty {
           width: inherit;
           /* background: bisque; */
           display: inline-flex;
           flex-direction: row;
-          flex-grow: 2;
-          margin-top: 0px;
-          margin-left: 2px;
-          margin-right: 0px;
+          flex-grow: 1;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
+          margin: 0px 0px 0px 0px;
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties .custom-penalty .penalties-input {
           min-width: 20px;
@@ -9760,7 +9833,7 @@
           display: inline-flex;
           flex-direction: row;
           flex-grow: 2;
-        }        
+        }
 
   /* ==================== (G) TALENTS TAB ======================= */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.talents.active {
@@ -11921,6 +11994,25 @@
             max-width: 40px;
             flex-grow: 0;
           }
+
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.currency-header .name {
+        height: 18px;
+        min-width: 360px;
+        max-width: 360px;
+        /* background: red; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.currency-header .quantity {
+        left: -2px;
+        /* background: #0000ff4f; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.currency-header .weight {
+        left: 21px;
+        /* background: #0000ff47; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.currency-header .item-controls {
+        left: 52px;
+        /* background: #0000ff47; */
+      }
 
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.Armour,
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.inventory.active .inventory-header.Clothing {
@@ -15054,28 +15146,29 @@
         }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties > div {
           width: fit-content;
-          margin-top: 5px;
+          flex-shrink: 0;
+          margin: 4px 0px 0px 0px;
+          padding: 0px 2px 0px 2px;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
-          margin-left: 2px;
-          margin-right: 2px;
-          font-size: 14px;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
         }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties .custom-penalty {
           width: inherit;
           /* background: bisque; */
           display: inline-flex;
           flex-direction: row;
-          flex-grow: 2;
-          margin-top: 0px;
-          margin-left: 2px;
-          margin-right: 0px;
+          flex-grow: 1;
           overflow-wrap: unset;
           text-overflow: unset;
           white-space: nowrap;
           overflow: hidden;
+          margin: 0px 0px 0px 0px;
         }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties .custom-penalty .penalties-input {
           min-width: 20px;
@@ -17092,6 +17185,25 @@
             max-width: 40px;
             flex-grow: 0;
           }
+
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.currency-header .name {
+        height: 18px;
+        min-width: 360px;
+        max-width: 360px;
+        /* background: red; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.currency-header .quantity {
+        left: -2px;
+        /* background: #0000ff4f; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.currency-header .weight {
+        left: 21px;
+        /* background: #0000ff47; */
+      }
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.currency-header .item-controls {
+        left: 52px;
+        /* background: #0000ff47; */
+      }
 
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.Armour,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active .inventory-header.Clothing {
@@ -19159,7 +19271,7 @@
       height: 26px;
       margin: 0px;
       padding: 0px;
-      color: #ccc6c6;
+      color: #f5f5f500;
       text-shadow: 1px 1px 5px #000000;
       text-align: center;
       border: 3px double #736953a6;
@@ -19405,7 +19517,7 @@
           font-weight: 500;
           font-size: 14px;
           padding: 6px;
-          color: #ecececbd;
+          color: #d8d8d8;
           border: 1px solid #736953a6;
           border-top: none;
           box-shadow: 0px 0px 5px inset black;
@@ -19427,7 +19539,7 @@
       }
       .window-app.dialog .form-group > * {
         display: block;
-        color: #ecececbd;
+        color: #d8d8d8;
         border: 1px solid #736953a6;
         border-left: none;
         box-shadow: 0px 0px 10px inset black;
@@ -19542,7 +19654,7 @@
     .window-app.dialog .custom-select select { 
       display: none; /*hide original SELECT element:*/
       display: block;
-      color: #ecececbd;
+      color: #d8d8d8;
       border: 1px solid #736953a6;
       border-left: none;
       box-shadow: 0px 0px 10px inset black;
@@ -19596,7 +19708,7 @@
     .window-app.dialog .select-items {
       position: absolute;
       background-color: #2b1806;
-      color: #ecececbd;
+      color: #d8d8d8;
       top: 100%;
       /* left: 180px; */
       width: 60.35%;
@@ -19663,7 +19775,7 @@
         height: 26px;
         margin: 0px;
         padding: 0px;
-        color: #ccc6c6;
+        color: #f5f5f500;
         text-shadow: 1px 1px 5px #000000;
         text-align: center;
         border: 3px double #736953a6;
@@ -19795,7 +19907,7 @@
         font-weight: normal;
         font-size: 19px;
         line-height: normal;
-        color: #dcdcdc;
+        color: #f5f5f5;
         border-radius: 0px;
         opacity: 1;
         z-index: 4;
@@ -19877,9 +19989,10 @@
           top: 2px;
         }
       .window-app.app .compendium .pack-content {
-        height: calc(100% - 43px);
+        /* height: 450px; */
         margin: 0;
         overflow-y: auto;
+        height: calc(100% - 45px);
       }
       .window-app.app .compendium .directory-list .pack-entry {
         padding: 1px 3px;
@@ -19934,22 +20047,24 @@
         }
         .window-app.dialog .dialog-buttons button {
           flex: 2;
+          flex-grow: 1;
           line-height: 24px;
+          max-width: none;
           border: 3px double #736953a6;
           box-shadow: 0px 0px 10px inset black;
           border-radius: 0px;
           opacity: 0.9;
           text-align: center;
-          max-width: 49%;
           color: #ececec;
           font-family: CaslonPro;
           font-weight: 500;
           font-size: 15px;
           padding-top: 5px;
-          margin: 0px;
+          margin: 0px 2px;
           border-image: url(../ui/footer-button.png) 10 repeat;
           border-image-width: 4px;
           border-image-outset: 0px;
+          /* box-shadow: inset 0 0 20px #000000; */
           background: url(../ui/sidebar_button-background_red.png) repeat;
           background-origin: padding-box;
         } 
@@ -19958,13 +20073,240 @@
         } 
 
     /* ================== 3. JOUNRAL ENTRIES ==================== */
+      .window-app.app.journal-sheet {
+        min-width: 470px;
+        min-height: 362px;
+      }
+      .window-app.app.journal-sheet.image-popout {
+        min-width: 417px;
+        min-height: 403px;
+      }
 
+      .window-app.app.journal-sheet .window-header .window-title {
+        flex-grow: 0;
+        flex-basis: auto;
+        display: flex;
+        visibility: visible;
+        font-family: CaslonAntique;
+        font-weight: normal;
+        font-size: 19px;
+        line-height: normal;
+        color: #dcdcdc00;
+        border-radius: 0px;
+        background: url(../ui/frames/window-app-dialog-title-journal-entry.png);
+        opacity: 1;
+        z-index: 4;
+        min-width: 235px;
+        max-width: 235px;
+        min-height: 45px;
+        max-height: 45px;
+        padding: 0px 60px;
+        overflow: hidden;
+        border: none;
+        -webkit-font-smoothing: subpixel-antialiased;
+      }
+        .window-app.app.journal-sheet .window-header .share-image {
+          color: #00c2d800;
+          text-align: center;
+          background: url(../ui/buttons/button-show-players.png);
+          height: 30px;
+          width: 30px;
+          position: absolute;
+          top: 8px;
+          left: 0px;
+          overflow: hidden;
+        }
+        .window-app.app.journal-sheet .window-header .entry-text {
+          color: #00c2d800;
+          text-align: center;
+          background: url(../ui/buttons/button-text.png);
+          height: 30px;
+          width: 30px;
+          position: absolute;
+          top: 8px;
+          right: 57px;
+          overflow: hidden;
+        }
+        .window-app.app.journal-sheet .window-header .entry-image {
+          color: #00c2d800;
+          text-align: center;
+          background: url(../ui/buttons/button-image.png);
+          height: 30px;
+          width: 30px;
+          position: absolute;
+          top: 8px;
+          right: 31px;
+          overflow: hidden;
+        }
 
+      .window-app.app.journal-sheet .window-content {
+        background: url(../ui/frames/parchment-texture.png);
+        background-position: -43px -120px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        padding: 0px;
+        margin: 0px;
+        box-shadow: 0px 0px 30px black inset;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: #000000;
+        border: 1px solid blue;
+        border-width: 10px;
+        border-image: url(../ui/frames/window-app-journal-sheet-content.png) 5 repeat;
+        border-image-slice: 25;
+        border-image-width: 25px;
+        border-image-outset: 0px 0px 0px 0px;
+      }
+      .window-app.app.journal-sheet .window-content form {
+        margin: 15px;
+        padding: 5px;
+        box-shadow: 0px 0px 3px #00000069 inset;
+      }
+      .window-app.app.journal-sheet .window-content .form-group.title {
+        position: absolute;
+        width: 100%;
+        max-width: 90%;
+        left: 0px;
+      }
+        .window-app.app.journal-sheet .window-content input[name="name"],
+        .window-app.app.journal-sheet .window-content input[name="title"] {
+          border: 1px solid blue;
+          border-image: url(../ui/item-sheet-header.png) repeat;
+          border-image-slice: 5;
+          border-image-width: 4px;
+          border-image-outset: 0px;
+          border-radius: 0px;
+          font-family: CaslonAntique;
+          font-size: 20px;
+          font-weight: 500;
+          color: #670c0c;
+          text-shadow: 0px 0px 1px #00000063;
+          text-align: center;
+          box-shadow: 0px 0px 3px black inset;
+          opacity: 0.9;
+        }      
+        .window-app.app.journal-sheet .window-content select[name="folder"] {
+          background: none;
+          border: 1px solid #5a5a5a;
+          border-radius: 2px;
+          padding: 5px 0px;
+          margin: 0px;
+          font-family: var(--actor-input-font-family);
+          font-size: 14px;
+          font-weight: var(--actor-input-font-weight);
+          color: var(--actor-input-color);
+          width: 100%;
+          height: fit-content;
+          text-overflow: ellipsis;
+          box-shadow: 0px 0px 2px #2700009e inset;
+        }
+      .window-app.app.journal-sheet .window-content form button[type="submit"] {
+        flex: 2;
+        flex-grow: 0;
+        line-height: 24px;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 1.0;
+        text-align: center;
+        color: #dadada;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 15px;
+        padding-top: 5px;
+        margin: 0px 0px 2px 1px;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        /* box-shadow: inset 0 0 20px #000000; */
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      } 
+
+      .window-app.app.journal-sheet.image-popout .window-content .form-group.title {
+        position: absolute;
+        width: 100%;
+        max-width: calc(100% - 12px);
+        left: 6px;
+        margin: 3px 0px 3px 0px;
+      }
+      .window-app.app.journal-sheet.image-popout .form-group.picker {
+        bottom: 5px;
+        position: absolute;
+        width: 100%;
+        max-width: calc(100% - 12px);
+        left: 6px;
+        margin: 3px 0px 3px 0px;
+      }
+      .window-app.app.journal-sheet.image-popout .window-content .form-group.picker .image {
+        background: none;
+        border: 1px solid #5a5a5a;
+        border-radius: 2px;
+        padding: 1px 0px 0px 5px;
+        margin: 0px 5px 0px 0px;
+        font-family: var(--actor-input-font-family);
+        font-size: 14px;
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        line-height: normal;
+        max-height: 30px;
+        box-shadow: 0px 0px 2px #2700009e inset;
+      }
+      .window-app.journal-sheet.image-popout .form-group button {
+        flex: 0 0 32px;
+        order: 3;
+        max-height: 30px;
+        flex: 2;
+        flex-grow: 0;
+        line-height: 24px;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 1.0;
+        text-align: center;
+        color: #dadada;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 15px;
+        padding-top: 3px;
+        margin: 0px 3px 2px 0px;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        /* box-shadow: inset 0 0 20px #000000; */
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      }
+      .window-app.app.journal-sheet.image-popout .window-content form button[type="submit"] {
+        flex: 2;
+        flex-grow: 0;
+        line-height: 24px;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 1.0;
+        text-align: center;
+        color: #dadada;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 15px;
+        padding-top: 3px;
+        margin: 0px 0px 2px 1px;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        /* box-shadow: inset 0 0 20px #000000; */
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      } 
 
     /* ================== 4. CREATE NEW FOLDER ================== */
       .window-app.dialog .form-group > * {
         display: block;
-        color: #ecececbd;
+        color: #d8d8d8;
         border: 1px solid #736953a6;
         border-left: none;
         box-shadow: 0px 0px 10px inset black;
@@ -19991,11 +20333,250 @@
           box-shadow: 0px 0px 10px inset black;
           background: #000000e8;
         }
+        #folder-create .form-group > * {
+          display: block;
+          color: #d8d8d8;
+          border: 1px solid #736953a6;
+          border-left: none;
+          box-shadow: 0px 0px 10px inset black;
+          background: #352516;
+          border-radius: 0px;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 14px;
+          margin: 0px;
+          padding: 3px 0px 0px 0px;
+          text-overflow: ellipsis;
+        }
+        #folder-create input {
+          padding: 3px 0px 0px 5px !important;
+          color: #d8d8d8;;
+        }
+          #folder-create input::placeholder {
+            text-align: center;
+            /* color: #000000b8; */
+            position: relative;
+            top: 0px;
+          }
+        #folder-create input[name="color"] {
+          /* background: red; */
+          height: 27px;
+          margin: -4px 0px 0px 0px;
+        }
+        #folder-create input[type="color"] {
+          position: absolute;
+          top: 99px;
+          right: 20px;
+          height: 24px;
+          width: 100px;
+          padding: 0px !important;
+          background: none;
+          border: none;
+        }
+        #folder-create button[type="submit"] {
+          flex: 2;
+          flex-grow: 0;
+          line-height: 24px;
+          border: 3px double #736953a6;
+          box-shadow: 0px 0px 10px inset black;
+          border-radius: 0px;
+          opacity: 1.0;
+          text-align: center;
+          color: #ececec;
+          font-family: CaslonPro;
+          font-weight: 500;
+          font-size: 15px;
+          padding-top: 5px;
+          margin: 0px 0px 2px 1px;
+          border-image: url(../ui/footer-button.png) 10 repeat;
+          border-image-width: 4px;
+          border-image-outset: 0px;
+          /* box-shadow: inset 0 0 20px #000000; */
+          background: url(../ui/sidebar_button-background_red.png) repeat;
+          background-origin: padding-box;
+        } 
+        #folder-create button[type="submit"] i {
+          display: none;
+        } 
+
+    /* ================== 5. FILE PICKER ======================== */
+      .window-app.app.filepicker {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        background: none;
+        padding: 0px;
+        color: #111;
+        width: 517px;
+        height: auto !important;
+        box-shadow: 3px 4px 10px #000;
+      }
+      .window-app.app.filepicker .window-content {
+        background: url(../ui/frames/bookshelf-texture.png);
+        background-position: -43px -120px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        padding: 0px 0px 0px 0px;
+        margin: 8px;
+        height: fit-content;
+        /* margin-bottom: 2px; */
+        box-shadow: none;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        color: #ececec;
+        border: 1px solid blue;
+        border-width: 10px;
+        border-image: url(../ui/window-app-dialog-content.png) 5 repeat;
+        border-image-slice: 10 13 13 13;
+        border-image-width: 10px 13px 13px 13px;
+        border-image-outset: 8px;
+      }
+      
+      .window-app.app.filepicker .window-content .form-group.current-dir .back {
+        min-width: 30px;
+        max-width: 30px;
+        min-height: 30px;
+        max-height: 30px;
+        position: relative;
+        top: 1px;
+        left: -1px;
+        border: none;
+        background: url(../ui/buttons/filepicker-back.png);
+        margin: 0px;
+        padding: 0px;
+        color: #f0f8ff00;
+        box-shadow: none;
+      }
+      .window-app.app.filepicker .window-content .form-group.current-dir .back:hover {
+        box-shadow: none !important;
+        text-shadow: 0 0 8px #ff9f00 !important;
+      }
+      .window-app.app.filepicker input {
+        line-height: 20px;
+        width: calc(100% - 40px);
+        min-height: 27px;
+        max-height: 27px;
+        margin: 3px;
+        background: url(../ui/frames/parchment-texture.png);
+        box-shadow: inset 0 0 10px #000000;
+        border: 2px groove #564d3a;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 2px 2px 2px 2px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-family);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        text-align: left;
+      }
+        .window-app.app.filepicker input::placeholder {
+          text-align: center;
+          color: #000000b8;
+          position: relative;
+          top: 2px;
+        }
+
+      .window-app.app.filepicker .window-content .form-group label {
+        flex: 1;
+        line-height: normal;
+        border: 1px solid #736953a6;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        color: #ececec;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+        vertical-align: middle;
+        max-height: 31px;
+        padding: 7px 0px 0px 0px;
+        margin: 1px 3px 0px 0px;
+      }
+      .window-app.app.filepicker .window-content .file-directory {
+        list-style: none;
+        margin: 0.5em 0;
+        padding: 0;
+        background: url(../ui/frames/parchment-texture.png);
+        min-height: 300px;
+        max-height: 300px;
+        overflow-y: auto;
+        box-shadow: 0px 0px 10px inset black;
+        border: 3px ridge #635434;
+        border-radius: 0px;
+        color: black;
+      }
+      .window-app.app.filepicker .form-group i {
+        display: none;
+      }
+      .window-app.app.filepicker .form-group.current-dir i:first-of-type {
+        display: inline;
+        position: relative;
+        top: 2px;
+      }
+        .window-app.app.filepicker .file-directory > li {
+          height: 30px;
+          line-height: 30px;
+          cursor: pointer;
+          padding-left: 0.25em;
+          word-break: break-all;
+          overflow: hidden;
+          border-bottom: 1px solid #44444447;
+          margin: 0px 0px 0px 5px;
+        }
+        .window-app.app.filepicker .file-directory > li:hover {
+          text-shadow: 0 0 8px #ff9f00 !important;
+        }
+        .window-app.app.filepicker .file-directory > li > i {
+          margin-right: 3px;
+          color: #151515;
+        }
+        
+      .window-app.app.filepicker button:last-of-type {
+        flex: 2;
+        flex-grow: 1;
+        line-height: 24px;
+        max-width: 462px;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        color: #ececec;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 15px;
+        padding-top: 5px;
+        margin: 0px 0px 2px 1px;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        /* box-shadow: inset 0 0 20px #000000; */
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      } 
+      .window-app.app.filepicker button i:last-of-type {
+        display: none;
+      } 
+
+    /* ================== 6. CREATE ACTOR ======================= */
+      .window-app.app.dialog #entity-create input {
+        text-align: left;
+        padding: 3px 0px 0px 4px;
+        max-width: 218px;
+      }
+        .window-app.app.dialog #entity-create input::placeholder {
+          text-align: center;
+        }
+
+
+
 
     /* ================== 4. GENERIC EQUIPMENT LISTS ============ */
-
-
     /* ================== 4. GENERIC EQUIPMENT LISTS ============ */
+    /* ================== 4. GENERIC EQUIPMENT LISTS ============ */
+
 
 /******************************************************************/
 /******************************************************************/
