@@ -4578,6 +4578,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
@@ -10165,6 +10166,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
@@ -12969,7 +12971,7 @@
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .note-section.biography,
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.notes.active .note-section.gmnotes {
-        height: 270px;
+        height: 200px;
         width: 100%;
         margin: -4px 0px 0px 0px;
         padding: 0px;
@@ -15333,6 +15335,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
@@ -18138,7 +18141,7 @@
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.biography,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.gmnotes {
-        height: 270px;
+        height: 175px;
         width: 100%;
         margin: -4px 0px 0px 0px;
         padding: 0px;
@@ -19232,7 +19235,9 @@
   font-style : normal;
 }
 
-
+.app.sheet .editor-content {
+  padding: 5px
+}
 
 
 
