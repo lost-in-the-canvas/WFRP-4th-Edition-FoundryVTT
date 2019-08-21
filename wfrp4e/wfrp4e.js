@@ -3149,7 +3149,8 @@ class ItemSheetWfrp4e extends ItemSheet {
 Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
-CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+Items.unregisterSheet("core", ItemSheet);
+Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
