@@ -1827,15 +1827,13 @@ Hooks.on("ready", async () => {
 Hooks.on("canvasInit", async () => {
 
 
-  //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
-  //  let list = await pack.getIndex();
-  //  for (let skill of list)
-  //  {
-  //   let item = await pack.getEntity(skill.id);
-  //   item.data.data.skills[0] = item.data.data.skills[0].replace("Channeling", "Channelling");
-  //   console.log(item);
-  //   await pack.updateEntity(item.data);
-  //  }
+  let pack = game.packs.find(p => p.collection == "wfrp4e.bestiary")
+  let list = await pack.getIndex();
+  for (let skill of list)
+  {
+    let monster = await pack.getEntity(skill.id);
+    console.log(monster);
+  }
 
   // pack = game.packs.find(p => p.collection == "world.spells")
   // let list = await pack.getIndex();
@@ -3228,7 +3226,8 @@ class ItemSheetWfrp4e extends ItemSheet {
 Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
-CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+Items.unregisterSheet("core", ItemSheet);
+Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
@@ -5518,6 +5517,10 @@ class WFRP_Utility
     for (let a of armorList)
     {
       armorPenaltiesString += a.data.penalty.value + " ";
+      if (a.data.armorType.value == "mail")
+        wearingMail = true;
+      if (a.data.armorType.value == "plate")
+        wearingPlate = true;
     }
 
     if (wearingMail || wearingPlate)

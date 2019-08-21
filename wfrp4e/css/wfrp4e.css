@@ -4578,6 +4578,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
@@ -10165,6 +10166,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
@@ -15333,6 +15335,7 @@
           font-weight: var(--actor-input-font-weight);
           color: var(--actor-input-color);
           height: fit-content;
+          min-height: 20px;
         }
           .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
