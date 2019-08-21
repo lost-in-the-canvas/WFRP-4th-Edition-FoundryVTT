@@ -19331,6 +19331,29 @@
     background: none;
   }
 
+  .window-app.dialog .window-content .dialog-content p {
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border: 1px solid #736953a6;
+    margin: 3px 0px 3px 0px;
+    padding: 4px 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+  }
+  .window-app.dialog .window-content .dialog-content h3 {
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border: 1px solid #736953a6;
+    margin: 3px 0px 3px 0px;
+    padding: 4px 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+    color: #ececec;
+  }
+
     .window-app.dialog .window-content .dialog-row {
       display: flex;
       flex-direction: row;
@@ -19403,15 +19426,19 @@
         text-align: center;
       }
       .window-app.dialog .form-group > * {
+        display: block;
         color: #ecececbd;
         border: 1px solid #736953a6;
         border-left: none;
-        box-shadow: 0px 0px 5px inset #000000cf;
-        background: #352516b5;
+        box-shadow: 0px 0px 10px inset black;
+        background: #352516;
         border-radius: 0px;
         font-family: CaslonPro;
         font-weight: 500;
         font-size: 14px;
+        margin: 0px;
+        padding: 3px 0px 0px 0px;
+        text-overflow: ellipsis;
       } 
 
 
@@ -19427,20 +19454,43 @@
     }
     .window-app.dialog .dialog-buttons button:last-child {
       flex: 2;
+      flex-grow: 1;
       line-height: 24px;
+      max-width: none;
       border: 3px double #736953a6;
       box-shadow: 0px 0px 10px inset black;
-      background: #3a0527b5;
       border-radius: 0px;
       opacity: 0.9;
       text-align: center;
-      min-width: 93px;
       color: #ececec;
       font-family: CaslonPro;
       font-weight: 500;
       font-size: 15px;
       padding-top: 5px;
-      margin: 0px;
+      margin: 0px 2px;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      /* box-shadow: inset 0 0 20px #000000; */
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+      background-origin: padding-box;
+    } 
+    .window-app.dialog .dialog-buttons button:first-child {
+      flex: 2;
+      flex-grow: 1;
+      line-height: 24px;
+      max-width: none;
+      border: 3px double #736953a6;
+      box-shadow: 0px 0px 10px inset black;
+      border-radius: 0px;
+      opacity: 0.9;
+      text-align: center;
+      color: #ececec;
+      font-family: CaslonPro;
+      font-weight: 500;
+      font-size: 15px;
+      padding-top: 5px;
+      margin: 0px 2px;
       border-image: url(../ui/footer-button.png) 10 repeat;
       border-image-width: 4px;
       border-image-outset: 0px;
@@ -19451,7 +19501,6 @@
     .window-app.dialog .dialog-buttons button:last-child:hover {
       box-shadow: 0 0 5px #ff9f00;
     } 
-
 
     .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
     .window-app.dialog.skill-roll-dialog .dialog-buttons button,
@@ -19481,7 +19530,6 @@
       background: url(../ui/sidebar_button-background_red.png) repeat;
       background-origin: padding-box;
     }
-
 
     /* CUSTOM DROPDOWN */
     /*the container must be positioned relative:*/
@@ -19659,8 +19707,8 @@
     .window-app.dialog.cast-channell .window-content .dialog-content {
       flex: 2;
       line-height: normal;
-      min-height: 28px;
-      max-height: 28px;
+      /* min-height: 28px;
+      max-height: 28px; */
       border: none;
       border-radius: 0px;
       opacity: 0.9;
@@ -19674,16 +19722,14 @@
       .window-app.dialog.cast-channell .selection {
         flex: 2;
         line-height: normal;
-        min-height: 28px;
         border: 1px solid #736953a6;
         border-radius: 0px;
         opacity: 0.9;
         text-align: center;
         color: #ececec;
-        padding: 7px 0px 0px 0px;
+        padding: 4px 0px 4px 0px;
         margin: 0px 0px;
         box-shadow: 0px 0px 10px inset black;
-        /* background: #000000e8; */
       }
       .window-app.dialog.cast-channell .dialog-buttons {
         display: flex;
@@ -19756,6 +19802,7 @@
         height: 25px;
         margin: 0px;
         padding: 0px 60px;
+        overflow: hidden;
         border: 1px solid blue;
         border-image: url(../ui/frames/window-app-dialog-title-blank.png) 5 repeat;
         border-image-slice: 13 69 11 69 fill;
@@ -19855,8 +19902,6 @@
       .window-app.dialog .window-content .dialog-content {
         flex: 2;
         line-height: normal;
-        min-height: 28px;
-        max-height: 28px;
         border: none;
         border-radius: 0px;
         opacity: 0.9;
@@ -19864,8 +19909,6 @@
         color: #ececec;
         padding: 0px 0px 0px 0px;
         margin: 0px 0px;
-        box-shadow: 0px 0px 10px inset black;
-        background: #000000e8;
       }
       .window-app.dialog .selection {
         flex: 1;
@@ -19918,8 +19961,41 @@
 
 
 
+    /* ================== 4. CREATE NEW FOLDER ================== */
+      .window-app.dialog .form-group > * {
+        display: block;
+        color: #ecececbd;
+        border: 1px solid #736953a6;
+        border-left: none;
+        box-shadow: 0px 0px 10px inset black;
+        background: #352516;
+        border-radius: 0px;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+        margin: 0px;
+        padding: 3px 0px 0px 0px;
+        text-overflow: ellipsis;
+      }
+        .window-app.app #folder-create .form-group > label {
+          flex: 2;
+          line-height: 24px;
+          border: 1px solid #736953a6;
+          border-radius: 0px;
+          opacity: 0.9;
+          text-align: center;
+          min-width: 120px;
+          max-width: 120px;
+          color: #ececec;
+          padding-top: 2px;
+          box-shadow: 0px 0px 10px inset black;
+          background: #000000e8;
+        }
 
-    /* ================== 2. GENERIC EQUIPMENT LISTS ============ */
+    /* ================== 4. GENERIC EQUIPMENT LISTS ============ */
+
+
+    /* ================== 4. GENERIC EQUIPMENT LISTS ============ */
 
 /******************************************************************/
 /******************************************************************/
