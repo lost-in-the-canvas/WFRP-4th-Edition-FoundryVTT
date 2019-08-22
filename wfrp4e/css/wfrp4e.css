@@ -4598,7 +4598,7 @@
   
   /* ==================== (I) COMBAT TAB ======================== */
   
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active {
+    .app.window-app.sheet.wfrp4e.actor .tab.combat.active {
       display: block;
       height: 352px;
       width: 100%;
@@ -4610,7 +4610,7 @@
     }
 
     /* ================== 1. WEAPONS ============================ */
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header {
         width: 100%;
         height: 20px;
         margin: 0px;
@@ -4628,14 +4628,14 @@
         overflow-x: hidden;
         overflow-y: hidden;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header #name {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #name {
           position: relative;
           left: 0px;
           height: 18px;
           width: fit-content;
           display: inline-block;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
           opacity: 0.8;
           position: relative;
           left: -1px;
@@ -4652,14 +4652,14 @@
           border-top: none;
           box-shadow: 0px 0px 10px #6b3a0f87 inset;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
             content: "\f6de";
             position: relative;
             top: 2px;
             left: 3px;
             opacity: 0.8;
           }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header #group {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #group {
           position: relative;
           left: 119px;
           height: 18px;
@@ -4667,7 +4667,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header #damage {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
           position: relative;
           left: 181px;
           height: 18px;
@@ -4675,7 +4675,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.melee-weapon-header #reach {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #reach {
           position: relative;
           left: 233px;
           height: 18px;
@@ -4684,7 +4684,7 @@
           /* background: bisque; */
         }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list {
         overscroll-behavior-x: unset;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -4701,7 +4701,7 @@
         margin: -5px 0px 0px 0px;
         padding: 0px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item {
         width: 100%;
         text-align: left;
         overflow-x: hidden;
@@ -4718,7 +4718,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content {
           width: 100%;
           text-align: center;
           overflow-x: hidden;
@@ -4734,13 +4734,13 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .item-name {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .item-name {
             display: flex;
             flex-direction: row;
             min-width: 180px;
             max-width: 180px;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .image {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .image {
               background-size: 32px;
               background-repeat: no-repeat;
               min-height: 32px;
@@ -4748,7 +4748,7 @@
               min-width: 32px;
               max-width: 32px;
             }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .name {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .name {
               text-align: left;
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
@@ -4756,7 +4756,7 @@
               color: #672323;
               text-shadow: 1px 0px 1px #6e6e716e;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
             min-width: 90px;
             max-width: 90px;
             padding: 11px 0px 0px 0px;
@@ -4766,7 +4766,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .damage {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .damage {
             min-width: 50px;
             max-width: 50px;
             padding: 11px 0px 0px 0px;
@@ -4776,7 +4776,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .reach {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .reach {
             min-width: 70px;
             max-width: 70px;
             padding: 11px 0px 0px 0px;
@@ -4786,7 +4786,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content.properties {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content.properties {
           width: 100%;
           text-align: center;
           overflow-x: hidden;
@@ -4802,14 +4802,14 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property {
           margin: 0px 0px 0px 0px;
           padding: 0px;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
           height: auto;
           width: auto;
           padding: 0px 0px 0px 0px;
@@ -4819,7 +4819,7 @@
           /* background: beige; */
           display: inline-flex;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
             font-size: 13px;
             color: #464331f0;
             border: 1px solid #00000038;
@@ -4829,7 +4829,7 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;        
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
             border: 1px solid #00000038;
@@ -4839,28 +4839,31 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
+              min-width: 20px;
+              max-width: 20px;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
             margin-right: 0px;
+            min-width: fit-content;
+            max-width: fit-content;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
             display: none;
             margin-right: 0px;
             padding: 0px;
           }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header {
         width: 100%;
         height: 20px;
         margin: 6px 0px 0px 0px;
@@ -4878,14 +4881,14 @@
         overflow-x: hidden;
         overflow-y: hidden;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header #name {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #name {
           position: relative;
           left: 0px;
           height: 18px;
           width: fit-content;
           display: inline-block;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header #group {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #group {
           position: relative;
           left: 112px;
           height: 18px;
@@ -4893,7 +4896,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header #ammo {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #ammo {
           position: relative;
           left: 167px;
           height: 18px;
@@ -4901,7 +4904,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header #damage {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #damage {
           position: relative;
           left: 186px;
           height: 18px;
@@ -4909,7 +4912,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.ranged-weapon-header #range {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #range {
           position: relative;
           left: 194px;
           height: 18px;
@@ -4918,7 +4921,7 @@
           /* background: bisque; */
         }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list {
         overscroll-behavior-x: unset;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -4935,7 +4938,7 @@
         margin: -5px 0px 0px 0px;
         padding: 0px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item {
         width: 100%;
         text-align: left;
         overflow-x: hidden;
@@ -4952,7 +4955,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content {
           width: 100%;
           text-align: center;
           overflow-x: hidden;
@@ -4968,13 +4971,13 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .item-name {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .item-name {
             display: flex;
             flex-direction: row;
             min-width: 180px;
             max-width: 180px;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .image {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .image {
               background-size: 32px;
               background-repeat: no-repeat;
               min-height: 32px;
@@ -4982,7 +4985,7 @@
               min-width: 32px;
               max-width: 32px;
             }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
               text-align: left;
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
@@ -4990,7 +4993,7 @@
               color: #672323;
               text-shadow: 1px 0px 1px #6e6e716e;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
             min-width: 90px;
             max-width: 90px;
             padding: 11px 0px 0px 0px;
@@ -5000,7 +5003,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector {
             min-width: 110px;
             max-width: 110px;
             padding: 7px 0px 0px 0px;
@@ -5010,7 +5013,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector > select {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector > select {
               background: none;
               border: 1px solid #737373;
               border-radius: 2px;
@@ -5024,7 +5027,7 @@
               width: 100%;
               text-overflow: ellipsis;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
             min-width: 90px;
             max-width: 90px;
             padding: 11px 0px 0px 0px;
@@ -5034,7 +5037,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .damage {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .damage {
             min-width: 30px;
             max-width: 30px;
             padding: 11px 0px 0px 0px;
@@ -5044,7 +5047,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .range {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .range {
             min-width: 50px;
             max-width: 50px;
             padding: 11px 0px 0px 0px;
@@ -5054,7 +5057,7 @@
             flex-basis: 0;
             /* background: aqua; */
           }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content.properties {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content.properties {
           width: 100%;
           text-align: center;
           overflow-x: hidden;
@@ -5070,14 +5073,14 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property {
           margin: 0px 0px 0px 0px;
           padding: 0px;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
           height: auto;
           width: auto;
           padding: 0px 0px 0px 0px;
@@ -5087,7 +5090,7 @@
           /* background: beige; */
           display: inline-flex;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
             font-size: 13px;
             color: #464331f0;
             border: 1px solid #00000038;
@@ -5097,7 +5100,7 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;        
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
             font-size: 13px;
             color: #464331f0;
             border: 1px solid #00000038;
@@ -5107,29 +5110,32 @@
             background: #774e000f;
             box-shadow: 0 0 3px #6b3a0f2b inset;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
+              min-width: 20px;
+              max-width: 20px;
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
             font-family: var(--actor-input-font-family);
             font-size: var(--actor-input-font-size);
             font-weight: var(--actor-input-font-weight);
             color: var(--actor-input-color);
             padding: 3px 0px 0px 0px;
             margin-right: 0px;
+            min-width: fit-content;
+            max-width: fit-content;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
             margin-right: 4px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
             display: none;
             margin-right: 0px;
             padding: 0px;
           }
 
     /* ================== 2. ARMOUR ============================= */
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section {
         text-align: center;
         margin: 0px 0px 0px 0px;
         padding: 0px;
@@ -5142,7 +5148,7 @@
         display: flex;
         flex-direction: column;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .row {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .row {
         text-align: center;
         margin: 6px 0px 0px 0px;
         padding: 0px;
@@ -5152,21 +5158,21 @@
         display: flex;
         flex-direction: row;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .head.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .larm.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .lleg.column {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .head.column,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .larm.column,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .lleg.column {
           width: 50%;
           margin: 0px 3px 0px 0px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .body.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rarm.column,
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .rleg.column {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .body.column,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .rarm.column,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .rleg.column {
           width: 50%;
           margin: 0px 0px 0px 3px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header {
           width: 100%;
           height: 20px;
           margin: 0px 0px 0px 0px;
@@ -5184,7 +5190,7 @@
           overflow-x: hidden;
           overflow-y: hidden;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header .armour-total {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header .armour-total {
             font-family: CaslonPro;
             font-size: 14px;
             font-weight: 700;
@@ -5201,7 +5207,7 @@
             height: 19px;
             width: 22px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header .shield-total {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header .shield-total {
             font-family: CaslonPro;
             font-size: 14px;
             font-weight: 700;
@@ -5219,7 +5225,7 @@
             height: 19px;
             width: 22px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header .toughness-total {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header .toughness-total {
             font-family: CaslonPro;
             font-size: 14px;
             font-weight: 700;
@@ -5239,7 +5245,7 @@
             height: 19px;
             width: 22px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header .armour-label {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header .armour-label {
             width: 130px;
             height: 18px;
             position: relative;
@@ -5248,7 +5254,7 @@
             text-align: left;
             margin-top: 0px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-header .armour-ap {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-header .armour-ap {
             width: fit-content;
             height: 18px;
             position: relative;
@@ -5258,12 +5264,12 @@
             margin-top: 1px;
           }
 
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-box {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-box {
           margin: -5px 0px 0px 0px;
           padding: 0px;
           width: 100%;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .armour-section .column .armour-box .inventory-list.armour-list {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .armour-section .column .armour-box .inventory-list.armour-list {
           margin: 0px;
           padding: 0px 1px;
           overscroll-behavior-x: unset;
@@ -5279,7 +5285,7 @@
           color: var(--actor-input-color);
           height: fit-content;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content {
             width: 100%;
             text-align: center;
             overflow-x: hidden;
@@ -5295,13 +5301,13 @@
             justify-content: space-between;
             /* background: var(--debug-background-color-green); */
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content .item-name {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .item-name {
               display: flex;
               flex-direction: row;
               min-width: 180px;
               max-width: 180px;
             }
-              .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content .image {
+              .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .image {
                 background-size: 32px;
                 background-repeat: no-repeat;
                 min-height: 32px;
@@ -5309,13 +5315,13 @@
                 min-width: 32px;
                 max-width: 32px;
               }
-              .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content .name {
+              .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .name {
                 text-align: left;
                 vertical-align: middle;
                 padding: 11px 0px 0px 4px;
                 overflow: hidden;
               }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content .ap-value {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .ap-value {
               min-width: 50px;
               max-width: 50px;
               padding: 11px 0px 0px 19px;
@@ -5325,7 +5331,7 @@
               flex-basis: 0;
               /* background: aqua; */
             }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .content.properties {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content.properties {
             width: 100%;
             text-align: center;
             overflow-x: hidden;
@@ -5341,13 +5347,13 @@
             justify-content: space-between;
             /* background: var(--debug-background-color-green); */
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .armour-property {
             margin: 0px 0px 0px 0px;
             padding: 0px;
             display: flex;
             flex-direction: row;
           }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .label {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .armour-property .label {
               font-size: 13px;
               color: #464331f0;
               border: 1px solid #00000038;
@@ -5357,7 +5363,7 @@
               background: #774e000f;
               box-shadow: 0 0 3px #6b3a0f2b inset;
             }
-            .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .text {
+            .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .armour-property .text {
               font-family: var(--actor-input-font-family);
               font-size: var(--actor-input-font-size);
               font-weight: var(--actor-input-font-weight);
@@ -5367,7 +5373,7 @@
             }
 
     /* ================== 3. INJURIES =========================== */
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.injury-header {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header {
         width: 100%;
         height: 20px;
         margin: 6px 0px 0px 0px;
@@ -5385,14 +5391,14 @@
         overflow-x: hidden;
         overflow-y: hidden;
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.injury-header .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .name {
           position: relative;
           left: 0px;
           height: 18px;
           width: fit-content;
           display: inline-block;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.injury-header .location {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .location {
           position: relative;
           left: 270px;
           height: 18px;
@@ -5400,7 +5406,7 @@
           display: inline-block;
           /* background: bisque; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-header.injury-header .item-controls {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .item-controls {
           position: relative;
           top: -1px;
           left: 390px;
@@ -5414,7 +5420,7 @@
           padding: 0px;
         }
 
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list {
         overscroll-behavior-x: unset;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -5431,7 +5437,7 @@
         margin: -5px 0px 0px 0px;
         padding: 0px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item {
         width: 100%;
         text-align: left;
         overflow-x: hidden;
@@ -5448,7 +5454,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content {
           width: 100%;
           text-align: center;
           overflow-x: hidden;
@@ -5464,13 +5470,13 @@
           justify-content: space-between;
           /* background: var(--debug-background-color-green); */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-name {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-name {
           display: flex;
           flex-direction: row;
           min-width: 210px;
           max-width: 210px;
         }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content .image {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .image {
             background-size: 32px;
             background-repeat: no-repeat;
             min-height: 32px;
@@ -5478,13 +5484,13 @@
             min-width: 32px;
             max-width: 32px;
           }
-          .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content .name {
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .name {
             text-align: left;
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
           }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content .injury-location {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .injury-location {
           min-width: 237px;
           max-width: 237px;
           padding: 11px 0px 0px 0px;
@@ -5494,7 +5500,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
           padding: 11px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
@@ -10276,909 +10282,6 @@
           flex-grow: 0;
         }
 
-  /* ==================== (H) COMBAT TAB ======================== */
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active {
-      display: block;
-      height: 352px;
-      width: 100%;
-      margin: 6px 0px 0px 0px;
-      padding: 0px 3px 0px 0px;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      /* background: blue; */
-    }
-
-    /* ================== 1. WEAPONS ============================ */
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header {
-        width: 100%;
-        height: 20px;
-        margin: 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header #name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
-          opacity: 0.8;
-          position: relative;
-          left: -1px;
-          top: -2px;
-          min-width: 19px;
-          min-height: 18px;
-          display: inline-block;
-          flex: 0 0 30px;
-          margin: 0px;
-          padding: 0px 0px 0px 0px;
-          border-radius: 10px;
-          font-size: 14px;
-          border: 1px solid #736953;
-          border-top: none;
-          box-shadow: 0px 0px 10px #6b3a0f87 inset;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
-            content: "\f6de";
-            position: relative;
-            top: 2px;
-            left: 3px;
-            opacity: 0.8;
-          }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header #group {
-          position: relative;
-          left: 119px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header #damage {
-          position: relative;
-          left: 181px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.melee-weapon-header #reach {
-          position: relative;
-          left: 233px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 1px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .item-name {
-            display: flex;
-            flex-direction: row;
-            min-width: 180px;
-            max-width: 180px;
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .image {
-              background-size: 32px;
-              background-repeat: no-repeat;
-              min-height: 32px;
-              max-height: 32px;
-              min-width: 32px;
-              max-width: 32px;
-            }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .name {
-              text-align: left;
-              vertical-align: middle;
-              padding: 11px 0px 0px 4px;
-              overflow: hidden;
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .damage {
-            min-width: 50px;
-            max-width: 50px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .reach {
-            min-width: 70px;
-            max-width: 70px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content.properties {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: column;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property {
-          margin: 0px 0px 0px 0px;
-          padding: 0px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
-          height: auto;
-          width: auto;
-          padding: 0px 0px 0px 0px;
-          margin: 0px 4px 0px 0px;
-          flex: 1;
-          flex-direction: row;
-          /* background: beige; */
-          display: inline-flex;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;        
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            padding: 3px 0px 0px 0px;
-            margin-right: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
-            margin-right: 4px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
-            display: none;
-            margin-right: 0px;
-            padding: 0px;
-          }
-
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
-        width: 100%;
-        height: 20px;
-        margin: 6px 0px 0px 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header #name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header #group {
-          position: relative;
-          left: 112px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header #ammo {
-          position: relative;
-          left: 167px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header #damage {
-          position: relative;
-          left: 186px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.ranged-weapon-header #range {
-          position: relative;
-          left: 194px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 1px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .item-name {
-            display: flex;
-            flex-direction: row;
-            min-width: 180px;
-            max-width: 180px;
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .image {
-              background-size: 32px;
-              background-repeat: no-repeat;
-              min-height: 32px;
-              max-height: 32px;
-              min-width: 32px;
-              max-width: 32px;
-            }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
-              text-align: left;
-              vertical-align: middle;
-              padding: 11px 0px 0px 4px;
-              overflow: hidden;
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector {
-            min-width: 110px;
-            max-width: 110px;
-            padding: 7px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector > select {
-              background: none;
-              border: 1px solid #737373;
-              border-radius: 2px;
-              padding: 0px;
-              margin: 0px;
-              font-family: var(--actor-input-font-family);
-              font-size: var(--actor-input-font-size);
-              font-weight: var(--actor-input-font-weight);
-              color: var(--actor-input-color);
-              height: 19px;
-              width: 100%;
-              text-overflow: ellipsis;
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .damage {
-            min-width: 30px;
-            max-width: 30px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .range {
-            min-width: 50px;
-            max-width: 50px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content.properties {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: column;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property {
-          margin: 0px 0px 0px 0px;
-          padding: 0px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
-          height: auto;
-          width: auto;
-          padding: 0px 0px 0px 0px;
-          margin: 0px 4px 0px 0px;
-          flex: 1;
-          flex-direction: row;
-          /* background: beige; */
-          display: inline-flex;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;        
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            padding: 3px 0px 0px 0px;
-            margin-right: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
-            margin-right: 4px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
-            display: none;
-            margin-right: 0px;
-            padding: 0px;
-          }
-
-    /* ================== 2. ARMOUR ============================= */
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section {
-        text-align: center;
-        margin: 0px 0px 0px 0px;
-        padding: 0px;
-        width: 100%;
-        height: fit-content;
-        background: url(../ui/armour-diagram.png) no-repeat;
-        background-position-x: 176px;
-        background-position-y: center;
-        background-size: contain;
-        display: flex;
-        flex-direction: column;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .row {
-        text-align: center;
-        margin: 6px 0px 0px 0px;
-        padding: 0px;
-        width: 100%;
-        height: fit-content;
-        background: none;
-        display: flex;
-        flex-direction: row;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .head.column,
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .larm.column,
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .lleg.column {
-          width: 50%;
-          margin: 0px 3px 0px 0px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .body.column,
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .rarm.column,
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .rleg.column {
-          width: 50%;
-          margin: 0px 0px 0px 3px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header {
-          width: 100%;
-          height: 20px;
-          margin: 0px 0px 0px 0px;
-          padding: 0px 0px;
-          border: 1px solid #736953a6;
-          font-family: var(--actor-label-font-family);
-          font-size: var(--actor-label-font-size);
-          font-weight: var(--actor-label-font-weight);
-          color: var(--actor-label-color);
-          background: none;
-          box-shadow: 0 0 10px #6b3a0f87 inset;
-          text-align: left;
-          display: inline-block;
-          flex-grow: 0;
-          overflow-x: hidden;
-          overflow-y: hidden;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header .armour-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header .shield-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #3c3b3b87 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header .toughness-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 9px;
-            display: inline-block;
-            box-shadow: 0 0 10px #4a324987 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header .armour-label {
-            width: 130px;
-            height: 18px;
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            text-align: left;
-            margin-top: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-header .armour-ap {
-            width: fit-content;
-            height: 18px;
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            text-align: center;
-            margin-top: 1px;
-          }
-
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-box {
-          margin: -5px 0px 0px 0px;
-          padding: 0px;
-          width: 100%;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .armour-section .column .armour-box .inventory-list.armour-list {
-          margin: 0px;
-          padding: 0px 1px;
-          overscroll-behavior-x: unset;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          border: 1px solid #736953a6;
-          border-top: none;
-          list-style: none;
-          box-shadow: 0px 0px 1px inset black;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          height: fit-content;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 1px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: row;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content .item-name {
-              display: flex;
-              flex-direction: row;
-              min-width: 180px;
-              max-width: 180px;
-            }
-              .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content .image {
-                background-size: 32px;
-                background-repeat: no-repeat;
-                min-height: 32px;
-                max-height: 32px;
-                min-width: 32px;
-                max-width: 32px;
-              }
-              .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content .name {
-                text-align: left;
-                vertical-align: middle;
-                padding: 11px 0px 0px 4px;
-                overflow: hidden;
-              }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content .ap-value {
-              min-width: 50px;
-              max-width: 50px;
-              padding: 11px 0px 0px 19px;
-              text-align: center;
-              flex-grow: 0;
-              flex-shrink: 0;
-              flex-basis: 0;
-              /* background: aqua; */
-            }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .content.properties {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: column;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property {
-            margin: 0px 0px 0px 0px;
-            padding: 0px;
-            display: flex;
-            flex-direction: row;
-          }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .label {
-              font-size: 13px;
-              color: #464331f0;
-              border: 1px solid #00000038;
-              border-radius: 3px;
-              margin-right: 4px;
-              padding: 2px 2px 0px 2px;
-              background: #774e000f;
-              box-shadow: 0 0 3px #6b3a0f2b inset;
-            }
-            .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .text {
-              font-family: var(--actor-input-font-family);
-              font-size: var(--actor-input-font-size);
-              font-weight: var(--actor-input-font-weight);
-              color: var(--actor-input-color);
-              padding: 3px 0px 0px 0px;
-              margin-right: 4px;
-            }
-
-    /* ================== 3. INJURIES =========================== */
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.injury-header {
-        width: 100%;
-        height: 20px;
-        margin: 6px 0px 0px 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.injury-header .name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.injury-header .location {
-          position: relative;
-          left: 270px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-header.injury-header .item-controls {
-          position: relative;
-          top: -1px;
-          left: 390px;
-          height: fit-content;
-          width: fit-content;
-          display: inline-block;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: var(--actor-label-color);
-          margin: 0px;
-          padding: 0px;
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-name {
-          display: flex;
-          flex-direction: row;
-          min-width: 210px;
-          max-width: 210px;
-        }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content .image {
-            background-size: 32px;
-            background-repeat: no-repeat;
-            min-height: 32px;
-            max-height: 32px;
-            min-width: 32px;
-            max-width: 32px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content .name {
-            text-align: left;
-            vertical-align: middle;
-            padding: 11px 0px 0px 4px;
-            overflow: hidden;
-          }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content .injury-location {
-          min-width: 237px;
-          max-width: 237px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: #504f48a6;
-          text-align: right;
-          min-width: 40px;
-          max-width: 40px;
-          flex-grow: 0;
-        }
   /* ==================== (I) MAGIC TAB ========================= */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active {
       display: block;
@@ -15531,910 +14634,6 @@
             height: 19px;
             width: 22px;
           }
-
-  /* ==================== (G) COMBAT TAB ======================== */
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active {
-      display: block;
-      height: 352px;
-      width: 100%;
-      margin: 6px 0px 0px 0px;
-      padding: 0px 3px 0px 0px;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      /* background: blue; */
-    }
-
-    /* ================== 1. WEAPONS ============================ */
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header {
-        width: 100%;
-        height: 20px;
-        margin: 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header #name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
-          opacity: 0.8;
-          position: relative;
-          left: -1px;
-          top: -2px;
-          min-width: 19px;
-          min-height: 18px;
-          display: inline-block;
-          flex: 0 0 30px;
-          margin: 0px;
-          padding: 0px 0px 0px 0px;
-          border-radius: 10px;
-          font-size: 14px;
-          border: 1px solid #736953;
-          border-top: none;
-          box-shadow: 0px 0px 10px #6b3a0f87 inset;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
-            content: "\f6de";
-            position: relative;
-            top: 2px;
-            left: 3px;
-            opacity: 0.8;
-          }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header #group {
-          position: relative;
-          left: 119px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header #damage {
-          position: relative;
-          left: 181px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.melee-weapon-header #reach {
-          position: relative;
-          left: 233px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 1px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .item-name {
-            display: flex;
-            flex-direction: row;
-            min-width: 180px;
-            max-width: 180px;
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .image {
-              background-size: 32px;
-              background-repeat: no-repeat;
-              min-height: 32px;
-              max-height: 32px;
-              min-width: 32px;
-              max-width: 32px;
-            }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .name {
-              text-align: left;
-              vertical-align: middle;
-              padding: 11px 0px 0px 4px;
-              overflow: hidden;
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .damage {
-            min-width: 50px;
-            max-width: 50px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content .reach {
-            min-width: 70px;
-            max-width: 70px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .content.properties {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: column;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property {
-          margin: 0px 0px 0px 0px;
-          padding: 0px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .melee-property-quality-container {
-          height: auto;
-          width: auto;
-          padding: 0px 0px 0px 0px;
-          margin: 0px 4px 0px 0px;
-          flex: 1;
-          flex-direction: row;
-          /* background: beige; */
-          display: inline-flex;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;        
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            padding: 3px 0px 0px 0px;
-            margin-right: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
-            margin-right: 4px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property a:last-of-type {
-            display: none;
-            margin-right: 0px;
-            padding: 0px;
-          }
-
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header {
-        width: 100%;
-        height: 20px;
-        margin: 6px 0px 0px 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header #name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header #group {
-          position: relative;
-          left: 112px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header #ammo {
-          position: relative;
-          left: 167px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header #damage {
-          position: relative;
-          left: 186px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.ranged-weapon-header #range {
-          position: relative;
-          left: 194px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 1px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .item-name {
-            display: flex;
-            flex-direction: row;
-            min-width: 180px;
-            max-width: 180px;
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .image {
-              background-size: 32px;
-              background-repeat: no-repeat;
-              min-height: 32px;
-              max-height: 32px;
-              min-width: 32px;
-              max-width: 32px;
-            }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
-              text-align: left;
-              vertical-align: middle;
-              padding: 11px 0px 0px 4px;
-              overflow: hidden;
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector {
-            min-width: 110px;
-            max-width: 110px;
-            padding: 7px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector > select {
-              background: none;
-              border: 1px solid #737373;
-              border-radius: 2px;
-              padding: 0px;
-              margin: 0px;
-              font-family: var(--actor-input-font-family);
-              font-size: var(--actor-input-font-size);
-              font-weight: var(--actor-input-font-weight);
-              color: var(--actor-input-color);
-              height: 19px;
-              width: 100%;
-              text-overflow: ellipsis;
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
-            min-width: 90px;
-            max-width: 90px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .damage {
-            min-width: 30px;
-            max-width: 30px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content .range {
-            min-width: 50px;
-            max-width: 50px;
-            padding: 11px 0px 0px 0px;
-            text-align: center;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 0;
-            /* background: aqua; */
-          }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .content.properties {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: column;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property {
-          margin: 0px 0px 0px 0px;
-          padding: 0px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .ranged-property-quality-container {
-          height: auto;
-          width: auto;
-          padding: 0px 0px 0px 0px;
-          margin: 0px 4px 0px 0px;
-          flex: 1;
-          flex-direction: row;
-          /* background: beige; */
-          display: inline-flex;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;        
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
-            font-size: 13px;
-            color: #464331f0;
-            border: 1px solid #00000038;
-            border-radius: 3px;
-            margin-right: 4px;
-            padding: 2px 2px 0px 2px;
-            background: #774e000f;
-            box-shadow: 0 0 3px #6b3a0f2b inset;
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
-              flex-grow: 1;
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            padding: 3px 0px 0px 0px;
-            margin-right: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
-            margin-right: 4px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property a:last-of-type {
-            display: none;
-            margin-right: 0px;
-            padding: 0px;
-          }
-
-    /* ================== 2. ARMOUR ============================= */
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section {
-        text-align: center;
-        margin: 0px 0px 0px 0px;
-        padding: 0px;
-        width: 100%;
-        height: fit-content;
-        background: url(../ui/armour-diagram.png) no-repeat;
-        background-position-x: 176px;
-        background-position-y: center;
-        background-size: contain;
-        display: flex;
-        flex-direction: column;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .row {
-        text-align: center;
-        margin: 6px 0px 0px 0px;
-        padding: 0px;
-        width: 100%;
-        height: fit-content;
-        background: none;
-        display: flex;
-        flex-direction: row;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .head.column,
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .larm.column,
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .lleg.column {
-          width: 50%;
-          margin: 0px 3px 0px 0px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .body.column,
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .rarm.column,
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .rleg.column {
-          width: 50%;
-          margin: 0px 0px 0px 3px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header {
-          width: 100%;
-          height: 20px;
-          margin: 0px 0px 0px 0px;
-          padding: 0px 0px;
-          border: 1px solid #736953a6;
-          font-family: var(--actor-label-font-family);
-          font-size: var(--actor-label-font-size);
-          font-weight: var(--actor-label-font-weight);
-          color: var(--actor-label-color);
-          background: none;
-          box-shadow: 0 0 10px #6b3a0f87 inset;
-          text-align: left;
-          display: inline-block;
-          flex-grow: 0;
-          overflow-x: hidden;
-          overflow-y: hidden;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header .armour-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #6b3a0f87 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header .shield-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            display: inline-block;
-            box-shadow: 0 0 10px #3c3b3b87 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header .toughness-total {
-            font-family: CaslonPro;
-            font-size: 14px;
-            font-weight: 700;
-            color: #000000c7;
-            position: relative;
-            top: -1px;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 3px;
-            border-bottom-left-radius: 3px;
-            border-bottom-right-radius: 9px;
-            display: inline-block;
-            box-shadow: 0 0 10px #4a324987 inset;
-            border: 1px solid #7369538a;
-            text-align: center;
-            padding: 2px 0px 0px 0px;
-            margin: 0px;
-            height: 19px;
-            width: 22px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header .armour-label {
-            width: 130px;
-            height: 18px;
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            text-align: left;
-            margin-top: 0px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-header .armour-ap {
-            width: fit-content;
-            height: 18px;
-            position: relative;
-            top: -1px;
-            display: inline-block;
-            text-align: center;
-            margin-top: 1px;
-          }
-
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-box {
-          margin: -5px 0px 0px 0px;
-          padding: 0px;
-          width: 100%;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .armour-section .column .armour-box .inventory-list.armour-list {
-          margin: 0px;
-          padding: 0px 1px;
-          overscroll-behavior-x: unset;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          border: 1px solid #736953a6;
-          border-top: none;
-          list-style: none;
-          box-shadow: 0px 0px 1px inset black;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          height: fit-content;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 1px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: row;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content .item-name {
-              display: flex;
-              flex-direction: row;
-              min-width: 180px;
-              max-width: 180px;
-            }
-              .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content .image {
-                background-size: 32px;
-                background-repeat: no-repeat;
-                min-height: 32px;
-                max-height: 32px;
-                min-width: 32px;
-                max-width: 32px;
-              }
-              .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content .name {
-                text-align: left;
-                vertical-align: middle;
-                padding: 11px 0px 0px 4px;
-                overflow: hidden;
-              }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content .ap-value {
-              min-width: 50px;
-              max-width: 50px;
-              padding: 11px 0px 0px 19px;
-              text-align: center;
-              flex-grow: 0;
-              flex-shrink: 0;
-              flex-basis: 0;
-              /* background: aqua; */
-            }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .content.properties {
-            width: 100%;
-            text-align: center;
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0px 0px;
-            padding: 0px 0px;
-            display: flex;
-            flex-direction: column;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            justify-content: space-between;
-            /* background: var(--debug-background-color-green); */
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property {
-            margin: 0px 0px 0px 0px;
-            padding: 0px;
-            display: flex;
-            flex-direction: row;
-          }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .label {
-              font-size: 13px;
-              color: #464331f0;
-              border: 1px solid #00000038;
-              border-radius: 3px;
-              margin-right: 4px;
-              padding: 2px 2px 0px 2px;
-              background: #774e000f;
-              box-shadow: 0 0 3px #6b3a0f2b inset;
-            }
-            .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.armour-list .item .armour-property .text {
-              font-family: var(--actor-input-font-family);
-              font-size: var(--actor-input-font-size);
-              font-weight: var(--actor-input-font-weight);
-              color: var(--actor-input-color);
-              padding: 3px 0px 0px 0px;
-              margin-right: 4px;
-            }
-
-    /* ================== 3. INJURIES =========================== */
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.injury-header {
-        width: 100%;
-        height: 20px;
-        margin: 6px 0px 0px 0px;
-        padding: 0px 6px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        background: none;
-        box-shadow: 0 0 10px #6b3a0f87 inset;
-        text-align: left;
-        display: inline-block;
-        flex-grow: 0;
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.injury-header .name {
-          position: relative;
-          left: 0px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.injury-header .location {
-          position: relative;
-          left: 270px;
-          height: 18px;
-          width: fit-content;
-          display: inline-block;
-          /* background: bisque; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-header.injury-header .item-controls {
-          position: relative;
-          top: -1px;
-          left: 390px;
-          height: fit-content;
-          width: fit-content;
-          display: inline-block;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: var(--actor-label-color);
-          margin: 0px;
-          padding: 0px;
-        }
-
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list {
-        overscroll-behavior-x: unset;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        border: 1px solid #736953a6;
-        border-top: none;
-        list-style: none;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        height: fit-content;
-        width: 100%;
-        margin: -5px 0px 0px 0px;
-        padding: 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item {
-        width: 100%;
-        text-align: left;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 0px 1px inset black;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content {
-          width: 100%;
-          text-align: center;
-          overflow-x: hidden;
-          overflow-y: hidden;
-          margin: 0px 0px;
-          padding: 0px 0px;
-          display: flex;
-          flex-direction: row;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          justify-content: space-between;
-          /* background: var(--debug-background-color-green); */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-name {
-          display: flex;
-          flex-direction: row;
-          min-width: 210px;
-          max-width: 210px;
-        }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content .image {
-            background-size: 32px;
-            background-repeat: no-repeat;
-            min-height: 32px;
-            max-height: 32px;
-            min-width: 32px;
-            max-width: 32px;
-          }
-          .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content .name {
-            text-align: left;
-            vertical-align: middle;
-            padding: 11px 0px 0px 4px;
-            overflow: hidden;
-          }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content .injury-location {
-          min-width: 237px;
-          max-width: 237px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: #504f48a6;
-          text-align: right;
-          min-width: 40px;
-          max-width: 40px;
-          flex-grow: 0;
-        }
 
   /* ==================== (H) MAGIC TAB ========================= */   
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active {
