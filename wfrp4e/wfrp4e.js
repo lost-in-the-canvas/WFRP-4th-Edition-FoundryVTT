@@ -1388,59 +1388,6 @@ class DiceWFRP {
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-  /*
-    console.log("Activating TinyMCE Editor Change");
-    tinyMCE.init({
-      selector: 'textarea',  // change this value according to your HTML
-      content_css : 'systems/wfrp4e/css/myLayout.css', // resolved to http://domain.mine/myLayout.css
-      menu: {
-        format: { title: "Format", items: "forecolor backcolor" }
-      },
-      toolbar: "forecolor backcolor",
-      color_map: [
-        "000000", "Black",
-        "993300", "Burnt orange",
-        "333300", "Dark olive",
-        "003300", "Dark green",
-        "003366", "Dark azure",
-        "000080", "Navy Blue",
-        "333399", "Indigo",
-        "333333", "Very dark gray",
-        "800000", "Maroon",
-        "FF6600", "Orange",
-        "808000", "Olive",
-        "008000", "Green",
-        "008080", "Teal",
-        "0000FF", "Blue",
-        "666699", "Grayish blue",
-        "808080", "Gray",
-        "FF0000", "Red",
-        "FF9900", "Amber",
-        "99CC00", "Yellow green",
-        "339966", "Sea green",
-        "33CCCC", "Turquoise",
-        "3366FF", "Royal blue",
-        "800080", "Purple",
-        "999999", "Medium gray",
-        "FF00FF", "Magenta",
-        "FFCC00", "Gold",
-        "FFFF00", "Yellow",
-        "00FF00", "Lime",
-        "00FFFF", "Aqua",
-        "00CCFF", "Sky blue",
-        "993366", "Red violet",
-        "FFFFFF", "White",
-        "FF99CC", "Pink",
-        "FFCC99", "Peach",
-        "FFFF99", "Light yellow",
-        "CCFFCC", "Pale green",
-        "CCFFFF", "Pale cyan",
-        "99CCFF", "Light sky blue",
-        "CC99FF", "Plum"
-      ]
-    });
-    console.log("Ending TinyMCE Editor Change");
-  */
 
   // fetch ("fgdb.json").then (r => r.json()).then(async records => {
   //   var fgtable = records["tables"]["category"]["id-00001"];
@@ -1819,6 +1766,49 @@ Hooks.on("ready", async () => {
  */
 Hooks.on("canvasInit", async () => {
 
+  // let pack = game.packs.find(p => p.collection == "wfrp4e.trappings")
+  // let list = await pack.getIndex();
+  // let pathList = [];
+  // await game.socket.emit("getFiles", "systems/wfrp4e/icons/equipment", {}, async resp => {
+  //   for (var folder of resp.dirs)
+  //   {
+  //     await game.socket.emit("getFiles", folder, {}, async respItems => {
+  //       for (let file of respItems.files)
+  //         pathList.push(file);
+  //     })
+  //   }
+  // })  
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace("/", '-')
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
     
   //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
   //  let list = await pack.getIndex();
@@ -3191,42 +3181,6 @@ Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
 CONFIG.Item.sheetClass = ItemSheetWfrp4e;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!

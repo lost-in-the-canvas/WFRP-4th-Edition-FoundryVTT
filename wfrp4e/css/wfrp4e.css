@@ -19124,7 +19124,19 @@
   font-style : normal;
 }
 
+.scatter-table{
+  border: 1px solid #000;
+  width: 150px;
+}
 
+.scatter-table tr > td{
+  border: 1px solid #000;
+  text-align: center;
+  width: 60px;
+  height: 30px;
+}
 
-
-
+.scatter-table .selected-position {
+  background-color: maroon;
+  color: #CCC
+}
