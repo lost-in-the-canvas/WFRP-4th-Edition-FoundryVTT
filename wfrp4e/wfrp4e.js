@@ -1428,6 +1428,10 @@ Hooks.once("init", () => {
   // })
 
   game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
+    try 
+    {
+    if (resp.error)
+      throw ""
     for (var file of resp.files)
     {
       try {
@@ -1442,6 +1446,11 @@ Hooks.once("init", () => {
        console.error("Error reading " + file + ": " + error) 
       }
     }
+  }
+  catch
+  {
+    // Do nothing
+  }
   })
 
   WFRP_Tables.scatter = {
@@ -1741,6 +1750,10 @@ Hooks.on("ready", async () => {
     if (activeModules[m])
     {
       game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
+        try 
+        {
+        if (resp.error)
+          throw ""
         for (var file of resp.files)
         {
           try {
@@ -1756,6 +1769,11 @@ Hooks.on("ready", async () => {
            console.error("Error reading " + file + ": " + error) 
           }
         }
+      }
+      catch
+      {
+        // Do nothing
+      }
       })
     }
   }
@@ -3180,7 +3198,16 @@ class ItemSheetWfrp4e extends ItemSheet {
 Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
-CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+
+try 
+{
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
+}
+catch // 0.3.4 and earlier compatibility
+{
+  CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+}
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
