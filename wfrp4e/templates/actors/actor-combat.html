@@ -33,18 +33,17 @@
         {{/each}}
         {{/if}}
 
-
         {{#if item.properties.qualities}}
-        <span class="label">Q:</span>
+        <span class="label quality">Q:</span>
         {{#each item.properties.qualities as |property p|}}
-        <a class='text melee-property-quality'>{{property}},</a>
+        <a class='text melee-property-quality'>{{property}}</a><h1 class='text melee-property-quality comma'>,</h1>
         {{/each}}
         {{/if}}
 
         {{#if item.properties.flaws}}
-        <span class="label">F:</span>
+        <span class="label flaw">F:</span>
         {{#each item.properties.flaws as |property p|}}
-        <a class='text melee-property-flaw'>{{property}},</a>,
+        <a class='text melee-property-flaw'>{{property}}</a><h2 class='text melee-property-flaw comma'>,</h2>
         {{/each}}
         {{/if}}
       </div>
@@ -104,18 +103,17 @@
         {{/each}}
         {{/if}}
 
-
         {{#if item.properties.qualities}}
-        <span class="label">Q:</span>
+        <span class="label quality">Q:</span>
         {{#each item.properties.qualities as |property p|}}
-        <a class='text ranged-property-quality'>{{property}},</a>
+        <a class='text ranged-property-quality'>{{property}}</a><h3 class='text ranged-property-quality comma'>,</h3>
         {{/each}}
         {{/if}}
 
         {{#if item.properties.flaws}}
-        <span class="label">F:</span>
+        <span class="label flaw">F:</span>
         {{#each item.properties.flaws as |property p|}}
-        <a class='text ranged-property-flaw'>{{property}},</a>
+        <a class='text ranged-property-flaw'>{{property}}</a><h4 class='text ranged-property-flaw comma'>,</h4>
         {{/each}}
         {{/if}}
       </div>
@@ -485,3 +483,24 @@
   {{/each}}
 </ol>
 
+
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.sheet.wfrp4e.actor .combat .inventory-list .item');
+  length = textContainer.length;
+
+  console.log("ACTOR COMBAT - REMOVE COMMA");
+  console.log(length);
+  console.log(textContainer);
+
+  for (i = 0; i < length; i++) {
+    new_red = textContainer[i].getElementsByClassName("text ranged-property-quality comma");
+    new_red.css("display", "none");
+    // console.log("new_red");
+    // console.log(new_red);
+    // if (document.getElementById(new_red).className.includes("career-sheet")) {
+    //   continue;
+    // } 
+  }
+
+
+</script>
