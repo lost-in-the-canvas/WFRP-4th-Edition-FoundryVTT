@@ -198,7 +198,7 @@
     {{/if}}
     <div class="column-section">
       <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-      <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
+      <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.encumbrance}}</a>
     </div>
     {{else}}
     <div class="column-section">
@@ -233,7 +233,7 @@
 
         <div class="item-type">{{item.type}}</div>
 
-        <a class="quantity">{{item.data.quantity.value}}</a>
+        <a class="quantity quantity-click">{{item.data.quantity.value}}</a>
         <span class="weight">{{item.encumbrance}}</span>
         {{#if ../../owner}}
         <div class="item-controls">
@@ -251,27 +251,27 @@
   {{#each rootPack.packsInside as |pack p|}}
   <ol style="margin-left: 10px" class="inventory-list container-lists">
     <li class="inventory-header item inventory-container level-two" inventory-type="container" root="{{rootPack.id}}" data-item-id="{{pack.id}}">
-      <div class="item-name" data-item-id="{{rootPack.id}}">
-        <div class="image item-image" style="background-image: url({{rootPack.img}})"></div>
-        <div class="name item-label">{{rootPack.name}}</div>
+      <div class="item-name" data-item-id="{{pack.id}}">
+        <div class="image item-image" style="background-image: url({{pack.img}})"></div>
+        <div class="name item-label">{{pack.name}}</div>
       </div>
   
-      {{#if rootPack.data.countEnc.value}}
-      {{#if rootPack.data.worn.value}}
+      {{#if pack.data.countEnc.value}}
+      {{#if pack.data.worn.value}}
       <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
       {{else}}
       <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
       {{/if}}
       <div class="column-section">
-        <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-        <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
+        <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+        <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.encumbrance}}</a>
       </div>
       {{else}}
       <div class="column-section">
-        <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
+        <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
         <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
       </div>
-        {{#if rootPack.data.worn.value}}
+        {{#if pack.data.worn.value}}
         <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
         {{else}}
         <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
@@ -316,27 +316,27 @@
     {{#each pack.packsInside as |pack p|}}
     <ol style="margin-left: 10px" class="inventory-list container-lists">
       <li class="inventory-header item inventory-container level-three" inventory-type="container" root="{{rootPack.id}}" data-item-id="{{pack.id}}">
-        <div class="item-name" data-item-id="{{rootPack.id}}">
-          <div class="image item-image" style="background-image: url({{rootPack.img}})"></div>
-          <div class="name item-label">{{rootPack.name}}</div>
+        <div class="item-name" data-item-id="{{pack.id}}">
+          <div class="image item-image" style="background-image: url({{pack.img}})"></div>
+          <div class="name item-label">{{pack.name}}</div>
         </div>
     
-        {{#if rootPack.data.countEnc.value}}
-        {{#if rootPack.data.worn.value}}
+        {{#if pack.data.countEnc.value}}
+        {{#if pack.data.worn.value}}
         <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
         {{else}}
         <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
         {{/if}}
         <div class="column-section">
-          <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
+          <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+          <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.encumbrance}}</a>
         </div>
         {{else}}
         <div class="column-section">
-          <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
+          <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
           <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
         </div>
-          {{#if rootPack.data.worn.value}}
+          {{#if pack.data.worn.value}}
           <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
           {{else}}
           <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
@@ -380,27 +380,27 @@
       {{#each pack.packsInside as |pack p|}}
       <ol style="margin-left: 10px" class="inventory-list container-lists">
         <li class="inventory-header item inventory-container level-four" inventory-type="container" root="{{rootPack.id}}" data-item-id="{{pack.id}}">
-          <div class="item-name" data-item-id="{{rootPack.id}}">
-            <div class="image item-image" style="background-image: url({{rootPack.img}})"></div>
-            <div class="name item-label">{{rootPack.name}}</div>
+          <div class="item-name" data-item-id="{{pack.id}}">
+            <div class="image item-image" style="background-image: url({{pack.img}})"></div>
+            <div class="name item-label">{{pack.name}}</div>
           </div>
       
-          {{#if rootPack.data.countEnc.value}}
-          {{#if rootPack.data.worn.value}}
+          {{#if pack.data.countEnc.value}}
+          {{#if pack.data.worn.value}}
           <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
           {{else}}
           <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
           {{/if}}
           <div class="column-section">
-            <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-            <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
+            <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+            <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.encumbrance}}</a>
           </div>
           {{else}}
           <div class="column-section">
-            <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
+            <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
             <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
           </div>
-            {{#if rootPack.data.worn.value}}
+            {{#if pack.data.worn.value}}
             <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
             <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
@@ -443,27 +443,27 @@
         {{#each pack.packsInside as |pack p|}}
         <ol style="margin-left: 10px" class="inventory-list container-lists">
           <li class="inventory-header item inventory-container level-five" inventory-type="container" root="{{rootPack.id}}" data-item-id="{{pack.id}}">
-            <div class="item-name" data-item-id="{{rootPack.id}}">
-              <div class="image item-image" style="background-image: url({{rootPack.img}})"></div>
-              <div class="name item-label">{{rootPack.name}}</div>
+            <div class="item-name" data-item-id="{{pack.id}}">
+              <div class="image item-image" style="background-image: url({{pack.img}})"></div>
+              <div class="name item-label">{{pack.name}}</div>
             </div>
         
-            {{#if rootPack.data.countEnc.value}}
-            {{#if rootPack.data.worn.value}}
+            {{#if pack.data.countEnc.value}}
+            {{#if pack.data.worn.value}}
             <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
             {{else}}
             <a class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
             <div class="column-section">
-              <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
-              <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{rootPack.data.encumbrance.value}}</a>
+              <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
+              <a class="toggle-enc" title="Click to not count encumbrance of this container (such as a cart)">Enc: {{pack.encumbrance}}</a>
             </div>
             {{else}}
             <div class="column-section">
-              <span class="item-carries">Carries: {{rootPack.holding}}/{{rootPack.data.carries.value}}</span>
+              <span class="item-carries">Carries: {{pack.holding}}/{{pack.data.carries.value}}</span>
               <a class="toggle-enc" title="Click to count encumbrance of this container (such as a backpack you are carrying)">Enc: - </a>
             </div>
-              {{#if rootPack.data.worn.value}}
+              {{#if pack.data.worn.value}}
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
               {{else}}
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
