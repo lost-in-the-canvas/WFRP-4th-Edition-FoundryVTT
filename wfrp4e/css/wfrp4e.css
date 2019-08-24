@@ -1165,21 +1165,20 @@
     }
 
     #chat-log .message {
-      padding: 17px;
-      margin: 14px 10px 14px 17px;
-      border-image: url(../ui/frames/chat-message-border.png) 31 repeat;
-      border-image-slice: 31 fill;
-      border-image-width: 31px;
+      padding: 4px 1px 4px 1px;
+      margin: 25px 16px 25px 21px;
+      border-image: url(../ui/frames/chat-message-border.png) 21 repeat;
+      border-image-width: 10px;
       border-image-outset: 8px;
       border-radius: 0px;
+      background: url(../ui/frames/parchment-texture.png) repeat;
       box-shadow: none;
-      background: none;
       color: #000000;
       font-family: CaslonPro;
       font-size: 14px;
       font-weight: 500;
+      /* min-height: 80px; */
       vertical-align: middle;
-      min-height: 90px;
     }
     #chat-log .message .message-header {
       margin: 0px;
