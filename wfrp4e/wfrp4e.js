@@ -1384,6 +1384,7 @@ class DiceWFRP {
 }
 
 
+
 /**
  * Activate certain behaviors on FVTT ready hook
  */
@@ -1426,7 +1427,6 @@ Hooks.once("init", () => {
   //   }
   //   console.log(JSON.stringify(table));
   // })
-
   game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
     try 
     {
