@@ -3839,7 +3839,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
-      actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+      actorData.advancedOrGroupedSkills = advancedOrGroupedSkills.sort(WFRP_Utility.nameSorter);
       actorData.talents = talents;
       actorData.traits = traits;
       actorData.weapons = weapons;

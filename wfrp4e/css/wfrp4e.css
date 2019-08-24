@@ -175,6 +175,10 @@
     border-bottom: 1px solid #666;
   }
 
+  .app.sheet .editor-content {
+    padding:5px;
+  }
+
 /* ==================== (D) APPLICATION BODY ================== */
   body {
     width: 100vw;
