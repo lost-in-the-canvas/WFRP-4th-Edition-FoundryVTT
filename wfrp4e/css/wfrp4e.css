@@ -82,6 +82,22 @@
   }
 
 /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
+  .app.window-app .editor {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-height: 100%;
+    word-break: break-word;
+  }
+  .app.window-app .editor-content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .app.window-app  .tox.tox-tinymce {
+    visibility: hidden;
+    height: inherit !important;
+  }
   .app.window-app .editor .editor-content h1 {
     margin: 0 0 0.5rem;
     padding: 0;
@@ -701,6 +717,9 @@
   .app.window-app.sheet.wfrp4e.actor .item-summary > p {
     margin: 0px;
     padding: 0px;
+    color: var(--actor-input-color);
+    border: none;
+    background: none;
   }
   .app.window-app.sheet.wfrp4e.actor .item-properties {
     text-align: left;
@@ -3581,90 +3600,81 @@
       padding: 0px 0px 0px 0px;
       height: 109px;
       width: 506px;
+      max-width: 506px
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table {
-      margin: 0px;
-      border: none;
+      margin: 6px 0px 0px 0px;
+      padding: 0px 0px 0px 0px;
+      height: 109px;
+      width: 506px;
+      max-width: 506px;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+      grid-gap: 0px;
       background: none;
-      height: inherit;
-      width: inherit;
-      border-collapse: collapse;
-    }      
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row > * {
-        margin: 5px;
-        background: none;
+      border: 1px solid #736953a6;
+    }   
+
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header {
+      font-family: var(--actor-label-font-family);
+      font-size: var(--actor-label-font-size);
+      font-weight: var(--actor-label-font-weight);
+      color: var(--actor-label-color);
+      box-shadow: 0 0 10px #00000052 inset;
+      text-align: center;
+      width: 100%;
+      border-bottom: none;  
+      border-right: 1px solid #736953a6;
+    }  
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block {
+        padding-top: 0px;
+      }  
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header:last-of-type {
+        border-right: none;
+      } 
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type.table-data {
+      font-family: var(--actor-label-font-family);
+      font-size: var(--actor-label-font-size);
+      font-weight: var(--actor-label-font-weight);
+      color: var(--actor-label-color);
+      box-shadow: 0 0 10px #00000052 inset;
+      text-align: center;
+      width: 56px;
+      border-top: 1px solid #736953a6;
+      min-height: 29px;
+      max-height: 29px;
+      padding-top: 5px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
+      border-top: 1px solid #736953a6;
+      border-right: 1px solid #736953a6;
+    }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(11),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(22),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(33),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(44) {
+        border-right: none;
+        /* background: red; */
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row-bottom > * {
-        margin: 5px;
-        border: 1px solid #736953a6;
-        border: none;
-      }          
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header > * {
-        text-align: center;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        margin: 0px;
-        padding: 0px;
-        box-shadow: 0 0 10px #00000052 inset;
-      }    
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .advancement-indicator {
-          cursor: pointer;
-        }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .advancement-indicator {
-        text-align: center;
-        border: none;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        margin: 0px;
-        padding: 0px;
-        box-shadow: none;
-        vertical-align: top;
-        position: relative;
-        top: -6px;
-        left: -3px;    
-      }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row .table-data > input {
-        text-align: center;
-        width: 35px;
-        height: 15px;
-        padding-top: 7px;
-        vertical-align: middle;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        border-radius: 0px;
-      }        
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type {
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        width: 30px;
-        height: 21px;
-        margin: 0px;
-        text-align: center;
-        box-shadow: 0 0 10px #00000052 inset;
-        padding: 6px 0px 0px 0px;
-      }       
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
-        text-align: center;
-        width: 30px;
-        height: 28px;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-      }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row-bottom .table-data {
-        padding: 6px 0px 0px 0px;
-        color: #672323;
-        text-shadow: 1px 0px 1px #6e6e716e;
-      }   
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data input {
+      min-width: unset;
+      width: 100%;
+      height: 100%;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: var(--actor-input-color);
+      text-align: center;
+      padding-top: 7px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data.ch-value {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: var(--actor-input-color);
+      padding-top: 8px;
+      text-align: center;
+    }
 
   /* ================== 2. FIRST ROW ========================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row.first {
@@ -8482,7 +8492,7 @@
       height: 270px;
       width: 100%;
       margin: -5px 0px 0px 0px;
-      padding: 0px;
+      padding: 4px;
       border: 1px solid #736953a6;
       border-top: none;
     }
@@ -9347,9 +9357,6 @@
     padding: 0px 0px 0px 0px;
     height: 109px;
     width: 506px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .advancement-indicator {
-    cursor: pointer;
   }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
     height: 25px;
@@ -12239,7 +12246,7 @@
       height: 125px;
       width: 100%;
       margin: -5px 0px 0px 0px;
-      padding: 0px;
+      padding: 4px;
       border: 1px solid #736953a6;
       border-top: none;
     }
@@ -13376,6 +13383,10 @@ overflow-y: scroll;
     .app.window-app.sheet.scene-notes .window-content form {
       padding: 5px;
     }
+    .app.window-app.sheet.scene-notes .window-content .editor {
+      border: 1px solid #736953a6;
+      padding: 4px;
+    }
   
   /* ================== 5. DELETE ITEM FROM ACTOR ============= */
     .app.window-app .dialog-content .delete-item-dialog.selection {
@@ -13621,7 +13632,7 @@ overflow-y: scroll;
       background: #352516;  
     }
 
-    /* ================== 7. Drawing CONFIG ======================= */
+  /* ================== 7. DRAWING CONFIG ======================= */
     #drawing-config {
       min-height: 335px;
       overflow-y: auto;
@@ -13899,6 +13910,7 @@ overflow-y: scroll;
     }
     .window-app.app.journal-sheet .window-content form {
       margin: 15px;
+      height: 100%;
       padding: 5px;
       box-shadow: 0px 0px 3px #00000069 inset;
     }
@@ -13963,6 +13975,12 @@ overflow-y: scroll;
       background: url(../ui/sidebar_button-background_red.png) repeat;
       background-origin: padding-box;
     } 
+
+    .window-app.app.journal-sheet form.editable .editor {
+      height: calc(100% - 126px);
+      border: 1px solid #736953a6;
+      padding: 4px;
+    }
 
     .window-app.app.journal-sheet.image-popout .window-content .form-group.title {
       position: absolute;
@@ -14292,9 +14310,4 @@ font-style : normal;
 
   #module-management .window-content {
     overflow: auto
-  }
-
-
-  #module-management .notes {
-    color: #BBB
   }
