@@ -4743,7 +4743,6 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
-        max-width: 180px;
       }
         .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .image {
           background-size: 32px;
@@ -12133,7 +12132,6 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
-        max-width: 180px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-name.excluded-trait {
         opacity: 0.5;
