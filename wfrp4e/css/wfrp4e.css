@@ -4950,6 +4950,7 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
+        max-width: 180px;
       }
         .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .image {
           background-size: 32px;
@@ -12349,6 +12350,7 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
+        max-width: 180px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-name.excluded-trait {
         opacity: 0.5;
@@ -12934,7 +12936,90 @@ overflow-y: scroll;
   box-shadow: none;
   background: none;
 }
-
+.window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row {
+  display: inline-flex;
+  flex: 1;
+  flex-direction: row;
+  margin-top: 4px;
+  width: 100%;
+}
+  .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column {
+    margin-right: 2px;
+  }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label {
+      min-width: 96px;
+    }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input {
+      text-align: center;
+    }
+  .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 2px;
+  }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label {
+      margin-top: 4px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      border-bottom: none;
+      background: #080808;
+    }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select {
+      margin-bottom: 4px;
+      padding: 3px;
+      flex-grow: 1;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #000000;
+      border: 1px solid #736953a6;
+      border-radius: 0px;
+      box-shadow: 0px 0px 10px inset black;
+      background: url(../ui/frames/parchment-texture.png);
+    }
+    
 
   .window-app.dialog.characteristic-roll-dialog input[name="hitLocation"],
   .window-app.dialog.skill-roll-dialog input[name="hitLocation"],
@@ -12945,7 +13030,6 @@ overflow-y: scroll;
     position: relative;
     top: 2px;
   }
-
   .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
   .window-app.dialog.skill-roll-dialog .dialog-buttons button,
   .window-app.dialog.weapon-roll-dialog .dialog-buttons button,
@@ -12974,91 +13058,6 @@ overflow-y: scroll;
     background: url(../ui/sidebar_button-background_red.png) repeat;
     background-origin: padding-box;
   }
-
-  /* CUSTOM DROPDOWN */
-  /*the container must be positioned relative:*/
-  .window-app.dialog .custom-select {
-    position: relative;
-    font-family: blue;
-  }
-  
-  /* <----------------- EDIT THIS------------------------> */
-  .window-app.dialog .custom-select select { 
-    display: none; /*hide original SELECT element:*/
-    display: block;
-    color: #d8d8d8;
-    border: 1px solid #736953a6;
-    border-left: none;
-    box-shadow: 0px 0px 10px inset black;
-    background: #352516;
-    border-radius: 0px;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 14px;
-    margin: 0px;
-    padding: 3px 0px 0px 0px;
-    text-overflow: ellipsis;
-  }
-  /* <----------------- ^EDIT THIS------------------------> */
-
-  .window-app.dialog .select-selected {
-    background: #352516b5;
-  }
-
-  /*style the arrow inside the select element:*/
-  .window-app.dialog .select-selected:after {
-    position: absolute;
-    content: "";
-    top: 13px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-    border-color: #fff transparent transparent transparent;
-  }
-
-  /*point the arrow upwards when the select box is open (active):*/
-  .window-app.dialog .select-selected.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 7px;
-  }
-
-  /*style the items (options), including the selected item:*/
-  .window-app.dialog .select-items div, .select-selected {
-    padding: 6px 0px 0px 4px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid #736953a6;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
-  /*style items (options):*/
-  .window-app.dialog .select-items {
-    position: absolute;
-    background-color: #2b1806;
-    color: #d8d8d8;
-    top: 100%;
-    /* left: 180px; */
-    width: 60.35%;
-    right: 0;
-    z-index: 99;
-    border: 1px solid #736953a6;
-    border-bottom: none;
-    border-top: none;
-  }
-
-  /*hide the items when the select box is closed:*/
-  .window-app.dialog .select-hide {
-    display: none;
-  }
-
-  .window-app.dialog .select-items div:hover, .same-as-selected {
-    background-color: #350404ed;
-  }  
 
 /*************************************************************/
 /*************************************************************/
@@ -13380,6 +13379,19 @@ overflow-y: scroll;
     }
     .app.window-app.sheet.scene-notes .window-content form {
       padding: 5px;
+    }
+  
+  /* ================== 5. DELETE ITEM FROM ACTOR ============= */
+    .app.window-app .dialog-content .delete-item-dialog.selection {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      margin: 4px 0;
+      padding: 4px 4px;
+      border: 1px solid #5d513e;
+      background: #080808;
+      text-align: center;
     }
 
   /* ================== 5. SHEET CONFIG ======================= */
@@ -14027,8 +14039,51 @@ overflow-y: scroll;
       color: var(--major-button-color);
     }
 
-
-
+  /* ================== 9. COMPENDIUM ========================= */
+    .window-app.app .sidebar-tab.compendium {
+      padding: 0px 0px 7px 0px;
+    }
+    .window-app.app .sidebar-tab.compendium .compendium-search {
+      flex: 1;
+      justify-content: left;
+      text-align: center;
+    }
+      .window-app.app .sidebar-tab.compendium .compendium-search input {
+        line-height: 20px;
+        width: calc(100% - 45px);
+        margin: 3px;
+        background: url(../ui/frames/parchment-texture.png);
+        box-shadow: inset 0 0 10px #000000;
+        border: 2px groove #564d3a;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 2px 2px 2px 2px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-family);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        text-align: left;
+      }
+      .window-app.app .sidebar-tab.compendium .compendium-search input::placeholder {
+        text-align: center;
+        color: #000000b8;
+        position: relative;
+        top: 2px;
+      }
+      .window-app.app .sidebar-tab.compendium .compendium-search .fas.fa-search {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -6px;
+        left: 3px;
+        background: url(../ui/frames/search-field-icon.png);
+        color: #ffffff00;
+      }
+    .window-app.app .sidebar-tab.compendium .pack-content {
+      height: calc(100% - 43px);
+      margin: 0;
+      overflow-y: auto;
+    }
 
 /******************************************************************/
 /******************************************************************/
