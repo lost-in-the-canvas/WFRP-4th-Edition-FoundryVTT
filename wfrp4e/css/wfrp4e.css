@@ -14297,3 +14297,8 @@ font-style : normal;
   #module-management .window-content {
     overflow: auto
   }
+
+
+  #module-management .notes {
+    color: #BBB
+  }
