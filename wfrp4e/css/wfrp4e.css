@@ -744,7 +744,6 @@
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.05);
     }
-
 /******************************************************************/
 /******************************************************************/
 
@@ -13182,11 +13181,11 @@ overflow-y: scroll;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
+      /*color: #d6d6d6;*/
       margin: 4px 0;
       padding: 4px 4px;
-      border: 1px solid #5d513e;
-      background: #080808;
+      /*border: 1px solid #5d513e;
+      /*background: #080808;*/
     }
     .app.window-app .form-group, 
     .app.window-app .form-group-stacked {
@@ -14310,4 +14309,8 @@ font-style : normal;
 
   #module-management .window-content {
     overflow: auto
+  }
+
+  .window-content .notes {
+    color: #BBB;
   }

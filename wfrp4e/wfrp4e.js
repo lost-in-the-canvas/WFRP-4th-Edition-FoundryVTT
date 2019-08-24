@@ -4732,6 +4732,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         data = mergeObject(data, {"data.type.value" : itemSpecification});
       }
     }
+    data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
