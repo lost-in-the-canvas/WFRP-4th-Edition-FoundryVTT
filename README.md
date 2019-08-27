@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta
+Current Version: Beta 0.8.1
 
 ![](https://i.imgur.com/esCwB7f.png)
 
@@ -21,3 +21,7 @@ This beta release marks the system being entirely playable, with character, NPC,
 If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E) 
 
 If you have any questions, feel free to message us on Discord, Moo Man#7518 or CatoThe1stElder#9725
+
+## Modules
+
+I've made a module out of my homebrew supplement [Arcane Marks & Careers](https://drive.google.com/file/d/1uTy2r0EDMdcISFqqyxeIOSadtzz-OTAg/view) which can also serve as an example for others to build off of. It includes a compendium pack of all the careers as well as tables to roll for marks. Read more and download from [here](https://github.com/moo-man/Arcane-Marks-Careers-FVTT)

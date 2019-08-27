@@ -531,7 +531,7 @@ CONFIG.weaponFlaws = {
 CONFIG.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
   "blackpowder": "The crack of gunfire followed by gouts of smoke and confusion can be terrifying. If you are targeted by a Blackpowder weapon, you must pass an Average (+20) Cool Test or take a Broken Condition, even if the shot misses.",
-  "blast": "All Characters within (Rating) yards of the struck target pointtake SL+Weapon Damage, and suffer any Conditions theweapon inflicts.",
+  "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions theweapon inflicts.",
   "damaging": "A Damaging weapon can use the higher score from either the units die or the SL to determine the Damage caused from a successful hit. For example, if you roll 34 in your attack Test and the target number was 52 you can choose to use the SL, which in this case is 2, or the units die result, which is 4. An Undamaging weapon can never also be Damaging (Undamaging takes precedent).",
   "defensive": "Defensive weapons are designed to parry incoming attacks. If you are wielding such a weapon, gain a bonus of +1 SL to any Melee Test when you oppose an incoming attack.",
   "distract": "Distracting weapons can be used to drive an opponent back due to their dangerous or whip-like natures. Instead of causing Damage, a successful attack with a Distracting weapon can force an opponent back 1 yard per SL by which you win the Opposed Test.",
@@ -1391,63 +1391,11 @@ class DiceWFRP {
 }
 
 
+
 /**
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-  /*
-    console.log("Activating TinyMCE Editor Change");
-    tinyMCE.init({
-      selector: 'textarea',  // change this value according to your HTML
-      content_css : 'systems/wfrp4e/css/myLayout.css', // resolved to http://domain.mine/myLayout.css
-      menu: {
-        format: { title: "Format", items: "forecolor backcolor" }
-      },
-      toolbar: "forecolor backcolor",
-      color_map: [
-        "000000", "Black",
-        "993300", "Burnt orange",
-        "333300", "Dark olive",
-        "003300", "Dark green",
-        "003366", "Dark azure",
-        "000080", "Navy Blue",
-        "333399", "Indigo",
-        "333333", "Very dark gray",
-        "800000", "Maroon",
-        "FF6600", "Orange",
-        "808000", "Olive",
-        "008000", "Green",
-        "008080", "Teal",
-        "0000FF", "Blue",
-        "666699", "Grayish blue",
-        "808080", "Gray",
-        "FF0000", "Red",
-        "FF9900", "Amber",
-        "99CC00", "Yellow green",
-        "339966", "Sea green",
-        "33CCCC", "Turquoise",
-        "3366FF", "Royal blue",
-        "800080", "Purple",
-        "999999", "Medium gray",
-        "FF00FF", "Magenta",
-        "FFCC00", "Gold",
-        "FFFF00", "Yellow",
-        "00FF00", "Lime",
-        "00FFFF", "Aqua",
-        "00CCFF", "Sky blue",
-        "993366", "Red violet",
-        "FFFFFF", "White",
-        "FF99CC", "Pink",
-        "FFCC99", "Peach",
-        "FFFF99", "Light yellow",
-        "CCFFCC", "Pale green",
-        "CCFFFF", "Pale cyan",
-        "99CCFF", "Light sky blue",
-        "CC99FF", "Plum"
-      ]
-    });
-    console.log("Ending TinyMCE Editor Change");
-  */
 
   // fetch ("fgdb.json").then (r => r.json()).then(async records => {
   //   var fgtable = records["tables"]["category"]["id-00001"];
@@ -1486,8 +1434,11 @@ Hooks.once("init", () => {
   //   }
   //   console.log(JSON.stringify(table));
   // })
-
   game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
+    try 
+    {
+    if (resp.error)
+      throw ""
     for (var file of resp.files)
     {
       try {
@@ -1502,6 +1453,11 @@ Hooks.once("init", () => {
        console.error("Error reading " + file + ": " + error)
       }
     }
+  }
+  catch
+  {
+    // Do nothing
+  }
   })
 
   WFRP_Tables.scatter = {
@@ -1801,6 +1757,10 @@ Hooks.on("ready", async () => {
     if (activeModules[m])
     {
       game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
+        try 
+        {
+        if (resp.error)
+          throw ""
         for (var file of resp.files)
         {
           try {
@@ -1816,6 +1776,11 @@ Hooks.on("ready", async () => {
            console.error("Error reading " + file + ": " + error)
           }
         }
+      }
+      catch
+      {
+        // Do nothing
+      }
       })
     }
   }
@@ -1826,14 +1791,59 @@ Hooks.on("ready", async () => {
  */
 Hooks.on("canvasInit", async () => {
 
+  // let pack = game.packs.find(p => p.collection == "wfrp4e.trappings")
+  // let list = await pack.getIndex();
+  // let pathList = [];
+  // await game.socket.emit("getFiles", "systems/wfrp4e/icons/equipment", {}, async resp => {
+  //   for (var folder of resp.dirs)
+  //   {
+  //     await game.socket.emit("getFiles", folder, {}, async respItems => {
+  //       for (let file of respItems.files)
+  //         pathList.push(file);
+  //     })
+  //   }
+  // })  
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace("/", '-')
 
-  let pack = game.packs.find(p => p.collection == "wfrp4e.bestiary")
-  let list = await pack.getIndex();
-  for (let skill of list)
-  {
-    let monster = await pack.getEntity(skill.id);
-    console.log(monster);
-  }
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+
+  // for (let item of list)
+  // {
+  //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace(/ /g, '-')
+
+
+  //   let img = pathList.find(p =>p.includes(name));
+  //   if (!img)
+  //     console.log(name);
+  //   await pack.updateEntity({"_id": item.id, "img" : img});
+  // }
+    
+  //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
+  //  let list = await pack.getIndex();
+  //  for (let skill of list)
+  //  {
+  //   let item = await pack.getEntity(skill.id);
+  //   item.data.data.skills[0] = item.data.data.skills[0].replace("Channeling", "Channelling");
+  //   console.log(item);
+  //   await pack.updateEntity(item.data);
+  //  }
 
   // pack = game.packs.find(p => p.collection == "world.spells")
   // let list = await pack.getIndex();
@@ -3226,8 +3236,16 @@ class ItemSheetWfrp4e extends ItemSheet {
 Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
-Items.unregisterSheet("core", ItemSheet);
-Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
+
+try 
+{
+  Items.unregisterSheet("core", ItemSheet);
+  Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
+}
+catch // 0.3.4 and earlier compatibility
+{
+  CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+}
 
 /**
  * Extend the basic ActorSheet class to do all the D&D5e things!
@@ -3821,7 +3839,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
-      actorData.advancedOrGroupedSkills = advancedOrGroupedSkills;
+      actorData.advancedOrGroupedSkills = advancedOrGroupedSkills.sort(WFRP_Utility.nameSorter);
       actorData.talents = talents;
       actorData.traits = traits;
       actorData.weapons = weapons;
@@ -4396,6 +4414,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.disease-roll').mousedown(async ev =>  {
+      console.log("DISEASE ROLL");
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       const disease = this.actor.items.find(i => i.id === itemId);
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
@@ -4425,7 +4444,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.updateOwnedItem(disease);
       }
-    })
+    });
 
     /*****************************************************
     * Randomization options used by NPC and Creature sheets
@@ -4713,6 +4732,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         data = mergeObject(data, {"data.type.value" : itemSpecification});
       }
     }
+    data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
