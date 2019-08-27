@@ -487,20 +487,4 @@
 <script>
   textContainer = document.querySelectorAll('.app.window-app.sheet.wfrp4e.actor .combat .inventory-list .item');
   length = textContainer.length;
-
-  console.log("ACTOR COMBAT - REMOVE COMMA");
-  console.log(length);
-  console.log(textContainer);
-
-  for (i = 0; i < length; i++) {
-    new_red = textContainer[i].getElementsByClassName("text ranged-property-quality comma");
-    new_red.css("display", "none");
-    // console.log("new_red");
-    // console.log(new_red);
-    // if (document.getElementById(new_red).className.includes("career-sheet")) {
-    //   continue;
-    // } 
-  }
-
-
 </script>

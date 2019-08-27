@@ -4,18 +4,18 @@
 
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname item">
-      <input class="input name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <input class="input name" style="box-shadow: none !important;" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
       <span class="label name">Name</span>
     </h1>
 
     <div class="item">
-      <input class="input species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
+      <input class="input species" style="box-shadow: none !important;" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
         placeholder="Species" />
       <span class="label species">Species</span>
     </div>
 
     <div id="field-gender" class="item">
-      <input class="input gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
+      <input class="input gender" style="box-shadow: none !important;" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
         placeholder="Gender" />
       <span class="label gender">Gender</span>
     </div>
@@ -25,22 +25,22 @@
     <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
     <div class="items">
       <div class="characteristics">
-        <table class="characteristics-table">
-          <tr class="table-header">
+        <div class="characteristics-table" cellpadding="0">
+          <!-- <div class="table-header"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <th title="{{ch.label}}" data-char="{{ch}}" class="table-header">
+            <div title="{{ch.label}}" data-char="{{ch}}" class="table-header">
               <a  class ="ch-roll" data-char="{{c}}">{{ch.abrev}}</a>
-            </th>
+            </div>
             {{/each}}
-          </tr>
-          <tr class="table-row">
+          <!-- </div> -->
+          <!-- <div class="table-row"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <td class="table-data">
+            <div class="row-type table-data">
               <input class="ch-edit" data-char="{{c}}" type="text" value="{{ch.value}}" data-dtype="Number">
-            </td>
+            </div>
             {{/each}}
-          </tr>
-        </table>
+          <!-- </div> -->
+          </div>
       </div>
 
       <div class="main-row">

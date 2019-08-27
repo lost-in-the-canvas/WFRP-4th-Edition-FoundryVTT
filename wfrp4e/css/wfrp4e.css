@@ -21,6 +21,7 @@
 
 
 
+
 /******************************************************************/
 /*=============== I. LOCAL FONTS =================================*/
 /******************************************************************/
@@ -82,6 +83,22 @@
   }
 
 /* ==================== (C) TINY MCE EDITOR FONT CHANGES ====== */
+  .app.window-app .editor {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-height: 100%;
+    word-break: break-word;
+  }
+  .app.window-app .editor-content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .app.window-app  .tox.tox-tinymce {
+    visibility: hidden;
+    height: inherit !important;
+  }
   .app.window-app .editor .editor-content h1 {
     margin: 0 0 0.5rem;
     padding: 0;
@@ -143,6 +160,7 @@
   .app.window-app .editor .editor-content p {
     margin: 0.5em 0;
     padding: 0px;
+    font-size: 14px;
     font-family: var( --actor-input-font-family);
     color: var(--actor-input-color);
     background: none;
@@ -173,6 +191,10 @@
     background: rgba(53, 0, 121, 0.05);
     border-top: 1px solid #666;
     border-bottom: 1px solid #666;
+  }
+
+  .app.sheet .editor-content {
+    padding:5px;
   }
 
 /* ==================== (D) APPLICATION BODY ================== */
@@ -506,6 +528,11 @@
     /* background: blue; */
   }
 
+  .filepicker .file-directory .dir, 
+    .filepicker .file-directory .file {
+    color:white;
+  }
+
   .app.window-app.dialog ::-webkit-scrollbar {
     width: 14px;
   }
@@ -697,6 +724,9 @@
   .app.window-app.sheet.wfrp4e.actor .item-summary > p {
     margin: 0px;
     padding: 0px;
+    color: var(--actor-input-color);
+    border: none;
+    background: none;
   }
   .app.window-app.sheet.wfrp4e.actor .item-properties {
     text-align: left;
@@ -721,7 +751,6 @@
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.05);
     }
-
 /******************************************************************/
 /******************************************************************/
 
@@ -1785,6 +1814,9 @@
     }
     #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-footer {
       display: none;
+    }
+    #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-search input {
+      color: white
     }
 
 /* ==================== (K) SIDEBAR (SETTINGS) ================ */
@@ -3574,99 +3606,86 @@
       padding: 0px 0px 0px 0px;
       height: 109px;
       width: 506px;
+      max-width: 506px
     }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table {
-      margin: 0px;
-      border: none;
+      margin: 6px 0px 0px 0px;
+      padding: 0px 0px 0px 0px;
+      height: 109px;
+      width: 506px;
+      max-width: 506px;
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+      grid-gap: 0px;
       background: none;
-      height: inherit;
-      width: inherit;
-    }      
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row > * {
-        margin: 5px;
-        border: 1px solid #736953a6;
-        background: none;
+      border: 1px solid #736953a6;
+    }   
+
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header {
+      font-family: var(--actor-label-font-family);
+      font-size: var(--actor-label-font-size);
+      font-weight: var(--actor-label-font-weight);
+      color: var(--actor-label-color);
+      box-shadow: 0 0 10px #00000052 inset;
+      text-align: center;
+      width: 100%;
+      border-bottom: none;  
+      border-right: 1px solid #736953a6;
+    }  
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block {
+        padding-top: 0px;
+      }  
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header:last-of-type {
+        border-right: none;
+      } 
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block .advancement-indicator {
+        position: fixed;
+        margin-top: -3px;
+        margin-left: 3px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row-bottom > * {
-        margin: 5px;
-        border: 1px solid #736953a6;
-        border: none;
-      }          
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header > * {
-        text-align: center;
-        border: 1px solid #736953a6;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        margin: 0px;
-        height: 20px;
-        padding: 3px 0px 0px 11px;
-        box-shadow: 0 0 10px #00000052 inset;
-      }    
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .advancement-indicator {
-          cursor: pointer;
-        }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .advancement-indicator {
-        text-align: center;
-        border: none;
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        margin: 0px;
-        height: 10px;
-        padding: 3px 0px 0px 0px;
-        box-shadow: none;
-        vertical-align: top;
-        position: relative;
-        top: -6px;
-        left: -3px;
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type.table-data {
+      font-family: var(--actor-label-font-family);
+      font-size: var(--actor-label-font-size);
+      font-weight: var(--actor-label-font-weight);
+      color: var(--actor-label-color);
+      box-shadow: 0 0 10px #00000052 inset;
+      text-align: center;
+      width: 56px;
+      border-top: 1px solid #736953a6;
+      min-height: 29px;
+      max-height: 29px;
+      padding-top: 5px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
+      border-top: 1px solid #736953a6;
+      border-right: 1px solid #736953a6;
+    }
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(11),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(22),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(33),
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table div:nth-of-type(44) {
+        border-right: none;
+        /* background: red; */
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row .table-data > input {
-        text-align: center;
-        width: 35px;
-        height: 15px;
-        padding-top: 7px;
-        vertical-align: middle;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        border-radius: 0px;
-      }        
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type {
-        font-family: var(--actor-label-font-family);
-        font-size: var(--actor-label-font-size);
-        font-weight: var(--actor-label-font-weight);
-        color: var(--actor-label-color);
-        width: 30px;
-        height: 21px;
-        padding: 3px 0px 0px 0px;
-        margin: 0px;
-        text-align: center;
-        box-shadow: 0 0 10px #00000052 inset;
-        padding: 6px 0px 0px 0px;
-        border: 1px solid #736953a6;
-      }       
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
-        text-align: center;
-        width: 30px;
-        height: 28px;
-        border: 1px solid #736953a6;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        /* margin-top: 54px; */
-      }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row-bottom .table-data {
-        padding: 6px 0px 0px 0px;
-        color: #672323;
-        border: 1px solid #736953a6;
-        text-shadow: 1px 0px 1px #6e6e716e;
-      }   
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data input {
+      min-width: unset;
+      width: 100%;
+      height: 100%;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: var(--actor-input-color);
+      text-align: center;
+      padding-top: 7px;
+    }
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data.ch-value {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: var(--actor-input-color);
+      padding-top: 8px;
+      text-align: center;
+    }
 
   /* ================== 2. FIRST ROW ========================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row.first {
@@ -4206,7 +4225,7 @@
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row .experience.row-section #value > input {
           width: inherit;
-          height: inherit;
+          height: 22px;
           margin: 0px 0px 0px 0px;
           padding: 5px 0px 0px 0px;
           text-align: center;
@@ -4947,6 +4966,7 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
+        max-width: 445px;
       }
         .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .image {
           background-size: 32px;
@@ -8483,7 +8503,7 @@
       height: 270px;
       width: 100%;
       margin: -5px 0px 0px 0px;
-      padding: 0px;
+      padding: 4px;
       border: 1px solid #736953a6;
       border-top: none;
     }
@@ -9342,165 +9362,77 @@
   }
 
   /* FIRST ROW */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics {
     border-top: none;
-    margin: 6px 0px 0px 0px;
+    margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    height: 109px;
-    width: 506px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .advancement-indicator {
-    cursor: pointer;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
-    height: 25px;
-    width: 400px;
-    margin: 0px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table {
-    margin: 0px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }      
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    background: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row-bottom > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    border: none;
-  }          
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header .advancement-indicator {
-    text-align: center;
-    border: none;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 10px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: none;
-    vertical-align: top;
-    position: relative;
-    top: -6px;
-    left: -3px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
-    text-align: center;
-    width: 35px;
-    height: 15px;
-    padding-top: 7px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    border: none;
-    background: none;
-  }        
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .row-type{
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    /* font-family: CaslonAntique; */
-    /* font-weight: bold; */
-    width: 30px;
-    height: 21px;
-    padding: 3px 0px 0px 0px;
-    margin: 0px;
-    text-align: center;
-    /* font-size: 14px; */
-    box-shadow: 0 0 10px #00000052 inset;
-    padding: 6px 0px 0px 0px;
-    border: 1px solid #736953a6;
-  }       
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-data {
-    text-align: center;
-    width: 30px;
-    height: 28px;
-    border: 1px solid #736953a6;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    /* margin-top: 54px; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row-bottom .table-data {
-    padding: 6px 0px 0px 0px;
-    color: #672323;
-    border: 1px solid #736953a6;
-    text-shadow: 1px 0px 1px #6e6e716e;
-  }   
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-data {
-    height: 20px;
-  }
-
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header > * {
-    text-align: center;
-    border: 1px solid #736953a6;
-    border: 1px solid #736953a6;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 20px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: 0 0 10px #00000052 inset;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header > a {
-    border: none;
-    box-shadow: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table {
-    margin-top: 1px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
-    margin-top: 1px;
     height: 49px;
-    width: 400px;
-    margin: 0px;
+    width: 403px;
+    max-width: 400px
   }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 49px;
+    width: 403px;
+    max-width: 506px;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-gap: 0px;
+    background: none;
+    border: 1px solid #736953a6;
+  }   
+
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
+    font-family: var(--actor-label-font-family);
+    font-size: var(--actor-label-font-size);
+    font-weight: var(--actor-label-font-weight);
+    color: var(--actor-label-color);
+    box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    width: 37px;
-    height: 21px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    margin: 0px;
-    padding: 6px 0px 0px 0px;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    /* text-shadow: 1px 0px 1px #6e6e716e; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input:focus,
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input:hover {
-    box-shadow: none;
-    border: 1px dotted black;
-    border-radius: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
-      width: 38px;
+    width: 100%;
+    border-bottom: none;  
+    border-right: 1px solid #736953a6;
+  }  
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
+    border-right: none;
+    /* background: red; */
+  }  
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
+      padding-top: 0px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
+      position: fixed;
+      margin-top: -3px;
+      margin-left: 3px;
     }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
-      width: 38px;
-    }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data {
+    border-top: 1px solid #736953a6;
+    border-right: 1px solid #736953a6;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data:last-of-type {
+    border-right: none;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
+    min-width: unset;
+    width: 100%;
+    min-height: 26px;
+    max-height: 26px;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    text-align: center;
+    padding-top: 7px;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data.ch-value {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    padding-top: 8px;
+    text-align: center;
+  }
 
   /* SECOND ROW */
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .main-row {
@@ -10983,165 +10915,77 @@
   }
 
   /* FIRST ROW */
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics {
     border-top: none;
-    margin: 6px 0px 0px 0px;
+    margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    height: 109px;
-    width: 506px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .advancement-indicator {
-    cursor: pointer;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
-    height: 25px;
-    width: 400px;
-    margin: 0px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table {
-    margin: 0px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }      
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    background: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row-bottom > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    border: none;
-  }          
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header .advancement-indicator {
-    text-align: center;
-    border: none;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 10px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: none;
-    vertical-align: top;
-    position: relative;
-    top: -6px;
-    left: -3px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input {
-    text-align: center;
-    width: 35px;
-    height: 15px;
-    padding-top: 7px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    border: none;
-    background: none;
-  }        
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .row-type{
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    /* font-family: CaslonAntique; */
-    /* font-weight: bold; */
-    width: 30px;
-    height: 21px;
-    padding: 3px 0px 0px 0px;
-    margin: 0px;
-    text-align: center;
-    /* font-size: 14px; */
-    box-shadow: 0 0 10px #00000052 inset;
-    padding: 6px 0px 0px 0px;
-    border: 1px solid #736953a6;
-  }       
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-data {
-    text-align: center;
-    width: 30px;
-    height: 28px;
-    border: 1px solid #736953a6;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    /* margin-top: 54px; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row-bottom .table-data {
-    padding: 6px 0px 0px 0px;
-    color: #672323;
-    border: 1px solid #736953a6;
-    text-shadow: 1px 0px 1px #6e6e716e;
-  }   
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-data {
-    height: 20px;
-  }
-
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header > * {
-    text-align: center;
-    border: 1px solid #736953a6;
-    border: 1px solid #736953a6;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 20px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: 0 0 10px #00000052 inset;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header > a {
-    border: none;
-    box-shadow: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table {
-    margin-top: 1px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
-    margin-top: 1px;
     height: 49px;
-    width: 400px;
-    margin: 0px;
+    width: 403px;
+    max-width: 400px
   }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input {
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 49px;
+    width: 403px;
+    max-width: 506px;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-gap: 0px;
+    background: none;
+    border: 1px solid #736953a6;
+  }   
+
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header {
+    font-family: var(--actor-label-font-family);
+    font-size: var(--actor-label-font-size);
+    font-weight: var(--actor-label-font-weight);
+    color: var(--actor-label-color);
+    box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    width: 37px;
-    height: 21px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    margin: 0px;
-    padding: 6px 0px 0px 0px;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    /* text-shadow: 1px 0px 1px #6e6e716e; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input:focus,
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input:hover {
-    box-shadow: none;
-    border: 1px dotted black;
-    border-radius: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
-      width: 38px;
+    width: 100%;
+    border-bottom: none;  
+    border-right: 1px solid #736953a6;
+  }  
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
+    border-right: none;
+    /* background: red; */
+  }  
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block {
+      padding-top: 0px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
+      position: fixed;
+      margin-top: -3px;
+      margin-left: 3px;
     }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
-      width: 38px;
-    }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data {
+    border-top: 1px solid #736953a6;
+    border-right: 1px solid #736953a6;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data:last-of-type {
+    border-right: none;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data input {
+    min-width: unset;
+    width: 100%;
+    min-height: 26px;
+    max-height: 26px;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    text-align: center;
+    padding-top: 7px;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data.ch-value {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    padding-top: 8px;
+    text-align: center;
+  }
 
   
   /* SECOND ROW */
@@ -11545,7 +11389,7 @@
       overscroll-behavior-y: auto;
       overflow-x: hidden;
       height: 278px;
-      margin-top: -10px;
+      margin-top: 6px;
       padding-bottom: 0px;
       width: 506px;
       /* background: antiquewhite; */
@@ -12237,10 +12081,10 @@
   }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.biography,
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.gmnotes {
-      height: 270px;
+      height: 125px;
       width: 100%;
       margin: -5px 0px 0px 0px;
-      padding: 0px;
+      padding: 4px;
       border: 1px solid #736953a6;
       border-top: none;
     }
@@ -12346,6 +12190,7 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
+        max-width: 180px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-name.excluded-trait {
         opacity: 0.5;
@@ -12548,145 +12393,318 @@ border-image-outset: 0px !important;
 /*************************************************************/
 /*=============== XII. GAME SETTINGS ========================*/
 /*************************************************************/
-#client-settings {
-border: 1px solid blue;
-border-width: 10px;
-border-image: url(../ui/game-settings-border.png) 5 repeat;
-border-image-slice: 162 81 67 80;
-border-image-width: 162px 81px 67px 80px;
-border-image-outset: 0px;
-background: none;
-height: 802px !important;
-width: 800px !important;
-box-shadow: none;
-}
-#client-settings .window-header {
-border: none;
-min-height: 152px;
-background: none;
-}
-#client-settings .window-header h4 {
-  display: none;
-}
-#client-settings .window-header .close {
-  color: #00e5ff00;
-  text-align: center;
-  background: url(../ui/buttons/button-close.png);
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 97px;
-  right: 24px;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-  /* background: var(--debug-background-color-blue); */
-}
-#client-settings .window-content {
-margin: 0px 70px 57px 70px;
-padding: 0px;
-border: none;
-background: url(../ui/game-settings-background.png);
-background-size: 199%;
-background-position-x: center;
-}
-#client-settings .window-content form {
-padding: 6px;
-margin: 0px 8px 0px 0px;
-border: none;
-background: none;
-box-shadow: inset 0px 0px 4px black;
-overflow-y: scroll;
-}
-#client-settings .window-content form .form-group {
-  flex: 2;
-  line-height: 24px;
-  border: 1px solid #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  background: #000000e8;
-  border-radius: 0px;
-  opacity: 0.9;
-  min-width: 93px;
-  color: #efefef;
-  padding: 6px;
-  margin: 8px 0px;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 16px;
-}
-#client-settings .window-content form .form-group > label {
-  flex: 2;
-  line-height: normal;
-  padding: 5px 0px 0px 0px;
-  font-size: 16px;
-  color: #e2e2e2;
-  /* text-shadow: 1px 1px 1px #ffc80069; */
-}
-#client-settings .window-content form h2 {
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  color: #ccc6c6;
-  font-family: CaslonAntique;
-  font-size: 24px;
-  font-weight: 500;
-  text-shadow: 1px 1px 5px #000000;
-  text-align: center;
-  border: 3px double #736953a6;
-  background: #310a0a91;
-  box-shadow: inset 0px 0px 5px black;
-}
-#client-settings .window-content form .form-group select {
-  height: 25px;
-  max-width: 340px;
-  background: #352516;
-  color: #e2e2e2;
-  border: 1px solid #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  border-radius: 4px;
-  padding: 3px 0px 0px 0px;
-  text-overflow: ellipsis;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-}
-#client-settings .window-content form .hint {
-  flex: 0 0 100%;
-  font-size: 14px;
-  color: #a09c88;
-  margin: 6px 0 0;
-  line-height: initial;
-}
-#client-settings .window-content button {
-  flex: 2;
-  margin: 0px 0px 0px 0px;
-  padding: 3px 0px 3px 0px;
-  line-height: normal;
-  border: 3px double #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  border-radius: 0px;
-  opacity: 0.9;
-  text-align: center;
-  min-width: 93px;
-  color: #e2e2e2;
-  font-family: CaslonAntique;
-  font-weight: 500;
-  font-size: 19px;
-  text-shadow: 1px 1px 6px black;
-  border-image: url(../ui/footer-button.png) 10 repeat;
-  border-image-width: 4px;
-  border-image-outset: 0px;
-  background: url(../ui/sidebar_button-background_red.png) repeat;
-  background-origin: padding-box;
-}
-#client-settings .window-content .far.fa-save {
-  display: none;
-}
 
-#client-settings input[type="checkbox"]:checked + label {
-  background: none;
-  border: 1px solid white;
-}
+  /* ================== 1. MANAGE MODULES ===================== */
+    #module-management {
+      max-width: 600px;
+      max-height: 65vh;
+    }
+    #module-management .window-content {
+      overflow: auto;
+      min-height: 437px !important;
+      max-height: 437px;
+      background: url(../ui/frames/window-app-background-bookshelf.png);
+    }
+    #module-management .window-content .modules-list {
+      list-style: none;
+      margin: 0 0 0.5em;
+      padding: 0;
+      border-top: 3px double #b7b7b747;
+      border-bottom: 3px double #b7b7b747;
+      overflow-y: auto;
+      height: calc(100% - 76px);
+    }
+      #module-management .window-content .modules-list .module {
+        padding: 6px;
+        margin: 3px 0px 0px 0px;
+        border: 3px groove #564d3a;
+        box-shadow: 0 0 6px #000 inset;
+        line-height: normal;
+        background: #0b1115b5;
+      }
+      #module-management .window-content .modules-list .module h1,
+      #module-management .window-content .modules-list .module h2,
+      #module-management .window-content .modules-list .module h3,
+      #module-management .window-content .modules-list .module h4,
+      #module-management .window-content .modules-list .module p {
+        border: none;
+        background: none;
+      }
+      #module-management .window-content .modules-list .module header {
+        border: none;
+      }
+        #module-management .window-content .modules-list .module header input[type="checkbox"] {
+          padding: 1px 3px;
+          margin: 0;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: #cccccc;
+          border: 1px solid #736953a6;
+          border-left: none;
+          box-shadow: 0px 0px 8px inset black;
+          background: #352516;
+          position: relative;
+          top: 2px;
+        }
+        #module-management .window-content .modules-list .module header .title {
+          flex: 2;
+          line-height: normal;
+          margin: 0;
+          padding: 4px 0px 0px 6px;
+          font-family: var(--actor-input-font-family);
+          font-size: 16px;
+          font-weight: var(--actor-input-font-weight);
+          color: #d6d6d6;
+          text-align: left;
+        }
+        #module-management .window-content .modules-list .module header .author {
+          flex: 1;
+          margin: 0px;
+          padding: 4px 0px 0px 4px;
+          font-family: var(--actor-input-font-family);
+          font-size: 16px;
+          font-weight: var(--actor-input-font-weight);
+          color: #de6262;
+          text-shadow: 0px 0px 4px black;
+          line-height: normal;
+          text-align: right;
+        }
+      #module-management .window-content .modules-list .module section {
+        margin: 3px 0px 3px 0px;
+        padding: 5px 0;
+        border-top: 1px solid #ffffff7a;
+        border-bottom: 1px solid #ffffff7a;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: #d6d6d6;
+      }
+        #module-management .window-content .modules-list .description {
+          color: white;
+          margin: 4px 0;
+          padding: 4px 4px;
+        }
+        #module-management .window-content .modules-list .module section button {
+          width: auto;
+          height: auto;
+          padding: 3px 13px;
+          margin: 0px;
+          line-height: normal;
+          border: 1px solid black;
+          border-image: url(../ui/footer-button.png) 10 repeat;
+          border-image-width: 4px;
+          border-image-outset: 0px;
+          background: url(../ui/sidebar_button-background_red.png) repeat;
+          font-family: var(--major-button-font-family);
+          font-size: 17px;
+          font-weight: var(--major-button-font-weight);
+          color: var(--major-button-color);
+        }
+        #module-management .window-content .modules-list .module section button i {
+          display: none;
+        }
+      #module-management .window-content .modules-list .module footer {
+        border: none;
+      }
+      #module-management .window-content button[name="submit"] {
+        margin: 0 3px 10px 3px !important;
+      }
+
+  /* ================== 2. CONFIGURE SETTINGS ================= */
+    #client-settings {
+      border: 1px solid blue;
+      border-width: 10px;
+      border-image: url(../ui/game-settings-border.png) 5 repeat;
+      border-image-slice: 162 81 67 80;
+      border-image-width: 162px 81px 67px 80px;
+      border-image-outset: 0px;
+      background: none;
+      height: 802px !important;
+      width: 800px !important;
+      box-shadow: none;
+    }
+    #client-settings .window-header {
+    border: none;
+    min-height: 152px;
+    background: none;
+    }
+      #client-settings .window-header h4 {
+        display: none;
+      }
+      #client-settings .window-header .close {
+        color: #00e5ff00;
+        text-align: center;
+        background: url(../ui/buttons/button-close.png);
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 97px;
+        right: 24px;
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+        /* background: var(--debug-background-color-blue); */
+      }
+    #client-settings .window-content {
+    margin: 0px 70px 57px 70px;
+    padding: 0px;
+    border: none;
+    background: url(../ui/game-settings-background.png);
+    background-size: 199%;
+    background-position-x: center;
+    }
+      #client-settings .window-content form {
+      padding: 6px;
+      margin: 0px 8px 0px 0px;
+      border: none;
+      background: none;
+      box-shadow: inset 0px 0px 4px black;
+      overflow-y: scroll;
+      }
+      #client-settings .window-content form .form-group {
+        flex: 2;
+        line-height: 24px;
+        border: 1px solid #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+        border-radius: 0px;
+        opacity: 0.9;
+        min-width: 93px;
+        color: #efefef;
+        padding: 6px;
+        margin: 8px 0px;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      #client-settings .window-content form .form-group > label {
+        flex: 2;
+        line-height: normal;
+        padding: 5px 0px 0px 0px;
+        font-size: 16px;
+        color: #e2e2e2;
+        border: none;
+        text-align: left;
+        background: none;
+      }
+      #client-settings .window-content form h2 {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        color: #ccc6c6;
+        font-family: CaslonAntique;
+        font-size: 24px;
+        font-weight: 500;
+        text-shadow: 1px 1px 5px #000000;
+        text-align: center;
+        border: 3px double #736953a6;
+        background: #310a0a91;
+        box-shadow: inset 0px 0px 5px black;
+      }
+      #client-settings .window-content form .form-group select {
+        height: 25px;
+        max-width: 340px;
+        background: #352516;
+        color: #e2e2e2;
+        border: 1px solid #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 4px;
+        padding: 3px 0px 0px 0px;
+        text-overflow: ellipsis;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      #client-settings .window-content form .hint {
+        flex: 0 0 100%;
+        font-size: 14px;
+        color: #a09c88;
+        margin: 3px 0 0;
+        padding: 0px 0px;
+        border: none;
+        background: none;
+        line-height: initial;
+      }
+      #client-settings .window-content button {
+        flex: 2;
+        margin: 0px 0px 0px 0px;
+        padding: 3px 0px 3px 0px;
+        line-height: normal;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        min-width: 93px;
+        color: #e2e2e2;
+        font-family: CaslonAntique;
+        font-weight: 500;
+        font-size: 19px;
+        text-shadow: 1px 1px 6px black;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      }
+      #client-settings .window-content .far.fa-save {
+        display: none;
+      }
+
+      #client-settings input[type="checkbox"]:checked + label {
+        background: none;
+        border: 1px solid white;
+      }
+
+  /* ================== 3. GAME CONTROLS REFERENCE ============ */
+    #controls-reference {
+      max-width: 600px;
+      max-height: 65vh;
+    }
+    #controls-reference .window-content {
+      padding: 7px 2px 7px 7px;
+      max-height: none;
+      background: url(../ui/frames/window-app-background-system-background.png);
+    }
+    #controls-reference .window-content div {
+      overflow-y: scroll;
+    }
+    #controls-reference .window-content div * {
+      overflow-y: hidden;
+    }
+    #controls-reference h3 {
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
+      color: #ccc6c6;
+      font-family: CaslonAntique;
+      font-size: 19px;
+      font-weight: 500;
+      text-shadow: 1px 1px 5px #000000;
+      text-align: center;
+      border: 3px double #736953a6;
+      background: #2b2b2b91;
+      box-shadow: inset 0px 0px 5px black;
+    }
+    #controls-reference .keys {
+      margin-left: 5px;
+      padding: 0px 0px 0px 0px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: white;
+    }
+      #controls-reference .keys .key {
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        background: #adadad !important;
+        box-shadow: 0px 0px 3px black inset !important;
+        position: relative;
+        top: 5px;    
+      }
 
 /*************************************************************/
 /*************************************************************/
@@ -12931,7 +12949,90 @@ overflow-y: scroll;
   box-shadow: none;
   background: none;
 }
-
+.window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row,
+.window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row {
+  display: inline-flex;
+  flex: 1;
+  flex-direction: row;
+  margin-top: 4px;
+  width: 100%;
+}
+  .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
+  .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column {
+    margin-right: 2px;
+  }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label {
+      min-width: 96px;
+    }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column input {
+      text-align: center;
+    }
+  .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector,
+  .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-left: 2px;
+  }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label {
+      margin-top: 4px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      border-bottom: none;
+      background: #080808;
+    }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select {
+      margin-bottom: 4px;
+      padding: 3px;
+      flex-grow: 1;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #000000;
+      border: 1px solid #736953a6;
+      border-radius: 0px;
+      box-shadow: 0px 0px 10px inset black;
+      background: url(../ui/frames/parchment-texture.png);
+    }
+    
 
   .window-app.dialog.characteristic-roll-dialog input[name="hitLocation"],
   .window-app.dialog.skill-roll-dialog input[name="hitLocation"],
@@ -12942,7 +13043,6 @@ overflow-y: scroll;
     position: relative;
     top: 2px;
   }
-
   .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
   .window-app.dialog.skill-roll-dialog .dialog-buttons button,
   .window-app.dialog.weapon-roll-dialog .dialog-buttons button,
@@ -12971,91 +13071,6 @@ overflow-y: scroll;
     background: url(../ui/sidebar_button-background_red.png) repeat;
     background-origin: padding-box;
   }
-
-  /* CUSTOM DROPDOWN */
-  /*the container must be positioned relative:*/
-  .window-app.dialog .custom-select {
-    position: relative;
-    font-family: blue;
-  }
-  
-  /* <----------------- EDIT THIS------------------------> */
-  .window-app.dialog .custom-select select { 
-    display: none; /*hide original SELECT element:*/
-    display: block;
-    color: #d8d8d8;
-    border: 1px solid #736953a6;
-    border-left: none;
-    box-shadow: 0px 0px 10px inset black;
-    background: #352516;
-    border-radius: 0px;
-    font-family: CaslonPro;
-    font-weight: 500;
-    font-size: 14px;
-    margin: 0px;
-    padding: 3px 0px 0px 0px;
-    text-overflow: ellipsis;
-  }
-  /* <----------------- ^EDIT THIS------------------------> */
-
-  .window-app.dialog .select-selected {
-    background: #352516b5;
-  }
-
-  /*style the arrow inside the select element:*/
-  .window-app.dialog .select-selected:after {
-    position: absolute;
-    content: "";
-    top: 13px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-    border-color: #fff transparent transparent transparent;
-  }
-
-  /*point the arrow upwards when the select box is open (active):*/
-  .window-app.dialog .select-selected.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 7px;
-  }
-
-  /*style the items (options), including the selected item:*/
-  .window-app.dialog .select-items div, .select-selected {
-    padding: 6px 0px 0px 4px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    user-select: none;
-    border: 1px solid #736953a6;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
-  /*style items (options):*/
-  .window-app.dialog .select-items {
-    position: absolute;
-    background-color: #2b1806;
-    color: #d8d8d8;
-    top: 100%;
-    /* left: 180px; */
-    width: 60.35%;
-    right: 0;
-    z-index: 99;
-    border: 1px solid #736953a6;
-    border-bottom: none;
-    border-top: none;
-  }
-
-  /*hide the items when the select box is closed:*/
-  .window-app.dialog .select-hide {
-    display: none;
-  }
-
-  .window-app.dialog .select-items div:hover, .same-as-selected {
-    background-color: #350404ed;
-  }  
 
 /*************************************************************/
 /*************************************************************/
@@ -13149,27 +13164,11 @@ overflow-y: scroll;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      text-align: center;
-
-      margin: 4px 0;
-      padding: 4px 4px;
-
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app h3 {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      text-align: center;
-
-      margin: 4px 0;
-      padding: 4px 4px;
-
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app h3 i {
       display: none;
@@ -13178,13 +13177,6 @@ overflow-y: scroll;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-
-      margin: 4px 0;
-      padding: 4px 4px;
-
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app .form-group, 
     .app.window-app .form-group-stacked {
@@ -13307,6 +13299,9 @@ overflow-y: scroll;
       overflow-x: hidden;
       padding-right: 7px;
     }
+    .app.window-app.sheet.scene-sheet .window-content form .notes{
+      color: #BBB
+    }
     .app.window-app.sheet.scene-sheet .window-content form hr {
       opacity: 0.8;
       border: 2px ridge #503434;
@@ -13377,6 +13372,23 @@ overflow-y: scroll;
     }
     .app.window-app.sheet.scene-notes .window-content form {
       padding: 5px;
+    }
+    .app.window-app.sheet.scene-notes .window-content .editor {
+      border: 1px solid #736953a6;
+      padding: 4px;
+    }
+  
+  /* ================== 5. DELETE ITEM FROM ACTOR ============= */
+    .app.window-app .dialog-content .delete-item-dialog.selection {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      margin: 4px 0;
+      padding: 4px 4px;
+      border: 1px solid #5d513e;
+      background: #080808;
+      text-align: center;
     }
 
   /* ================== 5. SHEET CONFIG ======================= */
@@ -13610,6 +13622,194 @@ overflow-y: scroll;
       background: #352516;  
     }
 
+  /* ================== 7. DRAWING CONFIG ======================= */
+    #drawing-config {
+      min-height: 335px;
+      overflow-y: auto;
+    }
+    #drawing-config .window-content {
+      min-height: 290px;
+      overflow-y: auto;
+    }
+    #drawing-config .sheet-tabs {
+      flex: 0 0 32px;
+      border-bottom: none;
+      line-height: 32px;
+      justify-content: space-between;
+    }
+    #drawing-config .sheet-tabs .item {
+      margin: 3px 0px;
+      padding: 4px 3px 1px 3px;
+      max-width: 80px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      border: 3px double #564d3a;
+      background: #0a1829d9;
+    }
+      #drawing-config .sheet-tabs .item:hover {
+        box-shadow: 0 0 8px #ff9f00 !important;
+      }
+      #drawing-config .sheet-tabs .item.active {
+        background: #290a0ad9;
+      }
+      #drawing-config .sheet-tabs .item i {
+        display: none;
+      }
+    #drawing-config .tab {
+      max-height: fit-content;
+    }
+    #drawing-config .form-group label span {
+      font-size: 14px;
+      color: #7d7d7d;
+    }
+    #drawing-config .sheet-footer {
+      width: 446px;
+      height: 32px;
+      bottom: 19px;
+    }
+
+    #drawing-config .tab[data-tab="character"] .notes {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="character"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 223px;
+      left: 294px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+
+    #drawing-config .tab[data-tab="image"] .notes {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="image"] button {
+      margin: 0 3px 0px 3px !important;
+      box-shadow: 0px 0px 5px black inset;
+    }
+      #drawing-config .tab[data-tab="image"] button i {
+        display: contents;
+        font-size: 16px;
+        color: #b9b9b9;
+      }
+    #drawing-config .tab[data-tab="image"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 160px;
+      left: 329px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+    #drawing-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 1px solid #7d5900;
+      height: 11px;
+      width: 11px;
+      border-radius: 5px;
+      background: #212121;
+      cursor: pointer;
+      margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
+    } 
+    #drawing-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
+      background-image: linear-gradient(to right, #820f0f , #82820d);
+    }
+    #drawing-config .tab[data-tab="image"] .form-group .scale-value {
+      padding: 6px 3px 1px 3px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-radius: 0px;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+    }
+    #drawing-config .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
+      text-align: center;
+    }
+
+    #drawing-config .tab[data-tab="position"] .notes {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="position"] input[type="text"] {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="position"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 252px;
+      left: 288px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+    
+    #drawing-config .tab[data-tab="vision"] .notes {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="vision"] input[type="text"] {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="vision"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 128px;
+      left: 278px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+
+    #drawing-config .tab[data-tab="resources"] .notes {
+      text-align: center;
+    }
+    #drawing-config .tab[data-tab="resources"] .form-group label {
+      max-width: 183px;
+      min-width: 183px;
+    }
+    #drawing-config .tab[data-tab="resources"] .form-group .bar1-value {
+      padding: 1px 3px;
+      margin: 0;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+    }
+    #drawing-config .tab[data-tab="resources"] .form-group .bar2-value {
+      padding: 1px 3px;
+      margin: 0;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+    }
+    #drawing-config .tab[data-tab="resources"] .form-group .sep {
+      font-family: var(--actor-input-font-family);
+      font-size: 17px;
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      margin: 0px;
+      padding: 5px 0px 0px;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;  
+    }
+
   /* ================== 8. JOUNRAL ENTRIES ==================== */
     .window-app.app.journal-sheet {
       min-width: 470px;
@@ -13700,6 +13900,7 @@ overflow-y: scroll;
     }
     .window-app.app.journal-sheet .window-content form {
       margin: 15px;
+      height: 100%;
       padding: 5px;
       box-shadow: 0px 0px 3px #00000069 inset;
     }
@@ -13764,6 +13965,12 @@ overflow-y: scroll;
       background: url(../ui/sidebar_button-background_red.png) repeat;
       background-origin: padding-box;
     } 
+
+    .window-app.app.journal-sheet form.editable .editor {
+      height: calc(100% - 126px);
+      border: 1px solid #736953a6;
+      padding: 4px;
+    }
 
     .window-app.app.journal-sheet.image-popout .window-content .form-group.title {
       position: absolute;
@@ -13836,8 +14043,88 @@ overflow-y: scroll;
       color: var(--major-button-color);
     }
 
+  /* ================== 9. COMPENDIUM ========================= */
+    .window-app.app .sidebar-tab.compendium {
+      padding: 0px 0px 7px 0px;
+    }
+    .window-app.app .sidebar-tab.compendium .compendium-search {
+      flex: 1;
+      justify-content: left;
+      text-align: center;
+    }
+      .window-app.app .sidebar-tab.compendium .compendium-search input {
+        line-height: 20px;
+        width: calc(100% - 45px);
+        margin: 3px;
+        background: url(../ui/frames/parchment-texture.png);
+        box-shadow: inset 0 0 10px #000000;
+        border: 2px groove #564d3a;
+        border-image: url(../ui/chat-controls-border.png) 4 repeat;
+        border-image-width: 4px;
+        border-image-outset: 2px 2px 2px 2px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-family);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        text-align: left;
+      }
+      .window-app.app .sidebar-tab.compendium .compendium-search input::placeholder {
+        text-align: center;
+        color: #000000b8;
+        position: relative;
+        top: 2px;
+      }
+      .window-app.app .sidebar-tab.compendium .compendium-search .fas.fa-search {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -6px;
+        left: 3px;
+        background: url(../ui/frames/search-field-icon.png);
+        color: #ffffff00;
+      }
+    .window-app.app .sidebar-tab.compendium .pack-content {
+      height: calc(100% - 43px);
+      margin: 0;
+      overflow-y: auto;
+    }
 
-
+  /* ================== 10. FILE PICKER ======================= */
+    .app.window-app.filepicker .form-group .back {
+      border: 1px solid black;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      box-shadow: none;
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+    }
+      .app.window-app.filepicker .form-group .back i {
+        color: #dadadadb;
+        transform: scaleX(-1);
+      }
+    .app.window-app.filepicker .form-group.current-dir input {
+      border-left: 1px solid #736953a6;
+    }
+    .app.window-app.filepicker .file-directory {
+      background: url(../ui/frames/parchment-texture.png) repeat;
+      border: 3px ridge #5d513e;
+      border-radius: 0px;
+      box-shadow: 0px 0px 33px black inset;
+    }
+    .app.window-app.filepicker .form-group label {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      background: #080808;
+    }
+    .app.window-app.filepicker .form-group label i {
+      display: none;
+    }
 
 /******************************************************************/
 /******************************************************************/
@@ -14043,3 +14330,17 @@ font-style : normal;
     background: url(../ui/sidebar_button-background_red.png) repeat;
     background-origin: padding-box;
   } 
+
+
+
+  .window-content .notes {
+    color: #BBB;
+  }
+
+  .pack-content .entry-name {
+    color: white;
+  }
+
+  .window-content .dialog-content > * {
+    color: white;
+  }
