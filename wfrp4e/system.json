@@ -112,5 +112,5 @@
   "secondaryTokenAttribute": "status.advantage",
   "minimumCoreVersion": "0.3.0",
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/wfrp4e/system.json",
-  "download" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/wfrp4e.zip"
+  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/raw/stable/wfrp4e.zip"
 }
