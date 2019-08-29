@@ -528,11 +528,6 @@
     /* background: blue; */
   }
 
-  .filepicker .file-directory .dir, 
-    .filepicker .file-directory .file {
-    color:white;
-  }
-
   .app.window-app.dialog ::-webkit-scrollbar {
     width: 14px;
   }

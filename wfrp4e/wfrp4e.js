@@ -1,49 +1,40 @@
 CONFIG.statusEffects =
-["systems/wfrp4e/icons/conditions/bleed1.png",
-"systems/wfrp4e/icons/conditions/bleed2.png",
-"systems/wfrp4e/icons/conditions/bleed3.png",
-"systems/wfrp4e/icons/conditions/bleed4.png",
-//"systems/wfrp4e/icons/conditions/bleed5.png",
-"systems/wfrp4e/icons/conditions/poison1.png",
-"systems/wfrp4e/icons/conditions/poison2.png",
-"systems/wfrp4e/icons/conditions/poison3.png",
-"systems/wfrp4e/icons/conditions/poison4.png",
-//"systems/wfrp4e/icons/conditions/poison5.png",
+["systems/wfrp4e/icons/conditions/bleeding1.png",
+"systems/wfrp4e/icons/conditions/bleeding2.png",
+"systems/wfrp4e/icons/conditions/bleeding3.png",
+"systems/wfrp4e/icons/conditions/bleeding4.png",
+"systems/wfrp4e/icons/conditions/poisoned1.png",
+"systems/wfrp4e/icons/conditions/poisoned2.png",
+"systems/wfrp4e/icons/conditions/poisoned3.png",
+"systems/wfrp4e/icons/conditions/poisoned4.png",
 "systems/wfrp4e/icons/conditions/ablaze1.png",
 "systems/wfrp4e/icons/conditions/ablaze2.png",
 "systems/wfrp4e/icons/conditions/ablaze3.png",
 "systems/wfrp4e/icons/conditions/ablaze4.png",
-//"systems/wfrp4e/icons/conditions/ablaze5.png",
 "systems/wfrp4e/icons/conditions/deafened1.png",
 "systems/wfrp4e/icons/conditions/deafened2.png",
 "systems/wfrp4e/icons/conditions/deafened3.png",
 "systems/wfrp4e/icons/conditions/deafened4.png",
-//"systems/wfrp4e/icons/conditions/deafened5.png",
 "systems/wfrp4e/icons/conditions/stunned1.png",
 "systems/wfrp4e/icons/conditions/stunned2.png",
 "systems/wfrp4e/icons/conditions/stunned3.png",
 "systems/wfrp4e/icons/conditions/stunned4.png",
-//"systems/wfrp4e/icons/conditions/stunned5.png",
 "systems/wfrp4e/icons/conditions/entangled1.png",
 "systems/wfrp4e/icons/conditions/entangled2.png",
 "systems/wfrp4e/icons/conditions/entangled3.png",
 "systems/wfrp4e/icons/conditions/entangled4.png",
-//"systems/wfrp4e/icons/conditions/entangled5.png",
 "systems/wfrp4e/icons/conditions/fatigued1.png",
 "systems/wfrp4e/icons/conditions/fatigued2.png",
 "systems/wfrp4e/icons/conditions/fatigued3.png",
 "systems/wfrp4e/icons/conditions/fatigued4.png",
-//"systems/wfrp4e/icons/conditions/fatigued5.png",
 "systems/wfrp4e/icons/conditions/blinded1.png",
 "systems/wfrp4e/icons/conditions/blinded2.png",
 "systems/wfrp4e/icons/conditions/blinded3.png",
 "systems/wfrp4e/icons/conditions/blinded4.png",
-//"systems/wfrp4e/icons/conditions/blinded5.png"
 "systems/wfrp4e/icons/conditions/broken1.png",
 "systems/wfrp4e/icons/conditions/broken2.png",
 "systems/wfrp4e/icons/conditions/broken3.png",
 "systems/wfrp4e/icons/conditions/broken4.png",
-//"systems/wfrp4e/icons/conditions/broken5.png"
 "systems/wfrp4e/icons/conditions/grappling.png",
 "systems/wfrp4e/icons/conditions/prone.png",
 "systems/wfrp4e/icons/conditions/fear.png",
@@ -763,6 +754,37 @@ CONFIG.encumbrancePenalties = {
 "maxEncumbered" : "You're not moving.",
 }
 
+CONFIG.conditions = {
+  "ablaze" : "Ablaze",
+  "bleeding" : "Bleeding",
+  "blinded" : "Blinded",
+  "broken" : "Broken",
+  "deafened" : "Deafened",
+  "entangled" : "Entangled",
+  "fatigued" : "Fatigued",
+  "poisoned" : "Poisoned",
+  "prone" : "Prone",
+  "stunned" : "Stunned",
+  "surprised" : "Surprised",
+  "unconscious" : "Unconscious"
+}
+
+
+CONFIG.conditionDescriptions = {
+  "ablaze" : "At the end of every Round, you suﬀer 1d10 Wounds, modified by Toughness Bonus and Armor Points on the least protected Hit Location, with a minimum of 1 Wound suﬀered. Each extra Ablaze Condition you have adds +1 to the Damage suﬀered; so, three Ablaze Conditions result in 1d10+2 Damage suﬀered.<br><br>One Ablaze Condition can be removed with a successful Athletics Test, with each SL removing an extra Ablaze Condition. The Difficulty for this Test is modified by circumstances: it’s much easier to put out a fire rolling around on sand than it is in the middle of an oil-soaked kitchen",
+  "bleeding" : "You are bleeding badly. Lose 1 Wound at the end of every Round, ignoring all modifiers. Further, suﬀer a penalty of –10 to any Tests to resist Festering Wounds, Minor Infection, or Blood Rot (see page 186). If you reach 0 Wounds, you no longer lose Wounds and instead fall immediately unconscious (gain the Unconscious Condition). At the end of Round, you have a 10% chance of dying per Bleeding Condition you have; so, if you had 3 Bleeding Conditions, you would die from blood loss on a roll of 0–30. If a double is scored on this roll, your wound clots a little: lose 1 Bleeding.You cannot regain consciousness until all Bleeding Conditions are removed (see Injury)<br><br>A Bleeding Condition can be removed with: a successful Heal Test, with each SL removing an extra Bleeding Condition; or with any spell or prayer that heals Wounds, with one Condition removed per Wound healed.<br><br>Once all Bleeding Conditions are removed, gain one Fatigued Condition.",
+  "blinded" : "Perhaps because of a ﬂash of light, or because of liquid sprayed in your face, you are unable to see properly. You suﬀer a –10 penalty to all Tests involving sight, and any opponent attacking you in close combat gains a bonus of +10 to hit you.<br><br>One Blinded Condition is removed at the end of every other Round",
+  "broken" : "You are terrified, defeated, panicked, or otherwise convinced you are going to die. On your turn, your Move and Action must be used to run away as fast as possible until you are in a good hiding place beyond the sight of any enemy; then you can use your Action on a Skill that allows you to hide more eﬀectively. You also receive a penalty of –10 to all Tests not involving running and hiding.<br><br>You cannot Test to rally from being Broken if you are Engaged with an enemy. If you are unengaged, at the end of each Round, you may attempt a Cool Test to remove a Broken Condition, with each SL removing an extra Broken Condition, and the Difficulty determined by the circumstances you currently find yourself: it is much easier to rally when hiding behind a barrel down an alleyway far from danger (Average +20) than it is when three steps from a slavering Daemon screaming for your blood (Very Hard –30).<br><br>If you spend a full Round in hiding out of line-of-sight of any enemy, you remove 1 Broken Condition.<br><br>Once all Broken Conditions are removed, gain 1 Fatigued Condition.",
+  "deafened" : "Whether caused by a loud noise or a blow to the head, you are unable to hear properly. You suﬀer a –10 penalty to all Tests involving hearing, and any opponent attacking you in close combat from the ﬂank or rear gains an extra bonus of +10 to hit you (this bonus does not increase with multiple Deafened Conditions). One Deafened condition is removed at the end of every other Round and is often replaced with tinnitus.",
+  "entangled" : "You are wrapped in something restricting your movement; it could be ropes, spider’s webbing, or an opponent’s bulging biceps. On your turn, you may not Move, and all your actions involving movement of any kind suﬀer a penalty of –10 (including Grappling). For your Action, you can remove an Entangled Condition if you win an Opposed Strength Test against the source of the entanglement, with each SL removing an extra Entangled Condition.",
+  "fatigued" : "You are exhausted or stressed, and certainly in need of rest. You suﬀer a –10 penalty to all Tests. Removing a Fatigued Condition normally requires rest, a spell, or a divine eﬀect, though in some instances, such as when a Fatigued Condition is caused by carrying too much (see Encumbrance), simply changing your circumstances (carrying fewer trappings, for example) can remove a Condition.",
+  "poisoned" : "You have been poisoned or injected with venom. All Tests to remove poison have their difficulty determined by the poison or venom suﬀered. At the end of each Round, lose 1 Wound, ignoring all modifiers. Also, suﬀer a penalty of –10 to all Tests.<br><br>If you reach 0 Wounds when Poisoned, you cannot heal any Wounds until all Poisoned conditions are removed. If you fall Unconscious when Poisoned, make an Endurance Test after a number of Rounds equal to your Toughness Bonus or die horribly. See Injury.<br><br>At the end of each Round, you may attempt an Endurance Test. If successful, remove a Poisoned Condition, with each SL removing an extra Poisoned Condition. A Heal Test provides the same results. Once all Poisoned Conditions are removed, gain 1 Fatigued Condition.",
+  "prone" : "You have fallen to the ground, possibly because you have run out of Wounds, you’ve tripped, or because you’ve been hit by something rather large. On your turn, your Move can only be used to stand up or crawl at half your Movement in yards (note: if you have 0 Wounds remaining, you can only crawl). You suﬀer a –20 penalty to all Tests involving movement (Grappling) of any kind, and any opponent trying to strike you in Melee Combat gains +20 to hit you. Unlike most other conditions, Prone does not stack — you are either Prone, or you are not. You lose the Prone Condition when you stand up.",
+  "stunned" : "You have been struck about the head or otherwise disorientated or confused; your ears are likely ringing, and little makes sense.<br><br>You are incapable of taking an Action on your turn but are capable of half your normal movement. You can defend yourself in opposed Tests — but not with Language (Magick). You also suﬀer a –10 penalty to all Tests. If you have any Stunned Conditions, any opponent trying to strike you in Melee Combat gains +1 Advantage before rolling the attack.<br><br>At the end of each Round, you may attempt a Challenging (+0) Endurance Test. If successful, remove a Stunned Condition, with each SL removing an extra Stunned Condition.<br><br>Once all Stunned Conditions are removed, gain 1 Fatigued Condition if you don’t already have one.",
+  "surprised" : "You have been caught unawares and you aren’t at all ready for what’s about to hit you. You can take no Action or Move on your turn and cannot defend yourself in opposed Tests. Any opponent trying to strike you in Melee Combat gains a bonus of +20 to hit.<br><br>The Surprised Condition does not stack, so you do not collect multiple Surprised Conditions, even should you be technically surprised multiple times in a Round.<br><br>At the end of each Round, or after the first attempt to attack you, you lose the Surprised Condition.",
+  "unconscious" : "You are knocked out, asleep, or otherwise insensible. You can do nothing on your turn and are completely unaware of your surroundings. Any Melee attack targeting you automatically hits on the location of the attacker’s choice with the maximum possible SL it could score, and also inﬂicts a Critical Wound; or, if the GM prefers, any close combat hit simply kills you. Any ranged combat hit automatically does the same if the shooter is at Point Blank range.<br><br>The Unconscious Condition does not stack — you are either Unconscious, or you are not — so you do not collect multiple Unconscious Conditions.<br><br>Recovering from unconsciousness requires diﬀerent circumstances depending upon why you fell unconscious. Refer to Injury for more on this. If you spend a Resolve point to remove an Unconscious condition, but have not resolved the cause of the incapacitation, you gain another Unconscious Condition at the end of the round. When you lose the Unconscious Condition, you gain the Prone and Fatigued Conditions"
+}
+
 class DiceWFRP {
   /**
    * Prepare Test is called by the setup functions for the actors (see setupCharacteristic() for info on their usage)
@@ -1240,6 +1262,21 @@ class DiceWFRP {
   //   rollData : undefined
   // }
   static chatListeners(html) {
+
+
+    html.on("click", ".condition-chat", ev => {
+      let cond = ev.target.text;
+      cond = cond.split(" ")[0]
+      let condkey = WFRP_Utility.findKey(cond, CONFIG.conditions);
+      let condDescr = CONFIG.conditionDescriptions[condkey];
+      let messageContent = `<b>${cond}</b><br>${condDescr}`
+
+      let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
+      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+      ChatMessage.create(chatOptions);
+    })
+
 
     html.on('mousedown', '.table-click', ev => {
       ev.preventDefault();
@@ -6024,4 +6061,65 @@ class WFRP_Tables {
   }
 }
 
+Hooks.on("updateCombat", (combat) => {
+  
+  let turn = combat.turns.find(t => t.tokenId == combat.current.tokenId)
+  let effects = turn.token.effects;
 
+  conditions = {}
+  effects = effects.map(function(effect) {
+
+    let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+
+    if (isNumeric)
+    {
+      effect = effect.substring(effect.lastIndexOf("/")+1)
+      effectNum = effect.substring(effect.length-5, effect.length-4)
+      effect = effect.substring(0, effect.length-5);
+      if (conditions[effect.toString()])
+        conditions[effect.toString()] += parseInt(effectNum);
+      else
+        conditions[effect.toString()] = parseInt(effectNum);
+    }
+
+    else 
+    {
+      effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
+      effect = effect.substring(0, effect.length-4);
+      conditions[effect] = true;
+
+    }
+ })
+
+ let displayConditions = [];
+ for (c in conditions)
+ {
+   let displayValue = (CONFIG.conditions[c])
+   if (typeof conditions[c] !== "boolean")
+    displayValue += " " + conditions[c]
+  displayConditions.push(displayValue); 
+ }
+
+  console.log(displayConditions);
+
+  let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
+  if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+  if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+  chatOptions["template"] = "public/systems/wfrp4e/templates/chat/turn-start.html"
+
+
+  let chatData = {
+    name : turn.name,
+    conditions : displayConditions,
+  }
+
+
+ return renderTemplate(chatOptions.template, chatData).then(html => {
+    chatOptions["user"] = game.user._id
+
+    // Emit the HTML as a chat message
+    chatOptions["content"] = html;
+    ChatMessage.create(chatOptions, false);
+    return html;
+  });
+})
