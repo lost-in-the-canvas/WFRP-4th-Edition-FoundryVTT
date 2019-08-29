@@ -10,15 +10,17 @@ Additionally, it comes with a starter world which provides many Items already or
 
 ## Installation
 
-Place `wfrp4e` in your `public/systems` folder
+Place the unzipped folder in your `public/systems` folder
 
-(Optional, highly recommended) Place `wfrp4e-starter-world` in `public/worlds`
+Make sure the folder is named `wfrp4e`
+
+Launch FVTT and create your new world, selecting the Warhammer system.
 
 ## Current State
 
 This beta release marks the system being entirely playable, with character, NPC, and creature sheets available. Enjoy! Feedback is very much welcome.
 
-If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E) 
+If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E). Additionally, check out the beta walkthrough video [here](https://www.youtube.com/watch?v=XMEJt5OB4Bc&t=821s) which details much of the system's functionality.  
 
 If you have any questions, feel free to message us on Discord, Moo Man#7518 or CatoThe1stElder#9725
 
