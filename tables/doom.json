@@ -1,0 +1,307 @@
+{
+  "name" : "Dooming",
+  "die" : "1d100",
+  "rows": [
+    null,
+    {
+      "description": "Thy end shalt be a sticky one. \r"
+    },
+    {
+      "description": "Briny waters are poison to thy tongue. \r"
+    },
+    {
+      "description": "When abandoned and alone, Morr shalt befriend thee. \r"
+    },
+    {
+      "description": "Beasts of the field have eyes for thee. \r"
+    },
+    {
+      "description": "Workings of the Witchling Star are thy doom. \r"
+    },
+    {
+      "description": "A stalled blade bringeth a sharp end. \r"
+    },
+    {
+      "description": "The written word shall spell thy doom. \r"
+    },
+    {
+      "description": "Thy body shalt break after thy spirit is crushed. \r"
+    },
+    {
+      "description": "Be not curious, only in ignorance art thou safe. \r"
+    },
+    {
+      "description": "Lack of breath fills thy last moments. \r"
+    },
+    {
+      "description": "Tie not the ribbon, nor the feather wear; yea, the peacock is thine enemy. \r"
+    },
+    {
+      "description": "Be not like Gnuthus, for thy master counts thy days. \r"
+    },
+    {
+      "description": "Three is thy number! \r"
+    },
+    {
+      "description": "A beast of brass bellows for thee! \r"
+    },
+    {
+      "description": "Ulric�s cold hand shall lead thee to Morr. \r"
+    },
+    {
+      "description": "Watch for the cloven hoof, it is thine enemy. \r"
+    },
+    {
+      "description": "Eat neither the chitterlings nor the meat with tubes. \r"
+    },
+    {
+      "description": "As thee began, so shalt thou end. \r"
+    },
+    {
+      "description": "As the sun doth rise, thou shalt fall. \r"
+    },
+    {
+      "description": "Thy doom already knows thee, though knows it not. \r"
+    },
+    {
+      "description": "A stranger shalt bring thee more than a gift. \r"
+    },
+    {
+      "description": "Beware the young, the child, yea, even the babe. \r"
+    },
+    {
+      "description": "Take heed of Mammit and Mummit, for both seek to lay thee low. \r"
+    },
+    {
+      "description": "Beware the purse, the sack, the velvet bag. \r"
+    },
+    {
+      "description": "The raven answers to Verena�s call, yea, but Her scales are weighted. \r"
+    },
+    {
+      "description": "The tiniest of Taal�s children shalt feast upon thy gut. \r"
+    },
+    {
+      "description": "The limner�s line shalt be false. \r"
+    },
+    {
+      "description": "The holy day shalt be thy last day. \r"
+    },
+    {
+      "description": "Thou shalt die in bed, but not thine own! \r"
+    },
+    {
+      "description": "Thou shalt feed the barren soil with thy blood. \r"
+    },
+    {
+      "description": "When thy need is greatest, Shallya shalt turn Her back to thee. \r"
+    },
+    {
+      "description": "The scythe shall reap thy flesh. \r"
+    },
+    {
+      "description": "Thy soul, consumed with anger, shall be blinded to the unseen enemy. Roll The Prophet Speaketh \r"
+    },
+    {
+      "description": "A friend in need brings thy death with speed. \r"
+    },
+    {
+      "description": "Thy last breath is drawn by Morrsleib�s light. \r"
+    },
+    {
+      "description": "Rats wearing the Horns of Taal shalt bite at thy heels. \r"
+    },
+    {
+      "description": "The sword shalt bring no justice, only suffering. \r"
+    },
+    {
+      "description": "The twin-tailed comet doth soar as thou dost fall. \r"
+    },
+    {
+      "description": "Water of all kinds is thy nemesis. \r"
+    },
+    {
+      "description": "Thy end lieth hidden in the gloaming. \r"
+    },
+    {
+      "description": "High places promise a low end. \r"
+    },
+    {
+      "description": "Thy last exclamation is love. \r"
+    },
+    {
+      "description": "Beware the man that is not a man! \r"
+    },
+    {
+      "description": "Beware the Blind Maiden, for Her scales shalt weigh thy soul. \r"
+    },
+    {
+      "description": "Thy broken cart shalt herald thy end. \r"
+    },
+    {
+      "description": "The bun, the pastry, and the pie, yea, they art Morr�s dishes! \r"
+    },
+    {
+      "description": "When the bell doth toll, it doth toll for thee. \r"
+    },
+    {
+      "description": "The laurel wreath hides a poisoned thorn. \r"
+    },
+    {
+      "description": "Linger not upon the privvie, nor the long drop neither. \r"
+    },
+    {
+      "description": "Cacklefax grips tight to coins of thy doom. \r"
+    },
+    {
+      "description": "The hourglass shatters before thy last grain falls. \r"
+    },
+    {
+      "description": "From the darkness cometh the raven. \r"
+    },
+    {
+      "description": "High-born blood shalt spill thine own. \r"
+    },
+    {
+      "description": "From above comes thy death. \r"
+    },
+    {
+      "description": "Plague and dark disease shalt bring thee to thine knees. \r"
+    },
+    {
+      "description": "Beware skin of green, it shalt afflict thee.\r"
+    },
+    {
+      "description": "Beware the verdant depths, within doth lie disaster. \r"
+    },
+    {
+      "description": "Be like the dancer, for rude words bring Morr to thy side. \r"
+    },
+    {
+      "description": "The darkest rot shall eat thee from within. \r"
+    },
+    {
+      "description": "The Gods watch over thy end. \r"
+    },
+    {
+      "description": "Heed not the smith, in his artifice lies thy doom. \r"
+    },
+    {
+      "description": "Wear not Grugni�s baldric, for it shall carry thy death. \r"
+    },
+    {
+      "description": "Ready your coins on the thirteenth chime. \r"
+    },
+    {
+      "description": "The drummer beats out thy end. \r"
+    },
+    {
+      "description": "Katya�s eye and vanity shalt speed thee to death. \r"
+    },
+    {
+      "description": "Thy end burns with flames unseen. \r"
+    },
+    {
+      "description": "An ill reputation shalt an ill man make. \r"
+    },
+    {
+      "description": "Morr finds thee naked as the day of thy birth. Roll The Prophet Speaketh \r"
+    },
+    {
+      "description": "One bullock is safe; two bullocks bringeth the raven. \r"
+    },
+    {
+      "description": "Thirst not for blood, for it thirsts for thee. \r"
+    },
+    {
+      "description": "In thy surest moment, thou shalt fail. \r"
+    },
+    {
+      "description": "Beware the beast in the wood, it is Morr�s Messenger. \r"
+    },
+    {
+      "description": "Thou shalt sup from the cup of corruption. \r"
+    },
+    {
+      "description": "Fear the workings of the bonesaw, they are the source of thy death. \r"
+    },
+    {
+      "description": "Thy generosity bringeth tuppence and a sword in return. \r"
+    },
+    {
+      "description": "The withering eye is thy reward, and thy end. \r"
+    },
+    {
+      "description": "Torture and pain echo in thy end. \r"
+    },
+    {
+      "description": "Follow not the steps of Dragomas. \r"
+    },
+    {
+      "description": "Thy doom is wrought from violence. \r"
+    },
+    {
+      "description": "Those born of Rhya�s cauldron shalt build thee a ravenstone. \r"
+    },
+    {
+      "description": "Absence makes thy heart grow weaker. \r"
+    },
+    {
+      "description": "The Myrmidian spring is thy poison. \r"
+    },
+    {
+      "description": "Beware the crow, honour the raven.\r"
+    },
+    {
+      "description": "A greased goat is safer than keeping secrets. \r"
+    },
+    {
+      "description": "Manann�s folk shalt love thee not. \r"
+    },
+    {
+      "description": "When thou art thrice haunted, Morr brings peace. \r"
+    },
+    {
+      "description": "Walk with Vobist, for certainty shall take thy breath. \r"
+    },
+    {
+      "description": "Beware the Lord of Murder�s barb�it awaits to strike at thee from the darkness. \r"
+    },
+    {
+      "description": "The flashing blade shalt carve thy end. \r"
+    },
+    {
+      "description": "Fearsome engines belch forth fires of thy destruction! \r"
+    },
+    {
+      "description": "Thy end is not the end! \r"
+    },
+    {
+      "description": "As the piper plays his tune, thy heart shall break. \r"
+    },
+    {
+      "description": "Green shalt undo thee. \r"
+    },
+    {
+      "description": "As dark news comes knocking, Morr shalt surely follow. \r"
+    },
+    {
+      "description": "Thou shalt stand like Wymund until Shallya courts thy enemies. \r"
+    },
+    {
+      "description": "Ranald shalt abandon thee. \r"
+    },
+    {
+      "description": "Think not beyond thy station, for change is the herald of Morr. \r"
+    },
+    {
+      "description": "Morr sends a maiden. \r"
+    },
+    {
+      "description": "Without the big cross, thou shalt make the wrong decision. \r"
+    },
+    {
+      "description": " Just before he uttered your doom, the doomsayer died, his face frozen in a mask of horror."
+    }
+  ]
+}
