@@ -21,6 +21,7 @@
 
 
 
+
 /******************************************************************/
 /*=============== I. LOCAL FONTS =================================*/
 /******************************************************************/
@@ -3637,6 +3638,11 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header:last-of-type {
         border-right: none;
       } 
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block .advancement-indicator {
+        position: fixed;
+        margin-top: -3px;
+        margin-left: 3px;
+      }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type.table-data {
       font-family: var(--actor-label-font-family);
       font-size: var(--actor-label-font-size);
@@ -4219,7 +4225,7 @@
       }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row .experience.row-section #value > input {
           width: inherit;
-          height: inherit;
+          height: 22px;
           margin: 0px 0px 0px 0px;
           padding: 5px 0px 0px 0px;
           text-align: center;
@@ -9356,162 +9362,77 @@
   }
 
   /* FIRST ROW */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics {
     border-top: none;
-    margin: 6px 0px 0px 0px;
+    margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    height: 109px;
-    width: 506px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
-    height: 25px;
-    width: 400px;
-    margin: 0px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table {
-    margin: 0px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }      
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    background: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row-bottom > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    border: none;
-  }          
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header .advancement-indicator {
-    text-align: center;
-    border: none;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 10px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: none;
-    vertical-align: top;
-    position: relative;
-    top: -6px;
-    left: -3px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
-    text-align: center;
-    width: 35px;
-    height: 15px;
-    padding-top: 7px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    border: none;
-    background: none;
-  }        
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .row-type{
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    /* font-family: CaslonAntique; */
-    /* font-weight: bold; */
-    width: 30px;
-    height: 21px;
-    padding: 3px 0px 0px 0px;
-    margin: 0px;
-    text-align: center;
-    /* font-size: 14px; */
-    box-shadow: 0 0 10px #00000052 inset;
-    padding: 6px 0px 0px 0px;
-    border: 1px solid #736953a6;
-  }       
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-data {
-    text-align: center;
-    width: 30px;
-    height: 28px;
-    border: 1px solid #736953a6;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    /* margin-top: 54px; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row-bottom .table-data {
-    padding: 6px 0px 0px 0px;
-    color: #672323;
-    border: 1px solid #736953a6;
-    text-shadow: 1px 0px 1px #6e6e716e;
-  }   
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-data {
-    height: 20px;
-  }
-
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header > * {
-    text-align: center;
-    border: 1px solid #736953a6;
-    border: 1px solid #736953a6;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 20px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: 0 0 10px #00000052 inset;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-header > a {
-    border: none;
-    box-shadow: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table {
-    margin-top: 1px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics {
-    margin-top: 1px;
     height: 49px;
-    width: 400px;
-    margin: 0px;
+    width: 403px;
+    max-width: 400px
   }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input {
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 49px;
+    width: 403px;
+    max-width: 506px;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-gap: 0px;
+    background: none;
+    border: 1px solid #736953a6;
+  }   
+
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
+    font-family: var(--actor-label-font-family);
+    font-size: var(--actor-label-font-size);
+    font-weight: var(--actor-label-font-weight);
+    color: var(--actor-label-color);
+    box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    width: 37px;
-    height: 21px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    margin: 0px;
-    padding: 6px 0px 0px 0px;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    /* text-shadow: 1px 0px 1px #6e6e716e; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input:focus,
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data > input:hover {
-    box-shadow: none;
-    border: 1px dotted black;
-    border-radius: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
-      width: 38px;
+    width: 100%;
+    border-bottom: none;  
+    border-right: 1px solid #736953a6;
+  }  
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
+    border-right: none;
+    /* background: red; */
+  }  
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
+      padding-top: 0px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
+      position: fixed;
+      margin-top: -3px;
+      margin-left: 3px;
     }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
-      width: 38px;
-    }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data {
+    border-top: 1px solid #736953a6;
+    border-right: 1px solid #736953a6;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data:last-of-type {
+    border-right: none;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
+    min-width: unset;
+    width: 100%;
+    min-height: 26px;
+    max-height: 26px;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    text-align: center;
+    padding-top: 7px;
+  }
+  .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data.ch-value {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    padding-top: 8px;
+    text-align: center;
+  }
 
   /* SECOND ROW */
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .main-row {
@@ -10994,165 +10915,77 @@
   }
 
   /* FIRST ROW */
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics {
     border-top: none;
-    margin: 6px 0px 0px 0px;
+    margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    height: 109px;
-    width: 506px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .advancement-indicator {
-    cursor: pointer;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
-    height: 25px;
-    width: 400px;
-    margin: 0px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table {
-    margin: 0px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }      
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    background: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row-bottom > * {
-    margin: 5px;
-    border: 1px solid #736953a6;
-    border: none;
-  }          
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header .advancement-indicator {
-    text-align: center;
-    border: none;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 10px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: none;
-    vertical-align: top;
-    position: relative;
-    top: -6px;
-    left: -3px;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input {
-    text-align: center;
-    width: 35px;
-    height: 15px;
-    padding-top: 7px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    border: none;
-    background: none;
-  }        
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .row-type{
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    /* font-family: CaslonAntique; */
-    /* font-weight: bold; */
-    width: 30px;
-    height: 21px;
-    padding: 3px 0px 0px 0px;
-    margin: 0px;
-    text-align: center;
-    /* font-size: 14px; */
-    box-shadow: 0 0 10px #00000052 inset;
-    padding: 6px 0px 0px 0px;
-    border: 1px solid #736953a6;
-  }       
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-data {
-    text-align: center;
-    width: 30px;
-    height: 28px;
-    border: 1px solid #736953a6;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    /* margin-top: 54px; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row-bottom .table-data {
-    padding: 6px 0px 0px 0px;
-    color: #672323;
-    border: 1px solid #736953a6;
-    text-shadow: 1px 0px 1px #6e6e716e;
-  }   
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-data {
-    height: 20px;
-  }
-
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header > * {
-    text-align: center;
-    border: 1px solid #736953a6;
-    border: 1px solid #736953a6;
-    font-family: CaslonAntique;
-    font-size: 16px;
-    font-weight: 700;
-    color: #464331c4;
-    margin: 0px;
-    height: 20px;
-    padding: 3px 0px 0px 0px;
-    box-shadow: 0 0 10px #00000052 inset;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-header > a {
-    border: none;
-    box-shadow: none;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table {
-    margin-top: 1px;
-    border: none;
-    background: none;
-    height: inherit;
-    width: inherit;
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics {
-    margin-top: 1px;
     height: 49px;
-    width: 400px;
-    margin: 0px;
+    width: 403px;
+    max-width: 400px
   }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input {
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table {
+    margin: 1px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    height: 49px;
+    width: 403px;
+    max-width: 506px;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-gap: 0px;
+    background: none;
+    border: 1px solid #736953a6;
+  }   
+
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header {
+    font-family: var(--actor-label-font-family);
+    font-size: var(--actor-label-font-size);
+    font-weight: var(--actor-label-font-weight);
+    color: var(--actor-label-color);
+    box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    width: 37px;
-    height: 21px;
-    vertical-align: middle;
-    font-family: CaslonPro;
-    font-size: 14px;
-    font-weight: 500;
-    color: black;
-    border-radius: 0px;
-    margin: 0px;
-    padding: 6px 0px 0px 0px;
-    position: relative;
-    top: 0px;
-    left: 0px;
-    /* text-shadow: 1px 0px 1px #6e6e716e; */
-  }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input:focus,
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data > input:hover {
-    box-shadow: none;
-    border: 1px dotted black;
-    border-radius: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="wp"] {
-      width: 38px;
+    width: 100%;
+    border-bottom: none;  
+    border-right: 1px solid #736953a6;
+  }  
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
+    border-right: none;
+    /* background: red; */
+  }  
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block {
+      padding-top: 0px;
+    }  
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
+      position: fixed;
+      margin-top: -3px;
+      margin-left: 3px;
     }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .characteristics-table .table-row .table-data [data-char="fel"] {
-      width: 38px;
-    }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data {
+    border-top: 1px solid #736953a6;
+    border-right: 1px solid #736953a6;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data:last-of-type {
+    border-right: none;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data input {
+    min-width: unset;
+    width: 100%;
+    min-height: 26px;
+    max-height: 26px;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    text-align: center;
+    padding-top: 7px;
+  }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data.ch-value {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: var(--actor-input-color);
+    padding-top: 8px;
+    text-align: center;
+  }
 
   
   /* SECOND ROW */
@@ -12560,145 +12393,318 @@ border-image-outset: 0px !important;
 /*************************************************************/
 /*=============== XII. GAME SETTINGS ========================*/
 /*************************************************************/
-#client-settings {
-border: 1px solid blue;
-border-width: 10px;
-border-image: url(../ui/game-settings-border.png) 5 repeat;
-border-image-slice: 162 81 67 80;
-border-image-width: 162px 81px 67px 80px;
-border-image-outset: 0px;
-background: none;
-height: 802px !important;
-width: 800px !important;
-box-shadow: none;
-}
-#client-settings .window-header {
-border: none;
-min-height: 152px;
-background: none;
-}
-#client-settings .window-header h4 {
-  display: none;
-}
-#client-settings .window-header .close {
-  color: #00e5ff00;
-  text-align: center;
-  background: url(../ui/buttons/button-close.png);
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 97px;
-  right: 24px;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
-  /* background: var(--debug-background-color-blue); */
-}
-#client-settings .window-content {
-margin: 0px 70px 57px 70px;
-padding: 0px;
-border: none;
-background: url(../ui/game-settings-background.png);
-background-size: 199%;
-background-position-x: center;
-}
-#client-settings .window-content form {
-padding: 6px;
-margin: 0px 8px 0px 0px;
-border: none;
-background: none;
-box-shadow: inset 0px 0px 4px black;
-overflow-y: scroll;
-}
-#client-settings .window-content form .form-group {
-  flex: 2;
-  line-height: 24px;
-  border: 1px solid #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  background: #000000e8;
-  border-radius: 0px;
-  opacity: 0.9;
-  min-width: 93px;
-  color: #efefef;
-  padding: 6px;
-  margin: 8px 0px;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 16px;
-}
-#client-settings .window-content form .form-group > label {
-  flex: 2;
-  line-height: normal;
-  padding: 5px 0px 0px 0px;
-  font-size: 16px;
-  color: #e2e2e2;
-  /* text-shadow: 1px 1px 1px #ffc80069; */
-}
-#client-settings .window-content form h2 {
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  color: #ccc6c6;
-  font-family: CaslonAntique;
-  font-size: 24px;
-  font-weight: 500;
-  text-shadow: 1px 1px 5px #000000;
-  text-align: center;
-  border: 3px double #736953a6;
-  background: #310a0a91;
-  box-shadow: inset 0px 0px 5px black;
-}
-#client-settings .window-content form .form-group select {
-  height: 25px;
-  max-width: 340px;
-  background: #352516;
-  color: #e2e2e2;
-  border: 1px solid #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  border-radius: 4px;
-  padding: 3px 0px 0px 0px;
-  text-overflow: ellipsis;
-  font-family: CaslonPro;
-  font-weight: 500;
-  font-size: 14px;
-}
-#client-settings .window-content form .hint {
-  flex: 0 0 100%;
-  font-size: 14px;
-  color: #a09c88;
-  margin: 6px 0 0;
-  line-height: initial;
-}
-#client-settings .window-content button {
-  flex: 2;
-  margin: 0px 0px 0px 0px;
-  padding: 3px 0px 3px 0px;
-  line-height: normal;
-  border: 3px double #736953a6;
-  box-shadow: 0px 0px 10px inset black;
-  border-radius: 0px;
-  opacity: 0.9;
-  text-align: center;
-  min-width: 93px;
-  color: #e2e2e2;
-  font-family: CaslonAntique;
-  font-weight: 500;
-  font-size: 19px;
-  text-shadow: 1px 1px 6px black;
-  border-image: url(../ui/footer-button.png) 10 repeat;
-  border-image-width: 4px;
-  border-image-outset: 0px;
-  background: url(../ui/sidebar_button-background_red.png) repeat;
-  background-origin: padding-box;
-}
-#client-settings .window-content .far.fa-save {
-  display: none;
-}
 
-#client-settings input[type="checkbox"]:checked + label {
-  background: none;
-  border: 1px solid white;
-}
+  /* ================== 1. MANAGE MODULES ===================== */
+    #module-management {
+      max-width: 600px;
+      max-height: 65vh;
+    }
+    #module-management .window-content {
+      overflow: auto;
+      min-height: 437px !important;
+      max-height: 437px;
+      background: url(../ui/frames/window-app-background-bookshelf.png);
+    }
+    #module-management .window-content .modules-list {
+      list-style: none;
+      margin: 0 0 0.5em;
+      padding: 0;
+      border-top: 3px double #b7b7b747;
+      border-bottom: 3px double #b7b7b747;
+      overflow-y: auto;
+      height: calc(100% - 76px);
+    }
+      #module-management .window-content .modules-list .module {
+        padding: 6px;
+        margin: 3px 0px 0px 0px;
+        border: 3px groove #564d3a;
+        box-shadow: 0 0 6px #000 inset;
+        line-height: normal;
+        background: #0b1115b5;
+      }
+      #module-management .window-content .modules-list .module h1,
+      #module-management .window-content .modules-list .module h2,
+      #module-management .window-content .modules-list .module h3,
+      #module-management .window-content .modules-list .module h4,
+      #module-management .window-content .modules-list .module p {
+        border: none;
+        background: none;
+      }
+      #module-management .window-content .modules-list .module header {
+        border: none;
+      }
+        #module-management .window-content .modules-list .module header input[type="checkbox"] {
+          padding: 1px 3px;
+          margin: 0;
+          font-family: var(--actor-input-font-family);
+          font-size: var(--actor-input-font-size);
+          font-weight: var(--actor-input-font-weight);
+          color: #cccccc;
+          border: 1px solid #736953a6;
+          border-left: none;
+          box-shadow: 0px 0px 8px inset black;
+          background: #352516;
+          position: relative;
+          top: 2px;
+        }
+        #module-management .window-content .modules-list .module header .title {
+          flex: 2;
+          line-height: normal;
+          margin: 0;
+          padding: 4px 0px 0px 6px;
+          font-family: var(--actor-input-font-family);
+          font-size: 16px;
+          font-weight: var(--actor-input-font-weight);
+          color: #d6d6d6;
+          text-align: left;
+        }
+        #module-management .window-content .modules-list .module header .author {
+          flex: 1;
+          margin: 0px;
+          padding: 4px 0px 0px 4px;
+          font-family: var(--actor-input-font-family);
+          font-size: 16px;
+          font-weight: var(--actor-input-font-weight);
+          color: #de6262;
+          text-shadow: 0px 0px 4px black;
+          line-height: normal;
+          text-align: right;
+        }
+      #module-management .window-content .modules-list .module section {
+        margin: 3px 0px 3px 0px;
+        padding: 5px 0;
+        border-top: 1px solid #ffffff7a;
+        border-bottom: 1px solid #ffffff7a;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: #d6d6d6;
+      }
+        #module-management .window-content .modules-list .description {
+          color: white;
+          margin: 4px 0;
+          padding: 4px 4px;
+        }
+        #module-management .window-content .modules-list .module section button {
+          width: auto;
+          height: auto;
+          padding: 3px 13px;
+          margin: 0px;
+          line-height: normal;
+          border: 1px solid black;
+          border-image: url(../ui/footer-button.png) 10 repeat;
+          border-image-width: 4px;
+          border-image-outset: 0px;
+          background: url(../ui/sidebar_button-background_red.png) repeat;
+          font-family: var(--major-button-font-family);
+          font-size: 17px;
+          font-weight: var(--major-button-font-weight);
+          color: var(--major-button-color);
+        }
+        #module-management .window-content .modules-list .module section button i {
+          display: none;
+        }
+      #module-management .window-content .modules-list .module footer {
+        border: none;
+      }
+      #module-management .window-content button[name="submit"] {
+        margin: 0 3px 10px 3px !important;
+      }
+
+  /* ================== 2. CONFIGURE SETTINGS ================= */
+    #client-settings {
+      border: 1px solid blue;
+      border-width: 10px;
+      border-image: url(../ui/game-settings-border.png) 5 repeat;
+      border-image-slice: 162 81 67 80;
+      border-image-width: 162px 81px 67px 80px;
+      border-image-outset: 0px;
+      background: none;
+      height: 802px !important;
+      width: 800px !important;
+      box-shadow: none;
+    }
+    #client-settings .window-header {
+    border: none;
+    min-height: 152px;
+    background: none;
+    }
+      #client-settings .window-header h4 {
+        display: none;
+      }
+      #client-settings .window-header .close {
+        color: #00e5ff00;
+        text-align: center;
+        background: url(../ui/buttons/button-close.png);
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 97px;
+        right: 24px;
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+        /* background: var(--debug-background-color-blue); */
+      }
+    #client-settings .window-content {
+    margin: 0px 70px 57px 70px;
+    padding: 0px;
+    border: none;
+    background: url(../ui/game-settings-background.png);
+    background-size: 199%;
+    background-position-x: center;
+    }
+      #client-settings .window-content form {
+      padding: 6px;
+      margin: 0px 8px 0px 0px;
+      border: none;
+      background: none;
+      box-shadow: inset 0px 0px 4px black;
+      overflow-y: scroll;
+      }
+      #client-settings .window-content form .form-group {
+        flex: 2;
+        line-height: 24px;
+        border: 1px solid #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        background: #000000e8;
+        border-radius: 0px;
+        opacity: 0.9;
+        min-width: 93px;
+        color: #efefef;
+        padding: 6px;
+        margin: 8px 0px;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 16px;
+      }
+      #client-settings .window-content form .form-group > label {
+        flex: 2;
+        line-height: normal;
+        padding: 5px 0px 0px 0px;
+        font-size: 16px;
+        color: #e2e2e2;
+        border: none;
+        text-align: left;
+        background: none;
+      }
+      #client-settings .window-content form h2 {
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+        color: #ccc6c6;
+        font-family: CaslonAntique;
+        font-size: 24px;
+        font-weight: 500;
+        text-shadow: 1px 1px 5px #000000;
+        text-align: center;
+        border: 3px double #736953a6;
+        background: #310a0a91;
+        box-shadow: inset 0px 0px 5px black;
+      }
+      #client-settings .window-content form .form-group select {
+        height: 25px;
+        max-width: 340px;
+        background: #352516;
+        color: #e2e2e2;
+        border: 1px solid #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 4px;
+        padding: 3px 0px 0px 0px;
+        text-overflow: ellipsis;
+        font-family: CaslonPro;
+        font-weight: 500;
+        font-size: 14px;
+      }
+      #client-settings .window-content form .hint {
+        flex: 0 0 100%;
+        font-size: 14px;
+        color: #a09c88;
+        margin: 3px 0 0;
+        padding: 0px 0px;
+        border: none;
+        background: none;
+        line-height: initial;
+      }
+      #client-settings .window-content button {
+        flex: 2;
+        margin: 0px 0px 0px 0px;
+        padding: 3px 0px 3px 0px;
+        line-height: normal;
+        border: 3px double #736953a6;
+        box-shadow: 0px 0px 10px inset black;
+        border-radius: 0px;
+        opacity: 0.9;
+        text-align: center;
+        min-width: 93px;
+        color: #e2e2e2;
+        font-family: CaslonAntique;
+        font-weight: 500;
+        font-size: 19px;
+        text-shadow: 1px 1px 6px black;
+        border-image: url(../ui/footer-button.png) 10 repeat;
+        border-image-width: 4px;
+        border-image-outset: 0px;
+        background: url(../ui/sidebar_button-background_red.png) repeat;
+        background-origin: padding-box;
+      }
+      #client-settings .window-content .far.fa-save {
+        display: none;
+      }
+
+      #client-settings input[type="checkbox"]:checked + label {
+        background: none;
+        border: 1px solid white;
+      }
+
+  /* ================== 3. GAME CONTROLS REFERENCE ============ */
+    #controls-reference {
+      max-width: 600px;
+      max-height: 65vh;
+    }
+    #controls-reference .window-content {
+      padding: 7px 2px 7px 7px;
+      max-height: none;
+      background: url(../ui/frames/window-app-background-system-background.png);
+    }
+    #controls-reference .window-content div {
+      overflow-y: scroll;
+    }
+    #controls-reference .window-content div * {
+      overflow-y: hidden;
+    }
+    #controls-reference h3 {
+      width: 100%;
+      margin: 0px;
+      padding: 0px;
+      color: #ccc6c6;
+      font-family: CaslonAntique;
+      font-size: 19px;
+      font-weight: 500;
+      text-shadow: 1px 1px 5px #000000;
+      text-align: center;
+      border: 3px double #736953a6;
+      background: #2b2b2b91;
+      box-shadow: inset 0px 0px 5px black;
+    }
+    #controls-reference .keys {
+      margin-left: 5px;
+      padding: 0px 0px 0px 0px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: white;
+    }
+      #controls-reference .keys .key {
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
+        background: #adadad !important;
+        box-shadow: 0px 0px 3px black inset !important;
+        position: relative;
+        top: 5px;    
+      }
 
 /*************************************************************/
 /*************************************************************/
@@ -14083,6 +14089,43 @@ overflow-y: scroll;
       overflow-y: auto;
     }
 
+  /* ================== 10. FILE PICKER ======================= */
+    .app.window-app.filepicker .form-group .back {
+      border: 1px solid black;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      box-shadow: none;
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+    }
+      .app.window-app.filepicker .form-group .back i {
+        color: #dadadadb;
+        transform: scaleX(-1);
+      }
+    .app.window-app.filepicker .form-group.current-dir input {
+      border-left: 1px solid #736953a6;
+    }
+    .app.window-app.filepicker .file-directory {
+      background: url(../ui/frames/parchment-texture.png) repeat;
+      border: 3px ridge #5d513e;
+      border-radius: 0px;
+      box-shadow: 0px 0px 33px black inset;
+    }
+    .app.window-app.filepicker .form-group label {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      background: #080808;
+    }
+    .app.window-app.filepicker .form-group label i {
+      display: none;
+    }
+
 /******************************************************************/
 /******************************************************************/
 
@@ -14289,13 +14332,7 @@ font-style : normal;
   } 
 
 
-  #module-management .window-content {
-    overflow: auto
-  }
 
-  #module-management .window-content  > *{
-    color: white
-  }
   .window-content .notes {
     color: #BBB;
   }
@@ -14306,17 +14343,4 @@ font-style : normal;
 
   .window-content .dialog-content > * {
     color: white;
-  }
-  
-  #controls-reference h4,
-  #controls-reference h3 {
-    color: white;
-  }
-
-  #controls-reference .window-content {
-    overflow-y: auto;
-  }
-
-  .keys .key {
-    color: #BBB;
   }
