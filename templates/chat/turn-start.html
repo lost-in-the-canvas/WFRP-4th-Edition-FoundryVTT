@@ -1,7 +1,14 @@
 <div class="wfrp4e chat-card">
-    <b>Turn: {{name}}</b><br>
+    <b>Turn:</b> {{name}}<br>
+    {{#if conditions}}
     <b>Conditions: </b>
     {{#each conditions as |condition c|}}
     <a class = "condition-chat">{{condition}}</a>,
     {{/each}}
+    <br>
+    {{/if}}
+    {{#if modifiers}}
+    <b>Modifiers: </b>
+    <span>{{modifiers}}</span>
+    {{/if}}
 </div>

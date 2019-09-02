@@ -14326,8 +14326,6 @@ font-style : normal;
     background-origin: padding-box;
   } 
 
-
-
   .window-content .notes {
     color: #BBB;
   }
@@ -14338,4 +14336,16 @@ font-style : normal;
 
   .window-content .dialog-content > * {
     color: white;
+  }
+
+  #chat-log .message .message-header img{
+    width: 30px;
+    border: none;
+  }
+
+  #chat-log .message .fumble-roll {
+    color: darkred
+  }
+  #chat-log .message .critical-roll {
+    color:green
   }

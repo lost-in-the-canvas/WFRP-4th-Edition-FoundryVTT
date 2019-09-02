@@ -1925,6 +1925,22 @@ Hooks.on("chatMessage", async (html, content, msg) => {
     if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( rollMode === "blindroll" ) msg["blind"] = true;
   }
+
+  if (msg.speaker.alias)
+  {
+
+
+
+  }
+
+});
+
+Hooks.on("renderChatMessage", async (html, content, msg) => {
+    if (!html.alias)
+      return
+
+    let cardContent = msg.children(".message-header").html()
+
 });
 
 /**
@@ -3813,6 +3829,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
       }
 
+      let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
+
+      // This is for the penalty string in flags, for combat turn message
+      if (this.actor.data.flags.modifier != penaltiesFlag )
+        this.actor.update({"flags.modifier" : penaltiesFlag})
+
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
       if (armorTrait)
       {
@@ -3829,6 +3851,10 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
         }
       }
+
+
+
+
 
       let untrainedSkills = []
       let untrainedTalents = []
@@ -6100,7 +6126,6 @@ Hooks.on("updateCombat", (combat) => {
   displayConditions.push(displayValue); 
  }
 
-  console.log(displayConditions);
 
   let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
   if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
@@ -6111,6 +6136,7 @@ Hooks.on("updateCombat", (combat) => {
   let chatData = {
     name : turn.name,
     conditions : displayConditions,
+    modifiers : canvas.tokens.get(turn.token.id).actor.data.flags.modifier
   }
 
 
