@@ -41,6 +41,8 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/surprised.png",
 ]
 
+CONFIG.Token = { defeatedIcon : "systems/wfrp4e/icons/defeated.png"};
+
  CONFIG.JournalEntry.noteIcons = {
    "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
    "Apothecary" : "systems/wfrp4e/icons/buildings/apothecary.png",
@@ -812,7 +814,7 @@ class DiceWFRP {
         testDifficulty : "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
         testModifier : dialogOptions.data.advantage * 10 || 0,
-        slBonus : 0,
+        slBonus : dialogOptions.data.slBonus || 0,
         successBonus : 0,
       });
     mergeObject(cardOptions,
@@ -1433,7 +1435,6 @@ class DiceWFRP {
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-
   // fetch ("fgdb.json").then (r => r.json()).then(async records => {
   //   var fgtable = records["tables"]["category"]["id-00001"];
   //   var newtable = {
@@ -1708,7 +1709,7 @@ Hooks.once("init", () => {
   });
 
 
-    // Register
+    // Register Extended Tests
     game.settings.register("wfrp4e", "extendedTests", {
       name: "Extended Tests and 0 SL",
       hint: "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
@@ -1718,26 +1719,25 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+      // Register Defensive auto-fill
+      game.settings.register("wfrp4e", "statusOnTurnStart", {
+        name: "Show Combatant Status on Turn Start",
+        hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
 
-    // // Register Fate/Fortune Cap
-    // game.settings.register("wfrp4e", "fortuneCap", {
-    //   name: "Cap Fortune to Fate",
-    //   hint: "Fortune can never be higher than Fate",
-    //   scope: "world",
-    //   config: true,
-    //   default: true,
-    //   type: Boolean
-    // });
-
-    // // Register Resolve/Resilience Cap
-    // game.settings.register("wfrp4e", "resolveCap", {
-    //   name: "Cap Resolve to Resilience",
-    //   hint: "Resolve can never be higher than Resilience",
-    //   scope: "world",
-    //   config: true,
-    //   default: true,
-    //   type: Boolean
-    // });
+    // Register Defensive auto-fill
+    game.settings.register("wfrp4e", "defensiveAutoFill", {
+      name: "Defensive Auto Populate",
+      hint: "Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
 
     // Register NPC Species Randomization
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
@@ -1787,6 +1787,8 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("ready", async () => {
+
+
   let activeModules = game.settings.get("core", "moduleConfiguration");
 
   for (let m in activeModules)
@@ -2362,6 +2364,7 @@ class ActorWfrp4e extends Actor {
   setupWeapon(weapon, event) {
     let skillCharList = [];
     let ammo;
+    let slBonus = 0 // Used when wielding defensive weapons
     let title = "Weapon Test - " + weapon.name;
     if (event.attackType == "melee")
     {
@@ -2370,6 +2373,14 @@ class ActorWfrp4e extends Actor {
       let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
       if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
         skillCharList.push(skill);
+      
+      if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat.data.round != 0 && game.combat.turns))
+      {
+        // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
+        let currentTurn = game.combat.turns.find(t => t.active)
+        if (currentTurn.tokenId != this.token.data.id)
+          slBonus = this.data.flags.defensive;
+      }
     }
 
 
@@ -2425,6 +2436,7 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         skillCharList : skillCharList,
+        slBonus : slBonus || 0,
         defaultSelection : skillCharList.indexOf(defaultSelection),
         advantage : this.data.data.status.advantage.value || 0
       },
@@ -3585,6 +3597,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let totalEnc = 0;
       let hasSpells = false;
       let hasPrayers = false;
+      let defensiveCounter = 0;
 
       for ( let i of actorData.items ) {
         try {
@@ -3633,9 +3646,11 @@ class ActorSheetWfrp4e extends ActorSheet {
             {
                AP.shield += parseInt(shieldProperty.split(" ")[1]);
             }
+            if (i.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
+            {
+              defensiveCounter++;
+            }
           }
-
-
         }
 
         else if (i.type === "armour")
@@ -3891,7 +3906,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
 
       let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
-
+      penaltiesFlag = penaltiesFlag.trim();
       // This is for the penalty string in flags, for combat turn message
       if (this.actor.data.flags.modifier != penaltiesFlag )
         this.actor.update({"flags.modifier" : penaltiesFlag})
@@ -3912,6 +3927,8 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
         }
       }
+
+      this.actor.data.flags.defensive = defensiveCounter;
 
 
 
@@ -5964,6 +5981,71 @@ class WFRP_Utility
       return CONFIG.xpCost[CONFIG.xpCost.length-1];
     return CONFIG.xpCost[type][index];
   }
+
+  
+  static displayStatus(tokenId)
+  {
+    let token = canvas.tokens.get(tokenId);
+    let effects = token.data.effects;
+    let conditions = {}
+    effects = effects.map(function(effect) {
+      
+      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+  
+      if (isNumeric)
+      {
+        effect = effect.substring(effect.lastIndexOf("/")+1)
+        let effectNum = effect.substring(effect.length-5, effect.length-4)
+        effect = effect.substring(0, effect.length-5);
+        if (conditions[effect.toString()])
+          conditions[effect.toString()] += parseInt(effectNum);
+        else
+          conditions[effect.toString()] = parseInt(effectNum);
+      }
+  
+      else 
+      {
+        effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
+        effect = effect.substring(0, effect.length-4);
+        conditions[effect] = true;
+  
+      }
+    
+   })
+  
+   let displayConditions = [];
+   for (let c in conditions)
+   {
+     let displayValue = (CONFIG.conditions[c])
+     if (typeof conditions[c] !== "boolean")
+      displayValue += " " + conditions[c]
+    displayConditions.push(displayValue); 
+   }
+  
+  
+    let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
+  
+  
+    let chatData = {
+      name : token.name,
+      conditions : displayConditions,
+      modifiers : token.actor.data.flags.modifier
+    }
+  
+  
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+      chatOptions["user"] = game.user._id
+  
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
+
 }
 
   /* -------------------------------------------- */
@@ -6146,68 +6228,29 @@ class WFRP_Tables {
 }
 
 Hooks.on("updateCombat", (combat) => {
-  
+  if (!game.settings.get("wfrp4e", "statusOnTurnStart"))
+    return
+  if (combat.data.round == 0 || !combat.turns || !combat.data.active)
+    return;
+
   let turn = combat.turns.find(t => t.tokenId == combat.current.tokenId)
-  let effects = turn.token.effects;
 
-  conditions = {}
-  effects = effects.map(function(effect) {
+  WFRP_Utility.displayStatus(turn.token.id);
 
-    let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
-
-    if (isNumeric)
-    {
-      effect = effect.substring(effect.lastIndexOf("/")+1)
-      effectNum = effect.substring(effect.length-5, effect.length-4)
-      effect = effect.substring(0, effect.length-5);
-      if (conditions[effect.toString()])
-        conditions[effect.toString()] += parseInt(effectNum);
-      else
-        conditions[effect.toString()] = parseInt(effectNum);
-    }
-
-    else 
-    {
-      effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
-      effect = effect.substring(0, effect.length-4);
-      conditions[effect] = true;
-
-    }
- })
-
- let displayConditions = [];
- for (c in conditions)
- {
-   let displayValue = (CONFIG.conditions[c])
-   if (typeof conditions[c] !== "boolean")
-    displayValue += " " + conditions[c]
-  displayConditions.push(displayValue); 
- }
-
-
-  let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
-  if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-  if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-  chatOptions["template"] = "public/systems/wfrp4e/templates/chat/turn-start.html"
-
-
-  let chatData = {
-    name : turn.name,
-    conditions : displayConditions,
-    modifiers : canvas.tokens.get(turn.token.id).actor.data.flags.modifier
-  }
-
-
- return renderTemplate(chatOptions.template, chatData).then(html => {
-    chatOptions["user"] = game.user._id
-
-    // Emit the HTML as a chat message
-    chatOptions["content"] = html;
-    ChatMessage.create(chatOptions, false);
-    return html;
-  });
+  
 })
 
+Hooks.on("getCombatTrackerEntryContext", (html, options) => {
+  options.push(
+  {
+    name: "Status",
+    condition: true,
+    icon: '<i class="far fa-question-circle"></i>',
+    callback: target => {
+      WFRP_Utility.displayStatus(target.attr("data-token-id"));
+    }
+  })
+})
 
 
 
