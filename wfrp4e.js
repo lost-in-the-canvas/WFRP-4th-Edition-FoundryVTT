@@ -1678,15 +1678,15 @@ Hooks.once("init", () => {
   }
 
 
-  // // Register Advantage cap
-  // game.settings.register("wfrp4e", "capAdvantageIB", {
-  //   name: "Cap Advantage at IB",
-  //   hint: "Sets the max value of Advantage as the character's Initiative Bonus",
-  //   scope: "world",
-  //   config: true,
-  //   default: false,
-  //   type: Boolean
-  // });
+   // Register Advantage cap
+   game.settings.register("wfrp4e", "capAdvantageIB", {
+     name: "Cap Advantage at IB",
+     hint: "Sets the max value of Advantage as the character's Initiative Bonus",
+     scope: "world",
+     config: true,
+     default: false,
+     type: Boolean
+   });
 
   // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
@@ -2157,6 +2157,9 @@ class ActorWfrp4e extends Actor {
     {
      actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     }
+
+    if (game.settings.get("wfrp4e", "capAdvantageIB"))
+      actorData.data.status.advantage.max = data.characteristics.i.bonus
 
     return actorData;
     }
@@ -3532,8 +3535,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     }
 
-    //if (game.settings.get("wfrp4e", "capAdvantageIB"))
-     // sheetData.actor.data.status.advantage.max = sheetData.actor.data.characteristics.i.bonus
+
 
     sheetData.isToken = this.actor.token;
     sheetData.isGM = game.user.isGM;
@@ -4921,6 +4923,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       if (pureSoulTalent)
         sheetData.actor.data.status.corruption.max += pureSoulTalent.data.advances.value;
     }
+
+
     return sheetData;
   }
 
