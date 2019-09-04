@@ -2380,9 +2380,26 @@ class ActorWfrp4e extends Actor {
       if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat.data.round != 0 && game.combat.turns))
       {
         // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
-        let currentTurn = game.combat.turns.find(t => t.active)
-        if (currentTurn.tokenId != this.token.data.id)
-          slBonus = this.data.flags.defensive;
+
+        try 
+        {
+          let currentTurn = game.combat.turns.find(t => t.active)
+
+          if (this.data.token.actorLink)
+          {
+            if (this.data.token != currentTurn.actor.data.token)
+              slBonus = this.data.flags.defensive;
+          }
+          else
+          {
+            if (currentTurn.tokenId != this.token.id)
+              slBonus = this.data.flags.defensive;
+          }
+        }
+        catch
+        {
+          slBonus = 0;
+        }
       }
     }
 
@@ -4284,7 +4301,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         await this.actor.updateOwnedItem(skill, true);
       }
-      skillsToEdit = [];
+      this.skillsToEdit = [];
     });
 
 
