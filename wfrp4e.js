@@ -4269,19 +4269,22 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
     html.find('.skill-advances').focusout(async event => {
-
+      if (!this.skillsToEdit)
+        this.skillsToEdit = []
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      let itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.advances.value = Number(event.target.value);
+      this.skillsToEdit.push(itemToEdit);
+
       if (!this.skillUpdateFlag)
         return;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "skill")
-      for(let skill of skills)
+      for(let skill of this.skillsToEdit)
       {
         await this.actor.updateOwnedItem(skill, true);
       }
+      skillsToEdit = [];
     });
 
 
