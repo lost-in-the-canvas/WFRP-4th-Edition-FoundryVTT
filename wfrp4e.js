@@ -5592,6 +5592,8 @@ class WFRP_Utility
       weapon.data.ammunitionGroup.value = "";
     }
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
+    if (weapon.properties.special)
+      weapon.properties.special = weapon.data.special.value;
     return weapon;
   }
 
@@ -5689,7 +5691,7 @@ class WFRP_Utility
       else
         special.push(prop);
     }
-    return {qualities : qualities,flaws : flaws,special : special}
+    return {qualities : qualities,flaws : flaws, special : special}
   }
 
   /* -------------------------------------------- */
