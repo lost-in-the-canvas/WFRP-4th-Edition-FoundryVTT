@@ -1719,16 +1719,6 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-      // Register Defensive auto-fill
-      game.settings.register("wfrp4e", "statusOnTurnStart", {
-        name: "Show Combatant Status on Turn Start",
-        hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
-        scope: "world",
-        config: true,
-        default: true,
-        type: Boolean
-      });
-
     // Register Defensive auto-fill
     game.settings.register("wfrp4e", "defensiveAutoFill", {
       name: "Defensive Auto Populate",
@@ -1759,6 +1749,26 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+    // Register Defensive auto-fill
+    game.settings.register("wfrp4e", "statusOnTurnStart", {
+      name: "Show Combatant Status on Turn Start",
+      hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+
+    // Register Partial Channelling
+    game.settings.register("wfrp4e", "focusOnTurnStart", {
+      name: "Focus on Turn Start",
+      hint: "When advancing the combat tracker, focus on the token that's going next.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
 
   // Pre-load templates
   loadTemplates([
@@ -2160,6 +2170,9 @@ class ActorWfrp4e extends Actor {
 
     if (game.settings.get("wfrp4e", "capAdvantageIB"))
       actorData.data.status.advantage.max = data.characteristics.i.bonus
+    else
+      actorData.data.status.advantage.max = 10;
+
 
     return actorData;
     }
@@ -2180,19 +2193,6 @@ class ActorWfrp4e extends Actor {
    */
   _prepareCharacterData(data) {
 
-
-    // // Cap fortune to fate
-    // if (game.settings.get("wfrp4e", "fortuneCap") && data.status.fate.value < data.status.fortune.value)
-    // {
-    //   data.status.fortune.value = data.status.fate.value;
-    // }
-
-    // // Cap resolve to resilience
-    // if (game.settings.get("wfrp4e", "resolveCap") &&data.status.resilience.value < data.status.resolve.value)
-    // {
-    //   data.status.resolve.value = data.status.resilience.value;
-    // }
-
     data.details.experience.current = data.details.experience.total - data.details.experience.spent;
 
   }
@@ -2205,7 +2205,7 @@ class ActorWfrp4e extends Actor {
 
   }
 
-  /* -------------------------------------------- */
+  /* --------------------------------------------------------------------------------------------------------- */
   /* Rolls
   /*
   /* All "setup______" functions gather the data needed to roll a certain test. These are in 3 main objects.
@@ -2218,8 +2218,8 @@ class ActorWfrp4e extends Actor {
      dialogOptions - Data for rendering the dialog that's important for a specific test type.
                      Example: when casting or channelling, there should be an option for Malignant
                      Influences, but only for those tests.
-    cardOptions - Which card to use, the title of the card, the name of the actor, etc.
-  /* -------------------------------------------- */
+     cardOptions - Which card to use, the title of the card, the name of the actor, etc.
+  /* --------------------------------------------------------------------------------------------------------- */
 
 
   /**
@@ -6232,16 +6232,19 @@ class WFRP_Tables {
 }
 
 Hooks.on("updateCombat", (combat) => {
-  if (!game.settings.get("wfrp4e", "statusOnTurnStart"))
-    return
-  if (combat.data.round == 0 || !combat.turns || !combat.data.active)
-    return;
+  if (game.user.isGM && combat.data.round != 0 && combat.turns && combat.data.active)
+  {
+    let turn = combat.turns.find(t => t.tokenId == combat.current.tokenId)
 
-  let turn = combat.turns.find(t => t.tokenId == combat.current.tokenId)
+    if (game.settings.get("wfrp4e", "statusOnTurnStart"))
+      WFRP_Utility.displayStatus(turn.token.id);
 
-  WFRP_Utility.displayStatus(turn.token.id);
-
-  
+    if (game.settings.get("wfrp4e", "focusOnTurnStart"))
+    {
+      canvas.tokens.get(turn.token.id).control();
+      canvas.tokens.cycleTokens(1, true);  
+    }
+  }
 })
 
 Hooks.on("getCombatTrackerEntryContext", (html, options) => {
@@ -6252,6 +6255,7 @@ Hooks.on("getCombatTrackerEntryContext", (html, options) => {
     icon: '<i class="far fa-question-circle"></i>',
     callback: target => {
       WFRP_Utility.displayStatus(target.attr("data-token-id"));
+      $(`#sidebar-tabs`).find(`.item[data-tab="chat"]`).click();
     }
   })
 })
