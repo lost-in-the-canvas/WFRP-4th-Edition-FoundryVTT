@@ -4239,12 +4239,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         this.charUpdateFlag = false;
       }
       else
+      {
         this.charUpdateFlag = true; // If the user did not click tab, OK to update
+      }
     })
 
     html.find('.ch-edit').focusout(async event => {
       event.preventDefault();
-
       if (!this.charUpdateFlag && event.currentTarget.attributes["data-char"].value != "fel") // Do not proceed with an update until the listener aboves sets this flag to true or the last characteristic was tabbed
         return                  // When this flag is true, that means the focus out was not from a tab
 
@@ -4276,7 +4277,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (event.keyCode == 9) // Wait to update if user tabbed to another skill
       {
         this.skillUpdateFlag = false;
-        console.log('tab');
       }
       else
       {
@@ -4486,13 +4486,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       switch (event.button)
       {
         case 0:
-        item.data.quantity.value++;
+          if (event.ctrlKey)
+            item.data.quantity.value += 10;
+          else
+            item.data.quantity.value++;
 
           break;
         case 2:
-        item.data.quantity.value--;
-        if (item.data.quantity.value < 0)
-          item.data.quantity.value = 0;
+          if (event.ctrlKey)
+            item.data.quantity.value -= 10;
+          else
+            item.data.quantity.value--;
+
+          if (item.data.quantity.value < 0)
+            item.data.quantity.value = 0;
           break;
       }
       this.actor.updateOwnedItem(item);
@@ -4624,11 +4631,15 @@ class ActorSheetWfrp4e extends ActorSheet {
         try
         {
           let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
+          let characteristics = duplicate(this.actor.data.data.characteristics);
 
-          // Could not get assigning the whole object to work
-          // Error was something about fields not allowing "."
-          for (let char in initialValues)
-            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+          for (let c in characteristics)
+          {
+            characteristics[c].initial = initialValues[c];
+          }
+
+
+          await this.actor.update({'data.characteristics' : characteristics})
           await this.actor.update({"data.details.species.value" : species});
           await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
         }
@@ -4668,9 +4679,14 @@ class ActorSheetWfrp4e extends ActorSheet {
             }
             else
             {
+              let characteristics = duplicate (this.actor.data.data.characteristics);
               let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
               for (let char in rolledCharacteristics)
-                await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
+              {
+                characteristics[char].initial = rolledCharacteristics[char];
+              }
+              await this.actor.update({"data.characteristics" : characteristics})
+
             }
             return
 
@@ -6269,6 +6285,14 @@ Hooks.on("updateCombat", (combat) => {
       canvas.tokens.get(turn.token.id).control();
       canvas.tokens.cycleTokens(1, true);  
     }
+  }
+})
+
+Hooks.on("deleteCombat", async (combat) => {
+  for (let turn of combat.turns)
+  {
+    let actor = canvas.tokens.get(turn.tokenId).actor;
+    await actor.update({"data.status.advantage.value" : 0})
   }
 })
 
