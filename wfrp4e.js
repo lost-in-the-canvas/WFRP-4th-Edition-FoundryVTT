@@ -1541,6 +1541,43 @@ Hooks.once("init", () => {
     ]
   }
 
+  WFRP_Tables.winds = {
+    die : "1d10",
+    rows : [
+      undefined,
+      {
+        modifier : "-30"
+      },
+      {
+        modifier : "-10"
+      },
+      {
+        modifier : "-10"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "+10"
+      },
+      {
+        modifier : "+10"
+      },
+      {
+        modifier : "+30"
+      }
+    ]
+  }
+
   // IMPORT CODE FOR CAREERS
 /* let counter = 0;
   fetch ("careers.json").then(r => r.json()).then(async records => {
@@ -6200,6 +6237,9 @@ class WFRP_Tables {
       case "oops":
          return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
+      case "winds":
+          return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
+
       case "scatter":
         let tableHtml = '<table class = "scatter-table">' +
         " <tr>"+
@@ -6276,7 +6316,8 @@ class WFRP_Tables {
           "<code>event</code> - Downtime Event<br>"+
           "<code>travel</code> - Downtime Event<br>"+
           "<code>scatter</code> - Scatter Direction<br>"+
-          "<code>doom</code> - Dooming<br>"
+          "<code>doom</code> - Dooming<br>"+
+          "<code>winds</code> - The Swirling Winds<br>"
         }
     }
   }
