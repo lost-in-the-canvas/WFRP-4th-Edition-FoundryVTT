@@ -1002,6 +1002,7 @@ class DiceWFRP {
              weapon.data.weaponGroup.value== "Explosives") &&
              testResults.roll % 2 == 0)
          testResults.extra.misfire = "Misfire"
+         testResults.extra.misfireDamage = eval(testResults.roll.toString().split('').pop() + weapon.data.damage.value)
        }
 
        if (weapon.data.weaponGroup.value == "Throwing")
@@ -1295,7 +1296,12 @@ class DiceWFRP {
 
       if (ev.button == 0)
       {
-        if (sin)
+        if ($(ev.currentTarget).attr("data-table") == "misfire")
+        {
+          let damage = $(ev.currentTarget).attr("data-damage")
+          html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
+        }
+        else if (sin)
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
         else
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});

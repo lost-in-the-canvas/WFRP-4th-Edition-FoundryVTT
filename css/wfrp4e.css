@@ -2084,10 +2084,10 @@
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 6px 0px 0px 0px;
+    margin: 6px 0px 0px 54px;
     justify-content: unset;
     padding: 0px;
-    padding-left: 54px;
+    padding-left: 0px;
     height: 25px;
     width: 100%;
     vertical-align: top;
@@ -12963,6 +12963,7 @@ border-image-outset: 0px !important;
   .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .bonus-column,
   .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .bonus-column {
     margin-right: 2px;
+    width: 30%;
   }
     .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,
     .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .bonus-column label,

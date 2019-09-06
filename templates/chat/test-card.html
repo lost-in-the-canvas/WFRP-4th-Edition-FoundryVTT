@@ -46,6 +46,9 @@
         {{#if testData.extra.wrath}}
         - <a class ="table-click fumble-roll" data-sin = "{{testData.sin}}"data-table = "wrath">{{testData.extra.wrath}}</a>
         {{/if}}
+        {{#if testData.extra.misfire}}
+        - <a class ="table-click fumble-roll" data-damage="{{testData.extra.misfireDamage}}" data-table = "misfire">{{testData.extra.misfire}}</a>
+        {{/if}}
     </div>
 
     {{#if testData.hitloc}}
