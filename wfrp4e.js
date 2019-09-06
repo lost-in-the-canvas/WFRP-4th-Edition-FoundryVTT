@@ -3927,7 +3927,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
       penaltiesFlag = penaltiesFlag.trim();
       // This is for the penalty string in flags, for combat turn message
-      if (this.actor.data.flags.modifier != penaltiesFlag )
+      if (this.actor.data.flags.modifier != penaltiesFlag && this.editable)
         this.actor.update({"flags.modifier" : penaltiesFlag})
 
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
@@ -5236,11 +5236,15 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
       html.find('.ch-roll').click(event => {
         event.preventDefault();
         let characteristic = $(event.currentTarget).attr("data-char");
         this.actor.setupCharacteristic(characteristic, event);
       });
+
+      
 
       html.find('.npc-career').click(event => {
         event.preventDefault();
@@ -5406,7 +5410,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     });
     html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
 
-
+    if (!this.options.editable) return;
 
     html.find(".skills.name, .skills.total").mousedown(event => {
       let newAdv

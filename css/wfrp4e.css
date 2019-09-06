@@ -14663,3 +14663,31 @@ font-style : normal;
         flex-direction: row;
         flex-grow: 2;
       }
+
+      .app.window-app.sheet.item-sheet .import,
+      .app.window-app.sheet.item-sheet .configure-sheet,
+      .app.window-app.sheet.wfrp4e.actor .window-header .import {
+        color: #00e5ff00;
+        text-align: center;
+        background: url(../ui/buttons/button-import.png);
+        height: 30px;
+        width: 30px;
+        position: absolute;
+        top: 25px;
+        right: 56px;
+        margin: 0px;
+        padding: 0px;
+        overflow: hidden;
+        /* background: var(--debug-background-color-blue); */
+      }
+      
+      .app.window-app.sheet.item-sheet .configure-sheet,
+      .app.window-app.sheet.item-sheet .import {
+        top: 19px;
+        right: 59px;
+      }
+
+      .app.window-app.sheet.item-sheet .configure-sheet {
+        background: url(../ui/buttons/button-configure-sheet.png);
+      }
+
