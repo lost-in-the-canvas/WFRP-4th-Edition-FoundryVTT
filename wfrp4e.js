@@ -524,7 +524,7 @@ CONFIG.weaponFlaws = {
 CONFIG.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
   "blackpowder": "The crack of gunfire followed by gouts of smoke and confusion can be terrifying. If you are targeted by a Blackpowder weapon, you must pass an Average (+20) Cool Test or take a Broken Condition, even if the shot misses.",
-  "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions theweapon inflicts.",
+  "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions the weapon inflicts.",
   "damaging": "A Damaging weapon can use the higher score from either the units die or the SL to determine the Damage caused from a successful hit. For example, if you roll 34 in your attack Test and the target number was 52 you can choose to use the SL, which in this case is 2, or the units die result, which is 4. An Undamaging weapon can never also be Damaging (Undamaging takes precedent).",
   "defensive": "Defensive weapons are designed to parry incoming attacks. If you are wielding such a weapon, gain a bonus of +1 SL to any Melee Test when you oppose an incoming attack.",
   "distract": "Distracting weapons can be used to drive an opponent back due to their dangerous or whip-like natures. Instead of causing Damage, a successful attack with a Distracting weapon can force an opponent back 1 yard per SL by which you win the Opposed Test.",
@@ -2416,11 +2416,11 @@ class ActorWfrp4e extends Actor {
     {
       // If Melee, default to Weapon Skill, but check to see if the actor has the specific skill for the weapon
       skillCharList.push("Weapon Skill")
-      let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
-      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
-        skillCharList.push(skill);
+      for (let meleeSkill of this.data.flags.combatSkills)
+        if (meleeSkill.name.toLowerCase().includes("melee"))
+          skillCharList.push(meleeSkill.name);
       
-      if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat.data.round != 0 && game.combat.turns))
+      if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
       {
         // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
 
@@ -2470,9 +2470,9 @@ class ActorWfrp4e extends Actor {
       {
         ammo = weapon;
       }
-      let skill = "Ranged (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
-      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
-        skillCharList.push(skill);
+      for (let rangedSkill of this.data.flags.combatSkills)
+        if (rangedSkill.name.toLowerCase().includes("ranged"))
+          skillCharList.push(rangedSkill.name);
     }
     let testData = {
       target : 0,
