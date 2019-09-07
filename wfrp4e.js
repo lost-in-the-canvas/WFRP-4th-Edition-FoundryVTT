@@ -4231,6 +4231,20 @@ class ActorSheetWfrp4e extends ActorSheet {
   }
 
 
+  _modifyWounds(event)
+  {
+    let inputValue = event.target.value;
+    let sign = event.target.value.split('')[0]
+    let wounds;
+    if (sign == "+" || sign == "-")
+      wounds = eval(this.actor.data.data.status.wounds.value + parseInt(inputValue))
+    else
+      wounds = parseInt(inputValue);
+    
+    this.actor.update({"data.status.wounds.value" : wounds});
+  }
+
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -4256,11 +4270,16 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
 
-
+    $("input[type=text]").click(function() {
+      $(this).select();
+   });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+      html.find(".wounds-value-box").change(event => {
+        this._modifyWounds(event)
+      })
 
      // This disgusting mess allows characteristics to be tabbed through. (Used only by Creature and NPC sheets, placed here to maintain DRY code)
      html.find(".ch-edit").keydown(event => {
