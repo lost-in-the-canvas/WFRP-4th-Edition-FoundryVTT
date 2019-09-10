@@ -2,10 +2,10 @@
   <div class="creature-overview-label">Creature Overview</div>
 
   <div class="creature-overview">
-  {{#if actor.skills}}
+  {{#if actor.trainedSkills}}
     <div class="list creature-talents">
-      <a class="creature-skills label">Skills:</a>
-      {{#each actor.skills as |item i|}}
+      <a class="creature-skills label">Trained Skills:</a>
+      {{#each actor.trainedSkills as |item i|}}
       <div class="skills content" tabindex="0" data-item-id="{{item.id}}">
         <a class="skills name">{{item.name}}  {{item.data.total.value}},</a>
       </div>
@@ -158,8 +158,7 @@
       <div class="penalty">{{penalty.value}}</div>
       {{/each}}
       <div class="custom-penalty">
-        <input class="penalties-input" type="text" name="data.status.penalties.value"
-          value="{{data.status.penalties.value}}" data-dtype="String">
+        <input class="penalties-input" type="text" value="{{data.status.penalties.value}}" data-dtype="String" title="Enter custom penalties in the Skills tab" readonly>
       </div>
       {{/if}}
   </div>

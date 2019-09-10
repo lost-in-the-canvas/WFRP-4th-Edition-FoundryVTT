@@ -25,22 +25,22 @@
     <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
     <div class="items">
       <div class="characteristics">
-        <table class="characteristics-table">
-          <tr class="table-header">
+        <div class="characteristics-table" cellpadding="0">
+          <!-- <div class="table-header"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <th title="{{ch.label}}" data-char="{{ch}}" class="table-header">
+            <div title="{{ch.label}}" data-char="{{ch}}" class="table-header">
               <a  class ="ch-roll" data-char="{{c}}">{{ch.abrev}}</a>
-            </th>
+            </div>
             {{/each}}
-          </tr>
-          <tr class="table-row">
+          <!-- </div> -->
+          <!-- <div class="table-row"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <td class="table-data">
+            <div class="row-type table-data">
               <input class="ch-edit" data-char="{{c}}" type="text" value="{{ch.value}}" data-dtype="Number">
-            </td>
+            </div>
             {{/each}}
-          </tr>
-        </table>
+          <!-- </div> -->
+          </div>
       </div>
 
       <div class="main-row">
@@ -87,7 +87,7 @@
             <span class="top label">Wounds</span>
             <div class="wounds-value-box">
               <div id="value">
-                <input name="data.status.wounds.value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
+                <input data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
               </div>
               <div id="divisor">
                 /
@@ -119,6 +119,7 @@
     <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
       ondrop="return false;">
       <a class="item active" data-tab="main">Main</a>
+      <a class="item" data-tab="skills">Skills</a>
       <a class="item" data-tab="combat">Combat</a>
       {{#if actor.flags.hasSpells}}
       <a class="item" data-tab="magic">Magic</a>
@@ -131,6 +132,9 @@
     </nav>
     <div class="tab main save-scroll" data-tab="main" data-group="primary">
       {{> public/systems/wfrp4e/templates/actors/creature-main.html}}
+    </div>
+    <div class="tab skills save-scroll" data-tab="skills" data-group="primary">
+      {{> public/systems/wfrp4e/templates/actors/actor-skills.html}}
     </div>
     <div class="tab combat save-scroll" data-tab="combat" data-group="primary">
       {{> public/systems/wfrp4e/templates/actors/actor-combat.html}}
