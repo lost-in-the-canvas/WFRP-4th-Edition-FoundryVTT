@@ -1254,6 +1254,7 @@ class DiceWFRP {
 
     // Emit the HTML as a chat message
     chatOptions["content"] = html;
+    chatOptions["type"] = 0;
     ChatMessage.create(chatOptions, false);
     return html;
   });
@@ -1280,6 +1281,7 @@ class DiceWFRP {
       let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
       if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
       if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+      chatOptions["type"] = 0;
       ChatMessage.create(chatOptions);
     })
 
@@ -1310,6 +1312,7 @@ class DiceWFRP {
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
 
          chatOptions["content"] = html;
+        chatOptions["type"] = 0;
         ChatMessage.create(chatOptions);
 
       }
@@ -1327,6 +1330,7 @@ class DiceWFRP {
                   let minOne = html.find('[name="minOne"]').is(':checked');
                   html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
                   chatOptions["content"] = html;
+				  chatOptions["type"] = 0;
                   ChatMessage.create(chatOptions);
                 }
               },
@@ -1392,6 +1396,7 @@ class DiceWFRP {
       return renderTemplate(chatOptions.template, result).then(html => {
            // Emit the HTML as a chat message
            chatOptions["content"] = html;
+           chatOptions["type"] = 0;
            ChatMessage.create(chatOptions, false);
            return html;
       });
@@ -1414,7 +1419,7 @@ class DiceWFRP {
 
       // Toggle summary
 
-      ChatMessage.create({content : propertyDescription, user : game.user._id});
+      ChatMessage.create({content : propertyDescription, user : game.user._id, type : 0});
     });
   }
 
@@ -1970,13 +1975,14 @@ Hooks.on("canvasInit", async () => {
   }
 });
 
-Hooks.on("chatMessage", async (html, content, msg) => {
+Hooks.on("chatMessage", (html, content, msg) => {
   content = content.toLowerCase();
 
   let rollMode = game.settings.get("core", "rollMode");
   if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
   if ( rollMode === "blindroll" ) msg["blind"] = true;
-  
+  msg["type"] = 0;
+
   let command = content.split(" ").map(function(item) {
     return item.trim();
   })
@@ -1989,6 +1995,8 @@ Hooks.on("chatMessage", async (html, content, msg) => {
       modifier = parseInt(command[2]);
       msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
     }
+	ChatMessage.create(msg);
+	return false;
   }
 
   else if (command[0] == "/cond")
@@ -2015,6 +2023,8 @@ Hooks.on("chatMessage", async (html, content, msg) => {
     let name = CONFIG.conditions[condList[maxIndex]];
 
     msg.content = `<b>${name}</b><br>${description}`
+	ChatMessage.create(msg);
+	return false;
   }
 
 });
@@ -2028,8 +2038,9 @@ Hooks.on("renderChatMessage", async (html, content, msg) => {
 });
 
 Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
-  options["Add Basic Skills"] = 
+  options.push( 
   {
+    name : "Add Basic Skills",
     condition: true,
     icon: '<i class="fas fa-plus"></i>',
     callback: target => {
@@ -2037,7 +2048,7 @@ Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
       actor.addBasicSkills();
     }
     
-  }
+  })
 })
 
 /**
@@ -6172,6 +6183,7 @@ class WFRP_Utility
   
       // Emit the HTML as a chat message
       chatOptions["content"] = html;
+	  chatOptions["type"] = 0;
       ChatMessage.create(chatOptions, false);
       return html;
     });
