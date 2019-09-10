@@ -11568,7 +11568,6 @@
         color: var(--actor-input-color);
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties .custom-penalty {
-        width: inherit;
         /* background: bisque; */
         display: inline-flex;
         flex-direction: row;

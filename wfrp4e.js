@@ -552,7 +552,7 @@ CONFIG.qualityDescriptions = {
 
 // Weapon Flaw Descriptions (used in dropdown info)
 CONFIG.flawDescriptions = {
-  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble (see Chapter 5: Rules for more on Fumbles).",
+  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble.",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
@@ -1972,17 +1972,23 @@ Hooks.on("canvasInit", async () => {
 
 Hooks.on("chatMessage", async (html, content, msg) => {
   content = content.toLowerCase();
+
+  let rollMode = game.settings.get("core", "rollMode");
+  if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
+  if ( rollMode === "blindroll" ) msg["blind"] = true;
+  
   let command = content.split(" ").map(function(item) {
     return item.trim();
   })
   if (command[0] == "/table")
   {
-    modifier = parseInt(command[2]);
-    msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
-
-    let rollMode = game.settings.get("core", "rollMode");
-    if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( rollMode === "blindroll" ) msg["blind"] = true;
+    if (command.length == 1)
+      msg.content = WFRP_Tables.formatChatRoll("menu")
+    else
+    {
+      modifier = parseInt(command[2]);
+      msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
+    }
   }
 
   else if (command[0] == "/cond")
@@ -3980,7 +3986,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
       penaltiesFlag = penaltiesFlag.trim();
       // This is for the penalty string in flags, for combat turn message
-      if (this.actor.data.flags.modifier != penaltiesFlag && this.editable)
+      if (this.actor.data.flags.modifier != penaltiesFlag && this.options.editable)
         this.actor.update({"flags.modifier" : penaltiesFlag})
 
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
