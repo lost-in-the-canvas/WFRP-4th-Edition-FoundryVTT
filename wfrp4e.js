@@ -1254,6 +1254,7 @@ class DiceWFRP {
 
     // Emit the HTML as a chat message
     chatOptions["content"] = html;
+    chatOptions["type"] = 0;
     ChatMessage.create(chatOptions, false);
     return html;
   });
@@ -1280,6 +1281,7 @@ class DiceWFRP {
       let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
       if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
       if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+      chatOptions["type"] = 0;
       ChatMessage.create(chatOptions);
     })
 
@@ -1310,6 +1312,7 @@ class DiceWFRP {
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
 
          chatOptions["content"] = html;
+        chatOptions["type"] = 0;
         ChatMessage.create(chatOptions);
 
       }
@@ -1327,6 +1330,7 @@ class DiceWFRP {
                   let minOne = html.find('[name="minOne"]').is(':checked');
                   html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
                   chatOptions["content"] = html;
+				  chatOptions["type"] = 0;
                   ChatMessage.create(chatOptions);
                 }
               },
@@ -1392,6 +1396,7 @@ class DiceWFRP {
       return renderTemplate(chatOptions.template, result).then(html => {
            // Emit the HTML as a chat message
            chatOptions["content"] = html;
+           chatOptions["type"] = 0;
            ChatMessage.create(chatOptions, false);
            return html;
       });
@@ -1414,7 +1419,7 @@ class DiceWFRP {
 
       // Toggle summary
 
-      ChatMessage.create({content : propertyDescription, user : game.user._id});
+      ChatMessage.create({content : propertyDescription, user : game.user._id, type : 0});
     });
   }
 
@@ -6172,6 +6177,7 @@ class WFRP_Utility
   
       // Emit the HTML as a chat message
       chatOptions["content"] = html;
+	  chatOptions["type"] = 0;
       ChatMessage.create(chatOptions, false);
       return html;
     });
