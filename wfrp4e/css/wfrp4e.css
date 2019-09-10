@@ -12995,6 +12995,7 @@ border-image-outset: 0px !important;
     flex: 1;
     flex-direction: column;
     margin-left: 2px;
+    width: 69%;
   }
     .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
     .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector label,
