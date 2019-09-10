@@ -552,7 +552,7 @@ CONFIG.qualityDescriptions = {
 
 // Weapon Flaw Descriptions (used in dropdown info)
 CONFIG.flawDescriptions = {
-  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including an 9 on either 10s or units die results in a Fumble (see Chapter 5: Rules for more on Fumbles).",
+  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble (see Chapter 5: Rules for more on Fumbles).",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
@@ -992,17 +992,20 @@ class DiceWFRP {
 
      let testResults = this.rollTest(testData);
 
+     console.log(testResults.roll);
+
      if (testResults.description.includes("Failure"))
      {
-       if (testResults.roll % 11 == 0 || testResults.total == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+       if (testResults.roll % 11 == 0 || testResults.roll == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
        {
          testResults.extra.fumble = "Fumble"
          if ((weapon.data.weaponGroup.value == "Blackpowder" ||
              weapon.data.weaponGroup.value== "Engineering" ||
-             weapon.data.weaponGroup.value== "Explosives") &&
-             testResults.roll % 2 == 0)
-         testResults.extra.misfire = "Misfire"
-         testResults.extra.misfireDamage = eval(testResults.roll.toString().split('').pop() + weapon.data.damage.value)
+             weapon.data.weaponGroup.value== "Explosives") && testResults.roll % 2 == 0)
+          {
+          testResults.extra.misfire = "Misfire"
+          testResults.extra.misfireDamage = eval(testResults.roll.toString().split('').pop() + weapon.data.damage.value)
+          }
        }
 
        if (weapon.data.weaponGroup.value == "Throwing")
@@ -1125,7 +1128,7 @@ class DiceWFRP {
           SL = -1;
 
        testResults.description = "Channell Failed"
-       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0 || testResults.total == 100)
+       if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0 || testResults.roll == 100)
          miscastCounter += 2;
       }
      else
@@ -2516,6 +2519,13 @@ class ActorWfrp4e extends Actor {
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
           testData.extra.weapon.properties.qualities = [];
+
+          if (testData.extra.weapon.data.weaponGroup.value == "Flail")
+          {
+            if (!testData.extra.weapon.properties.flaws.includes("Dangerous"))
+              testData.extra.weapon.properties.flaws.push("Dangerous")
+          }
+
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -5850,6 +5860,10 @@ class WFRP_Utility
     {
       weapon.data.range.value /= 3;
     }
+    else if (ammoRange.toLowerCase() == "quarter weapon")
+    {
+      weapon.data.range.value /= 4;
+    }
     else if (ammoRange.toLowerCase() == "twice weapon")
     {
       weapon.data.range.value *= 2;
@@ -6321,22 +6335,22 @@ class WFRP_Tables {
         catch
         {
           return "<b><code>/table</code> Commands</b><br>"+
-          "<code>hitloc</code> - Hit Location<br>"+
-          "<code>crithead</code> - Head Critical Hits<br>"+
-          "<code>critbody</code> - Body Critical Hits<br>"+
-          "<code>critarm</code> - Arm Critical Hits<br>"+
-          "<code>critleg</code> - Leg Critical Hits<br>"+
-          "<code>oops</code> - Oops!<br>"+
-          "<code>minormis</code> - Minor Miscast<br>"+
-          "<code>majormis</code> - Major Miscast<br>"+
-          "<code>wrath</code> - Wrath of the Gods<br>"+
-          "<code>mutatephys</code> - Physical Mutation<br>"+
-          "<code>mutatemental</code> - Mental Mutation<br>"+
-          "<code>event</code> - Downtime Event<br>"+
-          "<code>travel</code> - Downtime Event<br>"+
-          "<code>scatter</code> - Scatter Direction<br>"+
-          "<code>doom</code> - Dooming<br>"+
-          "<code>winds</code> - The Swirling Winds<br>"
+          "<a data-table='hitloc' class='table-click'><code>hitloc</code> - Hit Location<br></a>"+
+          "<a data-table='crithead' class='table-click'><code>crithead</code> - Head Critical Hits<br></a>"+
+          "<a data-table='critbody' class='table-click'><code>critbody</code> - Body Critical Hits<br></a>"+
+          "<a data-table='critarm' class='table-click'><code>critarm</code> - Arm Critical Hits<br></a>"+
+          "<a data-table='critleg' class='table-click'><code>critleg</code> - Leg Critical Hits<br></a>"+
+          "<a data-table='oops' class='table-click'><code>oops</code> - Oops!<br></a>"+
+          "<a data-table='minormis' class='table-click'><code>minormis</code> - Minor Miscast<br></a>"+
+          "<a data-table='majormis' class='table-click'><code>majormis</code> - Major Miscast<br></a>"+
+          "<a data-table='wrath' class='table-click'><code>wrath</code> - Wrath of the Gods<br></a>"+
+          "<a data-table='mutatephys' class='table-click'><code>mutatephys</code> - Physical Mutation<br></a>"+
+          "<a data-table='mutatemental' class='table-click'><code>mutatemental</code> - Mental Mutation<br></a>"+
+          "<a data-table='event' class='table-click'><code>event</code> - Downtime Event<br></a>"+
+          "<a data-table='travel' class='table-click'><code>travel</code> - Downtime Event<br></a>"+
+          "<a data-table='scatter' class='table-click'><code>scatter</code> - Scatter Direction<br></a>"+
+          "<a data-table='doom' class='table-click'><code>doom</code> - Dooming<br></a>"+
+          "<a data-table='winds' class='table-click'><code>winds</code> - The Swirling Winds<br></a>"
         }
     }
   }
