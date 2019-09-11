@@ -1,0 +1,116 @@
+{
+  "name": "wfrp4e",
+  "title": "Warhammer Fantasy Roleplay 4th Edition",
+  "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Roleplay in the Foundry VTT environment.",
+  "version": "0.8.2",
+  "author": "CatoThe1stElder, Moo Man",
+  "scripts": ["wfrp4e.js"],
+  "styles": ["./css/wfrp4e.css"],
+  "packs": [
+  	{
+      "name": "bestiary",
+      "label": "Bestiary",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/bestiary.db",
+      "entity": "Actor"
+    },
+    {
+      "name": "careers",
+      "label": "Careers",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/careers.db",
+      "entity": "Item"
+    },
+  	 {
+      "name": "skills",
+      "label": "Skills",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/skills.db",
+      "entity": "Item"
+    },
+    {
+      "name": "talents",
+      "label": "Talents",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/talents.db",
+      "entity": "Item"
+    },
+    {
+      "name": "traits",
+      "label": "Traits",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/traits.db",
+      "entity": "Item"
+    },
+    {
+      "name": "psychologies",
+      "label": "Psychologies",
+      "path": "./packs/psychologies.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "mutations",
+      "label": "Mutations",
+      "path": "./packs/mutations.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "injuries",
+      "label": "Injuries",
+      "path": "./packs/injuries.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "diseases",
+      "label": "Diseases",
+      "path": "./packs/diseases.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "spells",
+      "label": "Spells",
+      "path": "./packs/spells.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+	{
+      "name": "prayers",
+      "label": "Prayers",
+      "path": "./packs/prayers.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    },
+    {
+      "name": "trappings",
+      "label": "Trappings",
+      "path": "./packs/trappings.db",
+      "entity": "Item",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
+    }
+  ],
+  "languages": ["en"],
+  "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
+  "gridDistance": 2,
+  "gridUnits": "yd",
+  "primaryTokenAttribute": "status.wounds",
+  "secondaryTokenAttribute": "status.advantage",
+  "minimumCoreVersion": "0.3.0",
+  "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
+  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip"
+}
