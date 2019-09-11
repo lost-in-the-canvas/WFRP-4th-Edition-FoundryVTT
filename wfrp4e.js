@@ -1709,7 +1709,7 @@ Hooks.once("init", () => {
       break;
 
       case "sl":
-      formula = "(Math.floor(@characteristics.i.value / 10) - Math.floor(1d100/10))"
+      formula = "(floor(@characteristics.i.value / 10) - floor(1d100/10))"
       break;
 
       case "d10Init":
