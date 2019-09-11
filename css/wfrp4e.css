@@ -1924,6 +1924,32 @@
   overflow: hidden;
   /* background: var(--debug-background-color-blue); */
 }
+.app.window-app.sheet.item-sheet .configure-sheet {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-configure-sheet.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 19px;
+  right: 56px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
+.app.window-app.sheet.item-sheet .import {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-import.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 19px;
+  right: 474px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+}
 
 /* ==================== (A) EQUIPMENT ========================= */
   .app.window-app.sheet.item-sheet {
@@ -2115,7 +2141,7 @@
     padding: 0px;
     padding-left: 0px;
     height: 25px;
-    width: 100%;
+    width: calc(100% - 54px);
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -14571,6 +14597,23 @@ border-image-outset: 0px !important;
       margin: 5px 0px 0px 0px;
       color: #feffefd6;
     }
+
+/* ==================== (C) TABLE MODIFIER ==================== */
+  .app.window-app.dialog .form-group.table-modifier input {
+    text-align: center;
+  }
+
+  .app.window-app.dialog .form-group.table-modifier .minimum-label {
+    min-width: 100%;
+    min-height: 29px;
+    padding-top: 6px;
+  }
+  .app.window-app.dialog .form-group.table-modifier .input-check {
+    transform: scale(1);
+    position: absolute;
+    top: 94px;
+    left: 240px;
+  }
 
 /******************************************************************/
 /******************************************************************/
