@@ -17,5 +17,7 @@ Changes are divided into system changes (involving actual changes to the wfrp4e 
 
 * Partial Channelling (implemented as an optional system rule for everyone)
 
+* Motivation is removed. You get 1 Resolve for completing your Short Term Ambition. You get 1 Resilience for completing your Long Term Ambition. (Todo)
+
 ### Soft Changes
 TODO
