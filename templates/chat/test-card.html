@@ -5,7 +5,14 @@
     </div>
 
     <div class="card-content" >
-        <b>Roll</b>: {{testData.roll}} vs {{testData.target}}
+        <b>Roll</b>: 
+        {{#if testData.extra.critical}}
+        <span class="critical-roll">
+        {{/if}}
+        {{#if testData.extra.fumble}}
+        <span class="fumble-roll">
+        {{/if}}
+        {{testData.roll}}</span> vs {{testData.target}}
     </div>
     
     <div class="card-content">
@@ -15,29 +22,32 @@
     <div class="card-content" roll-description = "{{description}}">
         <b>Description</b>: {{testData.description}}
         {{#if testData.extra.critical}}
-            <a class ="table-click" data-table = "crit{{testData.hitloc.result}}" >- {{testData.extra.critical}}</a>
+        - <a class ="table-click critical-roll" data-table = "crit{{testData.hitloc.result}}" >{{testData.extra.critical}}</a>
         {{/if}}
         {{#if testData.extra.fumble}}
-            <a class ="table-click" data-table = "oops">- {{testData.extra.fumble}}</a>
+        - <a class ="table-click fumble-roll" data-table = "oops">{{testData.extra.fumble}}</a>
         {{/if}}
         {{#if testData.extra.scatter}}
-        <a class ="table-click" data-table = "scatter">- {{testData.extra.scatter}}</a>
+        - <a class ="table-click" data-table = "scatter">{{testData.extra.scatter}}</a>
         {{/if}}
         {{#if testData.extra.nullminormis}}
-        <span style = "text-decoration: line-through"> {{testData.extra.nullminormis}}</span>
+        <span style = "text-decoration: line-through">{{testData.extra.nullminormis}}</span>
         {{/if}}
         {{#if testData.extra.nullmajormis}}
-        <span style = "text-decoration: line-through"> {{testData.extra.nullmajormis}}</span>
+        <span style = "text-decoration: line-through">{{testData.extra.nullmajormis}}</span>
         {{/if}}
         {{#if testData.extra.minormis}}
-        <a class ="table-click" data-table = "minormis">- {{testData.extra.minormis}}</a>
+        - <a class ="table-click fumble-roll" data-table = "minormis">{{testData.extra.minormis}}</a>
         {{/if}}
 
         {{#if testData.extra.majormis}}
-        <a class ="table-click" data-table = "majormis">- {{testData.extra.majormis}}</a>
+        - <a class ="table-click fumble-roll" data-table = "majormis">{{testData.extra.majormis}}</a>
         {{/if}}
         {{#if testData.extra.wrath}}
-        <a class ="table-click" data-sin = "{{testData.sin}}"data-table = "wrath">- {{testData.extra.wrath}}</a>
+        - <a class ="table-click fumble-roll" data-sin = "{{testData.sin}}"data-table = "wrath">{{testData.extra.wrath}}</a>
+        {{/if}}
+        {{#if testData.extra.misfire}}
+        - <a class ="table-click fumble-roll" data-damage="{{testData.extra.misfireDamage}}" data-table = "misfire">{{testData.extra.misfire}}</a>
         {{/if}}
     </div>
 
