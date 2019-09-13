@@ -5432,6 +5432,13 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
    actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
+
+   for (let weapon of actorData.weapons)
+   {
+     if (weapon.data.currentAmmo.value)
+      weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+   }
+
   }
 
 
