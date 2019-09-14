@@ -506,7 +506,8 @@ CONFIG.weaponQualities = {
   "shield": "Shield",
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
-  "wrap": "Wrap"
+  "wrap": "Wrap",
+  "tiring": "Tiring"
 };
 
 // Weapon Flaws
@@ -515,7 +516,6 @@ CONFIG.weaponFlaws = {
   "imprecise": "Imprecise",
   "reload": "Reload",
   "slow": "Slow",
-  "tiring": "Tiring",
   "undamaging": "Undamaging"
 };
 
@@ -532,16 +532,17 @@ CONFIG.qualityDescriptions = {
   "fast": "Fast weapons are designed to strike out with such speed that parrying is not an option, leaving an opponent skewered before they can react. A wielder of a Fast weapon can choose to attack with the Fast weapon outside of the normal Initiative sequence, either striking first, last, or somewhere in between as desired. Further, all Melee Tests to defend against Fast weapons suffer a penalty of –10 if your opponent is using a weapon without the Fast Quality; other Skills defend as normal. Two opponents with Fast weapons fight in Initiative order (relative to each other) as normal. A Fast weapon may never also be Slow (Slow takes precedent).",
   "hack": "Hacking weapons have heavy blades that can hack through armor with horrific ease. If you hit an opponent, you Damage a struck piece of armor or shield by 1 point as well as wounding the target.",
   "impact": "Some weapons are just huge or cause terrible damage due to their weight or design. On a successful hit, add the result of the units die of the attack roll to any Damage caused by an Impact weapon. An Undamaging weapon can never also have Impact (Undamaging takes precedent).",
-  "impale": "Impale weapons can kill with a single clean blow. Impale weapons cause a Critical Hit on any number divisible by 10 (i.e.: 10, 20, 30, etc.) as well as on doubles (i.e.: 11, 22, 33) rolled equal or under an appropriate Test in combat. If the impale comes from a ranged weapon, the ammunition used has firmly lodged itself in the target’s body. Arrows and bolts require a successful Challenging (+0) Heal Test to remove — bullets require a surgeon (see the Surgery Talent in Chapter 4: Skills and Talents). You cannot heal 1 of your Wounds for each unremoved arrow or bullet.",
-  "penetrating": "The weapon is highly effective at penetrating armour. Non-metal APs are ignored, and the first point of all other armour is ignored.",
+  "impale": "Impale weapons can kill with a single clean blow. Impale weapons cause a Critical Hit on any number divisible by 10 (i.e.: 10, 20, 30, etc.) as well as on doubles (i.e.: 11, 22, 33) rolled equal or under an appropriate Test in combat. If the impale comes from a ranged weapon, the ammunition used has firmly lodged itself in the target’s body. Arrows and bolts require a successful Challenging (+0) Heal Test to remove — bullets require a surgeon. You cannot heal Wounds while the projectile is lodged within.",
+  "penetrating": "The weapon is highly effective at penetrating armour. It ignores (Rating) AP.",
   "pistol": "You can use this weapon to attack in Close Combat.",
   "precise": "The weapon is easy to get on target. Gain a bonus of +1 SL to any successful Test when attacking with this weapon.",
   "pummel": "Pummel weapons are especially good at battering foes into submission. If you score a Head hit with a Pummel weapon, attempt an Opposed Strength/ Endurance test against the struck opponent. If you win the test, your opponent gains a Stunned Condition.",
   "repeater": "Your weapon holds (Rating) shots, automatically reloading after each time you fire. When you use all your shots, you must fully reload the weapon using the normal rules.",
-  "shield": "If you use this weapon to oppose an incoming attack, you count as having (Rating) Armour Points on all locations of your body. If your weapon has a Shield Rating of 2 or higher (so: Shield 2 or Shield 3), you may also Oppose incoming missile shots in your Line of Sight.",
+  "shield": "If you use this weapon to oppose an incoming attack and succeed on your test, you count as having (Rating) Armour Points on all locations of your body. If your weapon has a Shield Rating of 2 or higher (so: Shield 2 or Shield 3), you may also Oppose incoming missile shots in your Line of Sight.",
   "trapblade": "Some weapons are designed to trap other weapons, and sometimes even break them. If you score a Critical when defending against an attack from a bladed weapon you can choose to trap it instead of causing a Critical Hit. If you choose to do this, enact an Opposed Strength Test, adding your SL from the previous Melee Test. If you succeed, your opponent drops the blade as it is yanked free. If you score an Astounding Success, you not only disarm your opponent, but the force of your maneuver breaks their blade unless it has the Unbreakable quality. If you fail the Test, your opponent frees the blade and may fight on as normal.",
   "unbreakable": "The weapon is exquisitely well-made or constructed from an especially strong material. Under almost all circumstances, this weapon will not break, corrode, or lose its edge.",
   "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades.",
+  "tiring": "The weapon is fatiguing to use or difficult to bring to bear. If you charge you gain the following benefit.",
   "flexible": "Flexible armor can be worn under a layer of non-Flexible armor if you wish. If you do so, you gain the benefit of both.",
   "impenetrable": "The armor is especially resilient, meaning most attacks simply cannot penetrate it. All Critical Wounds caused by an odd number to hit you, such as 11 or 33, are ignored.",
   "durable": "Laboriously crafted using strong materials, the item can take +Durable Damage points before it suﬀers any negatives and gains a saving throw of 9+ on a 1d10 roll against instant breakage from sources like Trap Blade. This Quality can be taken multiple times. Each time it is taken, the saving throw improves by 1 (e.g. From 9+ to 8+).",
@@ -556,7 +557,6 @@ CONFIG.flawDescriptions = {
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
-  "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.",
   "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
   "partial": "The armor does not cover the entire hit location. An opponent that rolls an even number to hit, or rolls a Critical Hit, ignores the partial armor’s APs.",
   "weakpoints": "The armor has small weakpoints where a blade can slip in if your opponent is sufficiently skilled or lucky. If your opponent has a weapon with the Impale Quality and scores a Critical, the APs of your armor are ignored.",
@@ -773,15 +773,15 @@ CONFIG.conditions = {
 
 
 CONFIG.conditionDescriptions = {
-  "ablaze" : "At the end of every Round, you suﬀer 1d10 Wounds, modified by Toughness Bonus and Armor Points on the least protected Hit Location, with a minimum of 1 Wound suﬀered. Each extra Ablaze Condition you have adds +1 to the Damage suﬀered; so, three Ablaze Conditions result in 1d10+2 Damage suﬀered.<br><br>One Ablaze Condition can be removed with a successful Athletics Test, with each SL removing an extra Ablaze Condition. The Difficulty for this Test is modified by circumstances: it’s much easier to put out a fire rolling around on sand than it is in the middle of an oil-soaked kitchen",
-  "bleeding" : "You are bleeding badly. Lose 1 Wound at the end of every Round, ignoring all modifiers. Further, suﬀer a penalty of –10 to any Tests to resist Festering Wounds, Minor Infection, or Blood Rot (see page 186). If you reach 0 Wounds, you no longer lose Wounds and instead fall immediately unconscious (gain the Unconscious Condition). At the end of Round, you have a 10% chance of dying per Bleeding Condition you have; so, if you had 3 Bleeding Conditions, you would die from blood loss on a roll of 0–30. If a double is scored on this roll, your wound clots a little: lose 1 Bleeding.You cannot regain consciousness until all Bleeding Conditions are removed (see Injury)<br><br>A Bleeding Condition can be removed with: a successful Heal Test, with each SL removing an extra Bleeding Condition; or with any spell or prayer that heals Wounds, with one Condition removed per Wound healed.<br><br>Once all Bleeding Conditions are removed, gain one Fatigued Condition.",
-  "blinded" : "Perhaps because of a ﬂash of light, or because of liquid sprayed in your face, you are unable to see properly. You suﬀer a –10 penalty to all Tests involving sight, and any opponent attacking you in close combat gains a bonus of +10 to hit you.<br><br>One Blinded Condition is removed at the end of every other Round",
-  "broken" : "You are terrified, defeated, panicked, or otherwise convinced you are going to die. On your turn, your Move and Action must be used to run away as fast as possible until you are in a good hiding place beyond the sight of any enemy; then you can use your Action on a Skill that allows you to hide more eﬀectively. You also receive a penalty of –10 to all Tests not involving running and hiding.<br><br>You cannot Test to rally from being Broken if you are Engaged with an enemy. If you are unengaged, at the end of each Round, you may attempt a Cool Test to remove a Broken Condition, with each SL removing an extra Broken Condition, and the Difficulty determined by the circumstances you currently find yourself: it is much easier to rally when hiding behind a barrel down an alleyway far from danger (Average +20) than it is when three steps from a slavering Daemon screaming for your blood (Very Hard –30).<br><br>If you spend a full Round in hiding out of line-of-sight of any enemy, you remove 1 Broken Condition.<br><br>Once all Broken Conditions are removed, gain 1 Fatigued Condition.",
+  "ablaze" : "At the end of your Turn, you suﬀer 1d10 Wounds to a random hit location, modified by Toughness Bonus and Armor Points, with a minimum of 1 Wound suffered, and if armour exists at that location it is damaged by 1. Each extra Ablaze Condition you have adds +1 to the Damage suﬀered; so, three Ablaze Conditions result in 1d10+2 Damage suﬀered.<br><br>One Ablaze Condition can be removed with a successful Athletics Test, with each SL removing an extra Ablaze Condition. The Difficulty for this Test is modified by circumstances: it’s much easier to put out a fire rolling around on sand than it is in the middle of an oil-soaked kitchen",
+  "bleeding" : "You are bleeding badly. Lose 1 Wound at the end of your Turn, ignoring all modifiers. Further, suﬀer a penalty of –10 to any Tests to resist Festering Wounds, Minor Infection, or Blood Rot. If you reach 0 Wounds and fail your Endurance test to stay standing up, you fall Unconscious,<br><br>Regardless of if you are Unconscious or not, you have a 10% chance of dying at the end of your Turn per Bleeding Condition if you are at 0 Wounds. If a double is scored on this roll, your wound clots a little: lose 1 Bleeding.<br><br>You cannot regain consciousness until all Bleeding Conditions are removed.<br><br>A Bleeding Condition can be removed with: a successful Heal Test, with each SL removing an extra Bleeding Condition; or with any spell or prayer that heals Wounds, with one Condition removed per Wound healed.<br><br>Once all Bleeding Conditions are removed, gain one Fatigued Condition.",
+  "blinded" : "Perhaps because of a ﬂash of light, or because of liquid sprayed in your face, you are unable to see properly. You suﬀer a –10 penalty to all Tests involving sight, and any opponent attacking you in close combat gains a bonus of +10 to hit you.<br><br>One Blinded Condition is removed at the end of your Turn.",
+  "broken" : "You are terrified, defeated, panicked, or otherwise convinced you are going to die. On your turn, your Move and Action must be used to run away as fast as possible until you are in a good hiding place beyond the sight of any enemy; then you can use your Action on a Skill that allows you to hide more eﬀectively. You also receive a penalty of –10 to all Tests not involving running and hiding.<br><br>You cannot Test to rally from being Broken if you are Engaged with an enemy. If you are unengaged, at the end of your Turn, you may attempt a Cool Test to remove a Broken Condition, with each SL removing an extra Broken Condition, and the Difficulty determined by the circumstances you currently find yourself: it is much easier to rally when hiding behind a barrel down an alleyway far from danger (Average +20) than it is when three steps from a slavering Daemon screaming for your blood (Very Hard –30).<br><br>If you spend a full Turn in hiding out of line-of-sight of any enemy, you remove 1 Broken Condition.",
   "deafened" : "Whether caused by a loud noise or a blow to the head, you are unable to hear properly. You suﬀer a –10 penalty to all Tests involving hearing, and any opponent attacking you in close combat from the ﬂank or rear gains an extra bonus of +10 to hit you (this bonus does not increase with multiple Deafened Conditions). One Deafened condition is removed at the end of every other Round and is often replaced with tinnitus.",
   "entangled" : "You are wrapped in something restricting your movement; it could be ropes, spider’s webbing, or an opponent’s bulging biceps. On your turn, you may not Move, and all your actions involving movement of any kind suﬀer a penalty of –10 (including Grappling). For your Action, you can remove an Entangled Condition if you win an Opposed Strength Test against the source of the entanglement, with each SL removing an extra Entangled Condition.",
   "fatigued" : "You are exhausted or stressed, and certainly in need of rest. You suﬀer a –10 penalty to all Tests. Removing a Fatigued Condition normally requires rest, a spell, or a divine eﬀect, though in some instances, such as when a Fatigued Condition is caused by carrying too much (see Encumbrance), simply changing your circumstances (carrying fewer trappings, for example) can remove a Condition.",
   "poisoned" : "You have been poisoned or injected with venom. All Tests to remove poison have their difficulty determined by the poison or venom suﬀered. At the end of each Round, lose 1 Wound, ignoring all modifiers. Also, suﬀer a penalty of –10 to all Tests.<br><br>If you reach 0 Wounds when Poisoned, you cannot heal any Wounds until all Poisoned conditions are removed. If you fall Unconscious when Poisoned, make an Endurance Test after a number of Rounds equal to your Toughness Bonus or die horribly. See Injury.<br><br>At the end of each Round, you may attempt an Endurance Test. If successful, remove a Poisoned Condition, with each SL removing an extra Poisoned Condition. A Heal Test provides the same results. Once all Poisoned Conditions are removed, gain 1 Fatigued Condition.",
-  "prone" : "You have fallen to the ground, possibly because you have run out of Wounds, you’ve tripped, or because you’ve been hit by something rather large. On your turn, your Move can only be used to stand up or crawl at half your Movement in yards (note: if you have 0 Wounds remaining, you can only crawl). You suﬀer a –20 penalty to all Tests involving movement of any kind, and any opponent trying to strike you in Melee Combat gains +20 to hit you.<br><br>Unlike most other conditions, Prone does not stack — you are either Prone, or you are not. You lose the Prone Condition when you stand up.",
+  "prone" : "You have fallen to the ground, possibly because you have run out of Wounds, you’ve tripped, or because you’ve been hit by something rather large. On your turn, your Move can only be used to stand up or crawl at half your Movement in yards. You suﬀer a –20 penalty to all Tests involving movement of any kind, and any opponent trying to strike you in Melee Combat gains +20 to hit you. However, you are typically considered one range band further away for Ranged attacks.<br><br>Unlike most other conditions, Prone does not stack — you are either Prone, or you are not. You lose the Prone Condition when you stand up.",
   "stunned" : "You have been struck about the head or otherwise disorientated or confused; your ears are likely ringing, and little makes sense.<br><br>You are incapable of taking an Action on your turn but are capable of half your normal movement. You can defend yourself in opposed Tests — but not with Language (Magick). You also suﬀer a –10 penalty to all Tests. If you have any Stunned Conditions, any opponent trying to strike you in Melee Combat gains +1 Advantage before rolling the attack.<br><br>At the end of each Round, you may attempt a Challenging (+0) Endurance Test. If successful, remove a Stunned Condition, with each SL removing an extra Stunned Condition.<br><br>Once all Stunned Conditions are removed, gain 1 Fatigued Condition if you don’t already have one.",
   "surprised" : "You have been caught unawares and you aren’t at all ready for what’s about to hit you. You can take no Action or Move on your turn and cannot defend yourself in opposed Tests. Any opponent trying to strike you in Melee Combat gains a bonus of +20 to hit.<br><br>The Surprised Condition does not stack, so you do not collect multiple Surprised Conditions, even should you be technically surprised multiple times in a Round.<br><br>At the end of each Round, or after the first attempt to attack you, you lose the Surprised Condition.",
   "unconscious" : "You are knocked out, asleep, or otherwise insensible. You can do nothing on your turn and are completely unaware of your surroundings. Any Melee attack targeting you automatically hits on the location of the attacker’s choice with the maximum possible SL it could score, and also inﬂicts a Critical Wound; or, if the GM prefers, any close combat hit simply kills you. Any ranged combat hit automatically does the same if the shooter is at Point Blank range.<br><br>The Unconscious Condition does not stack — you are either Unconscious, or you are not — so you do not collect multiple Unconscious Conditions.<br><br>Recovering from unconsciousness requires diﬀerent circumstances depending upon why you fell unconscious. Refer to Injury for more on this. If you spend a Resolve point to remove an Unconscious condition, but have not resolved the cause of the incapacitation, you gain another Unconscious Condition at the end of the round. When you lose the Unconscious Condition, you gain the Prone and Fatigued Conditions"
@@ -813,9 +813,9 @@ class DiceWFRP {
       {
         testDifficulty : "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : dialogOptions.data.advantage * 10 || 0,
+        testModifier : 0,
         slBonus : dialogOptions.data.slBonus || 0,
-        successBonus : 0,
+        successBonus :  dialogOptions.data.advantage || 0 
       });
     mergeObject(cardOptions,
       {
@@ -1406,20 +1406,8 @@ class DiceWFRP {
       event.preventDefault();
 
       let li = $(event.currentTarget).parents(".chat-card"),
-          property = event.target.text,
-          properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
-          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
-          let propertyKey;
-          property = property.replace(/,/g, '').trim();
-
-          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
-
-          let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
-          propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
-
-      // Toggle summary
-
-      ChatMessage.create({content : propertyDescription, user : game.user._id, type : 0});
+          propertyDescription = WFRP_Utility._propertyText(event.target.text);
+          ChatMessage.create({content : propertyDescription, user : game.user._id, type : 0});
     });
   }
 
@@ -4882,9 +4870,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     let li = $(event.currentTarget).parents(".item"),
         property = event.target.text,
-        properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
         propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
-
+        let propertyDescription;
         property = property.replace(/,/g, '').trim();
 
         let propertyKey = "";
@@ -4894,19 +4881,21 @@ class ActorSheetWfrp4e extends ActorSheet {
           let ammo = this.actor.getOwnedItem(item.data.data.currentAmmo.value);
           propertyDescr = Object.assign(propertyDescr, {"Special Ammo" : ammo.data.data.special.value});
           propertyKey = "Special Ammo";
+          propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
         }
         else if (property != "Special")
         {
-          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+          propertyDescription = WFRP_Utility._propertyText(property);
         }
         else{
           let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
           propertyDescr = Object.assign(propertyDescr, {"Special" : item.data.data.special.value});
           item = WFRP_Utility._prepareWeaponCombat(this.actor.data, duplicate(item.data));
           propertyKey = "Special";
+          propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
+
         }
 
-        let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
         if (propertyDescription.includes("(Rating)"))
           propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
 
@@ -5590,6 +5579,31 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
 
 class WFRP_Utility
 {
+
+  static _propertyText(property)
+  {
+    let properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList());
+    let propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
+    let propertyKey;
+    property = property.replace(/,/g, '').trim();
+    let propertyDescription
+
+    if (property.includes("("))
+    {
+      propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+      let property2 =property.substring(property.indexOf("(")+1, property.indexOf(")"), properties)
+      let propertyKey2 = WFRP_Utility.findKey(property2, properties)
+      propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}<br><br><b>${property2}:</b>${propertyDescr[propertyKey]}`;
+    }
+    else
+    {
+      propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+      propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
+    }
+    propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
+    return propertyDescription;
+  }
+
   static _prepareSpellOrPrayer(actorData, item) {
     item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
     item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
