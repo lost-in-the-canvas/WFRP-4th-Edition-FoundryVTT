@@ -556,7 +556,11 @@ CONFIG.flawDescriptions = {
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
+<<<<<<< HEAD
   "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.",
+=======
+  "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.<br><br><b>Note:</b> This changes the Damage shown in the chat card:<br> 'Not Charging' | 'Charging' Damage.",
+>>>>>>> parent of 88c11cb... Merge branch 'develop' into dev-backend
   "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
   "partial": "The armor does not cover the entire hit location. An opponent that rolls an even number to hit, or rolls a Critical Hit, ignores the partial armor’s APs.",
   "weakpoints": "The armor has small weakpoints where a blade can slip in if your opponent is sufficiently skilled or lucky. If your opponent has a weapon with the Impale Quality and scores a Critical, the APs of your armor are ignored.",
