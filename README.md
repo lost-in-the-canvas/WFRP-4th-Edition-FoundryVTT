@@ -1,35 +1,23 @@
-# Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
+# Homebrew version of the WFRP4e Foundry VTT System
+Find the main repository [here](https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT)
 
-Current Version: Beta 0.8.2
+## Homebrew changes
+Changes are divided into system changes (involving actual changes to the wfrp4e implementation in Foundry) and soft changes, which don't require implementation.
 
-![](https://i.imgur.com/esCwB7f.png)
+### System Changes
+* Advantage does not add +10, it instead adds + 1 SL on successful Tests per advantage, just like Talents. (Todo)
 
-This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
+* Overcasts are announced prior to casting (I want to overcast my Bolt's range), this adds to the CN needed to cast the spell. (Todo - extensive change)
 
-Additionally, it comes with a starter world which provides many Items already organized for your use.
+* Spells damage is now based off SL - CN, instead of just SL (Todo)
 
-## Installation - Auto Installer (Recommended)
+* Change rolling range from 1-100 to 00-99 (Symmetrical auto-critical and auto-fumble). (Todo - Considering)
 
-In the FVTT Game Systems Menu, click `Install System`
+* Advantage applies to neither Casting nor Channelling, but you do receive it from casting as normal (Todo - Possibly will allow it to apply to Channelling)
 
-Enter into Manifest URL: `https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json`
+* Partial Channelling (implemented as an optional system rule for everyone)
 
-## Installation - Manual
+* Motivation is removed. You get 1 Resolve for completing your Short Term Ambition. You get 1 Resilience for completing your Long Term Ambition. (Todo)
 
-Place the unzipped folder in your `public/systems` folder
-
-Make sure the folder is named `wfrp4e`
-
-Launch FVTT and create your new world, selecting the Warhammer system.
-
-## Current State
-
-This beta release marks the system being entirely playable, with character, NPC, and creature sheets available. Enjoy! Feedback is very much welcome.
-
-If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E). Additionally, check out the beta walkthrough video [here](https://www.youtube.com/watch?v=XMEJt5OB4Bc&t=821s) which details much of the system's functionality.  
-
-If you have any questions, feel free to message us on Discord, Moo Man#7518 or CatoThe1stElder#9725
-
-## Modules
-
-I've made a module out of my homebrew supplement [Arcane Marks & Careers](https://drive.google.com/file/d/1uTy2r0EDMdcISFqqyxeIOSadtzz-OTAg/view) which can also serve as an example for others to build off of. It includes a compendium pack of all the careers as well as tables to roll for marks. Read more and download from [here](https://github.com/moo-man/Arcane-Marks-Careers-FVTT)
+### Soft Changes
+TODO
