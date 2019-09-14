@@ -2572,6 +2572,30 @@ class ActorWfrp4e extends Actor {
       // Override the default test evaluation to use weaponTest specific function
       rollOverride : () => {
         let roll = DiceWFRP.rollWeaponTest(testData);
+
+        let damageToUse = roll.SL;
+        let unitValue = Number(roll.roll.toString().split("").pop())
+        unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
+
+
+        if (testData.extra.weapon.properties.qualities.includes("Damaging") && unitValue > Number(roll.SL))
+          damageToUse = unitValue;
+
+        if (testData.extra.attackType == "melee")
+          testData.extra.damage = eval(testData.extra.weapon.data.damage.meleeValue + damageToUse);
+        if (testData.extra.attackType == "ranged")
+          testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
+        
+        if (testData.extra.weapon.properties.qualities.includes("Impact"))
+          testData.extra.damage += unitValue;
+
+        if (testData.extra.weapon.properties.flaws.includes("Tiring") && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
+        {
+          if (testData.extra.attackType == "melee")
+            testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
+          if (testData.extra.attackType == "ranged")
+            testData.extra.damage = `${eval(testData.extra.weapon.data.damage.rangedValue + roll.SL)} | ${testData.extra.damage}` ;
+        }
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
@@ -5421,6 +5445,13 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
    actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
+
+   for (let weapon of actorData.weapons)
+   {
+     if (weapon.data.currentAmmo.value)
+      weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+   }
+
   }
 
 
