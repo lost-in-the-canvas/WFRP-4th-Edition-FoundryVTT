@@ -2589,7 +2589,8 @@ class ActorWfrp4e extends Actor {
         if (testData.extra.weapon.properties.qualities.includes("Impact"))
           testData.extra.damage += unitValue;
 
-        if (testData.extra.weapon.properties.flaws.includes("Tiring") && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
+        if (testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)")
+          && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
         {
           if (testData.extra.attackType == "melee")
             testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
@@ -2730,10 +2731,17 @@ class ActorWfrp4e extends Actor {
         rollOverride : () =>
         {
           let roll = DiceWFRP.rollCastTest(testData);
+
+          if (testData.extra.spell.damage && roll.description == "Casting Succeeded")
+            testData.extra.damage = testData.extra.spell.damage + eval(roll.SL) - testData.extra.spell.data.cn.value;
+            
+            
           if (testData.extra)
             mergeObject(roll, testData.extra);
+
           DiceWFRP.renderRollCard(cardOptions, roll);
           this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
+          this.updateOwnedItem({id: spell.id, 'data.overcast' : {target : 0, range : 0, duration : 0}});
           // Update spell to reflect SL from channelling resetting to 0
         }
     };
@@ -3128,9 +3136,9 @@ class ItemWfrp4e extends Item {
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, duplicate(this.data));
     data.description = preparedSpell.data.description
     data.properties = [];
-    data.properties.push("Range: " + preparedSpell.range);
-    data.properties.push("Target: " + preparedSpell.target);
-    data.properties.push("Duration: " + preparedSpell.duration);
+    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'range'>Range: " + preparedSpell.range + "</a>");
+    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'target'>Target: " + preparedSpell.target + "</a>");
+    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'duration'>Duration: " + preparedSpell.duration + "</a>");
     if (data.magicMissile.value)
       data.properties.push("Magic Missile: +" + preparedSpell.damage);
     else if (preparedSpell.data.damage.value)
@@ -4031,10 +4039,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       this.actor.data.flags.defensive = defensiveCounter;
 
-
-
-
-
       let untrainedSkills = []
       let untrainedTalents = []
       let hasCurrentCareer = false;
@@ -4307,7 +4311,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armour-quality, .armour-flaw').click(event => this._expandProperty(event));
 
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
-
 
     $("input[type=text]").click(function() {
       $(this).select();
@@ -4884,6 +4887,18 @@ class ActorSheetWfrp4e extends ActorSheet {
       div.append(props);
       li.append(div.hide());
       div.slideDown(200);
+      div.find(".spell-tag").mousedown(event =>
+        { 
+          if (event.target.text.split(": ")[1] == "Instant" ||
+          event.target.text.split(": ")[1] == "Special" ||
+          event.target.text.split(": ")[1] == "You" ||
+          event.target.text.split(": ")[1] == "Self" ||
+          event.target.text.split(": ")[1] == "Touch")
+          return
+
+          WFRP_Utility._overcastSpell(event, this.actor)
+          this._onSubmit(event);
+        });
     }
     li.toggleClass("expanded");
   }
@@ -5624,7 +5639,7 @@ class WFRP_Utility
       propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
       let property2 =property.substring(property.indexOf("(")+1, property.indexOf(")"), properties)
       let propertyKey2 = WFRP_Utility.findKey(property2, properties)
-      propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}<br><br><b>${property2}:</b>${propertyDescr[propertyKey]}`;
+      propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}<br><br><b>${property2}: </b>${propertyDescr[propertyKey2]}`;
     }
     else
     {
@@ -5635,14 +5650,34 @@ class WFRP_Utility
     return propertyDescription;
   }
 
+  static async _overcastSpell(event, actor)
+  {
+    let spell = actor.getOwnedItem($(event.currentTarget).parents(".item").attr("data-item-id"))
+
+    let overcastType = $(event.currentTarget).attr("data-overcast-type")
+
+    if (!spell.data.data.overcast)
+      await spell.update({"data.overcast" :  {range : 0, target: 0, duration: 0}})
+
+    let currentOvercast = spell.data.data.overcast;
+    if (event.button == 2)
+      currentOvercast[overcastType] = currentOvercast[overcastType] <= 0 ? 0 : currentOvercast[overcastType] - 1;
+    else
+      currentOvercast[overcastType]++;
+    await spell.update({"data.overcast" : currentOvercast})
+  
+  }
+
   static _prepareSpellOrPrayer(actorData, item) {
-    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe);
-    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value);
+    if (!item.data.overcast)
+      item.data.overcast = {target: 0, range : 0, duration: 0};
+    item['target'] = this._calculateSpellRangeOrDuration(actorData, item.data.target.value, item.data.target.aoe, item.data.overcast.target);
+    item['duration'] = this._calculateSpellRangeOrDuration(actorData, item.data.duration.value, false, item.data.overcast.duration);
     if (item.data.duration.extendable)
     {
       item.duration += "+";
     }
-    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value);
+    item['range'] = this._calculateSpellRangeOrDuration(actorData, item.data.range.value, false, item.data.overcast.range);
     if (item.type == "spell")
       item['damage'] = this._calculateSpellDamage(actorData, item.data.damage.value, item.data.magicMissile.value);
     else
@@ -5653,6 +5688,9 @@ class WFRP_Utility
       item.data.description.value = this._spellDescription(item);
       if (!item.data.memorized.value )
         item.data.cn.value *= 2;
+
+      for (let type in item.data.overcast)
+        item.data.cn.value += 2 * item.data.overcast[type];
     }
 
     return item;
@@ -5968,7 +6006,7 @@ class WFRP_Utility
 
   /* -------------------------------------------- */
 
-  static _calculateSpellRangeOrDuration(actorData, formula, aoe=false){
+  static _calculateSpellRangeOrDuration(actorData, formula, aoe=false, overcasts = 0){
     formula = formula.toLowerCase();
 
     if (formula != "you" && formula != "special" && formula != "instant")
@@ -5988,7 +6026,21 @@ class WFRP_Utility
           }
         }
       }
+      if (overcasts)
+      {
+        let formulaArray = formula.split(" ");
+        if (Number.isNumeric(formulaArray[0]))
+        {
+          try 
+          {
+            formulaArray[0] = Number(formulaArray[0]) + (Number(formulaArray[0])) * overcasts;
+            formula = formulaArray.join(" ");
+          }
+          catch {}
+        }
+      }
     }
+
 
     if (aoe)
       formula = "AoE (" + formula.capitalize() + ")";
