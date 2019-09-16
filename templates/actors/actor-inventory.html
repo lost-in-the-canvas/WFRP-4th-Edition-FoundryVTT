@@ -101,7 +101,7 @@
         <div class="image" style="background-image: url({{item.img}})"></div>
         <a class="name">{{item.name}}</a>
       </div>
-      
+
       {{#if section.toggle}}
       {{#if item.toggleValue}}
       <a class="item-toggle"><i class="far fa-check-circle"></i></a>
@@ -115,6 +115,7 @@
       <span class="weight">{{item.encumbrance}}</span>
       {{#if ../../owner}}
       <div class="item-controls">
+        <a class="item-control item-link" title="Link Item"><i class="fas fa-share"></i></a>
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
         <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
       </div>
@@ -255,7 +256,7 @@
         <div class="image item-image" style="background-image: url({{pack.img}})"></div>
         <div class="name item-label">{{pack.name}}</div>
       </div>
-  
+
       {{#if pack.data.countEnc.value}}
       {{#if pack.data.worn.value}}
       <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
@@ -277,10 +278,10 @@
         <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
         {{/if}}
       {{/if}}
-  
+
       <span class="item-quantity">Qty.</span>
       <span class="item-weight">Enc.</span>
-  
+
       {{#if ../../owner}}
       <div class="item-controls">
         <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -320,7 +321,7 @@
           <div class="image item-image" style="background-image: url({{pack.img}})"></div>
           <div class="name item-label">{{pack.name}}</div>
         </div>
-    
+
         {{#if pack.data.countEnc.value}}
         {{#if pack.data.worn.value}}
         <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
@@ -342,10 +343,10 @@
           <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
           {{/if}}
         {{/if}}
-    
+
         <span class="item-quantity">Qty.</span>
         <span class="item-weight">Enc.</span>
-    
+
         {{#if ../../../owner}}
         <div class="item-controls">
           <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -384,7 +385,7 @@
             <div class="image item-image" style="background-image: url({{pack.img}})"></div>
             <div class="name item-label">{{pack.name}}</div>
           </div>
-      
+
           {{#if pack.data.countEnc.value}}
           {{#if pack.data.worn.value}}
           <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
@@ -406,10 +407,10 @@
             <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
             {{/if}}
           {{/if}}
-      
+
           <span class="item-quantity">Qty.</span>
           <span class="item-weight">Enc.</span>
-      
+
           {{#if ../../../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -447,7 +448,7 @@
               <div class="image item-image" style="background-image: url({{pack.img}})"></div>
               <div class="name item-label">{{pack.name}}</div>
             </div>
-        
+
             {{#if pack.data.countEnc.value}}
             {{#if pack.data.worn.value}}
             <a class="worn-container">Worn: <i class="far fa-check-circle"></i></a>
@@ -469,10 +470,10 @@
               <a style="visibility: hidden" class="worn-container">Worn: <i class="far fa-circle"></i></a>
               {{/if}}
             {{/if}}
-        
+
             <span class="item-quantity">Qty.</span>
             <span class="item-weight">Enc.</span>
-        
+
             {{#if ../../../../../owner}}
             <div class="item-controls">
               <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>

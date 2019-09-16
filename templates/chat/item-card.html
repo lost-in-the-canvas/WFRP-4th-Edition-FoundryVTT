@@ -1,0 +1,132 @@
+<div class="wfrp4e chat-card item-card" data-actor-id="{{actorId}}">
+    <div class="header">
+        <div class="item-name">
+            <div class="image" style="background-image: url({{item.img}})"></div>
+            <span class="name">
+                <strong>{{item.name}}</strong>
+                <span class="availability">{{item.data.availability.value}}</span>
+                <span class="weight">Enc. {{item.data.encumbrance.value}}</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="description">{{{item.data.description.value}}}</div>
+
+    <div class="content">
+        {{#if item.properties}}
+        <div class="properties">
+            {{#if item.data.twohanded.value}}
+            <span class="label">Two handed</span>
+            {{/if}}
+
+            {{#if item.properties.qualities}}
+            <span class="item-properties">
+                <span class="label quality">Q:</span>
+                {{#each item.properties.qualities as |property p|}}
+                <a class="text">{{property}}</a><span class="text comma">,</span>
+                {{/each}}
+            </span>
+            {{/if}}
+
+            {{#if item.properties.flaws}}
+            <span class="item-properties">
+                <span class="label flaw">F:</span>
+                {{#each item.properties.flaws as |property p|}}
+                <a class="text">{{property}}</a><span class="text comma">,</span>
+                {{/each}}
+            </span>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if item.data.damage.meleeValue}}
+        <div class="damage">
+            <span class="label">Damage:</span>
+            <span class="text">{{item.data.damage.meleeValue}}</span>
+        </div>
+        {{else}}
+        {{#if item.data.damage.rangedValue}}
+        <div class="damage">
+            <span class="label">Damage:</span>
+            <span class="text">{{item.data.damage.rangedValue}}</span>
+        </div>
+        {{/if}}
+        {{/if}}
+
+        {{#if item.data.range.value}}
+        <div class="range">
+            <span class="label">Range:</span>
+            <span class="text">{{item.data.range.value}} yds</span>
+        </div>
+        {{/if}}
+
+        {{#if item.data.reach.value}}
+        <div class="reach">
+            <span class="label">Reach:</span>
+            <span class="text">{{item.data.reach.value}}</span>
+        </div>
+        {{/if}}
+
+        {{#if item.data.weaponGroup.value}}
+        <div class="weapon-group">
+            <span class="label">Weapon Group:</span>
+            <span class="text">{{item.data.weaponGroup.value}}</span>
+        </div>
+        {{/if}}
+
+        {{#if item.data.ammunitionGroup.value}}
+        <div class="ammunition-group">
+            <span class="label">Ammo Group:</span>
+            <span class="text">{{item.data.ammunitionGroup.value}}</span>
+        </div>
+        {{/if}}
+
+        {{#if item.data.armorType.value}}
+        <div class="armor-type">
+            <span class="label">Armor Type:</span>
+            <span class="text">{{item.data.armorType.value}}</span>
+        </div>
+        {{/if}}
+
+        {{#if item.data.maxAP}}
+        <div class="armor-points">
+            {{#if item.data.maxAP.head}}
+            <div class="head">
+                <span class="label">Head:</span>
+                <span class="text">{{item.data.maxAP.head}} AP</span>
+            </div>
+            {{/if}}
+            {{#if item.data.maxAP.body}}
+            <div class="body">
+                <span class="label">Body:</span>
+                <span class="text">{{item.data.maxAP.body}} AP</span>
+            </div>
+            {{/if}}
+            {{#if item.data.maxAP.lArm}}
+            <div class="left-arm">
+                <span class="label">Left Arm:</span>
+                <span class="text">{{item.data.maxAP.lArm}} AP</span>
+            </div>
+            {{/if}}
+            {{#if item.data.maxAP.rArm}}
+            <div class="right-arm">
+                <span class="label">Right Arm:</span>
+                <span class="text">{{item.data.maxAP.rArm}} AP</span>
+            </div>
+            {{/if}}
+            {{#if item.data.maxAP.lLeg}}
+            <div class="left-leg">
+                <span class="label">Left Leg:</span>
+                <span class="text">{{item.data.maxAP.lLeg}} AP</span>
+            </div>
+            {{/if}}
+            {{#if item.data.maxAP.rLeg}}
+            <div class="right-leg">
+                <span class="label">Right Leg:</span>
+                <span class="text">{{item.data.maxAP.rLeg}} AP</span>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+    </div>
+</div>

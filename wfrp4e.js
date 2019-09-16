@@ -1487,7 +1487,7 @@ Hooks.once("init", () => {
   //   console.log(JSON.stringify(table));
   // })
   game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
-    try 
+    try
     {
     if (resp.error)
       throw ""
@@ -1858,7 +1858,7 @@ Hooks.on("ready", async () => {
     if (activeModules[m])
     {
       game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
-        try 
+        try
         {
         if (resp.error)
           throw ""
@@ -1903,7 +1903,7 @@ Hooks.on("canvasInit", async () => {
   //         pathList.push(file);
   //     })
   //   }
-  // })  
+  // })
   // for (let item of list)
   // {
   //   let name = item.name.toLowerCase().trim().replace(/,/g, '').replace(/ /g, '-').replace("/", '-')
@@ -1935,7 +1935,7 @@ Hooks.on("canvasInit", async () => {
   //     console.log(name);
   //   await pack.updateEntity({"_id": item.id, "img" : img});
   // }
-    
+
   //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
   //  let list = await pack.getIndex();
   //  for (let skill of list)
@@ -2038,7 +2038,7 @@ Hooks.on("renderChatMessage", async (html, content, msg) => {
 });
 
 Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
-  options.push( 
+  options.push(
   {
     name : "Add Basic Skills",
     condition: true,
@@ -2047,7 +2047,7 @@ Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
       const actor = game.actors.get(target.attr('data-entity-id'));
       actor.addBasicSkills();
     }
-    
+
   })
 })
 
@@ -2439,12 +2439,12 @@ class ActorWfrp4e extends Actor {
       for (let meleeSkill of this.data.flags.combatSkills)
         if (meleeSkill.name.toLowerCase().includes("melee"))
           skillCharList.push(meleeSkill.name);
-      
+
       if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
       {
         // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
 
-        try 
+        try
         {
           let currentTurn = game.combat.turns.find(t => t.active)
 
@@ -2597,7 +2597,7 @@ class ActorWfrp4e extends Actor {
           testData.extra.damage = eval(testData.extra.weapon.data.damage.meleeValue + damageToUse);
         if (testData.extra.attackType == "ranged")
           testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
-        
+
         if (testData.extra.weapon.properties.qualities.includes("Impact"))
           testData.extra.damage += unitValue;
 
@@ -2876,7 +2876,7 @@ class ActorWfrp4e extends Actor {
     let praySkills = [{key : "fel", name : "Fellowship"}]
     praySkills = praySkills.concat(this.items.filter(i => i.name.toLowerCase() == "pray" && i.type == "skill"));
     let defaultSelection = praySkills.findIndex(i => i.name.toLowerCase() == "pray")
-    
+
     let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
     let testData = {
       target : 0,
@@ -3477,7 +3477,7 @@ Hooks.on('renderChatLog', (log, html, data) => DiceWFRP.chatListeners(html));
 
 // Override CONFIG
 
-try 
+try
 {
   Items.unregisterSheet("core", ItemSheet);
   Items.registerSheet("wfrp4e", ItemSheetWfrp4e, {makeDefault: true});
@@ -4291,7 +4291,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       wounds = eval(this.actor.data.data.status.wounds.value + parseInt(inputValue))
     else
       wounds = parseInt(inputValue);
-    
+
     this.actor.update({"data.status.wounds.value" : wounds});
   }
 
@@ -4512,6 +4512,58 @@ class ActorSheetWfrp4e extends ActorSheet {
       let Item = CONFIG.Item.entityClass;
       const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
       item.sheet.render(true);
+    });
+
+    // Link Inventory Item to Chat
+    html.find('.item-link').click(ev => {
+        let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+        let Item = CONFIG.Item.entityClass;
+        const actorItem = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
+        let item = actorItem.data;
+
+        if (item.data.qualities) {
+            item["properties"] = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(item));
+        }
+        if (item.data.reach) {
+            item.data.reach.value = CONFIG.weaponReaches[item.data.reach.value];
+        }
+        if (item.data.weaponGroup) {
+            item.data.weaponGroup.value = CONFIG.weaponGroups[item.data.weaponGroup.value];
+        }
+        if (item.data.armorType) {
+            item.data.armorType.value = CONFIG.armorTypes[item.data.armorType.value];
+        }
+        if (item.data.availability) {
+            item.data.availability.value = CONFIG.availability[item.data.availability.value];
+        }
+        if (item.data.ammunitionGroup) {
+          if (item.data.ammunitionGroup.value == "none") {
+              item.data.ammunitionGroup.value = '';
+          } else {
+              item.data.ammunitionGroup.value = CONFIG.ammunitionGroups[item.data.ammunitionGroup.value];
+          }
+        }
+
+        let chatOptions = {
+            user: game.user._id,
+            speaker: {
+                alias: this.actor.name
+            },
+            template: "public/systems/wfrp4e/templates/chat/item-card.html",
+        };
+        let chatData = {
+            title: chatOptions.title,
+            item: item
+        };
+
+        renderTemplate(chatOptions["template"], chatData).then(html => {
+            console.log(chatData.item);
+            chatOptions["content"] = html;
+            chatOptions["type"] = 0;
+            ChatMessage.create(chatOptions, false);
+
+            return html;
+        });
     });
 
     html.find('.skill-select').mousedown(ev => {
@@ -5357,7 +5409,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         this.actor.setupCharacteristic(characteristic, event);
       });
 
-      
+
 
       html.find('.npc-career').click(event => {
         event.preventDefault();
@@ -5455,7 +5507,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    actorData.traits = actorData.traits.filter(t => t.included);
 
    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
-   actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
+   actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0)
 
    for (let weapon of actorData.weapons)
    {
@@ -6155,16 +6207,16 @@ class WFRP_Utility
     return CONFIG.xpCost[type][index];
   }
 
-  
+
   static displayStatus(tokenId)
   {
     let token = canvas.tokens.get(tokenId);
     let effects = token.data.effects;
     let conditions = {}
     effects = effects.map(function(effect) {
-      
+
       let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
-  
+
       if (isNumeric)
       {
         effect = effect.substring(effect.lastIndexOf("/")+1)
@@ -6175,43 +6227,43 @@ class WFRP_Utility
         else
           conditions[effect.toString()] = parseInt(effectNum);
       }
-  
-      else 
+
+      else
       {
         effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
         effect = effect.substring(0, effect.length-4);
         conditions[effect] = true;
-  
+
       }
-    
+
    })
-  
+
    let displayConditions = [];
    for (let c in conditions)
    {
      let displayValue = (CONFIG.conditions[c])
      if (typeof conditions[c] !== "boolean")
       displayValue += " " + conditions[c]
-    displayConditions.push(displayValue); 
+    displayConditions.push(displayValue);
    }
-  
-  
+
+
     let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
     if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
     chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
-  
-  
+
+
     let chatData = {
       name : token.name,
       conditions : displayConditions,
       modifiers : token.actor.data.flags.modifier
     }
-  
-  
+
+
    return renderTemplate(chatOptions.template, chatData).then(html => {
       chatOptions["user"] = game.user._id
-  
+
       // Emit the HTML as a chat message
       chatOptions["content"] = html;
 	  chatOptions["type"] = 0;
@@ -6416,7 +6468,7 @@ Hooks.on("updateCombat", (combat) => {
     if (game.settings.get("wfrp4e", "focusOnTurnStart"))
     {
       canvas.tokens.get(turn.token.id).control();
-      canvas.tokens.cycleTokens(1, true);  
+      canvas.tokens.cycleTokens(1, true);
     }
   }
 })
