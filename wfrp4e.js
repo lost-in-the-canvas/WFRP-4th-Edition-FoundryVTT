@@ -4773,7 +4773,36 @@ class ActorSheetWfrp4e extends ActorSheet {
         switch(event.target.text)
         {
           case "C":
-            if (this.actor.data.type == "creature")
+            let creatureMethod = false;
+            if (this.actor.data.type == "creature" || !species)
+              creatureMethod = true;
+
+            if (!creatureMethod)
+            {
+              let characteristics = duplicate (this.actor.data.data.characteristics);
+              let averageCharacteristics = WFRP_Utility.speciesCharacteristics(species, true);
+
+              // If this loop results in turning creatureMethod to true, that means an NPCs statistics have been edited manually, use -10 + 2d10 method
+              for (let char in characteristics)
+              {
+                if (characteristics[char].initial != averageCharacteristics[char])
+                  creatureMethod = true;
+              }
+            }
+
+
+            if (!creatureMethod)
+            {
+              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+              for (let char in rolledCharacteristics)
+              {
+                characteristics[char].initial = rolledCharacteristics[char];
+              }
+              await this.actor.update({"data.characteristics" : characteristics})
+            }
+
+
+            else if (creatureMethod)
             {
               let roll = new Roll("2d10");
               roll.roll();
@@ -4790,17 +4819,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               }
               await this.actor.update({"data.characteristics" : characteristics});
             }
-            else
-            {
-              let characteristics = duplicate (this.actor.data.data.characteristics);
-              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
-              for (let char in rolledCharacteristics)
-              {
-                characteristics[char].initial = rolledCharacteristics[char];
-              }
-              await this.actor.update({"data.characteristics" : characteristics})
 
-            }
             return
 
           case "S":
@@ -5945,7 +5964,7 @@ class WFRP_Utility
       }
       else
       {
-        propertiesToAdd.push(property + " " + value);
+        propertiesToAdd.push(property + " " + Number(value));
       }
     }
 
