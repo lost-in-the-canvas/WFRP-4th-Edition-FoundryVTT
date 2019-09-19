@@ -6508,3 +6508,16 @@ Hooks.on("getCombatTrackerEntryContext", (html, options) => {
     }
   })
 })
+
+Hooks.on("createOwnedItem", (item) => {
+
+    if (item.actor.data.type == "character")
+      return;
+    if (item.type == "armour")
+      item.update({"data.worn.value" : true});
+    else if (item.type == "weapon")
+      item.update({"data.equipped" : true});
+    if (item.data.type == "trapping" && item.data.data.trappingType.value == "clothingAccessories")
+      item.update({"data.worn" : true});
+     
+})
