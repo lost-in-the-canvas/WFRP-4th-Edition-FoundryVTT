@@ -2742,9 +2742,23 @@ class ActorWfrp4e extends Actor {
         rollOverride : () =>
         {
           let roll = DiceWFRP.rollCastTest(testData);
+          try 
+          {
+          if (testData.extra.spell.damage && roll.description.includes("Succeeded"))
+            testData.extra.damage = Number(roll.SL) + 
+                                    Number(testData.extra.spell.damage)
+          }
+          catch (error)
+          {
+            ui.notifications.error("Error calculating damage: " + error)
+          } // If something went wrong calculating damage, do nothing and still render the card
+
           if (testData.extra)
             mergeObject(roll, testData.extra);
+
+          
           DiceWFRP.renderRollCard(cardOptions, roll);
+
           this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
           // Update spell to reflect SL from channelling resetting to 0
         }
@@ -2934,6 +2948,18 @@ class ActorWfrp4e extends Actor {
         // Override generic test function with prayer specific function
       rollOverride : () => {
         let roll = DiceWFRP.rollPrayTest(testData, this);
+      
+        try 
+        {
+          if (testData.extra.prayer.damage && roll.description.includes("Granted"))
+          testData.extra.damage = Number(roll.SL) + 
+                                  Number(testData.extra.prayer.damage)
+        }
+        catch (error)
+        {
+          ui.notifications.error("Error calculating damage: " + error)
+        } // If something went wrong calculating damage, do nothing and still render the card
+
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
@@ -2958,14 +2984,16 @@ class ActorWfrp4e extends Actor {
    * Roll a test associated with a trait
    * @param prayer {Object}   Trait being tested
    */
-  rollTrait(trait) {
+  setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
     let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
     let title =   CONFIG.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
     let testData = {
       target : char.value,
-      hitLocation : false
+      hitLocation : false,
+      extra : 
+      { trait : trait }
     };
 
     if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
@@ -3002,8 +3030,26 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
         roll();
+        },
+        rollOverride : () => {
+          let roll = DiceWFRP.rollTest(testData);
+          try 
+          {
+          if (testData.extra.trait.data.rollable.bonusCharacteristic)
+            testData.extra.damage = Number(roll.SL) + 
+                                    Number(testData.extra.trait.data.specification.value) + 
+                                    Number(this.data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus);
+          }
+          catch (error)
+          {
+            ui.notifications.error("Error calculating damage: " + error)
+          } // If something went wrong calculating damage, do nothing and still render the card
+          if (testData.extra)
+            mergeObject(roll, testData.extra);
+          DiceWFRP.renderRollCard(cardOptions, roll);
         }
     };
+
     let cardOptions = {
       actor : this.data.id,
       speaker: {
@@ -4481,7 +4527,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let trait = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollTrait((duplicate(trait)));
+      this.actor.setupTrait((duplicate(trait)));
     })
 
     html.find('.spell-roll').click(event => {
@@ -4852,11 +4898,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-    event.dataTransfer.setData("text/plain", JSON.stringify({
+    const item = this.actor.getOwnedItem(itemId);
+	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
-      actorId: this.actor._id,
-      id: itemId,
-      root: Number(event.currentTarget.getAttribute("root"))
+      actorId: this.actor.id,
+      data: item.data
     }));
   }
 
@@ -4864,7 +4910,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
       if ($(event.target).parents(".item").attr("inventory-type") == "container"){
-        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
+        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
         if (dragItem.data.id == dropID)
           throw "";
         else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container"))
@@ -4892,7 +4938,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         await this.actor.updateOwnedItem(dragItem.data, true);
       }
     else
+    {
       super._onDrop(event)
+    }
   }
 
 
@@ -5602,7 +5650,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         return;
       }
 
-      this.actor.rollTrait(trait.data);
+      this.actor.setupTrait(trait.data);
 
     })
 
