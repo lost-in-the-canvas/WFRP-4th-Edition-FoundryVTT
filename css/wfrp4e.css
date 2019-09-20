@@ -14790,3 +14790,11 @@ font-style : normal;
         #client-settings .window-content .sheet-footer{
           max-height: 30px;
         }
+
+        #player-config .directory-item .actor-name {
+          color: #CCC;
+        }
+
+        #player-config .directory-item {
+          border:none;
+        }
