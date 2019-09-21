@@ -3292,6 +3292,22 @@ class ItemSheetWfrp4e extends ItemSheet {
     this.mce = null;
   }
 
+
+    _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+    if ( game.user.isGM && this.options.editable ) {
+      buttons.push(
+        {
+          // label: "Close",
+          class: "post",
+          icon: "fas fa-comment",
+          onclick: ev => this.close()
+        })
+  }
+  return buttons
+}
+
+
   /**
    * Use a type-specific template for each different item type
    */
@@ -4047,7 +4063,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       for (let skill of basicSkills.concat(advancedOrGroupedSkills))
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
-
 
       // Penalties box setup
       // If too much text, divide the penalties into groups
@@ -5986,10 +6001,23 @@ class WFRP_Utility
       weapon.data.range.value *= 2;
     }
     else
-      weapon.data.range.value += eval(ammoRange)
-
-    weapon.data.damage.rangedValue += eval(ammoDamage);
-
+    {
+      try 
+      {
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
+      }
+      catch 
+      {
+        // Do nothing to weapon range
+      }
+    }
+    
+    try {
+    weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+    }
+    catch { // Do nothing to weapon Damage
+    }
+    
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
     // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
     ammoProperties = ammoProperties.filter(p => p != undefined);

@@ -1899,6 +1899,21 @@
   /* background: var(--debug-background-color-blue); */
 }
 
+.app.window-app.sheet.item-sheet .post {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-post.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 19px;
+  right: 90px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  /* background: var(--debug-background-color-blue); */
+}
+
 /* ==================== (A) EQUIPMENT ========================= */
   .app.window-app.sheet.item-sheet {
     box-shadow: none;
