@@ -14798,3 +14798,7 @@ font-style : normal;
         #player-config .directory-item {
           border:none;
         }
+
+        #player-config .form-group-stacked label {
+          color: #ccc;
+        }

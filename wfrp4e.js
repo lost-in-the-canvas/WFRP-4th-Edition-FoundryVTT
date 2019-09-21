@@ -3171,6 +3171,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
     data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
+    data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
     data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
     return data;
   }
@@ -3774,11 +3775,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "ammunition")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             inventory.ammunition.items.push(i);
             inventory.ammunition.show = true
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -3977,10 +3978,10 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "money")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             money.coins.push(i);
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -4029,7 +4030,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
         cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
         cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
-          return prev + cur.encumbrance;
+          return Number(prev) + Number(cur.encumbrance);
         }, 0);
         cont.holding = Math.floor(cont.holding)
       }
@@ -4089,10 +4090,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       this.actor.data.flags.defensive = defensiveCounter;
 
-
-
-
-
       let untrainedSkills = []
       let untrainedTalents = []
       let hasCurrentCareer = false;
@@ -4134,8 +4131,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           actorData.data.characteristics[char].career = false;
       }
 
-
-
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
@@ -4163,6 +4158,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.untrainedTalents = untrainedTalents;
 
       let enc;
+      // let moneyEnc = 0;
+      // for (let m of money.coins)
+      // {
+      //   moneyEnc += m.data.encumbrance.value * m.data.quantity.value;
+      // }
+      // totalEnc += Math.floor(moneyEnc);
+      totalEnc = Math.floor(totalEnc);
       try
       {
         enc = {
