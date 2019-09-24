@@ -507,7 +507,8 @@ CONFIG.weaponQualities = {
   "trapblade": "Trap Blade",
   "unbreakable": "Unbreakable",
   "wrap": "Wrap",
-  "tiring": "Tiring"
+  "tiring": "Tiring",
+  "simple": "Simple"
 };
 
 // Weapon Flaws
@@ -549,6 +550,7 @@ CONFIG.qualityDescriptions = {
   "fine": "Meticulously crafted to please the eye. This Quality is a sign of social status and can be taken multiple times. The higher the quality, the more impressive it seems.",
   "lightweight": "Cleverly crafted for ease of carrying. Reduce Encumbrance points by 1.",
   "practical": "Expertly crafted with utility in mind. A failed test using this item receives +1 SL. If the item is a piece of armor, any penalties for wearing it are reduced by one level (for example from -30 to -20).",
+  "simple" : "This weapon is easy and simple to use. You can use this with with Melee (Basic) or the skill tied to its native group."
 };
 
 // Weapon Flaw Descriptions (used in dropdown info)
@@ -5997,7 +5999,7 @@ class WFRP_Utility
       }
       else
       {
-        propertiesToAdd.push(property + " " + value);
+        propertiesToAdd.push(property + " " + Number(value));
       }
     }
 

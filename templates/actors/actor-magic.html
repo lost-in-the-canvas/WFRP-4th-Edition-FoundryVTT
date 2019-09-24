@@ -1,5 +1,6 @@
 <div class="inventory-header item petty-header">
   <div class="name">Petty Spell</div>
+  <div title="Casting Number" class="casting-number">CN</div>
   {{#if owner}}
   <div id="petty-add" class="item-controls">
   {{else}}
@@ -19,6 +20,8 @@
         <div class="image" style="background-image: url({{item.img}})"></div>
         <a class="spell-roll name">{{item.name}}</a>
       </div>
+
+      <div class="spell-attr">{{item.data.cn.value}}</div>
 
       {{#if ../owner}}
       <div class="item-controls">
