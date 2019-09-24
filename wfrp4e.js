@@ -2630,27 +2630,33 @@ class ActorWfrp4e extends Actor {
 
   // Roll spell Dialog - choose between Casting or Channelling
   spellDialog(spell, options) {
-    renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
-      new Dialog({
-        title: "Cast or Channell",
-        content: dlg,
-        buttons: {
-          cast: {
-            label: "Cast",
-            callback: btn => {
-              this.setupCast(spell, options);
-            }
+
+    if (spell.data.lore.value == "petty")
+      this.setupCast(spell, options)
+    else
+    {
+      renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
+        new Dialog({
+          title: "Cast or Channell",
+          content: dlg,
+          buttons: {
+            cast: {
+              label: "Cast",
+              callback: btn => {
+                this.setupCast(spell, options);
+              }
+            },
+            channell: {
+              label: "Channell",
+              callback: btn => {
+                this.setupChannell(spell, options);
+              }
+            },
           },
-          channell: {
-            label: "Channell",
-            callback: btn => {
-              this.setupChannell(spell, options);
-            }
-          },
-        },
-        default: 'cast'
-      }).render(true);
-    })
+          default: 'cast'
+        }).render(true);
+      })
+    }
   }
 
   /**
@@ -4063,6 +4069,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       for (let skill of basicSkills.concat(advancedOrGroupedSkills))
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
+
+      let smb = talents.find(t => t.name.toLowerCase() == "strike mighty blow")
+      if (smb && this.actor.data.flags.meleeDamageIncrease != smb.data.advances.value)
+        this.actor.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
+      else if (!smb && this.actor.data.flags.meleeDamageIncrease)
+        this.actor.update({"flags.meleeDamageIncrease" : 0});
+
+
+      let accshot = talents.find(t => t.name.toLowerCase() == "accurate shot")
+      if (accshot && this.actor.data.flags.rangedDamageIncrease != accshot.data.advances.value)
+        this.actor.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
+      else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
+        this.actor.update({"flags.rangedDamageIncrease" : 0});
+
 
       // Penalties box setup
       // If too much text, divide the penalties into groups
@@ -5793,8 +5813,10 @@ class WFRP_Utility
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue);
-    weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue);
+    if (weapon.data.damage.meleeValue)
+      weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+    if (weapon.data.damage.rangedValue)
+      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0);
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
