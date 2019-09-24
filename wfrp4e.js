@@ -2580,7 +2580,8 @@ class ActorWfrp4e extends Actor {
         unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
 
 
-        if (testData.extra.weapon.properties.qualities.includes("Damaging") && unitValue > Number(roll.SL))
+        if ((testData.extra.weapon.properties.qualities.includes("Damaging") || testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") 
+            && unitValue > Number(roll.SL)))
           damageToUse = unitValue;
 
         if (testData.extra.attackType == "melee")
@@ -2588,11 +2589,12 @@ class ActorWfrp4e extends Actor {
         if (testData.extra.attackType == "ranged")
           testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
         
-        if (testData.extra.weapon.properties.qualities.includes("Impact"))
+        if (testData.extra.weapon.properties.qualities.includes("Impact") || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)"))
           testData.extra.damage += unitValue;
 
-        if (testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)")
-          && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
+        if ((testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") && damageToUse != roll.SL)
+          || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)")
+          || testData.extra.weapon.properties.qualities.includes("Impact"))
         {
           if (testData.extra.attackType == "melee")
             testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
