@@ -1899,6 +1899,21 @@
   /* background: var(--debug-background-color-blue); */
 }
 
+.app.window-app.sheet.item-sheet .post {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-post.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 19px;
+  right: 90px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  /* background: var(--debug-background-color-blue); */
+}
+
 /* ==================== (A) EQUIPMENT ========================= */
   .app.window-app.sheet.item-sheet {
     box-shadow: none;
@@ -2197,7 +2212,7 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -52px 0px 0px 0px;
+      margin: -25px 0px 0px 0px;
       height: 26px;
       position: relative;
     }
@@ -5020,6 +5035,10 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header {
+      margin-top:5px;
+    }
+
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #name,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #name {
         position: relative;
@@ -14797,4 +14816,16 @@ font-style : normal;
 
         #client-settings .window-content .sheet-footer{
           max-height: 30px;
+        }
+
+        #player-config .directory-item .actor-name {
+          color: #CCC;
+        }
+
+        #player-config .directory-item {
+          border:none;
+        }
+
+        #player-config .form-group-stacked label {
+          color: #ccc;
         }

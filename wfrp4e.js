@@ -2580,7 +2580,8 @@ class ActorWfrp4e extends Actor {
         unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
 
 
-        if (testData.extra.weapon.properties.qualities.includes("Damaging") && unitValue > Number(roll.SL))
+        if ((testData.extra.weapon.properties.qualities.includes("Damaging") || testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") 
+            && unitValue > Number(roll.SL)))
           damageToUse = unitValue;
 
         if (testData.extra.attackType == "melee")
@@ -2588,11 +2589,12 @@ class ActorWfrp4e extends Actor {
         if (testData.extra.attackType == "ranged")
           testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
         
-        if (testData.extra.weapon.properties.qualities.includes("Impact"))
+        if (testData.extra.weapon.properties.qualities.includes("Impact") || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)"))
           testData.extra.damage += unitValue;
 
-        if (testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)")
-          && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
+        if ((testData.extra.weapon.properties.qualities.includes("Tiring (Damaging)") && damageToUse != roll.SL)
+          || testData.extra.weapon.properties.qualities.includes("Tiring (Impact)")
+          || testData.extra.weapon.properties.qualities.includes("Impact"))
         {
           if (testData.extra.attackType == "melee")
             testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
@@ -2621,27 +2623,33 @@ class ActorWfrp4e extends Actor {
 
   // Roll spell Dialog - choose between Casting or Channelling
   spellDialog(spell, options) {
-    renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
-      new Dialog({
-        title: "Cast or Channell",
-        content: dlg,
-        buttons: {
-          cast: {
-            label: "Cast",
-            callback: btn => {
-              this.setupCast(spell, options);
-            }
+
+    if (spell.data.lore.value == "petty")
+      this.setupCast(spell, options)
+    else
+    {
+      renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
+        new Dialog({
+          title: "Cast or Channell",
+          content: dlg,
+          buttons: {
+            cast: {
+              label: "Cast",
+              callback: btn => {
+                this.setupCast(spell, options);
+              }
+            },
+            channell: {
+              label: "Channell",
+              callback: btn => {
+                this.setupChannell(spell, options);
+              }
+            },
           },
-          channell: {
-            label: "Channell",
-            callback: btn => {
-              this.setupChannell(spell, options);
-            }
-          },
-        },
-        default: 'cast'
-      }).render(true);
-    })
+          default: 'cast'
+        }).render(true);
+      })
+    }
   }
 
   /**
@@ -2742,6 +2750,7 @@ class ActorWfrp4e extends Actor {
             mergeObject(roll, testData.extra);
 
           DiceWFRP.renderRollCard(cardOptions, roll);
+
           this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
           this.updateOwnedItem({id: spell.id, 'data.overcast' : {target : 0, range : 0, duration : 0}});
           // Update spell to reflect SL from channelling resetting to 0
@@ -2932,6 +2941,18 @@ class ActorWfrp4e extends Actor {
         // Override generic test function with prayer specific function
       rollOverride : () => {
         let roll = DiceWFRP.rollPrayTest(testData, this);
+      
+        try 
+        {
+          if (testData.extra.prayer.damage && roll.description.includes("Granted"))
+          testData.extra.damage = Number(roll.SL) + 
+                                  Number(testData.extra.prayer.damage)
+        }
+        catch (error)
+        {
+          ui.notifications.error("Error calculating damage: " + error)
+        } // If something went wrong calculating damage, do nothing and still render the card
+
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
@@ -2956,14 +2977,16 @@ class ActorWfrp4e extends Actor {
    * Roll a test associated with a trait
    * @param prayer {Object}   Trait being tested
    */
-  rollTrait(trait) {
+  setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
     let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
     let title =   CONFIG.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
     let testData = {
       target : char.value,
-      hitLocation : false
+      hitLocation : false,
+      extra : 
+      { trait : trait }
     };
 
     if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
@@ -3000,8 +3023,26 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
         roll();
+        },
+        rollOverride : () => {
+          let roll = DiceWFRP.rollTest(testData);
+          try 
+          {
+          if (testData.extra.trait.data.rollable.bonusCharacteristic)
+            testData.extra.damage = Number(roll.SL) + 
+                                    Number(testData.extra.trait.data.specification.value) + 
+                                    Number(this.data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus);
+          }
+          catch (error)
+          {
+            ui.notifications.error("Error calculating damage: " + error)
+          } // If something went wrong calculating damage, do nothing and still render the card
+          if (testData.extra)
+            mergeObject(roll, testData.extra);
+          DiceWFRP.renderRollCard(cardOptions, roll);
         }
     };
+
     let cardOptions = {
       actor : this.data.id,
       speaker: {
@@ -3123,6 +3164,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
     data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
+    data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
     data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
     return data;
   }
@@ -3242,6 +3284,22 @@ class ItemSheetWfrp4e extends ItemSheet {
     super(item, options);
     this.mce = null;
   }
+
+
+    _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+    if ( game.user.isGM && this.options.editable ) {
+      buttons.push(
+        {
+          // label: "Close",
+          class: "post",
+          icon: "fas fa-comment",
+          onclick: ev => this.close()
+        })
+  }
+  return buttons
+}
+
 
   /**
    * Use a type-specific template for each different item type
@@ -3726,11 +3784,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "ammunition")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             inventory.ammunition.items.push(i);
             inventory.ammunition.show = true
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -3929,10 +3987,10 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "money")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             money.coins.push(i);
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -3981,7 +4039,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
         cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
         cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
-          return prev + cur.encumbrance;
+          return Number(prev) + Number(cur.encumbrance);
         }, 0);
         cont.holding = Math.floor(cont.holding)
       }
@@ -3998,6 +4056,19 @@ class ActorSheetWfrp4e extends ActorSheet {
       for (let skill of basicSkills.concat(advancedOrGroupedSkills))
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
+
+      let smb = talents.find(t => t.name.toLowerCase() == "strike mighty blow")
+      if (smb && this.actor.data.flags.meleeDamageIncrease != smb.data.advances.value)
+        this.actor.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
+      else if (!smb && this.actor.data.flags.meleeDamageIncrease)
+        this.actor.update({"flags.meleeDamageIncrease" : 0});
+
+
+      let accshot = talents.find(t => t.name.toLowerCase() == "accurate shot")
+      if (accshot && this.actor.data.flags.rangedDamageIncrease != accshot.data.advances.value)
+        this.actor.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
+      else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
+        this.actor.update({"flags.rangedDamageIncrease" : 0});
 
 
       // Penalties box setup
@@ -4082,8 +4153,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           actorData.data.characteristics[char].career = false;
       }
 
-
-
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
@@ -4111,6 +4180,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.untrainedTalents = untrainedTalents;
 
       let enc;
+      // let moneyEnc = 0;
+      // for (let m of money.coins)
+      // {
+      //   moneyEnc += m.data.encumbrance.value * m.data.quantity.value;
+      // }
+      // totalEnc += Math.floor(moneyEnc);
+      totalEnc = Math.floor(totalEnc);
       try
       {
         enc = {
@@ -4474,7 +4550,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let trait = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollTrait((duplicate(trait)));
+      this.actor.setupTrait((duplicate(trait)));
     })
 
     html.find('.spell-roll').click(event => {
@@ -4766,7 +4842,36 @@ class ActorSheetWfrp4e extends ActorSheet {
         switch(event.target.text)
         {
           case "C":
-            if (this.actor.data.type == "creature")
+            let creatureMethod = false;
+            if (this.actor.data.type == "creature" || !species)
+              creatureMethod = true;
+
+            if (!creatureMethod)
+            {
+              let characteristics = duplicate (this.actor.data.data.characteristics);
+              let averageCharacteristics = WFRP_Utility.speciesCharacteristics(species, true);
+
+              // If this loop results in turning creatureMethod to true, that means an NPCs statistics have been edited manually, use -10 + 2d10 method
+              for (let char in characteristics)
+              {
+                if (characteristics[char].initial != averageCharacteristics[char])
+                  creatureMethod = true;
+              }
+            }
+
+
+            if (!creatureMethod)
+            {
+              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+              for (let char in rolledCharacteristics)
+              {
+                characteristics[char].initial = rolledCharacteristics[char];
+              }
+              await this.actor.update({"data.characteristics" : characteristics})
+            }
+
+
+            else if (creatureMethod)
             {
               let roll = new Roll("2d10");
               roll.roll();
@@ -4783,17 +4888,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               }
               await this.actor.update({"data.characteristics" : characteristics});
             }
-            else
-            {
-              let characteristics = duplicate (this.actor.data.data.characteristics);
-              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
-              for (let char in rolledCharacteristics)
-              {
-                characteristics[char].initial = rolledCharacteristics[char];
-              }
-              await this.actor.update({"data.characteristics" : characteristics})
 
-            }
             return
 
           case "S":
@@ -4826,11 +4921,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-    event.dataTransfer.setData("text/plain", JSON.stringify({
+    const item = this.actor.getOwnedItem(itemId);
+	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
-      actorId: this.actor._id,
-      id: itemId,
-      root: Number(event.currentTarget.getAttribute("root"))
+      actorId: this.actor.id,
+      data: item.data
     }));
   }
 
@@ -4838,7 +4933,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
       if ($(event.target).parents(".item").attr("inventory-type") == "container"){
-        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
+        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
         if (dragItem.data.id == dropID)
           throw "";
         else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container"))
@@ -4866,7 +4961,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         await this.actor.updateOwnedItem(dragItem.data, true);
       }
     else
+    {
       super._onDrop(event)
+    }
   }
 
 
@@ -5589,7 +5686,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         return;
       }
 
-      this.actor.rollTrait(trait.data);
+      this.actor.setupTrait(trait.data);
 
     })
 
@@ -5763,8 +5860,10 @@ class WFRP_Utility
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue);
-    weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue);
+    if (weapon.data.damage.meleeValue)
+      weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+    if (weapon.data.damage.rangedValue)
+      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0);
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
@@ -5971,10 +6070,23 @@ class WFRP_Utility
       weapon.data.range.value *= 2;
     }
     else
-      weapon.data.range.value += eval(ammoRange)
-
-    weapon.data.damage.rangedValue += eval(ammoDamage);
-
+    {
+      try 
+      {
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
+      }
+      catch 
+      {
+        // Do nothing to weapon range
+      }
+    }
+    
+    try {
+    weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+    }
+    catch { // Do nothing to weapon Damage
+    }
+    
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
     // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
     ammoProperties = ammoProperties.filter(p => p != undefined);
@@ -6508,4 +6620,17 @@ Hooks.on("getCombatTrackerEntryContext", (html, options) => {
       $(`#sidebar-tabs`).find(`.item[data-tab="chat"]`).click();
     }
   })
+})
+
+Hooks.on("createOwnedItem", (item) => {
+
+    if (item.actor.data.type == "character")
+      return;
+    if (item.type == "armour")
+      item.update({"data.worn.value" : true});
+    else if (item.type == "weapon")
+      item.update({"data.equipped" : true});
+    if (item.data.type == "trapping" && item.data.data.trappingType.value == "clothingAccessories")
+      item.update({"data.worn" : true});
+     
 })
