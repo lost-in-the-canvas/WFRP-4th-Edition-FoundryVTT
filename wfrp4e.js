@@ -1059,7 +1059,7 @@ class DiceWFRP {
       testResults.description = "Casting Failed"
 
       // TODO: If no ID
-      if ((testResults.roll % 11 == 0)&& !testData.extra.ID)
+      if (testResults.roll % 11 == 0)
       {
         testResults.description = "Casting Succeeded"
         testResults.extra.critical = "Critical Cast"
@@ -1073,8 +1073,12 @@ class DiceWFRP {
       testResults.overcasts = overcasts;
 
       // If no ID
-      if (testResults.roll % 11 == 0 && !testData.extra.ID)
+      if (testResults.roll % 11 == 0)
+      {
+        testResults.description = "Casting Succeeded"
+        testResults.extra.critical = "Critical Cast"
         miscastCounter++;
+      }
     }
 
     switch (miscastCounter)
@@ -1095,7 +1099,7 @@ class DiceWFRP {
            testResults.extra.majormis = "Major Miscast<"
            break;
       case 3:
-      testResults.extra.majormis = "Major Miscast"
+      testResults.extra.catastrophicmis = "catastrophic Miscast"
       break;
     }
 
@@ -1103,8 +1107,8 @@ class DiceWFRP {
       miscastCounter--;
     if (miscastCounter < 0)
       miscastCounter = 0;
-    if (miscastCounter > 2)
-      miscastCounter = 2
+    if (miscastCounter > 3)
+      miscastCounter = 3
 
     return testResults;
   }
@@ -1130,8 +1134,10 @@ class DiceWFRP {
           SL = -1;
 
        testResults.description = "Channell Failed"
-       if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0 || testResults.roll == 100)
+       if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0)
          miscastCounter += 2;
+       if (testResults.roll == 100)
+         miscastCounter = 3
       }
      else
      {
@@ -1141,7 +1147,7 @@ class DiceWFRP {
        if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
 
-        if (testResults.roll % 11 == 0 && !testData.extra.AA)
+        if (testResults.roll % 11 == 0)
        {
          miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
@@ -1176,7 +1182,7 @@ class DiceWFRP {
             testResults.extra.majormis = "Major Miscast"
             break;
        case 3:
-          testResults.extra.majormis = "Major Miscast"
+          testResults.extra.catastrophicmis = "Catastrophic Miscast"
        break;
      }
 
@@ -2661,7 +2667,6 @@ class ActorWfrp4e extends Actor {
     let castSkills = [{key : "int", name : "Intelligence"}]
     castSkills = castSkills.concat(this.items.filter(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill"))
     let defaultSelection = castSkills.findIndex(i => i.name.toLowerCase() == "language (magick)")
-    let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
 
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
     let testData = {
@@ -2671,7 +2676,6 @@ class ActorWfrp4e extends Actor {
         spell : preparedSpell,
         malignantInfluence : false,
         ingredient : false,
-        ID : instinctiveDiction
       }
     };
 
@@ -2785,7 +2789,6 @@ class ActorWfrp4e extends Actor {
     {
       defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
     }
-    let aethyricAttunement = (this.data.flags.talentTests.find(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
     let testData = {
       target : 0,
@@ -2793,7 +2796,6 @@ class ActorWfrp4e extends Actor {
         spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
         malignantInfluence : false,
         ingredient : false,
-        AA : aethyricAttunement
       }
     };
 
