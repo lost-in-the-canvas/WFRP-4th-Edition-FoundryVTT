@@ -1056,12 +1056,13 @@ class DiceWFRP {
     {
       testResults.description = "Casting Failed"
 
-      // TODO: If no ID
-      if ((testResults.roll % 11 == 0)&& !testData.extra.ID)
+      if (testResults.roll % 11 == 0)
       {
         testResults.description = "Casting Succeeded"
-        testResults.extra.critical = "Critical Cast"
-        miscastCounter++;
+        testResults.extra.critical = "Total Power"
+
+        if (!testData.extra.ID)
+          miscastCounter++;
       }
     }
     else // Successful test, casted
@@ -1071,8 +1072,14 @@ class DiceWFRP {
       testResults.overcasts = overcasts;
 
       // If no ID
-      if (testResults.roll % 11 == 0 && !testData.extra.ID)
-        miscastCounter++;
+      if (testResults.roll % 11 == 0)
+      {
+        testResults.extra.critical = "Critical Cast"
+
+        if (!testData.extra.ID)
+          miscastCounter++;
+      }
+
     }
 
     switch (miscastCounter)
@@ -1090,7 +1097,7 @@ class DiceWFRP {
             testResults.extra.minormis = "Minor Miscast"
           }
          else
-           testResults.extra.majormis = "Major Miscast<"
+           testResults.extra.majormis = "Major Miscast"
            break;
       case 3:
       testResults.extra.majormis = "Major Miscast"
@@ -1139,12 +1146,12 @@ class DiceWFRP {
        if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
 
-        if (testResults.roll % 11 == 0 && !testData.extra.AA)
+        if (testResults.roll % 11 == 0)
        {
-         miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
          testResults.extra.criticalchannell = "Critical Channell"
-
+         if (!testData.extra.AA)
+           miscastCounter++;
        }
      }
 
@@ -1301,7 +1308,15 @@ class DiceWFRP {
 
       if (ev.button == 0)
       {
-        if ($(ev.currentTarget).attr("data-table") == "misfire")
+        if (ev.target.text == "Critical Cast")
+        {
+          html = WFRP_Tables.criticalCastMenu($(ev.currentTarget).attr("data-table"));
+        }
+
+        else if (ev.target.text == "Total Power")
+          html = WFRP_Tables.restrictedCriticalCastMenu();
+
+        else if ($(ev.currentTarget).attr("data-table") == "misfire")
         {
           let damage = $(ev.currentTarget).attr("data-damage")
           html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
@@ -2832,7 +2847,7 @@ class ActorWfrp4e extends Actor {
     {
       defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
     }
-    let aethyricAttunement = (this.data.flags.talentTests.find(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
+    let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
     let testData = {
       target : 0,
@@ -4775,7 +4790,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           spell.data.cn.SL = spell.data.cn.valeu;
           break;
         case 2:
-        spell.data.cn.SL = 0;
+        spell.data.cn.SL--;
         break;
       }
       await this.actor.updateOwnedItem(spell, true);
@@ -6556,6 +6571,24 @@ class WFRP_Tables {
         }
     }
   }
+
+  static criticalCastMenu(crittable)
+  {
+    return "Choose from:<ul>" +            
+            `<li><b>Critical Cast</b>: If the spell causes damage, it inflicts a <a class=table-click data-table=${crittable}><b>Critical Wound</b></a></li>`+
+            "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
+            "<li><b>Unstoppable Force</b>: If the spell is successfully cast, it cannot be dispelled.</li>"+
+            "</ul";
+  }
+
+  
+  static restrictedCriticalCastMenu()
+  {
+    return "Must Choose:<ul>" +            
+            "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
+            "</ul";
+  }
+
 }
 
 Hooks.on("updateCombat", (combat) => {
