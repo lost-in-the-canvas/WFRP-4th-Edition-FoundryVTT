@@ -813,9 +813,9 @@ class DiceWFRP {
       {
         testDifficulty : "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : dialogOptions.data.advantage * 10 || 0,
+        testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
         slBonus : dialogOptions.data.slBonus || 0,
-        successBonus : 0,
+        successBonus : dialogOptions.data.successBonus || 0,
       });
     mergeObject(cardOptions,
       {
@@ -1771,10 +1771,9 @@ Hooks.once("init", () => {
     });
 
     // Register Defensive auto-fill
-    game.settings.register("wfrp4e", "defensiveAutoFill", {
-      name: "Defensive Auto Populate",
-      hint: "Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn.",
-      scope: "world",
+    game.settings.register("wfrp4e", "testAutoFill", {
+      name: "Test Dialog Auto Populate",
+      hint: "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",      scope: "world",
       config: true,
       default: true,
       type: Boolean
@@ -2337,7 +2336,7 @@ class ActorWfrp4e extends Actor {
     let cardOptions = {
       actor : this.data.id,
       speaker: {
-        alias: this.data.name,
+        alias: this.data.token.name,
       },
       title: title,
       template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
@@ -2431,7 +2430,16 @@ class ActorWfrp4e extends Actor {
     let skillCharList = [];
     let ammo;
     let slBonus = 0 // Used when wielding defensive weapons
+    let modifier = 0;
+    let successBonus = 0;
     let title = "Weapon Test - " + weapon.name;
+
+    if (game.settings.get("wfrp4e", "testAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
+    {
+      // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
+
+    }
+    
     if (event.attackType == "melee")
     {
       // If Melee, default to Weapon Skill, but check to see if the actor has the specific skill for the weapon
@@ -2439,31 +2447,6 @@ class ActorWfrp4e extends Actor {
       for (let meleeSkill of this.data.flags.combatSkills)
         if (meleeSkill.name.toLowerCase().includes("melee"))
           skillCharList.push(meleeSkill.name);
-      
-      if (game.settings.get("wfrp4e", "defensiveAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
-      {
-        // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
-
-        try 
-        {
-          let currentTurn = game.combat.turns.find(t => t.active)
-
-          if (this.data.token.actorLink)
-          {
-            if (this.data.token != currentTurn.actor.data.token)
-              slBonus = this.data.flags.defensive;
-          }
-          else
-          {
-            if (currentTurn.tokenId != this.token.id)
-              slBonus = this.data.flags.defensive;
-          }
-        }
-        catch
-        {
-          slBonus = 0;
-        }
-      }
     }
 
 
@@ -2507,6 +2490,55 @@ class ActorWfrp4e extends Actor {
     // Default the selection to the specific skill (so user doesn't have to change it to the better option every time)
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
 
+    if (game.settings.get("wfrp4e", "testAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
+    {
+      try 
+      {
+        let wep = WFRP_Utility._prepareWeaponCombat(this.data, weapon);
+        let currentTurn = game.combat.turns.find(t => t.active)
+        if (this.data.token.actorLink)
+        {
+          if (this.data.token != currentTurn.actor.data.token)
+            slBonus = this.data.flags.defensive;
+          else
+          {
+            if (skillCharList.indexOf(defaultSelection) != -1)
+            {
+              if (wep.properties.qualities.includes("Accurate"))
+              modifier += 10;
+              if (wep.properties.qualities.includes("Precise"))
+              successBonus += 1;
+            }
+            if (wep.properties.qualities.includes("Imprecise"))
+              slBonus -= 1;
+          }
+        }
+        else
+        {
+          if (currentTurn.tokenId != this.token.id)
+            slBonus = this.data.flags.defensive;
+          else
+          {
+            if (skillCharList.indexOf(defaultSelection) != -1)
+            {
+              if (wep.properties.qualities.includes("Accurate"))
+              modifier += 10;
+              if (wep.properties.qualities.includes("Precise"))
+              successBonus += 1;
+            }
+            if (wep.properties.qualities.includes("Imprecise"))
+              slBonus -= 1;
+          }
+        }
+      }
+      catch
+      {
+        slBonus = 0;
+        successBonus = 0;
+        modifier = 0;
+      }
+    }
+
     let dialogOptions = {
       title: title,
       template : "/public/systems/wfrp4e/templates/chat/weapon-dialog.html",
@@ -2520,6 +2552,8 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         skillCharList : skillCharList,
         slBonus : slBonus || 0,
+        successBonus : successBonus || 0,
+        modifier : modifier || 0,
         defaultSelection : skillCharList.indexOf(defaultSelection),
         advantage : this.data.data.status.advantage.value || 0
       },

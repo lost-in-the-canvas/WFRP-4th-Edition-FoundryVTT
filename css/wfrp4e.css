@@ -2212,9 +2212,12 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -25px 0px 0px 0px;
+      margin: -50px 0px 0px 0px;
       height: 26px;
       position: relative;
+    }
+    .app.window-app.sheet.trait-sheet .sheet-tabs {
+      margin: -25px 0px 0px 0px;
     }
       .app.window-app.sheet.item-sheet .sheet-tabs.tabs > a {
         border-image-outset: 0px;
