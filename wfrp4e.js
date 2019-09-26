@@ -6488,11 +6488,13 @@ class WFRP_Tables {
 
       case "minormis":
       case "majormis":
+      case "catastrophicmis":
       case "event":
       case "wrath":
       case "travel":
       case "mutatephys":
       case "mutatemental":
+      case "gunfumble":
         return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description} (${result.roll})`;
 
       case "doom":
@@ -6572,8 +6574,10 @@ class WFRP_Tables {
           "<a data-table='critarm' class='table-click'><code>critarm</code> - Arm Critical Hits<br></a>"+
           "<a data-table='critleg' class='table-click'><code>critleg</code> - Leg Critical Hits<br></a>"+
           "<a data-table='oops' class='table-click'><code>oops</code> - Oops!<br></a>"+
+          "<a data-table='gunfumble' class='table-click'><code>gunfumble</code> - Gunpowder Fumble<br></a>"+
           "<a data-table='minormis' class='table-click'><code>minormis</code> - Minor Miscast<br></a>"+
           "<a data-table='majormis' class='table-click'><code>majormis</code> - Major Miscast<br></a>"+
+          "<a data-table='catastrophicmis' class='table-click'><code>catatrophicmis</code> - Catastrophic Miscast<br></a>"+
           "<a data-table='wrath' class='table-click'><code>wrath</code> - Wrath of the Gods<br></a>"+
           "<a data-table='mutatephys' class='table-click'><code>mutatephys</code> - Physical Mutation<br></a>"+
           "<a data-table='mutatemental' class='table-click'><code>mutatemental</code> - Mental Mutation<br></a>"+
