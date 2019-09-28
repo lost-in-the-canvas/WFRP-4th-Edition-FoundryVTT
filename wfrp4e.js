@@ -992,8 +992,6 @@ class DiceWFRP {
 
      let testResults = this.rollTest(testData);
 
-     console.log(testResults.roll);
-
      if (testResults.description.includes("Failure"))
      {
        if (testResults.roll % 11 == 0 || testResults.roll == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
@@ -2351,11 +2349,13 @@ class ActorWfrp4e extends Actor {
     let cardOptions = {
       actor : this.data.id,
       speaker: {
-        alias: this.data.token.name,
+        alias: this.data.name,
       },
       title: title,
       template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2429,6 +2429,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/skill-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2509,7 +2511,7 @@ class ActorWfrp4e extends Actor {
     {
       try 
       {
-        let wep = WFRP_Utility._prepareWeaponCombat(this.data, weapon);
+        let wep = WFRP_Utility._prepareWeaponCombat(this.data, duplicate(weapon));
         let currentTurn = game.combat.turns.find(t => t.active)
         if (this.data.token.actorLink)
         {
@@ -2670,6 +2672,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2826,6 +2830,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/spell-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2929,6 +2935,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/channell-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -3028,6 +3036,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -3113,6 +3123,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -3360,6 +3372,16 @@ class ItemSheetWfrp4e extends ItemSheet {
         })
   }
   return buttons
+}
+
+async _render(force = false, options = {})
+{
+  await super._render(force, options);
+  $(this._element).find(".close").attr("title", "Close");
+  $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
+  $(this._element).find(".post").attr("title", "Post to chat");
+  $(this._element).find(".import").attr("title", "Import");
+
 }
 
 
@@ -3619,12 +3641,15 @@ class ActorSheetWfrp4e extends ActorSheet {
   get actorType() {
     return this.actor.data.type;
   }
-
-    async _render(force = false, options = {}) {
-      this._saveScrollPos();
-      await super._render(force, options);
-      this._setScrollPos();
-    }
+  async _render(force = false, options = {}) {
+    this._saveScrollPos();
+    await super._render(force, options);
+    this._setScrollPos();
+    $(this._element).find(".close").attr("title", "Close");
+    $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
+    $(this._element).find(".configure-token").attr("title", "Configure Token");
+    $(this._element).find(".import").attr("title", "Import");
+  }
 
     // Add the class "save-scroll" to a div to save it's scroll position
    _saveScrollPos()
@@ -4967,6 +4992,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         console.log("Could not randomize: " + error)
       }
+
     });
 
 
@@ -6073,20 +6099,22 @@ class WFRP_Utility
     }
     else
     {
-      try 
-      {
+      try {
+        ammoRange = eval(ammoRange);
         weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
       }
       catch 
       {
-        // Do nothing to weapon range
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange)); // Eval throws exception for "/2" for example. 
       }
     }
     
     try {
-    weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+      ammoDamage = eval(ammoDamage);
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
     }
-    catch { // Do nothing to weapon Damage
+    catch { 
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
     }
     
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
@@ -6684,4 +6712,11 @@ Hooks.on("createOwnedItem", (item) => {
       }
     }
      
+})
+
+Hooks.on("renderJournalSheet", (obj, html, data) => {
+  $(html).find(".close").attr("title", "Close");
+  $(html).find(".entry-image").attr("title", "Image");
+  $(html).find(".entry-text").attr("title", "Text");
+  $(html).find(".share-image").attr("title", "Show Image");
 })
