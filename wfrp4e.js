@@ -2567,6 +2567,8 @@ class ActorWfrp4e extends Actor {
 
     // Default the selection to the specific skill (so user doesn't have to change it to the better option every time)
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
+    if (skillCharList.find(x => x.toLowerCase() == defaultSelection.toLowerCase()))
+      defaultSelection = skillCharList.find(x => x.toLowerCase() == defaultSelection.toLowerCase())
 
     if (game.settings.get("wfrp4e", "testAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
     {
@@ -2587,7 +2589,7 @@ class ActorWfrp4e extends Actor {
               if (wep.properties.qualities.includes("Precise"))
               successBonus += 1;
             }
-            if (wep.properties.qualities.includes("Imprecise"))
+            if (wep.properties.flaws.includes("Imprecise"))
               slBonus -= 1;
           }
         }
@@ -2604,7 +2606,7 @@ class ActorWfrp4e extends Actor {
               if (wep.properties.qualities.includes("Precise"))
               successBonus += 1;
             }
-            if (wep.properties.qualities.includes("Imprecise"))
+            if (wep.properties.flaws.includes("Imprecise"))
               slBonus -= 1;
           }
         }
@@ -2787,7 +2789,6 @@ class ActorWfrp4e extends Actor {
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
     let testData = {
       target : 0,
-      hitLocation : true,
       extra : {
         spell : preparedSpell,
         malignantInfluence : false,
@@ -2795,6 +2796,9 @@ class ActorWfrp4e extends Actor {
         ID : instinctiveDiction
       }
     };
+
+    if (preparedSpell.damage)
+      testData.hitLocation = true;
 
     let dialogOptions = {
       title: title,
@@ -3405,7 +3409,7 @@ class ItemWfrp4e extends Item {
      if (data.damage.value)
       properties.push("Damage: " + data.damage.value);
 
-     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
+     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
        properties.push(prop);
      properties = properties.filter(p => p != "Special");
      if (data.special.value)
@@ -3455,6 +3459,13 @@ class ItemWfrp4e extends Item {
       `<b>Encumbrance</b>: ${data.encumbrance.value}`,
       `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
     ]
+    return properties;
+  }
+
+  _skillChatData() {
+    const data = duplicate(this.data.data);
+    let properties = []
+    properties.push( data.advanced == "adv" ? "<b>Advanced</b>" : "<b>Basic</b>")
     return properties;
   }
 
@@ -4811,7 +4822,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     // Item summaries
-    html.find('.item-dropdown').click(event => this._onItemSummary(event));
+    html.find('.item-dropdown').mousedown(event => this._onItemSummary(event));
 
     html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armour-quality, .armour-flaw').click(event => this._expandProperty(event));
 
@@ -6037,8 +6048,12 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
    for (let weapon of actorData.weapons)
    {
+     try {
      if (weapon.data.currentAmmo.value)
       weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+     }
+     catch
+      {weapon.data.currentAmmo.value}
    }
 
   }
@@ -6088,7 +6103,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
         this.clicks = 0;             //after action performed, reset counter
 
-      }, 150);
+      }, 250);
 
   } 
   else
