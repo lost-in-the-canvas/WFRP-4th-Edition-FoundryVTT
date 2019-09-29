@@ -153,7 +153,7 @@
   <li class="item" data-item-id="{{item.id}}">
     <div class="content">
       <div id="spell-name" class="item-name item-dropdown">
-        <div class="image item-dropdown" style="background-image: url({{item.img}})"></div>
+        <div class="image" style="background-image: url({{item.img}})"></div>
         <a class="name">{{item.name}}</a>
       </div>
 
@@ -232,8 +232,8 @@
     {{#each rootPack.carrying as |item i|}}
     <li class="item level-one-item" data-item-id="{{item.id}}">
       <div class="content">
-        <div class="item-name">
-          <div class="image item-image item-dropdown" style="background-image: url({{item.img}})"></div>
+        <div class="item-name item-dropdown">
+          <div class="image item-image" style="background-image: url({{item.img}})"></div>
           <a class="name">{{item.name}}</a>
         </div>
 
@@ -297,8 +297,8 @@
     {{#each pack.carrying as |item i|}}
     <li class="item level-two-item" data-item-id="{{item.id}}">
       <div class="content">
-        <div class="item-name">
-          <div class="image item-image item-dropdown" style="background-image: url({{item.img}})"></div>
+        <div class="item-name item-dropdown">
+          <div class="image item-image" style="background-image: url({{item.img}})"></div>
           <a class="name">{{item.name}}</a>
         </div>
 
