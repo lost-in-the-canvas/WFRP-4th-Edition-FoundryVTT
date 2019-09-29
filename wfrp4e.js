@@ -6862,10 +6862,13 @@ class WFRP_Utility
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
     ChatMessage.create(chatOptions);
 
-    content = `<b>${symptom} Treatment</b>: ${CONFIG.symptomTreatment[symkey]}`;
-    chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
-    chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-    ChatMessage.create(chatOptions);
+    if (game.user.isGM)
+    {
+      content = `<b>${symptom} Treatment</b>: ${CONFIG.symptomTreatment[symkey]}`;
+      chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
+      chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      ChatMessage.create(chatOptions);
+    }
   }
 
   static postProperty(property)
