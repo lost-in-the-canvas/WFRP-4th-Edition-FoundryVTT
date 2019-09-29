@@ -1,4 +1,4 @@
-<div class="creature-lists">
+<div class="creature-lists save-scroll">
   <div class="creature-overview-label">Creature Overview</div>
 
   <div class="creature-overview">
@@ -80,8 +80,122 @@
       {{/each}}
     </div>
     {{/if}}
-
   </div>
+
+  {{#if actor.weapons}}  
+  <div class="inventory-header item melee-weapon-header">
+    <div id="name">Melee Weapon(s)</div>
+    <a class="fist-icon">
+      <i class="fa fa-fist-raised"></i>
+    </a>
+    <div id="group">Group</div>
+    <div id="damage">Damage</div>
+    <div id="reach">Reach</div>
+  </div>
+
+  <ol class="inventory-list melee-weapon-list save-scroll" data-weapon-type="melee">
+    {{#each actor.weapons as |item i|}}
+    {{#if item.meleeWeaponType}}
+    <li class="item" data-item-id="{{item.id}}">
+      <div class="content">
+        <div class="item-name">
+          <a class="image" style="background-image: url({{item.img}})"></a>
+          <a class="name weapon-item-name">{{item.name}}</a>
+        </div>
+        <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
+        <div class="damage weapon-damage">+{{item.data.damage.meleeValue}}</div>
+        <a class="reach weapon-reach">{{item.data.reach.value}}</a>
+      </div>
+      <div class="content">
+        <div class="weapon-property">
+          {{#if item.data.twohanded.value}}
+          <span class='label melee-property-quality melee-property-flaw'>Two handed</span>
+          {{/if}}
+  
+          {{#if item.properties.special}}
+          <a class='text melee-property-quality melee-property-flaw'>Special</a>
+          {{/if}}
+  
+          {{#if item.properties.qualities}}
+          <span class="label quality">Q:</span>
+          {{#each item.properties.qualities as |property p|}}
+          <a class='text melee-property-quality'>{{property}}</a><h1 class='text melee-property-quality comma'>,</h1>
+          {{/each}}
+          {{/if}}
+  
+          {{#if item.properties.flaws}}
+          <span class="label flaw">F:</span>
+          {{#each item.properties.flaws as |property p|}}
+          <a class='text melee-property-flaw'>{{property}}</a><h2 class='text melee-property-flaw comma'>,</h2>
+          {{/each}}
+          {{/if}}
+        </div>
+      </div>
+    </li>
+    {{/if}}
+    {{/each}}
+  </ol>
+  
+  <div class="inventory-header item ranged-weapon-header">
+    <div id="name">Ranged Weapon(s)</div>
+    <div id="group">Group</div>
+    <div id="ammo">Ammunition</div>
+    <div id="damage">Damage</div>
+    <div id="range">Range</div>
+  </div>
+  
+  <ol class="inventory-list ranged-weapon-list save-scroll" data-weapon-type="ranged">
+    {{#each actor.weapons as |item i|}}
+    {{#if item.rangedWeaponType}}
+    <li class="item" data-item-id="{{item.id}}">
+      <div class="content">
+        <div class="item-name">
+          <div class="image" style="background-image: url({{item.img}})"></div>
+          <a class="name weapon-item-name">{{item.name}}</a>
+        </div>
+        <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
+        {{#if item.data.ammunitionGroup.value}}
+        <div class="ammo-selector selector">
+          {{item.ammoName}}
+        </div>
+        {{else}}
+        <div class="no-ammo">
+          None
+        </div>
+        {{/if}}
+        <div class="damage weapon-damage">+{{item.data.damage.rangedValue}}</div>
+        <a class="range weapon-range">{{item.data.range.value}} yds</a>
+      </div>
+      <div class="content">
+        <div class="weapon-property">
+          {{#if item.data.twohanded.value}}
+          <span class='label ranged-property-quality ranged-property-flaw'>Two handed</span>
+          {{/if}}
+  
+          {{#if item.properties.special}}
+          <a class='text ranged-property-quality ranged-property-flaw'>Special</a>
+          {{/if}}
+  
+          {{#if item.properties.qualities}}
+          <span class="label quality">Q:</span>
+          {{#each item.properties.qualities as |property p|}}
+          <a class='text ranged-property-quality'>{{property}}</a><h3 class='text ranged-property-quality comma'>,</h3>
+          {{/each}}
+          {{/if}}
+  
+          {{#if item.properties.flaws}}
+          <span class="label flaw">F:</span>
+          {{#each item.properties.flaws as |property p|}}
+          <a class='text ranged-property-flaw'>{{property}}</a><h4 class='text ranged-property-flaw comma'>,</h4>
+          {{/each}}
+          {{/if}}
+        </div>
+      </div>
+    </li>
+    {{/if}}
+    {{/each}}
+  </ol>
+  {{/if}}
 
   <div class="armour-section">
     <div class="row">

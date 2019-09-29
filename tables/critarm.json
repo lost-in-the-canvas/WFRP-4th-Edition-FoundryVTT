@@ -130,27 +130,27 @@
     {
       "name": "Badly Jarred Arm",
       "wounds": "2",
-      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for 1d10 - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
+      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for <b><a class = 'chat-roll'>1d10</a></b> - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
     },
     {
       "name": "Badly Jarred Arm",
       "wounds": "2",
-      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for 1d10 - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
+      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for <b><a class = 'chat-roll'>1d10</a></b> - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
     },
     {
       "name": "Badly Jarred Arm",
       "wounds": "2",
-      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for 1d10 - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
+      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for <b><a class = 'chat-roll'>1d10</a></b> - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
     },
     {
       "name": "Badly Jarred Arm",
       "wounds": "2",
-      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for 1d10 - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
+      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for <b><a class = 'chat-roll'>1d10</a></b> - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
     },
     {
       "name": "Badly Jarred Arm",
       "wounds": "2",
-      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for 1d10 - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
+      "description": "Your arm is badly jarred in the attack. Drop whatever was held in that hand, which is useless for <b><a class = 'chat-roll'>1d10</a></b> - Toughness Bonus Rounds (minimum 1). For this time, treat the hand as lost."
     },
     {
       "name": "Torn Muscles",
@@ -205,27 +205,27 @@
     {
       "name": "Wrenched Arm",
       "wounds": "2",
-      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for 1d10 Rounds."
+      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <b><a class = 'chat-roll'>1d10</a></b> Rounds."
     },
     {
       "name": "Wrenched Arm",
       "wounds": "2",
-      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for 1d10 Rounds."
+      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <b><a class = 'chat-roll'>1d10</a></b> Rounds."
     },
     {
       "name": "Wrenched Arm",
       "wounds": "2",
-      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for 1d10 Rounds."
+      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <b><a class = 'chat-roll'>1d10</a></b> Rounds."
     },
     {
       "name": "Wrenched Arm",
       "wounds": "2",
-      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for 1d10 Rounds."
+      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <b><a class = 'chat-roll'>1d10</a></b> Rounds."
     },
     {
       "name": "Wrenched Arm",
       "wounds": "2",
-      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for 1d10 Rounds."
+      "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <b><a class = 'chat-roll'>1d10</a></b> Rounds."
     },
     {
       "name": "Gaping Wound",
@@ -380,27 +380,27 @@
     {
       "name": "Dislocated Shoulder",
       "wounds": "4",
-      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for 1d10 days."
+      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days."
     },
     {
       "name": "Dislocated Shoulder",
       "wounds": "4",
-      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for 1d10 days."
+      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days."
     },
     {
       "name": "Dislocated Shoulder",
       "wounds": "4",
-      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for 1d10 days."
+      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days."
     },
     {
       "name": "Dislocated Shoulder",
       "wounds": "4",
-      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for 1d10 days."
+      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days."
     },
     {
       "name": "Dislocated Shoulder",
       "wounds": "4",
-      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for 1d10 days."
+      "description": "Your arm is wrenched out of its socket. Pass a Hard (-20) Endurance Test or gain the Stunned and Prone Condition. Drop whatever is held in that hand: the arm is useless and counts as lost (see Amputated Part). Gain 1 Stunned Condition until you receive Medical Attention. After this initial Medical Attention, an Extended Average (+20) Heal Test needing 6 SL is required to reset the arm, at which point you regain its use. Tests made using this arm suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days."
     },
     {
       "name": "Severed Finger",
@@ -500,7 +500,7 @@
     {
       "name": "Brutal Dismemberment",
       "wounds": "Death",
-      "description": "Your arm is severed, spraying arterial blood 1d10 feet in a random direction (see Scatter), before the blow follows through to your chest."
+      "description": "Your arm is severed, spraying arterial blood <b><a class = 'chat-roll'>1d10</a></b> feet in a random direction (see Scatter), before the blow follows through to your chest."
     }
   ]
 }
