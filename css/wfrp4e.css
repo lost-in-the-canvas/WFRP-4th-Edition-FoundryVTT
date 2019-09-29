@@ -14829,3 +14829,22 @@ font-style : normal;
           max-height: 100px;
           border:none;
         }
+
+
+  /* ==================== MODULE COMPATIBILITY ======================== */
+
+.dice-calculator__input-wrapper > textarea {
+    background: none;
+    border: 1px solid #CCC;
+    color: white;
+}
+.dice-calculator__input > label {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+}
+
+.dice-calculator > button, .dice-calculator .dice-calculator--button {
+    font-family: var(--actor-input-font-family);
+    color: white;
+}
