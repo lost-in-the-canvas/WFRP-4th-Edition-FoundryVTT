@@ -5356,7 +5356,30 @@ class ActorSheetWfrp4e extends ActorSheet {
     item.postItem();
   })
 
-
+  html.find(".inventory .item .item-name").mousedown(ev => {
+    if (ev.button == 2)
+    {
+      new Dialog({
+        title: "Duplicate Item",
+        content: '<p>Do you want to duplicate this item?</p>',
+        buttons: {
+          yes: {
+            label: "Yes",
+            callback: (dlg) => {
+              this.duplicateItem(Number($(ev.currentTarget).parents(".item").attr("data-item-id")));
+            }
+          },
+          cancel: {
+            label: "Cancel",
+            callback: dlg => {
+              return
+            }
+          },
+        },
+        default: 'yes'
+      }).render(true);
+    }
+  })
 
     //Item Dragging
     let handler = ev => this._onDragItemStart(ev);
@@ -5576,6 +5599,12 @@ class ActorSheetWfrp4e extends ActorSheet {
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createOwnedItem(data, true, {renderSheet: true});
+  }
+
+  duplicateItem(itemId) 
+  {
+    let item = this.actor.getOwnedItem(itemId);
+    this.actor.createOwnedItem(item.data);
   }
 
   /* -------------------------------------------- */
