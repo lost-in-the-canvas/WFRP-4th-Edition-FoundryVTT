@@ -6041,6 +6041,39 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     super._updateObject(event, formData);
   }
 
+  _delayedDropdown(event){
+    
+    if (this.clicks)
+    this.clicks++;  //count clicks
+  else
+    this.clicks = 1;
+
+    console.log(this.clicks);
+
+  if(this.clicks === 1) 
+  {
+
+      this.timer = setTimeout( () => {
+
+       this._onCreatureItemSummary(event);
+
+        this.clicks = 0;             //after action performed, reset counter
+
+      }, 150);
+
+  } 
+  else
+  {
+
+      clearTimeout(this.timer);    //prevent single-click action
+      let itemId = Number($(event.currentTarget).attr("data-item-id"));
+      let Item = CONFIG.Item.entityClass;
+      const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+      item.sheet.render(true);
+      this.clicks = 0;             //after action performed, reset counter
+  }
+}
+
   // Creature sheet dropdowns need specific implementation to correctly display
   _onCreatureItemSummary(event) {
     event.preventDefault();
@@ -6077,7 +6110,12 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.deleteOwnedItem(itemId, true);
       }
     });
-    html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
+    html.find(".creature-dropdown").click(event => {
+      this._delayedDropdown(event);
+  }) 
+    .on("dblclick", function(e){
+    e.preventDefault();  //cancel system double-click event
+  });
 
     if (!this.options.editable) return;
 
@@ -6128,7 +6166,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
       if (event.button == 2 || !trait.data.data.rollable.value)
       {
-        this._onCreatureItemSummary(event);
+        this._delayedDropdown(event);
         return;
       }
 
