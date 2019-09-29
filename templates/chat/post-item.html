@@ -1,0 +1,13 @@
+<div class="wfrp4e post-item">
+    <h3><b>{{name}}</b></h3>
+    {{#if img}}
+    <img src="{{img}}" title="{{name}}"/>
+    {{/if}}
+
+    <div class="card-content">{{{data.description.value}}}</div>
+
+    {{#each properties as |property p|}}
+    <span><b>{{p}}</b>: {{property}}</span><br>
+    {{/each}}
+
+</div>
