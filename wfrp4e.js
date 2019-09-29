@@ -3505,7 +3505,7 @@ class ItemWfrp4e extends Item {
   _traitChatData() {
     const data = duplicate(this.data.data);
     let properties = []; 
-    if (data.tests.value)
+    if (data.specification.value)
       properties.push("<b>Specification: </b> " + data.specification.value);
     return properties;
   }
