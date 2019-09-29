@@ -4402,16 +4402,15 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
-
 /* ==================== (G) SKILLS TAB ======================== */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active {
     display: flex;
@@ -4876,13 +4875,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.talent-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -4996,13 +4995,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -5950,13 +5949,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6084,13 +6083,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6274,13 +6273,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6501,13 +6500,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.blessing-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6623,13 +6622,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.miracle-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6994,13 +6993,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7263,13 +7262,13 @@
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7440,13 +7439,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -8839,13 +8838,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -8977,13 +8976,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
        
@@ -9123,13 +9122,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.disease-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
     
@@ -10281,13 +10280,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }        
 
@@ -10488,13 +10487,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -10676,13 +10675,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -11912,13 +11911,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -12100,13 +12099,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -12274,13 +12273,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
             
@@ -14819,4 +14818,14 @@ font-style : normal;
 
         #player-config .form-group-stacked label {
           color: #ccc;
+        }
+
+        .item .content .item-controls {
+          margin-left: 10px;
+        }
+
+        .post-item img {
+          max-width: 100px;
+          max-height: 100px;
+          border:none;
         }
