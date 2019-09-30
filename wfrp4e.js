@@ -912,7 +912,9 @@ class DiceWFRP {
     let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
     let description = "";
 
-
+      
+    while (roll.total != 99)
+    roll = roll.reroll();
     // Test determination logic can be complicated due to SLBonus
     // SLBonus is always applied, but doesn't change a failure to a success or vice versa
     // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
@@ -924,6 +926,7 @@ class DiceWFRP {
       description = "Failure"
       if (roll.total >= 96 && SL > -1)
         SL = -1;
+
 
       switch(Math.abs(Number(SL)))
       {
@@ -1030,9 +1033,9 @@ class DiceWFRP {
 
       if (testData.hitLocation)
       {
-        if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
+        if (description.includes("Failure") && roll.total % 11 == 0 || roll.total == 100)
           rollResults.extra.fumble = "Fumble";
-        else if (roll.total <= targetNum && roll.total % 11 == 0)
+        else if (description.includes("Success") && roll.total % 11 == 0)
           rollResults.extra.critical = "Critical";
       }
 
