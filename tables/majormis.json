@@ -45,43 +45,43 @@
     },
     {
       "name": "Aethyric Shock",
-      "description": "You suffer 1d10 wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
+      "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
     },
     {
       "name": "Aethyric Shock",
-      "description": "You suffer 1d10 wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
+      "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
     },
     {
       "name": "Aethyric Shock",
-      "description": "You suffer 1d10 wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
+      "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
     },
     {
       "name": "Aethyric Shock",
-      "description": "You suffer 1d10 wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
+      "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
     },
     {
       "name": "Aethyric Shock",
-      "description": "You suffer 1d10 wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
+      "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Toughness Bonus or Armour: Every nail on your body blackens and wrenches free, the energies of your Wind scour you, your blood momentarily boils inside your body, etc. Pass an Average(+20) Endurance Test or gain a Stunned condition."
     },
     {
       "name": "Following Winds",
-      "description": "Your Wind follows you for the next 1d10 hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
+      "description": "Your Wind follows you for the next <b><a class = 'chat-roll'>1d10</a></b> hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
     },
     {
       "name": "Following Winds",
-      "description": "Your Wind follows you for the next 1d10 hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
+      "description": "Your Wind follows you for the next <b><a class = 'chat-roll'>1d10</a></b> hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
     },
     {
       "name": "Following Winds",
-      "description": "Your Wind follows you for the next 1d10 hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
+      "description": "Your Wind follows you for the next <b><a class = 'chat-roll'>1d10</a></b> hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
     },
     {
       "name": "Following Winds",
-      "description": "Your Wind follows you for the next 1d10 hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
+      "description": "Your Wind follows you for the next <b><a class = 'chat-roll'>1d10</a></b> hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
     },
     {
       "name": "Following Winds",
-      "description": "Your Wind follows you for the next 1d10 hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
+      "description": "Your Wind follows you for the next <b><a class = 'chat-roll'>1d10</a></b> hours. This is noticeable and difficult to explain to any suspicious bystanders. Shyish might cause plant life nearby you to wither and die, Aqshy the eruption of small fires, etc."
     },
     {
       "name": "Aethyric Attack",
@@ -125,23 +125,23 @@
     },
     {
       "name": "Voice of Madness",
-      "description": "You gabble unintelligibly for 1d10 rounds. During this time, you cannot communicate verbally or make Casting tests."
+      "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally or make Casting tests."
     },
     {
       "name": "Voice of Madness",
-      "description": "You gabble unintelligibly for 1d10 rounds. During this time, you cannot communicate verbally or make Casting tests."
+      "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally or make Casting tests."
     },
     {
       "name": "Voice of Madness",
-      "description": "You gabble unintelligibly for 1d10 rounds. During this time, you cannot communicate verbally or make Casting tests."
+      "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally or make Casting tests."
     },
     {
       "name": "Voice of Madness",
-      "description": "You gabble unintelligibly for 1d10 rounds. During this time, you cannot communicate verbally or make Casting tests."
+      "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally or make Casting tests."
     },
     {
       "name": "Voice of Madness",
-      "description": "You gabble unintelligibly for 1d10 rounds. During this time, you cannot communicate verbally or make Casting tests."
+      "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally or make Casting tests."
     },
     {
       "name": "Chaotic Winds",
@@ -165,43 +165,43 @@
     },
     {
       "name": "Ragdoll",
-      "description": "You levitate briefly before being flung 1d10 yards through the air in a random direction, taking 1d10 wounds ignoring Armour and falling Prone on landing."
+      "description": "You levitate briefly before being flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Armour and falling Prone on landing."
     },
     {
       "name": "Ragdoll",
-      "description": "You levitate briefly before being flung 1d10 yards through the air in a random direction, taking 1d10 wounds ignoring Armour and falling Prone on landing."
+      "description": "You levitate briefly before being flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Armour and falling Prone on landing."
     },
     {
       "name": "Ragdoll",
-      "description": "You levitate briefly before being flung 1d10 yards through the air in a random direction, taking 1d10 wounds ignoring Armour and falling Prone on landing."
+      "description": "You levitate briefly before being flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Armour and falling Prone on landing."
     },
     {
       "name": "Ragdoll",
-      "description": "You levitate briefly before being flung 1d10 yards through the air in a random direction, taking 1d10 wounds ignoring Armour and falling Prone on landing."
+      "description": "You levitate briefly before being flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Armour and falling Prone on landing."
     },
     {
       "name": "Ragdoll",
-      "description": "You levitate briefly before being flung 1d10 yards through the air in a random direction, taking 1d10 wounds ignoring Armour and falling Prone on landing."
+      "description": "You levitate briefly before being flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds ignoring Armour and falling Prone on landing."
     },
     {
       "name": "Limbfrozen",
-      "description": "One randomly determined limb is frozen in place for 1d10 hours. It is useless as if amputated."
+      "description": "One randomly determined limb is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. It is useless as if amputated."
     },
     {
       "name": "Limbfrozen",
-      "description": "One randomly determined limb is frozen in place for 1d10 hours. It is useless as if amputated."
+      "description": "One randomly determined limb is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. It is useless as if amputated."
     },
     {
       "name": "Limbfrozen",
-      "description": "One randomly determined limb is frozen in place for 1d10 hours. It is useless as if amputated."
+      "description": "One randomly determined limb is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. It is useless as if amputated."
     },
     {
       "name": "Limbfrozen",
-      "description": "One randomly determined limb is frozen in place for 1d10 hours. It is useless as if amputated."
+      "description": "One randomly determined limb is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. It is useless as if amputated."
     },
     {
       "name": "Limbfrozen",
-      "description": "One randomly determined limb is frozen in place for 1d10 hours. It is useless as if amputated."
+      "description": "One randomly determined limb is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. It is useless as if amputated."
     },
     {
       "name": "Craven Familiar",
@@ -225,23 +225,23 @@
     },
     {
       "name": "Chaotic Foresight",
-      "description": "The Winds bring dark visions of the future. You gain a pool of 1d10 temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
+      "description": "The Winds bring dark visions of the future. You gain a pool of <b><a class = 'chat-roll'>1d10</a></b> temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
     },
     {
       "name": "Chaotic Foresight",
-      "description": "The Winds bring dark visions of the future. You gain a pool of 1d10 temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
+      "description": "The Winds bring dark visions of the future. You gain a pool of <b><a class = 'chat-roll'>1d10</a></b> temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
     },
     {
       "name": "Chaotic Foresight",
-      "description": "The Winds bring dark visions of the future. You gain a pool of 1d10 temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
+      "description": "The Winds bring dark visions of the future. You gain a pool of <b><a class = 'chat-roll'>1d10</a></b> temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
     },
     {
       "name": "Chaotic Foresight",
-      "description": "The Winds bring dark visions of the future. You gain a pool of 1d10 temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
+      "description": "The Winds bring dark visions of the future. You gain a pool of <b><a class = 'chat-roll'>1d10</a></b> temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
     },
     {
       "name": "Chaotic Foresight",
-      "description": "The Winds bring dark visions of the future. You gain a pool of 1d10 temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
+      "description": "The Winds bring dark visions of the future. You gain a pool of <b><a class = 'chat-roll'>1d10</a></b> temporary Fortune points. Every time you spend one of these points, gain 1 Corruption point. These points last until the end of the session."
     },
     {
       "name": "Wracked",
@@ -265,23 +265,23 @@
     },
     {
       "name": "Power Drain",
-      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next 1d10 minutes. Your lost energy causes minor effects of Witchery as it travels."
+      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next <b><a class = 'chat-roll'>1d10</a></b> minutes. Your lost energy causes minor effects of Witchery as it travels."
     },
     {
       "name": "Power Drain",
-      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next 1d10 minutes. Your lost energy causes minor effects of Witchery as it travels."
+      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next <b><a class = 'chat-roll'>1d10</a></b> minutes. Your lost energy causes minor effects of Witchery as it travels."
     },
     {
       "name": "Power Drain",
-      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next 1d10 minutes. Your lost energy causes minor effects of Witchery as it travels."
+      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next <b><a class = 'chat-roll'>1d10</a></b> minutes. Your lost energy causes minor effects of Witchery as it travels."
     },
     {
       "name": "Power Drain",
-      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next 1d10 minutes. Your lost energy causes minor effects of Witchery as it travels."
+      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next <b><a class = 'chat-roll'>1d10</a></b> minutes. Your lost energy causes minor effects of Witchery as it travels."
     },
     {
       "name": "Power Drain",
-      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next 1d10 minutes. Your lost energy causes minor effects of Witchery as it travels."
+      "description": "Your power surges like a breaking dam, bleeding fully into the Winds. You lose your ability to cast magic for the next <b><a class = 'chat-roll'>1d10</a></b> minutes. Your lost energy causes minor effects of Witchery as it travels."
     },
     {
       "name": "Suffocation",
@@ -365,23 +365,23 @@
     },
     {
       "name": "Storm of Chaos",
-      "description": "Roll on the Minor Miscast table. You and the 1d10 nearest creatures suffer this effect."
+      "description": "Roll on the Minor Miscast table. You and the <b><a class = 'chat-roll'>1d10</a></b> nearest creatures suffer this effect."
     },
     {
       "name": "Storm of Chaos",
-      "description": "Roll on the Minor Miscast table. You and the 1d10 nearest creatures suffer this effect."
+      "description": "Roll on the Minor Miscast table. You and the <b><a class = 'chat-roll'>1d10</a></b> nearest creatures suffer this effect."
     },
     {
       "name": "Storm of Chaos",
-      "description": "Roll on the Minor Miscast table. You and the 1d10 nearest creatures suffer this effect."
+      "description": "Roll on the Minor Miscast table. You and the <b><a class = 'chat-roll'>1d10</a></b> nearest creatures suffer this effect."
     },
     {
       "name": "Storm of Chaos",
-      "description": "Roll on the Minor Miscast table. You and the 1d10 nearest creatures suffer this effect."
+      "description": "Roll on the Minor Miscast table. You and the <b><a class = 'chat-roll'>1d10</a></b> nearest creatures suffer this effect."
     },
     {
       "name": "Storm of Chaos",
-      "description": "Roll on the Minor Miscast table. You and the 1d10 nearest creatures suffer this effect."
+      "description": "Roll on the Minor Miscast table. You and the <b><a class = 'chat-roll'>1d10</a></b> nearest creatures suffer this effect."
     },
     {
       "name": "Trick of Fate",
