@@ -1,307 +1,407 @@
 {
-  "name": "Oops! Table",
-  "die" : "1d100",
+  "name": "Oops Table",
+  "die": "1d100",
   "rows": [
     "-",
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "Your manoeuvre was misjudged, leaving you out of position, or you lose grip of a ranged weapon. Next round, your Action suffers a penalty of -10."
+      "name": "Ouch",
+      "description": "You catch a part of your anatomy, or your opponent lands a glancing strike as you leave a gap in your defenses, or injure yourself on a part of the terrain - lose 1 Wound, ignoring Toughness Bonus and Armor Points."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "You catch a part of your anatomy — lose 1 Wound, ignoring Toughness Bonus or Armour Points."
+      "name": "Weapon Damage",
+      "description": "Your melee weapons jars badly, or your ranged weapon malfunctions - your weapon suffers 1 Damage (this reduces the damage of any attacks made that resulted in a Fumble)."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "Your melee weapon jars badly, or ranged weapon malfunctions or slightly breaks - your weapon suffers 1 Damage. Next round, you will act last regardless of Initiative order, Talents, or special rules as you recover (see page 156)."
+      "name": "Out of Position",
+      "description": "A misjudged maneuver leaves you out of position. If in melee, one engaged opponent gains 1 Advantage. If not, you take a -10% to your next Action. This often coincides with a shift in the battlefield: a dirt slope might begin to come loose beneath your feet, or your opponents might force you backwards, perhaps out of engagement with your allies."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You stumble badly, finding it hard to right yourself. Lose your next Move."
+      "name": "Movement Fumble",
+      "description": "You stumble badly or inadvertently move to a poor position on the battlefield - beneath a giant’s feet, at the edge of a cliff, near a raging fire etc. You must use your Move this round (or next round, if you’ve already used your Move this turn) to try to escape the danger, often with a Test of some kind. If no such dangerous location exists nearby, you simply fall Prone."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action."
+      "name": "Action Fumble",
+      "description": "You mishandle your weapon or equipment, lose your footing, or otherwise make a mistake that will require your Action to address next turn. Your weapon could become stuck in an enemy’s shield or nearby part of the terrain, or your ammunition could begin to spill from its pouch or quiver, or you strike a nearby stack of crates that topples over on you."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound."
+      "name": "Injury",
+      "description": "You overextend yourself and are injured, or take a Condition. The environment or other circumstances can provide inspiration for this: If sharp objects are nearby, you might begin Bleeding, or if you’re too close to a fire you could light Ablaze. Depending on the danger of the environment and the -SL of the Fumble, the GM can assign more than 1 Condition. Alternatively, roll for a hit location and the GM chooses one of the less severe Critical Injuries to apply."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     },
     {
-      "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition."
+      "name": "Dire Consequences",
+      "description": "Truly bad things happen. The GM is encouraged to be creative. You might inadvertently strike an ally, using your rolled units die to determine SL. A large creature might pick you up, causing you to become Grappled and take some damage from the crushing grip.. Your weapon could take 1d10 points of Damage or simply break, or fly from your hands into a location that’s difficult to recover."
     }
   ]
 }

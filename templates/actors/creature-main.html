@@ -82,7 +82,7 @@
     {{/if}}
   </div>
 
-
+  {{#if actor.weapons}}  
   <div class="inventory-header item melee-weapon-header">
     <div id="name">Melee Weapon(s)</div>
     <a class="fist-icon">
@@ -92,7 +92,7 @@
     <div id="damage">Damage</div>
     <div id="reach">Reach</div>
   </div>
-  
+
   <ol class="inventory-list melee-weapon-list save-scroll" data-weapon-type="melee">
     {{#each actor.weapons as |item i|}}
     {{#if item.meleeWeaponType}}
@@ -195,7 +195,7 @@
     {{/if}}
     {{/each}}
   </ol>
-  
+  {{/if}}
 
   <div class="armour-section">
     <div class="row">

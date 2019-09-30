@@ -1899,6 +1899,21 @@
   /* background: var(--debug-background-color-blue); */
 }
 
+.app.window-app.sheet.item-sheet .post {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-post.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 19px;
+  right: 90px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  /* background: var(--debug-background-color-blue); */
+}
+
 /* ==================== (A) EQUIPMENT ========================= */
   .app.window-app.sheet.item-sheet {
     box-shadow: none;
@@ -2197,9 +2212,12 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -52px 0px 0px 0px;
+      margin: -50px 0px 0px 0px;
       height: 26px;
       position: relative;
+    }
+    .app.window-app.sheet.trait-sheet .sheet-tabs {
+      margin: -25px 0px 0px 0px;
     }
       .app.window-app.sheet.item-sheet .sheet-tabs.tabs > a {
         border-image-outset: 0px;
@@ -4384,16 +4402,15 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
-
 /* ==================== (G) SKILLS TAB ======================== */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active {
     display: flex;
@@ -4858,13 +4875,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.talent-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -4978,13 +4995,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -5020,6 +5037,10 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header {
+      margin-top:5px;
+    }
+
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #name,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #name {
         position: relative;
@@ -5928,13 +5949,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6062,13 +6083,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6105,7 +6126,8 @@
       display: inline-block;
       /* background: beige; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.petty-header .casting-number,
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
       position: relative;
       left: 214px;
       height: 18px;
@@ -6239,7 +6261,9 @@
           width: 100%;
           text-overflow: ellipsis;
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
+      
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .spell-attr,
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
         min-width: 30px;
         max-width: 30px;
         padding: 11px 0px 0px 0px;
@@ -6252,13 +6276,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6479,13 +6503,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.blessing-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6601,13 +6625,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.miracle-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6972,13 +6996,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7241,13 +7265,13 @@
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7418,13 +7442,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -8817,13 +8841,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -8955,13 +8979,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
        
@@ -9101,13 +9125,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.disease-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
     
@@ -10259,13 +10283,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }        
 
@@ -10466,13 +10490,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -10509,7 +10533,8 @@
       display: inline-block;
       /* background: beige; */
     }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
+    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.petty-header .casting-number,
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
       position: relative;
       left: 214px;
       height: 18px;
@@ -10641,7 +10666,8 @@
           width: 100%;
           text-overflow: ellipsis;
         }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
+      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .spell-attr,
+        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
         min-width: 30px;
         max-width: 30px;
         padding: 11px 0px 0px 0px;
@@ -10650,17 +10676,22 @@
         flex-shrink: 0;
         flex-basis: 0;
       }
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content .spell-attr{
+        margin-right:48px;
+      }
+
+
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .memorized-toggle {
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -11890,13 +11921,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -11933,7 +11964,8 @@
       display: inline-block;
       /* background: beige; */
     }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
+    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.petty-header .casting-number,
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
       position: relative;
       left: 214px;
       height: 18px;
@@ -12065,7 +12097,8 @@
           width: 100%;
           text-overflow: ellipsis;
         }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
+      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .spell-attr,
+        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
         min-width: 30px;
         max-width: 30px;
         padding: 11px 0px 0px 0px;
@@ -12078,13 +12111,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -12252,13 +12285,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
             
@@ -14786,3 +14819,44 @@ font-style : normal;
         #client-settings .window-content .sheet-footer{
           max-height: 30px;
         }
+
+        #player-config .directory-item .actor-name {
+          color: #CCC;
+        }
+
+        #player-config .directory-item {
+          border:none;
+        }
+
+        #player-config .form-group-stacked label {
+          color: #ccc;
+        }
+
+        .item .content .item-controls {
+          margin-left: 10px;
+        }
+
+        .post-item img {
+          max-width: 100px;
+          max-height: 100px;
+          border:none;
+        }
+
+
+  /* ==================== MODULE COMPATIBILITY ======================== */
+
+.dice-calculator__input-wrapper > textarea {
+    background: none;
+    border: 1px solid #CCC;
+    color: white;
+}
+.dice-calculator__input > label {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+}
+
+.dice-calculator > button, .dice-calculator .dice-calculator--button {
+    font-family: var(--actor-input-font-family);
+    color: white;
+}
