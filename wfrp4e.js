@@ -872,6 +872,7 @@ class DiceWFRP {
     mergeObject(cardOptions,
       {
         user : game.user._id,
+
       })
 
     var roll;
@@ -1300,7 +1301,8 @@ class DiceWFRP {
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
-     testData : testData
+     testData : testData,
+     hideData : game.user.isGM
    }
 
    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
@@ -1844,7 +1846,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Defensive auto-fill
+    // Register Test auto-fill
     game.settings.register("wfrp4e", "testAutoFill", {
       name: "Test Dialog Auto Populate",
       hint: "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",      scope: "world",
@@ -1873,7 +1875,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Defensive auto-fill
+    // Register Status on Turn Start
     game.settings.register("wfrp4e", "statusOnTurnStart", {
       name: "Show Combatant Status on Turn Start",
       hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
@@ -1884,10 +1886,20 @@ Hooks.once("init", () => {
     });
 
 
-    // Register Partial Channelling
+    // Register Focus on Turn Start
     game.settings.register("wfrp4e", "focusOnTurnStart", {
       name: "Focus on Turn Start",
       hint: "When advancing the combat tracker, focus on the token that's going next.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+    // Register Hiding Test Data
+    game.settings.register("wfrp4e", "hideTestData", {
+      name: "Hide Test Data",
+      hint: "GM test chat cards don't show sensitive NPC data to players.",
       scope: "world",
       config: true,
       default: true,
@@ -1922,8 +1934,7 @@ Hooks.once("init", () => {
 
 Hooks.on("ready", async () => {
 
-
-  let activeModules = game.settings.get("core", "moduleConfiguration");
+ let activeModules = game.settings.get("core", "moduleConfiguration");
 
   for (let m in activeModules)
   {
@@ -1964,7 +1975,7 @@ Hooks.on("ready", async () => {
  * Activate certain behaviors on Canvas Initialization hook
  */
 Hooks.on("canvasInit", async () => {
-
+   
   // let pack = game.packs.find(p => p.collection == "wfrp4e.trappings")
   // let list = await pack.getIndex();
   // let pathList = [];
@@ -2103,11 +2114,11 @@ Hooks.on("chatMessage", (html, content, msg) => {
 });
 
 Hooks.on("renderChatMessage", async (html, content, msg) => {
-    if (!html.alias)
-      return
 
-    let cardContent = msg.children(".message-header").html()
-
+  if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && msg.find(".chat-card").attr("data-hide") == "true")
+  {
+    msg.find(".hide-option").remove();
+  }
 });
 
 Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
@@ -3993,6 +4004,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
   async _render(force = false, options = {}) {
+    if (screen.height < 900)
+      ui.notifications.warn("WARNING: Your resolution is too small! Actor sheets will not be displayed correctly until you reach the minimum vertical resolution of 900 px.")
     this._saveScrollPos();
     await super._render(force, options);
     this._setScrollPos();
