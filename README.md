@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.8.2
+Current Version: Beta 0.8.3
 
 ![](https://i.imgur.com/esCwB7f.png)
 
