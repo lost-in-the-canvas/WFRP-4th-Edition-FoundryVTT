@@ -559,7 +559,7 @@ CONFIG.flawDescriptions = {
   "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble.",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
-  "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
+  "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to Dodge Tests opposing your attack",
   "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
   "partial": "The armor does not cover the entire hit location. An opponent that rolls an even number to hit, or rolls a Critical Hit, ignores the partial armor’s APs.",
   "weakpoints": "The armor has small weakpoints where a blade can slip in if your opponent is sufficiently skilled or lucky. If your opponent has a weapon with the Impale Quality and scores a Critical, the APs of your armor are ignored.",
@@ -913,8 +913,6 @@ class DiceWFRP {
     let description = "";
 
       
-    while (roll.total != 99)
-    roll = roll.reroll();
     // Test determination logic can be complicated due to SLBonus
     // SLBonus is always applied, but doesn't change a failure to a success or vice versa
     // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
@@ -3320,9 +3318,9 @@ class ItemWfrp4e extends Item {
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, duplicate(this.data));
     data.description = preparedSpell.data.description
     data.properties = [];
-    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'range'>Range: " + preparedSpell.range + "</a>");
-    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'target'>Target: " + preparedSpell.target + "</a>");
-    data.properties.push("<a class = 'spell-tag' data-overcast-type = 'duration'>Duration: " + preparedSpell.duration + "</a>");
+    data.properties.push("Range: " + preparedSpell.range + "</a>");
+    data.properties.push("Target: " + preparedSpell.target + "</a>");
+    data.properties.push("Duration: " + preparedSpell.duration + "</a>");
     if (data.magicMissile.value)
       data.properties.push("Magic Missile: +" + preparedSpell.damage);
     else if (preparedSpell.data.damage.value)
