@@ -1132,7 +1132,7 @@
     visibility: visible;
     background: url(../ui/sidebar-button-compendium-active.png);
   }
-  #sidebar-tabs > .item.active .fas.fa-question {
+  #sidebar-tabs > .item.active .fas.fa-cogs {
     position: relative;
     top: 0px;
     left: 0px;
@@ -13510,8 +13510,8 @@ border-image-outset: 0px !important;
       min-height: 335px;
     }
     #token-config .window-content {
-      max-height: 290px;
-      min-height: 290px;
+      min-height: 370px;
+      max-height: 370px;
     }
     #token-config .sheet-tabs {
       flex: 0 0 32px;
@@ -13548,10 +13548,10 @@ border-image-outset: 0px !important;
       color: #7d7d7d;
     }
     #token-config .sheet-footer {
-      width: 446px;
-      height: 32px;
-      position: absolute;
-      bottom: 19px;
+        width: 446px;
+        height: 32px;
+        position: absolute;
+        bottom: -57px;
     }
 
     #token-config .tab[data-tab="character"] .notes {
