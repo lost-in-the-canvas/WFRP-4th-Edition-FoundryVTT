@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.8.1
+Current Version: Beta 0.8.3
 
 ![](https://i.imgur.com/esCwB7f.png)
 
@@ -8,7 +8,13 @@ This system is intended for use with [Foundry Virtual Tabletop](http://foundryvt
 
 Additionally, it comes with a starter world which provides many Items already organized for your use.
 
-## Installation
+## Installation - Auto Installer (Recommended)
+
+In the FVTT Game Systems Menu, click `Install System`
+
+Enter into Manifest URL: `https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json`
+
+## Installation - Manual
 
 Place the unzipped folder in your `public/systems` folder
 

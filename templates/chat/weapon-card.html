@@ -20,6 +20,12 @@
             {{/each}}
         </div>
     {{/if}}
+
+    {{#if testData.weapon.properties.special}}
+    <div class="card-content" roll-desrciption = {{description}}>
+            <span><b>Special</b>: {{testData.weapon.properties.special}}</span>
+        </div>
+    {{/if}}
    <!-- {{#if opposed}}
     <div class ="card-buttons">
         <button class = "oppose-button">Oppose</button>

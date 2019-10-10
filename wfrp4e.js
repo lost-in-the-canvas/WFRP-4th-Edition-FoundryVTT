@@ -1,54 +1,48 @@
 CONFIG.statusEffects =
-["systems/wfrp4e/icons/conditions/bleed1.png",
-"systems/wfrp4e/icons/conditions/bleed2.png",
-"systems/wfrp4e/icons/conditions/bleed3.png",
-"systems/wfrp4e/icons/conditions/bleed4.png",
-//"systems/wfrp4e/icons/conditions/bleed5.png",
-"systems/wfrp4e/icons/conditions/poison1.png",
-"systems/wfrp4e/icons/conditions/poison2.png",
-"systems/wfrp4e/icons/conditions/poison3.png",
-"systems/wfrp4e/icons/conditions/poison4.png",
-//"systems/wfrp4e/icons/conditions/poison5.png",
+["systems/wfrp4e/icons/conditions/bleeding1.png",
+"systems/wfrp4e/icons/conditions/bleeding2.png",
+"systems/wfrp4e/icons/conditions/bleeding3.png",
+"systems/wfrp4e/icons/conditions/bleeding4.png",
+"systems/wfrp4e/icons/conditions/poisoned1.png",
+"systems/wfrp4e/icons/conditions/poisoned2.png",
+"systems/wfrp4e/icons/conditions/poisoned3.png",
+"systems/wfrp4e/icons/conditions/poisoned4.png",
 "systems/wfrp4e/icons/conditions/ablaze1.png",
 "systems/wfrp4e/icons/conditions/ablaze2.png",
 "systems/wfrp4e/icons/conditions/ablaze3.png",
 "systems/wfrp4e/icons/conditions/ablaze4.png",
-//"systems/wfrp4e/icons/conditions/ablaze5.png",
 "systems/wfrp4e/icons/conditions/deafened1.png",
 "systems/wfrp4e/icons/conditions/deafened2.png",
 "systems/wfrp4e/icons/conditions/deafened3.png",
 "systems/wfrp4e/icons/conditions/deafened4.png",
-//"systems/wfrp4e/icons/conditions/deafened5.png",
 "systems/wfrp4e/icons/conditions/stunned1.png",
 "systems/wfrp4e/icons/conditions/stunned2.png",
 "systems/wfrp4e/icons/conditions/stunned3.png",
 "systems/wfrp4e/icons/conditions/stunned4.png",
-//"systems/wfrp4e/icons/conditions/stunned5.png",
 "systems/wfrp4e/icons/conditions/entangled1.png",
 "systems/wfrp4e/icons/conditions/entangled2.png",
 "systems/wfrp4e/icons/conditions/entangled3.png",
 "systems/wfrp4e/icons/conditions/entangled4.png",
-//"systems/wfrp4e/icons/conditions/entangled5.png",
 "systems/wfrp4e/icons/conditions/fatigued1.png",
 "systems/wfrp4e/icons/conditions/fatigued2.png",
 "systems/wfrp4e/icons/conditions/fatigued3.png",
 "systems/wfrp4e/icons/conditions/fatigued4.png",
-//"systems/wfrp4e/icons/conditions/fatigued5.png",
 "systems/wfrp4e/icons/conditions/blinded1.png",
 "systems/wfrp4e/icons/conditions/blinded2.png",
 "systems/wfrp4e/icons/conditions/blinded3.png",
 "systems/wfrp4e/icons/conditions/blinded4.png",
-//"systems/wfrp4e/icons/conditions/blinded5.png"
 "systems/wfrp4e/icons/conditions/broken1.png",
 "systems/wfrp4e/icons/conditions/broken2.png",
 "systems/wfrp4e/icons/conditions/broken3.png",
 "systems/wfrp4e/icons/conditions/broken4.png",
-//"systems/wfrp4e/icons/conditions/broken5.png"
-"systems/wfrp4e/icons/conditions/grappling.png",
 "systems/wfrp4e/icons/conditions/prone.png",
 "systems/wfrp4e/icons/conditions/fear.png",
 "systems/wfrp4e/icons/conditions/surprised.png",
+"systems/wfrp4e/icons/conditions/unconscious.png",
+"systems/wfrp4e/icons/conditions/grappling.png",
 ]
+
+CONFIG.Token = { defeatedIcon : "systems/wfrp4e/icons/defeated.png"};
 
  CONFIG.JournalEntry.noteIcons = {
    "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
@@ -531,7 +525,7 @@ CONFIG.weaponFlaws = {
 CONFIG.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
   "blackpowder": "The crack of gunfire followed by gouts of smoke and confusion can be terrifying. If you are targeted by a Blackpowder weapon, you must pass an Average (+20) Cool Test or take a Broken Condition, even if the shot misses.",
-  "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions theweapon inflicts.",
+  "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions the weapon inflicts.",
   "damaging": "A Damaging weapon can use the higher score from either the units die or the SL to determine the Damage caused from a successful hit. For example, if you roll 34 in your attack Test and the target number was 52 you can choose to use the SL, which in this case is 2, or the units die result, which is 4. An Undamaging weapon can never also be Damaging (Undamaging takes precedent).",
   "defensive": "Defensive weapons are designed to parry incoming attacks. If you are wielding such a weapon, gain a bonus of +1 SL to any Melee Test when you oppose an incoming attack.",
   "distract": "Distracting weapons can be used to drive an opponent back due to their dangerous or whip-like natures. Instead of causing Damage, a successful attack with a Distracting weapon can force an opponent back 1 yard per SL by which you win the Opposed Test.",
@@ -551,7 +545,7 @@ CONFIG.qualityDescriptions = {
   "wrap": "Wrap weapons typically have long chains with weights at the end, making it very difficult to parry them effectively. Melee Tests opposing an attack from a Wrap weapon suffer a penalty of –1 SL, as parried strikes wrap over the top of shields, or around blades.",
   "flexible": "Flexible armor can be worn under a layer of non-Flexible armor if you wish. If you do so, you gain the benefit of both.",
   "impenetrable": "The armor is especially resilient, meaning most attacks simply cannot penetrate it. All Critical Wounds caused by an odd number to hit you, such as 11 or 33, are ignored.",
-  "durable": "Laboriously crafted using strong materials, the item can take +Durable Damage points before it suﬀers any negatives and gains a saving throw of 9+ on a 1d10 roll against instant breakage from sources like Trap Blade. This Quality can be taken multiple times. Each time it is taken, the saving throw improves by 1 (e.g. From 9+ to 8+).",
+  "durable": "Laboriously crafted using strong materials, the item can take +Durable Damage points before it suﬀers any negatives and gains a saving throw of 9+ on a <b><a class = 'chat-roll'>1d10</a></b> roll against instant breakage from sources like Trap Blade. This Quality can be taken multiple times. Each time it is taken, the saving throw improves by 1 (e.g. From 9+ to 8+).",
   "fine": "Meticulously crafted to please the eye. This Quality is a sign of social status and can be taken multiple times. The higher the quality, the more impressive it seems.",
   "lightweight": "Cleverly crafted for ease of carrying. Reduce Encumbrance points by 1.",
   "practical": "Expertly crafted with utility in mind. A failed test using this item receives +1 SL. If the item is a piece of armor, any penalties for wearing it are reduced by one level (for example from -30 to -20).",
@@ -559,11 +553,11 @@ CONFIG.qualityDescriptions = {
 
 // Weapon Flaw Descriptions (used in dropdown info)
 CONFIG.flawDescriptions = {
-  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including an 9 on either 10s or units die results in a Fumble (see Chapter 5: Rules for more on Fumbles).",
+  "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble.",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
   "slow": "Slow weapons are unwieldy and heavy, making them difficult to use properly. Characters using Slow weapons always strike last in a Round, regardless of Initiative order. Further, opponents gain a bonus of +1 SL to any Test to defend against your attack",
-  "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.",
+  "tiring": "The weapon is fatiguing to use or difficult to bring to bear. You only gain the benefit of the Impact and Damaging Weapon Traits on a Turn you Charge.<br><br><b>Note:</b> This changes the Damage shown in the chat card:<br> 'Not Charging' | 'Charging' Damage.",
   "undamaging": "Some weapons are not very good at penetrating armour. All APs are doubled against Undamaging weapons. Further, you do not automatically inflict a minimum of 1 Wound on a successful hit in combat.",
   "partial": "The armor does not cover the entire hit location. An opponent that rolls an even number to hit, or rolls a Critical Hit, ignores the partial armor’s APs.",
   "weakpoints": "The armor has small weakpoints where a blade can slip in if your opponent is sufficiently skilled or lucky. If your opponent has a weapon with the Impale Quality and scores a Critical, the APs of your armor are ignored.",
@@ -763,6 +757,88 @@ CONFIG.encumbrancePenalties = {
 "maxEncumbered" : "You're not moving.",
 }
 
+CONFIG.conditions = {
+  "ablaze" : "Ablaze",
+  "bleeding" : "Bleeding",
+  "blinded" : "Blinded",
+  "broken" : "Broken",
+  "deafened" : "Deafened",
+  "entangled" : "Entangled",
+  "fatigued" : "Fatigued",
+  "poisoned" : "Poisoned",
+  "prone" : "Prone",
+  "stunned" : "Stunned",
+  "surprised" : "Surprised",
+  "unconscious" : "Unconscious",
+  "grappling" : "Grappling",
+  "fear" : "Fear"
+}
+
+
+CONFIG.conditionDescriptions = {
+  "ablaze" : "At the end of every Round, you suﬀer <b><a class = 'chat-roll'>1d10</a></b> Wounds, modified by Toughness Bonus and Armor Points on the least protected Hit Location, with a minimum of 1 Wound suﬀered. Each extra Ablaze Condition you have adds +1 to the Damage suﬀered; so, three Ablaze Conditions result in 1d10+2 Damage suﬀered.<br><br>One Ablaze Condition can be removed with a successful Athletics Test, with each SL removing an extra Ablaze Condition. The Difficulty for this Test is modified by circumstances: it’s much easier to put out a fire rolling around on sand than it is in the middle of an oil-soaked kitchen",
+  "bleeding" : "You are bleeding badly. Lose 1 Wound at the end of every Round, ignoring all modifiers. Further, suﬀer a penalty of –10 to any Tests to resist Festering Wounds, Minor Infection, or Blood Rot. If you reach 0 Wounds, you no longer lose Wounds and instead fall immediately unconscious (gain the <a class ='condition-chat'>Unconscious</a> Condition). At the end of Round, you have a 10% chance of dying per Bleeding Condition you have; so, if you had 3 Bleeding Conditions, you would die from blood loss on a roll of 0–30. If a double is scored on this roll, your wound clots a little: lose 1 Bleeding.You cannot regain consciousness until all Bleeding Conditions are removed (see Injury)<br><br>A Bleeding Condition can be removed with: a successful Heal Test, with each SL removing an extra Bleeding Condition; or with any spell or prayer that heals Wounds, with one Condition removed per Wound healed.<br><br>Once all Bleeding Conditions are removed, gain one <a class ='condition-chat'>Fatigued</a> Condition.",
+  "blinded" : "Perhaps because of a ﬂash of light, or because of liquid sprayed in your face, you are unable to see properly. You suﬀer a –10 penalty to all Tests involving sight, and any opponent attacking you in close combat gains a bonus of +10 to hit you.<br><br>One Blinded Condition is removed at the end of every other Round",
+  "broken" : "You are terrified, defeated, panicked, or otherwise convinced you are going to die. On your turn, your Move and Action must be used to run away as fast as possible until you are in a good hiding place beyond the sight of any enemy; then you can use your Action on a Skill that allows you to hide more eﬀectively. You also receive a penalty of –10 to all Tests not involving running and hiding.<br><br>You cannot Test to rally from being Broken if you are Engaged with an enemy. If you are unengaged, at the end of each Round, you may attempt a Cool Test to remove a Broken Condition, with each SL removing an extra Broken Condition, and the Difficulty determined by the circumstances you currently find yourself: it is much easier to rally when hiding behind a barrel down an alleyway far from danger (Average +20) than it is when three steps from a slavering Daemon screaming for your blood (Very Hard –30).<br><br>If you spend a full Round in hiding out of line-of-sight of any enemy, you remove 1 Broken Condition.<br><br>Once all Broken Conditions are removed, gain 1 <a class ='condition-chat'>Fatigued</a> Condition.",
+  "deafened" : "Whether caused by a loud noise or a blow to the head, you are unable to hear properly. You suﬀer a –10 penalty to all Tests involving hearing, and any opponent attacking you in close combat from the ﬂank or rear gains an extra bonus of +10 to hit you (this bonus does not increase with multiple Deafened Conditions). One Deafened condition is removed at the end of every other Round and is often replaced with tinnitus.",
+  "entangled" : "You are wrapped in something restricting your movement; it could be ropes, spider’s webbing, or an opponent’s bulging biceps. On your turn, you may not Move, and all your actions involving movement of any kind suﬀer a penalty of –10 (including Grappling). For your Action, you can remove an Entangled Condition if you win an Opposed Strength Test against the source of the entanglement, with each SL removing an extra Entangled Condition.",
+  "fatigued" : "You are exhausted or stressed, and certainly in need of rest. You suﬀer a –10 penalty to all Tests. Removing a Fatigued Condition normally requires rest, a spell, or a divine eﬀect, though in some instances, such as when a <a class ='condition-chat'>Fatigued</a> Condition is caused by carrying too much (see Encumbrance), simply changing your circumstances (carrying fewer trappings, for example) can remove a Condition.",
+  "poisoned" : "You have been poisoned or injected with venom. All Tests to remove poison have their difficulty determined by the poison or venom suﬀered. At the end of each Round, lose 1 Wound, ignoring all modifiers. Also, suﬀer a penalty of –10 to all Tests.<br><br>If you reach 0 Wounds when Poisoned, you cannot heal any Wounds until all Poisoned conditions are removed. If you fall Unconscious when Poisoned, make an Endurance Test after a number of Rounds equal to your Toughness Bonus or die horribly. See Injury.<br><br>At the end of each Round, you may attempt an Endurance Test. If successful, remove a Poisoned Condition, with each SL removing an extra Poisoned Condition. A Heal Test provides the same results. Once all Poisoned Conditions are removed, gain 1 Fatigued Condition.",
+  "prone" : "You have fallen to the ground, possibly because you have run out of Wounds, you’ve tripped, or because you’ve been hit by something rather large. On your turn, your Move can only be used to stand up or crawl at half your Movement in yards (note: if you have 0 Wounds remaining, you can only crawl). You suﬀer a –20 penalty to all Tests involving movement of any kind, and any opponent trying to strike you in Melee Combat gains +20 to hit you.<br><br>Unlike most other conditions, Prone does not stack — you are either Prone, or you are not. You lose the Prone Condition when you stand up.",
+  "stunned" : "You have been struck about the head or otherwise disorientated or confused; your ears are likely ringing, and little makes sense.<br><br>You are incapable of taking an Action on your turn but are capable of half your normal movement. You can defend yourself in opposed Tests — but not with Language (Magick). You also suﬀer a –10 penalty to all Tests. If you have any Stunned Conditions, any opponent trying to strike you in Melee Combat gains +1 Advantage before rolling the attack.<br><br>At the end of each Round, you may attempt a Challenging (+0) Endurance Test. If successful, remove a Stunned Condition, with each SL removing an extra Stunned Condition.<br><br>Once all Stunned Conditions are removed, gain 1 Fatigued Condition if you don’t already have one.",
+  "surprised" : "You have been caught unawares and you aren’t at all ready for what’s about to hit you. You can take no Action or Move on your turn and cannot defend yourself in opposed Tests. Any opponent trying to strike you in Melee Combat gains a bonus of +20 to hit.<br><br>The Surprised Condition does not stack, so you do not collect multiple Surprised Conditions, even should you be technically surprised multiple times in a Round.<br><br>At the end of each Round, or after the first attempt to attack you, you lose the Surprised Condition.",
+  "unconscious" : "You are knocked out, asleep, or otherwise insensible. You can do nothing on your turn and are completely unaware of your surroundings. Any Melee attack targeting you automatically hits on the location of the attacker’s choice with the maximum possible SL it could score, and also inﬂicts a Critical Wound; or, if the GM prefers, any close combat hit simply kills you. Any ranged combat hit automatically does the same if the shooter is at Point Blank range.<br><br>The Unconscious Condition does not stack — you are either Unconscious, or you are not — so you do not collect multiple Unconscious Conditions.<br><br>Recovering from unconsciousness requires diﬀerent circumstances depending upon why you fell unconscious. Refer to Injury for more on this. If you spend a Resolve point to remove an Unconscious condition, but have not resolved the cause of the incapacitation, you gain another Unconscious Condition at the end of the round. When you lose the Unconscious Condition, you gain the <a class ='condition-chat'>Prone</a> and <a class ='condition-chat'>Fatigued</a> Conditions",
+  "grappling" : "If you begin your turn Grappling, you may break the Grapple if you have a higher Advantage than your opponent, and do not count as being Engaged for your Move; otherwise, you must make an Opposed Strength Test for your Action. If you win, you can do one of the following:<br><ul><li>Deal SB + SL Damage using your Strength roll to determine the Hit Location affected. You ignore any Armour Points as you wrench arms and pull muscles.</li><li>Either: 1) Give your opponent an <a class ='condition-chat'>Entangled</a> Condition, or 2) Remove an <a class ='condition-chat'>Entangled</a> Condition from yourself, plus lose an extra one for each SL by which you win</li></ul>",
+  "fear" : "When subject to Fear, you suffer –1 SL on all Tests to affect the source of your fear. You may not move closer to whatever is causing Fear without passing a <b>Challenging (+0) Cool</b> Test. If it comes closer to you, you must pass a <b>Challenging (+0) Cool</b> Test, or gain a <a class ='condition-chat'>Broken</a> Condition"
+}
+
+CONFIG.symptoms = {
+  "blight" : "Blight",
+  "buboes" : "Buboes",
+  "convulsions" : "Convulsions",
+  "coughsAndSneezes" : "Coughs and Sneezes",
+  "fever" : "Fever",
+  "flux" : "Flux",
+  "gangrene" : "Gangrene",
+  "lingering" : "Lingering",
+  "malaise" : "Malaise",
+  "nausea" : "Nausea",
+  "pox" : "Pox",
+  "wounded" : "Wounded"
+}
+
+CONFIG.symptomDescriptions = {
+  "blight" : "You are seriously ill and perhaps close to Morr’s Portal as deadly poisons ﬂood your body.\n\nPass a <b>Very Easy (+60) Endurance</b> daily (normally when you sleep) or die, passing away, perhaps in your sleep, perhaps lost in a fever, perhaps in agony. If Blight is marked as (Moderate), this Test is <b>Easy (+40)</b>; if marked as (Severe), this Test is <b>Average (+20)</b>.",
+  "buboes" : "You have huge swellings of the lymph nodes, possibly in the groin, neck or armpits. These are enormously painful and may bleed or seep pus. They are disgusting, smelly, and some would argue a sure sign of the Lord of Pestilence’s favor, believing they hide tiny, growing Daemons. Common practice is to lance these terrible expressions of taint to remove whatever nestles within, though doing so often results in Festering Wounds.\n\nSuffer a penalty of –10 to all physical Tests, and to all Fellowship Tests if the buboes can be seen (or smelled!).",
+  "convulsions" : "Your body periodically spasms or shakes as the infection seemingly uses you like a puppet.\n\nSuffer a penalty of –10 to all physical Tests as your body convulses beyond your control. If this symptom is marked as (Moderate), the penalty increases to –20. If it is marked as (Severe), you need to be tied down in order not to hurt yourself, leaving you eﬀectively incapacitated.",
+  "coughsAndSneezes" : "You intermittently cough or sneeze, spreading your disease to all around you. Any characters in your environment are exposed to the disease you carry, and need Test for Contraction once per hour, or part thereof, of exposure.",
+  "fever" : "Your temperature is high, you’re likely sweating, and you really don’t look at all well. Suffer a penalty of –10 to all physical and Fellowship Tests. If your Fever is marked as (Severe), it has completely incapacitated you, leaving you bed-ridden. Take the <a class ='condition-chat'>Unconscious</a> Condition, though expenditure of a Resolve point can bring consciousness for a few minutes.",
+  "flux" : "There’s a rumble and a grumble, then you’re oﬀ for yet another sprint to the splattered outhouse. Pale and weary, you’ve had better days. Any given situation may be the moment you just have to go to the privy. You are expected to take every opportunity you can to pop oﬀ for an essential stop, and this is largely left in your hands. In addition, the GM can choose any point during the session’s play to claim you need to go. You have a number of rounds equal to your Toughness Bonus to get to an appropriate place to relieve yourself; whether you get there in time or not, your body will empty itself in a spectacular fashion. If the Flux is marked as (Moderate), the GM can make you go twice a session. If it is marked as (Severe), the GM can do it three times, and you will also lose 1 Wound per visit, as the bloody ﬂux leaves you utterly drained. ",
+  "gangrene" : "Your ﬂesh is turning black, dying, infected with something awful, and it isn’t going to get better. Roll percentile dice to determine a <a class ='table-click' data-table='hitloc'>Hit Location</a>. If you roll Body, luckily the Gangrene did not settle in during this infection. If you roll Head, your nose is aﬀected. If you roll Arms, it’s your fingers. If you roll Leg, it’s your feet. Each day, roll an <b>Average (+20) Endurance</b> Test. If you pass, you hold oﬀ the Gangrene; if you fail, it grows worse. If you ever fail more times than you have Toughness Bonus, you completely lose all capability with the aﬀected location. If this occurs, use the same rules as Amputated Parts. For as long as you have Gangrene, suﬀer a penalty –10 to all Fellowship Tests, and suﬀer the Wounded symptom. Further, if not already suffering it, you also suﬀer from Blight until the aﬀected tissue is amputated; this remains even if you are cured of the disease that started the Gangrene. ",
+  "lingering" : "You have an infection that just refuses to go away. Indeed, you fear it may be getting worse… After your disease reaches the end of its duration, attempt an Endurance Test with the Difficulty marked on the symptom like so: Lingering (Average) or Lingering (Easy). If this scores a Marginal Failure (0), the duration extends for an extra <b><a class = 'chat-roll'>1d10</a></b> days. If it scores a Failure (–2), develop a Festering Wound. On an Astounding Failure (–6), you instead develop Blood Rot. ",
+  "malaise" : "You don’t feel at all well. You are tired, find it hard to concentrate, and just generally ill. Take a <a class ='condition-chat'>Fatigued</a> Condition that you can only remove when you have recovered from your illness. ",
+  "nausea" : "You feel very sick and are prone to vomiting if you move around too quickly. Whenever you fail a Test involving physical movement, your nausea overwhelms you and you vomit. You gain the <a class = 'condition-chat'>Stunned</a> condition, which represents you being sick repeatedly or dry heaving, depending upon your current circumstances. ",
+  "pox" : "You are covered in pustules, inﬂamed swellings, disgusting rashes, or itchy spots, which are unlikely to be your most attractive feature. Pox are largely a cosmetic issue, resulting in a penalty of –10 to Fellowship Tests. Additionally, remember to roleplay and describe all the scratching; if you want to withhold from this for a while, pass an <b>Average (+20) Cool</b> Test. When the Pox ends, attempt an <b>Average (+20) Cool</b> Test. If this fails, reverse the Test dice and apply permanent scarring to that Hit Location, showing an area where you scratched and the pox there healed badly. If the <a class='table-click' data-table = 'hitloc'>Hit Location</a> is the head, permanently lose 1 in Fellowship.",
+  "wounded" : "You have a wound or open sore that does not heal properly because of an infection. For each Wounded symptom you have, you cannot heal one of your Wounds, which stays open and sore, possibly seeping foul-smelling pus. Every day, take an <b>Easy (+20) Endurance</b> Test or gain a Festering Wound if you do not already have one."
+
+}
+
+CONFIG.symptomTreatment = {
+  "blight" : "None that work",
+  "buboes" : "A successful Heal Test with Surgery can lance your buboes, removing the penalty. If the Test is failed, gain a Festering Wound. If your Buboes are lanced, make a <b>Difficult (–10) Endurance</b> Test once per day or more swell into place",
+  "convulsions" : "Rare herbs and alchemical mixes can lessen this symptom for a day, bringing Severe down to Moderate, and Moderate down to standard convulsions. These can be created by any with the Trade (Apothecary) skill and access to the appropriate ingredients (which can cost upwards of 10 shillings or more per dose). The final medicine is Rare and usually genuine (80%), and can be bought for around 1 GC per dose from Apothecaries, putting it beyond the reach of most citizens of the Empire.",
+  "coughsAndSneezes" : "None that work",
+  "fever" : "There are many common, often disgusting, remedies for a fever, most of which don’t work (only 10% of commercial cures are genuine). A successful Heal Test does little more that inform you how long the fever will likely last. The cures range from a few pennies to many shillings in cost. If genuine, they will remove the symptoms of a Fever (not a severe one) if you pass a <b>Challenging (+0) Endurance</b> Test.",
+  "flux" : "Real cures for the Flux are rare (10% of commercial remedies are genuine), but many apothecaries and herbalists swear theirs work every time. Costs vary widely according to where you buy the cures, from a few brass coins to small bag of silver. If genuine, the Flux can be held oﬀ for your Toughness Bonus in hours by taking a remedy.",
+  "gangrene" : "Amputation of the gangrenous location is the only eﬀective treatment.",
+  "lingering" : "Cures for lingering infections are commonplace and usually relatively cheap, rarely costing more than a shilling. However, almost all are fake or based on faulty lore. Any bought cure has only a 10% chance of being genuine, but if so will negate the need to roll the Endurance Test if taken on the correct day (which will require a successful Heal Test to determine).",
+  "malaise" : "Medicine treating Malaise, costing anything from a few pence to a handful of silver, is usually genuine (75% chance); and, if so, pass a <b>Challenging (+0) Endurance</b> Test to ignore the symptom for the day.",
+  "nausea" : "Remedies for Nausea are Common and usually genuine (60% chance), and typically cost around thirty pennies; if genuine, pass a <b>Challenging (+0) Endurance</b> Test, and the Nausea can be ignored for a number of hours equal to your Toughness Bonus.",
+  "pox" : "Poxes are exceedingly common, and so are remedies, which are usually creams or oils. Larger temples of Shallya often keep a stock of the cream for free (though donations are expected) and apothecaries and herbalists of all kinds sell similar products for relatively low prices (rarely more than six or seven pence for a week’s worth of treatment, with a 90% chance of being genuine medicine). Using a cream increases all Cool Tests to resist scratching to <b>Very Easy (+60)</b>, but is usually unsightly.",
+  "wounded" : "A daily successful Heal Test ensures the Wound is clean and does not require an Endurance Test to be further infected."
+
+}
+
 class DiceWFRP {
   /**
    * Prepare Test is called by the setup functions for the actors (see setupCharacteristic() for info on their usage)
@@ -789,9 +865,9 @@ class DiceWFRP {
       {
         testDifficulty : "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
-        testModifier : dialogOptions.data.advantage * 10 || 0,
-        slBonus : 0,
-        successBonus : 0,
+        testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
+        slBonus : dialogOptions.data.slBonus || 0,
+        successBonus : dialogOptions.data.successBonus || 0,
       });
     mergeObject(cardOptions,
       {
@@ -970,14 +1046,16 @@ class DiceWFRP {
 
      if (testResults.description.includes("Failure"))
      {
-       if (testResults.roll % 11 == 0 || testResults.total == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+       if (testResults.roll % 11 == 0 || testResults.roll == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
        {
          testResults.extra.fumble = "Fumble"
          if ((weapon.data.weaponGroup.value == "Blackpowder" ||
              weapon.data.weaponGroup.value== "Engineering" ||
-             weapon.data.weaponGroup.value== "Explosives") &&
-             testResults.roll % 2 == 0)
-         testResults.extra.misfire = "Misfire"
+             weapon.data.weaponGroup.value== "Explosives") && testResults.roll % 2 == 0)
+          {
+          testResults.extra.misfire = "Misfire"
+          testResults.extra.misfireDamage = eval(testResults.roll.toString().split('').pop() + weapon.data.damage.value)
+          }
        }
 
        if (weapon.data.weaponGroup.value == "Throwing")
@@ -1028,12 +1106,13 @@ class DiceWFRP {
     {
       testResults.description = "Casting Failed"
 
-      // TODO: If no ID
-      if ((testResults.roll % 11 == 0)&& !testData.extra.ID)
+      if (testResults.roll % 11 == 0)
       {
         testResults.description = "Casting Succeeded"
-        testResults.extra.critical = "Critical Cast"
-        miscastCounter++;
+        testResults.extra.critical = "Total Power"
+
+        if (!testData.extra.ID)
+          miscastCounter++;
       }
     }
     else // Successful test, casted
@@ -1043,8 +1122,14 @@ class DiceWFRP {
       testResults.overcasts = overcasts;
 
       // If no ID
-      if (testResults.roll % 11 == 0 && !testData.extra.ID)
-        miscastCounter++;
+      if (testResults.roll % 11 == 0)
+      {
+        testResults.extra.critical = "Critical Cast"
+
+        if (!testData.extra.ID)
+          miscastCounter++;
+      }
+
     }
 
     switch (miscastCounter)
@@ -1062,7 +1147,7 @@ class DiceWFRP {
             testResults.extra.minormis = "Minor Miscast"
           }
          else
-           testResults.extra.majormis = "Major Miscast<"
+           testResults.extra.majormis = "Major Miscast"
            break;
       case 3:
       testResults.extra.majormis = "Major Miscast"
@@ -1100,7 +1185,7 @@ class DiceWFRP {
           SL = -1;
 
        testResults.description = "Channell Failed"
-       if (testResults.roll % 11 == 0 || testResults.total % 10 == 0 || testResults.total == 100)
+       if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0 || testResults.roll == 100)
          miscastCounter += 2;
       }
      else
@@ -1111,12 +1196,12 @@ class DiceWFRP {
        if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
 
-        if (testResults.roll % 11 == 0 && !testData.extra.AA)
+        if (testResults.roll % 11 == 0)
        {
-         miscastCounter++;
          spell.data.cn.SL = spell.data.cn.value;
          testResults.extra.criticalchannell = "Critical Channell"
-
+         if (!testData.extra.AA)
+           miscastCounter++;
        }
      }
 
@@ -1226,6 +1311,7 @@ class DiceWFRP {
 
     // Emit the HTML as a chat message
     chatOptions["content"] = html;
+    chatOptions["type"] = 0;
     ChatMessage.create(chatOptions, false);
     return html;
   });
@@ -1240,6 +1326,41 @@ class DiceWFRP {
   //   rollData : undefined
   // }
   static chatListeners(html) {
+
+
+    html.on("click", ".talent-lookup", async ev => {
+      WFRP_Utility.findTalent(ev.target.text).then(talent => talent.sheet.render(true));
+    })
+
+    html.on("click", ".skill-lookup", async ev => {
+      WFRP_Utility.findSkill(ev.target.text).then(skill => skill.sheet.render(true));
+      
+    })
+
+    html.on("click", ".chat-roll", ev => {
+      let roll = ev.target.text;
+      let rollMode = game.settings.get("core", "rollMode");
+      new Roll(roll).roll().toMessage({user : game.user._id, rollMode})
+    })
+
+    html.on("click", ".symptom-tag", ev => {
+      WFRP_Utility.postSymptom(ev.target.text)
+    })
+
+    html.on("click", ".condition-chat", ev => {
+      let cond = ev.target.text;
+      cond = cond.split(" ")[0]
+      let condkey = WFRP_Utility.findKey(cond, CONFIG.conditions);
+      let condDescr = CONFIG.conditionDescriptions[condkey];
+      let messageContent = `<b>${cond}</b><br>${condDescr}`
+
+      let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
+      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+      chatOptions["type"] = 0;
+      ChatMessage.create(chatOptions);
+    })
+
 
     html.on('mousedown', '.table-click', ev => {
       ev.preventDefault();
@@ -1256,12 +1377,26 @@ class DiceWFRP {
 
       if (ev.button == 0)
       {
-        if (sin)
+        if (ev.target.text == "Critical Cast")
+        {
+          html = WFRP_Tables.criticalCastMenu($(ev.currentTarget).attr("data-table"));
+        }
+
+        else if (ev.target.text == "Total Power")
+          html = WFRP_Tables.restrictedCriticalCastMenu();
+
+        else if ($(ev.currentTarget).attr("data-table") == "misfire")
+        {
+          let damage = $(ev.currentTarget).attr("data-damage")
+          html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
+        }
+        else if (sin)
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
         else
           html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
 
          chatOptions["content"] = html;
+        chatOptions["type"] = 0;
         ChatMessage.create(chatOptions);
 
       }
@@ -1279,6 +1414,7 @@ class DiceWFRP {
                   let minOne = html.find('[name="minOne"]').is(':checked');
                   html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
                   chatOptions["content"] = html;
+				  chatOptions["type"] = 0;
                   ChatMessage.create(chatOptions);
                 }
               },
@@ -1344,6 +1480,7 @@ class DiceWFRP {
       return renderTemplate(chatOptions.template, result).then(html => {
            // Emit the HTML as a chat message
            chatOptions["content"] = html;
+           chatOptions["type"] = 0;
            ChatMessage.create(chatOptions, false);
            return html;
       });
@@ -1352,21 +1489,11 @@ class DiceWFRP {
     html.on("click", '.item-property', event => {
       event.preventDefault();
 
-      let li = $(event.currentTarget).parents(".chat-card"),
-          property = event.target.text,
-          properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
-          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
-          let propertyKey;
-          property = property.replace(/,/g, '').trim();
-
-          propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
-
-          let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
-          propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
+      WFRP_Utility.postProperty(event.target.text);
 
       // Toggle summary
 
-      ChatMessage.create({content : propertyDescription, user : game.user._id});
+      ChatMessage.create({content : propertyDescription, user : game.user._id, type : 0});
     });
   }
 
@@ -1396,7 +1523,6 @@ class DiceWFRP {
  * Activate certain behaviors on FVTT ready hook
  */
 Hooks.once("init", () => {
-
   // fetch ("fgdb.json").then (r => r.json()).then(async records => {
   //   var fgtable = records["tables"]["category"]["id-00001"];
   //   var newtable = {
@@ -1494,6 +1620,43 @@ Hooks.once("init", () => {
       {
         name : "At the target's feet"
       },
+    ]
+  }
+
+  WFRP_Tables.winds = {
+    die : "1d10",
+    rows : [
+      undefined,
+      {
+        modifier : "-30"
+      },
+      {
+        modifier : "-10"
+      },
+      {
+        modifier : "-10"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "0"
+      },
+      {
+        modifier : "+10"
+      },
+      {
+        modifier : "+10"
+      },
+      {
+        modifier : "+30"
+      }
     ]
   }
 
@@ -1620,7 +1783,7 @@ Hooks.once("init", () => {
       break;
 
       case "sl":
-      formula = "(Math.floor(@characteristics.i.value / 10) - Math.floor(1d100/10))"
+      formula = "(floor(@characteristics.i.value / 10) - floor(1d100/10))"
       break;
 
       case "d10Init":
@@ -1640,15 +1803,15 @@ Hooks.once("init", () => {
   }
 
 
-  // // Register Advantage cap
-  // game.settings.register("wfrp4e", "capAdvantageIB", {
-  //   name: "Cap Advantage at IB",
-  //   hint: "Sets the max value of Advantage as the character's Initiative Bonus",
-  //   scope: "world",
-  //   config: true,
-  //   default: false,
-  //   type: Boolean
-  // });
+   // Register Advantage cap
+   game.settings.register("wfrp4e", "capAdvantageIB", {
+     name: "Cap Advantage at IB",
+     hint: "Sets the max value of Advantage as the character's Initiative Bonus",
+     scope: "world",
+     config: true,
+     default: false,
+     type: Boolean
+   });
 
   // Register Fast SL rule
   game.settings.register("wfrp4e", "fastSL", {
@@ -1671,7 +1834,7 @@ Hooks.once("init", () => {
   });
 
 
-    // Register
+    // Register Extended Tests
     game.settings.register("wfrp4e", "extendedTests", {
       name: "Extended Tests and 0 SL",
       hint: "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
@@ -1681,26 +1844,14 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-
-    // // Register Fate/Fortune Cap
-    // game.settings.register("wfrp4e", "fortuneCap", {
-    //   name: "Cap Fortune to Fate",
-    //   hint: "Fortune can never be higher than Fate",
-    //   scope: "world",
-    //   config: true,
-    //   default: true,
-    //   type: Boolean
-    // });
-
-    // // Register Resolve/Resilience Cap
-    // game.settings.register("wfrp4e", "resolveCap", {
-    //   name: "Cap Resolve to Resilience",
-    //   hint: "Resolve can never be higher than Resilience",
-    //   scope: "world",
-    //   config: true,
-    //   default: true,
-    //   type: Boolean
-    // });
+    // Register Defensive auto-fill
+    game.settings.register("wfrp4e", "testAutoFill", {
+      name: "Test Dialog Auto Populate",
+      hint: "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
 
     // Register NPC Species Randomization
     game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
@@ -1722,6 +1873,26 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+    // Register Defensive auto-fill
+    game.settings.register("wfrp4e", "statusOnTurnStart", {
+      name: "Show Combatant Status on Turn Start",
+      hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+
+    // Register Partial Channelling
+    game.settings.register("wfrp4e", "focusOnTurnStart", {
+      name: "Focus on Turn Start",
+      hint: "When advancing the combat tracker, focus on the token that's going next.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
 
   // Pre-load templates
   loadTemplates([
@@ -1741,6 +1912,7 @@ Hooks.once("init", () => {
     "public/systems/wfrp4e/templates/actors/npc-notes.html",
     "public/systems/wfrp4e/templates/actors/creature-main.html",
     "public/systems/wfrp4e/templates/actors/creature-notes.html",
+    "public/systems/wfrp4e/templates/actors/creature-main.html",
     "public/systems/wfrp4e/templates/chat/dialog-constant.html",
     "public/systems/wfrp4e/templates/chat/test-card.html",
     "public/systems/wfrp4e/templates/items/item-header.html",
@@ -1749,6 +1921,8 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("ready", async () => {
+
+
   let activeModules = game.settings.get("core", "moduleConfiguration");
 
   for (let m in activeModules)
@@ -1874,21 +2048,81 @@ Hooks.on("canvasInit", async () => {
   }
 });
 
-Hooks.on("chatMessage", async (html, content, msg) => {
+Hooks.on("chatMessage", (html, content, msg) => {
   content = content.toLowerCase();
+
+  let rollMode = game.settings.get("core", "rollMode");
+  if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
+  if ( rollMode === "blindroll" ) msg["blind"] = true;
+  msg["type"] = 0;
+
   let command = content.split(" ").map(function(item) {
     return item.trim();
   })
   if (command[0] == "/table")
   {
-    modifier = parseInt(command[2]);
-    msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
-
-    let rollMode = game.settings.get("core", "rollMode");
-    if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( rollMode === "blindroll" ) msg["blind"] = true;
+    if (command.length == 1)
+      msg.content = WFRP_Tables.formatChatRoll("menu")
+    else
+    {
+      modifier = parseInt(command[2]);
+      msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
+    }
+	ChatMessage.create(msg);
+	return false;
   }
+
+  else if (command[0] == "/cond")
+  {
+    let conditionInput = command[1].toLowerCase();
+    let condList = Object.keys(CONFIG.conditions);
+    let match = [];
+    for (let cond of condList)
+    {
+      let percentage = 0;
+      let matchCounter = 0;
+      for (let i = 0; i < cond.length; i++)
+      {
+        if (cond[i] == conditionInput[i])
+        {
+          matchCounter++;
+        }
+      }
+      percentage = matchCounter / cond.length;
+      match.push(percentage);
+    }
+    let maxIndex = match.indexOf(Math.max.apply(Math, match));
+    let description = CONFIG.conditionDescriptions[condList[maxIndex]];
+    let name = CONFIG.conditions[condList[maxIndex]];
+
+    msg.content = `<b>${name}</b><br>${description}`
+	ChatMessage.create(msg);
+	return false;
+  }
+
 });
+
+Hooks.on("renderChatMessage", async (html, content, msg) => {
+    if (!html.alias)
+      return
+
+    let cardContent = msg.children(".message-header").html()
+
+});
+
+Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
+  options.push( 
+  {
+    name : "Add Basic Skills",
+    condition: true,
+    icon: '<i class="fas fa-plus"></i>',
+    callback: target => {
+      const actor = game.actors.get(target.attr('data-entity-id'));
+      actor.addBasicSkills();
+    }
+    
+  })
+})
 
 /**
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
@@ -1955,7 +2189,7 @@ class ActorWfrp4e extends Actor {
 
     }
 
-    else if (data.type == "npc")
+    else if (data.type == "npc" || data.type == "creature")
     {
       new Dialog({
         title: "Add Basic Skills",
@@ -2070,6 +2304,12 @@ class ActorWfrp4e extends Actor {
      actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
     }
 
+    if (game.settings.get("wfrp4e", "capAdvantageIB"))
+      actorData.data.status.advantage.max = data.characteristics.i.bonus
+    else
+      actorData.data.status.advantage.max = 10;
+
+
     return actorData;
     }
     catch(error)
@@ -2089,19 +2329,6 @@ class ActorWfrp4e extends Actor {
    */
   _prepareCharacterData(data) {
 
-
-    // // Cap fortune to fate
-    // if (game.settings.get("wfrp4e", "fortuneCap") && data.status.fate.value < data.status.fortune.value)
-    // {
-    //   data.status.fortune.value = data.status.fate.value;
-    // }
-
-    // // Cap resolve to resilience
-    // if (game.settings.get("wfrp4e", "resolveCap") &&data.status.resilience.value < data.status.resolve.value)
-    // {
-    //   data.status.resolve.value = data.status.resilience.value;
-    // }
-
     data.details.experience.current = data.details.experience.total - data.details.experience.spent;
 
   }
@@ -2114,7 +2341,7 @@ class ActorWfrp4e extends Actor {
 
   }
 
-  /* -------------------------------------------- */
+  /* --------------------------------------------------------------------------------------------------------- */
   /* Rolls
   /*
   /* All "setup______" functions gather the data needed to roll a certain test. These are in 3 main objects.
@@ -2127,8 +2354,8 @@ class ActorWfrp4e extends Actor {
      dialogOptions - Data for rendering the dialog that's important for a specific test type.
                      Example: when casting or channelling, there should be an option for Malignant
                      Influences, but only for those tests.
-    cardOptions - Which card to use, the title of the card, the name of the actor, etc.
-  /* -------------------------------------------- */
+     cardOptions - Which card to use, the title of the card, the name of the actor, etc.
+  /* --------------------------------------------------------------------------------------------------------- */
 
 
   /**
@@ -2188,6 +2415,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2261,6 +2490,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/skill-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2276,14 +2507,24 @@ class ActorWfrp4e extends Actor {
   setupWeapon(weapon, event) {
     let skillCharList = [];
     let ammo;
+    let slBonus = 0 // Used when wielding defensive weapons
+    let modifier = 0;
+    let successBonus = 0;
     let title = "Weapon Test - " + weapon.name;
+
+    if (game.settings.get("wfrp4e", "testAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
+    {
+      // Defensive is only automatically used if there is a current combat, AND it is not the character's turn
+
+    }
+    
     if (event.attackType == "melee")
     {
       // If Melee, default to Weapon Skill, but check to see if the actor has the specific skill for the weapon
       skillCharList.push("Weapon Skill")
-      let skill = "Melee (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
-      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
-        skillCharList.push(skill);
+      for (let meleeSkill of this.data.flags.combatSkills)
+        if (meleeSkill.name.toLowerCase().includes("melee"))
+          skillCharList.push(meleeSkill.name);
     }
 
 
@@ -2310,9 +2551,9 @@ class ActorWfrp4e extends Actor {
       {
         ammo = weapon;
       }
-      let skill = "Ranged (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
-      if (this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skill.toLowerCase()))
-        skillCharList.push(skill);
+      for (let rangedSkill of this.data.flags.combatSkills)
+        if (rangedSkill.name.toLowerCase().includes("ranged"))
+          skillCharList.push(rangedSkill.name);
     }
     let testData = {
       target : 0,
@@ -2326,6 +2567,57 @@ class ActorWfrp4e extends Actor {
 
     // Default the selection to the specific skill (so user doesn't have to change it to the better option every time)
     let defaultSelection = CONFIG.groupToType[weapon.data.weaponGroup.value] + " (" + CONFIG.weaponGroups[weapon.data.weaponGroup.value] + ")";
+    if (skillCharList.find(x => x.toLowerCase() == defaultSelection.toLowerCase()))
+      defaultSelection = skillCharList.find(x => x.toLowerCase() == defaultSelection.toLowerCase())
+
+    if (game.settings.get("wfrp4e", "testAutoFill") && (game.combat && game.combat.data.round != 0 && game.combat.turns))
+    {
+      try 
+      {
+        let wep = WFRP_Utility._prepareWeaponCombat(this.data, duplicate(weapon));
+        let currentTurn = game.combat.turns.find(t => t.active)
+        if (this.data.token.actorLink)
+        {
+          if (this.data.token != currentTurn.actor.data.token)
+            slBonus = this.data.flags.defensive;
+          else
+          {
+            if (skillCharList.indexOf(defaultSelection) != -1)
+            {
+              if (wep.properties.qualities.includes("Accurate"))
+              modifier += 10;
+              if (wep.properties.qualities.includes("Precise"))
+              successBonus += 1;
+            }
+            if (wep.properties.flaws.includes("Imprecise"))
+              slBonus -= 1;
+          }
+        }
+        else
+        {
+          if (currentTurn.tokenId != this.token.id)
+            slBonus = this.data.flags.defensive;
+          else
+          {
+            if (skillCharList.indexOf(defaultSelection) != -1)
+            {
+              if (wep.properties.qualities.includes("Accurate"))
+              modifier += 10;
+              if (wep.properties.qualities.includes("Precise"))
+              successBonus += 1;
+            }
+            if (wep.properties.flaws.includes("Imprecise"))
+              slBonus -= 1;
+          }
+        }
+      }
+      catch
+      {
+        slBonus = 0;
+        successBonus = 0;
+        modifier = 0;
+      }
+    }
 
     let dialogOptions = {
       title: title,
@@ -2339,6 +2631,9 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         skillCharList : skillCharList,
+        slBonus : slBonus || 0,
+        successBonus : successBonus || 0,
+        modifier : modifier || 0,
         defaultSelection : skillCharList.indexOf(defaultSelection),
         advantage : this.data.data.status.advantage.value || 0
       },
@@ -2355,6 +2650,13 @@ class ActorWfrp4e extends Actor {
           testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
           //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
           testData.extra.weapon.properties.qualities = [];
+
+          if (testData.extra.weapon.data.weaponGroup.value == "Flail")
+          {
+            if (!testData.extra.weapon.properties.flaws.includes("Dangerous"))
+              testData.extra.weapon.properties.flaws.push("Dangerous")
+          }
+
           if (skillSelected == "Weapon Skill")
             testData.target = this.data.data.characteristics.ws.value
           else if (skillSelected == "Ballistic Skill")
@@ -2396,6 +2698,30 @@ class ActorWfrp4e extends Actor {
       // Override the default test evaluation to use weaponTest specific function
       rollOverride : () => {
         let roll = DiceWFRP.rollWeaponTest(testData);
+
+        let damageToUse = roll.SL;
+        let unitValue = Number(roll.roll.toString().split("").pop())
+        unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
+
+
+        if (testData.extra.weapon.properties.qualities.includes("Damaging") && unitValue > Number(roll.SL))
+          damageToUse = unitValue;
+
+        if (testData.extra.attackType == "melee")
+          testData.extra.damage = eval(testData.extra.weapon.data.damage.meleeValue + damageToUse);
+        if (testData.extra.attackType == "ranged")
+          testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
+        
+        if (testData.extra.weapon.properties.qualities.includes("Impact"))
+          testData.extra.damage += unitValue;
+
+        if (testData.extra.weapon.properties.flaws.includes("Tiring") && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
+        {
+          if (testData.extra.attackType == "melee")
+            testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
+          if (testData.extra.attackType == "ranged")
+            testData.extra.damage = `${eval(testData.extra.weapon.data.damage.rangedValue + roll.SL)} | ${testData.extra.damage}` ;
+        }
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
@@ -2409,6 +2735,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2418,27 +2746,33 @@ class ActorWfrp4e extends Actor {
 
   // Roll spell Dialog - choose between Casting or Channelling
   spellDialog(spell, options) {
-    renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
-      new Dialog({
-        title: "Cast or Channell",
-        content: dlg,
-        buttons: {
-          cast: {
-            label: "Cast",
-            callback: btn => {
-              this.setupCast(spell, options);
-            }
+
+    if (spell.data.lore.value == "petty")
+      this.setupCast(spell, options)
+    else
+    {
+      renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
+        new Dialog({
+          title: "Cast or Channell",
+          content: dlg,
+          buttons: {
+            cast: {
+              label: "Cast",
+              callback: btn => {
+                this.setupCast(spell, options);
+              }
+            },
+            channell: {
+              label: "Channell",
+              callback: btn => {
+                this.setupChannell(spell, options);
+              }
+            },
           },
-          channell: {
-            label: "Channell",
-            callback: btn => {
-              this.setupChannell(spell, options);
-            }
-          },
-        },
-        default: 'cast'
-      }).render(true);
-    })
+          default: 'cast'
+        }).render(true);
+      })
+    }
   }
 
   /**
@@ -2455,7 +2789,6 @@ class ActorWfrp4e extends Actor {
     let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
     let testData = {
       target : 0,
-      hitLocation : true,
       extra : {
         spell : preparedSpell,
         malignantInfluence : false,
@@ -2463,6 +2796,9 @@ class ActorWfrp4e extends Actor {
         ID : instinctiveDiction
       }
     };
+
+    if (preparedSpell.damage)
+      testData.hitLocation = true;
 
     let dialogOptions = {
       title: title,
@@ -2530,9 +2866,23 @@ class ActorWfrp4e extends Actor {
         rollOverride : () =>
         {
           let roll = DiceWFRP.rollCastTest(testData);
+          try 
+          {
+          if (testData.extra.spell.damage && roll.description.includes("Succeeded"))
+            testData.extra.damage = Number(roll.SL) + 
+                                    Number(testData.extra.spell.damage)
+          }
+          catch (error)
+          {
+            ui.notifications.error("Error calculating damage: " + error)
+          } // If something went wrong calculating damage, do nothing and still render the card
+
           if (testData.extra)
             mergeObject(roll, testData.extra);
+
+          
           DiceWFRP.renderRollCard(cardOptions, roll);
+
           this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
           // Update spell to reflect SL from channelling resetting to 0
         }
@@ -2545,6 +2895,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/spell-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2566,7 +2918,7 @@ class ActorWfrp4e extends Actor {
     {
       defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
     }
-    let aethyricAttunement = (this.data.flags.talentTests.find(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
+    let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
     let testData = {
       target : 0,
@@ -2648,6 +3000,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/channell-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2722,6 +3076,18 @@ class ActorWfrp4e extends Actor {
         // Override generic test function with prayer specific function
       rollOverride : () => {
         let roll = DiceWFRP.rollPrayTest(testData, this);
+      
+        try 
+        {
+          if (testData.extra.prayer.damage && roll.description.includes("Granted"))
+          testData.extra.damage = Number(roll.SL) + 
+                                  Number(testData.extra.prayer.damage)
+        }
+        catch (error)
+        {
+          ui.notifications.error("Error calculating damage: " + error)
+        } // If something went wrong calculating damage, do nothing and still render the card
+
         if (testData.extra)
           mergeObject(roll, testData.extra);
         DiceWFRP.renderRollCard(cardOptions, roll);
@@ -2735,6 +3101,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2746,14 +3114,16 @@ class ActorWfrp4e extends Actor {
    * Roll a test associated with a trait
    * @param prayer {Object}   Trait being tested
    */
-  rollTrait(trait) {
+  setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
     let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
     let title =   CONFIG.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
     let testData = {
       target : char.value,
-      hitLocation : false
+      hitLocation : false,
+      extra : 
+      { trait : trait }
     };
 
     if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
@@ -2790,8 +3160,26 @@ class ActorWfrp4e extends Actor {
           return prev + Number(cur)
         }, 0)
         roll();
+        },
+        rollOverride : () => {
+          let roll = DiceWFRP.rollTest(testData);
+          try 
+          {
+          if (testData.extra.trait.data.rollable.bonusCharacteristic)
+            testData.extra.damage = Number(roll.SL) + 
+                                    Number(testData.extra.trait.data.specification.value) + 
+                                    Number(this.data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus);
+          }
+          catch (error)
+          {
+            ui.notifications.error("Error calculating damage: " + error)
+          } // If something went wrong calculating damage, do nothing and still render the card
+          if (testData.extra)
+            mergeObject(roll, testData.extra);
+          DiceWFRP.renderRollCard(cardOptions, roll);
         }
     };
+
     let cardOptions = {
       actor : this.data.id,
       speaker: {
@@ -2800,6 +3188,8 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
     }
+    if (this.token)
+      cardOptions.speaker.alias = this.token.data.name;
     // Call the roll helper utility
     DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
@@ -2810,6 +3200,34 @@ class ActorWfrp4e extends Actor {
   static getBonus(value) {
     return Math.floor(value / 10)
   }
+
+  // Readds all Basic and ungrouped skills that aren't already owned
+  async addBasicSkills() {
+    let ownedBasicSkills = this.data.items.filter(i => i.type == "skill" && i.data.advanced.value == "bsc");
+    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    let skills = [];
+    await pack.getIndex().then(index => skills = index);
+    for (let sk of skills)
+    {
+      let skillItem = undefined;
+      await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      if (skillItem.data.data.advanced.value == "bsc")
+      {
+        if (skillItem.data.data.grouped.value != "noSpec")
+        {
+          let startParen = skillItem.data.name.indexOf("(")
+          skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+        }
+
+        if (!ownedBasicSkills.find(s => skillItem.data.name.includes(s.name)))
+        {
+          await this.createOwnedItem(skillItem.data);
+          ownedBasicSkills.push(skillItem.data);
+        }
+      }
+    }
+  }
+
 }
 
 // Assign the actor class to the CONFIG
@@ -2830,6 +3248,9 @@ class ItemWfrp4e extends Item {
     super.create(data, options);
   }
   // Expand data is used in most dropdown infos
+
+  /*******ITEM EXPAND DATA ***********/
+
   getExpandData(htmlOptions) {
     const data = this[`_${this.data.type}ExpandData`]();
     data.description.value = data.description.value || "";
@@ -2840,6 +3261,12 @@ class ItemWfrp4e extends Item {
   _trappingExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
+    return data;
+  }
+
+  _moneyExpandData() {
+    const data = duplicate(this.data.data);
+    data.properties = [`Value (in d): ${data.coinValue.value}`];
     return data;
   }
 
@@ -2861,6 +3288,12 @@ class ItemWfrp4e extends Item {
   _diseaseExpandData() {
     const data = duplicate(this.data.data);
     data.properties = [];
+    data.properties.push("<b>Contraction:</b> " + data.contraction.value);
+    data.properties.push("<b>Incubation:</b> " + data.incubation.value);
+    data.properties.push("<b>Duration:</b> " + data.duration.value);
+    data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'>"+i.trim()+"</a>") );
+    if (data.permanent.value)
+      data.properties.push("<b>Permanent:</b> " + data.permanent.value);
     return data;
   }
 
@@ -2885,6 +3318,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
     data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
+    data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
     data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
     return data;
   }
@@ -2937,7 +3371,7 @@ class ItemWfrp4e extends Item {
       properties.push("Melee Damage: " + data.damage.meleeValue);
     if (data.damage.rangedValue)
       properties.push("Ranged Damage: " + data.damage.rangedValue);
-    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
+    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
       properties.push(prop);
     if (data.twohanded.value)
       properties.push("Two Handed");
@@ -2956,7 +3390,7 @@ class ItemWfrp4e extends Item {
     const data = duplicate(this.data.data);
      const properties = [];
      properties.push(CONFIG.armorTypes[data.armorType.value]);
-     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
+     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
        properties.push(prop);
      properties.push(data.penalty.value);
 
@@ -2975,7 +3409,7 @@ class ItemWfrp4e extends Item {
      if (data.damage.value)
       properties.push("Damage: " + data.damage.value);
 
-     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data))
+     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
        properties.push(prop);
      properties = properties.filter(p => p != "Special");
      if (data.special.value)
@@ -2985,6 +3419,278 @@ class ItemWfrp4e extends Item {
      return data;
    }
 
+   /****** ITEM CHAT OUTPUT **********/
+
+  postItem() {
+    let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode")};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+
+    const properties = this[`_${this.data.type}ChatData`]();
+    let chatData = duplicate(this.data);
+    chatData["properties"] = properties
+
+    if (chatData.img.includes("/blank.png"))
+      chatData.img = null;
+
+    let html= 
+    `<div class="wfrp4e post-item">
+     <h3><b>${chatData.name}</b></h3>
+      ${ chatData.img ? `<img src="${chatData.img}" title="${chatData.name}"/>` : ""}
+  
+      ${ chatData.data.description.value ? `<div class="card-content">${chatData.data.description.value}</div>` : "<br>"}`
+      
+
+      for (let prop of properties)
+        html = html.concat(prop+"<br>") ;
+
+      html = html.concat("</div>")
+
+      chatOptions["content"] = html;
+      ChatMessage.create(chatOptions)
+  }
+
+  _trappingChatData() {
+    const data = duplicate(this.data.data);
+    let properties = 
+    [
+      `<b>Trapping Type</b>: ${CONFIG.trappingCategories[data.trappingType.value]}`,
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+    ]
+    return properties;
+  }
+
+  _skillChatData() {
+    const data = duplicate(this.data.data);
+    let properties = []
+    properties.push( data.advanced == "adv" ? "<b>Advanced</b>" : "<b>Basic</b>")
+    return properties;
+  }
+
+  _moneyChatData() {
+    const data = duplicate(this.data.data);
+    let properties = 
+    [
+      `<b>Value (in pennies)</b>: ${data.coinValue.value}`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+    ]
+    return properties;
+  }
+
+  _psychologyChatData() {
+    return [];
+  }
+
+  _mutationChatData() {
+    let properties = [
+      `<b>Mutation Type</b>: ${CONFIG.mutationTypes[this.data.data.mutationType.value]}`,
+    ];
+    if (this.data.data.modifier.value)
+      properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+    return properties;
+  }
+
+  _diseaseChatData() {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Contraction:</b> " + data.contraction.value);
+    properties.push("<b>Incubation:</b> " + `<a class = 'chat-roll'>${data.incubation.value}</a>`);
+    properties.push("<b>Duration:</b> " + `<a class = 'chat-roll'>${data.duration.value}</a>`);
+    properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'>"+i.trim()+"</a>")).join(", "));
+    if (data.permanent.value)
+      properties.push("<b>Permanent:</b> " + data.permanent.value);
+    return properties;
+  }
+
+  _talentChatData() {
+    const data = duplicate(this.data.data);
+    let properties = []; 
+    properties.push("<b>Max: </b> " + CONFIG.talentMax[data.max.value]);
+    if (data.tests.value)
+      properties.push("<b>Tests: </b> " + data.tests.value);
+    return properties;
+  }
+
+  _traitChatData() {
+    const data = duplicate(this.data.data);
+    let properties = []; 
+    if (data.specification.value)
+      properties.push("<b>Specification: </b> " + data.specification.value);
+    return properties;
+  }
+
+  _careerChatData() {
+    let properties=[];
+    properties.push("<b>Class</b>: " + this.data.data.class.value);
+    properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
+    properties.push("<b>Status</b>: " + CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
+    properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>"+i+"</a>"));
+    properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + "<a class = 'talent-lookup'>"+i+"</a>"));
+    properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
+    properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+    return properties;
+  }
+
+  _injuryChatData() {
+    const data = duplicate(this.data.data);
+    let properties=[];
+    properties.push(`<b>Location</b>: ${data.location.value}`);
+    properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+    return properties;
+  }
+
+  _spellChatData() {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    if(CONFIG.magicLores[data.lore.value])
+      properties.push("<b>Lore</b>: " + CONFIG.magicLores[data.lore.value]);
+    else
+      properties.push("<b>Lore</b>: " + data.lore.value);
+    properties.push("<b>CN</b>: " + data.cn.value);
+    properties.push("<b>Range</b>: " + data.range.value);
+    properties.push("<b>Target</b>: " + data.target.value);
+    properties.push("<b>Duration</b>: " + data.duration.value);
+    if (data.damage.value)
+      properties.push("<b>Damage</b>: " + data.damage.value);
+
+    return properties;
+  }
+
+   _prayerChatData() {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Range</b>: " + data.range.value);
+    properties.push("<b>Target</b>: " + data.target.value);
+    properties.push("<b>Duration</b>: " + data.duration.value);
+    if (data.damage.value)
+      properties.push("Damage: " + data.damage.value);
+    return properties;
+  }
+
+  _weaponChatData() {
+   const data = duplicate(this.data.data);
+  let properties = 
+   [
+     `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+     `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+     `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+   ]
+
+    if (data.weaponGroup.value)
+      properties.push("<b>Weapon Group</b>: " + CONFIG.weaponGroups[data.weaponGroup.value]);
+    if (data.range.value)
+      properties.push("<b>Range</b>: " + data.range.value);
+    if (data.damage.meleeValue)
+      properties.push("<b>Melee Damage</b>: " + data.damage.meleeValue);
+    if (data.damage.rangedValue)
+      properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
+    if (data.twohanded.value)
+      properties.push("<b>Two Handed</b>");
+    if (data.reach.value) 
+      properties.push ("<b>Reach</b>: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+
+    let weaponProperties =  WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+
+    weaponProperties.qualities = weaponProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    weaponProperties.flaws = weaponProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+
+    if (weaponProperties.qualities.length)
+      properties.push("<b>Qualities</b>: " + weaponProperties.qualities.join(", "))
+
+      
+    if (weaponProperties.flaws.length)
+      properties.push("<b>Flaws</b>: " + weaponProperties.flaws.join(", "))
+   
+
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push ("<b>Special</b>: " + data.special.value);
+
+    properties = properties.filter(p => !!p);
+    return properties;
+  }
+
+  _armourChatData() {
+    const data = duplicate(this.data.data);
+    let properties = 
+    [
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+    ]
+ 
+     if (data.armorType.value)
+       properties.push("<b>Armour Type</b>: " + CONFIG.armorTypes[data.armorType.value]);
+     if (data.penalty.value)
+       properties.push("<b>Penalty</b>: " + data.penalty.value);
+
+       
+     for (let apVal in data.currentAP)
+     {
+       if (data.currentAP[apVal] == -1)
+        data.currentAP[apVal] = data.maxAP[apVal];
+     }
+
+    for (let loc in CONFIG.locations)
+      if (data.maxAP[loc])
+        properties.push(`<b>${CONFIG.locations[loc]} AP</b>: ${data.currentAP[loc]}/${data.maxAP[loc]}`);
+
+
+      let armourProperties =  WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+
+       armourProperties.qualities = armourProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+       armourProperties.flaws = armourProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+   
+       if (armourProperties.qualities.length)
+         properties.push("<b>Qualities</b>: " + armourProperties.qualities.join(", "))
+   
+         
+       if (armourProperties.flaws.length)
+         properties.push("<b>Flaws</b>: " + armourProperties.flaws.join(", "))
+      
+   
+       properties = properties.filter(p => p != "Special");
+       if (data.special.value)
+         properties.push ("<b>Special</b>: " + data.special.value);
+
+     properties = properties.filter(p => !!p);
+     return properties;
+   }
+
+   _ammunitionChatData() {
+    const data = duplicate(this.data.data);
+     let properties = [];
+     properties.push ("<b>Ammunition Type:</b> " + CONFIG.ammunitionGroups[data.ammunitionType.value])
+
+     if (data.range.value)
+      properties.push("<b>Range</b>: " + data.range.value);
+
+     if (data.damage.value)
+      properties.push("<b>Damage</b>: " + data.damage.value);
+
+      let ammoProperties =  WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+
+       ammoProperties.qualities = ammoProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+       ammoProperties.flaws = ammoProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+   
+       if (ammoProperties.qualities.length)
+         properties.push("<b>Qualities</b>: " + ammoProperties.qualities.join(", "))
+   
+         
+       if (ammoProperties.flaws.length)
+         properties.push("<b>Flaws</b>: " + ammoProperties.flaws.join(", "))
+
+
+     properties = properties.filter(p => p != "Special");
+     if (data.special.value)
+       properties.push ("Special: " + data.special.value);
+
+     properties = properties.filter(p => !!p);
+     return properties;
+   }
 }
 // Assign ItemWfrp4e class to CONFIG
 CONFIG.Item.entityClass = ItemWfrp4e;
@@ -3004,6 +3710,32 @@ class ItemSheetWfrp4e extends ItemSheet {
     super(item, options);
     this.mce = null;
   }
+
+
+    _getHeaderButtons() {
+    let buttons = super._getHeaderButtons();
+    if ( game.user.isGM && this.options.editable ) {
+      buttons.push(
+        {
+          // label: "Close",
+          class: "post",
+          icon: "fas fa-comment",
+          onclick: ev => this.item.postItem()
+        })
+  }
+  return buttons
+}
+
+async _render(force = false, options = {})
+{
+  await super._render(force, options);
+  $(this._element).find(".close").attr("title", "Close");
+  $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
+  $(this._element).find(".post").attr("title", "Post to chat");
+  $(this._element).find(".import").attr("title", "Import");
+
+}
+
 
   /**
    * Use a type-specific template for each different item type
@@ -3131,7 +3863,6 @@ class ItemSheetWfrp4e extends ItemSheet {
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));
-
 
     html.find('.lore-input').change(async event => {
       let inputLore = event.target.value;
@@ -3261,12 +3992,15 @@ class ActorSheetWfrp4e extends ActorSheet {
   get actorType() {
     return this.actor.data.type;
   }
-
-    async _render(force = false, options = {}) {
-      this._saveScrollPos();
-      await super._render(force, options);
-      this._setScrollPos();
-    }
+  async _render(force = false, options = {}) {
+    this._saveScrollPos();
+    await super._render(force, options);
+    this._setScrollPos();
+    $(this._element).find(".close").attr("title", "Close");
+    $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
+    $(this._element).find(".configure-token").attr("title", "Configure Token");
+    $(this._element).find(".import").attr("title", "Import");
+  }
 
     // Add the class "save-scroll" to a div to save it's scroll position
    _saveScrollPos()
@@ -3406,8 +4140,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     }
 
-    //if (game.settings.get("wfrp4e", "capAdvantageIB"))
-     // sheetData.actor.data.status.advantage.max = sheetData.actor.data.characteristics.i.bonus
+
 
     sheetData.isToken = this.actor.token;
     sheetData.isGM = game.user.isGM;
@@ -3471,6 +4204,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let totalEnc = 0;
       let hasSpells = false;
       let hasPrayers = false;
+      let defensiveCounter = 0;
 
       for ( let i of actorData.items ) {
         try {
@@ -3488,11 +4222,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "ammunition")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             inventory.ammunition.items.push(i);
             inventory.ammunition.show = true
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -3519,9 +4253,11 @@ class ActorSheetWfrp4e extends ActorSheet {
             {
                AP.shield += parseInt(shieldProperty.split(" ")[1]);
             }
+            if (i.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
+            {
+              defensiveCounter++;
+            }
           }
-
-
         }
 
         else if (i.type === "armour")
@@ -3689,10 +4425,10 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if (i.type === "money")
         {
-          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
           if (i.data.location.value == 0){
             money.coins.push(i);
-            totalEnc += i.encumbrance;
+            totalEnc += Number(i.encumbrance);
           }
           else{
             inContainers.push(i);
@@ -3741,7 +4477,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
         cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
         cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
-          return prev + cur.encumbrance;
+          return Number(prev) + Number(cur.encumbrance);
         }, 0);
         cont.holding = Math.floor(cont.holding)
       }
@@ -3758,6 +4494,19 @@ class ActorSheetWfrp4e extends ActorSheet {
       for (let skill of basicSkills.concat(advancedOrGroupedSkills))
         if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
           this.actor.data.flags.combatSkills.push(skill);
+
+      let smb = talents.find(t => t.name.toLowerCase() == "strike mighty blow")
+      if (smb && this.actor.data.flags.meleeDamageIncrease != smb.data.advances.value)
+        this.actor.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
+      else if (!smb && this.actor.data.flags.meleeDamageIncrease)
+        this.actor.update({"flags.meleeDamageIncrease" : 0});
+
+
+      let accshot = talents.find(t => t.name.toLowerCase() == "accurate shot")
+      if (accshot && this.actor.data.flags.rangedDamageIncrease != accshot.data.advances.value)
+        this.actor.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
+      else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
+        this.actor.update({"flags.rangedDamageIncrease" : 0});
 
 
       // Penalties box setup
@@ -3776,6 +4525,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
       }
 
+      let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
+      penaltiesFlag = penaltiesFlag.trim();
+      // This is for the penalty string in flags, for combat turn message
+      if (this.actor.data.flags.modifier != penaltiesFlag && this.options.editable)
+        this.actor.update({"flags.modifier" : penaltiesFlag})
+
       let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
       if (armorTrait)
       {
@@ -3792,6 +4547,8 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
         }
       }
+
+      this.actor.data.flags.defensive = defensiveCounter;
 
       let untrainedSkills = []
       let untrainedTalents = []
@@ -3834,8 +4591,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           actorData.data.characteristics[char].career = false;
       }
 
-
-
       actorData.inventory = inventory;
       actorData.containers = containers;
       actorData.basicSkills = basicSkills.sort(WFRP_Utility.nameSorter);
@@ -3863,6 +4618,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       actorData.untrainedTalents = untrainedTalents;
 
       let enc;
+      // let moneyEnc = 0;
+      // for (let m of money.coins)
+      // {
+      //   moneyEnc += m.data.encumbrance.value * m.data.quantity.value;
+      // }
+      // totalEnc += Math.floor(moneyEnc);
+      totalEnc = Math.floor(totalEnc);
       try
       {
         enc = {
@@ -4028,6 +4790,20 @@ class ActorSheetWfrp4e extends ActorSheet {
   }
 
 
+  _modifyWounds(event)
+  {
+    let inputValue = event.target.value;
+    let sign = event.target.value.split('')[0]
+    let wounds;
+    if (sign == "+" || sign == "-")
+      wounds = eval(this.actor.data.data.status.wounds.value + parseInt(inputValue))
+    else
+      wounds = parseInt(inputValue);
+    
+    this.actor.update({"data.status.wounds.value" : wounds});
+  }
+
+
   /* -------------------------------------------- */
   /*  Event Listeners and Handlers
   /* -------------------------------------------- */
@@ -4053,11 +4829,16 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
 
-
+    $("input[type=text]").click(function() {
+      $(this).select();
+   });
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+      html.find(".wounds-value-box").change(event => {
+        this._modifyWounds(event)
+      })
 
      // This disgusting mess allows characteristics to be tabbed through. (Used only by Creature and NPC sheets, placed here to maintain DRY code)
      html.find(".ch-edit").keydown(event => {
@@ -4079,12 +4860,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         this.charUpdateFlag = false;
       }
       else
+      {
         this.charUpdateFlag = true; // If the user did not click tab, OK to update
+      }
     })
 
     html.find('.ch-edit').focusout(async event => {
       event.preventDefault();
-
       if (!this.charUpdateFlag && event.currentTarget.attributes["data-char"].value != "fel") // Do not proceed with an update until the listener aboves sets this flag to true or the last characteristic was tabbed
         return                  // When this flag is true, that means the focus out was not from a tab
 
@@ -4116,7 +4898,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (event.keyCode == 9) // Wait to update if user tabbed to another skill
       {
         this.skillUpdateFlag = false;
-        console.log('tab');
       }
       else
       {
@@ -4126,19 +4907,22 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
     html.find('.skill-advances').focusout(async event => {
-
+      if (!this.skillsToEdit)
+        this.skillsToEdit = []
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      let itemToEdit = this.actor.items.find(i => i.id === itemId);
       itemToEdit.data.advances.value = Number(event.target.value);
+      this.skillsToEdit.push(itemToEdit);
+
       if (!this.skillUpdateFlag)
         return;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      let skills = this.actor.items.filter(i => i.type == "skill")
-      for(let skill of skills)
+      for(let skill of this.skillsToEdit)
       {
         await this.actor.updateOwnedItem(skill, true);
       }
+      this.skillsToEdit = [];
     });
 
 
@@ -4201,22 +4985,37 @@ class ActorSheetWfrp4e extends ActorSheet {
       // Roll Fist Attack
     })
 
-    html.find('.trait-roll').click(event => {
+    html.find('.trait-roll').mousedown(event => {
       event.preventDefault();
+      if (event.button == 2)
+      {
+        this._onItemSummary(event);
+        return;
+      }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let trait = this.actor.items.find(i => i.id === itemId);
-      this.actor.rollTrait((duplicate(trait)));
+      this.actor.setupTrait((duplicate(trait)));
     })
 
-    html.find('.spell-roll').click(event => {
+    html.find('.spell-roll').mousedown(event => {
       event.preventDefault();
+      if (event.button == 2)
+      {
+        this._onItemSummary(event);
+        return;
+      }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let spell = this.actor.items.find(i => i.id === itemId);
       this.actor.spellDialog(duplicate(spell));
     })
 
-    html.find('.prayer-roll').click(event => {
+    html.find('.prayer-roll').mousedown(event => {
       event.preventDefault();
+      if (event.button == 2)
+      {
+        this._onItemSummary(event);
+        return;
+      }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let prayer = this.actor.items.find(i => i.id === itemId);
       this.actor.setupPrayer(duplicate(prayer));
@@ -4323,13 +5122,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       switch (event.button)
       {
         case 0:
-        item.data.quantity.value++;
+          if (event.ctrlKey)
+            item.data.quantity.value += 10;
+          else
+            item.data.quantity.value++;
 
           break;
         case 2:
-        item.data.quantity.value--;
-        if (item.data.quantity.value < 0)
-          item.data.quantity.value = 0;
+          if (event.ctrlKey)
+            item.data.quantity.value -= 10;
+          else
+            item.data.quantity.value--;
+
+          if (item.data.quantity.value < 0)
+            item.data.quantity.value = 0;
           break;
       }
       this.actor.updateOwnedItem(item);
@@ -4375,7 +5181,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           spell.data.cn.SL = spell.data.cn.valeu;
           break;
         case 2:
-        spell.data.cn.SL = 0;
+        spell.data.cn.SL--;
         break;
       }
       await this.actor.updateOwnedItem(spell, true);
@@ -4414,7 +5220,6 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     html.find('.disease-roll').mousedown(async ev =>  {
-      console.log("DISEASE ROLL");
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       const disease = this.actor.items.find(i => i.id === itemId);
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
@@ -4461,11 +5266,15 @@ class ActorSheetWfrp4e extends ActorSheet {
         try
         {
           let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
+          let characteristics = duplicate(this.actor.data.data.characteristics);
 
-          // Could not get assigning the whole object to work
-          // Error was something about fields not allowing "."
-          for (let char in initialValues)
-            await this.actor.update({[`data.characteristics.${char}.initial`] : initialValues[char]})
+          for (let c in characteristics)
+          {
+            characteristics[c].initial = initialValues[c];
+          }
+
+
+          await this.actor.update({'data.characteristics' : characteristics})
           await this.actor.update({"data.details.species.value" : species});
           await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
         }
@@ -4486,7 +5295,36 @@ class ActorSheetWfrp4e extends ActorSheet {
         switch(event.target.text)
         {
           case "C":
-            if (this.actor.data.type == "creature")
+            let creatureMethod = false;
+            if (this.actor.data.type == "creature" || !species)
+              creatureMethod = true;
+
+            if (!creatureMethod)
+            {
+              let characteristics = duplicate (this.actor.data.data.characteristics);
+              let averageCharacteristics = WFRP_Utility.speciesCharacteristics(species, true);
+
+              // If this loop results in turning creatureMethod to true, that means an NPCs statistics have been edited manually, use -10 + 2d10 method
+              for (let char in characteristics)
+              {
+                if (characteristics[char].initial != averageCharacteristics[char])
+                  creatureMethod = true;
+              }
+            }
+
+
+            if (!creatureMethod)
+            {
+              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
+              for (let char in rolledCharacteristics)
+              {
+                characteristics[char].initial = rolledCharacteristics[char];
+              }
+              await this.actor.update({"data.characteristics" : characteristics})
+            }
+
+
+            else if (creatureMethod)
             {
               let roll = new Roll("2d10");
               roll.roll();
@@ -4503,12 +5341,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               }
               await this.actor.update({"data.characteristics" : characteristics});
             }
-            else
-            {
-              let rolledCharacteristics = WFRP_Utility.speciesCharacteristics(species, false);
-              for (let char in rolledCharacteristics)
-                await this.actor.update({[`data.characteristics.${char}.initial`] : rolledCharacteristics[char]})
-            }
+
             return
 
           case "S":
@@ -4524,8 +5357,40 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         console.log("Could not randomize: " + error)
       }
+
     });
 
+
+  html.find(".item-post").click(ev => {
+    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+    const item = this.actor.getOwnedItem(itemId);
+    item.postItem();
+  })
+
+  html.find(".inventory .item .item-name").mousedown(ev => {
+    if (ev.button == 2)
+    {
+      new Dialog({
+        title: "Duplicate Item",
+        content: '<p>Do you want to duplicate this item?</p>',
+        buttons: {
+          yes: {
+            label: "Yes",
+            callback: (dlg) => {
+              this.duplicateItem(Number($(ev.currentTarget).parents(".item").attr("data-item-id")));
+            }
+          },
+          cancel: {
+            label: "Cancel",
+            callback: dlg => {
+              return
+            }
+          },
+        },
+        default: 'yes'
+      }).render(true);
+    }
+  })
 
     //Item Dragging
     let handler = ev => this._onDragItemStart(ev);
@@ -4541,11 +5406,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   _onDragItemStart(event) {
     let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-    event.dataTransfer.setData("text/plain", JSON.stringify({
+    const item = this.actor.getOwnedItem(itemId);
+	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
-      actorId: this.actor._id,
-      id: itemId,
-      root: Number(event.currentTarget.getAttribute("root"))
+      actorId: this.actor.id,
+      data: item.data
     }));
   }
 
@@ -4553,7 +5418,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
       if ($(event.target).parents(".item").attr("inventory-type") == "container"){
-        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).id);
+        var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
         if (dragItem.data.id == dropID)
           throw "";
         else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container"))
@@ -4581,7 +5446,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         await this.actor.updateOwnedItem(dragItem.data, true);
       }
     else
+    {
       super._onDrop(event)
+    }
   }
 
 
@@ -4604,6 +5471,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       div.append(props);
       li.append(div.hide());
       div.slideDown(200);
+
+      // Clickable tags
+      div.on("click", ".item-property", ev => {
+        WFRP_Utility.postProperty(ev.target.text)
+      })
+      div.on("click", ".symptom-tag", ev => {
+        WFRP_Utility.postSymptom(ev.target.text)
+      })
     }
     li.toggleClass("expanded");
   }
@@ -4737,6 +5612,12 @@ class ActorSheetWfrp4e extends ActorSheet {
     this.actor.createOwnedItem(data, true, {renderSheet: true});
   }
 
+  duplicateItem(itemId) 
+  {
+    let item = this.actor.getOwnedItem(itemId);
+    this.actor.createOwnedItem(item.data);
+  }
+
   /* -------------------------------------------- */
 }
 
@@ -4752,7 +5633,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       classes: options.classes.concat(["wfrp4e", "actor", "character-sheet"]),
       width: 610,
       height: 740,
-      showUnpreparedSpells: true
     });
     return options;
   }
@@ -4781,6 +5661,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       if (pureSoulTalent)
         sheetData.actor.data.status.corruption.max += pureSoulTalent.data.advances.value;
     }
+
+
     return sheetData;
   }
 
@@ -4987,7 +5869,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       classes: options.classes.concat(["wfrp4e", "actor", "npc-sheet"]),
       width: 610,
       height: 740,
-      showUnpreparedSpells: true
     });
 
 
@@ -5057,11 +5938,15 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
   activateListeners(html) {
     super.activateListeners(html);
 
+    if (!this.options.editable) return;
+
       html.find('.ch-roll').click(event => {
         event.preventDefault();
         let characteristic = $(event.currentTarget).attr("data-char");
         this.actor.setupCharacteristic(characteristic, event);
       });
+
+      
 
       html.find('.npc-career').click(event => {
         event.preventDefault();
@@ -5097,6 +5982,8 @@ Actors.registerSheet("wfrp4e", ActorSheetWfrp4eNPC, {
 });
 
 
+/************** ALTERNATE CREATURE SHEET ******************/
+
 class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
   static get defaultOptions() {
     const options = super.defaultOptions;
@@ -5104,7 +5991,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       classes: options.classes.concat(["wfrp4e", "actor", "creature-sheet"]),
       width: 610,
       height: 740,
-      showUnpreparedSpells: true
     });
 
 
@@ -5154,10 +6040,22 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
    }
 
    actorData.notesTraits = actorData.traits.sort(WFRP_Utility.nameSorter); // Display all traits in the notes section of a creature
+   // Use only included traits for calculation
    actorData.traits = actorData.traits.filter(t => t.included);
 
    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
-   // Use only included traits for calculation
+   actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
+
+   for (let weapon of actorData.weapons)
+   {
+     try {
+     if (weapon.data.currentAmmo.value)
+      weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+     }
+     catch
+      {weapon.data.currentAmmo.value}
+   }
+
   }
 
 
@@ -5186,6 +6084,39 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     // Parent ActorSheet update steps
     super._updateObject(event, formData);
   }
+
+  _delayedDropdown(event){
+    
+    if (this.clicks)
+    this.clicks++;  //count clicks
+  else
+    this.clicks = 1;
+
+    console.log(this.clicks);
+
+  if(this.clicks === 1) 
+  {
+
+      this.timer = setTimeout( () => {
+
+       this._onCreatureItemSummary(event);
+
+        this.clicks = 0;             //after action performed, reset counter
+
+      }, 250);
+
+  } 
+  else
+  {
+
+      clearTimeout(this.timer);    //prevent single-click action
+      let itemId = Number($(event.currentTarget).attr("data-item-id"));
+      let Item = CONFIG.Item.entityClass;
+      const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+      item.sheet.render(true);
+      this.clicks = 0;             //after action performed, reset counter
+  }
+}
 
   // Creature sheet dropdowns need specific implementation to correctly display
   _onCreatureItemSummary(event) {
@@ -5223,9 +6154,14 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.deleteOwnedItem(itemId, true);
       }
     });
-    html.find(".creature-dropdown").click(event => this._onCreatureItemSummary(event));
+    html.find(".creature-dropdown").click(event => {
+      this._delayedDropdown(event);
+  }) 
+    .on("dblclick", function(e){
+    e.preventDefault();  //cancel system double-click event
+  });
 
-
+    if (!this.options.editable) return;
 
     html.find(".skills.name, .skills.total").mousedown(event => {
       let newAdv
@@ -5274,11 +6210,11 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
       if (event.button == 2 || !trait.data.data.rollable.value)
       {
-        this._onCreatureItemSummary(event);
+        this._delayedDropdown(event);
         return;
       }
 
-      this.actor.rollTrait(trait.data);
+      this.actor.setupTrait(trait.data);
 
     })
 
@@ -5308,7 +6244,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 // Register Creature Sheet
 Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
   types: ["creature"],
-  makeDefault: true
+  makeDefault: false
 });
 
 
@@ -5404,8 +6340,10 @@ class WFRP_Utility
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
-    weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue);
-    weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue);
+    if (weapon.data.damage.meleeValue)
+      weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+    if (weapon.data.damage.rangedValue)
+      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0);
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
@@ -5427,6 +6365,8 @@ class WFRP_Utility
       weapon.data.ammunitionGroup.value = "";
     }
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
+    if (weapon.properties.special)
+      weapon.properties.special = weapon.data.special.value;
     return weapon;
   }
 
@@ -5524,7 +6464,7 @@ class WFRP_Utility
       else
         special.push(prop);
     }
-    return {qualities : qualities,flaws : flaws,special : special}
+    return {qualities : qualities,flaws : flaws, special : special}
   }
 
   /* -------------------------------------------- */
@@ -5601,15 +6541,34 @@ class WFRP_Utility
     {
       weapon.data.range.value /= 3;
     }
+    else if (ammoRange.toLowerCase() == "quarter weapon")
+    {
+      weapon.data.range.value /= 4;
+    }
     else if (ammoRange.toLowerCase() == "twice weapon")
     {
       weapon.data.range.value *= 2;
     }
     else
-      weapon.data.range.value += eval(ammoRange)
-
-    weapon.data.damage.rangedValue += eval(ammoDamage);
-
+    {
+      try {
+        ammoRange = eval(ammoRange);
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
+      }
+      catch 
+      {
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange)); // Eval throws exception for "/2" for example. 
+      }
+    }
+    
+    try {
+      ammoDamage = eval(ammoDamage);
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+    }
+    catch { 
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
+    }
+    
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
     // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
     ammoProperties = ammoProperties.filter(p => p != undefined);
@@ -5634,7 +6593,7 @@ class WFRP_Utility
       }
       else
       {
-        propertiesToAdd.push(property + " " + value);
+        propertiesToAdd.push(property + " " + Number(value));
       }
     }
 
@@ -5843,6 +6802,110 @@ class WFRP_Utility
       return CONFIG.xpCost[CONFIG.xpCost.length-1];
     return CONFIG.xpCost[type][index];
   }
+
+  
+  static displayStatus(tokenId)
+  {
+    let token = canvas.tokens.get(tokenId);
+    let effects = token.data.effects;
+    let conditions = {}
+    effects = effects.map(function(effect) {
+      
+      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+  
+      if (isNumeric)
+      {
+        effect = effect.substring(effect.lastIndexOf("/")+1)
+        let effectNum = effect.substring(effect.length-5, effect.length-4)
+        effect = effect.substring(0, effect.length-5);
+        if (conditions[effect.toString()])
+          conditions[effect.toString()] += parseInt(effectNum);
+        else
+          conditions[effect.toString()] = parseInt(effectNum);
+      }
+  
+      else 
+      {
+        effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
+        effect = effect.substring(0, effect.length-4);
+        conditions[effect] = true;
+  
+      }
+    
+   })
+  
+   let displayConditions = [];
+   for (let c in conditions)
+   {
+     let displayValue = (CONFIG.conditions[c])
+     if (typeof conditions[c] !== "boolean")
+      displayValue += " " + conditions[c]
+    displayConditions.push(displayValue); 
+   }
+  
+  
+    let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
+  
+  
+    let chatData = {
+      name : token.name,
+      conditions : displayConditions,
+      modifiers : token.actor.data.flags.modifier
+    }
+  
+  
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+      chatOptions["user"] = game.user._id
+  
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+	  chatOptions["type"] = 0;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
+
+  static postSymptom(symptom)
+  {
+    let symkey = WFRP_Utility.findKey(symptom.split("(")[0].trim(), CONFIG.symptoms)
+    let content = `<b>${symptom}</b>: ${CONFIG.symptomDescriptions[symkey]}`;
+    let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    ChatMessage.create(chatOptions);
+
+    if (game.user.isGM)
+    {
+      content = `<b>${symptom} Treatment</b>: ${CONFIG.symptomTreatment[symkey]}`;
+      chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
+      chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      ChatMessage.create(chatOptions);
+    }
+  }
+
+  static postProperty(property)
+  {
+    let properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()), 
+    propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions),
+    propertyKey;
+
+    property = property.replace(/,/g, '').trim();
+
+    propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+
+    let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
+    propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
+
+
+    let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : propertyDescription};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    ChatMessage.create(chatOptions);
+  }
+
 }
 
   /* -------------------------------------------- */
@@ -5942,6 +7005,9 @@ class WFRP_Tables {
       case "oops":
          return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
+      case "winds":
+          return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
+
       case "scatter":
         let tableHtml = '<table class = "scatter-table">' +
         " <tr>"+
@@ -6004,24 +7070,143 @@ class WFRP_Tables {
         catch
         {
           return "<b><code>/table</code> Commands</b><br>"+
-          "<code>hitloc</code> - Hit Location<br>"+
-          "<code>crithead</code> - Head Critical Hits<br>"+
-          "<code>critbody</code> - Body Critical Hits<br>"+
-          "<code>critarm</code> - Arm Critical Hits<br>"+
-          "<code>critleg</code> - Leg Critical Hits<br>"+
-          "<code>oops</code> - Oops!<br>"+
-          "<code>minormis</code> - Minor Miscast<br>"+
-          "<code>majormis</code> - Major Miscast<br>"+
-          "<code>wrath</code> - Wrath of the Gods<br>"+
-          "<code>mutatephys</code> - Physical Mutation<br>"+
-          "<code>mutatemental</code> - Mental Mutation<br>"+
-          "<code>event</code> - Downtime Event<br>"+
-          "<code>travel</code> - Downtime Event<br>"+
-          "<code>scatter</code> - Scatter Direction<br>"+
-          "<code>doom</code> - Dooming<br>"
+          "<a data-table='hitloc' class='table-click'><code>hitloc</code> - Hit Location<br></a>"+
+          "<a data-table='crithead' class='table-click'><code>crithead</code> - Head Critical Hits<br></a>"+
+          "<a data-table='critbody' class='table-click'><code>critbody</code> - Body Critical Hits<br></a>"+
+          "<a data-table='critarm' class='table-click'><code>critarm</code> - Arm Critical Hits<br></a>"+
+          "<a data-table='critleg' class='table-click'><code>critleg</code> - Leg Critical Hits<br></a>"+
+          "<a data-table='oops' class='table-click'><code>oops</code> - Oops!<br></a>"+
+          "<a data-table='minormis' class='table-click'><code>minormis</code> - Minor Miscast<br></a>"+
+          "<a data-table='majormis' class='table-click'><code>majormis</code> - Major Miscast<br></a>"+
+          "<a data-table='wrath' class='table-click'><code>wrath</code> - Wrath of the Gods<br></a>"+
+          "<a data-table='mutatephys' class='table-click'><code>mutatephys</code> - Physical Mutation<br></a>"+
+          "<a data-table='mutatemental' class='table-click'><code>mutatemental</code> - Mental Mutation<br></a>"+
+          "<a data-table='event' class='table-click'><code>event</code> - Downtime Event<br></a>"+
+          "<a data-table='travel' class='table-click'><code>travel</code> - Downtime Event<br></a>"+
+          "<a data-table='scatter' class='table-click'><code>scatter</code> - Scatter Direction<br></a>"+
+          "<a data-table='doom' class='table-click'><code>doom</code> - Dooming<br></a>"+
+          "<a data-table='winds' class='table-click'><code>winds</code> - The Swirling Winds<br></a>"
         }
     }
   }
+
+  static criticalCastMenu(crittable)
+  {
+    return "Choose from:<ul>" +            
+            `<li><b>Critical Cast</b>: If the spell causes damage, it inflicts a <a class=table-click data-table=${crittable}><b>Critical Wound</b></a></li>`+
+            "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
+            "<li><b>Unstoppable Force</b>: If the spell is successfully cast, it cannot be dispelled.</li>"+
+            "</ul";
+  }
+
+  
+  static restrictedCriticalCastMenu()
+  {
+    return "Must Choose:<ul>" +            
+            "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
+            "</ul";
+  }
+
 }
 
+Hooks.on("updateCombat", (combat) => {
+  if (game.user.isGM && combat.data.round != 0 && combat.turns && combat.data.active)
+  {
+    let turn = combat.turns.find(t => t.tokenId == combat.current.tokenId)
 
+    if (game.settings.get("wfrp4e", "statusOnTurnStart"))
+      WFRP_Utility.displayStatus(turn.token.id);
+
+    if (game.settings.get("wfrp4e", "focusOnTurnStart"))
+    {
+      canvas.tokens.get(turn.token.id).control();
+      canvas.tokens.cycleTokens(1, true);  
+    }
+  }
+})
+
+Hooks.on("deleteCombat", async (combat) => {
+  for (let turn of combat.turns)
+  {
+    let actor = canvas.tokens.get(turn.tokenId).actor;
+    await actor.update({"data.status.advantage.value" : 0})
+  }
+})
+
+Hooks.on("getCombatTrackerEntryContext", (html, options) => {
+  options.push(
+  {
+    name: "Status",
+    condition: true,
+    icon: '<i class="far fa-question-circle"></i>',
+    callback: target => {
+      WFRP_Utility.displayStatus(target.attr("data-token-id"));
+      $(`#sidebar-tabs`).find(`.item[data-tab="chat"]`).click();
+    }
+  })
+})
+
+Hooks.on("createOwnedItem", (item) => {
+
+    if (item.actor.data.type == "character")
+      return;
+    if (item.type == "armour")
+      item.update({"data.worn.value" : true});
+    else if (item.type == "weapon")
+      item.update({"data.equipped" : true});
+    else if (item.data.type == "trapping" && item.data.data.trappingType.value == "clothingAccessories")
+      item.update({"data.worn" : true});
+
+    else if (item.data.type == "talent")
+    {
+      let charToIncrease;
+      switch (item.data.name.toLowerCase())
+      {
+        case "savvy":
+          charToIncrease = "int";
+          break;
+        case "suave":
+            charToIncrease = "fel";
+          break;
+        case "marksman":
+            charToIncrease = "bs";
+          break;
+        case "very strong":
+            charToIncrease = "s";
+          break;
+        case "sharp":
+            charToIncrease = "i";
+          break;
+        case "lightning reflexes":
+            charToIncrease = "ag";
+          break;
+        case "coolheaded":
+            charToIncrease = "wp";
+          break;
+        case "very resilient":
+            charToIncrease = "t";
+          break;
+        case "nimble fingered":
+            charToIncrease = "dex";
+          break;
+        case "warrior born":
+            charToIncrease = "ws";
+          break;
+        default:
+          return;
+      }
+      if (charToIncrease)
+      {
+        let newValue = item.actor.data.data.characteristics[charToIncrease].initial + 5;
+        item.actor.update({[`data.characteristics.${charToIncrease}.initial`] : newValue})
+      }
+    }
+     
+})
+
+Hooks.on("renderJournalSheet", (obj, html, data) => {
+  $(html).find(".close").attr("title", "Close");
+  $(html).find(".entry-image").attr("title", "Image");
+  $(html).find(".entry-text").attr("title", "Text");
+  $(html).find(".share-image").attr("title", "Show Image");
+})
