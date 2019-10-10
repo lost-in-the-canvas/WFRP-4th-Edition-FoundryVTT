@@ -14830,6 +14830,18 @@ font-style : normal;
           border:none;
         }
 
+        #player-config {
+          height: 210px;
+        }
+        
+        #player-config button[type="submit"] {
+          height: 35px
+        }
+        
+        #player-config button[type="submit"] i {
+          display: inline-block
+        }
+
 
   /* ==================== MODULE COMPATIBILITY ======================== */
 
@@ -14848,3 +14860,4 @@ font-style : normal;
     font-family: var(--actor-input-font-family);
     color: white;
 }
+
