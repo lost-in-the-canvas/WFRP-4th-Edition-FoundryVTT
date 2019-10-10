@@ -14842,6 +14842,11 @@ font-style : normal;
           display: inline-block
         }
 
+        #player-config button[type="reset"] {
+          display:none;
+        }
+
+
 
   /* ==================== MODULE COMPATIBILITY ======================== */
 
