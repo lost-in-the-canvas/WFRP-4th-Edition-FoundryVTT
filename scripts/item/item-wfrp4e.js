@@ -1,4 +1,3 @@
-
 /**
  * Override and extend the basic :class:`Item` implementation
  */
