@@ -1164,6 +1164,34 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.updateOwnedItem(item);
       });
+
+      html.find(".aggregate").click(async ev => {
+        let itemType = $(ev.currentTarget).attr("data-type")
+        let items = this.actor.data.items.filter(x => x.type == itemType)
+        
+        for (let i of items)
+        {
+          let duplicates = items.filter(x => x.name == i.name)
+          if (duplicates.length > 1)
+          {
+            let newQty = duplicates.reduce((prev, current) => prev + current.data.quantity.value, 0)
+            i.data.quantity.value = newQty
+          }            
+        }
+
+        let noDuplicates = []
+        for (let i of items)
+        {
+          if (!noDuplicates.find(x => x.name == i.name))
+          {
+            noDuplicates.push(i);
+            await this.actor.updateOwnedItem({"id" : i.id, "data.quantity.value" : i.data.quantity.value})
+          }
+          else
+            await this.actor.deleteOwnedItem(i.id);
+        }
+
+      })
   
       html.find('.ap-value').mousedown(ev => {
         let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
