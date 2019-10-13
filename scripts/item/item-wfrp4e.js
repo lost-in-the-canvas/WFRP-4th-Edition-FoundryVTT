@@ -350,6 +350,8 @@ class ItemWfrp4e extends Item {
         properties.push("<b>Melee Damage</b>: " + data.damage.meleeValue);
       if (data.damage.rangedValue)
         properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
+      if (data.weaponDamage)
+        properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
       if (data.twohanded.value)
         properties.push("<b>Two Handed</b>");
       if (data.reach.value) 

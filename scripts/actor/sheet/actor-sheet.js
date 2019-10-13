@@ -1186,6 +1186,22 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.updateOwnedItem(item);
       });
+
+      html.find('.weapon-damage').mousedown(ev => {
+        let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+        let item = duplicate(this.actor.items.find(i => i.id === itemId ));
+        if (!item.data.weaponDamage)
+          item.data["weaponDamage"] = 0;
+  
+        if (ev.button == 2)
+          item.data.weaponDamage++;
+        else if (ev.button == 0)
+          item.data.weaponDamage--;
+  
+        if (item.data.weaponDamage < 0)
+          item.data.weaponDamage = 0;
+        this.actor.updateOwnedItem(item);
+      });
   
       html.find('.memorized-toggle').click(async ev => {
         let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));

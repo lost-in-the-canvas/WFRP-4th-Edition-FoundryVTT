@@ -91,9 +91,17 @@ class WFRP_Utility
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
     if (weapon.data.damage.meleeValue)
+    {
       weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.meleeValue -= weapon.data.weaponDamage
+    }
     if (weapon.data.damage.rangedValue)
-      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0);
+    {
+      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.rangedValue -= weapon.data.weaponDamage
+    }
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
