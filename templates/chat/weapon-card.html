@@ -1,4 +1,4 @@
-<div class="wfrp4e chat-card" data-actor-id="{{actorId}}"  roll-SL = {{SL}}  roll-result = {{roll}} roll-target = {{target}}>
+<div class="wfrp4e chat-card" data-actor-id="{{actorId}}" data-hide = {{hideData}}>
 
     {{> public/systems/wfrp4e/templates/chat/test-card.html}}
 
@@ -22,7 +22,7 @@
     {{/if}}
 
     {{#if testData.weapon.properties.special}}
-    <div class="card-content" roll-desrciption = {{description}}>
+    <div class="card-content hide-option" roll-desrciption = {{description}}>
             <span><b>Special</b>: {{testData.weapon.properties.special}}</span>
         </div>
     {{/if}}
