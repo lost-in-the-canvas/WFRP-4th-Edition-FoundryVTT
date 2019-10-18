@@ -987,7 +987,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         event.preventDefault();
         let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
         let skill = this.actor.items.find(i => i.id === itemId);
-        this.actor.setupSkill(skill, event);
+        this.actor.setupSkill(skill);
       })
   
       html.find('.weapon-item-name').click(event => {
@@ -1066,7 +1066,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (ev.button == 0)
         {
           let skill = this.actor.items.find(i => i.id === itemId);
-          this.actor.setupSkill(skill, event);
+          this.actor.setupSkill(skill);
         }
         else if (ev.button == 2)
         {
@@ -1553,6 +1553,18 @@ class ActorSheetWfrp4e extends ActorSheet {
         div.on("click", ".symptom-tag", ev => {
           WFRP_Utility.postSymptom(ev.target.text)
         })
+        
+        div.on("click", ".career-income", ev => {
+          let skill = this.actor.items.find(i => i.name === ev.target.text.trim() && i.type == "skill");
+          let career = this.actor.items.find(i => i.id === Number($(ev.target).attr("data-career-id")));
+          console.log(career);
+          if (!skill)
+          {
+            ui.notifications.error("You don't have this skill")
+            return;
+          }
+          this.actor.setupSkill(skill, career.data.status);
+        })
       }
       li.toggleClass("expanded");
     }
@@ -1641,8 +1653,11 @@ class ActorSheetWfrp4e extends ActorSheet {
         let div = $(`<div class="item-summary">${expansionText}</div>`);
         li.append(div.hide());
         div.slideDown(200);
+
       }
       li.toggleClass("expanded");
+
+      
     }
   
     /* -------------------------------------------- */

@@ -2,7 +2,9 @@
 
     {{> public/systems/wfrp4e/templates/chat/test-card.html}}
 
-
+    {{#if testData.incomeResult}}
+    <b>{{testData.incomeResult}}</b>
+    {{/if}}
    <!-- {{#if opposed}}
     <div class ="card-buttons">
         <button class = "oppose-button">Oppose</button>

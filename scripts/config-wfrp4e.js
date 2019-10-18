@@ -836,5 +836,10 @@ CONFIG.symptomTreatment = {
   "nausea" : "Remedies for Nausea are Common and usually genuine (60% chance), and typically cost around thirty pennies; if genuine, pass a <b>Challenging (+0) Endurance</b> Test, and the Nausea can be ignored for a number of hours equal to your Toughness Bonus.",
   "pox" : "Poxes are exceedingly common, and so are remedies, which are usually creams or oils. Larger temples of Shallya often keep a stock of the cream for free (though donations are expected) and apothecaries and herbalists of all kinds sell similar products for relatively low prices (rarely more than six or seven pence for a week’s worth of treatment, with a 90% chance of being genuine medicine). Using a cream increases all Cool Tests to resist scratching to <b>Very Easy (+60)</b>, but is usually unsightly.",
   "wounded" : "A daily successful Heal Test ensures the Wound is clean and does not require an Endurance Test to be further infected."
+}
 
+CONFIG.earningValues = {
+  "b" : "2d10",
+  "s" : "1d10",
+  "g" : "1",
 }

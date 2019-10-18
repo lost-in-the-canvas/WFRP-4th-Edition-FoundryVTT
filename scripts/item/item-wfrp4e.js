@@ -82,7 +82,7 @@ class ItemWfrp4e extends Item {
       data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
       data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
       data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
-      data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+      data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => ` <a class = 'career-income' data-career-id=${this.data.id}> ${this.data.data.skills[i]} <i class="fas fa-coins"></i></a>`));
       return data;
     }
   

@@ -22,7 +22,7 @@ class DiceWFRP {
       });
       mergeObject(dialogOptions.data,
         {
-          testDifficulty : "challenging",
+          testDifficulty : dialogOptions.data.testDifficulty || "challenging",
           difficultyLabels : CONFIG.difficultyLabels,
           testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
           slBonus : dialogOptions.data.slBonus || 0,

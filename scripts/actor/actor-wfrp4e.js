@@ -307,12 +307,12 @@ class ActorWfrp4e extends Actor {
      * Setup a Skill Test
      * @param skill {object}  The Skill Object owned by a character
      */
-    setupSkill(skill) {
+    setupSkill(skill, income = false) {
       let char = this.data.data.characteristics[skill.data.characteristic.value];
       let title = skill.name + " Test";
       let testData = {
         target : char.value + skill.data.advances.value,
-        hitLocation : false
+        hitLocation : false,
       };
   
       // Default hit location to true if WS, BS, Melee, or Ranged is tested
@@ -337,7 +337,8 @@ class ActorWfrp4e extends Actor {
           talents : this.data.flags.talentTests,
           characteristicList : CONFIG.characteristics,
           characteristicToUse : skill.data.characteristic.value,
-          advantage : this.data.data.status.advantage.value || 0
+          advantage : this.data.data.status.advantage.value || 0,
+          testDifficulty : income ? "average" : "challenging" // Default to average if using income 
         },
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
@@ -355,9 +356,75 @@ class ActorWfrp4e extends Actor {
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
-          roll();
+          roll(income);
           }
       };
+
+      if (income)
+      {
+        dialogOptions.rollOverride = (income) => {
+          let roll = DiceWFRP.rollTest(testData);
+
+          let dieAmount = CONFIG.earningValues[income.tier][0]
+          dieAmount = Number(dieAmount) * income.standing;
+          let moneyEarned;
+          if (income.tier != "g")
+          {
+            dieAmount = dieAmount + "d10";
+            moneyEarned = new Roll(dieAmount).roll().total;
+          }
+          else
+            moneyEarned = dieAmount;
+
+
+          if (roll.description.includes("Success"))
+          {
+            roll.incomeResult = "You earn " + moneyEarned;
+            switch (income.tier)
+            {
+              case "b":
+                roll.incomeResult += " brass pennies."
+                break;
+              case "s":
+                roll.incomeResult += " silver shillings."
+                break;
+              case "g":
+                  if (moneyEarned > 1)
+                    roll.incomeResult += " gold crowns."
+                  else
+                    roll.incomeResult += " gold crown"
+                  break;
+            }
+          }
+          else if (Number(roll.SL) > -6)
+          {
+            roll.incomeResult =  "You earn " + moneyEarned/2;
+            switch (income.tier)
+            {
+              case "b":
+                roll.incomeResult += " brass pennies."
+                break;
+              case "s":
+                roll.incomeResult += " silver shillings."
+                break;
+              case "g":
+                  if (moneyEarned/2 > 1)
+                    roll.incomeResult += " gold crowns."
+                  else
+                    roll.incomeResult += " gold crown"
+                  break;
+            }
+          }
+          else
+          {
+            roll.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+          }
+         
+          DiceWFRP.renderRollCard(cardOptions, roll);
+          
+        }
+      }
+
       let cardOptions = {
         actor : this.data.id,
         speaker: {
@@ -366,6 +433,7 @@ class ActorWfrp4e extends Actor {
         title: title,
         template : "public/systems/wfrp4e/templates/chat/skill-card.html"
       }
+
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
       // Call the roll helper utility
