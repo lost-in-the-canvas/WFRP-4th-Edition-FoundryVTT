@@ -14866,3 +14866,9 @@ font-style : normal;
     color: white;
 }
 
+.metacurrency-value {
+  left: 8px;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}  

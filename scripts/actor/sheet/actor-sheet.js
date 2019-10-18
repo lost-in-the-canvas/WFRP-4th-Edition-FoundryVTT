@@ -1318,6 +1318,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.updateOwnedItem(disease);
         }
       });
+
+      html.find('.metacurrency-value').mousedown(async ev =>  {
+        let type = $(ev.currentTarget).attr("data-point-type");
+        let newValue = ev.button == 0 ? this.actor.data.data.status[type].value + 1 : this.actor.data.data.status[type].value - 1 
+        this.actor.update({[`data.status.${type}.value`] : newValue})
+      });
   
       /*****************************************************
       * Randomization options used by NPC and Creature sheets
