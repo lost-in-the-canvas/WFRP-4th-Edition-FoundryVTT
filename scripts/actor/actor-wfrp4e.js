@@ -565,7 +565,7 @@ class ActorWfrp4e extends Actor {
           roll();
   
           // Reduce ammo if necessary
-          if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup != "entangling")
+          if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup.value != "Entangling")
           {
             ammo.data.quantity.value--;
             this.updateOwnedItem({id: ammo.id, "data.quantity.value" : ammo.data.quantity.value });

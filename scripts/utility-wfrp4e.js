@@ -122,6 +122,10 @@ class WFRP_Utility
       weapon["ammo"] = [weapon];
       weapon.data.ammunitionGroup.value = "";
     }
+    else if (weapon.data.weaponGroup.value == "Entangling")
+    {
+      weapon.data.ammunitionGroup.value = "";
+    }
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
     if (weapon.properties.special)
       weapon.properties.special = weapon.data.special.value;
