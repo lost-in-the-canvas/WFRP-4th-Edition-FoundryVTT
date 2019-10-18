@@ -348,6 +348,16 @@ Hooks.once("init", () => {
         default: false,
         type: Boolean
       });
+
+      // Register Status on Turn Start
+      game.settings.register("wfrp4e", "displayRoundSummary", {
+        name: "Display Round Summary",
+        hint: "When a round ends, display all combatants with conditions.",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
   
       // Register Status on Turn Start
       game.settings.register("wfrp4e", "statusOnTurnStart", {
@@ -357,7 +367,7 @@ Hooks.once("init", () => {
         config: true,
         default: true,
         type: Boolean
-      });
+      });       
   
   
       // Register Focus on Turn Start
