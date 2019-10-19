@@ -185,14 +185,34 @@ class DiceWFRP {
       if (testData.hitLocation)
         rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
   
-  
-        if (testData.hitLocation)
+
+      if (testData.hitLocation)
+      {
+        if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
         {
-          if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
-            rollResults.extra.fumble = "Fumble";
-          else if (roll.total <= targetNum && roll.total % 11 == 0)
-            rollResults.extra.critical = "Critical";
+          rollResults.extra.color_red = true;
+          rollResults.extra.fumble = "Fumble";
         }
+        else if (roll.total <= targetNum && roll.total % 11 == 0)
+        {
+          rollResults.extra.color_green = true;
+          rollResults.extra.critical = "Critical";
+        }
+      }
+
+      if (game.settings.get("wfrp4e", "criticalsFumblesOnAllTests") && !testData.hitLocation)
+      {
+        if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
+        {
+          rollResults.extra.color_red = true;
+          rollResults.description = "Astounding Failure"
+        }
+        else if (roll.total <= targetNum && roll.total % 11 == 0)
+        {
+          rollResults.extra.color_green = true;
+          rollResults.description = "Astounding Success"
+        }
+      }
   
   
       return rollResults;
@@ -230,6 +250,11 @@ class DiceWFRP {
          if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
            testResults.extra.critical = "Critical"
        }
+
+       if (testResults.extra.critical)
+        testResults.extra.color_green = true;
+       if (testResults.extra.fumble)
+        testResults.extra.color_red = true;
        return testResults;
     }
   
@@ -260,7 +285,10 @@ class DiceWFRP {
       {
         testResults.description = "Casting Failed"
         if (testResults.roll % 11 == 0 || testResults.roll == 100)
+        {
+          testResults.extra.color_red = true;
           miscastCounter++;
+        }
       }
       else if (slOver < 0) // Successful test, but unable to cast
       {
@@ -268,6 +296,7 @@ class DiceWFRP {
   
         if (testResults.roll % 11 == 0)
         {
+          testResults.extra.color_green = true;
           testResults.description = "Casting Succeeded"
           testResults.extra.critical = "Total Power"
   
@@ -285,13 +314,14 @@ class DiceWFRP {
         if (testResults.roll % 11 == 0)
         {
           testResults.extra.critical = "Critical Cast"
-  
+          testResults.extra.color_green = true;
+          
           if (!testData.extra.ID)
             miscastCounter++;
         }
   
       }
-  
+
       switch (miscastCounter)
       {
         case 1:
@@ -346,7 +376,10 @@ class DiceWFRP {
   
          testResults.description = "Channell Failed"
          if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0 || testResults.roll == 100)
+         {
+           testResults.extra.color_red = true;
            miscastCounter += 2;
+         }
         }
        else
        {
@@ -358,13 +391,14 @@ class DiceWFRP {
   
           if (testResults.roll % 11 == 0)
          {
+           testResults.extra.color_green = true;
            spell.data.cn.SL = spell.data.cn.value;
            testResults.extra.criticalchannell = "Critical Channell"
            if (!testData.extra.AA)
              miscastCounter++;
          }
        }
-  
+
        // Add SL to CN and update actor
        spell.data.cn.SL += Number(SL);
        if (spell.data.cn.SL > spell.data.cn.value)
@@ -422,10 +456,12 @@ class DiceWFRP {
         unitResult = 10;
        if (testResults.roll % 11 == 0 || unitResult <= currentSin)
          {
+           if (testResults.roll % 11 == 0)
+            testResults.extra.color_red = true;
            testResults.extra.wrath = "Wrath of the Gods"
            currentSin--;
            if (currentSin < 0)
-           currentSin = 0;
+            currentSin = 0;
           actor.update({"data.status.sin.value" : currentSin});
           }
   
@@ -441,7 +477,7 @@ class DiceWFRP {
          testResults.extra.wrath = "Wrath of the Gods"
          currentSin--;
          if (currentSin < 0)
-         currentSin = 0;
+          currentSin = 0;
         actor.update({"data.status.sin.value" : currentSin});
        }
       extensions = Math.floor(SL/2);

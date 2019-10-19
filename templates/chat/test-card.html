@@ -5,10 +5,10 @@
     
         <div class="card-content hide-option" >
             <b>Roll</b>: 
-            {{#if testData.extra.critical}}
+            {{#if testData.extra.color_green}}
             <span class="critical-roll">
             {{/if}}
-            {{#if testData.extra.fumble}}
+            {{#if testData.extra.color_red}}
             <span class="fumble-roll">
             {{/if}}
             {{testData.roll}}</span> vs {{testData.target}}

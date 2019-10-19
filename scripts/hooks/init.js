@@ -310,6 +310,15 @@ Hooks.once("init", () => {
       default: false,
       type: Boolean
     });
+
+    game.settings.register("wfrp4e", "criticalsFumblesOnAllTests", {
+      name: "Criticals and Fumbles on all Tests",
+      hint: "Rolling a double on any test results in an Astounding Success/Failure.",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    });
   
   
       // Register Extended Tests
