@@ -323,7 +323,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Defensive auto-fill
+    // Register Test auto-fill
     game.settings.register("wfrp4e", "testAutoFill", {
       name: "Test Dialog Auto Populate",
       hint: "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",      scope: "world",
@@ -352,7 +352,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register Defensive auto-fill
+    // Register status on turn start
     game.settings.register("wfrp4e", "statusOnTurnStart", {
       name: "Show Combatant Status on Turn Start",
       hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
@@ -363,7 +363,7 @@ Hooks.once("init", () => {
     });
 
 
-    // Register Partial Channelling
+    // Register focus on turn start
     game.settings.register("wfrp4e", "focusOnTurnStart", {
       name: "Focus on Turn Start",
       hint: "When advancing the combat tracker, focus on the token that's going next.",
@@ -372,6 +372,17 @@ Hooks.once("init", () => {
       default: true,
       type: Boolean
     });
+
+      // Register Hiding Test Data
+      game.settings.register("wfrp4e", "hideTestData", {
+        name: "Hide Test Data",
+        hint: "GM test chat cards don't show sensitive NPC data to players.",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
+    
 
   // Pre-load templates
   loadTemplates([

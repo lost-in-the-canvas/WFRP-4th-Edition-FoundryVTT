@@ -14843,6 +14843,23 @@ font-style : normal;
         }
 
 
+        #player-config {
+          height: 210px;
+        }
+
+        #player-config button[type="submit"] {
+          height: 35px
+        }
+
+        #player-config button[type="submit"] i {
+          display: inline-block
+        }
+
+        #player-config button[type="reset"] {
+          display:none;
+        }
+
+
   /* ==================== MODULE COMPATIBILITY ======================== */
 
 .dice-calculator__input-wrapper > textarea {

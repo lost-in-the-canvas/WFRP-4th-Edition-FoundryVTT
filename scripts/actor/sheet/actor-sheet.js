@@ -13,6 +13,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
   async _render(force = false, options = {}) {
+    if (screen.height < 900)
+      ui.notifications.warn("WARNING: Your resolution is too small! Actor sheets will not be displayed correctly until you reach the minimum vertical resolution of 900 px.")
     this._saveScrollPos();
     await super._render(force, options);
     this._setScrollPos();
@@ -842,7 +844,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     });
 
     // Item summaries
-    html.find('.item-dropdown').mousedown(event => this._onItemSummary(event));
+    html.find('.item-dropdown').click(event => this._onItemSummary(event));
 
     html.find('.melee-property-quality, .melee-property-flaw, .ranged-property-quality, .ranged-property-flaw, .armour-quality, .armour-flaw').click(event => this._expandProperty(event));
 
