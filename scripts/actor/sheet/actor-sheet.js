@@ -1557,7 +1557,6 @@ class ActorSheetWfrp4e extends ActorSheet {
         div.on("click", ".career-income", ev => {
           let skill = this.actor.items.find(i => i.name === ev.target.text.trim() && i.type == "skill");
           let career = this.actor.items.find(i => i.id === Number($(ev.target).attr("data-career-id")));
-          console.log(career);
           if (!skill)
           {
             ui.notifications.error("You don't have this skill")

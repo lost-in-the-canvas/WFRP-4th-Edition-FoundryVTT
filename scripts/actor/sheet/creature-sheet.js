@@ -109,8 +109,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
     else
       this.clicks = 1;
   
-      console.log(this.clicks);
-  
     if(this.clicks === 1) 
     {
   
@@ -158,6 +156,9 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       }
       li.toggleClass("expanded");
     }
+
+
+
     activateListeners(html) {
       super.activateListeners(html);
   
@@ -171,7 +172,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
           this.actor.deleteOwnedItem(itemId, true);
         }
       });
-      html.find(".creature-dropdown").click(event => {
+      html.find(".creature-dropdown").mousedown(event => {
         this._delayedDropdown(event);
     }) 
       .on("dblclick", function(e){
