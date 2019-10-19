@@ -63,6 +63,7 @@ Hooks.once("init", () => {
     })
   
     WFRP_Tables.scatter = {
+      name : "Scatter",
       die : "1d10",
       rows : [
         undefined,
@@ -100,6 +101,7 @@ Hooks.once("init", () => {
     }
   
     WFRP_Tables.winds = {
+      name : "The Swirling Winds",
       die : "1d10",
       rows : [
         undefined,

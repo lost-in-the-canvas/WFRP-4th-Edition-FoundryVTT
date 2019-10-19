@@ -158,23 +158,11 @@ class WFRP_Tables {
           }
           catch
           {
-            return "<b><code>/table</code> Commands</b><br>"+
-            "<a data-table='hitloc' class='table-click'><code>hitloc</code> - Hit Location<br></a>"+
-            "<a data-table='crithead' class='table-click'><code>crithead</code> - Head Critical Hits<br></a>"+
-            "<a data-table='critbody' class='table-click'><code>critbody</code> - Body Critical Hits<br></a>"+
-            "<a data-table='critarm' class='table-click'><code>critarm</code> - Arm Critical Hits<br></a>"+
-            "<a data-table='critleg' class='table-click'><code>critleg</code> - Leg Critical Hits<br></a>"+
-            "<a data-table='oops' class='table-click'><code>oops</code> - Oops!<br></a>"+
-            "<a data-table='minormis' class='table-click'><code>minormis</code> - Minor Miscast<br></a>"+
-            "<a data-table='majormis' class='table-click'><code>majormis</code> - Major Miscast<br></a>"+
-            "<a data-table='wrath' class='table-click'><code>wrath</code> - Wrath of the Gods<br></a>"+
-            "<a data-table='mutatephys' class='table-click'><code>mutatephys</code> - Physical Mutation<br></a>"+
-            "<a data-table='mutatemental' class='table-click'><code>mutatemental</code> - Mental Mutation<br></a>"+
-            "<a data-table='event' class='table-click'><code>event</code> - Downtime Event<br></a>"+
-            "<a data-table='travel' class='table-click'><code>travel</code> - Downtime Event<br></a>"+
-            "<a data-table='scatter' class='table-click'><code>scatter</code> - Scatter Direction<br></a>"+
-            "<a data-table='doom' class='table-click'><code>doom</code> - Dooming<br></a>"+
-            "<a data-table='winds' class='table-click'><code>winds</code> - The Swirling Winds<br></a>"
+            let tableMenu =  "<b><code>/table</code> Commands</b><br>"
+
+            for (let tableKey of Object.keys(this))
+              tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+            return tableMenu;
           }
       }
     }
