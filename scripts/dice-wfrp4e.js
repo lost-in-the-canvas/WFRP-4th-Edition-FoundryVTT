@@ -453,7 +453,8 @@ class DiceWFRP {
  static renderRollCard(chatOptions, testData) {
    let chatData = {
      title : chatOptions.title,
-     testData : testData
+     testData : testData,
+     hideData : game.user.isGM
    }
 
    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
