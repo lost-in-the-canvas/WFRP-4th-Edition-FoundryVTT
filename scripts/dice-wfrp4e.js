@@ -63,11 +63,16 @@ class DiceWFRP {
   
     // Roll a standard Test and determine success
     static rollTest(testData){
-      let roll = new Roll("1d100").roll();
+      let roll;
+      testData.function = "rollTest"
+      if (testData.roll)
+        roll = {total : testData.roll}
+      else
+        roll = new Roll("1d100").roll(); // Use input roll if exists, otherwise, roll randomly
       let successBonus = testData.successBonus;
       let slBonus = testData.slBonus;
       let targetNum = testData.target;
-      let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+      let SL = testData.SL || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
       let description = "";
   
   
@@ -179,11 +184,19 @@ class DiceWFRP {
         roll: roll.total,
         SL: SL,
         description: description,
-        extra : {}
+        extra : {},
+        rawData : testData
       }
   
       if (testData.hitLocation)
-        rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
+      {
+        if (testData.hitloc)
+          rollResults.hitloc = WFRP_Tables.rollTable("hitloc", {lookup : testData.hitloc});
+        else
+          rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
+
+        rollResults.hitloc.roll = eval(rollResults.hitloc.roll) // Cleaner number when editing chat card
+      }
   
 
       if (testData.hitLocation)
@@ -221,6 +234,7 @@ class DiceWFRP {
      // Extend rollTest to account for weapon specifics (criticals, fumbles, etc)
      static rollWeaponTest(testData){
       let weapon = testData.extra.weapon;
+      testData.function = "rollWeaponTest"
   
        let testResults = this.rollTest(testData);
   
@@ -261,6 +275,8 @@ class DiceWFRP {
     // Extend rollTest for casting specifics (miscasts, CN, etc)
      static rollCastTest(testData){
       let spell = testData.extra.spell;
+      testData.function = "rollCastTest"
+
       let miscastCounter = 0;
       let testResults = this.rollTest(testData);
   
@@ -357,6 +373,8 @@ class DiceWFRP {
     // Extend rollTest for channelling specifics (miscasts, CN, etc)
      static rollChannellTest(testData, actor){
       let spell = testData.extra.spell;
+      testData.function = "rollChannelTest"
+
       let miscastCounter = 0;
        let testResults = this.rollTest(testData);
        let SL = testResults.SL;
@@ -441,6 +459,8 @@ class DiceWFRP {
     // Extend rollTest for pray specifics (sin, wrath of the gods, etc)
    static rollPrayTest(testData, actor){
     let prayer = testData.extra.prayer;
+    testData.function = "rollPrayTest"
+
      let testResults = this.rollTest(testData);
      let SL = testResults.SL;
     let extensions = 0;
@@ -497,7 +517,7 @@ class DiceWFRP {
      let chatData = {
        title : chatOptions.title,
        testData : testData,
-       hideData : game.user.isGM
+       hideData : game.user.isGM,
      }
   
      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
@@ -508,7 +528,13 @@ class DiceWFRP {
   
       // Emit the HTML as a chat message
       chatOptions["content"] = html;
-      chatOptions["type"] = 0;
+      chatOptions["flags.data"] = {
+        msgData : chatData.testData.rawData, 
+        template : chatOptions.template, 
+        rollMode : chatOptions.rollMode, 
+        title : chatOptions.title, 
+        hideData : chatData.hideData
+      };
       ChatMessage.create(chatOptions, false);
       return html;
     });
@@ -624,40 +650,97 @@ class DiceWFRP {
   
   
       })
+
+      html.on('focusout', '.card-edit', ev => {
+        let button = $(ev.currentTarget),
+        messageId = button.parents('.message').attr("data-message-id"),
+        message = game.messages.get(messageId);
+        let data = message.data.flags.data
+        let actor = game.actors.get(message.data.speaker.actor);
+        let newTestData = data.msgData;
+        newTestData[button.attr("data-edit-type")] = parseInt(ev.target.value)
+
+        if (button.attr("data-edit-type") == "hitloc") // If changing hitloc, keep old value for roll
+          newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
+        else // If not changing hitloc, use old value for hitloc
+          newTestData["hitloc"] = $(message.data.content).find(".card-content.test-data").attr("data-loc")
+
+        if (button.attr("data-edit-type") == "SL") // If changing SL, keep both roll and hitloc
+          newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
+
+
+        let chatOptions = {
+          template : data.template,
+          rollMode : data.rollMode
+        }
+        
+        if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+        if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+
+        let newResult = this[`${data.msgData.function}`](newTestData, actor.data);
+
+        let newChatData = {
+          testData : newResult,
+          hideData : data.hideData,
+          title : data.title
+        }
+        return renderTemplate(chatOptions.template, newChatData).then(html =>{
+          
+          // Clear data for future edits
+          newTestData["hitloc"] = undefined;
+          newTestData["roll"] = undefined;
+          newTestData["SL"] = undefined;
+
+          message.update(
+            {
+              content: html,
+              msgData : newTestData, 
+              template : chatOptions.template, 
+              rollMode : chatOptions.rollMode, 
+              title : chatOptions.title, 
+              hideData : newChatData.hideData
+            }, true).then(newMsg => {
+            ui.chat.updateMessage(newMsg);});
+        });
+
+      })
+
       // Chat card actions
-      html.on('click', '.card-buttons button', ev => {
+      html.on('click', '.edit-toggle', ev => {
         ev.preventDefault();
   
         // Extract card data
         let button = $(ev.currentTarget),
-            messageId = button.parents('.message').attr("data-message-id"),
-            senderId = game.messages.get(messageId).user._id;
+        messageId = button.parents('.message').attr("data-message-id"),
+        senderId = game.messages.get(messageId).user._id;
   
         // Confirm roll permission
         if ( !game.user.isGM && ( game.user._id !== senderId )) return;
   
         // Extract action data
-        let action = button.attr("data-action"),
-            card = button.parents('.chat-card'),
-            actor = game.actors.get(card.attr('data-actor-id'));
-        let rollData = { target : Number(card.attr('roll-target')),
-             SL : card.attr('roll-SL'),
-            result : Number(card.attr('roll-result'))
-        };
-  
-        if (!this.opposeData.opposeStarted)
-        {
-          this.opposeData.opposeStarted = true;
-          this.opposeData.actor = actor;
-          this.opposeData.rollData = rollData;
-          let chatOptions = {
-            user: senderId,
-            speaker: {
-              alias: actor.name
-            },
-            template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
-          };
-  
+        let card = button.parents('.chat-card'),
+            actor = game.actors.get(card.attr('data-actor-id')),
+            testData = JSON.parse(card.children(".card-content").attr("data-string")),
+            template = card.children(".card-content").attr("data-template"),
+            hideData = card.children(".card-content").attr("data-hide")/* = {
+              
+            
+              SL : card.children(".card-content").attr("data-roll-SL"),
+              roll : card.children(".card-content").attr("data-roll-result"),
+              target : card.children(".card-content").attr("data-roll-target"),
+              damage : card.children(".card-content").attr("data-damage"),
+
+      }*/
+      let index = game.messages.entities.findIndex(e => e.data._id === messageId);
+      let m = game.messages.entities[index];
+
+      let isEditable = !!$(m.data.content).children(".card-content.test-data").attr("editable") 
+
+
+      let html = $(m.data.content)
+      html.find(".card-content.test-data").attr("editable", !isEditable.toString()).html()
+      let newContent = html.html();
+      console.log(newContent);
           return renderTemplate(chatOptions.template, rollData).then(html =>{
   
           let index = game.messages.entities.findIndex(e => e.data._id === messageId);
@@ -665,23 +748,7 @@ class DiceWFRP {
           m.update({content: html}, true).then(message => {
             ui.chat.updateMessage(message);});
           });
-      }
-      else
-      {
-        this.opposeData.opposeStarted = false;
-        let result = {result:  DiceWFRP.evaluateOpposedTest(actor, rollData)};
-        let chatOptions = {
-          user: game.user._id,
-          template: "public/systems/wfrp4e/templates/chat/opposed-result.html"
-        }
-        return renderTemplate(chatOptions.template, result).then(html => {
-             // Emit the HTML as a chat message
-             chatOptions["content"] = html;
-             chatOptions["type"] = 0;
-             ChatMessage.create(chatOptions, false);
-             return html;
-        });
-      }
+
       });
       html.on("click", '.item-property', event => {
         event.preventDefault();

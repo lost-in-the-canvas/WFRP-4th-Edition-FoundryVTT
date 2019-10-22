@@ -284,9 +284,9 @@ class ActorWfrp4e extends Actor {
       };
   
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
@@ -426,9 +426,9 @@ class ActorWfrp4e extends Actor {
       }
 
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/skill-card.html"
@@ -672,9 +672,9 @@ class ActorWfrp4e extends Actor {
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
@@ -832,9 +832,9 @@ class ActorWfrp4e extends Actor {
           }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/spell-card.html"
@@ -937,9 +937,9 @@ class ActorWfrp4e extends Actor {
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/channell-card.html"
@@ -1038,9 +1038,9 @@ class ActorWfrp4e extends Actor {
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
@@ -1125,9 +1125,9 @@ class ActorWfrp4e extends Actor {
       };
   
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card

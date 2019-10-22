@@ -14870,3 +14870,18 @@ font-style : normal;
   top: 5px;
   cursor: pointer;
 }  
+
+.chat-buttons {
+  position: relative;
+  left: 280px;
+  bottom: 15px;
+  width: 40px;
+  height: 0px;
+}
+
+.card-edit {
+  background: none;
+  box-shadow: none;
+  width: 25px;
+  text-align: center;
+}
