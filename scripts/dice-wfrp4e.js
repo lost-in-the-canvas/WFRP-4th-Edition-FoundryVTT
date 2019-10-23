@@ -184,7 +184,7 @@ class DiceWFRP {
         roll: roll.total,
         SL: SL,
         description: description,
-        extra : {},
+        extra : testData.extra || {},
         rawData : testData
       }
   
@@ -234,9 +234,9 @@ class DiceWFRP {
      // Extend rollTest to account for weapon specifics (criticals, fumbles, etc)
      static rollWeaponTest(testData){
       let weapon = testData.extra.weapon;
-      testData.function = "rollWeaponTest"
   
-       let testResults = this.rollTest(testData);
+      let testResults = this.rollTest(testData);
+      testData.function = "rollWeaponTest"
   
        if (testResults.description.includes("Failure"))
        {
@@ -682,8 +682,11 @@ class DiceWFRP {
         let newChatData = {
           testData : newResult,
           hideData : data.hideData,
-          title : data.title
+          title : data.title,
         }
+
+        mergeObject(newChatData.testData, newResult.extra);
+
         return renderTemplate(chatOptions.template, newChatData).then(html =>{
           
           // Clear data for future edits
