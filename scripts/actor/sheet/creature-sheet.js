@@ -240,19 +240,29 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.setupCharacteristic(characteristic, event);
       });
   
-      html.find('.trait-name').click(async event => {
+      html.find('.trait-name').mousedown(async event => {
         event.preventDefault();
         let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
-  
-        if (this.actor.data.data.excludedTraits.includes(traitId))
-          newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
-        else
-          newExcludedTraits.push(traitId);
-  
-          await this.actor.update({"data.excludedTraits" : newExcludedTraits});
-          this.actor.sheet.render(true);
-      });
+
+        if (event.button == 0)
+        {
+          let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
+    
+          if (this.actor.data.data.excludedTraits.includes(traitId))
+            newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+          else
+            newExcludedTraits.push(traitId);
+    
+            await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+
+        }
+        else if (event.button == 2)
+        {
+          this._onItemSummary(event);
+        }
+
+    });
+
     }
   
   }

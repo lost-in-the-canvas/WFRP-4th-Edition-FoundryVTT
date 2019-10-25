@@ -779,7 +779,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
   
     async _advanceSkill(skillName, advances){
-      let existingSkill = this.actor.data.items.find(i => i.data.name.trim() == skillName && i.type == "skill")
+      let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
       if (existingSkill)
       {
         existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
@@ -1318,12 +1318,13 @@ class ActorSheetWfrp4e extends ActorSheet {
   
       // Entering a recognized species sets the characteristics to the average values
       html.find('.input.species').focusout(async event => {
-        event.preventDefault();
         if (this.actor.data.type == "character")
           return
         if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
         {
           let species = event.target.value;
+          await this.actor.update({"data.details.species.value" : species});
+
           try
           {
             let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
@@ -1333,11 +1334,11 @@ class ActorSheetWfrp4e extends ActorSheet {
             {
               characteristics[c].initial = initialValues[c];
             }
-  
+            
   
             await this.actor.update({'data.characteristics' : characteristics})
-            await this.actor.update({"data.details.species.value" : species});
             await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
+
           }
           catch
           {
@@ -1357,12 +1358,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           {
             case "C":
               let creatureMethod = false;
+              let characteristics = duplicate (this.actor.data.data.characteristics);
               if (this.actor.data.type == "creature" || !species)
                 creatureMethod = true;
   
               if (!creatureMethod)
               {
-                let characteristics = duplicate (this.actor.data.data.characteristics);
                 let averageCharacteristics = WFRP_Utility.speciesCharacteristics(species, true);
   
                 // If this loop results in turning creatureMethod to true, that means an NPCs statistics have been edited manually, use -10 + 2d10 method
