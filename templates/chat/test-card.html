@@ -1,22 +1,43 @@
-
-        <div class="card-content" >
+ 
+        {{#if hideData}}
+        <div class = "chat-buttons">
+            <a class = "edit-toggle" title ="Edit Test"><i class="fas fa-edit"></i></a>
+            <a title="Coming Soon!"><i class="fas fa-exchange-alt"></i></a>
+        </div>
+        
+        {{/if}}
+        <div class="card-content test-data" data-actor-id="{{actorId}}" data-loc = "{{testData.hitloc.roll}}" data-SL = "{{testData.SL}}" data-roll = "{{testData.roll}}" data-target = "{{testData.target}}" >
             <b>{{title}}</b>
         </div>
     
-        <div class="card-content hide-option" >
+        <div class="card-content hide-option display-toggle" >
             <b>Roll</b>: 
             {{#if testData.extra.color_green}}
-            <span class="critical-roll">
+            <span class="critical-roll display-toggle">
             {{/if}}
             {{#if testData.extra.color_red}}
-            <span class="fumble-roll">
+            <span class="fumble-roll display-toggle">
             {{/if}}
-            {{testData.roll}}</span> vs {{testData.target}}
+            {{testData.roll}}</span>
+            vs {{testData.target}}
         </div>
+
+        <div class="card-content hide-option display-toggle"  style = "display: none;">
+            <b>Roll</b>: 
+            <input class="card-edit" type="text" data-edit-type = "roll" value = "{{testData.roll}}">
+            vs
+            <input class="card-edit" type="text" data-edit-type = "target" value = "{{testData.target}}">
+        </div>
+
+
+
         
-        <div class="card-content">
+        <div class="card-content display-toggle">
            <b>SL</b>: {{testData.SL}} {{#if testData.damage}} ({{testData.damage}} Damage) {{/if}}
         </div>
+        <div class="card-content display-toggle" style = "display : none;">
+            <b>SL</b>: <input class="card-edit" type="text" data-edit-type = "SL" value = "{{testData.SL}}"> {{#if testData.damage}} ({{testData.damage}} Damage) {{/if}}
+         </div>
         
         <div class="card-content" roll-description = "{{description}}">
             <b>Description</b>: {{testData.description}}
@@ -33,10 +54,10 @@
             - <a class ="table-click" data-table = "scatter">{{testData.extra.scatter}}</a>
             {{/if}}
             {{#if testData.extra.nullminormis}}
-            <span style = "text-decoration: line-through">{{testData.extra.nullminormis}}</span>
+            - <span style = "text-decoration: line-through">{{testData.extra.nullminormis}}</span>
             {{/if}}
             {{#if testData.extra.nullmajormis}}
-            <span style = "text-decoration: line-through">{{testData.extra.nullmajormis}}</span>
+            - <span style = "text-decoration: line-through">{{testData.extra.nullmajormis}}</span>
             {{/if}}
             {{#if testData.extra.minormis}}
             - <a class ="table-click fumble-roll" data-table = "minormis">{{testData.extra.minormis}}</a>
@@ -56,6 +77,7 @@
         {{#if testData.hitloc}}
         <div class="card-content" roll-description = "{{description}}">
             <b>Hit Location</b>: {{testData.hitloc.description}}
+            <input class="card-edit display-toggle" style = "display : none;" type="text" data-edit-type = "hitloc" value = "{{testData.hitloc.roll}}">
         </div>
         {{/if}}
     

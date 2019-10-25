@@ -95,12 +95,16 @@ class WFRP_Utility
       weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
       if (weapon.data.weaponDamage)
         weapon.data.damage.meleeValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
     }
     if (weapon.data.damage.rangedValue)
     {
       weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
       if (weapon.data.weaponDamage)
         weapon.data.damage.rangedValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
     }
 
     if (Number(weapon.data.range.value) > 0)

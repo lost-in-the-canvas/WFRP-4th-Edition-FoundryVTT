@@ -16,8 +16,8 @@ class WFRP_Tables {
         if (!die)
           die = `1d${tableSize}`;
         let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
-        let rollValue = roll.total;
-        let displayTotal = roll.result;
+        let rollValue = options.lookup || roll.total; // options.lookup will ignore the rolled value for the input value
+        let displayTotal = options.lookup || roll.result;
         if (rollValue <= 0 && minOne)
           rollValue = 1;
   

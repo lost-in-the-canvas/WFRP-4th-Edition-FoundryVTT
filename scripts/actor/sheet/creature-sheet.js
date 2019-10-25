@@ -126,8 +126,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
   
         clearTimeout(this.timer);    //prevent single-click action
         let itemId = Number($(event.currentTarget).attr("data-item-id"));
-        let Item = CONFIG.Item.entityClass;
-        const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+        const item = this.actor.getOwnedItem(itemId);
         item.sheet.render(true);
         this.clicks = 0;             //after action performed, reset counter
     }
@@ -216,8 +215,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
           else
           {
             let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
-            let Item = CONFIG.Item.entityClass;
-            const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+            const item = this.actor.getOwnedItem(itemId)
             item.sheet.render(true);
           }
         }
@@ -242,19 +240,29 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.setupCharacteristic(characteristic, event);
       });
   
-      html.find('.trait-name').click(async event => {
+      html.find('.trait-name').mousedown(async event => {
         event.preventDefault();
         let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
-  
-        if (this.actor.data.data.excludedTraits.includes(traitId))
-          newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
-        else
-          newExcludedTraits.push(traitId);
-  
-          await this.actor.update({"data.excludedTraits" : newExcludedTraits});
-          this.actor.sheet.render(true);
-      });
+
+        if (event.button == 0)
+        {
+          let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
+    
+          if (this.actor.data.data.excludedTraits.includes(traitId))
+            newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+          else
+            newExcludedTraits.push(traitId);
+    
+            await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+
+        }
+        else if (event.button == 2)
+        {
+          this._onItemSummary(event);
+        }
+
+    });
+
     }
   
   }

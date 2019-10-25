@@ -332,6 +332,20 @@ class ItemWfrp4e extends Item {
         properties.push("Damage: " + data.damage.value);
       return properties;
     }
+
+    _containerChatData() {
+      const data = duplicate(this.data.data);
+      let properties = 
+      [
+        `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+        `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+        `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+      ]
+
+      properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
+      properties.push("<b>Count toward owner's encumbrance?</b>: " +  (data.countEnc.value ? "Yes" : "No"));
+      return properties;
+    }
   
     _weaponChatData() {
      const data = duplicate(this.data.data);
