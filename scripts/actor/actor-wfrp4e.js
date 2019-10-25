@@ -479,7 +479,9 @@ class ActorWfrp4e extends Actor {
         if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
         {
           // Check to see if they have ammo
-          ammo = this.items.find(i => i.id == weapon.data.currentAmmo.value);
+          ammo = this.getOwnedItem(weapon.data.currentAmmo.value);
+          if (ammo)
+            ammo = ammo.data
           if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
           {
             ui.notifications.error("No Ammo!")
@@ -793,17 +795,18 @@ class ActorWfrp4e extends Actor {
   
   
           // Find ingredient being used, if any
-          let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
-  
-          if (!ing || ing.data.quantity.value <= 0)
-            testData.extra.ingredient = false;
-          else
+          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+          if (ing)
           {
             // Decrease ingredient quantity
+            ing = ing.data;
             testData.extra.ingredient = true;
             ing.data.quantity.value--;
             this.updateOwnedItem(ing);
           }
+          else if (!ing || ing.data.data.quantity.value <= 0)
+            testData.extra.ingredient = false;
+
           roll();
           },
           // Override generic roll with cast specific roll
@@ -914,17 +917,17 @@ class ActorWfrp4e extends Actor {
   
   
           // Find ingredient being used, if any
-          let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
-  
-          if (!ing || ing.data.quantity.value <= 0)
-            testData.extra.ingredient = false;
-          else
+          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+          if (ing)
           {
             // Decrease ingredient quantity
+            ing = ing.data;
             testData.extra.ingredient = true;
             ing.data.quantity.value--;
             this.updateOwnedItem(ing);
           }
+          else if(!ing || ing.data.data.quantity.value <= 0)
+            testData.extra.ingredient = false;
   
           roll(this);
           },
