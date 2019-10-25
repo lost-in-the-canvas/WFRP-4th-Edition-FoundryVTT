@@ -284,9 +284,9 @@ class ActorWfrp4e extends Actor {
       };
   
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
@@ -426,9 +426,9 @@ class ActorWfrp4e extends Actor {
       }
 
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/skill-card.html"
@@ -479,7 +479,9 @@ class ActorWfrp4e extends Actor {
         if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
         {
           // Check to see if they have ammo
-          ammo = this.items.find(i => i.id == weapon.data.currentAmmo.value);
+          ammo = this.getOwnedItem(weapon.data.currentAmmo.value);
+          if (ammo)
+            ammo = ammo.data
           if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
           {
             ui.notifications.error("No Ammo!")
@@ -503,9 +505,9 @@ class ActorWfrp4e extends Actor {
         target : 0,
         hitLocation : true,
         extra : {
-          weapon : weapon,
-          ammo : ammo,
-          attackType : event.attackType
+        weapon : weapon,
+        ammo : ammo,
+        attackType : event.attackType
         }
       };
   
@@ -591,14 +593,14 @@ class ActorWfrp4e extends Actor {
           if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
           {
             // If using only a characteristic, delete all qualities, set target number to characteristic value + modifiers
-            testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-            //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join(", ")
-            testData.extra.weapon.properties.qualities = [];
+            testData.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+            //testData.weapon.properties.flaws = testData.weapon.properties.flaws.join(", ")
+            testData.weapon.properties.qualities = [];
   
-            if (testData.extra.weapon.data.weaponGroup.value == "Flail")
+            if (testData.weapon.data.weaponGroup.value == "Flail")
             {
-              if (!testData.extra.weapon.properties.flaws.includes("Dangerous"))
-                testData.extra.weapon.properties.flaws.push("Dangerous")
+              if (!testData.weapon.properties.flaws.includes("Dangerous"))
+                testData.weapon.properties.flaws.push("Dangerous")
             }
   
             if (skillSelected == "Weapon Skill")
@@ -612,9 +614,9 @@ class ActorWfrp4e extends Actor {
           {
             // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
             let skillUsed = this.data.flags.combatSkills.find(x=> x.name.toLowerCase() == skillSelected.toLowerCase())
-            testData.extra.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
-           //testData.extra.weapon.properties.flaws = testData.extra.weapon.properties.flaws.join (", ")
-           //testData.extra.weapon.properties.qualities = testData.extra.weapon.properties.qualities.join (", ")
+            testData.weapon = WFRP_Utility._prepareWeaponCombat(this.data, weapon)
+           //testData.weapon.properties.flaws = testData.weapon.properties.flaws.join (", ")
+           //testData.weapon.properties.qualities = testData.weapon.properties.qualities.join (", ")
   
             testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
                                                                                 + testData.testModifier
@@ -642,39 +644,13 @@ class ActorWfrp4e extends Actor {
         // Override the default test evaluation to use weaponTest specific function
         rollOverride : () => {
           let roll = DiceWFRP.rollWeaponTest(testData);
-  
-          let damageToUse = roll.SL;
-          let unitValue = Number(roll.roll.toString().split("").pop())
-          unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
-  
-  
-          if (testData.extra.weapon.properties.qualities.includes("Damaging") && unitValue > Number(roll.SL))
-            damageToUse = unitValue;
-  
-          if (testData.extra.attackType == "melee")
-            testData.extra.damage = eval(testData.extra.weapon.data.damage.meleeValue + damageToUse);
-          if (testData.extra.attackType == "ranged")
-            testData.extra.damage = eval(testData.extra.weapon.data.damage.rangedValue + damageToUse);
-          
-          if (testData.extra.weapon.properties.qualities.includes("Impact"))
-            testData.extra.damage += unitValue;
-  
-          if (testData.extra.weapon.properties.flaws.includes("Tiring") && (damageToUse != roll.SL || testData.extra.weapon.properties.qualities.includes("Impact")))
-          {
-            if (testData.extra.attackType == "melee")
-              testData.extra.damage = `${eval(testData.extra.weapon.data.damage.meleeValue + roll.SL)} | ${testData.extra.damage}` ;
-            if (testData.extra.attackType == "ranged")
-              testData.extra.damage = `${eval(testData.extra.weapon.data.damage.rangedValue + roll.SL)} | ${testData.extra.damage}` ;
-          }
-          if (testData.extra)
-            mergeObject(roll, testData.extra);
           DiceWFRP.renderRollCard(cardOptions, roll);
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
@@ -793,48 +769,33 @@ class ActorWfrp4e extends Actor {
   
   
           // Find ingredient being used, if any
-          let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
-  
-          if (!ing || ing.data.quantity.value <= 0)
-            testData.extra.ingredient = false;
-          else
+          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+          if (ing)
           {
             // Decrease ingredient quantity
+            ing = ing.data;
             testData.extra.ingredient = true;
             ing.data.quantity.value--;
             this.updateOwnedItem(ing);
           }
+          else if (!ing || ing.data.data.quantity.value <= 0)
+            testData.extra.ingredient = false;
+
           roll();
           },
           // Override generic roll with cast specific roll
           rollOverride : () =>
           {
             let roll = DiceWFRP.rollCastTest(testData);
-            try 
-            {
-            if (testData.extra.spell.damage && roll.description.includes("Succeeded"))
-              testData.extra.damage = Number(roll.SL) + 
-                                      Number(testData.extra.spell.damage)
-            }
-            catch (error)
-            {
-              ui.notifications.error("Error calculating damage: " + error)
-            } // If something went wrong calculating damage, do nothing and still render the card
-  
-            if (testData.extra)
-              mergeObject(roll, testData.extra);
-  
-            
-            DiceWFRP.renderRollCard(cardOptions, roll);
-  
-            this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
             // Update spell to reflect SL from channelling resetting to 0
+            this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
+            DiceWFRP.renderRollCard(cardOptions, roll);
           }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/spell-card.html"
@@ -914,32 +875,30 @@ class ActorWfrp4e extends Actor {
   
   
           // Find ingredient being used, if any
-          let ing = this.items.find(i => i.id == testData.extra.spell.data.currentIng.value)
-  
-          if (!ing || ing.data.quantity.value <= 0)
-            testData.extra.ingredient = false;
-          else
+          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+          if (ing)
           {
             // Decrease ingredient quantity
+            ing = ing.data;
             testData.extra.ingredient = true;
             ing.data.quantity.value--;
             this.updateOwnedItem(ing);
           }
+          else if(!ing || ing.data.data.quantity.value <= 0)
+            testData.extra.ingredient = false;
   
           roll(this);
           },
           // Override generic roll with channell specific function
         rollOverride : (actor) => {
           let roll = DiceWFRP.rollChannellTest(testData, actor);
-          if (testData.extra)
-            mergeObject(roll, testData.extra);
           DiceWFRP.renderRollCard(cardOptions, roll);
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/channell-card.html"
@@ -1020,27 +979,13 @@ class ActorWfrp4e extends Actor {
           // Override generic test function with prayer specific function
         rollOverride : () => {
           let roll = DiceWFRP.rollPrayTest(testData, this);
-        
-          try 
-          {
-            if (testData.extra.prayer.damage && roll.description.includes("Granted"))
-            testData.extra.damage = Number(roll.SL) + 
-                                    Number(testData.extra.prayer.damage)
-          }
-          catch (error)
-          {
-            ui.notifications.error("Error calculating damage: " + error)
-          } // If something went wrong calculating damage, do nothing and still render the card
-  
-          if (testData.extra)
-            mergeObject(roll, testData.extra);
           DiceWFRP.renderRollCard(cardOptions, roll);
         }
       };
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
@@ -1125,9 +1070,9 @@ class ActorWfrp4e extends Actor {
       };
   
       let cardOptions = {
-        actor : this.data.id,
         speaker: {
           alias: this.data.name,
+          actor : this.data._id,
         },
         title: title,
         template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
