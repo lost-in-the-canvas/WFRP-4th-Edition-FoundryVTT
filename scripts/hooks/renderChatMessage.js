@@ -4,8 +4,9 @@ Hooks.on("renderChatMessage", async (html, content, msg) => {
     {
       msg.find(".hide-option").remove();
     }
-  });
 
-  Hooks.on("renderRollTableConfig", async (obj, html, data) => {
-    html[0].style.width = "725px"
+    if (!game.user.isGM)
+    {
+      msg.find(".chat-buttons").remove();
+    }
   });
