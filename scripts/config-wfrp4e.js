@@ -42,7 +42,7 @@ CONFIG.statusEffects =
 "systems/wfrp4e/icons/conditions/grappling.png",
 ]
 
-CONFIG.Token = { defeatedIcon : "systems/wfrp4e/icons/defeated.png"};
+CONFIG.controlIcons.defeated = "systems/wfrp4e/icons/defeated.png";
 
  CONFIG.JournalEntry.noteIcons = {
    "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
@@ -730,7 +730,7 @@ CONFIG.loreEffect = {
   "fire": "You may inﬂict +1 Ablaze Condition on anyone targeted by spells from the Lore of Fire, unless they also possess the Arcane Magic (Fire) Talent. Every Ablaze condition within Willpower Bonus yards adds +10 to attempts to Channel or Cast with Aqshy. ",
   "heavens": "Spells causing Damage ignore Armour Points from metal armour, and will arc to all other targets within 2 yards, except those with the Arcane Magic (Heavens) Talent, inﬂicting hits with a Damage equal to your Willpower Bonus, handled like a magical missile.",
   "metal": "Spells inﬂicting Damage ignore Armor Points from metal armor, and inﬂict bonus Damage equal to the number of Armor Points of metal armor being worn on any Hit Location struck. So, if your spell hit an Arm location protected by 2 Armor Points of metal armor, it would cause an additional +2 Damage and ignore the Armor Points.",
-  "life": "Receive a +10 bonus to Casting and Channeling rolls when in a rural or wilderness environment. Living creatures — e.g. those without the Daemonic or Undead Creature Traits — targeted by Arcane Spells from the Lore of Life have all Fatigued and Bleeding Conditions removed after any other eﬀects have been applied as life magic ﬂoods through them. Creatures with the Undead Creature Trait, on the other hand, suﬀer additional Damage equal to your Willpower Bonus, ignoring Toughness Bonus and Armor Points, if aﬀected by any spell cast with the Lore of Life.",
+  "life": "Receive a +10 bonus to Casting and Channeling rolls when in a rural or wilderness environment. Living creatures — e.g. those without the Daemonic or Undead Creature Traits — targeted by Arcane Spells from the Lore of Life have all Fatigued and Bleeding Conditions removed after any other eﬀects have been applied as life magic ﬂoods through them. Creatures with the Undead Creature Trait, on the other hand, suffer additional Damage equal to your Willpower Bonus, ignoring Toughness Bonus and Armor Points, if aﬀected by any spell cast with the Lore of Life.",
   "light": "You may inﬂict one Blinded Condition on those targeted by Lore of Light spells, unless they possess the Arcane Magic (Light) Talent. If a target has the Daemonic or Undead Creature Traits, spells also inﬂict an additional hit with Damage equal to your Intelligence Bonus that ignores Toughness Bonus and Armor Points.",
   "shadow": "All spells cast from the Lore of Shadows inﬂicting Damage ignore all non-magical Armor Points.",
   "hedgecraft": "Hedgecraft spells cannot be cast without ingredients, which are an integral part of their spellcasting process.<br><br>Fortunately, the ingredients they use are easily found on the fringes of settlements and are usually herbs or plants. You receive 1 + SL ingredients on a successful foraging roll, using Lore (Herbs), as described under Gathering Food and Herbs, or you can buy them for 5 brass pennies each.",
@@ -838,5 +838,10 @@ CONFIG.symptomTreatment = {
   "nausea" : "Remedies for Nausea are Common and usually genuine (60% chance), and typically cost around thirty pennies; if genuine, pass a <b>Challenging (+0) Endurance</b> Test, and the Nausea can be ignored for a number of hours equal to your Toughness Bonus.",
   "pox" : "Poxes are exceedingly common, and so are remedies, which are usually creams or oils. Larger temples of Shallya often keep a stock of the cream for free (though donations are expected) and apothecaries and herbalists of all kinds sell similar products for relatively low prices (rarely more than six or seven pence for a week’s worth of treatment, with a 90% chance of being genuine medicine). Using a cream increases all Cool Tests to resist scratching to <b>Very Easy (+60)</b>, but is usually unsightly.",
   "wounded" : "A daily successful Heal Test ensures the Wound is clean and does not require an Endurance Test to be further infected."
+}
 
+CONFIG.earningValues = {
+  "b" : "2d10",
+  "s" : "1d10",
+  "g" : "1",
 }

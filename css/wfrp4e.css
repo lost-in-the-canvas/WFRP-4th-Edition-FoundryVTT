@@ -1104,6 +1104,20 @@
     visibility: visible;
     background: url(../ui/sidebar-button-journal-active.png)
   }
+  #sidebar-tabs > .item.active .fas.fa-th-list {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    width: 30px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-tables-active.png);
+  }
   #sidebar-tabs > .item.active .fas.fa-music {
     position: relative;
     top: 0px;
@@ -1164,6 +1178,9 @@
   }
   #sidebar-tabs > [title~="Journal"] {
     background: url(../ui/sidebar-button-journal.png);
+  }
+  #sidebar-tabs > [title~="SIDEBAR.TabTables"] {
+    background: url(../ui/sidebar-button-tables.png);
   }
   #sidebar-tabs > [title~="Playlists"] {
     background: url(../ui/sidebar-button-playlists.png);
@@ -5589,7 +5606,6 @@
       padding: 0px;
       width: 100%;
       height: fit-content;
-      background: url(../ui/armour-diagram.png) no-repeat;
       background-position-x: 176px;
       background-position-y: center;
       background-size: contain;
@@ -11680,7 +11696,6 @@
       padding: 0px;
       width: 506px;
       height: fit-content;
-      background: url(../ui/armour-diagram.png) no-repeat;
       background-position-x: 176px;
       background-position-y: center;
       background-size: contain;
@@ -12752,8 +12767,8 @@ border-image-outset: 0px !important;
     #controls-reference .window-content div * {
       overflow-y: hidden;
       color: #CCC;
-}
     }
+
     #controls-reference h3 {
       width: 100%;
       margin: 0px;
@@ -14842,6 +14857,23 @@ font-style : normal;
           border:none;
         }
 
+        #player-config {
+          height: 210px;
+        }
+        
+        #player-config button[type="submit"] {
+          height: 35px
+        }
+        
+        #player-config button[type="submit"] i {
+          display: inline-block
+        }
+
+        #player-config button[type="reset"] {
+          display:none;
+        }
+
+
 
   /* ==================== MODULE COMPATIBILITY ======================== */
 
@@ -14859,4 +14891,86 @@ font-style : normal;
 .dice-calculator > button, .dice-calculator .dice-calculator--button {
     font-family: var(--actor-input-font-family);
     color: white;
+}
+
+.metacurrency-value {
+  left: 8px;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}  
+
+.chat-buttons {
+  position: relative;
+  left: 280px;
+  width: 40px;
+  height: 0px;
+}
+
+.card-edit {
+  background: none;
+  box-shadow: none;
+  width: 25px;
+  text-align: center;
+}
+
+.chat-buttons {
+  opacity:0.6
+}
+
+.table-result,
+.roll-table-config input{
+  color: #CCC;
+  font-family: var(--actor-input-font-family);
+  font-weight: var(--actor-input-font-weight);
+}
+
+.message-content .entity-link {
+  color: black;
+}
+
+ .result-range > input,
+ .result-weight > input,
+ .result-details > input
+ {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+}
+
+.result-type > select,
+.result-details > select {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+}
+
+.roll-table-config ol.table-results .table-result.roulette {
+  background: rgba(95, 2, 2, 0.63);
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin: -1px 0;
+}
+
+.result-text {
+  color:black;
+}
+
+.app.window-app.sheet .roll-table-config  {
+  width: 725px;
 }

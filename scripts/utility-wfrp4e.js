@@ -137,9 +137,21 @@ class WFRP_Utility
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
     if (weapon.data.damage.meleeValue)
+    {
       weapon.data.damage.meleeValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.meleeValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
+    }
     if (weapon.data.damage.rangedValue)
-      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0);
+    {
+      weapon.data.damage.rangedValue = this._calculateRangeOrDamage(actorData, weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.rangedValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
+    }
 
     if (Number(weapon.data.range.value) > 0)
         weapon["rangedWeaponType"] = true;
@@ -158,6 +170,10 @@ class WFRP_Utility
     else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
     {
       weapon["ammo"] = [weapon];
+      weapon.data.ammunitionGroup.value = "";
+    }
+    else if (weapon.data.weaponGroup.value == "Entangling")
+    {
       weapon.data.ammunitionGroup.value = "";
     }
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
@@ -614,15 +630,80 @@ class WFRP_Utility
   }
 
   
-  static displayStatus(tokenId)
+  static displayStatus(tokenId, round = undefined)
   {
     let token = canvas.tokens.get(tokenId);
     let effects = token.data.effects;
-    let conditions = {}
-    effects = effects.map(function(effect) {
-      
-      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+    if (round)
+      round = "- Round " + round;
   
+    let displayConditions = this.parseConditions(effects);
+    
+    let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
+  
+  
+    let chatData = {
+      name : token.name,
+      conditions : displayConditions,
+      modifiers : token.actor.data.flags.modifier,
+      round : round
+    }
+  
+  
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+      chatOptions["user"] = game.user._id
+  
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+	  chatOptions["type"] = 0;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
+
+    
+  static displayRoundSummary(combat)
+  {
+    let combatantArray = [];
+
+    for (let turn of combat.turns)
+    {
+      let token = canvas.tokens.get(turn.tokenId);
+      let effects = token.data.effects;
+      combatantArray.push({name : token.name, conditions : this.parseConditions(effects)})
+    }
+    
+    let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
+    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/round-summary.html"
+  
+  
+    let chatData = {
+      title : "Round " + combat.current.round + " Summary",
+      combatants : combatantArray
+    }
+  
+  
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+      chatOptions["user"] = game.user._id
+  
+      // Emit the HTML as a chat message
+      chatOptions["content"] = html;
+	  chatOptions["type"] = 0;
+      ChatMessage.create(chatOptions, false);
+      return html;
+    });
+  }
+
+  static parseConditions(effectList)
+  {
+      let conditions = {}
+      effectList = effectList.map(function(effect) {
+      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
       if (isNumeric)
       {
         effect = effect.substring(effect.lastIndexOf("/")+1)
@@ -639,43 +720,19 @@ class WFRP_Utility
         effect = effect.substring(effect.lastIndexOf("/")+1).substring(0, effect.length-4);
         effect = effect.substring(0, effect.length-4);
         conditions[effect] = true;
-  
       }
-    
    })
   
-   let displayConditions = [];
+   let returnConditions = [];
    for (let c in conditions)
    {
      let displayValue = (CONFIG.conditions[c])
      if (typeof conditions[c] !== "boolean")
       displayValue += " " + conditions[c]
-    displayConditions.push(displayValue); 
+      returnConditions.push(displayValue); 
    }
-  
-  
-    let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
-    if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
-  
-  
-    let chatData = {
-      name : token.name,
-      conditions : displayConditions,
-      modifiers : token.actor.data.flags.modifier
-    }
-  
-  
-   return renderTemplate(chatOptions.template, chatData).then(html => {
-      chatOptions["user"] = game.user._id
-  
-      // Emit the HTML as a chat message
-      chatOptions["content"] = html;
-	  chatOptions["type"] = 0;
-      ChatMessage.create(chatOptions, false);
-      return html;
-    });
+
+   return returnConditions;
   }
 
   static postSymptom(symptom)
