@@ -36,7 +36,7 @@
 <!-- EQUIPMENT -->
 <div id="currency-header" class="inventory-header item currency-header">
   <span id="currency-name" class="name">Money (Total: {{actor.money.total}}d) 1 GC : 20 SS : 240 BP</span>
-  <a id="currency-quantity" class="quantity">Qty.</a>
+  <a id="currency-quantity" class="quantity aggregate" data-type="money">Qty.</a>
   <span id="currency-weight" class="weight">Enc.</span>
   {{#if owner}}
   <div class="item-controls">
@@ -80,7 +80,7 @@
   <span class="item-toggle">{{section.toggleName}}</span>
   {{/if}}
 
-  <a class="quantity">Qty.</a>
+  <a class="quantity aggregate" data-type="{{section.dataType}}">Qty.</a>
 
   <span class="weight">Enc.</span>
   {{#if ../owner}}
@@ -138,7 +138,7 @@
   <span id="spell-label" class="spell item-toggle">Spell</span>
 
   {{#if actor.ingredients.quantified}}
-  <span class="quantity">Qty.</span>
+  <span class="quantity aggregate" data-type="ingredient">Qty.</span>
   {{/if}}
   <span class="weight">Enc.</span>
   {{#if owner}}
