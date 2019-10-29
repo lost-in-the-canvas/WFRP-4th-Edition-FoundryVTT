@@ -18,7 +18,7 @@
         <a class="name weapon-item-name">{{item.name}}</a>
       </div>
       <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
-      <div class="damage weapon-damage">+{{item.data.damage.meleeValue}}</div>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.meleeValue}}</a>
       <a class="reach weapon-reach">{{item.data.reach.value}}</a>
     </div>
     <div class="content">
@@ -86,7 +86,7 @@
         None
       </div>
       {{/if}}
-      <div class="damage weapon-damage">+{{item.data.damage.rangedValue}}</div>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.rangedValue}}</a>
       <a class="range weapon-range">{{item.data.range.value}} yds</a>
     </div>
     <div class="content">

@@ -82,7 +82,7 @@ class ItemWfrp4e extends Item {
     data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
     data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
     data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
-    data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+    data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => ` <a class = 'career-income' data-career-id=${this.data.id}> ${this.data.data.skills[i]} <i class="fas fa-coins"></i></a>`));
     return data;
   }
 
@@ -120,6 +120,20 @@ class ItemWfrp4e extends Item {
     return data;
   }
 
+  _containerChatData() {
+    const data = duplicate(this.data.data);
+    let properties = 
+    [
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+    ]
+
+    properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
+    properties.push("<b>Count toward owner's encumbrance?</b>: " +  (data.countEnc.value ? "Yes" : "No"));
+    return properties;
+  }
+
   /* -------------------------------------------- */
 
   _weaponExpandData() {
@@ -134,6 +148,8 @@ class ItemWfrp4e extends Item {
       properties.push("Melee Damage: " + data.damage.meleeValue);
     if (data.damage.rangedValue)
       properties.push("Ranged Damage: " + data.damage.rangedValue);
+    if (data.weaponDamage)
+      properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
       properties.push(prop);
     if (data.twohanded.value)

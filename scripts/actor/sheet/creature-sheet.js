@@ -109,8 +109,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
   else
     this.clicks = 1;
 
-    console.log(this.clicks);
-
   if(this.clicks === 1) 
   {
 
@@ -128,8 +126,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
 
       clearTimeout(this.timer);    //prevent single-click action
       let itemId = Number($(event.currentTarget).attr("data-item-id"));
-      let Item = CONFIG.Item.entityClass;
-      const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+      const item = this.actor.getOwnedItem(itemId);
       item.sheet.render(true);
       this.clicks = 0;             //after action performed, reset counter
   }
@@ -171,7 +168,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.actor.deleteOwnedItem(itemId, true);
       }
     });
-    html.find(".creature-dropdown").click(event => {
+    html.find(".creature-dropdown").mousedown(event => {
       this._delayedDropdown(event);
   }) 
     .on("dblclick", function(e){
@@ -241,18 +238,25 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       this.actor.setupCharacteristic(characteristic, event);
     });
 
-    html.find('.trait-name').click(async event => {
+    html.find('.trait-name').mousedown(async event => {
       event.preventDefault();
       let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
+      if (event.button == 0)
+      {
+        let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
 
-      if (this.actor.data.data.excludedTraits.includes(traitId))
-        newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
-      else
-        newExcludedTraits.push(traitId);
+        if (this.actor.data.data.excludedTraits.includes(traitId))
+          newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+        else
+          newExcludedTraits.push(traitId);
 
-        await this.actor.update({"data.excludedTraits" : newExcludedTraits});
-        this.actor.sheet.render(true);
+          await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+
+      }
+      else if (event.button == 2)
+      {
+        this._onItemSummary(event);
+      }
     });
   }
 

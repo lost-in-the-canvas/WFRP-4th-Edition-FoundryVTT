@@ -10,7 +10,7 @@ class DiceWFRP {
    * @param {Object} testData           Test info: target number, SL bonus, success bonus, etc
    * @param {Object} cardOptions        Chat card template and info
    */
-  static prepareTest({dialogOptions, testData, cardOptions, onClose}) {
+  static prepareTest({dialogOptions, testData, cardOptions}) {
     let rollMode = game.settings.get("core", "rollMode");
 
     // Merge input with generic properties constant between all tests
@@ -23,7 +23,7 @@ class DiceWFRP {
     });
     mergeObject(dialogOptions.data,
       {
-        testDifficulty : "challenging",
+        testDifficulty : dialogOptions.data.testDifficulty || "challenging",
         difficultyLabels : CONFIG.difficultyLabels,
         testModifier : (dialogOptions.data.modifier || 0),
         slBonus : dialogOptions.data.slBonus || 0,
@@ -63,11 +63,16 @@ class DiceWFRP {
 
   // Roll a standard Test and determine success
   static rollTest(testData){
-    let roll = new Roll("1d100").roll();
+    let roll;
+    testData.function = "rollTest"
+    if (testData.roll)
+      roll = {total : testData.roll}
+    else
+      roll = new Roll("1d100").roll(); // Use input roll if exists, otherwise, roll randomly
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
     let targetNum = testData.target;
-    let SL = (Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus;
+    let SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
     let description = "";
 
       
@@ -180,20 +185,50 @@ class DiceWFRP {
       roll: roll.total,
       SL: SL,
       description: description,
+      preData : testData,
       extra : {}
     }
 
+    mergeObject(rollResults, testData.extra)
+
     if (testData.hitLocation)
-      rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
+    {
+      if (testData.hitloc)
+        rollResults.hitloc = WFRP_Tables.rollTable("hitloc", {lookup : testData.hitloc});
+      else
+        rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
+
+      rollResults.hitloc.roll = eval(rollResults.hitloc.roll) // Cleaner number when editing chat card
+    }
 
 
-      if (testData.hitLocation)
+    if (testData.hitLocation)
+    {
+      if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
       {
-        if (description.includes("Failure") && roll.total % 11 == 0 || roll.total == 100)
-          rollResults.extra.fumble = "Fumble";
-        else if (description.includes("Success") && roll.total % 11 == 0)
-          rollResults.extra.critical = "Critical";
+        rollResults.extra.color_red = true;
+        rollResults.extra.fumble = "Fumble";
       }
+      else if (roll.total <= targetNum && roll.total % 11 == 0)
+      {
+        rollResults.extra.color_green = true;
+        rollResults.extra.critical = "Critical";
+      }
+    }
+
+    if (game.settings.get("wfrp4e", "criticalsFumblesOnAllTests") && !testData.hitLocation)
+    {
+      if (roll.total > targetNum && roll.total % 11 == 0 || roll.total == 100)
+      {
+        rollResults.extra.color_red = true;
+        rollResults.description = "Astounding Failure"
+      }
+      else if (roll.total <= targetNum && roll.total % 11 == 0)
+      {
+        rollResults.extra.color_green = true;
+        rollResults.description = "Astounding Success"
+      }
+    }
 
 
     return rollResults;
@@ -204,6 +239,11 @@ class DiceWFRP {
     let weapon = testData.extra.weapon;
 
      let testResults = this.rollTest(testData);
+
+     let weapon = testData.weapon;
+
+     let testResults = this.rollTest(testData);
+     testData.function = "rollWeaponTest"
 
      if (testResults.description.includes("Failure"))
      {
@@ -231,6 +271,42 @@ class DiceWFRP {
        if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
          testResults.extra.critical = "Critical"
      }
+
+    if (testResults.extra.critical)
+     testResults.extra.color_green = true;
+    if (testResults.extra.fumble)
+     testResults.extra.color_red = true;
+
+       // *** Weapon Damage Calculation ***
+     
+     let damageToUse = testResults.SL;
+     let unitValue = Number(roll.roll.toString().split("").pop())
+     unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
+
+
+     if ((weapon.properties.qualities.includes("Damaging") || weapon.properties.qualities.includes("Tiring (Damaging)") 
+         && unitValue > Number(testResults.SL)))
+       damageToUse = unitValue;
+
+     if (testData.extra.attackType == "melee")
+       testData.damage = eval(weapon.data.damage.meleeValue + damageToUse);
+     if (testData.extra.attackType == "ranged")
+       testData.damage = eval(weapon.data.damage.rangedValue + damageToUse);
+     
+     if (weapon.properties.qualities.includes("Impact") || weapon.properties.qualities.includes("Tiring (Impact)"))
+       testData.damage += unitValue;
+
+     if ((weapon.properties.qualities.includes("Tiring (Damaging)") && damageToUse != testResults.SL)
+       || weapon.properties.qualities.includes("Tiring (Impact)")
+       || weapon.properties.qualities.includes("Impact"))
+     {
+       if (testData.extra.attackType == "melee")
+         testData.damage = `${eval(weapon.data.damage.meleeValue + testResults.SL)} | ${testData.damage}` ;
+       if (testData.extra.attackType == "ranged")
+         testData.damage = `${eval(weapon.data.damage.rangedValue + testResults.SL)} | ${testData.damage}` ;
+     }
+
+
      return testResults;
   }
 
@@ -239,6 +315,8 @@ class DiceWFRP {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
     let testResults = this.rollTest(testData);
+    let miscastCounter = 0;
+    testData.function = "rollCastTest"
 
     if (game.settings.get("wfrp4e", "partialChannelling"))
     {
@@ -261,7 +339,10 @@ class DiceWFRP {
     {
       testResults.description = "Casting Failed"
       if (testResults.roll % 11 == 0 || testResults.roll == 100)
+      {
+        testResults.extra.color_red = true;
         miscastCounter++;
+      }
     }
     else if (slOver < 0) // Successful test, but unable to cast
     {
@@ -269,6 +350,7 @@ class DiceWFRP {
 
       if (testResults.roll % 11 == 0)
       {
+        testResults.extra.color_green = true;
         testResults.description = "Casting Succeeded"
         testResults.extra.critical = "Total Power"
       }
@@ -281,7 +363,11 @@ class DiceWFRP {
 
       // If no ID
       if (testResults.roll % 11 == 0)
+      {
         testResults.extra.critical = "Critical Cast"
+        testResults.extra.color_green = true;
+        miscastCounter++;
+      }
 
     }
 
@@ -314,6 +400,17 @@ class DiceWFRP {
     if (miscastCounter > 3)
       miscastCounter = 3
 
+    try
+    {
+      if (testData.extra.spell.damage && testResults.description.includes("Succeeded"))
+        testResults.damage = Number(testResults.SL) +
+                              Number(testData.extra.spell.damage)
+    }
+    catch (error)
+    {
+      ui.notifications.error("Error calculating damage: " + error)
+    } // If something went wrong calculating damage, do nothing and continue
+
     return testResults;
   }
 
@@ -322,6 +419,10 @@ class DiceWFRP {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
      let testResults = this.rollTest(testData);
+
+     let testResults = this.rollTest(testData);
+     testData.function = "rollChannellTest"
+
      let SL = testResults.SL;
 
      if (testData.extra.malignantInfluence)
@@ -339,7 +440,10 @@ class DiceWFRP {
 
        testResults.description = "Channell Failed"
        if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0)
-         miscastCounter += 2;
+       {
+          testResults.extra.color_red = true;
+          miscastCounter += 2;
+        }
        if (testResults.roll == 100)
          miscastCounter = 3
       }
@@ -353,6 +457,7 @@ class DiceWFRP {
 
         if (testResults.roll % 11 == 0)
        {
+         testResults.extra.color_green = true;
          spell.data.cn.SL = spell.data.cn.value;
          testResults.extra.criticalchannell = "Critical Channell"
        }
@@ -394,14 +499,17 @@ class DiceWFRP {
        miscastCounter = 0;
      if (miscastCounter > 2)
        miscastCounter = 2
+
      return testResults;
  }
 
   // Extend rollTest for pray specifics (sin, wrath of the gods, etc)
  static rollPrayTest(testData, actor){
   let prayer = testData.extra.prayer;
-   let testResults = this.rollTest(testData);
-   let SL = testResults.SL;
+  let testResults = this.rollTest(testData);
+  testData.function = "rollPrayTest"
+
+  let SL = testResults.SL;
   let extensions = 0;
   let currentSin = actor.data.data.status.sin.value;
   testData.extra.sin = currentSin;
@@ -415,10 +523,12 @@ class DiceWFRP {
       unitResult = 10;
      if (testResults.roll % 11 == 0 || unitResult <= currentSin)
        {
-         testResults.extra.wrath = "Wrath of the Gods"
-         currentSin--;
-         if (currentSin < 0)
-         currentSin = 0;
+        if (testResults.roll % 11 == 0)
+          testResults.extra.color_red = true;
+        testResults.extra.wrath = "Wrath of the Gods"
+        currentSin--;
+        if (currentSin < 0) 
+          currentSin = 0;
         actor.update({"data.status.sin.value" : currentSin});
         }
 
@@ -441,7 +551,18 @@ class DiceWFRP {
    }
 
 
-
+      
+   try 
+   {
+     if (testData.extra.prayer.damage && testResults.description.includes("Granted"))
+     testData.extra.damage = Number(testResults.SL) + 
+                             Number(testData.extra.prayer.damage)
+   }
+   catch (error)
+   {
+     ui.notifications.error("Error calculating damage: " + error)
+   } // If something went wrong calculating damage, do nothing and still render the card
+   
    testResults.extensions = extensions;
    return testResults;
 }
@@ -450,25 +571,55 @@ class DiceWFRP {
 * @param {Object} chatOptions - Object concerning display of the card like the template or which actor is testing
 * @param {Object} testData - Test results, values to display, etc.
 */
- static renderRollCard(chatOptions, testData) {
-   let chatData = {
-     title : chatOptions.title,
-     testData : testData,
-     hideData : game.user.isGM
-   }
+static renderRollCard(chatOptions, testData, rerenderMessage) {
+  let chatData = {
+    title : chatOptions.title,
+    testData : testData,
+    hideData : game.user.isGM,
+  }
 
-   if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-   if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+  if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+  if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
 
-  // Generate HTML from the requested chat template
-  return renderTemplate(chatOptions.template, chatData).then(html => {
+  // All the data need to recreate the test when chat card is edited
+  chatOptions["flags.data"] = {
+   preData : chatData.testData.preData,
+   postData : chatData.testData,
+   template : chatOptions.template,
+   rollMode : chatOptions.rollMode,
+   title : chatOptions.title,
+   hideData : chatData.hideData
+ };
 
-    // Emit the HTML as a chat message
-    chatOptions["content"] = html;
-    chatOptions["type"] = 0;
-    ChatMessage.create(chatOptions, false);
-    return html;
-  });
+ if (!rerenderMessage)
+ {
+
+   // Generate HTML from the requested chat template
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+
+     // Emit the HTML as a chat message
+     chatOptions["content"] = html;
+
+     ChatMessage.create(chatOptions, false);
+     return html;
+   });
+ }
+ else
+ {
+   // Generate HTML from the requested chat template
+   return renderTemplate(chatOptions.template, chatData).then(html => {
+
+     // Emit the HTML as a chat message
+     chatOptions["content"] = html;
+     rerenderMessage.update(
+     {
+       content: html,
+     }, true).then(newMsg => {
+       ui.chat.updateMessage(newMsg);
+     });
+     return html;
+   });
+ }
 }
 
 
@@ -577,75 +728,64 @@ class DiceWFRP {
           }).render(true);
         })
       }
-
-
-
     })
-    // Chat card actions
-    html.on('click', '.card-buttons button', ev => {
-      ev.preventDefault();
 
-      // Extract card data
+    html.on('focusout', '.card-edit', ev => {
       let button = $(ev.currentTarget),
-          messageId = button.parents('.message').attr("data-message-id"),
-          senderId = game.messages.get(messageId).user._id;
+      messageId = button.parents('.message').attr("data-message-id"),
+      message = game.messages.get(messageId);
+      let data = message.data.flags.data
+      let actor = game.actors.get(message.data.speaker.actor);
+      let newTestData = data.preData;
+      newTestData[button.attr("data-edit-type")] = parseInt(ev.target.value)
 
-      // Confirm roll permission
-      if ( !game.user.isGM && ( game.user._id !== senderId )) return;
+      if (button.attr("data-edit-type") == "hitloc") // If changing hitloc, keep old value for roll
+        newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
+      else // If not changing hitloc, use old value for hitloc
+        newTestData["hitloc"] = $(message.data.content).find(".card-content.test-data").attr("data-loc")
 
-      // Extract action data
-      let action = button.attr("data-action"),
-          card = button.parents('.chat-card'),
-          actor = game.actors.get(card.attr('data-actor-id'));
-      let rollData = { target : Number(card.attr('roll-target')),
-           SL : card.attr('roll-SL'),
-          result : Number(card.attr('roll-result'))
-      };
+      if (button.attr("data-edit-type") == "SL") // If changing SL, keep both roll and hitloc
+        newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
 
-      if (!this.opposeData.opposeStarted)
-      {
-        this.opposeData.opposeStarted = true;
-        this.opposeData.actor = actor;
-        this.opposeData.rollData = rollData;
-        let chatOptions = {
-          user: senderId,
-          speaker: {
-            alias: actor.name
-          },
-          template: "public/systems/wfrp4e/templates/chat/characteristic-roll.html",
-        };
+      if (button.attr("data-edit-type") == "target") // If changing target, keep both roll and hitloc
+        newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
 
-        return renderTemplate(chatOptions.template, rollData).then(html =>{
 
-        let index = game.messages.entities.findIndex(e => e.data._id === messageId);
-        let m = game.messages.entities[index];
-        m.update({content: html}, true).then(message => {
-          ui.chat.updateMessage(message);});
-        });
-    }
-    else
-    {
-      this.opposeData.opposeStarted = false;
-      let result = {result:  DiceWFRP.evaluateOpposedTest(actor, rollData)};
       let chatOptions = {
-        user: game.user._id,
-        template: "public/systems/wfrp4e/templates/chat/opposed-result.html"
+        template : data.template,
+        rollMode : data.rollMode,
+        title : data.title
       }
-      return renderTemplate(chatOptions.template, result).then(html => {
-           // Emit the HTML as a chat message
-           chatOptions["content"] = html;
-           chatOptions["type"] = 0;
-           ChatMessage.create(chatOptions, false);
-           return html;
+
+      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+      if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+
+      let newResult = this[`${newTestData.function}`](newTestData, actor);
+
+      this.renderRollCard(chatOptions, newResult, message);
+    })
+
+    // Chat card actions
+        html.on('click', '.edit-toggle', ev => {
+        ev.preventDefault();
+        let elementsToToggle = $(ev.currentTarget).parents(".chat-card").find(".display-toggle")
+        // Extract card data
+        for (let elem of elementsToToggle)
+        {
+          if (elem.style.display == "none")
+            elem.style.display = ""
+          else 
+            elem.style.display = "none"
+        }
+      });
+
+      html.on("click", '.item-property', event => {
+        event.preventDefault();
+
+        WFRP_Utility.postProperty(event.target.text);
+
       });
     }
-    });
-    html.on("click", '.item-property', event => {
-      event.preventDefault();
-
-      WFRP_Utility.postProperty(event.target.text);
-    });
-  }
 
   static evaluateOpposedTest(defender, defenderRollData)
   {

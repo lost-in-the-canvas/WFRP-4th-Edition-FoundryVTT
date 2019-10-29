@@ -480,7 +480,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 
       // Container Setup
-      var containerMissing = inContainers.filter(i => containers.items.find(c => c.id == i.data.location.value) == undefined);
+      var containerMissing = inContainers.filter(i => containers.items.find(c => c.data.id == i.data.location.value));
       for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
       {
         itemNoContainer.data.location.value = 0;
@@ -931,7 +931,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (!this.skillsToEdit)
         this.skillsToEdit = []
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      let itemToEdit = this.actor.items.find(i => i.id === itemId);
+      let itemToEdit = duplicate(this.actor.getOwnedItem(itemId).data);
       itemToEdit.data.advances.value = Number(event.target.value);
       this.skillsToEdit.push(itemToEdit);
 
@@ -939,10 +939,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         return;
 
       // Need to update all skills every time because if the user tabbed through and updated many, only the last one would be saved
-      for(let skill of this.skillsToEdit)
-      {
-        await this.actor.updateOwnedItem(skill, true);
-      }
+      await this.actor.updateManyOwnedItem(this.skillsToEdit);
       this.skillsToEdit = [];
     });
 
@@ -953,7 +950,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     html.find('.ammo-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const itemToEdit = this.actor.items.find(i => i.id === itemId);
+      const itemToEdit = this.actor.getOwnedItem(itemId).data;
       itemToEdit.data.currentAmmo.value = Number(event.target.value);
       await this.actor.updateOwnedItem(itemToEdit, true);
     });
@@ -961,14 +958,14 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     html.find('.spell-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const ing = this.actor.items.find(i => i.id === itemId);
+      const ing = this.actor.getOwnedItem(itemId).data;
       ing.data.spellIngredient.value = Number(event.target.value);
       await this.actor.updateOwnedItem(ing, true);
     });
 
     html.find('.ingredient-selector').change(async event => {
       let itemId = Number(event.target.attributes["data-item-id"].value);
-      const spell = this.actor.items.find(i => i.id === itemId);
+      const spell = this.actor.getOwnedItem(itemId).data;
       spell.data.currentIng.value = Number(event.target.value);
       await this.actor.updateOwnedItem(spell, true);
     });
@@ -980,19 +977,24 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.setupCharacteristic(characteristic, event);
     });
 
-    html.find('.skill-total').click(event => {
-      event.preventDefault();
-      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let skill = this.actor.items.find(i => i.id === itemId);
-      this.actor.setupSkill(skill, event);
+    html.find('.skill-total, .skill-select').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let skill = this.actor.getOwnedItem(itemId)
+
+      if (ev.button == 0)
+        this.actor.setupSkill(skill.data);
+
+      else if (ev.button == 2)
+        skill.sheet.render(true);
     })
 
     html.find('.weapon-item-name').click(event => {
       event.preventDefault();
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
-      let weapon = this.actor.items.find(i => i.id === itemId);
-      this.actor.setupWeapon(duplicate(weapon), {attackType : attackType});
+      let weapon = this.actor.getOwnedItem(itemId);
+      if (weapon)
+        this.actor.setupWeapon(duplicate(weapon.data), {attackType : attackType});
     })
 
     html.find('.fist-icon').click(async event => {
@@ -1014,7 +1016,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         return;
       }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let trait = this.actor.items.find(i => i.id === itemId);
+      let trait = this.actor.getOwnedItem(itemId).data;
       this.actor.setupTrait((duplicate(trait)));
     })
 
@@ -1026,7 +1028,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         return;
       }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let spell = this.actor.items.find(i => i.id === itemId);
+      let spell = this.actor.getOwnedItem(itemId).data;
       this.actor.spellDialog(duplicate(spell));
     })
 
@@ -1038,7 +1040,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         return;
       }
       let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-      let prayer = this.actor.items.find(i => i.id === itemId);
+      let prayer = this.actor.getOwnedItem(itemId).data;
       this.actor.setupPrayer(duplicate(prayer));
     })
 
@@ -1052,27 +1054,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let Item = CONFIG.Item.entityClass;
-      const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
+      const item = this.actor.getOwnedItem(itemId);
       item.sheet.render(true);
     });
-
-    html.find('.skill-select').mousedown(ev => {
-      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      if (ev.button == 0)
-      {
-        let skill = this.actor.items.find(i => i.id === itemId);
-        this.actor.setupSkill(skill, event);
-      }
-      else if (ev.button == 2)
-      {
-        let Item = CONFIG.Item.entityClass;
-        const item = new Item(this.actor.items.find(i => i.id === itemId), {actor : this.actor});
-        item.sheet.render(true);
-      }
-    });
-
 
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
@@ -1104,22 +1088,22 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Remove Inventory Item from Container
     html.find('.item-remove').click(ev => {
       let li = $(ev.currentTarget).parents(".item"),
-        itemId = Number(li.attr("data-item-id"));
-      const item = this.actor.items.find(i => i.id == itemId);
+      itemId = Number(li.attr("data-item-id"));
+      const item = this.actor.getOwnedItem(itemId).data
       item.data.location.value = 0;
       this.actor.updateOwnedItem(item, true);
     });
 
     html.find('.toggle-enc').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data
       item.data.countEnc.value = !item.data.countEnc.value;
       this.actor.updateOwnedItem(item, true);
     });
 
     html.find('.item-toggle').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data
       if (item.type == "armour")
         item.data.worn.value = !item.data.worn.value;
       else if (item.type == "weapon")
@@ -1131,7 +1115,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     html.find('.worn-container').click(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data
       item.data.worn.value = !item.data.worn.value;
       this.actor.updateOwnedItem(item, true);
     });
@@ -1139,7 +1123,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     html.find('.quantity-click').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data
       switch (event.button)
       {
         case 0:
@@ -1162,10 +1146,38 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item);
     });
 
+    html.find(".aggregate").click(async ev => {
+      let itemType = $(ev.currentTarget).attr("data-type")
+      let items = this.actor.data.items.filter(x => x.type == itemType)
+
+      for (let i of items)
+      {
+        let duplicates = items.filter(x => x.name == i.name)
+        if (duplicates.length > 1)
+        {
+          let newQty = duplicates.reduce((prev, current) => prev + current.data.quantity.value, 0)
+          i.data.quantity.value = newQty
+        }            
+      }
+
+      let noDuplicates = []
+      for (let i of items)
+      {
+        if (!noDuplicates.find(x => x.name == i.name))
+        {
+          noDuplicates.push(i);
+          await this.actor.updateOwnedItem({"id" : i.id, "data.quantity.value" : i.data.quantity.value})
+        }
+        else
+          await this.actor.deleteOwnedItem(i.id);
+      }
+
+    })
+
     html.find('.ap-value').mousedown(ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data
       if (item.data.currentAP[APlocation] == -1)
         item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
       switch (event.button)
@@ -1184,16 +1196,32 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.updateOwnedItem(item);
     });
 
+    html.find('.weapon-damage').mousedown(ev => {
+      let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+      let item = duplicate(this.actor.getOwnedItem(itemId).data);
+      if (!item.data.weaponDamage)
+        item.data["weaponDamage"] = 0;
+
+      if (ev.button == 2)
+        item.data.weaponDamage++;
+      else if (ev.button == 0)
+        item.data.weaponDamage--;
+
+      if (item.data.weaponDamage < 0)
+        item.data.weaponDamage = 0;
+      this.actor.updateOwnedItem(item);
+    });
+
     html.find('.memorized-toggle').click(async ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      const spell = this.actor.items.find(i => i.id === itemId);
+      const spell = this.actor.getOwnedItem(itemId).data
       spell.data.memorized.value = !spell.data.memorized.value;
       await this.actor.updateOwnedItem(spell, true);
     });
 
     html.find('.sl-counter').mousedown(async ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      const spell = this.actor.items.find(i => i.id === itemId);
+      const spell = this.actor.getOwnedItem(itemId).data
       switch (event.button)
       {
         case 0:
@@ -1242,7 +1270,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     html.find('.disease-roll').mousedown(async ev =>  {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-      const disease = this.actor.items.find(i => i.id === itemId);
+      const disease = this.actor.getOwnedItem(itemId).data;
       let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
 
       if (ev.button == 0)
@@ -1272,18 +1300,26 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
     });
 
+
+    html.find('.metacurrency-value').mousedown(async ev =>  {
+      let type = $(ev.currentTarget).attr("data-point-type");
+      let newValue = ev.button == 0 ? this.actor.data.data.status[type].value + 1 : this.actor.data.data.status[type].value - 1 
+      this.actor.update({[`data.status.${type}.value`] : newValue})
+    });
+    
     /*****************************************************
     * Randomization options used by NPC and Creature sheets
     ******************************************************/
 
     // Entering a recognized species sets the characteristics to the average values
     html.find('.input.species').focusout(async event => {
-      event.preventDefault();
       if (this.actor.data.type == "character")
         return
       if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
       {
         let species = event.target.value;
+        await this.actor.update({"data.details.species.value" : species});
+
         try
         {
           let initialValues = WFRP_Utility.speciesCharacteristics(species, true);
@@ -1294,17 +1330,16 @@ class ActorSheetWfrp4e extends ActorSheet {
             characteristics[c].initial = initialValues[c];
           }
 
-
           await this.actor.update({'data.characteristics' : characteristics})
-          await this.actor.update({"data.details.species.value" : species});
           await this.actor.update({"data.details.move.value" : WFRP_Utility.speciesMovement(species) || 4})
+
         }
         catch
         {
           // Do nothing if exception trying to find species
         }
       }
-    });
+    }); 
 
     // Randomization buttons that randomize characteristics, skills, and talents, of a recognized species
     html.find('.randomize').click(async event => {
@@ -1317,12 +1352,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           case "C":
             let creatureMethod = false;
+            let characteristics = duplicate (this.actor.data.data.characteristics);
             if (this.actor.data.type == "creature" || !species)
               creatureMethod = true;
 
             if (!creatureMethod)
             {
-              let characteristics = duplicate (this.actor.data.data.characteristics);
               let averageCharacteristics = WFRP_Utility.speciesCharacteristics(species, true);
 
               // If this loop results in turning creatureMethod to true, that means an NPCs statistics have been edited manually, use -10 + 2d10 method
@@ -1431,7 +1466,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 	  event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor.id,
-      data: item.data
+      data: item.data,
+      root : Number(event.currentTarget.getAttribute("root"))
     }));
   }
 
@@ -1510,6 +1546,16 @@ class ActorSheetWfrp4e extends ActorSheet {
       })
       div.on("click", ".symptom-tag", ev => {
         WFRP_Utility.postSymptom(ev.target.text)
+      })
+      div.on("click", ".career-income", ev => {
+        let skill = this.actor.items.find(i => i.data.name === ev.target.text.trim() && i.data.type == "skill").data;
+        let career = this.actor.items.find(i => i.data.id === Number($(ev.target).attr("data-career-id"))).data;
+        if (!skill)
+        {
+          ui.notifications.error("You don't have this skill")
+          return;
+        }
+        this.actor.setupSkill(skill, career.data.status);
       })
     }
     li.toggleClass("expanded");

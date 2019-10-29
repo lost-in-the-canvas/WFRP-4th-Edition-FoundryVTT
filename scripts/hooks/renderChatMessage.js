@@ -4,4 +4,9 @@ Hooks.on("renderChatMessage", async (html, content, msg) => {
     {
       msg.find(".hide-option").remove();
     }
+
+    if (!game.user.isGM)
+    {
+      msg.find(".chat-buttons").remove();
+    }
   });

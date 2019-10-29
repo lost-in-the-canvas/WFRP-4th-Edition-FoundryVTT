@@ -67,6 +67,7 @@ Hooks.once("init", () => {
 
   WFRP_Tables.scatter = {
     die : "1d10",
+    name : "Scatter",
     rows : [
       undefined,
       {
@@ -104,6 +105,7 @@ Hooks.once("init", () => {
 
   WFRP_Tables.winds = {
     die : "1d10",
+    name : "The Swirling Winds",
     rows : [
       undefined,
       {
@@ -311,8 +313,14 @@ Hooks.once("init", () => {
     default: false,
     type: Boolean
   });
-
-
+  game.settings.register("wfrp4e", "criticalsFumblesOnAllTests", {
+    name: "Criticals and Fumbles on all Tests",
+    hint: "Rolling a double on any test results in an Astounding Success/Failure.",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean
+  });
     // Register Extended Tests
     game.settings.register("wfrp4e", "extendedTests", {
       name: "Extended Tests and 0 SL",
@@ -352,7 +360,17 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
-    // Register status on turn start
+      // Register Status on Turn Start
+      game.settings.register("wfrp4e", "displayRoundSummary", {
+      name: "Display Round Summary",
+      hint: "When a round ends, display all combatants with conditions.",
+      scope: "world",
+      config: true,
+      default: true,
+      type: Boolean
+    });
+
+    // Register Defensive auto-fill
     game.settings.register("wfrp4e", "statusOnTurnStart", {
       name: "Show Combatant Status on Turn Start",
       hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",

@@ -44,7 +44,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
     html.find('.career-toggle').click(async ev => {
       let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
       let type = $(ev.currentTarget).attr("toggle-type")
-      let item = this.actor.items.find(i => i.id === itemId );
+      let item = this.actor.getOwnedItem(itemId).data;
       item.data[type].value = !item.data[type].value;
 
 
@@ -71,13 +71,14 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
       this.actor.update({"data.characteristics" : characteristics})
       }
 
-      // Only one career can be current - make all other careers not current
-      // Dislike iterating through every item: TODO - different approach
-      if (type == "current" && item.data.current.value == true)
-        for (let i of this.actor.items)
-          if (i.type == "career" && i != item)
-            await this.actor.updateOwnedItem({"id" : i.id, "data.current.value" : false});
-      this.actor.updateOwnedItem(item);
+        // Only one career can be current - make all other careers not current
+        if (type == "current" && item.data.current.value == true)
+        {
+          let updateCareers = duplicate(this.actor.data.items.filter(c => c.type == "career" && c.id != item.id))
+          updateCareers.map(x => x.data.current.value = false)
+          await this.actor.updateManyOwnedItem(updateCareers)
+        }
+        this.actor.updateOwnedItem(item);
     });
 
     html.find(".untrained-skill").mousedown(async ev => {

@@ -11,7 +11,7 @@ Hooks.on("ready", async () => {
       game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
         try 
         {
-        if (resp.error)
+        if (resp.errorr || !resp.baseDir.includes("tables"))
           throw ""
         for (var file of resp.files)
         {
