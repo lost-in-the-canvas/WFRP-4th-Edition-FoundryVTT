@@ -240,9 +240,6 @@ class DiceWFRP {
 
      let testResults = this.rollTest(testData);
 
-     let weapon = testData.weapon;
-
-     let testResults = this.rollTest(testData);
      testData.function = "rollWeaponTest"
 
      if (testResults.description.includes("Failure"))
@@ -280,7 +277,7 @@ class DiceWFRP {
        // *** Weapon Damage Calculation ***
      
      let damageToUse = testResults.SL;
-     let unitValue = Number(roll.roll.toString().split("").pop())
+     let unitValue = Number(testResults.roll.toString().split("").pop())
      unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
 
 
@@ -313,10 +310,10 @@ class DiceWFRP {
   // Extend rollTest for casting specifics (miscasts, CN, etc)
    static rollCastTest(testData){
     let spell = testData.extra.spell;
-    let miscastCounter = 0;
     let testResults = this.rollTest(testData);
-    let miscastCounter = 0;
     testData.function = "rollCastTest"
+
+    let miscastCounter = 0;
 
     if (game.settings.get("wfrp4e", "partialChannelling"))
     {
@@ -418,10 +415,8 @@ class DiceWFRP {
    static rollChannellTest(testData, actor){
     let spell = testData.extra.spell;
     let miscastCounter = 0;
-     let testResults = this.rollTest(testData);
-
-     let testResults = this.rollTest(testData);
-     testData.function = "rollChannellTest"
+    let testResults = this.rollTest(testData);
+    testData.function = "rollChannellTest"
 
      let SL = testResults.SL;
 

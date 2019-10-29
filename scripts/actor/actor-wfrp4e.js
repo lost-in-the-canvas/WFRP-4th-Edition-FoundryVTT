@@ -843,8 +843,8 @@ class ActorWfrp4e extends Actor {
         malignantInfluence : testData.malignantInfluence,
         channellSkills : channellSkills,
         defaultSelection: defaultSelection,
+        advantage : this.data.data.status.advantage.value || 0,
         talents : this.data.flags.talentTests,
-        advantage : "N/A"
       },
       callback : (html, roll) => {
         cardOptions.rollMode = html.find('[name="rollMode"]').val();
