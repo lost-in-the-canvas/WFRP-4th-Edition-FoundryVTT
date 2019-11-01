@@ -14982,3 +14982,7 @@ font-style : normal;
 #sidebar #tables .directory-list .directory-item .profile{
   content: url(../ui/buttons/d10.png);
 }
+
+#av-config .sheet-tabs .item {
+  color: #CCC
+}
