@@ -1576,7 +1576,6 @@
 /* ==================== (E) SIDEBAR (SCENES) ================== */
   #sidebar #scenes .directory-list .directory-item {
     border: 3px groove #564d3a;
-    padding: 0px 20px;
   }
   #sidebar #scenes .directory-list .directory-item .entity-name a {
     background: #000000d4;
@@ -1604,9 +1603,9 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #actors .directory-list .directory-item a {
-    position: relative;
+  #sidebar #actors .directory-list .directory-item h4 {
     top: 17px;
+    position: relative;
   }
   
 /* ==================== (G) SIDEBAR (ITEMS) =================== */
@@ -1622,9 +1621,9 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #items .directory-list .directory-item a {
-    position: relative;
+  #sidebar #items .directory-list .directory-item h4 {
     top: 17px;
+    position: relative;
   }
 
 /* ==================== (H) SIDEBAR (JOURNAL) ================= */
@@ -1640,11 +1639,10 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #journal .directory-list .directory-item a {
-    position: relative;
-    top: 1px;
+  #sidebar #journal .directory-list .directory-item h4 {
   }
-
+  .sidebar-tab .directory-list .directory-item h4 {
+  }
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
   #sidebar #playlists .directory-list {
     flex: 1;
@@ -14961,4 +14959,26 @@ font-style : normal;
 
 .app.window-app.sheet .roll-table-config  {
   width: 725px;
+}
+
+#sidebar #tables .directory-list .directory-item {
+  padding: 3px 3px;
+  border: 3px groove #564d3a;
+  box-shadow: 0 0 6px #000 inset;
+  line-height: normal;
+  background: #000000b5;
+  font-family: var(--actor-input-font-family);
+  font-size: 16px;
+  font-weight: var(--actor-input-font-weight);
+  color: #dadada;
+  text-shadow: 1px 1px 2px black;
+}
+
+#sidebar #tables .directory-list .directory-item h4{
+  top:17px;
+  position: relative;
+}
+
+#sidebar #tables .directory-list .directory-item .profile{
+  content: url(../ui/buttons/d10.png);
 }
