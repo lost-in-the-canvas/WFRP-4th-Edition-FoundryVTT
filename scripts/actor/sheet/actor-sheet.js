@@ -269,19 +269,6 @@ class ActorSheetWfrp4e extends ActorSheet {
             else {
               inContainers.push(i);
             }
-            if (i.data.equipped)
-            {
-              weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
-              let shieldProperty = i.properties.qualities.find(q => q.toLowerCase().includes("shield"))
-              if (shieldProperty)
-              {
-                 AP.shield += parseInt(shieldProperty.split(" ")[1]);
-              }
-              if (i.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
-              {
-                defensiveCounter++;
-              }
-            }
           }
   
           else if (i.type === "armour")
@@ -466,8 +453,27 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error("Something went wrong with preparing item "+ i.name + ": " + error)
           ui.notifications.error("Deleting "+ i.name);
           this.actor.deleteOwnedItem(i.id, true);
+          }
         }
+
+        // Prepare weapons for combat after items passthrough for efficiency
+        for (let wep of inventory.weapons.items)
+        {
+          if (wep.data.equipped)
+          {
+            weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, wep, basicSkills.concat(advancedOrGroupedSkills)));
+            let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+            if (shieldProperty)
+            {
+               AP.shield += parseInt(shieldProperty.split(" ")[1]);
+            }
+            if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
+            {
+              defensiveCounter++;
+            }
+          }
         }
+
   
         // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
         if (grimoire.length > 0 && ingredients.items.length > 0)

@@ -234,9 +234,10 @@ class DiceWFRP {
 
      // Extend rollTest to account for weapon specifics (criticals, fumbles, etc)
      static rollWeaponTest(testData){
-      let weapon = testData.weapon;
 
       let testResults = this.rollTest(testData);
+      let weapon = testResults.weapon;
+
       testData.function = "rollWeaponTest"
 
        if (testResults.description.includes("Failure"))
