@@ -131,6 +131,7 @@ class DiceWFRP {
             SL = Number(rollString.split('')[0])
           else
             SL = 0;
+          SL += slBonus
         }
         SL += successBonus;
         if (roll.total <= 5 && SL < 1)
