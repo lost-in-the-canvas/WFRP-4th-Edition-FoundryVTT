@@ -126,6 +126,14 @@
       "entity": "Item",
       "module": "wfrp4e",
       "system": "wfrp4e"
+    },
+    {
+      "name": "tables",
+      "label": "Tables",
+      "path": "./packs/tables.db",
+      "entity": "RollTable",
+      "module": "wfrp4e",
+      "system": "wfrp4e"
     }
   ],
   "languages": ["en"],
