@@ -18,7 +18,7 @@
         <a class="name weapon-item-name">{{item.name}}</a>
       </div>
       <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
-      <div class="damage weapon-damage">+{{item.data.damage.meleeValue}}</div>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.meleeValue}}</a>
       <a class="reach weapon-reach">{{item.data.reach.value}}</a>
     </div>
     <div class="content">
@@ -86,7 +86,7 @@
         None
       </div>
       {{/if}}
-      <div class="damage weapon-damage">+{{item.data.damage.rangedValue}}</div>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.rangedValue}}</a>
       <a class="range weapon-range">{{item.data.range.value}} yds</a>
     </div>
     <div class="content">
@@ -469,9 +469,10 @@
 
       {{#if ../owner}}
       <div class="item-controls">
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
+        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
+        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
       </div>
       {{/if}}
     <div class="content">

@@ -94,12 +94,10 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    line-height: normal;
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
     height: inherit !important;
-    width: 100% !important;
   }
   .app.window-app .editor .editor-content h1 {
     margin: 0 0 0.5rem;
@@ -162,6 +160,7 @@
   .app.window-app .editor .editor-content p {
     margin: 0.5em 0;
     padding: 0px;
+    font-size: 14px;
     font-family: var( --actor-input-font-family);
     color: var(--actor-input-color);
     background: none;
@@ -193,17 +192,9 @@
     border-top: 1px solid #666;
     border-bottom: 1px solid #666;
   }
-  .app.window-app .editor .editor-content td {
-    font-family: var( --actor-input-font-family);
-    color: var(--actor-input-color);
-  }
-  .app.window-app .editor .editor-content img {
-    min-height: unset !important;
-    max-height: none !important;
-    min-width: unset !important;
-    max-width: none !important;
-    margin: auto !important;
-    padding: 0px !important;
+
+  .app.sheet .editor-content {
+    padding:5px;
   }
 
 /* ==================== (D) APPLICATION BODY ================== */
@@ -755,7 +746,6 @@
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.05);
     }
-
 /******************************************************************/
 /******************************************************************/
 
@@ -1114,6 +1104,20 @@
     visibility: visible;
     background: url(../ui/sidebar-button-journal-active.png)
   }
+  #sidebar-tabs > .item.active .fas.fa-th-list {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    height: 30px;
+    width: 30px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+    text-shadow: 0 0 10px #ff000000;
+    visibility: visible;
+    background: url(../ui/sidebar-button-tables-active.png);
+  }
   #sidebar-tabs > .item.active .fas.fa-music {
     position: relative;
     top: 0px;
@@ -1142,7 +1146,7 @@
     visibility: visible;
     background: url(../ui/sidebar-button-compendium-active.png);
   }
-  #sidebar-tabs > .item.active .fas.fa-question {
+  #sidebar-tabs > .item.active .fas.fa-cogs {
     position: relative;
     top: 0px;
     left: 0px;
@@ -1174,6 +1178,9 @@
   }
   #sidebar-tabs > [title~="Journal"] {
     background: url(../ui/sidebar-button-journal.png);
+  }
+  #sidebar-tabs > [title~="SIDEBAR.TabTables"] {
+    background: url(../ui/sidebar-button-tables.png);
   }
   #sidebar-tabs > [title~="Playlists"] {
     background: url(../ui/sidebar-button-playlists.png);
@@ -1329,6 +1336,7 @@
       bottom: 0px;
       right: 0px;
       display: flex;
+      margin: 0px;
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 1px solid black;
       border-image: url(../ui/chat-form-border.png) 10 repeat;
@@ -1569,20 +1577,6 @@
 /* ==================== (E) SIDEBAR (SCENES) ================== */
   #sidebar #scenes .directory-list .directory-item {
     border: 3px groove #564d3a;
-    padding: 0px 20px;
-  }
-  #sidebar #scenes .directory-list .directory-item .entity-name {
-    line-height: 90px;
-    font-size: 1.5em;
-    font-weight: normal;
-    text-shadow: 0 0 40px #000;
-    display: flex;
-    flex-direction: row;
-    margin: 0px;
-    padding: 25px 0px 0px 0px;
-    max-height: 94px;
-    justify-content: center;
-    text-align: center;
   }
   #sidebar #scenes .directory-list .directory-item .entity-name a {
     background: #000000d4;
@@ -1593,11 +1587,8 @@
     font-family: var(--actor-input-font-family);
     font-size: 18px;
     font-weight: var(--actor-input-font-weight);
-    max-height: 44px;
-    max-width: 329px;
-    line-height: normal;
-    text-overflow: clip;
-    overflow: hidden;
+    position: relative;
+    top: -2px;
   }
 
 /* ==================== (F) SIDEBAR (ACTORS) ================== */
@@ -1613,9 +1604,9 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #actors .directory-list .directory-item a {
-    position: relative;
+  #sidebar #actors .directory-list .directory-item h4 {
     top: 17px;
+    position: relative;
   }
   
 /* ==================== (G) SIDEBAR (ITEMS) =================== */
@@ -1631,9 +1622,9 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #items .directory-list .directory-item a {
-    position: relative;
+  #sidebar #items .directory-list .directory-item h4 {
     top: 17px;
+    position: relative;
   }
 
 /* ==================== (H) SIDEBAR (JOURNAL) ================= */
@@ -1649,11 +1640,10 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #journal .directory-list .directory-item a {
-    position: relative;
-    top: 1px;
+  #sidebar #journal .directory-list .directory-item h4 {
   }
-
+  .sidebar-tab .directory-list .directory-item h4 {
+  }
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
   #sidebar #playlists .directory-list {
     flex: 1;
@@ -1924,31 +1914,20 @@
   overflow: hidden;
   /* background: var(--debug-background-color-blue); */
 }
-.app.window-app.sheet.item-sheet .configure-sheet {
+
+.app.window-app.sheet.item-sheet .post {
   color: #00e5ff00;
   text-align: center;
-  background: url(../ui/buttons/button-configure-sheet.png);
+  background: url(../ui/buttons/button-post.png);
   height: 30px;
   width: 30px;
   position: absolute;
   top: 19px;
-  right: 56px;
+  right: 90px;
   margin: 0px;
   padding: 0px;
   overflow: hidden;
-}
-.app.window-app.sheet.item-sheet .import {
-  color: #00e5ff00;
-  text-align: center;
-  background: url(../ui/buttons/button-import.png);
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 19px;
-  right: 474px;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
+  /* background: var(--debug-background-color-blue); */
 }
 
 /* ==================== (A) EQUIPMENT ========================= */
@@ -2141,7 +2120,7 @@
     padding: 0px;
     padding-left: 0px;
     height: 25px;
-    width: calc(100% - 54px);
+    width: 85%;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -2249,9 +2228,12 @@
       font-family: CaslonAntique;
       font-size: 16px;
       font-weight: 700;
-      margin: -52px 0px 0px 0px;
+      margin: -50px 0px 0px 0px;
       height: 26px;
       position: relative;
+    }
+    .app.window-app.sheet.trait-sheet .sheet-tabs {
+      margin: -25px 0px 0px 0px;
     }
       .app.window-app.sheet.item-sheet .sheet-tabs.tabs > a {
         border-image-outset: 0px;
@@ -4436,16 +4418,15 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
-
 /* ==================== (G) SKILLS TAB ======================== */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active {
     display: flex;
@@ -4910,13 +4891,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.talent-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -5030,13 +5011,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -5053,6 +5034,7 @@
   }
 
   /* ================== 1. WEAPONS ============================ */
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header,
     .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header {
       width: 100%;
       height: 20px;
@@ -5071,6 +5053,11 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header {
+      margin-top:5px;
+    }
+
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #name,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #name {
         position: relative;
         left: 0px;
@@ -5078,6 +5065,7 @@
         width: fit-content;
         display: inline-block;
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .fist-icon
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
         opacity: 0.8;
         position: relative;
@@ -5095,6 +5083,7 @@
         border-top: none;
         box-shadow: 0px 0px 10px #6b3a0f87 inset;
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
           content: "\f6de";
           position: relative;
@@ -5102,6 +5091,7 @@
           left: 3px;
           opacity: 0.8;
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #group {
         position: relative;
         left: 119px;
@@ -5110,6 +5100,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
         position: relative;
         left: 181px;
@@ -5118,6 +5109,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #reach,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #reach {
         position: relative;
         left: 233px;
@@ -5126,8 +5118,8 @@
         display: inline-block;
         /* background: bisque; */
       }
-
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list {
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
       overflow-y: hidden;
@@ -5144,6 +5136,7 @@
       margin: -5px 0px 0px 0px;
       padding: 0px;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item,
     .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item {
       width: 100%;
       text-align: left;
@@ -5161,6 +5154,7 @@
       justify-content: space-between;
       /* background: var(--debug-background-color-green); */
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content {
         width: 100%;
         text-align: center;
@@ -5177,12 +5171,14 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .item-name,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .item-name {
           display: flex;
           flex-direction: row;
           min-width: 180px;
           max-width: 180px;
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .image,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .image {
             background-size: 32px;
             background-repeat: no-repeat;
@@ -5191,6 +5187,7 @@
             min-width: 32px;
             max-width: 32px;
           }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .name,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .name {
             text-align: left;
             vertical-align: middle;
@@ -5199,6 +5196,7 @@
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
           }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .group,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
           min-width: 90px;
           max-width: 90px;
@@ -5209,6 +5207,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .damage,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .damage {
           min-width: 50px;
           max-width: 50px;
@@ -5219,6 +5218,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .reach,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .reach {
           min-width: 70px;
           max-width: 70px;
@@ -5229,6 +5229,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content.properties,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content.properties {
         width: 100%;
         text-align: center;
@@ -5245,6 +5246,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property {
         margin: 0px 0px 0px 0px;
         padding: 0px;
@@ -5252,6 +5254,7 @@
         flex-direction: row;
         flex-wrap: wrap;
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw ,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text.melee-property-quality.melee-property-flaw {
           font-size: 13px;
           color: #464331f0;
@@ -5262,6 +5265,7 @@
           background: #774e000f;
           box-shadow: 0 0 3px #6b3a0f2b inset;        
         }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .label ,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
           font-size: 13px;
           color: #464331f0;
@@ -5272,11 +5276,13 @@
           background: #774e000f;
           box-shadow: 0 0 3px #6b3a0f2b inset;
         }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .label.quality ,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.quality,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label.flaw {
             min-width: 20px;
             max-width: 20px;
           }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .text ,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .text {
           font-family: var(--actor-input-font-family);
           font-size: var(--actor-input-font-size);
@@ -5287,11 +5293,13 @@
           min-width: fit-content;
           max-width: fit-content;
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .comma ,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .comma {
           border: none;
           margin: 0px 4px 0px 0px;
           background: none;
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property h1:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h1:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h2:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h3:last-of-type, 
@@ -5300,7 +5308,8 @@
           margin: 0px 2px 0px 0px;
         }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header {
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -5318,6 +5327,7 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #name,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #name {
         position: relative;
         left: 0px;
@@ -5325,6 +5335,7 @@
         width: fit-content;
         display: inline-block;
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #group,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #group {
         position: relative;
         left: 112px;
@@ -5333,6 +5344,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #ammo,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #ammo {
         position: relative;
         left: 167px;
@@ -5341,6 +5353,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #damage {
         position: relative;
         left: 186px;
@@ -5349,6 +5362,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #range,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #range {
         position: relative;
         left: 194px;
@@ -5357,8 +5371,8 @@
         display: inline-block;
         /* background: bisque; */
       }
-
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list {
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
       overflow-y: hidden;
@@ -5375,6 +5389,7 @@
       margin: -5px 0px 0px 0px;
       padding: 0px;
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item,
     .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item {
       width: 100%;
       text-align: left;
@@ -5392,6 +5407,7 @@
       justify-content: space-between;
       /* background: var(--debug-background-color-green); */
     }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content {
         width: 100%;
         text-align: center;
@@ -5408,12 +5424,14 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
+    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .item-name,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .item-name {
           display: flex;
           flex-direction: row;
           min-width: 180px;
           max-width: 180px;
         }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .image,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .image {
             background-size: 32px;
             background-repeat: no-repeat;
@@ -5422,6 +5440,7 @@
             min-width: 32px;
             max-width: 32px;
           }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .name,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
             text-align: left;
             vertical-align: middle;
@@ -5430,6 +5449,7 @@
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
           }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .group,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
           min-width: 90px;
           max-width: 90px;
@@ -5440,6 +5460,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .ammo-selector,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector {
           min-width: 110px;
           max-width: 110px;
@@ -5450,6 +5471,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .ammo-selector > select,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .ammo-selector > select {
             background: none;
             border: 1px solid #737373;
@@ -5464,6 +5486,7 @@
             width: 100%;
             text-overflow: ellipsis;
           }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .no-ammo,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
           min-width: 90px;
           max-width: 90px;
@@ -5474,6 +5497,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .damage,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .damage {
           min-width: 30px;
           max-width: 30px;
@@ -5484,6 +5508,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .range,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .range {
           min-width: 50px;
           max-width: 50px;
@@ -5494,6 +5519,7 @@
           flex-basis: 0;
           /* background: aqua; */
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content.properties,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content.properties {
         width: 100%;
         text-align: center;
@@ -5510,6 +5536,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property {
         margin: 0px 0px 0px 0px;
         padding: 0px;
@@ -5517,6 +5544,7 @@
         flex-direction: row;
         flex-wrap: wrap;
       }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text.ranged-property-quality.ranged-property-flaw {
           font-size: 13px;
           color: #464331f0;
@@ -5527,6 +5555,7 @@
           background: #774e000f;
           box-shadow: 0 0 3px #6b3a0f2b inset;        
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .label,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
           font-size: 13px;
           color: #464331f0;
@@ -5537,11 +5566,14 @@
           background: #774e000f;
           box-shadow: 0 0 3px #6b3a0f2b inset;
         }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.quality,
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label.flaw {
             min-width: 20px;
             max-width: 20px;
           }
+          .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .text,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .text {
           font-family: var(--actor-input-font-family);
           font-size: var(--actor-input-font-size);
@@ -5552,6 +5584,7 @@
           min-width: fit-content;
           max-width: fit-content;
         }
+        .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .comma,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .comma {
           border: none;
           margin: 0px 4px 0px 0px;
@@ -5572,7 +5605,6 @@
       padding: 0px;
       width: 100%;
       height: fit-content;
-      background: url(../ui/armour-diagram.png) no-repeat;
       background-position-x: 176px;
       background-position-y: center;
       background-size: contain;
@@ -5932,13 +5964,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6066,13 +6098,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6256,13 +6288,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6483,13 +6515,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.blessing-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6605,13 +6637,13 @@
           text-shadow: 1px 0px 1px #6e6e716e;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.miracle-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -6976,13 +7008,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7245,13 +7277,13 @@
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -7422,13 +7454,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
-          padding: 11px 4px 0px 0px;
+          padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: right;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }
 
@@ -8821,13 +8853,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -8959,13 +8991,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
        
@@ -9105,13 +9137,13 @@
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.disease-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
     
@@ -10263,13 +10295,13 @@
           /* background: aqua; */
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list .item .content .item-controls {
-          padding: 11px 0px 0px 0px;
+          padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
           color: #504f48a6;
           text-align: center;
-          min-width: 40px;
-          max-width: 40px;
+          min-width: 30px;
+          max-width: 30px;
           flex-grow: 0;
         }        
 
@@ -10470,13 +10502,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -10658,13 +10690,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -11653,7 +11685,6 @@
       padding: 0px;
       width: 506px;
       height: fit-content;
-      background: url(../ui/armour-diagram.png) no-repeat;
       background-position-x: 176px;
       background-position-y: center;
       background-size: contain;
@@ -11894,13 +11925,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -12082,13 +12113,13 @@
         padding: 10px 0px 0px 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
 
@@ -12256,13 +12287,13 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 11px 4px 0px 0px;
+        padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
         text-align: right;
-        min-width: 40px;
-        max-width: 40px;
+        min-width: 30px;
+        max-width: 30px;
         flex-grow: 0;
       }
             
@@ -12723,8 +12754,8 @@ border-image-outset: 0px !important;
     #controls-reference .window-content div * {
       overflow-y: hidden;
       color: #CCC;
-}
     }
+
     #controls-reference h3 {
       width: 100%;
       margin: 0px;
@@ -13218,27 +13249,11 @@ border-image-outset: 0px !important;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      text-align: center;
-
-      margin: 4px 0;
-      padding: 4px 4px;
-
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app h3 {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      text-align: center;
-
-      margin: 4px 0;
-      padding: 4px 4px;
-
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app h3 i {
       display: none;
@@ -13247,11 +13262,6 @@ border-image-outset: 0px !important;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      margin: 4px 0;
-      padding: 4px 4px;
-      border: 1px solid #5d513e;
-      background: #080808;
     }
     .app.window-app .form-group, 
     .app.window-app .form-group-stacked {
@@ -13283,6 +13293,7 @@ border-image-outset: 0px !important;
         border-left: none;
         box-shadow: 0px 0px 10px inset black;
         background: #352516;
+        height: auto;
       }
       .app.window-app .form-group select {
         padding: 1px 3px;
@@ -13374,8 +13385,17 @@ border-image-outset: 0px !important;
       overflow-x: hidden;
       padding-right: 7px;
     }
-    .app.window-app.sheet.scene-sheet .window-content form .notes{
-      color: #BBB
+    .app.window-app.sheet.scene-sheet .window-content form .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     .app.window-app.sheet.scene-sheet .window-content form hr {
       opacity: 0.8;
@@ -13387,12 +13407,13 @@ border-image-outset: 0px !important;
       margin: 3px 0px;
       padding: 4px 3px 1px 3px;
       font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
+      font-size: 16px;
       font-weight: var(--actor-input-font-weight);
       color: #d6d6d6;
       line-height: normal;
       border: 3px double #564d3a;
       background: #290a0ad9;
+      text-align: center;
     }
     .app.window-app.sheet.scene-sheet .form-group label {
       max-width: 250px;
@@ -13424,7 +13445,7 @@ border-image-outset: 0px !important;
     /* Token Vision */
     .app.window-app.sheet.scene-sheet .form-group input[type="checkbox"] { 
       position: relative;
-      top: 4px;
+      top: 7px;
       margin-left: 6px;
       transform: scale(1);
     }
@@ -13453,7 +13474,23 @@ border-image-outset: 0px !important;
       padding: 4px;
     }
   
-  /* ================== 5. DELETE ITEM FROM ACTOR ============= */
+
+  /* ================== 5. CREATE ACTOR ENTITY ================ */
+    .app.window-app.dialog .dialog-content #entity-create .form-group .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+
+  /* ================== 6. DELETE ITEM FROM ACTOR ============= */
     .app.window-app .dialog-content .delete-item-dialog.selection {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
@@ -13466,7 +13503,7 @@ border-image-outset: 0px !important;
       text-align: center;
     }
 
-  /* ================== 5. SHEET CONFIG ======================= */
+  /* ================== 7. SHEET CONFIG ======================= */
     #sheet-config .form-group:first-of-type label {
       max-height: 28px;
       white-space: nowrap;
@@ -13474,7 +13511,7 @@ border-image-outset: 0px !important;
       overflow-wrap: unset;
     }
 
-  /* ================== 6. SHOW ARTWORK ======================= */
+  /* ================== 8. SHOW ARTWORK ======================= */
     .app.window-app.image-popout .window-header .share-image {
       color: #00e5ff00;
       text-align: center;
@@ -13508,14 +13545,14 @@ border-image-outset: 0px !important;
       border-image-outset: 0px 0px 0px 0px;
     }
 
-  /* ================== 7. TOKEN CONFIG ======================= */
+  /* ================== 9. TOKEN CONFIG ======================= */
     #token-config {
       max-height: 335px;
       min-height: 335px;
     }
     #token-config .window-content {
-      max-height: 290px;
-      min-height: 290px;
+      min-height: 370px;
+      max-height: 370px;
     }
     #token-config .sheet-tabs {
       flex: 0 0 32px;
@@ -13552,10 +13589,10 @@ border-image-outset: 0px !important;
       color: #7d7d7d;
     }
     #token-config .sheet-footer {
-      width: 446px;
-      height: 32px;
-      position: absolute;
-      bottom: 19px;
+        width: 446px;
+        height: 32px;
+        position: absolute;
+        bottom: -57px;
     }
 
     #token-config .tab[data-tab="character"] .notes {
@@ -13697,7 +13734,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 7. DRAWING CONFIG ======================= */
+  /* ================== 10. DRAWING CONFIG ==================== */
     #drawing-config {
       min-height: 335px;
       overflow-y: auto;
@@ -13885,7 +13922,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 8. JOUNRAL ENTRIES ==================== */
+  /* ================== 11. JOUNRAL ENTRIES =================== */
     .window-app.app.journal-sheet {
       min-width: 470px;
       min-height: 362px;
@@ -14118,7 +14155,7 @@ border-image-outset: 0px !important;
       color: var(--major-button-color);
     }
 
-  /* ================== 9. COMPENDIUM ========================= */
+  /* ================== 12. COMPENDIUM ======================== */
     .window-app.app .sidebar-tab.compendium {
       padding: 0px 0px 7px 0px;
     }
@@ -14164,7 +14201,7 @@ border-image-outset: 0px !important;
       overflow-y: auto;
     }
 
-  /* ================== 10. FILE PICKER ======================= */
+  /* ================== 13. FILE PICKER ======================= */
     .app.window-app.filepicker .form-group .back {
       border: 1px solid black;
       border-image: url(../ui/footer-button.png) 10 repeat;
@@ -14200,427 +14237,6 @@ border-image-outset: 0px !important;
     .app.window-app.filepicker .form-group label i {
       display: none;
     }
-
-/* ==================== (B) SIDEBAR POP-OUT WINDOWS =========== */
-  .app.window-app.sidebar-popout .directory-footer {
-    margin: 7px 0px 0px 0px;
-    border-top: none;
-    min-height: 44px;
-    max-height: 44px;
-  }
-    .app.window-app.sidebar-popout .directory-footer button {
-      margin: 0 2%;
-      padding: 2px 0px 0px 0px;
-      height: 34px;
-      border: 1px solid black;
-      border-image: url(../ui/footer-button.png) 10 repeat;
-      border-image-width: 4px;
-      border-image-outset: 0px;
-      box-shadow: 4px 4px 1px #00000085;
-      background: url(../ui/sidebar_button-background_red.png) repeat;
-      background-origin: padding-box;
-      color: #dadada;
-      font-family: CaslonAntique;
-      font-size: 20px;
-      font-weight: 500;
-      text-shadow: 0px 0px 1px #00000063;
-    }
-    .app.window-app.sidebar-popout .directory-footer i {
-      display: none;
-    }
-
-  /* ================== 1. COMBAT SIDEBAR (POP-OUT) =========== */
-    #combat-popout {
-      min-width: 410px;
-      max-width: 390px;
-      min-height: fit-content;
-      max-height: 85vh;
-    }
-    #combat-popout .sidebar-tab.flexcol {
-      margin: 5px 0px 0px 0px;
-      padding: 0px;
-    }
-
-    #combat-popout #combat-round {
-      flex: 0 0 64px;
-      min-height: 73px;
-      max-height: 73px;
-      line-height: 32px;
-      text-align: center;
-      border-bottom: 2px groove #444;
-      font-family: CaslonAntique;
-      font-size: 20px;
-      font-weight: 500;
-      text-shadow: 0px 0px 1px #00000063;
-    }
-      #combat-popout #combat-round .encounters h4 {
-        flex: 1;
-        margin: 0;
-        padding: 0px;
-        position: relative;
-        top: 2px;
-        color: #AAA;
-        text-align: center;
-        text-shadow: 1px 1px 4px #000000;
-        font-family: var(--actor-input-font-family);
-        font-size: 17px;
-        font-weight: var(--actor-input-font-weight);
-        border: none;
-        background: none;
-      }
-      #combat-popout #combat-round .encounters h3 {
-        flex: 1;
-        margin: 0px 30px;
-        padding: 0px;
-        height: 34px;
-        font-size: 23px;
-        text-align: center;
-        line-height: normal;
-        color: #d6d6d6;
-        font-family: CaslonAntique;
-        border: 3px double #5d513e;
-        background: #080808;
-        box-shadow: 0px 0px 10px inset black;
-        border-radius: 0px;
-        opacity: 1;
-        text-shadow: 1px 1px 5px #000000;
-      }
-      #combat-popout #combat-round a[title="Activate Previous Encounter"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 0px;
-        background: url(../ui/buttons/combat-button-previous-encounter.png);
-      }
-      #combat-popout #combat-round a[title="Activate Next Encounter"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 0px;
-        background: url(../ui/buttons/combat-button-next-encounter.png);
-      }
-      #combat-popout #combat-round a[title="Reset Initiative"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 0px;
-        background: url(../ui/buttons/combat-button-reset-initiative.png);
-      }
-      #combat-popout #combat-round a[title="Tracker Settings"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 0px;
-        background: url(../ui/buttons/combat-button-tracker-settings.png);
-      }
-      #combat-popout #combat-round a[title="Create Encounter"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 2px;
-        background: url(../ui/buttons/combat-button-create-encounter.png);
-      }
-      #combat-popout #combat-round a[title="Roll NPCs"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 2px;
-        background: url(../ui/buttons/combat-button-roll-npcs.png);
-      }
-      #combat-popout #combat-round a[title="Roll All"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 2px;
-        background: url(../ui/buttons/combat-button-roll-all.png);
-      }
-      #combat-popout #combat-round a[title="Delete Encounter"] {
-        padding: 0px;
-        margin: 0px;
-        width: 30px;
-        height: 30px;
-        color: #00ffff00;
-        text-shadow: none;
-        position: relative;
-        top: 2px;
-        background: url(../ui/buttons/combat-button-delete-encounter.png);
-      }
-      
-    #combat-popout #combat-tracker {
-      height: calc(100% - 73px - 50px);
-      padding: 1px 0;
-      margin: 5px 0px 0px 0px;
-      color: #feffefd6;
-    }
-    #combat-popout .directory-list .directory-item {
-      padding: 1px 3px;
-      border: 3px groove #564d3a;
-      box-shadow: 0 0 6px #000 inset;
-      line-height: 48px;
-      background: #000000b5;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #dadada;
-    }
-    #combat-popout .directory-list .directory-item:hover {
-      background: #000000b5;
-    }
-      #combat-popout .directory-list .directory-item .token-name.flexcol h4 {
-        background: none;
-        border: none;
-        line-height: normal;
-        margin: 4px 0;
-        padding: 4px 0px;
-        text-align: left;
-      }
-      #combat-popout li.combatant .roll {
-        display: block;
-        width: 40px;
-        height: 48px;
-        background: url(../ui/buttons/d10.png) no-repeat 50% 50%;
-        background-size: 32px;
-        margin: 0 0.5em;
-        opacity: 1.0;
-      }
-        #combat-popout li.combatant .roll:hover {
-          background-image: url(../ui/buttons/d10-highlight.png);
-        }
-      #combat-popout li.combatant .token-initiative {
-        flex: 0 0 48px;
-        min-width: 48px;
-        text-align: center;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: #feffefd6;
-      }
-        #combat-popout li.combatant.active .initiative {
-          font-weight: normal;
-        }
-  
-    #combat-popout #combat-controls {
-      margin: 7px 0px 0px 0px;
-      border-top: none;
-      min-height: 44px;
-      max-height: 44px;
-    }
-    #combat-popout #combat-controls a {
-      margin: 0 2%;
-      padding: 2px 0px 0px 0px;
-      height: 34px;
-      border: 1px solid black;
-      border-image: url(../ui/footer-button.png) 10 repeat;
-      border-image-width: 4px;
-      border-image-outset: 0px;
-      box-shadow: 4px 4px 1px #00000085;
-      background: url(../ui/sidebar_button-background_red.png) repeat;
-      background-origin: padding-box;
-      color: #dadada;
-      font-family: CaslonAntique;
-      font-size: 20px;
-      font-weight: 500;
-      text-shadow: 0px 0px 1px #00000063;
-    }
-    #combat-popout #combat-controls a:hover {
-      box-shadow: 0 0 5px #ff9f00 !important;
-    }
-    #combat-popout #combat-controls .combat-control i {
-      display: contents;
-      color: #d0d0d0;
-    }
-      #combat-popout #combat-controls a[title="End Combat"] {
-        padding: 0px 0px 0px 0px;
-      }
-      #combat-popout #combat-controls a[title="Begin Combat"] {
-        padding: 0px 0px 0px 0px;
-      }
-
-  /* ================== 2. SCENES SIDEBAR (POP-OUT) =========== */
-    #scenes-popout {
-      min-width: 410px;
-      max-width: 390px;
-      min-height: fit-content;
-      max-height: 85vh;
-    }
-    #scenes-popout .sidebar-tab.flexcolumn {
-      margin: 5px 0px 0px 0px;
-      padding: 0px;
-    }
-
-    #scenes-popout .directory-list {
-      height: calc(100% - 73px - 50px);
-      padding: 1px 0;
-      margin: 5px 0px 0px 0px;
-      color: #feffefd6;
-    }
-    #scenes-popout .directory-list .directory-item {
-      border: 3px groove #564d3a;
-      padding: 0px 20px;
-    }
-    #scenes-popout .directory-list .directory-item .entity-name {
-      background: none;
-      border: none;
-    }
-    #scenes-popout .directory-list .directory-item .entity-name a {
-      background: #000000d4;
-      border-radius: 2px;
-      border: 3px double #564d3a;
-      padding: 10px;
-      box-shadow: 0 0 5px #000000 inset;
-      font-family: var(--actor-input-font-family);
-      font-size: 18px;
-      font-weight: var(--actor-input-font-weight);
-      position: relative;
-      top: -2px;
-    }
-
-  /* ================== 3. ACTORS SIDEBAR (POP-OUT) =========== */
-    #actors-popout {
-      min-width: 410px;
-      max-width: 390px;
-      min-height: fit-content;
-      max-height: 85vh;
-    }
-    #actors-popout .sidebar-tab.flexcolumn {
-      margin: 5px 0px 0px 0px;
-      padding: 0px;
-    }
-
-    #actors-popout .directory-list {
-      height: calc(100% - 73px - 50px);
-      padding: 1px 0;
-      margin: 5px 0px 0px 0px;
-      color: #feffefd6;
-    }
-      #actors-popout .directory-list .folder .folder-header {
-        padding: 9px 3px 4px 3px;
-        border: 3px groove #564d3a;
-        box-shadow: 0 0 6px #000 inset;
-        line-height: normal;
-        background: #290a0ad9;
-        font-family: var(--actor-input-font-family);
-        font-size: 16px;
-        font-weight: var(--actor-input-font-weight);
-        color: #dadada;
-        text-shadow: 1px 1px 2px black;
-      }
-      #actors-popout .directory-list .folder .folder-header h3 {
-        border: none;
-        background: none;
-        font-size: 1.125em;
-        text-align: left;
-        padding: 0px;
-        margin: 0px;
-      }
-      #actors-popout .directory-list .folder .folder-header h3 i {
-        display: inline-block;
-      }
-
-      #actors-popout .directory-list .directory-item {
-        padding: 1px 3px;
-        border: 3px groove #564d3a;
-        box-shadow: 0 0 6px #000 inset;
-        line-height: normal;
-        background: #000000b5;
-        font-family: var(--actor-input-font-family);
-        font-size: 16px;
-        font-weight: var(--actor-input-font-weight);
-        color: #dadada;
-        text-shadow: 1px 1px 2px black;
-      }
-      #actors-popout .directory-list .directory-item img {
-        flex: 0 0 48px;
-        height: 48px;
-        width: 48px;
-        object-fit: cover;
-        object-position: 50% 0;
-        margin-right: 8px;
-        border: none;
-      }
-      #actors-popout .directory-list .directory-item .entity-name {
-        background: none;
-        border: none;
-        padding: 0px;
-        margin: 0px;
-      }
-      #actors-popout .directory-list .directory-item .entity-name a {
-        background: none;
-        border: none;
-        box-shadow: 0 0 5px #000000 inset;
-        font-family: var(--actor-input-font-family);
-        font-size: 16px;
-        font-weight: var(--actor-input-font-weight);
-        color: #dadada;
-        text-shadow: 1px 1px 2px black;
-        line-height: normal;
-        position: relative;
-        top: 17px;
-      }
-
-  /* ================== 3. ITEMS SIDEBAR (POP-OUT) ============ */
-    #items-popout {
-      min-width: 410px;
-      max-width: 390px;
-      min-height: fit-content;
-      max-height: 85vh;
-    }
-    #items-popout .sidebar-tab.flexcolumn {
-      margin: 5px 0px 0px 0px;
-      padding: 0px;
-    }
-
-    #items-popout .directory-list {
-      height: calc(100% - 73px - 50px);
-      padding: 1px 0;
-      margin: 5px 0px 0px 0px;
-      color: #feffefd6;
-    }
-
-/* ==================== (C) TABLE MODIFIER ==================== */
-  .app.window-app.dialog .form-group.table-modifier input {
-    text-align: center;
-  }
-
-  .app.window-app.dialog .form-group.table-modifier .minimum-label {
-    min-width: 100%;
-    min-height: 29px;
-    padding-top: 6px;
-  }
-  .app.window-app.dialog .form-group.table-modifier .input-check {
-    transform: scale(1);
-    position: absolute;
-    top: 94px;
-    left: 240px;
-  }
 
 /******************************************************************/
 /******************************************************************/
@@ -15232,3 +14848,169 @@ font-style : normal;
         #client-settings .window-content .sheet-footer{
           max-height: 30px;
         }
+
+        #player-config .directory-item .actor-name {
+          color: #CCC;
+        }
+
+        #player-config .directory-item {
+          border:none;
+        }
+
+        #player-config .form-group-stacked label {
+          color: #ccc;
+        }
+
+        .item .content .item-controls {
+          margin-left: 10px;
+        }
+
+        .post-item img {
+          max-width: 100px;
+          max-height: 100px;
+          border:none;
+        }
+
+        #player-config {
+          height: 210px;
+        }
+        
+        #player-config button[type="submit"] {
+          height: 35px
+        }
+        
+        #player-config button[type="submit"] i {
+          display: inline-block
+        }
+
+        #player-config button[type="reset"] {
+          display:none;
+        }
+
+
+
+  /* ==================== MODULE COMPATIBILITY ======================== */
+
+.dice-calculator__input-wrapper > textarea {
+    background: none;
+    border: 1px solid #CCC;
+    color: white;
+}
+.dice-calculator__input > label {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+}
+
+.dice-calculator > button, .dice-calculator .dice-calculator--button {
+    font-family: var(--actor-input-font-family);
+    color: white;
+}
+
+.metacurrency-value {
+  left: 8px;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
+}  
+
+.chat-buttons {
+  position: relative;
+  left: 280px;
+  width: 40px;
+  height: 0px;
+}
+
+.card-edit {
+  background: none;
+  box-shadow: none;
+  width: 25px;
+  text-align: center;
+}
+
+.chat-buttons {
+  opacity:0.6
+}
+
+.table-result,
+.roll-table-config input{
+  color: #CCC;
+  font-family: var(--actor-input-font-family);
+  font-weight: var(--actor-input-font-weight);
+}
+
+.message-content .entity-link {
+  color: black;
+}
+
+ .result-range > input,
+ .result-weight > input,
+ .result-details > input
+ {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+}
+
+.result-type > select,
+.result-details > select {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+}
+
+.roll-table-config ol.table-results .table-result.roulette {
+  background: rgba(95, 2, 2, 0.63);
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin: -1px 0;
+}
+
+.result-text {
+  color:black;
+}
+
+.app.window-app.sheet .roll-table-config  {
+  width: 725px;
+}
+
+#sidebar #tables .directory-list .directory-item {
+  padding: 3px 3px;
+  border: 3px groove #564d3a;
+  box-shadow: 0 0 6px #000 inset;
+  line-height: normal;
+  background: #000000b5;
+  font-family: var(--actor-input-font-family);
+  font-size: 16px;
+  font-weight: var(--actor-input-font-weight);
+  color: #dadada;
+  text-shadow: 1px 1px 2px black;
+}
+
+#sidebar #tables .directory-list .directory-item h4{
+  top:17px;
+  position: relative;
+}
+
+#sidebar #tables .directory-list .directory-item .profile{
+  content: url(../ui/buttons/d10.png);
+}
+
+#av-config .sheet-tabs .item {
+  color: #CCC
+}
