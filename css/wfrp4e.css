@@ -13117,6 +13117,16 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 10px inset black;
       background: url(../ui/frames/parchment-texture.png);
     }
+    .window-app.dialog.characteristic-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option,
+    .window-app.dialog.skill-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option,
+    .window-app.dialog.weapon-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option,
+    .window-app.dialog.spell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option,
+    .window-app.dialog.channell-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option,
+    .window-app.dialog.prayer-roll-dialog .window-content .dialog-content .dialog-row .talent-selector select option {
+      white-space: pre-wrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     
 
   .window-app.dialog.characteristic-roll-dialog input[name="hitLocation"],
