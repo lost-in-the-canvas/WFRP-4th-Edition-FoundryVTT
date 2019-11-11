@@ -13322,6 +13322,32 @@ border-image-outset: 0px !important;
       .app.window-app .form-group input[type="range"]::-webkit-slider-runnable-track {
         background-image: linear-gradient(to right, #820f0f , #82820d);
       }
+  
+  .app.window-app.dialog .window-content .dialog-content h3 {
+    margin: 3px 0px;
+    padding: 4px 3px 1px 3px;
+    font-family: var(--actor-input-font-family);
+    font-size: 16px;
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    border: 3px double #564d3a;
+    background: #290a0ad9;
+    text-align: center;
+  }
+  .app.window-app.dialog .window-content .dialog-content p {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: left;
+    margin: 4px 0px 4px 0px;
+    padding: 4px 5px;
+    border: 1px solid #5d513e;
+    background: #1f1f1fb5;
+  }
+
 
   .app.window-app .dialog-buttons button,
   .app.window-app .sheet-footer button,
@@ -13393,7 +13419,7 @@ border-image-outset: 0px !important;
       line-height: normal;
       text-align: center;
       margin: 4px 0px 0px 0px;
-      padding: 4px 3px;
+      padding: 4px 5px;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
@@ -13482,7 +13508,7 @@ border-image-outset: 0px !important;
       font-weight: var(--actor-input-font-weight);
       color: #d6d6d6;
       line-height: normal;
-      text-align: center;
+      text-align: left;
       margin: 4px 0px 0px 0px;
       padding: 4px 3px;
       border: 1px solid #5d513e;
