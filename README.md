@@ -1,12 +1,10 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.8.3
+Current Version: Beta 0.9.0.1
 
 ![](https://i.imgur.com/esCwB7f.png)
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
-
-Additionally, it comes with a starter world which provides many Items already organized for your use.
 
 ## Installation - Auto Installer (Recommended)
 

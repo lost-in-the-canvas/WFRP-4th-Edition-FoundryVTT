@@ -400,17 +400,6 @@ Hooks.once("init", () => {
         default: true,
         type: Boolean
       });
-
-      // Register Manual Chat Cards
-      game.settings.register("wfrp4e", "manualChatCards", {
-        name: "Manual Chat Cards",
-        hint: "Show blank roll result to fill in if physical dice are used..",
-        scope: "client",
-        config: true,
-        default: false,
-        type: Boolean
-      });
-  
   
     // Pre-load templates
     loadTemplates([
