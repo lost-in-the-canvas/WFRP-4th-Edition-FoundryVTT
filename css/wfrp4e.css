@@ -1336,7 +1336,6 @@
       bottom: 0px;
       right: 0px;
       display: flex;
-      margin: 0px;
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 1px solid black;
       border-image: url(../ui/chat-form-border.png) 10 repeat;
@@ -13303,7 +13302,6 @@ border-image-outset: 0px !important;
         border-left: none;
         box-shadow: 0px 0px 10px inset black;
         background: #352516;
-        height: auto;
       }
       .app.window-app .form-group select {
         padding: 1px 3px;
@@ -13411,27 +13409,6 @@ border-image-outset: 0px !important;
       max-height: 45px;
     }
 
-  /* ================== 3. COMBAT TRACKER SETTINGS ============ */
-    #combat-config .window-content .form-group .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: left;
-      margin: 4px 0px 4px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
-    }
-
-    #combat-config > section > form > div:nth-child(2) > input[type=checkbox] {
-      position: relative;
-      top: 7px;
-      margin-left: 6px;
-      transform: scale(1);
-    }
-
   /* ================== 3. SCENE SHEET ======================== */
     .app.window-app.sheet.scene-sheet .window-content {
       max-height: 490px;
@@ -13442,17 +13419,8 @@ border-image-outset: 0px !important;
       overflow-x: hidden;
       padding-right: 7px;
     }
-    .app.window-app.sheet.scene-sheet .window-content form .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: center;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
+    .app.window-app.sheet.scene-sheet .window-content form .notes{
+      color: #BBB
     }
     .app.window-app.sheet.scene-sheet .window-content form hr {
       opacity: 0.8;
@@ -13464,13 +13432,12 @@ border-image-outset: 0px !important;
       margin: 3px 0px;
       padding: 4px 3px 1px 3px;
       font-family: var(--actor-input-font-family);
-      font-size: 16px;
+      font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
       color: #d6d6d6;
       line-height: normal;
       border: 3px double #564d3a;
       background: #290a0ad9;
-      text-align: center;
     }
     .app.window-app.sheet.scene-sheet .form-group label {
       max-width: 250px;
@@ -13502,7 +13469,7 @@ border-image-outset: 0px !important;
     /* Token Vision */
     .app.window-app.sheet.scene-sheet .form-group input[type="checkbox"] { 
       position: relative;
-      top: 7px;
+      top: 4px;
       margin-left: 6px;
       transform: scale(1);
     }
@@ -13531,23 +13498,7 @@ border-image-outset: 0px !important;
       padding: 4px;
     }
   
-
-  /* ================== 5. CREATE ACTOR ENTITY ================ */
-    .app.window-app.dialog .dialog-content #entity-create .form-group .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: left;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 3px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
-    }
-
-
-  /* ================== 6. DELETE ITEM FROM ACTOR ============= */
+  /* ================== 5. DELETE ITEM FROM ACTOR ============= */
     .app.window-app .dialog-content .delete-item-dialog.selection {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
@@ -13560,7 +13511,7 @@ border-image-outset: 0px !important;
       text-align: center;
     }
 
-  /* ================== 7. SHEET CONFIG ======================= */
+  /* ================== 5. SHEET CONFIG ======================= */
     #sheet-config .form-group:first-of-type label {
       max-height: 28px;
       white-space: nowrap;
@@ -13568,7 +13519,7 @@ border-image-outset: 0px !important;
       overflow-wrap: unset;
     }
 
-  /* ================== 8. SHOW ARTWORK ======================= */
+  /* ================== 6. SHOW ARTWORK ======================= */
     .app.window-app.image-popout .window-header .share-image {
       color: #00e5ff00;
       text-align: center;
@@ -13602,7 +13553,7 @@ border-image-outset: 0px !important;
       border-image-outset: 0px 0px 0px 0px;
     }
 
-  /* ================== 9. TOKEN CONFIG ======================= */
+  /* ================== 7. TOKEN CONFIG ======================= */
     #token-config {
       max-height: 335px;
       min-height: 335px;
@@ -13791,7 +13742,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 10. DRAWING CONFIG ==================== */
+  /* ================== 7. DRAWING CONFIG ======================= */
     #drawing-config {
       min-height: 335px;
       overflow-y: auto;
@@ -13979,7 +13930,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 11. JOUNRAL ENTRIES =================== */
+  /* ================== 8. JOUNRAL ENTRIES ==================== */
     .window-app.app.journal-sheet {
       min-width: 470px;
       min-height: 362px;
@@ -14212,7 +14163,7 @@ border-image-outset: 0px !important;
       color: var(--major-button-color);
     }
 
-  /* ================== 12. COMPENDIUM ======================== */
+  /* ================== 9. COMPENDIUM ========================= */
     .window-app.app .sidebar-tab.compendium {
       padding: 0px 0px 7px 0px;
     }
@@ -14258,7 +14209,7 @@ border-image-outset: 0px !important;
       overflow-y: auto;
     }
 
-  /* ================== 13. FILE PICKER ======================= */
+  /* ================== 10. FILE PICKER ======================= */
     .app.window-app.filepicker .form-group .back {
       border: 1px solid black;
       border-image: url(../ui/footer-button.png) 10 repeat;
