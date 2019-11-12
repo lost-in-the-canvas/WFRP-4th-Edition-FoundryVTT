@@ -783,12 +783,18 @@
 
   #sidebar.collapsed {
     width: 50px !important;
-    height: 326px !important;
+    height: 367px !important;
     position: absolute;
     top: 15px;
-    right: 0px;
-    padding-left: 3px;
-    background: url(../ui/sidebar-collapsed.png) repeat;
+    right: -1px;
+    padding: 19px 0px 0px 2px;
+    margin: 3px 0px 0px 0px;
+    border: 1px solid black;
+    border-image: url(../ui/frames/sidebar-collapsed.png);
+    border-image-slice: 9 fill;
+    border-image-width: 9px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: repeat;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     box-shadow: -2px 0px 8px #000;
