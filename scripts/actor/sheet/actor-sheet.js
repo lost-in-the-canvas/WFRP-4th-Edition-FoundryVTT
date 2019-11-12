@@ -199,10 +199,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         const psychology = [];
         const mutations = [];
         const diseases = [];
+        const criticals = [];
         let penalties = {
           "Armour" : {value : ""},
           "Injury" : {value : ""},
           "Mutation" : {value : ""},
+          "Criticals" : {value : ""},
         };
   
         // Inventory object is for the inventory tab
@@ -298,6 +300,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           {
             injuries.push(i);
             penalties["Injury"].value += i.data.penalty.value;
+          }
+
+          else if (i.type == "critical")
+          {
+            criticals.push(i);
+            penalties["Criticals"].value += i.data.modifier.value;
           }
   
           else if (i.type === "container")
@@ -543,7 +551,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         // If too much text, divide the penalties into groups
         let penaltiesOverflow = false;
         penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
-        if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 50)
+        if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50)
         {
           penaltiesOverflow = true;
           for (let penaltyType in penalties)
@@ -555,7 +563,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
         }
   
-        let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
+        let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.actor.data.data.status.penalties.value
         penaltiesFlag = penaltiesFlag.trim();
         // This is for the penalty string in flags, for combat turn message
         if (this.actor.data.flags.modifier != penaltiesFlag && this.options.editable)
@@ -646,7 +654,10 @@ class ActorSheetWfrp4e extends ActorSheet {
         actorData.flags.hasPrayers = hasPrayers;
         actorData.untrainedSkills = untrainedSkills;
         actorData.untrainedTalents = untrainedTalents;
-  
+        actorData.criticals = criticals;
+        actorData.data.status.criticalWounds.value = criticals.length;
+
+
         let enc;
         // let moneyEnc = 0;
         // for (let m of money.coins)
