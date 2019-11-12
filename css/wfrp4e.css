@@ -13411,6 +13411,27 @@ border-image-outset: 0px !important;
       max-height: 45px;
     }
 
+  /* ================== 3. COMBAT TRACKER SETTINGS ============ */
+    #combat-config .window-content .form-group .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: left;
+      margin: 4px 0px 4px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+    #combat-config > section > form > div:nth-child(2) > input[type=checkbox] {
+      position: relative;
+      top: 7px;
+      margin-left: 6px;
+      transform: scale(1);
+    }
+
   /* ================== 3. SCENE SHEET ======================== */
     .app.window-app.sheet.scene-sheet .window-content {
       max-height: 490px;
