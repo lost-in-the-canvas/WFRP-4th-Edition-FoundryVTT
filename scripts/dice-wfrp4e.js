@@ -131,6 +131,7 @@ class DiceWFRP {
             SL = Number(rollString.split('')[0])
           else
             SL = 0;
+          SL += slBonus
         }
         SL += successBonus;
         if (roll.total <= 5 && SL < 1)
@@ -234,9 +235,10 @@ class DiceWFRP {
 
      // Extend rollTest to account for weapon specifics (criticals, fumbles, etc)
      static rollWeaponTest(testData){
-      let weapon = testData.weapon;
 
       let testResults = this.rollTest(testData);
+      let weapon = testResults.weapon;
+
       testData.function = "rollWeaponTest"
 
        if (testResults.description.includes("Failure"))
@@ -567,6 +569,12 @@ class DiceWFRP {
   * @param {Object} testData - Test results, values to display, etc.
   */
    static renderRollCard(chatOptions, testData, rerenderMessage) {
+
+    if (game.settings.get("wfrp4e", "manualChatCards") && !rerenderMessage)
+    {
+      testData.roll = testData.SL = null;
+    }
+    
      let chatData = {
        title : chatOptions.title,
        testData : testData,
@@ -588,11 +596,24 @@ class DiceWFRP {
 
     if (!rerenderMessage)
     {
-
       // Generate HTML from the requested chat template
       return renderTemplate(chatOptions.template, chatData).then(html => {
-
         // Emit the HTML as a chat message
+        if (game.settings.get("wfrp4e", "manualChatCards"))
+        {
+          let blank = $(html)
+          let elementsToToggle = blank.find(".display-toggle")
+    
+          for (let elem of elementsToToggle)
+          {
+            if (elem.style.display == "none")
+              elem.style.display = ""
+            else 
+              elem.style.display = "none"
+          }
+          html = blank.html();
+        }
+        
         chatOptions["content"] = html;
 
         ChatMessage.create(chatOptions, false);
@@ -766,15 +787,7 @@ class DiceWFRP {
       // Chat card actions
       html.on('click', '.edit-toggle', ev => {
         ev.preventDefault();
-        let elementsToToggle = $(ev.currentTarget).parents(".chat-card").find(".display-toggle")
-        // Extract card data
-        for (let elem of elementsToToggle)
-        {
-          if (elem.style.display == "none")
-            elem.style.display = ""
-          else 
-            elem.style.display = "none"
-        }
+        this.toggleEditable(ev.currentTarget)
       });
 
       html.on("click", '.item-property', event => {
@@ -802,5 +815,20 @@ class DiceWFRP {
           opposeResult.result = defender.name + " won by " + differenceSL + " SL";
         }
         return opposeResult;
+    }
+
+    static toggleEditable(html)
+    {
+      let elementsToToggle = $(html).parents(".chat-card").find(".display-toggle")
+      if (!elementsToToggle.length)
+        elementsToToggle = $(html).find(".display-toggle")
+
+      for (let elem of elementsToToggle)
+      {
+        if (elem.style.display == "none")
+          elem.style.display = ""
+        else 
+          elem.style.display = "none"
+      }
     }
   }
