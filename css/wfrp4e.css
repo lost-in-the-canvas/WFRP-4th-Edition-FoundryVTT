@@ -94,6 +94,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 100%
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
@@ -8555,6 +8556,7 @@
     /* background: blue; */
   }    
 
+  .app.window-app.item-sheet .note-section.label,
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label {
     width: 100%;
     height: 20px;
@@ -8572,6 +8574,11 @@
     flex-grow: 0;
     overflow-x: hidden;
     overflow-y: hidden;
+  }
+
+  .app.window-app.item-sheet .note-section.label {
+    height: 45px;
+    margin: 5px 0px -7px 0px;
   }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;

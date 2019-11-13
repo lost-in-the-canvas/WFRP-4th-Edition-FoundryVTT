@@ -138,7 +138,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         data['mutationTypes'] = CONFIG.mutationTypes;
       }
   
-  
+      data.isGM = game.user.isGM;
       return data;
     }
   
