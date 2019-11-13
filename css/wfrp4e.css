@@ -783,7 +783,7 @@
 
   #sidebar.collapsed {
     width: 50px !important;
-    height: 367px !important;
+    height: 364px !important;
     position: absolute;
     top: 15px;
     right: -1px;
@@ -1413,7 +1413,7 @@
       opacity: 1;
       text-shadow: 1px 1px 5px #000000;
     }
-    #sidebar #combat #combat-round a[title="Activate Previous Encounter"] {
+    #sidebar #combat #combat-round .combat-cycle {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1435,7 +1435,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-next-encounter.png);
     }
-    #sidebar #combat #combat-round a[title="Reset Initiative"] {
+    #sidebar #combat #combat-round .combat-control {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1446,7 +1446,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-reset-initiative.png);
     }
-    #sidebar #combat #combat-round a[title="Tracker Settings"] {
+    #sidebar #combat #combat-round .combat-settings {
       padding: 0px;
       margin: 0px;
       width: 30px;
