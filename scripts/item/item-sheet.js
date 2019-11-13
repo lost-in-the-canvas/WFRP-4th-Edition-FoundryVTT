@@ -141,7 +141,7 @@ async _render(force = false, options = {})
       data['mutationTypes'] = CONFIG.mutationTypes;
     }
 
-
+    data.isGM = game.user.isGM;
     return data;
   }
 
