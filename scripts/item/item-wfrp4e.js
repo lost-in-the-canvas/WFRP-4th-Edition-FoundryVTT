@@ -91,6 +91,16 @@ class ItemWfrp4e extends Item {
       data.properties=[];
       return data;
     }
+
+    _criticalExpandData() {
+      const data = duplicate(this.data.data);
+      data.properties=[];
+      data.properties.push(`<b>Wounds</b>: ${this.data.data.wounds.value}`)
+      if (data.modifier.value)
+        data.properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+      return data;
+    }
+  
   
     _spellExpandData() {
       const data = duplicate(this.data.data);
@@ -301,7 +311,18 @@ class ItemWfrp4e extends Item {
       const data = duplicate(this.data.data);
       let properties=[];
       properties.push(`<b>Location</b>: ${data.location.value}`);
-      properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+      if (data.penalty.value) 
+        properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+      return properties;
+    }
+
+    _criticalChatData() {
+      const data = duplicate(this.data.data);
+      let properties=[];
+      properties.push(`<b>Wounds</b>: ${data.wounds.value}`);
+      properties.push(`<b>Location</b>: ${data.location.value}`);
+      if (data.modifier.value)
+        properties.push(`<b>Modifier</b>: ${data.modifier.value}`);
       return properties;
     }
   

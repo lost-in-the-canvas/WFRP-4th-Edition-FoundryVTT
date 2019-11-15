@@ -887,7 +887,7 @@
     "wounds" :{
       "label" : "Wounds",
       "value": "",
-      "type" : "Number"
+      "type" : "String"
     },
     "modifier" : {
       "value" : "",

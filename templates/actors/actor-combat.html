@@ -479,7 +479,7 @@
   {{/each}}
 </ol>
 
-<div class="inventory-header item injury-header">
+<div class="inventory-header item critical-header">
   <a class="name">Critical</a>
   <a class="location">Location</a>
   <div class="item-controls">
@@ -487,16 +487,16 @@
   </div>
 </div>
 
-<ol class="inventory-list injury-list save-scroll">
+<ol class="inventory-list critical-list save-scroll">
   {{#each actor.criticals as |critical c|}}
   <li class="item" data-item-id="{{critical.id}}">
     <div class="content">
-      <div class="item-name injury-name item-dropdown">
+      <div class="item-name critical-name item-dropdown">
         <div class="image" style="background-image: url({{critical.img}})"></div>
-        <a class="name injury-title">{{critical.name}}</a>
+        <a class="name critical-title">{{critical.name}}</a>
       </div>
 
-      <div class="injury-location">
+      <div class="critical-location">
         {{critical.data.location.value}}
       </div>
 

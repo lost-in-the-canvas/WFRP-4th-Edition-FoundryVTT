@@ -36,6 +36,28 @@ Hooks.on("ready", async () => {
        }
      }
 
+
+    i = 0;
+    critname;
+    while (i < WFRP_Tables.critleg.rows.length)
+    {
+      let row = WFRP_Tables.critleg.rows[i];
+      if (critname != row.name)
+      {
+        critname = row.name;
+        let itemData = 
+        {
+          type : "critical",
+          name : row.name,
+          ["data.description.value"] : row.description,
+          ["data.wounds.value"] : row.wounds,
+          ["data.location.value"] : "Leg",
+          img: "systems/wfrp4e/icons/injuries/tornleg.png"
+        }
+        ItemWfrp4e.create(itemData)
+      }
+      i++
+    }
     
     // let table = await RollTable.create({name: WFRP_Tables.wrath.name, formula : WFRP_Tables.wrath.die})
     // let loc = 1
