@@ -582,7 +582,7 @@ class WFRP_Utility
     let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
     if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/combat-status.html"
+    chatOptions["template"] = "systems/wfrp4e/templates/chat/combat-status.html"
   
   
     let chatData = {
@@ -619,7 +619,7 @@ class WFRP_Utility
     let chatOptions = {rollMode :  game.settings.get("core", "rollMode")};
     if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-    chatOptions["template"] = "public/systems/wfrp4e/templates/chat/round-summary.html"
+    chatOptions["template"] = "systems/wfrp4e/templates/chat/round-summary.html"
   
   
     let chatData = {

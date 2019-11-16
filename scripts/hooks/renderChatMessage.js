@@ -1,4 +1,4 @@
-Hooks.on("renderChatMessage", async (html, content, msg) => {
+Hooks.on("renderChatMessage", async (app, html, msg) => {
   
     if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && msg.find(".chat-card").attr("data-hide") == "true")
     {

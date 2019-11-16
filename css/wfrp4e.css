@@ -773,6 +773,7 @@
     background-position-y: 45px;
     border-radius: 0px;
     box-shadow: 0 0 0px #000;
+    border:none;
   }
   #sidebar .sidebar-tab {
     flex: 1;
@@ -14961,4 +14962,8 @@ font-style : normal;
 
 .app.window-app.sheet .roll-table-config  {
   width: 725px;
+}
+
+.filepicker .tabs {
+  color: #CCC 
 }

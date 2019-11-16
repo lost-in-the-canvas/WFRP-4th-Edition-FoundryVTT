@@ -20,7 +20,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
      * @type {String}
      */
     get template() {
-      return "public/systems/wfrp4e/templates/actors/npc-sheet.html";
+      return "systems/wfrp4e/templates/actors/npc-sheet.html";
     }
   
   
