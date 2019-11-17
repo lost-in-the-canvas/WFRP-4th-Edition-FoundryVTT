@@ -84,10 +84,20 @@ class WFRP_Utility
   /* -------------------------------------------- */
 
   // Prepare a weapon to be displayed in the combat tab (assign ammo, calculate range, organize qualities/flaws)
-  static _prepareWeaponCombat(actorData, weapon){
-    weapon["properties"] = this._prepareQualitiesFlaws(weapon);
+  static _prepareWeaponCombat(actorData, weapon, skills){
+    if (!skills)
+    {
+      skills = actorData.items.filter(i => i.type == "skill");
+    }
+
     weapon.data.reach.value = CONFIG.weaponReaches[weapon.data.reach.value];
     weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
+
+    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase())) 
+    weapon["properties"] = this._prepareQualitiesFlaws(weapon, !!weapon.skillToUse);
+
+    if (weapon.data.weaponGroup.value == "Flail" && !weapon.skillToUse && !weapon.properties.includes("Dangerous"))
+      weapon.properties.push("Dangerous");
 
     weapon.data.range.value = this._calculateRangeOrDamage(actorData, weapon.data.range.value);
     if (weapon.data.damage.meleeValue)
@@ -108,7 +118,7 @@ class WFRP_Utility
     }
 
     if (Number(weapon.data.range.value) > 0)
-        weapon["rangedWeaponType"] = true;
+      weapon["rangedWeaponType"] = true;
     if (weapon.data.reach.value)
       weapon["meleeWeaponType"] = true;
 
@@ -184,7 +194,7 @@ class WFRP_Utility
 
   /* -------------------------------------------- */
 
-  static _prepareQualitiesFlaws(item){
+  static _prepareQualitiesFlaws(item, includeQualities = true){
     let qualities = item.data.qualities.value.split(",").map(function(item) {
       if (item)
       {
@@ -203,6 +213,9 @@ class WFRP_Utility
         return item;
       }
     });
+
+    if (!includeQualities)
+      qualities = [];
 
 
     if (!item.data.special.value)
@@ -526,6 +539,29 @@ class WFRP_Utility
   }
 
   /* -------------------------------------------- */
+
+  static async findItem(itemName, itemType)
+  {
+    let items = game.items.entities.filter(i => i.type == itemType)
+
+    for (let i of items)
+    {
+      if (i.name == itemName)
+        return i;
+    }    
+    let itemList
+    for (let p of game.packs)
+    {
+      await p.getIndex().then(index => itemList = index);
+      // Search for specific skill (won't find unlisted specializations)
+      let searchResult = itemList.find(t => t.name == itemName)
+      if (searchResult)
+        return await p.getEntity(searchResult.id)
+    }
+  }
+
+  /* -------------------------------------------- */
+
 
   static nameSorter(a, b){
     if (a.name.toLowerCase() < b.name.toLowerCase())

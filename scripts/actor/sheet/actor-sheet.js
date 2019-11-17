@@ -199,10 +199,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         const psychology = [];
         const mutations = [];
         const diseases = [];
+        const criticals = [];
         let penalties = {
           "Armour" : {value : ""},
           "Injury" : {value : ""},
           "Mutation" : {value : ""},
+          "Criticals" : {value : ""},
         };
   
         // Inventory object is for the inventory tab
@@ -269,19 +271,6 @@ class ActorSheetWfrp4e extends ActorSheet {
             else {
               inContainers.push(i);
             }
-            if (i.data.equipped)
-            {
-              weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, i));
-              let shieldProperty = i.properties.qualities.find(q => q.toLowerCase().includes("shield"))
-              if (shieldProperty)
-              {
-                 AP.shield += parseInt(shieldProperty.split(" ")[1]);
-              }
-              if (i.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
-              {
-                defensiveCounter++;
-              }
-            }
           }
   
           else if (i.type === "armour")
@@ -311,6 +300,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           {
             injuries.push(i);
             penalties["Injury"].value += i.data.penalty.value;
+          }
+
+          else if (i.type == "critical")
+          {
+            criticals.push(i);
+            penalties["Criticals"].value += i.data.modifier.value;
           }
   
           else if (i.type === "container")
@@ -466,8 +461,27 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error("Something went wrong with preparing item "+ i.name + ": " + error)
           ui.notifications.error("Deleting "+ i.name);
           this.actor.deleteOwnedItem(i.id, true);
+          }
         }
+
+        // Prepare weapons for combat after items passthrough for efficiency
+        for (let wep of inventory.weapons.items)
+        {
+          if (wep.data.equipped)
+          {
+            weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, wep, basicSkills.concat(advancedOrGroupedSkills)));
+            let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+            if (shieldProperty)
+            {
+               AP.shield += parseInt(shieldProperty.split(" ")[1]);
+            }
+            if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
+            {
+              defensiveCounter++;
+            }
+          }
         }
+
   
         // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
         if (grimoire.length > 0 && ingredients.items.length > 0)
@@ -537,7 +551,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         // If too much text, divide the penalties into groups
         let penaltiesOverflow = false;
         penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
-        if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value).length > 50)
+        if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50)
         {
           penaltiesOverflow = true;
           for (let penaltyType in penalties)
@@ -549,7 +563,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
         }
   
-        let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + this.actor.data.data.status.penalties.value
+        let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.actor.data.data.status.penalties.value
         penaltiesFlag = penaltiesFlag.trim();
         // This is for the penalty string in flags, for combat turn message
         if (this.actor.data.flags.modifier != penaltiesFlag && this.options.editable)
@@ -640,7 +654,10 @@ class ActorSheetWfrp4e extends ActorSheet {
         actorData.flags.hasPrayers = hasPrayers;
         actorData.untrainedSkills = untrainedSkills;
         actorData.untrainedTalents = untrainedTalents;
-  
+        actorData.criticals = criticals;
+        actorData.data.status.criticalWounds.value = criticals.length;
+
+
         let enc;
         // let moneyEnc = 0;
         // for (let m of money.coins)
@@ -1478,7 +1495,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
   
     async _onDrop(event) {
-        var dragData = event.dataTransfer.getData("text/plain");
+        var dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
         var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
         if ($(event.target).parents(".item").attr("inventory-type") == "container"){
           var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
@@ -1508,6 +1525,10 @@ class ActorSheetWfrp4e extends ActorSheet {
   
           await this.actor.updateOwnedItem(dragItem.data, true);
         }
+      else if (dragData.postedItem)
+      {
+        this.actor.createOwnedItem(dragData.data);
+      }
       else
       {
         super._onDrop(event)
