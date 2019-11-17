@@ -6,8 +6,6 @@ Current Version: Beta 0.9.1
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
-Additionally, it comes with a starter world which provides many Items already organized for your use.
-
 ## Installation - Auto Installer (Recommended)
 
 In the FVTT Game Systems Menu, click `Install System`
