@@ -1495,7 +1495,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
   
     async _onDrop(event) {
-        var dragData = event.dataTransfer.getData("text/plain");
+        var dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
         var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
         if ($(event.target).parents(".item").attr("inventory-type") == "container"){
           var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
@@ -1525,6 +1525,10 @@ class ActorSheetWfrp4e extends ActorSheet {
   
           await this.actor.updateOwnedItem(dragItem.data, true);
         }
+      else if (dragData.postedItem)
+      {
+        this.actor.createOwnedItem(dragData.data);
+      }
       else
       {
         super._onDrop(event)

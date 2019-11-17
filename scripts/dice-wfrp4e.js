@@ -649,6 +649,11 @@ class DiceWFRP {
     static chatListeners(html) {
 
 
+      html.on("click", ".item-lookup", async ev => {
+        let itemType = $(ev.currentTarget).attr("data-type");
+        WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+      })
+
       html.on("click", ".talent-lookup", async ev => {
         WFRP_Utility.findTalent(ev.target.text).then(talent => talent.sheet.render(true));
       })

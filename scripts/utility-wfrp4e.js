@@ -540,6 +540,29 @@ class WFRP_Utility
 
   /* -------------------------------------------- */
 
+  static async findItem(itemName, itemType)
+  {
+    let items = game.items.entities.filter(i => i.type == itemType)
+
+    for (let i of items)
+    {
+      if (i.name == itemName)
+        return i;
+    }    
+    let itemList
+    for (let p of game.packs)
+    {
+      await p.getIndex().then(index => itemList = index);
+      // Search for specific skill (won't find unlisted specializations)
+      let searchResult = itemList.find(t => t.name == itemName)
+      if (searchResult)
+        return await p.getEntity(searchResult.id)
+    }
+  }
+
+  /* -------------------------------------------- */
+
+
   static nameSorter(a, b){
     if (a.name.toLowerCase() < b.name.toLowerCase())
       return -1;

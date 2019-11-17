@@ -47,6 +47,14 @@
       "path": "./packs/careers.db",
       "entity": "Item"
     },
+    {
+      "name": "criticals",
+      "label": "Criticals",
+      "system": "wfrp4e",
+      "module": "wfrp4e",
+      "path": "./packs/criticals.db",
+      "entity": "Item"
+    },
   	 {
       "name": "skills",
       "label": "Skills",

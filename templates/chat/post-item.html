@@ -1,4 +1,4 @@
-<div class="wfrp4e post-item">
+<div class="wfrp4e post-item" data-transfer ="{{transfer}}">
     <h3><b>{{name}}</b></h3>
     {{#if img}}
     <img src="{{img}}" title="{{name}}"/>
@@ -7,7 +7,7 @@
     <div class="card-content">{{{data.description.value}}}</div>
 
     {{#each properties as |property p|}}
-    <span><b>{{p}}</b>: {{property}}</span><br>
+    <span>{{{property}}}</span><br>
     {{/each}}
 
 </div>

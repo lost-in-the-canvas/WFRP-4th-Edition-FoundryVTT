@@ -206,22 +206,19 @@ class ItemWfrp4e extends Item {
       if (chatData.img.includes("/blank.png"))
         chatData.img = null;
   
-      let html= 
-      `<div class="wfrp4e post-item">
-       <h3><b>${chatData.name}</b></h3>
-        ${ chatData.img ? `<img src="${chatData.img}" title="${chatData.name}"/>` : ""}
-    
-        ${ chatData.data.description.value ? `<div class="card-content">${chatData.data.description.value}</div>` : "<br>"}`
-        
-  
-        for (let prop of properties)
-          html = html.concat(prop+"<br>") ;
-  
-        html = html.concat("</div>")
+      chatData.transfer = JSON.stringify(
+        {
+          data : this.data,
+          postedItem : true
+        }
+      );
+
+      renderTemplate('public/systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
   
         chatOptions["content"] = html;
         ChatMessage.create(chatOptions)
-    }
+    });
+  }
   
     _trappingChatData() {
       const data = duplicate(this.data.data);
