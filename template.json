@@ -798,10 +798,7 @@
     }
   },
   "critical" : {
-    "description" : {
-      "value": "",
-      "type" : "String"
-    },
+    "templates": ["description"],
     "wounds" :{
       "label" : "Wounds",
       "value": "",
