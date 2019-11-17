@@ -804,7 +804,8 @@ CONFIG.symptoms = {
   "malaise" : "Malaise",
   "nausea" : "Nausea",
   "pox" : "Pox",
-  "wounded" : "Wounded"
+  "wounded" : "Wounded",
+  "delirium" : "Delirium"
 }
 
 CONFIG.symptomDescriptions = {
@@ -819,7 +820,8 @@ CONFIG.symptomDescriptions = {
   "malaise" : "You don’t feel at all well. You are tired, find it hard to concentrate, and just generally ill. Take a <a class ='condition-chat'>Fatigued</a> Condition that you can only remove when you have recovered from your illness. ",
   "nausea" : "You feel very sick and are prone to vomiting if you move around too quickly. Whenever you fail a Test involving physical movement, your nausea overwhelms you and you vomit. You gain the <a class = 'condition-chat'>Stunned</a> condition, which represents you being sick repeatedly or dry heaving, depending upon your current circumstances. ",
   "pox" : "You are covered in pustules, inﬂamed swellings, disgusting rashes, or itchy spots, which are unlikely to be your most attractive feature. Pox are largely a cosmetic issue, resulting in a penalty of –10 to Fellowship Tests. Additionally, remember to roleplay and describe all the scratching; if you want to withhold from this for a while, pass an <b>Average (+20) Cool</b> Test. When the Pox ends, attempt an <b>Average (+20) Cool</b> Test. If this fails, reverse the Test dice and apply permanent scarring to that Hit Location, showing an area where you scratched and the pox there healed badly. If the <a class='table-click' data-table = 'hitloc'>Hit Location</a> is the head, permanently lose 1 in Fellowship.",
-  "wounded" : "You have a wound or open sore that does not heal properly because of an infection. For each Wounded symptom you have, you cannot heal one of your Wounds, which stays open and sore, possibly seeping foul-smelling pus. Every day, take an <b>Easy (+20) Endurance</b> Test or gain a Festering Wound if you do not already have one."
+  "wounded" : "You have a wound or open sore that does not heal properly because of an infection. For each Wounded symptom you have, you cannot heal one of your Wounds, which stays open and sore, possibly seeping foul-smelling pus. Every day, take an <b>Easy (+20) Endurance</b> Test or gain a Festering Wound if you do not already have one.",
+  "delirium" : "Your sensibility comes and goes, with moments of clarity replaced suddenly by bouts of raving, hallucinations, and terror. Make a <b>Challenging (+0) Willpower Test</b> each hour, and consult the <b><a class='table-click' data-table='delirium'>Delirium</a></b> table."
 
 }
 
@@ -835,7 +837,9 @@ CONFIG.symptomTreatment = {
   "malaise" : "Medicine treating Malaise, costing anything from a few pence to a handful of silver, is usually genuine (75% chance); and, if so, pass a <b>Challenging (+0) Endurance</b> Test to ignore the symptom for the day.",
   "nausea" : "Remedies for Nausea are Common and usually genuine (60% chance), and typically cost around thirty pennies; if genuine, pass a <b>Challenging (+0) Endurance</b> Test, and the Nausea can be ignored for a number of hours equal to your Toughness Bonus.",
   "pox" : "Poxes are exceedingly common, and so are remedies, which are usually creams or oils. Larger temples of Shallya often keep a stock of the cream for free (though donations are expected) and apothecaries and herbalists of all kinds sell similar products for relatively low prices (rarely more than six or seven pence for a week’s worth of treatment, with a 90% chance of being genuine medicine). Using a cream increases all Cool Tests to resist scratching to <b>Very Easy (+60)</b>, but is usually unsightly.",
-  "wounded" : "A daily successful Heal Test ensures the Wound is clean and does not require an Endurance Test to be further infected."
+  "wounded" : "A daily successful Heal Test ensures the Wound is clean and does not require an Endurance Test to be further infected.",
+  "delirium" : "Some authorities treat delirium as part of a fever, prescribing the same measures. Remedies cost from a few pennies to a few shillings, and 10% are genuine.<br><br>With the correct medicine, a successful <b>Challenging (+0) Heal</b> Test banishes the hallucinations for <b><a class = 'chat-roll'>1d10</a></b> hours.<br><br>It is also common to sedate delirious patients with a tranquillising drug, such as Moonflower or even Nightshade, to keep the patient comfortable until the condition has passed, sending them into a Fitful Sleep until they either recover or die."
+
 }
 
 CONFIG.earningValues = {
