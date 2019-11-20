@@ -400,30 +400,40 @@ Hooks.once("init", () => {
         default: true,
         type: Boolean
       });
-    
 
-  // Pre-load templates
-  loadTemplates([
-    "public/systems/wfrp4e/templates/actors/actor-attributes.html",
-    "public/systems/wfrp4e/templates/actors/actor-abilities.html",
-    "public/systems/wfrp4e/templates/actors/actor-main.html",
-    "public/systems/wfrp4e/templates/actors/actor-combat.html",
-    "public/systems/wfrp4e/templates/actors/actor-biography.html",
-    "public/systems/wfrp4e/templates/actors/actor-inventory.html",
-    "public/systems/wfrp4e/templates/actors/actor-skills.html",
-    "public/systems/wfrp4e/templates/actors/actor-magic.html",
-    "public/systems/wfrp4e/templates/actors/actor-religion.html",
-    "public/systems/wfrp4e/templates/actors/actor-talents.html",
-    "public/systems/wfrp4e/templates/actors/actor-classes.html",
-    "public/systems/wfrp4e/templates/actors/actor-notes.html",
-    "public/systems/wfrp4e/templates/actors/npc-main.html",
-    "public/systems/wfrp4e/templates/actors/npc-notes.html",
-    "public/systems/wfrp4e/templates/actors/creature-main.html",
-    "public/systems/wfrp4e/templates/actors/creature-notes.html",
-    "public/systems/wfrp4e/templates/actors/creature-main.html",
-    "public/systems/wfrp4e/templates/chat/dialog-constant.html",
-    "public/systems/wfrp4e/templates/chat/test-card.html",
-    "public/systems/wfrp4e/templates/items/item-header.html",
-    "public/systems/wfrp4e/templates/items/item-description.html",
-  ]);
-});
+      // Register Manual Chat Cards
+      game.settings.register("wfrp4e", "manualChatCards", {
+        name: "Manual Chat Cards",
+        hint: "Show blank roll result to fill in if physical dice are used..",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+  
+  
+    // Pre-load templates
+    loadTemplates([
+      "public/systems/wfrp4e/templates/actors/actor-attributes.html",
+      "public/systems/wfrp4e/templates/actors/actor-abilities.html",
+      "public/systems/wfrp4e/templates/actors/actor-main.html",
+      "public/systems/wfrp4e/templates/actors/actor-combat.html",
+      "public/systems/wfrp4e/templates/actors/actor-biography.html",
+      "public/systems/wfrp4e/templates/actors/actor-inventory.html",
+      "public/systems/wfrp4e/templates/actors/actor-skills.html",
+      "public/systems/wfrp4e/templates/actors/actor-magic.html",
+      "public/systems/wfrp4e/templates/actors/actor-religion.html",
+      "public/systems/wfrp4e/templates/actors/actor-talents.html",
+      "public/systems/wfrp4e/templates/actors/actor-classes.html",
+      "public/systems/wfrp4e/templates/actors/actor-notes.html",
+      "public/systems/wfrp4e/templates/actors/npc-main.html",
+      "public/systems/wfrp4e/templates/actors/npc-notes.html",
+      "public/systems/wfrp4e/templates/actors/creature-main.html",
+      "public/systems/wfrp4e/templates/actors/creature-notes.html",
+      "public/systems/wfrp4e/templates/actors/creature-main.html",
+      "public/systems/wfrp4e/templates/chat/dialog-constant.html",
+      "public/systems/wfrp4e/templates/chat/test-card.html",
+      "public/systems/wfrp4e/templates/items/item-header.html",
+      "public/systems/wfrp4e/templates/items/item-description.html",
+    ]);
+  });

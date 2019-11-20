@@ -1,0 +1,47 @@
+{
+  "name": "Delirium",
+  "die" : "1d10",
+  "rows": [
+    "-",
+    {
+      "name": "Lucid Interval",
+      "description": "You have a period of blissful calm. Any Conditions you have previously gained from your Delirium are removed."
+    },
+    {
+      "name": "Lucid Interval",
+      "description": "You have a period of blissful calm. Any Conditions you have previously gained from your Delirium are removed."
+    },
+    {
+      "name": "Fitful Sleep",
+      "description": "You toss and turn, asleep but not resting. Gain 1 <b><a class='condition-chat'>Unconscious</a></b> for the next hour, and 1 <b><a class='condition-chat'>Fatigued</a></b> Condition for the next <b><a class='chat-roll'>1d10</a></b> hours."
+    },
+    {
+      "name": "Fitful Sleep",
+      "description": "You toss and turn, asleep but not resting. Gain 1 <b><a class='condition-chat'>Unconscious</a></b> for the next hour, and 1 <b><a class='condition-chat'>Fatigued</a></b> Condition for the next <b><a class='chat-roll'>1d10</a></b> hours."
+    },
+    {
+      "name": "Fitful Sleep",
+      "description": "You toss and turn, asleep but not resting. Gain 1 <b><a class='condition-chat'>Unconscious</a></b> for the next hour, and 1 <b><a class='condition-chat'>Fatigued</a></b> Condition for the next <b><a class='chat-roll'>1d10</a></b> hours."
+    },
+    {
+      "name": "Confusion",
+      "description": "Plagued by weird, distorted visions, you gain one <b><a class='condition-chat'>Stunned</a></b> Condition for the next hour" 
+    },
+    {
+      "name": "Confusion",
+      "description": "Plagued by weird, distorted visions, you gain one <b><a class='condition-chat'>Stunned</a></b> Condition for the next hour" 
+    },
+    {
+      "name": "Confusion",
+      "description": "Plagued by weird, distorted visions, you gain one <b><a class='condition-chat'>Stunned</a></b> Condition for the next hour" 
+    },
+    {
+      "name": "Confusion",
+      "description": "Plagued by weird, distorted visions, you gain one <b><a class='condition-chat'>Stunned</a></b> Condition for the next hour" 
+    },
+    {
+      "name": "Hallucinations",
+      "description": "You see strange and terrifying visions, and must make a Test against Terror  3 every 10 minutes for the next hour. You also gain +1 <b><a class='condition-chat'>Stunned</a></b> Condition for the next <b><a class='chat-roll'>1d10</a></b> hours"
+    }
+  ]
+}

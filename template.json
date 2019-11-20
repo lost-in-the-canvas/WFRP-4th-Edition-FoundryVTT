@@ -878,6 +878,27 @@
       "label": "Location",
       "value": 0
     }
+  },
+  "critical" : {
+    "description" : {
+      "value": "",
+      "type" : "String"
+    },
+    "wounds" :{
+      "label" : "Wounds",
+      "value": "",
+      "type" : "String"
+    },
+    "modifier" : {
+      "value" : "",
+      "type" : "String",
+      "label" : "Test Modifier"
+    },
+    "location" : {
+      "value" : "",
+      "type" : "String",
+      "label" : "Location"
+    }
   }
 }
 }

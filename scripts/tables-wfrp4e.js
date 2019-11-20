@@ -76,7 +76,7 @@ class WFRP_Tables {
       case "critarm":
       case "critleg":
       case "crit":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br><b>Wounds:</b> ${result.wounds}<br><b>Description: </b>${result.description} (${result.roll})`
+        return `<b>${this[table].name}</b><br><a class = "item-lookup" data-type = "critical"><b>${result.name}</b></a><br>(${result.roll})`
 
       case "minormis":
       case "majormis":
@@ -84,10 +84,11 @@ class WFRP_Tables {
       case "event":
       case "wrath":
       case "travel":
+      case "gunfumble":
+          return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description} (${result.roll})`;
       case "mutatephys":
       case "mutatemental":
-      case "gunfumble":
-        return `<b>${this[table].name}</b><br><b>${result.name}</b><br>${result.description} (${result.roll})`;
+        return `<b>${this[table].name}</b><br><a class = "item-lookup" data-type = "mutation"><b>${result.name}</b></a><br>(${result.roll})`;
 
       case "doom":
         return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;

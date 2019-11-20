@@ -9,4 +9,10 @@ Hooks.on("renderChatMessage", async (html, content, msg) => {
     {
       msg.find(".chat-buttons").remove();
     }
+
+    msg.find(".post-item")[0].setAttribute("draggable", true);
+
+    msg.find(".post-item")[0].addEventListener('dragstart', ev => {
+      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+    })
   });
