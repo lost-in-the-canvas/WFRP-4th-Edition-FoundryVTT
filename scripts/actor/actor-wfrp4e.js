@@ -489,7 +489,7 @@ class ActorWfrp4e extends Actor {
       let defaultSelection
       if (wep.skillToUse)
       { 
-          skillCharList.push(wep.skillToUse)
+          skillCharList.push(wep.skillToUse.name)
           defaultSelection = wep.skillToUse.name
       }
 
