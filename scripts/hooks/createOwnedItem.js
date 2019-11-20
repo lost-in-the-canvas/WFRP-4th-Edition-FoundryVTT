@@ -1,5 +1,21 @@
 Hooks.on("createOwnedItem", (item) => {
+  try {
+    if (item.type == "critical")
+    {
+      let newWounds;
+      if (item.data.data.wounds.value.toLowerCase() == "death")
+        newWounds = 0;
+      newWounds = item.actor.data.data.status.wounds.value - Number(item.data.data.wounds.value)
+      if (newWounds < 0) newWounds = 0; 
 
+      item.actor.update({"data.status.wounds.value" : newWounds});
+    }
+  }
+  catch (error)
+  {
+    console.error("Error applying wounds value: " + error) //continue as normal if exception
+  }
+  
   if (item.actor.data.type == "character")
     return;
   if (item.type == "armour")
