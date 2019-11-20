@@ -490,7 +490,7 @@ class ActorWfrp4e extends Actor {
       if (wep.skillToUse)
       { 
           skillCharList.push(wep.skillToUse.name)
-          defaultSelection = wep.skillToUse.name
+          defaultSelection = skillCharList.indexOf(wep.skillToUse.name)
       }
 
       let testData = {
@@ -713,8 +713,8 @@ class ActorWfrp4e extends Actor {
   
           if (skillSelected.key != "int")
           {
-            testData.target = this.data.data.characteristics[skillSelected.data.characteristic.value].value
-            + skillSelected.data.advances.value
+            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+            + skillSelected.data.data.advances.value
             + testData.testDifficulty
             + testData.testModifier;
           }
@@ -828,8 +828,8 @@ class ActorWfrp4e extends Actor {
           if (skillSelected.key != "wp")
           {
           testData.target = testData.testModifier + testData.testDifficulty
-                           + this.data.data.characteristics[skillSelected.data.characteristic.value].value
-                           + skillSelected.data.advances.value
+                           + this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+                           + skillSelected.data.data.advances.value
           }
           else
             testData.target = testData.testModifier + testData.testDifficulty + this.data.data.characteristics.wp.value
@@ -922,8 +922,8 @@ class ActorWfrp4e extends Actor {
   
           if (skillSelected.key != "fel")
           {
-            testData.target = this.data.data.characteristics[skillSelected.data.characteristic.value].value
-            + skillSelected.data.advances.value
+            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+            + skillSelected.data.data.advances.value
             + testData.testDifficulty
             + testData.testModifier;
           }
