@@ -5,13 +5,13 @@
 /*   II. GENERAL USER INTERFACE                                   */
 /*   III. SIDEBAR                                                 */
 /*   IV. ITEM SHEET                                               */
-/*   V. ACTOR SHEET (CHARACTER)                                   */ 
+/*   V. ACTOR SHEET (CHARACTER)                                   */
 /*   VI. ACTOR SHEET (NPC)                                        */
 /*   VII. ACTOR SHEET (CREATURE)                                  */
 /*   VIII. ACTOR SHEET (TOKEN)                                    */
 /*   IX. PLAYERS LIST                                             */
 /*   X. NAVIGATION BAR                                            */
-/*   XI. SCENE CONTROLS                                           */ 
+/*   XI. SCENE CONTROLS                                           */
 /*   XII. GAME SETTINGS                                           */
 /*   XIII. ROLL DIALOG                                            */
 /*   XIV. MISCELLANEOUS GAME WINDOWS                              */
@@ -61,7 +61,7 @@
 
 /* ==================== (A) AWESOME FONT ICON CHANGES ========= */
   .fa-check-circle:before {
-    content: "\f058" !important; 
+    content: "\f058" !important;
   }
   .fa-trash:before {
     content: "\f2ed" !important;
@@ -76,7 +76,7 @@
   button:hover {
     box-shadow: 0 0 5px #ff9f00 !important;
   }
-  input[type="text"]:focus, 
+  input[type="text"]:focus,
   input[type="password"]:focus {
     box-shadow: 0 0 5px #ff9f00 !important;
     outline: none;
@@ -94,6 +94,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    width: 100%
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
@@ -254,7 +255,7 @@
     --actor-label-font-weight: 700;
     --actor-label-color: #464331c4;
 
-  /* =================== 2. DEBUGGING HIGHLIGHTERS ============ */ 
+  /* =================== 2. DEBUGGING HIGHLIGHTERS ============ */
     --debug-background-color-red: #ff000054;
     --debug-background-color-blue: #1d00ff54;
     --debug-background-color-green: #54ff0054;
@@ -267,7 +268,7 @@
 /* ==================== (F) SCROLLBAR ========================= */
   .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar {
     width: 10px;
-    box-shadow: inset 0 0 
+    box-shadow: inset 0 0
   }
   .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar-thumb {
     outline: none;
@@ -289,11 +290,11 @@
     height: 16px;
     background-position-y: 0px;
     /* background: red; */
-  } 
+  }
   .app.window-app.sheet.wfrp4e.actor ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-increment.png) no-repeat;
     background-position-y: 0px;
-    box-shadow: none; 
+    box-shadow: none;
     height: 16px;
     /* background: red; */
   }
@@ -312,7 +313,7 @@
 
   .app.window-app .editor ::-webkit-scrollbar {
     width: 10px;
-    box-shadow: inset 0 0 
+    box-shadow: inset 0 0
   }
   .app.window-app .editor ::-webkit-scrollbar-thumb {
     outline: none;
@@ -334,11 +335,11 @@
     height: 16px;
     background-position-y: 0px;
     /* background: red; */
-  } 
+  }
   .app.window-app .editor ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-increment.png) no-repeat;
     background-position-y: 0px;
-    box-shadow: none; 
+    box-shadow: none;
     height: 16px;
     /* background: red; */
   }
@@ -358,7 +359,7 @@
 
   .app.window-app.sheet.item-sheet ::-webkit-scrollbar {
     width: 10px;
-    box-shadow: inset 0 0 
+    box-shadow: inset 0 0
   }
   .app.window-app.sheet.item-sheet ::-webkit-scrollbar-thumb {
     outline: none;
@@ -380,11 +381,11 @@
     height: 16px;
     background-position-y: 0px;
     /* background: red; */
-  } 
+  }
   .app.window-app.sheet.item-sheet ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-light-scrollbar-button-vertical-increment.png) no-repeat;
     background-position-y: 0px;
-    box-shadow: none; 
+    box-shadow: none;
     height: 16px;
     /* background: red; */
   }
@@ -400,7 +401,7 @@
     border-radius: 0px;
     /* background: blue; */
   }
-  
+
   #sidebar ::-webkit-scrollbar {
     width: 14px;
   }
@@ -423,13 +424,13 @@
     background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
-  } 
+    box-shadow: none;
+  }
   #sidebar ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
+    box-shadow: none;
   }
   #sidebar ::-webkit-scrollbar-button:vertical:start:increment,
   #sidebar ::-webkit-scrollbar-button:vertical:end:decrement {
@@ -464,13 +465,13 @@
     background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
-  } 
+    box-shadow: none;
+  }
   .app.window-app.form ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
+    box-shadow: none;
   }
   .app.window-app.form ::-webkit-scrollbar-button:vertical:start:increment,
   .app.window-app.form ::-webkit-scrollbar-button:vertical:end:decrement {
@@ -485,7 +486,7 @@
 
   .window-app.app.filepicker ::-webkit-scrollbar {
     width: 10px;
-    box-shadow: inset 0 0 
+    box-shadow: inset 0 0
   }
   .window-app.app.filepicker ::-webkit-scrollbar-thumb {
     outline: none;
@@ -507,11 +508,11 @@
     height: 16px;
     background-position-y: 0px;
     /* background: red; */
-  } 
+  }
   .window-app.app.filepicker ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat;
     background-position-y: 0px;
-    box-shadow: none; 
+    box-shadow: none;
     height: 16px;
     /* background: red; */
   }
@@ -550,13 +551,13 @@
     background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
-  } 
+    box-shadow: none;
+  }
   .app.window-app.dialog ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
+    box-shadow: none;
   }
   .app.window-app.dialog ::-webkit-scrollbar-button:vertical:start:increment,
   .app.window-app.dialog ::-webkit-scrollbar-button:vertical:end:decrement {
@@ -591,13 +592,13 @@
     background: url(../ui/scrollbars/scrollbar-button-vertical-decrement.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
-  } 
+    box-shadow: none;
+  }
   .app.window-app ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/scrollbar-button-vertical-increment.png) no-repeat;
     background-position: center;
     box-shadow: none;
-    box-shadow: none; 
+    box-shadow: none;
   }
   .app.window-app ::-webkit-scrollbar-button:vertical:start:increment,
   .app.window-app ::-webkit-scrollbar-button:vertical:end:decrement {
@@ -631,11 +632,11 @@
     box-shadow: none !important;
     height: 16px !important;
     background-position-y: 1px !important;
-  } 
+  }
   #sidebar #chat-form ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
     background-position-y: -1px !important;
-    box-shadow: none !important; 
+    box-shadow: none !important;
     height: 16px !important;
   }
   #sidebar #chat-form ::-webkit-scrollbar-button:vertical:start:increment,
@@ -671,11 +672,11 @@
     box-shadow: none !important;
     height: 16px !important;
     background-position-y: 1px !important;
-  } 
+  }
   .window-app.dialog .talent-selector ::-webkit-scrollbar-button:end:increment {
     background: url(../ui/scrollbars/sheet-dark-scrollbar-button-vertical-increment.png) no-repeat !important;
     background-position-y: -1px !important;
-    box-shadow: none !important; 
+    box-shadow: none !important;
     height: 16px !important;
   }
   .window-app.dialog .talent-selector ::-webkit-scrollbar-button:vertical:start:increment,
@@ -810,7 +811,7 @@
     box-shadow: none;
     background: none;
   }
-  
+
   .sidebar-tab .directory-header {
     height: 38px;
     line-height: 32px;
@@ -893,11 +894,11 @@
   .sidebar-tab.sidebar-directory .directory-list li {
     border-bottom: 2px groove #333;
     margin-right: 1px;
-  }  
+  }
   .sidebar-tab.sidebar-directory .directory-list .subdirectory li {
     border-bottom: 2px groove #333;
     margin-right: 0px;
-  }  
+  }
   .sidebar-tab.sidebar-directory .directory-list .subdirectory .directory-item  {
     margin-left: 10px;
     /* background: grey; */
@@ -955,7 +956,7 @@
     padding: 0px 0px 0px 82px;
     border: none;
     box-shadow: none;
-    background: url(../ui/sidebar-border.png) repeat;  
+    background: url(../ui/sidebar-border.png) repeat;
   }
 
   #sidebar-tabs > .item {
@@ -996,7 +997,7 @@
     visibility: visible;
     background: url(../ui/sidebar-button-settings-active.png);
     background: url(../ui/sidebar-button-collapse.png);
-  }   
+  }
   #sidebar.collapsed .collapse {
     background: url(../ui/sidebar-button-collapse-active.png);
   }
@@ -1494,7 +1495,7 @@
       top: 2px;
       background: url(../ui/buttons/combat-button-delete-encounter.png);
     }
-    
+
   #sidebar #combat #combat-tracker {
     height: calc(100% - 73px - 50px);
     padding: 1px 0;
@@ -1576,7 +1577,6 @@
 /* ==================== (E) SIDEBAR (SCENES) ================== */
   #sidebar #scenes .directory-list .directory-item {
     border: 3px groove #564d3a;
-    padding: 0px 20px;
   }
   #sidebar #scenes .directory-list .directory-item .entity-name a {
     background: #000000d4;
@@ -1604,11 +1604,11 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #actors .directory-list .directory-item a {
+  #sidebar #actors .directory-list .directory-item h4 {
     position: relative;
     top: 17px;
   }
-  
+
 /* ==================== (G) SIDEBAR (ITEMS) =================== */
   #sidebar #items .directory-list .directory-item {
     padding: 1px 3px;
@@ -1622,7 +1622,7 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #items .directory-list .directory-item a {
+  #sidebar #items .directory-list .directory-item h4 {
     position: relative;
     top: 17px;
   }
@@ -1639,10 +1639,6 @@
     font-weight: var(--actor-input-font-weight);
     color: #dadada;
     text-shadow: 1px 1px 2px black;
-  }
-  #sidebar #journal .directory-list .directory-item a {
-    position: relative;
-    top: 1px;
   }
 
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
@@ -1889,7 +1885,7 @@
   }
 
 /******************************************************************/
-/******************************************************************/     
+/******************************************************************/
 
 
 
@@ -2393,13 +2389,13 @@
     flex-flow: column;
     height: calc(100% - 129px);
     overflow-y: scroll;
-  }      
+  }
   .app.window-app.sheet.item-sheet .tab.description.active {
     display: flex;
     flex-flow: column;
     height: calc(100% - 129px);
     overflow-y: hidden;
-  }    
+  }
     .app.window-app.sheet.item-sheet .editor {
       border: 1px solid #736953a6;
       box-shadow: 0px 0px 1px inset black;
@@ -2620,7 +2616,7 @@
     margin: -29px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.injury-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -2710,7 +2706,7 @@
     border: 1px dotted #463a3a;
     box-shadow: none;
     }
-    
+
 /* ==================== (F) MUTATION ========================== */
   .app.window-app.sheet.item-sheet.mutation-sheet {
     /* font-family: CaslonAntique;
@@ -2727,7 +2723,7 @@
     margin: -29px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.mutation-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -2773,7 +2769,7 @@
     margin: -29px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.creature-trait-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -2880,7 +2876,7 @@
     margin: -21px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.prayer-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -2997,7 +2993,7 @@
     margin: -29px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.skill-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -3104,7 +3100,7 @@
     margin: -29px 0px 0px 0px;
     height: 26px;
     position: relative;
-  } 
+  }
     .app.window-app.sheet.item-sheet.spell-sheet .sheet-tabs.edges.left {
       margin: 0px;
       height: 25px;
@@ -3194,11 +3190,11 @@
     border: 1px dotted #463a3a;
     box-shadow: none;
     }
-      
+
 /* ==================== (L) SIDEBAR CHAT FORM ================= */
 
 /******************************************************************/
-/******************************************************************/ 
+/******************************************************************/
 
 
 
@@ -3649,7 +3645,7 @@
       grid-gap: 0px;
       background: none;
       border: 1px solid #736953a6;
-    }   
+    }
 
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header {
       font-family: var(--actor-label-font-family);
@@ -3659,15 +3655,15 @@
       box-shadow: 0 0 10px #00000052 inset;
       text-align: center;
       width: 100%;
-      border-bottom: none;  
+      border-bottom: none;
       border-right: 1px solid #736953a6;
-    }  
+    }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block {
         padding-top: 0px;
-      }  
+      }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header:last-of-type {
         border-right: none;
-      } 
+      }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header .header-block .advancement-indicator {
         position: fixed;
         margin-top: -3px;
@@ -3685,7 +3681,7 @@
       min-height: 29px;
       max-height: 29px;
       padding-top: 5px;
-    }  
+    }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
       border-top: 1px solid #736953a6;
       border-right: 1px solid #736953a6;
@@ -4179,7 +4175,7 @@
             height: 22px;
             padding: 5px 0px 0px 0px;
           }
-        
+
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row .experience.row-section {
       display: flex;
       flex-direction: column;
@@ -4333,7 +4329,7 @@
         margin: 0px;
         padding: 0px;
       }
-      
+
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list .inventory-list {
       width: 100%;
       text-align: center;
@@ -4801,7 +4797,7 @@
       margin: 0px;
       padding: 0px;
     }
-    
+
   .app.window-app.sheet.wfrp4e.actor .tab.talents.active .inventory-list.talent-list {
     overscroll-behavior-x: unset;
     overflow-x: hidden;
@@ -5264,7 +5260,7 @@
           margin-right: 4px;
           padding: 2px 2px 0px 2px;
           background: #774e000f;
-          box-shadow: 0 0 3px #6b3a0f2b inset;        
+          box-shadow: 0 0 3px #6b3a0f2b inset;
         }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property .label ,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property .label {
@@ -5303,7 +5299,7 @@
         .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .weapon-property h1:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h1:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h2:last-of-type,
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h3:last-of-type, 
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h3:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .weapon-property h4:last-of-type {
           visibility: hidden;
           margin: 0px 2px 0px 0px;
@@ -5554,7 +5550,7 @@
           margin-right: 4px;
           padding: 2px 2px 0px 2px;
           background: #774e000f;
-          box-shadow: 0 0 3px #6b3a0f2b inset;        
+          box-shadow: 0 0 3px #6b3a0f2b inset;
         }
         .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .weapon-property .label,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property .label {
@@ -5593,7 +5589,7 @@
         }
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property h1:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property h2:last-of-type,
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property h3:last-of-type, 
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property h3:last-of-type,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .weapon-property h4:last-of-type {
           visibility: hidden;
           margin: 0px 2px 0px 0px;
@@ -5975,7 +5971,7 @@
         flex-grow: 0;
       }
 
-/* ==================== (J) MAGIC TAB ========================= */   
+/* ==================== (J) MAGIC TAB ========================= */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active {
     display: block;
     height: 352px;
@@ -6277,7 +6273,7 @@
           width: 100%;
           text-overflow: ellipsis;
         }
-      
+
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .spell-attr,
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
         min-width: 30px;
@@ -6302,7 +6298,7 @@
         flex-grow: 0;
       }
 
-/* ==================== (K) RELIGION TAB ====================== */  
+/* ==================== (K) RELIGION TAB ====================== */
   .app.window-app.sheet.wfrp4e.actor .tab.religion.active {
     display: block;
     height: 352px;
@@ -6319,7 +6315,7 @@
     flex-direction: row;
     height: 25px;
     margin-top: 0px;
-  } 
+  }
   .app.window-app.sheet.wfrp4e.actor .tab.religion.active .religion-box-1 {
     display: flex;
     flex-direction: row;
@@ -6361,7 +6357,7 @@
       background: none;
       font-family: CaslonPro;
       font-weight: 500;
-      font-size: 14px;      
+      font-size: 14px;
     }
   .app.window-app.sheet.wfrp4e.actor .tab.religion.active .religion-box-2 {
     display: flex;
@@ -6651,7 +6647,7 @@
         flex-grow: 0;
       }
 
-/* ==================== (L) TRAPPING TAB ====================== */    
+/* ==================== (L) TRAPPING TAB ====================== */
   .app.window-app.sheet.wfrp4e.actor .tab.inventory.active {
     display: block;
     height: 352px;
@@ -6688,12 +6684,12 @@
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header #encumbrance-text {
         justify-self: left;
-      } 
+      }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header .encumbrance-counter-block {
         flex-grow: 2;
         text-align: right;
         justify-content: unset;
-      } 
+      }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header .encumbrance-label {
           text-align: right;
           padding: 0px;
@@ -6712,7 +6708,7 @@
           height: 20px;
           /* background: red; */
         }
-        
+
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header {
       height: 21px;
       width: 493px;
@@ -6737,12 +6733,12 @@
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header #encumbrance-text {
         justify-self: left;
-      } 
+      }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header .encumbrance-counter-block {
         flex-grow: 2;
         text-align: right;
         justify-content: unset;
-      } 
+      }
         .wfrp4e .tab.inventory.active .encumbrance-header .encumbrance-label {
           text-align: right;
           padding: 0px;
@@ -6801,7 +6797,7 @@
           max-width: 20px;
           text-align: center;
         }
-    
+
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance {
       margin-top: 0px;
       padding: 0px 1px 0px 1px;
@@ -6814,7 +6810,7 @@
       box-shadow: 0px 0px 1px inset black;
       background: none;
       height: 25px;
-    }   
+    }
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-text {
       margin-top: 0px;
       padding: 5px 1px 0px 4px;
@@ -6834,7 +6830,7 @@
       position: relative;
       top: -1px;
       left: -2px;
-    }     
+    }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-bar {
         background: none;
         height: 21px;
@@ -6863,7 +6859,7 @@
       }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .no-encumbrance {
         box-shadow: 0px 0px 8px inset #3c7173;
-        
+
       }
 
   /* ================== 2. GENERIC EQUIPMENT LISTS ============ */
@@ -8548,7 +8544,7 @@
           flex-grow: 0;
         }
 
-/* ==================== (M) NOTES TAB ========================= */  
+/* ==================== (M) NOTES TAB ========================= */
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active {
     display: inline-block;
     height: 352px;
@@ -8558,8 +8554,8 @@
     overflow-x: hidden;
     overflow-y: scroll;
     /* background: blue; */
-  }    
-
+  }
+  .app.window-app.item-sheet .note-section.label,
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label {
     width: 100%;
     height: 20px;
@@ -8578,6 +8574,12 @@
     overflow-x: hidden;
     overflow-y: hidden;
   }
+
+  .app.window-app.item-sheet .note-section.label {
+    height: 45px;
+    margin: 5px 0px -7px 0px;
+  }
+  
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;
   }
@@ -8766,7 +8768,7 @@
       color: var(--actor-label-color);
       margin: 0px;
       padding: 0px;
-    } 
+    }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list {
     overscroll-behavior-x: unset;
     overflow-x: hidden;
@@ -9004,7 +9006,7 @@
         max-width: 30px;
         flex-grow: 0;
       }
-       
+
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.disease-header {
     width: 100%;
     height: 20px;
@@ -9150,7 +9152,7 @@
         max-width: 30px;
         flex-grow: 0;
       }
-    
+
 /*************************************************************/
 /*************************************************************/
 
@@ -9464,7 +9466,7 @@
     grid-gap: 0px;
     background: none;
     border: 1px solid #736953a6;
-  }   
+  }
 
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
     font-family: var(--actor-label-font-family);
@@ -9474,16 +9476,16 @@
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
     width: 100%;
-    border-bottom: none;  
+    border-bottom: none;
     border-right: 1px solid #736953a6;
-  }  
+  }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
     /* background: red; */
-  }  
+  }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
       padding-top: 0px;
-    }  
+    }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
       position: fixed;
       margin-top: -3px;
@@ -9835,7 +9837,7 @@
       vertical-align: middle;
       box-shadow: 0 0 10px #00000052 inset;
       position: relative;
-      top: -1px;    
+      top: -1px;
     }
 
 /* ==================== (E) TAB SELECTIONS ==================== */
@@ -10134,7 +10136,7 @@
         min-width: 20px;
         max-width: 20px;
         flex-grow: 0;
-      }    
+      }
 
   /* ================== 2. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list {
@@ -10209,7 +10211,7 @@
         margin: 0px;
         padding: 0px;
       }
-      
+
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-list {
       width: 100%;
       text-align: center;
@@ -10307,7 +10309,7 @@
           min-width: 30px;
           max-width: 30px;
           flex-grow: 0;
-        }        
+        }
 
   /* ================== 3. PENALTIES ========================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties {
@@ -11024,7 +11026,7 @@
     grid-gap: 0px;
     background: none;
     border: 1px solid #736953a6;
-  }   
+  }
 
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header {
     font-family: var(--actor-label-font-family);
@@ -11034,16 +11036,16 @@
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
     width: 100%;
-    border-bottom: none;  
+    border-bottom: none;
     border-right: 1px solid #736953a6;
-  }  
+  }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
     /* background: red; */
-  }  
+  }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block {
       padding-top: 0px;
-    }  
+    }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header .header-block .advancement-indicator {
       position: fixed;
       margin-top: -3px;
@@ -11077,7 +11079,7 @@
     text-align: center;
   }
 
-  
+
   /* SECOND ROW */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .main-row {
     display: flex;
@@ -11396,7 +11398,7 @@
       vertical-align: middle;
       box-shadow: 0 0 10px #00000052 inset;
       position: relative;
-      top: -1px;    
+      top: -1px;
     }
 
 /* ==================== (E) TAB SELECTIONS ==================== */
@@ -11814,7 +11816,7 @@
           width: 22px;
         }
 
-/* ==================== (H) MAGIC TAB ========================= */   
+/* ==================== (H) MAGIC TAB ========================= */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active {
     display: block;
     height: 352px;
@@ -12136,7 +12138,7 @@
         flex-grow: 0;
       }
 
-/* ==================== (K) NOTES TAB ========================= */  
+/* ==================== (K) NOTES TAB ========================= */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active {
     display: inline-block;
     height: 352px;
@@ -12146,7 +12148,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     /* background: blue; */
-  }    
+  }
 
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.label {
     width: 100%;
@@ -12309,7 +12311,7 @@
         max-width: 30px;
         flex-grow: 0;
       }
-            
+
 /*************************************************************/
 /*************************************************************/
 
@@ -12799,7 +12801,7 @@ border-image-outset: 0px !important;
         background: #adadad !important;
         box-shadow: 0px 0px 3px black inset !important;
         position: relative;
-        top: 5px;    
+        top: 5px;
       }
 
 /*************************************************************/
@@ -12856,7 +12858,7 @@ border-image-outset: 0px !important;
   .window-app.dialog.skill-roll-dialog .window-header .window-title,
   .window-app.dialog.weapon-roll-dialog .window-header .window-title,
   .window-app.dialog.spell-roll-dialog .window-header .window-title,
-  .window-app.dialog.channell-roll-dialog .window-header .window-title, 
+  .window-app.dialog.channell-roll-dialog .window-header .window-title,
   .window-app.dialog.prayer-roll-dialog .window-header .window-title {
     display: block;
     position: absolute;
@@ -13130,7 +13132,7 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 10px inset black;
       background: url(../ui/frames/parchment-texture.png);
     }
-    
+
 
   .window-app.dialog.characteristic-roll-dialog input[name="hitLocation"],
   .window-app.dialog.skill-roll-dialog input[name="hitLocation"],
@@ -13276,7 +13278,7 @@ border-image-outset: 0px !important;
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
     }
-    .app.window-app .form-group, 
+    .app.window-app .form-group,
     .app.window-app .form-group-stacked {
       clear: both;
       display: flex;
@@ -13330,7 +13332,7 @@ border-image-outset: 0px !important;
         cursor: pointer;
         margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
         box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
-      } 
+      }
       .app.window-app .form-group input[type="range"]::-webkit-slider-runnable-track {
         background-image: linear-gradient(to right, #820f0f , #82820d);
       }
@@ -13429,11 +13431,11 @@ border-image-outset: 0px !important;
     .app.window-app.sheet.scene-sheet .form-group label span {
       font-size: 14px;
       color: #7d7d7d;
-    } 
+    }
     .app.window-app.sheet.scene-sheet .form-group .file-picker {
       margin: 0 3px 0px 3px !important;
       box-shadow: 0px 0px 5px black inset;
-    } 
+    }
       .app.window-app.sheet.scene-sheet .form-group .file-picker i {
         display: contents;
         font-size: 16px;
@@ -13445,7 +13447,7 @@ border-image-outset: 0px !important;
     }
 
     /* Token Vision */
-    .app.window-app.sheet.scene-sheet .form-group input[type="checkbox"] { 
+    .app.window-app.sheet.scene-sheet .form-group input[type="checkbox"] {
       position: relative;
       top: 4px;
       margin-left: 6px;
@@ -13475,7 +13477,7 @@ border-image-outset: 0px !important;
       border: 1px solid #736953a6;
       padding: 4px;
     }
-  
+
   /* ================== 5. DELETE ITEM FROM ACTOR ============= */
     .app.window-app .dialog-content .delete-item-dialog.selection {
       font-family: var(--actor-input-font-family);
@@ -13623,7 +13625,7 @@ border-image-outset: 0px !important;
       cursor: pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
-    } 
+    }
     #token-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
@@ -13656,7 +13658,7 @@ border-image-outset: 0px !important;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
     }
-    
+
     #token-config .tab[data-tab="vision"] .notes {
       text-align: center;
     }
@@ -13717,7 +13719,7 @@ border-image-outset: 0px !important;
       border-left: none;
       border-right: none;
       box-shadow: 0px 0px 10px inset black;
-      background: #352516;  
+      background: #352516;
     }
 
   /* ================== 7. DRAWING CONFIG ======================= */
@@ -13811,7 +13813,7 @@ border-image-outset: 0px !important;
       cursor: pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
-    } 
+    }
     #drawing-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
@@ -13844,7 +13846,7 @@ border-image-outset: 0px !important;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
     }
-    
+
     #drawing-config .tab[data-tab="vision"] .notes {
       text-align: center;
     }
@@ -13905,7 +13907,7 @@ border-image-outset: 0px !important;
       border-left: none;
       border-right: none;
       box-shadow: 0px 0px 10px inset black;
-      background: #352516;  
+      background: #352516;
     }
 
   /* ================== 8. JOUNRAL ENTRIES ==================== */
@@ -14025,7 +14027,7 @@ border-image-outset: 0px !important;
         box-shadow: 0px 0px 3px black inset;
         opacity: 0.9;
         background: none;
-      }      
+      }
       .window-app.app.journal-sheet .window-content select[name="folder"] {
         background: none;
         border: 1px solid #5a5a5a;
@@ -14062,7 +14064,7 @@ border-image-outset: 0px !important;
       /* box-shadow: inset 0 0 20px #000000; */
       background: url(../ui/sidebar_button-background_red.png) repeat;
       background-origin: padding-box;
-    } 
+    }
 
     .window-app.app.journal-sheet form.editable .editor {
       height: calc(100% - 126px);
@@ -14124,7 +14126,7 @@ border-image-outset: 0px !important;
       /* box-shadow: inset 0 0 20px #000000; */
       background: url(../ui/sidebar_button-background_red.png) repeat;
       background-origin: padding-box;
-    }    
+    }
       .window-app.journal-sheet.image-popout .form-group button i {
         display: block;
       }
@@ -14314,7 +14316,7 @@ font-style : normal;
   line-height: 30px;
   border: none;
   background: url(../ui/window-app-dialog-header.png) repeat;
-} 
+}
   .window-app.dialog.cast-channell .window-header .window-title {
     position: absolute;
     top: 60px;
@@ -14427,7 +14429,7 @@ font-style : normal;
     border-image-outset: 0px;
     background: url(../ui/sidebar_button-background_red.png) repeat;
     background-origin: padding-box;
-  } 
+  }
 
   .window-content .notes {
     color: #BBB;
@@ -14783,7 +14785,7 @@ font-style : normal;
         overflow: hidden;
         /* background: var(--debug-background-color-blue); */
       }
-      
+
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.item-sheet .import {
         top: 19px;
@@ -14793,7 +14795,7 @@ font-style : normal;
       .app.window-app.sheet.item-sheet .configure-sheet {
         background: url(../ui/buttons/button-configure-sheet.png);
       }
-      
+
       .compendium .entry-name {
         color: #CCC;
       }
@@ -14860,11 +14862,11 @@ font-style : normal;
         #player-config {
           height: 210px;
         }
-        
+
         #player-config button[type="submit"] {
           height: 35px
         }
-        
+
         #player-config button[type="submit"] i {
           display: inline-block
         }
@@ -14915,7 +14917,7 @@ font-style : normal;
   position: relative;
   top: 5px;
   cursor: pointer;
-}  
+}
 
 .chat-buttons {
   position: relative;
@@ -14990,4 +14992,26 @@ font-style : normal;
 
 .app.window-app.sheet .roll-table-config  {
   width: 725px;
+}
+
+#sidebar #tables .directory-list .directory-item {
+  padding: 3px 3px;
+  border: 3px groove #564d3a;
+  box-shadow: 0 0 6px #000 inset;
+  line-height: normal;
+  background: #000000b5;
+  font-family: var(--actor-input-font-family);
+  font-size: 16px;
+  font-weight: var(--actor-input-font-weight);
+  color: #dadada;
+  text-shadow: 1px 1px 2px black;
+}
+
+#sidebar #tables .directory-list .directory-item h4{
+  top:17px;
+  position: relative;
+}
+
+#sidebar #tables .directory-list .directory-item .profile{
+  content: url(../ui/buttons/d10.png);
 }

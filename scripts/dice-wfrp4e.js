@@ -286,21 +286,21 @@ class DiceWFRP {
        damageToUse = unitValue;
 
      if (testData.extra.attackType == "melee")
-       testData.damage = eval(weapon.data.damage.meleeValue + damageToUse);
+      testResults.damage = eval(weapon.data.damage.meleeValue + damageToUse);
      if (testData.extra.attackType == "ranged")
-       testData.damage = eval(weapon.data.damage.rangedValue + damageToUse);
+      testResults.damage = eval(weapon.data.damage.rangedValue + damageToUse);
      
      if (weapon.properties.qualities.includes("Impact") || weapon.properties.qualities.includes("Tiring (Impact)"))
-       testData.damage += unitValue;
+      testResults.damage += unitValue;
 
      if ((weapon.properties.qualities.includes("Tiring (Damaging)") && damageToUse != testResults.SL)
        || weapon.properties.qualities.includes("Tiring (Impact)")
        || weapon.properties.qualities.includes("Impact"))
      {
        if (testData.extra.attackType == "melee")
-         testData.damage = `${eval(weapon.data.damage.meleeValue + testResults.SL)} | ${testData.damage}` ;
+        testResults.damage = `${eval(weapon.data.damage.meleeValue + testResults.SL)} | ${testResults.damage}` ;
        if (testData.extra.attackType == "ranged")
-         testData.damage = `${eval(weapon.data.damage.rangedValue + testResults.SL)} | ${testData.damage}` ;
+        testResults.damage = `${eval(weapon.data.damage.rangedValue + testResults.SL)} | ${testResults.damage}` ;
      }
 
 

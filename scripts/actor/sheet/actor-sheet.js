@@ -1054,6 +1054,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Update Inventory Item
     html.find('.item-edit').click(ev => {
+      let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
       const item = this.actor.getOwnedItem(itemId);
       item.sheet.render(true);
     });
