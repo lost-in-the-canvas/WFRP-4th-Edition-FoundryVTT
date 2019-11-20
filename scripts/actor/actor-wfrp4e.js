@@ -486,8 +486,12 @@ class ActorWfrp4e extends Actor {
           ammo = weapon;
         }
       }
+      let defaultSelection
       if (wep.skillToUse)
-        skillCharList.push(wep.skillToUse)
+      { 
+          skillCharList.push(wep.skillToUse)
+          defaultSelection = wep.skillToUse.name
+      }
 
       let testData = {
         target : 0,
@@ -556,7 +560,7 @@ class ActorWfrp4e extends Actor {
           slBonus : slBonus || 0,
           successBonus : successBonus || 0,
           modifier : modifier || 0,
-          defaultSelection : wep.skillToUse,
+          defaultSelection : defaultSelection,
           advantage : this.data.data.status.advantage.value || 0
         },
         callback : (html, roll) => {
@@ -578,7 +582,7 @@ class ActorWfrp4e extends Actor {
           else
           {
             // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
-            let skillUsed = testData.weapon.skillToUse;
+            let skillUsed = testData.extra.weapon.skillToUse;
   
             testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
                                                                                 + testData.testModifier
