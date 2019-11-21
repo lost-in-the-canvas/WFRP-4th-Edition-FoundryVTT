@@ -21,7 +21,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
      * @type {String}
      */
     get template() {
-      return "public/systems/wfrp4e/templates/actors/creature-sheet.html";
+      return "systems/wfrp4e/templates/actors/creature-sheet.html";
     }
   
     /* -------------------------------------------- */

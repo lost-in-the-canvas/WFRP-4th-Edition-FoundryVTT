@@ -774,6 +774,7 @@
     background-position-y: 45px;
     border-radius: 0px;
     box-shadow: 0 0 0px #000;
+    border:none;
   }
   #sidebar .sidebar-tab {
     flex: 1;
@@ -15027,6 +15028,9 @@ font-style : normal;
   width: 725px;
 }
 
+.filepicker .tabs {
+  color: #CCC 
+}
 #sidebar #tables .directory-list .directory-item {
   padding: 3px 3px;
   border: 3px groove #564d3a;

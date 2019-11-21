@@ -150,6 +150,8 @@
   "gridUnits": "yd",
   "primaryTokenAttribute": "status.wounds",
   "secondaryTokenAttribute": "status.advantage",
-  "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
-  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip"
+  "minimumCoreVersion" : "0.4.0",
+  "templateVersion":2,
+  "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/040/system.json",
+  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/040.zip"
 }

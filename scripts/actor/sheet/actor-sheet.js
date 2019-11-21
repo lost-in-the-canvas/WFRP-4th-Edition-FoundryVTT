@@ -1085,7 +1085,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       html.find('.item-delete').click(ev => {
         let li = $(ev.currentTarget).parents(".item"),
           itemId = Number(li.attr("data-item-id"));
-          renderTemplate('public/systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
+          renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
             new Dialog({
             title: "Delete Confirmation",
             content: html,
