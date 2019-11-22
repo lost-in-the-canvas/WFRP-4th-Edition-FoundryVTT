@@ -16,7 +16,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
    * @type {String}
    */
   get template() {
-    return "public/systems/wfrp4e/templates/actors/actor-sheet.html";
+    return "systems/wfrp4e/templates/actors/actor-sheet.html";
   }
 
   /**

@@ -41,7 +41,7 @@ async _render(force = false, options = {})
    */
   get template() {
     let type = this.item.type;
-    return `public/systems/wfrp4e/templates/items/item-${type}-sheet.html`;
+    return `/systems/wfrp4e/templates/items/item-${type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
