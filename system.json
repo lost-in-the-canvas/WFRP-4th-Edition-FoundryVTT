@@ -153,5 +153,5 @@
   "minimumCoreVersion" : "0.4.0",
   "templateVersion":2,
   "manifest" :  "https://raw.githubusercontent.com/moo-man/WFRP-4th-Homebrew-FoundryVTT/stable/system.json",
-  "download" :  "https://github.com/moo-man/WFRP-4th-Homebrew-FoundryVTT/stable.zip"
+  "download" :  "https://github.com/moo-man/WFRP-4th-Homebrew-FoundryVTT/archive/stable.zip"
 }
