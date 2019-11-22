@@ -2,148 +2,142 @@
   "Actor": {
     "types": ["character","npc","creature"],
     "templates": {
-      "characteristics":{
-        "characteristics": {
-          "ws": {
-            "type": "number",
-            "label": "Weapon Skill",
-            "abrev": "WS",
-            "initial": 20,
-            "advances": 0
-          },
-          "bs": {
-            "type": "Number",
-            "label": "Ballistic Skill",
-            "abrev": "BS",
-            "initial": 20,
-            "advances": 0
-          },
-          "s": {
-            "type": "Number",
-            "label": "Strength",
-            "abrev": "S",
-            "initial": 20,
-            "advances": 0
-          },
-          "t": {
-            "type": "Number",
-            "label": "Toughness",
-            "abrev": "T",
-            "initial": 20,
-            "advances": 0
-          },
-          "i": {
-            "type": "Number",
-            "label": "Initiative",
-            "abrev": "I",
-            "initial": 20,
-            "advances": 0
-          },
-          "ag": {
-            "type": "Number",
-            "label": "Agility",
-            "abrev": "Ag",
-            "initial": 20,
-            "advances": 0
-          },
-          "dex": {
-            "type": "Number",
-            "label": "Dexterity",
-            "abrev": "Dex",
-            "initial": 20,
-            "advances": 0
-          },
-          "int": {
-            "type": "Number",
-            "label": "Intelligence",
-            "abrev": "Int",
-            "initial": 20,
-            "advances": 0
-          },
-          "wp": {
-            "type": "Number",
-            "label": "Willpower",
-            "abrev": "WP",
-            "initial": 20,
-            "advances": 0
-          },
-          "fel": {
-            "type": "Number",
-            "label": "Fellowship",
-            "abrev": "Fel",
-            "initial": 20,
-            "advances": 0
-          }
+      "characteristics": {
+        "ws": {
+          "type": "number",
+          "label": "Weapon Skill",
+          "abrev": "WS",
+          "initial": 20,
+          "advances": 0
+        },
+        "bs": {
+          "type": "Number",
+          "label": "Ballistic Skill",
+          "abrev": "BS",
+          "initial": 20,
+          "advances": 0
+        },
+        "s": {
+          "type": "Number",
+          "label": "Strength",
+          "abrev": "S",
+          "initial": 20,
+          "advances": 0
+        },
+        "t": {
+          "type": "Number",
+          "label": "Toughness",
+          "abrev": "T",
+          "initial": 20,
+          "advances": 0
+        },
+        "i": {
+          "type": "Number",
+          "label": "Initiative",
+          "abrev": "I",
+          "initial": 20,
+          "advances": 0
+        },
+        "ag": {
+          "type": "Number",
+          "label": "Agility",
+          "abrev": "Ag",
+          "initial": 20,
+          "advances": 0
+        },
+        "dex": {
+          "type": "Number",
+          "label": "Dexterity",
+          "abrev": "Dex",
+          "initial": 20,
+          "advances": 0
+        },
+        "int": {
+          "type": "Number",
+          "label": "Intelligence",
+          "abrev": "Int",
+          "initial": 20,
+          "advances": 0
+        },
+        "wp": {
+          "type": "Number",
+          "label": "Willpower",
+          "abrev": "WP",
+          "initial": 20,
+          "advances": 0
+        },
+        "fel": {
+          "type": "Number",
+          "label": "Fellowship",
+          "abrev": "Fel",
+          "initial": 20,
+          "advances": 0
         }
       },
       "status": {
-        "status": {
-          "wounds": {
-            "type": "Number",
-            "label": "Wounds",
-            "abrev": "W",
-            "value": 8,
-            "max": 8
-          },
-          "advantage": {
-            "type": "Number",
-            "label": "Advantage",
-            "value": 0,
-            "max": 10
-          },
-          "criticalWounds": {
-            "type": "Number",
-            "label": "Critical Wounds",
-            "value": 0,
-            "max": 2
-          },
-          "sin": {
-            "type": "Number",
-            "label": "Sin",
-            "value": 0
-          },
-          "penalties": {
-            "type": "String",
-            "label": "Penalties",
-            "value": ""
-          },
-          "corruption": {
-            "type": "Number",
-            "label": "Corruption",
-            "value": 0
-          },
-          "encumbrance": {
-            "type": "Number",
-            "label": "Encumbrance",
-            "max": 0,
-            "current": 0
-          }
+        "wounds": {
+          "type": "Number",
+          "label": "Wounds",
+          "abrev": "W",
+          "value": 8,
+          "max": 8
+        },
+        "advantage": {
+          "type": "Number",
+          "label": "Advantage",
+          "value": 0,
+          "max": 10
+        },
+        "criticalWounds": {
+          "type": "Number",
+          "label": "Critical Wounds",
+          "value": 0,
+          "max": 2
+        },
+        "sin": {
+          "type": "Number",
+          "label": "Sin",
+          "value": 0
+        },
+        "penalties": {
+          "type": "String",
+          "label": "Penalties",
+          "value": ""
+        },
+        "corruption": {
+          "type": "Number",
+          "label": "Corruption",
+          "value": 0
+        },
+        "encumbrance": {
+          "type": "Number",
+          "label": "Encumbrance",
+          "max": 0,
+          "current": 0
         }
       },
       "details": {
-        "details": {
-          "size": {
-            "type": "String",
-            "label": "Size",
-            "value": "avg"
-          },
-          "move": {
-            "type": "Number",
-            "label": "Movement",
-            "value": 4,
-            "walk": 0,
-            "run": 0
-          },
-          "god": {
-            "type": "String",
-            "label": "God",
-            "value": ""
-          },
-          "hitLocationTable": {
-            "value": "hitloc",
-            "type": "String",
-            "label": "Hit Location Table"
-          }
+        "size": {
+          "type": "String",
+          "label": "Size",
+          "value": "avg"
+        },
+        "move": {
+          "type": "Number",
+          "label": "Movement",
+          "value": 4,
+          "walk": 0,
+          "run": 0
+        },
+        "god": {
+          "type": "String",
+          "label": "God",
+          "value": ""
+        },
+        "hitLocationTable": {
+          "value": "hitloc",
+          "type": "String",
+          "label": "Hit Location Table"
         }
       }
     },
@@ -289,48 +283,35 @@
     ],
     "templates": {
       "quantity": {
-        "quantity": {
         "type": "Number",
         "label": "Quantity",
         "value": 1
-        }
       },
       "encumbrance": {
-        "encumbrance": {
         "type": "Number",
         "label": "Encumbrance",
         "value": 0
-        }
       },
       "price": {
-        "price": {
         "type": "String",
         "label": "Price",
         "gc": 0,
         "ss": 0,
         "bp": 0
-        }
       },
       "availability": {
-        "availability": {
         "type": "String",
         "label": "Availability",
         "value": ""
-        }
       },
       "description": {
-        "description": {
         "type": "String",
-        "label": "Description",
-        "value": ""
-        }
+        "label": "Description"
       },
       "location": {
-        "location": {
         "type": "Number",
         "label": "Location",
         "value": 0
-        }
       }
     },
     "career": {
@@ -731,11 +712,6 @@
         "type": "String",
         "label": "Wounds"
       },
-      "modifier" : {
-        "value" : "",
-        "type" : "String",
-        "label" : "Test Modifier"
-      },
       "location": {
         "value": "",
         "type": "String",
@@ -795,24 +771,6 @@
         "type": "Number",
         "value": 1
       }
-    }
-  },
-  "critical" : {
-    "templates": ["description"],
-    "wounds" :{
-      "label" : "Wounds",
-      "value": "",
-      "type" : "String"
-    },
-    "modifier" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Test Modifier"
-    },
-    "location" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Location"
     }
   }
 }

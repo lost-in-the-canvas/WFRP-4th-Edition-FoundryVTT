@@ -8,7 +8,7 @@ Hooks.on("ready", async () => {
     let module;
     if (activeModules[m])
     {
-      game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
+      FilePicker.browse("user", `modules/${m}/tables`).then(resp => {
         try 
         {
         if (resp.errorr || !resp.baseDir.includes("tables"))
