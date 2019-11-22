@@ -255,7 +255,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/characteristic-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/characteristic-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -289,7 +289,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/characteristic-card.html"
+        template : "systems/wfrp4e/templates/chat/characteristic-card.html"
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
@@ -326,7 +326,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/skill-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -431,7 +431,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/skill-card.html"
+        template : "systems/wfrp4e/templates/chat/skill-card.html"
       }
 
       if (this.token)
@@ -486,8 +486,12 @@ class ActorWfrp4e extends Actor {
           ammo = weapon;
         }
       }
+      let defaultSelection
       if (wep.skillToUse)
-        skillCharList.push(wep.skillToUse)
+      { 
+          skillCharList.push(wep.skillToUse.name)
+          defaultSelection = skillCharList.indexOf(wep.skillToUse.name)
+      }
 
       let testData = {
         target : 0,
@@ -543,7 +547,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/weapon-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/weapon-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -556,7 +560,7 @@ class ActorWfrp4e extends Actor {
           slBonus : slBonus || 0,
           successBonus : successBonus || 0,
           modifier : modifier || 0,
-          defaultSelection : wep.skillToUse,
+          defaultSelection : defaultSelection,
           advantage : this.data.data.status.advantage.value || 0
         },
         callback : (html, roll) => {
@@ -578,7 +582,7 @@ class ActorWfrp4e extends Actor {
           else
           {
             // If using the appropriate skill, set the target number to characteristic value + advances + modifiers
-            let skillUsed = testData.weapon.skillToUse;
+            let skillUsed = testData.extra.weapon.skillToUse;
   
             testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
                                                                                 + testData.testModifier
@@ -615,7 +619,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/weapon-card.html",
+        template : "systems/wfrp4e/templates/chat/weapon-card.html",
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
@@ -633,7 +637,7 @@ class ActorWfrp4e extends Actor {
         this.setupCast(spell, options)
       else
       {
-        renderTemplate("public/systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
+        renderTemplate("systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
           new Dialog({
             title: "Cast or Channell",
             content: dlg,
@@ -684,7 +688,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/spell-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/spell-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -709,8 +713,8 @@ class ActorWfrp4e extends Actor {
   
           if (skillSelected.key != "int")
           {
-            testData.target = this.data.data.characteristics[skillSelected.data.characteristic.value].value
-            + skillSelected.data.advances.value
+            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+            + skillSelected.data.data.advances.value
             + testData.testDifficulty
             + testData.testModifier;
           }
@@ -760,7 +764,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/spell-card.html"
+        template : "systems/wfrp4e/templates/chat/spell-card.html"
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
@@ -799,7 +803,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/channell-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/channell-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -824,8 +828,8 @@ class ActorWfrp4e extends Actor {
           if (skillSelected.key != "wp")
           {
           testData.target = testData.testModifier + testData.testDifficulty
-                           + this.data.data.characteristics[skillSelected.data.characteristic.value].value
-                           + skillSelected.data.advances.value
+                           + this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+                           + skillSelected.data.data.advances.value
           }
           else
             testData.target = testData.testModifier + testData.testDifficulty + this.data.data.characteristics.wp.value
@@ -863,7 +867,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/channell-card.html"
+        template : "systems/wfrp4e/templates/chat/channell-card.html"
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
@@ -895,7 +899,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/prayer-dialog.html",
+        template : "/systems/wfrp4e/templates/chat/prayer-dialog.html",
         buttons : {
           rollButton : {
             label: "Roll"
@@ -918,8 +922,8 @@ class ActorWfrp4e extends Actor {
   
           if (skillSelected.key != "fel")
           {
-            testData.target = this.data.data.characteristics[skillSelected.data.characteristic.value].value
-            + skillSelected.data.advances.value
+            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+            + skillSelected.data.data.advances.value
             + testData.testDifficulty
             + testData.testModifier;
           }
@@ -950,7 +954,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/prayer-card.html"
+        template : "systems/wfrp4e/templates/chat/prayer-card.html"
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;
@@ -982,7 +986,7 @@ class ActorWfrp4e extends Actor {
   
       let dialogOptions = {
         title: title,
-        template : "/public/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
+        template : "/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
         buttons : {
           rollButton : {
             label: "Roll"
@@ -1037,7 +1041,7 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "public/systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
+        template : "systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
       }
       if (this.token)
         cardOptions.speaker.alias = this.token.data.name;

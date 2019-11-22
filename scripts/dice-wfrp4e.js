@@ -728,7 +728,7 @@ class DiceWFRP {
         }
         else if (ev.button == 2)
         {
-          renderTemplate('public/systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+          renderTemplate('systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
             new Dialog({
               title: "Table Modifier",
               content: html,
