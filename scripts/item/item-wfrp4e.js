@@ -228,7 +228,7 @@ class ItemWfrp4e extends Item {
         }
       );
 
-      renderTemplate('public/systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
+      renderTemplate('/systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
 
       chatOptions["content"] = html;
       ChatMessage.create(chatOptions)

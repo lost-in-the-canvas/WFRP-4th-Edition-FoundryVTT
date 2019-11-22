@@ -1078,7 +1078,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.item-delete').click(ev => {
       let li = $(ev.currentTarget).parents(".item"),
         itemId = Number(li.attr("data-item-id"));
-        renderTemplate('public/systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
+        renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
           new Dialog({
           title: "Delete Confirmation",
           content: html,
@@ -1488,7 +1488,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   }
 
   async _onDrop(event) {
-      var dragData = JSON.parse(event.dataTransfer.getData("text/plain"));
+      var dragData = event.dataTransfer.getData("text/plain");
       var dropID = Number($(event.target).parents(".item").attr("data-item-id"));
       if ($(event.target).parents(".item").attr("inventory-type") == "container"){
         var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
@@ -1518,9 +1518,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         await this.actor.updateOwnedItem(dragItem.data, true);
       }
-      else if (dragData.postedItem)
+      else if (JSON.parse(dragData).postedItem)
       {
-        this.actor.createOwnedItem(dragData.data);
+        this.actor.createOwnedItem(JSON.parse(dragData).data);
       }
       else
       {
