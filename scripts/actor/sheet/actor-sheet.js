@@ -62,12 +62,9 @@ class ActorSheetWfrp4e extends ActorSheet {
       this._prepareItems(sheetData.actor);
   
       let size;
-      let trait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("size"));
+      let trait = sheetData.items.find(t => t.name.toLowerCase().includes("size"));
       if (trait)
-      {
-        trait = this.actor.getOwnedItem(trait.id);
-        size = trait.data.data.specification.value;
-      }
+        size = trait.data.specification.value;
       else
       {
         size = sheetData.actor.talents.find(x=>x.name.toLowerCase() == "small");
@@ -153,12 +150,21 @@ class ActorSheetWfrp4e extends ActorSheet {
           })
         }
 
-        if (sheetData.actor.token.height != tokenSize)
+        if (this.actor.isToken && this.token.data.height != tokenSize)
         {
-          this.actor.update({
+          this.token.update(this.token.scene._id, 
+            {
+            "height" : tokenSize,
+            "width" : tokenSize
+            })
+        }
+
+        else if (sheetData.actor.token.height != tokenSize)
+        {
+            this.actor.update({
             "token.height" : tokenSize,
             "token.width" : tokenSize
-          })
+            })
         }
       }
   

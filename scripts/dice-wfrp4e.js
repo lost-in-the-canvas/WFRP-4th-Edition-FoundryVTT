@@ -769,7 +769,11 @@ class DiceWFRP {
           newTestData["hitloc"] = $(message.data.content).find(".card-content.test-data").attr("data-loc")
 
         if (button.attr("data-edit-type") == "SL") // If changing SL, keep both roll and hitloc
+        {
           newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
+          newTestData.slBonus = 0;
+          newTestData.successBonus = 0;
+        }
 
         if (button.attr("data-edit-type") == "target") // If changing target, keep both roll and hitloc
           newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
