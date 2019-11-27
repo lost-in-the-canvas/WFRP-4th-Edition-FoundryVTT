@@ -162,7 +162,8 @@ class WFRP_Tables {
             let tableMenu =  "<b><code>/table</code> Commands</b><br>"
 
             for (let tableKey of Object.keys(this))
-              tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+              if (!this[tableKey].hide)  
+                tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
             return tableMenu;
           }
       }

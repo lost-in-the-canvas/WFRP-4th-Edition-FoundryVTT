@@ -1,6 +1,7 @@
 {
   "name": "Delirium",
   "die" : "1d10",
+  "hide": true,
   "rows": [
     "-",
     {
