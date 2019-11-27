@@ -100,7 +100,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         sheetData.actor.data.status.criticalWounds.max = tb;
   
       let newWounds;
-  
+      let tokenSize;
   
      if (sheetData.actor.flags.autoCalcWounds)
      {
@@ -111,38 +111,54 @@ class ActorSheetWfrp4e extends ActorSheet {
   
         case "tiny":
         newWounds = 1 + tb * tbMultiplier;
+        tokenSize = 0.3;
         break;
   
         case "ltl":
         newWounds = tb + tb * tbMultiplier;
+        tokenSize = 0.5;
         break;
   
         case "sml":
         newWounds = 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 0.8;
         break;
   
         case "avg":
         newWounds = sb + 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 1;
         break;
   
         case "lrg":
         newWounds = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 2;
         break;
   
         case "enor":
         newWounds = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 3;
         break;
   
         case "mnst":
         newWounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 4;
         break;
       }
   
         if (sheetData.actor.data.status.wounds.max != newWounds)
         {
-          this.actor.update({"data.status.wounds.max" : newWounds})
-          this.actor.update({"data.status.wounds.value" : Number(newWounds)})
-  
+          this.actor.update({
+            "data.status.wounds.max" : newWounds,
+            "data.status.wounds.value" : Number(newWounds)
+          })
+        }
+
+        if (sheetData.actor.token.height != tokenSize)
+        {
+          this.actor.update({
+            "token.height" : tokenSize,
+            "token.width" : tokenSize
+          })
         }
       }
   
