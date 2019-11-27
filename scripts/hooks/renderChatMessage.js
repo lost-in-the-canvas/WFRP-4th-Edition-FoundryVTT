@@ -10,9 +10,13 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-buttons").remove();
   }
 
-  html.find(".post-item")[0].setAttribute("draggable", true);
+  let postedItem = html.find(".post-item")[0]
+  if (postedItem)
+  {
+    postedItem.setAttribute("draggable", true);
 
-  html.find(".post-item")[0].addEventListener('dragstart', ev => {
-    ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
-  })
+    postedItem.addEventListener('dragstart', ev => {
+      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+    })
+  }
 });
