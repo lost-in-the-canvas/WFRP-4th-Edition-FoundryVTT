@@ -13308,7 +13308,7 @@ border-image-outset: 0px !important;
       clear: both;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      /*flex-wrap: wrap;*/
       margin: 4px 0;
     }
       .app.window-app .form-group label {
@@ -15055,4 +15055,26 @@ font-style : normal;
 
 #av-config .sheet-tabs .item {
   color: #CCC
+}
+
+.app.window-app .tiles-browser .form-group {
+    flex: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+  }
+
+  .tiles-browser .outer {
+    color: #CCC;
+}
+
+.app.window-app.sheet.wfrp4e.actor .general .charimg {
+  object-fit: contain;
+}
+
+.tiles-browser .directory {
+  overflow-y: auto;
+  overflow-x: hidden !important ;
 }
