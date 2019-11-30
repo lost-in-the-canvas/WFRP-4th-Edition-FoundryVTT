@@ -633,14 +633,6 @@ class DiceWFRP {
     }
   }
 
-
-
-    // To be used in the future for opposed tests
-    // static opposeData  = {
-    //   opposeStarted : false,
-    //   actor : undefined,
-    //   rollData : undefined
-    // }
     static chatListeners(html) {
 
 
@@ -791,31 +783,17 @@ class DiceWFRP {
         this.toggleEditable(ev.currentTarget)
       });
 
+      html.on('click', '.opposed-toggle', ev => {
+        ev.preventDefault();
+        OpposedWFRP.opposedClicked(ev)
+      });
+
       html.on("click", '.item-property', event => {
         event.preventDefault();
 
         WFRP_Utility.postProperty(event.target.text);
 
       });
-    }
-
-    static evaluateOpposedTest(defender, defenderRollData)
-    {
-      let opposeResult = {};
-      let attackerSL = parseInt(this.opposeData.rollData.SL);
-      let defenderSL = parseInt(defenderRollData.SL);
-      let differenceSL = 0;
-      if (attackerSL >= defenderSL)
-        {
-          differenceSL = attackerSL - defenderSL;
-          opposeResult.result = this.opposeData.actor.name + " won by " + differenceSL + " SL";
-        }
-        else
-        {
-          differenceSL = defenderSL - attackerSL;
-          opposeResult.result = defender.name + " won by " + differenceSL + " SL";
-        }
-        return opposeResult;
     }
 
     static toggleEditable(html)
