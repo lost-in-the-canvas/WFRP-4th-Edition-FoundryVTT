@@ -39,12 +39,7 @@ class DiceWFRP {
       if (dialogOptions.rollOverride)
         roll = dialogOptions.rollOverride;
       else // Otherwise use a generic test
-        roll = () =>{
-        let roll = DiceWFRP.rollTest(testData);
-        if (testData.extra)
-          mergeObject(roll, testData.extra);
-        DiceWFRP.renderRollCard(cardOptions, roll);
-      }
+        roll = ActorWfrp4e.defaultRoll;
 
       dialogOptions.data.rollMode = rollMode;
       dialogOptions.data.rollModes = CONFIG.rollModes;
@@ -749,9 +744,6 @@ class DiceWFRP {
             }).render(true);
           })
         }
-
-
-
       })
 
       html.on('focusout', '.card-edit', ev => {
@@ -782,15 +774,15 @@ class DiceWFRP {
         let chatOptions = {
           template : data.template,
           rollMode : data.rollMode,
-          title : data.title
+          title : data.title,
+          speaker : message.data.speaker,
+          user : message.user.data._id
         }
 
         if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
         if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
 
-        let newResult = this[`${newTestData.function}`](newTestData, actor);
-
-        this.renderRollCard(chatOptions, newResult, message);
+        ActorWfrp4e[`${data.postData.postFunction}`](newTestData, chatOptions, message);
       })
 
       // Chat card actions
