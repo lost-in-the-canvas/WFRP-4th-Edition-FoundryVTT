@@ -5,7 +5,11 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       name: "Apply Damage",
       icon: '<i class="fas fa-user-minus"></i>',   
       condition: canApply,   
-      callback: li => console.log(li)
+      callback: li => {
+        let cardData = game.messages.get(li.attr("data-message-id")).data.flags.opposeData
+        let updateMsg = game.actors.get(cardData.defenderId).applyDamage(cardData, DAMAGE_TYPE.NORMAL)
+        OpposedWFRP.updateOpposedMessage(updateMsg, li.attr("data-message-id") );
+      }
     },
     {
       name: "Apply Damage (Ignore AP)",

@@ -43,7 +43,7 @@ class OpposedWFRP {
    
     static evaluateOpposedTest()
     {
-
+      try {
       let opposeResult = {};
       let attackerSL = parseInt(this.attacker.testResult.SL);
       let defenderSL = parseInt(this.defender.testResult.SL);
@@ -53,11 +53,15 @@ class OpposedWFRP {
         {
           differenceSL = attackerSL - defenderSL;
           opposeResult.result = `<b>${this.attacker.actor.name}</b> won by ${differenceSL} SL`;
+          opposeResult.attackerId = this.attacker.actor.id
+          opposeResult.defenderId = this.defender.actor.id
+          opposeResult.attackerTestResult = this.attacker.testResult;
+          opposeResult.defenderTestResult = this.defender.testResult;
           if (this.attacker.testResult.damage)
             opposeResult.damage = 
             {
-              description : `<b>Damage</b>: ${this.attacker.testResult.damage + differenceSL}`,
-              value : this.attacker.testResult.damage + differenceSL
+              description : `<b>Damage</b>: ${this.attacker.testResult.damage - defenderSL}`,
+              value : this.attacker.testResult.damage - defenderSL
             };
           if (this.attacker.testResult.hitloc)
             opposeResult.hitloc  = 
@@ -78,7 +82,7 @@ class OpposedWFRP {
           let chatOptions = {
             user : game.user.id,
             content : html,
-            "flags.opposeResult" : opposeResult
+            "flags.opposeData" : opposeResult
           }
           this.startMessage.update(chatOptions).then(resultMsg =>{
             ui.chat.updateMessage(resultMsg)
@@ -86,6 +90,11 @@ class OpposedWFRP {
 
           })
         })
+      }
+      catch 
+      {
+        this.clearOpposed()
+      }
     }
 
     static createOpposedStartMessage(actor)
@@ -94,6 +103,19 @@ class OpposedWFRP {
         user : game.user.id,
         content : `<b>${actor.name}<b> started an opposed test!`
       }).then(msg => this.startMessage = msg)
+    }
+
+    static updateOpposedMessage(damageConfirmation, msgId)
+    {
+      let opposeMessage = game.messages.get(msgId)
+      let newCard = {
+        user : game.user.id,
+        content : $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
+      }
+
+      opposeMessage.update(newCard).then(resultMsg =>{
+          ui.chat.updateMessage(resultMsg)
+      })
     }
 
     static clearOpposed()

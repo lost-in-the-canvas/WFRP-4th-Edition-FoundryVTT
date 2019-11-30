@@ -62,7 +62,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       this._prepareItems(sheetData.actor);
   
       let size;
-      let trait = sheetData.items.find(t => t.name.toLowerCase().includes("size"));
+      let trait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("size"));
       if (trait)
         size = trait.data.specification.value;
       else

@@ -289,7 +289,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/characteristic-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -372,7 +375,10 @@ class ActorWfrp4e extends Actor {
       }
 
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -556,7 +562,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/weapon-card.html",
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -695,7 +704,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/spell-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -795,7 +807,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/channell-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -879,7 +894,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/prayer-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -950,7 +968,10 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.tokenId = this.token.data.id;
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -987,6 +1008,47 @@ class ActorWfrp4e extends Actor {
           }
         }
       }
+    }
+
+    applyDamage(opposeData, damageType = DAMAGE_TYPE.NORMAL)
+    {
+      // TODO: Size
+      let totalWoundLoss = opposeData.damage.value
+      let newWounds = this.data.data.status.wounds.value;
+      let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
+      let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
+
+      let preparedActorData = this.sheet.getData()
+
+      let updateMsg = "Damage Applied to <b>"+ this.data.name + "</b>: @TOTAL (";
+
+      if (applyAP)
+      {
+        totalWoundLoss -= preparedActorData.actor.AP[opposeData.hitloc.value]
+        updateMsg += preparedActorData.actor.AP[opposeData.hitloc.value] + " AP"
+        if (applyTB)
+          updateMsg += " + "
+        // TODO: Penetrating, Undamaging
+      }
+
+      if (applyTB)
+      {
+        totalWoundLoss -= preparedActorData.actor.data.characteristics.t.bonus
+        updateMsg += preparedActorData.actor.data.characteristics.t.bonus + " TB)"
+        // TODO: Resolute talent
+      }
+
+      totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss 
+      // TODO Undamaging
+
+      newWounds -= totalWoundLoss
+
+      newWounds = newWounds < 0 ? 0 : newWounds 
+
+      updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
+
+      this.update({"data.status.wounds.value" : newWounds})
+      return updateMsg;
     }
 
 

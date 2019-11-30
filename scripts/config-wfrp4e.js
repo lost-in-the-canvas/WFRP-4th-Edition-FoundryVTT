@@ -847,3 +847,10 @@ CONFIG.earningValues = {
   "s" : "1d10",
   "g" : "1",
 }
+
+const DAMAGE_TYPE = {
+  NORMAL : 0,
+  IGNORE_AP : 1,
+  IGNORE_TB : 2,
+  IGNORE_ALL : 3
+}
