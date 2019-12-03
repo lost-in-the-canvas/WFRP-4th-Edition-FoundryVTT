@@ -7,7 +7,8 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       condition: canApply,   
       callback: li => {
         let cardData = game.messages.get(li.attr("data-message-id")).data.flags.opposeData
-        let updateMsg = game.actors.get(cardData.defenderId).applyDamage(cardData, DAMAGE_TYPE.NORMAL)
+        let defenderSpeaker = game.messages.get(li.attr("data-message-id")).data.flags.opposeData.speakerDefend;
+        let updateMsg = ActorWfrp4e.applyDamage(defenderSpeaker, cardData, DAMAGE_TYPE.NORMAL)
         OpposedWFRP.updateOpposedMessage(updateMsg, li.attr("data-message-id") );
       }
     },

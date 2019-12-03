@@ -9,33 +9,40 @@ class OpposedWFRP {
       messageId = button.parents('.message').attr("data-message-id"),
       message = game.messages.get(messageId);
       let data = message.data.flags.data
-      let actor = game.actors.get(message.data.speaker.actor);
 
       if (this.opposedInProgress)
-        this.defenderClicked(data.postData, actor)
+      {
+        if (game.messages.get(this.startMessage._id)) // If the startMessage still exists, proceed with the opposed test. Otherwise, start a new opposed test
+          this.defenderClicked(data.postData, message.data.speaker)
+        else 
+        {
+          this.clearOpposed()
+          this.opposedClicked(event);
+        }
+      }
       else
       {
         this.opposedInProgress = true
-        this.attackerClicked(data.postData, actor)
+        this.attackerClicked(data.postData, message.data.speaker)
       }
     }
 
-    static attackerClicked(testResult, actor)
+    static attackerClicked(testResult, speaker)
     {
       this.attacker = {
         testResult : testResult,
-        actor : actor
+        speaker : speaker
       }
 
-      this.createOpposedStartMessage(actor);
+      this.createOpposedStartMessage(speaker);
 
     }
 
-    static defenderClicked(testResult, actor)
+    static defenderClicked(testResult, speaker)
     {
       this.defender = {
         testResult : testResult,
-        actor : actor
+        speaker : speaker
       }
 
       this.evaluateOpposedTest();
@@ -52,9 +59,9 @@ class OpposedWFRP {
       if (attackerSL >= defenderSL)
         {
           differenceSL = attackerSL - defenderSL;
-          opposeResult.result = `<b>${this.attacker.actor.name}</b> won by ${differenceSL} SL`;
-          opposeResult.attackerId = this.attacker.actor.id
-          opposeResult.defenderId = this.defender.actor.id
+          opposeResult.result = `<b>${this.attacker.speaker.alias}</b> won by ${differenceSL} SL`;
+          opposeResult.speakerAttack= this.attacker.speaker
+          opposeResult.speakerDefend = this.defender.speaker
           opposeResult.attackerTestResult = this.attacker.testResult;
           opposeResult.defenderTestResult = this.defender.testResult;
           if (this.attacker.testResult.damage)
@@ -75,7 +82,7 @@ class OpposedWFRP {
         else
         {
           differenceSL = defenderSL - attackerSL;
-          opposeResult.result = `<b>${this.defender.actor.name}</b> won by ${differenceSL} SL`;        
+          opposeResult.result = `<b>${this.defender.speaker.alias}</b> won by ${differenceSL} SL`;        
         }
 
         renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
@@ -97,11 +104,11 @@ class OpposedWFRP {
       }
     }
 
-    static createOpposedStartMessage(actor)
+    static createOpposedStartMessage(speaker)
     {
       ChatMessage.create({
         user : game.user.id,
-        content : `<b>${actor.name}<b> started an opposed test!`
+        content : `<div><b>${speaker.alias}<b> started an opposed test!<div>`
       }).then(msg => this.startMessage = msg)
     }
 

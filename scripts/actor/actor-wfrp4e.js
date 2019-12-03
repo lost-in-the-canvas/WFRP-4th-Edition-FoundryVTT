@@ -291,7 +291,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -373,11 +374,11 @@ class ActorWfrp4e extends Actor {
         title: title,
         template : "systems/wfrp4e/templates/chat/skill-card.html"
       }
-
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -564,7 +565,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -706,7 +708,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -809,7 +812,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -896,7 +900,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -970,7 +975,8 @@ class ActorWfrp4e extends Actor {
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.tokenId = this.token.data.id;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -1010,17 +1016,22 @@ class ActorWfrp4e extends Actor {
       }
     }
 
-    applyDamage(opposeData, damageType = DAMAGE_TYPE.NORMAL)
+    static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
     {
+      let actor = game.actors.get(victim.actor);
+      if (victim.token)
+        actor = canvas.tokens.get(victim.token).actor
+
+
       // TODO: Size
       let totalWoundLoss = opposeData.damage.value
-      let newWounds = this.data.data.status.wounds.value;
+      let newWounds = actor.data.data.status.wounds.value;
       let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
       let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
 
-      let preparedActorData = this.sheet.getData()
+      let preparedActorData = actor.sheet.getData()
 
-      let updateMsg = "Damage Applied to <b>"+ this.data.name + "</b>: @TOTAL (";
+      let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b>: @TOTAL (";
 
       if (applyAP)
       {
@@ -1047,7 +1058,7 @@ class ActorWfrp4e extends Actor {
 
       updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
 
-      this.update({"data.status.wounds.value" : newWounds})
+      actor.update({"data.status.wounds.value" : newWounds})
       return updateMsg;
     }
 
