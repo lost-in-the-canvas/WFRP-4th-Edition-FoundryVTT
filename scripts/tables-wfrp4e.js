@@ -136,6 +136,10 @@ class WFRP_Tables {
           tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
   
         return tableHtml;
+
+        case "talents": {
+          return `<b>Random Talent</b><br> <a class="talent-lookup">${result.name}</a>`
+        }
   
         default:
           try {
