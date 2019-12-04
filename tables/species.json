@@ -1,0 +1,27 @@
+{
+  "name": "Species Table",
+  "die" : "1d5",
+  "rows": [
+    "-",
+    {
+      "name": "Human",
+      "value": "human"
+    },
+    {
+      "name": "Halfling",
+      "value": "halfling"
+    },
+    {
+      "name": "Dwarf",
+      "value": "dwarf"
+    },
+    {
+      "name": "High Elf",
+      "value": "helf"
+    },
+    {
+      "name": "Wood Elf",
+      "value": "welf"
+    }
+  ]
+}

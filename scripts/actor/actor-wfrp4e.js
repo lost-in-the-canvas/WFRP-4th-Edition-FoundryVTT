@@ -1190,3 +1190,13 @@ class ActorWfrp4e extends Actor {
   
   // Assign the actor class to the CONFIG
   CONFIG.Actor.entityClass = ActorWfrp4e;
+
+
+  Hooks.on("preCreateActor", (dir, actor) =>{
+    mergeObject(actor,
+      {"token.bar1" :{"attribute" : "status.wounds"},
+      "token.bar2" :{"attribute" : "status.advantage"},
+      "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+    })
+  })

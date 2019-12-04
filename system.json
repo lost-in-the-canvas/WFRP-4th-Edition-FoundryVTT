@@ -10,6 +10,7 @@
     "./scripts/tables-wfrp4e.js",
     "./scripts/utility-wfrp4e.js",
     "./scripts/opposed-wfrp4e.js",
+    "./scripts/char-gen.js",
     "./scripts/actor/actor-wfrp4e.js",
     "./scripts/actor/sheet/actor-sheet.js",
     "./scripts/actor/sheet/character-sheet.js",

@@ -19,4 +19,13 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
       ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
     })
   }
+  let generation = html.find(".characteristics-gen")[0]
+  if (generation)
+  {
+    generation.setAttribute("draggable", true);
+    generation.addEventListener('dragstart', ev => {
+      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-char"));
+    })
+  }
+
 });

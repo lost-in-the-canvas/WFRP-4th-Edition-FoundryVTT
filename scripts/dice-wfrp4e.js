@@ -796,7 +796,26 @@ class DiceWFRP {
         WFRP_Utility.postProperty(event.target.text);
 
       });
-    }
+
+    html.on("click", '.item-property', event => {
+      event.preventDefault();
+
+      WFRP_Utility.postProperty(event.target.text);
+
+    });
+
+    html.on("click", '.species-select', event => {
+      event.preventDefault();
+
+      GeneratorWfrp4e.chooseSpecies($(event.currentTarget).attr("data-species"));
+
+    });
+    html.on("click", '.chargen-button', event => {
+      event.preventDefault();
+
+      GeneratorWfrp4e[$(event.currentTarget).attr("data-button")]()
+    });
+  }
 
     static toggleEditable(html)
     {

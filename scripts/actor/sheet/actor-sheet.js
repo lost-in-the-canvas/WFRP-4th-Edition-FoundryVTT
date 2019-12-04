@@ -1551,6 +1551,27 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         this.actor.createOwnedItem(JSON.parse(dragData).data);
       }
+      else if (JSON.parse(dragData).generation)
+      {
+        let transfer = JSON.parse(dragData)
+
+        let data = duplicate(this.actor.data.data);
+        data.details.species.value = transfer.payload.species;
+        data.details.move.value = transfer.payload.movement;
+        data.details.move.value = transfer.payload.movement;
+        if (this.actor.data.type == "character")
+        {
+          data.status.fate.value = transfer.payload.fate;
+          data.status.resilience.value = transfer.payload.resilience;
+          data.details.experience.total = transfer.payload.exp;
+        }
+        for (let c in CONFIG.characteristics)
+        {
+          data.characteristics[c].initial = transfer.payload.characteristics[c]
+        }
+        await this.actor.update({"data" : data})
+
+      }
       else
       {
         super._onDrop(event)
