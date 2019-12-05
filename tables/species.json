@@ -1,27 +1,31 @@
 {
   "name": "Species Table",
-  "die" : "1d5",
+  "die" : "1d100",
   "rows": [
-    "-",
     {
       "name": "Human",
-      "value": "human"
+      "value": "human",
+      "range": [1, 90]
     },
     {
       "name": "Halfling",
-      "value": "halfling"
+      "value": "halfling",
+      "range": [91, 94]
     },
     {
       "name": "Dwarf",
-      "value": "dwarf"
+      "value": "dwarf",
+      "range": [95, 98]
     },
     {
       "name": "High Elf",
-      "value": "helf"
+      "value": "helf",
+      "range": [99, 99]
     },
     {
       "name": "Wood Elf",
-      "value": "welf"
+      "value": "welf",
+      "range": [100, 100]
     }
   ]
 }

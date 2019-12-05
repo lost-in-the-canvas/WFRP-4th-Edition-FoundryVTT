@@ -1,5 +1,4 @@
 Hooks.on("chatMessage", (html, content, msg) => {
-    content = content.toLowerCase();
   
     let rollMode = game.settings.get("core", "rollMode");
     if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
@@ -15,10 +14,21 @@ Hooks.on("chatMessage", (html, content, msg) => {
         msg.content = WFRP_Tables.formatChatRoll("menu")
       else
       {
-        modifier = parseInt(command[2]);
-        msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier})
+        let modifier, column
+        if (!isNaN(command[2]))
+        {
+          modifier = parseInt(command[2]);
+          column = command[3]
+        }
+        else 
+        {
+          modifier = parseInt(command[3]),
+          column = command[2]
+        }
+        msg.content = WFRP_Tables.formatChatRoll(command[1], {modifier : modifier}, column)
       }
-      ChatMessage.create(msg);
+      if (msg)
+        ChatMessage.create(msg);
       return false;
     }
   
