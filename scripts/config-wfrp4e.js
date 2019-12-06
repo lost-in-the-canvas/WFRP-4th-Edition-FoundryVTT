@@ -873,11 +873,11 @@ CONFIG.earningValues = {
 }
 
 CONFIG.randomExp = {
-  "speciesRand" : 20,
-  "careerRand" : 50,
-  "careerReroll" : 25,
-  "statsRand" : 50,
-  "statsReorder" : 25
+  speciesRand : 20,
+  careerRand : 50,
+  careerReroll : 25,
+  statsRand : 50,
+  statsReorder : 25
 }
 
 const DAMAGE_TYPE = {

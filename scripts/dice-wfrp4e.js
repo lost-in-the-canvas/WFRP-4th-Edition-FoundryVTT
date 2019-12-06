@@ -462,7 +462,7 @@ class DiceWFRP {
         spell.data.cn.SL = spell.data.cn.value;
       else if (spell.data.cn.SL < 0)
        spell.data.cn.SL = 0;
-       
+
        actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
 
        switch (miscastCounter)
@@ -544,11 +544,11 @@ class DiceWFRP {
       extensions = Math.floor(SL/2);
      }
 
-             
-     try 
+
+     try
      {
        if (testData.extra.prayer.damage && testResults.description.includes("Granted"))
-       testData.extra.damage = Number(testResults.SL) + 
+       testData.extra.damage = Number(testResults.SL) +
                                Number(testData.extra.prayer.damage)
      }
      catch (error)
@@ -570,7 +570,7 @@ class DiceWFRP {
     {
       testData.roll = testData.SL = null;
     }
-    
+
      let chatData = {
        title : chatOptions.title,
        testData : testData,
@@ -599,17 +599,17 @@ class DiceWFRP {
         {
           let blank = $(html)
           let elementsToToggle = blank.find(".display-toggle")
-    
+
           for (let elem of elementsToToggle)
           {
             if (elem.style.display == "none")
               elem.style.display = ""
-            else 
+            else
               elem.style.display = "none"
           }
           html = blank.html();
         }
-        
+
         chatOptions["content"] = html;
 
         ChatMessage.create(chatOptions, false);
@@ -649,7 +649,16 @@ class DiceWFRP {
 
       html.on("click", ".skill-lookup", async ev => {
         WFRP_Utility.findSkill(ev.target.text).then(skill => skill.sheet.render(true));
+      })
 
+      html.on("mousedown", ".talent-drag", async ev => {
+        if (ev.button == 2)
+          WFRP_Utility.findTalent(ev.target.text).then(talent => talent.sheet.render(true));
+      })
+
+      html.on("mousedown", ".skill-drag", async ev => {
+        if (ev.button == 2)
+          WFRP_Utility.findSkill(ev.target.text).then(skill => skill.sheet.render(true));
       })
 
       html.on("click", ".chat-roll", ev => {
@@ -797,23 +806,24 @@ class DiceWFRP {
 
       });
 
-    html.on("click", '.item-property', event => {
-      event.preventDefault();
-
-      WFRP_Utility.postProperty(event.target.text);
-
-    });
-
     html.on("click", '.species-select', event => {
       event.preventDefault();
 
-      GeneratorWfrp4e.chooseSpecies($(event.currentTarget).attr("data-species"));
-
+      GeneratorWfrp4e.rollSpecies(
+        $(event.currentTarget).parents('.message').attr("data-message-id"),
+        $(event.currentTarget).attr("data-species")); // Choose selected species
     });
     html.on("click", '.chargen-button', event => {
       event.preventDefault();
-
-      GeneratorWfrp4e[$(event.currentTarget).attr("data-button")]()
+      switch ($(event.currentTarget).attr("data-button"))
+      {
+        case "rollSpecies" : GeneratorWfrp4e.rollSpecies($(event.currentTarget).parents('.message').attr("data-message-id"))
+          break;
+        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), CONFIG.randomExp.careerRand)
+          break;
+        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),CONFIG.randomExp.statsRand)
+          break;
+      }
     });
   }
 
@@ -827,7 +837,7 @@ class DiceWFRP {
       {
         if (elem.style.display == "none")
           elem.style.display = ""
-        else 
+        else
           elem.style.display = "none"
       }
     }

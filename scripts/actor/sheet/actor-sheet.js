@@ -1558,12 +1558,15 @@ class ActorSheetWfrp4e extends ActorSheet {
         let data = duplicate(this.actor.data.data);
         data.details.species.value = transfer.payload.species;
         data.details.move.value = transfer.payload.movement;
-        data.details.move.value = transfer.payload.movement;
+
         if (this.actor.data.type == "character")
         {
           data.status.fate.value = transfer.payload.fate;
+          data.status.fortune.value = transfer.payload.fate;
           data.status.resilience.value = transfer.payload.resilience;
-          data.details.experience.total = transfer.payload.exp;
+          data.status.resolve.value = transfer.payload.resilience;
+          data.details.experience.total += transfer.payload.exp;
+
         }
         for (let c in CONFIG.characteristics)
         {
@@ -1571,6 +1574,31 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         await this.actor.update({"data" : data})
 
+      }
+      else if (JSON.parse(dragData).lookupType)
+      {
+        let transfer = JSON.parse(dragData)
+        let item;
+        if (transfer.lookupType == "skill")
+        {
+          item = await WFRP_Utility.findSkill(transfer.name)
+        }
+        else if (transfer.lookupType == "talent")
+        {
+          item = await WFRP_Utility.findTalent(transfer.name)
+        }
+        else 
+        {
+          return
+        }
+        if (item)
+          this.actor.createOwnedItem(item.data);
+      }
+      else if (JSON.parse(dragData).exp)
+      {
+        let data = duplicate(this.actor.data.data);
+        data.details.experience.total += JSON.parse(dragData).exp;
+        await this.actor.update({"data" : data})
       }
       else
       {
