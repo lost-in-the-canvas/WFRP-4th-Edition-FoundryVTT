@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.9.1.3
+Current Version: Beta 0.9.2
 
 ![](https://i.imgur.com/esCwB7f.png)
 
@@ -14,7 +14,7 @@ Enter into Manifest URL: `https://raw.githubusercontent.com/CatoThe1stElder/WFRP
 
 ## Installation - Manual
 
-Place the unzipped folder in your `public/systems` folder
+Place the unzipped folder in your `Data/systems` folder
 
 Make sure the folder is named `wfrp4e`
 

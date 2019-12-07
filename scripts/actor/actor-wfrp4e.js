@@ -1173,7 +1173,7 @@ class ActorWfrp4e extends Actor {
       roll.postFunction = "traitOverride";
       try 
       {
-        if (testData.extra.trait.data.rollable.bonusCharacteristic || testData.extra.trait.name.includes("Ranged") || testData.extra.trait.name.includes("Weapon"))
+        if (!isNaN(testData.extra.trait.data.specification.value))
         {
           testData.extra.damage = Number(roll.SL)
         if (Number(testData.extra.trait.data.specification.value))
