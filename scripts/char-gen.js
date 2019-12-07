@@ -4,7 +4,11 @@ class GeneratorWfrp4e
   {
     let chatData = {
       user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode")
     }
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", {species : CONFIG.species}).then(html => {
       chatData.content = html;
@@ -39,8 +43,12 @@ class GeneratorWfrp4e
   static speciesSkillsTalents(species, exp)
   {
     let chatData = {
-      user : game.user._id
+      user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode")
     }
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     let cardData = {
       speciesKey : species,
@@ -62,7 +70,11 @@ class GeneratorWfrp4e
             choiceTalents.push(talentList)
         }
     })
-    cardData.randomTalents = CONFIG.speciesTalents[species][CONFIG.speciesTalents[species].length-1]
+    let randomTalents = CONFIG.speciesTalents[species][CONFIG.speciesTalents[species].length-1]
+    cardData.randomTalents = []
+    for (let i = 0; i < randomTalents; i++)
+      cardData.randomTalents.push(WFRP_Tables.rollTable("talents").name)
+
     cardData.speciesTalents = talents;
     cardData.choiceTalents = choiceTalents;
     renderTemplate("systems/wfrp4e/templates/chat/chargen/species-skills-talents.html", cardData).then(html =>{
@@ -102,7 +114,11 @@ class GeneratorWfrp4e
 
     let chatData = {
       user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode")
     }
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/attributes.html", cardData).then(html => {
       chatData.content = html;
@@ -123,7 +139,11 @@ class GeneratorWfrp4e
 
     let chatData = {
       user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode")
     }
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/career-select.html", {exp : CONFIG.randomExp.careerRand}).then(html => {
       chatData.content = html;

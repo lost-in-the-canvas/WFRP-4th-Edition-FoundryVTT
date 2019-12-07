@@ -19,14 +19,14 @@
 
 {{#each choiceTalents as |talentList key|}}
 <div>
-<b>Choice: </b>
-{{#each talentList as |talent key|}}
-  <span><b><a class = "talent-drag">{{talent}} </a></b></span> 
-{{/each}}
+  <span><b><a class = "talent-drag">{{talentList.[0]}} </a></b></span> OR <span><b><a class = "talent-drag">{{talentList.[1]}} </a></b></span>
 </div>
 {{/each}}
 
-<div><b><a class = "random-talents" data-num = {{randomTalents}}>Random Talents: {{randomTalents}}</a></b></div>
+{{#each randomTalents as |talent key|}}
+<div><b><a class = "talent-drag">{{talent}}</a></b></div>
+{{/each}}
+
 </div>
 
 <div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>

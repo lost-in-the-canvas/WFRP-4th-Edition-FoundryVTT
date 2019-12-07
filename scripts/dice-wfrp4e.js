@@ -717,7 +717,7 @@ class DiceWFRP {
           else if (sin)
             html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
           else
-            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
+            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier}, $(ev.currentTarget).attr("data-column"));
 
            chatOptions["content"] = html;
           chatOptions["type"] = 0;
@@ -825,7 +825,16 @@ class DiceWFRP {
           break;
       }
     });
+
+      
+  html.on("click", '.random-talents', event => {
+    event.preventDefault();
+    $(event.currentTarget).attr("data-num")
+  });
+
   }
+
+
 
     static toggleEditable(html)
     {

@@ -59,7 +59,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
       ChatMessage.create(msg);
       return false;
     }
-    else if (command[0] == "/gen")
+    else if (command[0] == "/char")
     {
       GeneratorWfrp4e.speciesStage()
       return false

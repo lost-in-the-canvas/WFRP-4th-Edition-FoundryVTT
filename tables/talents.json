@@ -1,5 +1,6 @@
 {
   "name": "Random Talents",
+  "die" : "1d32",
   "rows": [{
     "name": "Acute Sense (any one)",
     "range": [1, 1]

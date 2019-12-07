@@ -127,6 +127,11 @@ class WFRP_Tables {
     static formatChatRoll (table, options = {}, column = null)
     {
       table = this.generalizeTable(table);
+      if (this[table] && this[table].columns && column == null)
+      {
+        return this.promptColumn(table, options);      
+      }
+
       let result = this.rollTable(table, options, column);
       try{
       if (result.roll <= 0 && !options.minOne)
@@ -165,7 +170,7 @@ class WFRP_Tables {
         case "winds":
             return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
         case "career":
-           return `<b>Random Career - ${CONFIG.species[column]}</b><br> ${result.name} <br> <b>Roll:</b> ${result.roll}`;
+           return `<b>Random Career - ${CONFIG.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
   
         case "scatter":
           let tableHtml = '<table class = "scatter-table">' +
@@ -257,6 +262,17 @@ class WFRP_Tables {
       return "Must Choose:<ul>" +            
               "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
               "</ul";
+    }
+
+        
+    static promptColumn(table, column)
+    {
+      let prompt =  `<h3>Select a column to roll on</h3>`
+
+      for (let c of this[table].columns)
+        prompt += `<div><a class = "table-click" data-table="${table}" data-column = "${c}">${c}</a></div>`
+        
+      return prompt;
     }
   
   }
