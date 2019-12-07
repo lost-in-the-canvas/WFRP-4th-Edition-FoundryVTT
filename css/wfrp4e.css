@@ -13308,7 +13308,7 @@ border-image-outset: 0px !important;
       clear: both;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      /*flex-wrap: wrap;*/
       margin: 4px 0;
     }
       .app.window-app .form-group label {
@@ -15056,3 +15056,73 @@ font-style : normal;
 #av-config .sheet-tabs .item {
   color: #CCC
 }
+
+.app.window-app .tiles-browser .form-group {
+    flex: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+  }
+
+  .tiles-browser .outer {
+    color: #CCC;
+}
+
+.app.window-app.sheet.wfrp4e.actor .general .charimg {
+  object-fit: contain;
+}
+
+.tiles-browser .directory {
+  overflow-y: auto;
+  overflow-x: hidden !important ;
+}
+
+.chargen-button {
+	box-shadow:inset 0px 1px 0px 0px #a6827e;
+	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+	background-color:#7d5d3b;
+	border-radius:3px;
+	border:1px solid #54381e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #4d3534;
+  position: relative;
+  left: 120px;
+}
+.attribute-career-buttons .chargen-button {
+  left : 25px;
+}
+.chargen-button:hover {
+	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+	background-color:#634b30;
+}
+.chargen-button:active {
+	position:relative;
+	top:1px;
+}
+
+.species-select {
+  font-weight: 1000;
+}
+
+.exp-drag {
+  border: 1px dotted black;
+  width: fit-content;
+  padding: 3px;
+  margin: 5px;
+} 
+
+.gen-talents,
+.gen-skills {
+border: 1px dotted black;
+    padding: 5px;
+    margin: 5px;
+}
+

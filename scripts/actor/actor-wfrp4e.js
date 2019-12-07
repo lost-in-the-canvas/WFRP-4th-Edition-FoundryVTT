@@ -1,7 +1,7 @@
 
 
 /**
- * Extend the base Actor class to implement additional logic specialized for D&D5e.
+ * Extend the base Actor class to implement additional logic specialized for WFRP4e.
  */
 class ActorWfrp4e extends Actor {
 
@@ -154,7 +154,7 @@ class ActorWfrp4e extends Actor {
         super.create(data, options);
       }
     }
-    // Calculate dynamic data like Characteristic totals and movemen values
+    // Calculate dynamic data like Characteristic totals and movement values
     prepareData(actorData) {
       try {
       actorData = super.prepareData(actorData);
@@ -192,9 +192,6 @@ class ActorWfrp4e extends Actor {
       {
         console.error("Something went wrong with preparing actor data: " + error)
         ui.notifications.error("Something went wrong with preparing actor data: " + error)
-        if (error.includes("max"))
-          this.actor.update({"data.encumbrance" : {max: 0, current: 0, type: "Number", label : "Encumbrance"}}) // Adds compatibility with alpha - TODO: Remove
-  
       }
   
     }
@@ -279,7 +276,7 @@ class ActorWfrp4e extends Actor {
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
-          roll();
+          roll(testData, cardOptions);
           }
       };
   
@@ -292,7 +289,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/characteristic-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -313,6 +314,7 @@ class ActorWfrp4e extends Actor {
       let testData = {
         target : char.value + skill.data.advances.value,
         hitLocation : false,
+        income : income
       };
   
       // Default hit location to true if WS, BS, Melee, or Ranged is tested
@@ -356,74 +358,13 @@ class ActorWfrp4e extends Actor {
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
-          roll(income);
+
+          roll(testData, cardOptions)
           }
       };
 
-      if (income)
-      {
-        dialogOptions.rollOverride = (income) => {
-          let roll = DiceWFRP.rollTest(testData);
-
-          let dieAmount = CONFIG.earningValues[income.tier][0]
-          dieAmount = Number(dieAmount) * income.standing;
-          let moneyEarned;
-          if (income.tier != "g")
-          {
-            dieAmount = dieAmount + "d10";
-            moneyEarned = new Roll(dieAmount).roll().total;
-          }
-          else
-            moneyEarned = dieAmount;
-
-
-          if (roll.description.includes("Success"))
-          {
-            roll.incomeResult = "You earn " + moneyEarned;
-            switch (income.tier)
-            {
-              case "b":
-                roll.incomeResult += " brass pennies."
-                break;
-              case "s":
-                roll.incomeResult += " silver shillings."
-                break;
-              case "g":
-                  if (moneyEarned > 1)
-                    roll.incomeResult += " gold crowns."
-                  else
-                    roll.incomeResult += " gold crown"
-                  break;
-            }
-          }
-          else if (Number(roll.SL) > -6)
-          {
-            roll.incomeResult =  "You earn " + moneyEarned/2;
-            switch (income.tier)
-            {
-              case "b":
-                roll.incomeResult += " brass pennies."
-                break;
-              case "s":
-                roll.incomeResult += " silver shillings."
-                break;
-              case "g":
-                  if (moneyEarned/2 > 1)
-                    roll.incomeResult += " gold crowns."
-                  else
-                    roll.incomeResult += " gold crown"
-                  break;
-            }
-          }
-          else
-          {
-            roll.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
-          }
-         
-          DiceWFRP.renderRollCard(cardOptions, roll);
-          
-        }
-      }
+      if (testData.income)
+        dialogOptions.rollOverride = this.constructor.incomeOverride;
 
       let cardOptions = {
         speaker: {
@@ -433,9 +374,12 @@ class ActorWfrp4e extends Actor {
         title: title,
         template : "systems/wfrp4e/templates/chat/skill-card.html"
       }
-
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -598,7 +542,7 @@ class ActorWfrp4e extends Actor {
             return prev + Number(cur)
           }, 0)
           // Perform the d100 roll
-          roll();
+          roll(testData, cardOptions);
   
           // Reduce ammo if necessary
           if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup.value != "Entangling")
@@ -608,10 +552,7 @@ class ActorWfrp4e extends Actor {
           }
         },
         // Override the default test evaluation to use weaponTest specific function
-        rollOverride : () => {
-          let roll = DiceWFRP.rollWeaponTest(testData);
-          DiceWFRP.renderRollCard(cardOptions, roll);
-        }
+        rollOverride : this.constructor.weaponOverride
       };
       let cardOptions = {
         speaker: {
@@ -622,7 +563,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/weapon-card.html",
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -703,60 +648,54 @@ class ActorWfrp4e extends Actor {
           castSkills : castSkills
         },
         callback : (html, roll) => {
-          cardOptions.rollMode = html.find('[name="rollMode"]').val();
-          testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-          testData.successBonus = Number(html.find('[name="successBonus"]').val());
-          testData.slBonus = Number(html.find('[name="slBonus"]').val());
-  
-          let skillSelected = castSkills[Number(html.find('[name="skillSelected"]').val())];
-  
-          if (skillSelected.key != "int")
-          {
-            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
-            + skillSelected.data.data.advances.value
-            + testData.testDifficulty
-            + testData.testModifier;
-          }
-          else
-          {
-            testData.target = this.data.data.characteristics.int.value
-            + testData.testDifficulty
-            + testData.testModifier;
-          }
-  
-          testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
-          testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
-          let talentBonuses = html.find('[name = "talentBonuses"]').val();
-          testData.successBonus += talentBonuses.reduce(function (prev, cur){
-            return prev + Number(cur)
-          }, 0)
-  
-  
-  
-          // Find ingredient being used, if any
-          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
-          if (ing)
-          {
-            // Decrease ingredient quantity
-            ing = ing.data;
-            testData.extra.ingredient = true;
-            ing.data.quantity.value--;
-            this.updateOwnedItem(ing);
-          }
-          else if (!ing || ing.data.data.quantity.value <= 0)
-            testData.extra.ingredient = false;
+            cardOptions.rollMode = html.find('[name="rollMode"]').val();
+            testData.testModifier = Number(html.find('[name="testModifier"]').val());
+            testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+            testData.successBonus = Number(html.find('[name="successBonus"]').val());
+            testData.slBonus = Number(html.find('[name="slBonus"]').val());
+    
+            let skillSelected = castSkills[Number(html.find('[name="skillSelected"]').val())];
+    
+            if (skillSelected.key != "int")
+            {
+              testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+              + skillSelected.data.data.advances.value
+              + testData.testDifficulty
+              + testData.testModifier;
+            }
+            else
+            {
+              testData.target = this.data.data.characteristics.int.value
+              + testData.testDifficulty
+              + testData.testModifier;
+            }
+    
+            testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+            testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
+            let talentBonuses = html.find('[name = "talentBonuses"]').val();
+            testData.successBonus += talentBonuses.reduce(function (prev, cur){
+              return prev + Number(cur)
+            }, 0)
+    
+    
+    
+            // Find ingredient being used, if any
+            let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+            if (ing)
+            {
+              // Decrease ingredient quantity
+              ing = ing.data;
+              testData.extra.ingredient = true;
+              ing.data.quantity.value--;
+              this.updateOwnedItem(ing);
+            }
+            else if (!ing || ing.data.data.quantity.value <= 0)
+              testData.extra.ingredient = false;
 
-          roll();
+            roll(testData, cardOptions);
           },
           // Override generic roll with cast specific roll
-          rollOverride : () =>
-          {
-            let roll = DiceWFRP.rollCastTest(testData);
-            // Update spell to reflect SL from channelling resetting to 0
-            this.updateOwnedItem({id: spell.id, 'data.cn.SL' : 0});
-            DiceWFRP.renderRollCard(cardOptions, roll);
-          }
+          rollOverride : this.constructor.castOverride
       };
       let cardOptions = {
         speaker: {
@@ -767,7 +706,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/spell-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -853,13 +796,10 @@ class ActorWfrp4e extends Actor {
           else if(!ing || ing.data.data.quantity.value <= 0)
             testData.extra.ingredient = false;
   
-          roll(this);
+          roll(testData, cardOptions);
           },
           // Override generic roll with channell specific function
-        rollOverride : (actor) => {
-          let roll = DiceWFRP.rollChannellTest(testData, actor);
-          DiceWFRP.renderRollCard(cardOptions, roll);
-        }
+        rollOverride : this.constructor.channellOverride
       };
       let cardOptions = {
         speaker: {
@@ -870,7 +810,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/channell-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -882,7 +826,7 @@ class ActorWfrp4e extends Actor {
      * Setup a Prayer Test
      * @param prayer {Object}   prayer being invoked
      */
-    setupPrayer(prayer, options) {
+    setupPrayer(prayer) {
       let title = "Prayer Test - " + prayer.name;
       let praySkills = [{key : "fel", name : "Fellowship"}]
       praySkills = praySkills.concat(this.items.filter(i => i.name.toLowerCase() == "pray" && i.type == "skill"));
@@ -940,13 +884,10 @@ class ActorWfrp4e extends Actor {
             return prev + Number(cur)
           }, 0)
   
-          roll();
+          roll(testData, cardOptions);
           },
           // Override generic test function with prayer specific function
-        rollOverride : () => {
-          let roll = DiceWFRP.rollPrayTest(testData, this);
-          DiceWFRP.renderRollCard(cardOptions, roll);
-        }
+        rollOverride : this.constructor.prayerOverride
       };
       let cardOptions = {
         speaker: {
@@ -957,7 +898,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/prayer-card.html"
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -1014,25 +959,9 @@ class ActorWfrp4e extends Actor {
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
-          roll();
+          roll(testData, cardOptions);
           },
-          rollOverride : () => {
-            let roll = DiceWFRP.rollTest(testData);
-            try 
-            {
-            if (testData.extra.trait.data.rollable.bonusCharacteristic)
-              testData.extra.damage = Number(roll.SL) + 
-                                      Number(testData.extra.trait.data.specification.value) + 
-                                      Number(this.data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus);
-            }
-            catch (error)
-            {
-              ui.notifications.error("Error calculating damage: " + error)
-            } // If something went wrong calculating damage, do nothing and still render the card
-            if (testData.extra)
-              mergeObject(roll, testData.extra);
-            DiceWFRP.renderRollCard(cardOptions, roll);
-          }
+          rollOverride : this.constructor.traitOverride
       };
   
       let cardOptions = {
@@ -1044,7 +973,11 @@ class ActorWfrp4e extends Actor {
         template : "systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
       }
       if (this.token)
+      {
         cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.token = this.token.data.id;
+        cardOptions.speaker.scene = canvas.scene.id
+      }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -1082,8 +1015,192 @@ class ActorWfrp4e extends Actor {
         }
       }
     }
+
+    static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
+    {
+      let actor = game.actors.get(victim.actor);
+      if (victim.token)
+        actor = canvas.tokens.get(victim.token).actor
+
+
+      // TODO: Size
+      let totalWoundLoss = opposeData.damage.value
+      let newWounds = actor.data.data.status.wounds.value;
+      let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
+      let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
+
+      let preparedActorData = actor.sheet.getData()
+
+      let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b>: @TOTAL (";
+
+      if (applyAP)
+      {
+        totalWoundLoss -= preparedActorData.actor.AP[opposeData.hitloc.value]
+        updateMsg += preparedActorData.actor.AP[opposeData.hitloc.value] + " AP"
+        if (applyTB)
+          updateMsg += " + "
+        // TODO: Penetrating, Undamaging
+      }
+
+      if (applyTB)
+      {
+        totalWoundLoss -= preparedActorData.actor.data.characteristics.t.bonus
+        updateMsg += preparedActorData.actor.data.characteristics.t.bonus + " TB)"
+        // TODO: Resolute talent
+      }
+
+      totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss 
+      // TODO Undamaging
+
+      newWounds -= totalWoundLoss
+
+      newWounds = newWounds < 0 ? 0 : newWounds 
+
+      updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
+
+      actor.update({"data.status.wounds.value" : newWounds})
+      return updateMsg;
+    }
+
+
+    /* ------------------------- Roll Overides --------------------------- */
+
+   
+    static defaultRoll(testData, cardOptions, rerenderMessage = null) {
+      let roll = DiceWFRP.rollTest(testData);
+      roll.postFunction = "defaultRoll";
+      if (testData.extra)
+        mergeObject(roll, testData.extra);
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
+
+    static incomeOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollTest(testData);
+      roll.postFunction = "incomeOverride"
+      let dieAmount = CONFIG.earningValues[testData.income.tier][0]
+      dieAmount = Number(dieAmount) * testData.income.standing;
+      let moneyEarned;
+      if (testData.income.tier != "g")
+      {
+        dieAmount = dieAmount + "d10";
+        moneyEarned = new Roll(dieAmount).roll().total;
+      }
+      else
+        moneyEarned = dieAmount;
+
+
+      if (roll.description.includes("Success"))
+      {
+        roll.incomeResult = "You earn " + moneyEarned;
+        switch (testData.income.tier)
+        {
+          case "b":
+            roll.incomeResult += " brass pennies."
+            break;
+          case "s":
+            roll.incomeResult += " silver shillings."
+            break;
+          case "g":
+              if (moneyEarned > 1)
+                roll.incomeResult += " gold crowns."
+              else
+                roll.incomeResult += " gold crown"
+              break;
+        }
+      }
+      else if (Number(roll.SL) > -6)
+      {
+        roll.incomeResult =  "You earn " + moneyEarned/2;
+        switch (testData.income.tier)
+        {
+          case "b":
+            roll.incomeResult += " brass pennies."
+            break;
+          case "s":
+            roll.incomeResult += " silver shillings."
+            break;
+          case "g":
+              if (moneyEarned/2 > 1)
+                roll.incomeResult += " gold crowns."
+              else
+                roll.incomeResult += " gold crown"
+              break;
+        }
+      }
+      else
+      {
+        roll.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+      }
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage); 
+    }
+
+    static weaponOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollWeaponTest(testData);
+      roll.postFunction = "weaponOverride";
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
+
+    static castOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollCastTest(testData);
+      roll.postFunction = "castOverride";
+
+      // Update spell to reflect SL from channelling resetting to 0
+      game.actors.get(cardOptions.speaker.actor).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
+
+    static channellOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollChannellTest(testData, game.actors.get(cardOptions.speaker.actor));
+      roll.postFunction = "channellOverride";
+
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
+
+    static prayerOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollPrayTest(testData, game.actors.get(cardOptions.speaker.actor));
+      roll.postFunction = "prayerOverride";
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
   
+    static traitOverride(testData, cardOptions, rerenderMessage = null)
+    {
+      let roll = DiceWFRP.rollTest(testData);
+      roll.postFunction = "traitOverride";
+      try 
+      {
+        if (!isNaN(testData.extra.trait.data.specification.value))
+        {
+          testData.extra.damage = Number(roll.SL)
+        if (Number(testData.extra.trait.data.specification.value))
+          testData.extra.damage +=  Number(testData.extra.trait.data.specification.value)
+        if (testData.extra.trait.data.rollable.bonusCharacteristic)
+          testData.extra.damage += Number(game.actors.get(cardOptions.speaker.actor).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
+        }
+      }
+      catch (error)
+      {
+        ui.notifications.error("Error calculating damage: " + error)
+      } // If something went wrong calculating damage, do nothing and still render the card
+      if (testData.extra)
+        mergeObject(roll, testData.extra);
+      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    }
   }
   
   // Assign the actor class to the CONFIG
   CONFIG.Actor.entityClass = ActorWfrp4e;
+
+
+  Hooks.on("preCreateActor", (dir, actor) =>{
+    mergeObject(actor,
+      {"token.bar1" :{"attribute" : "status.wounds"},
+      "token.bar2" :{"attribute" : "status.advantage"},
+      "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+    })
+  })

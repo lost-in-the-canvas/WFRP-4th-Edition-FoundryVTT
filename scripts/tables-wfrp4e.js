@@ -1,8 +1,46 @@
 
 class WFRP_Tables {
 
-    static rollTable(table, options = {})
+
+    static convert()
     {
+      let newTable  = {}
+      for (let table in WFRP_Tables)
+      {
+        if (table == "scatter" || table == "winds")
+          continue;
+        newTable.name = WFRP_Tables[table].name
+        newTable.die = WFRP_Tables[table].die
+        newTable.rows = [];
+    
+        let startIndex= 1
+        let end;
+        for (let index = 2; index < WFRP_Tables[table].rows.length; index++)
+        {
+          if (WFRP_Tables[table].rows[index].description != WFRP_Tables[table].rows[startIndex].description)
+          {
+            end = index-1
+            
+            WFRP_Tables[table].rows[startIndex].range = [startIndex, end]
+            newTable.rows.push(WFRP_Tables[table].rows[startIndex])
+            startIndex = index;
+          }
+        }
+
+        end = WFRP_Tables[table].rows.length-1
+            
+        WFRP_Tables[table].rows[startIndex].range = [startIndex, end]
+        newTable.rows.push(WFRP_Tables[table].rows[startIndex])
+
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + table + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        console.log(JSON.stringify(newTable))
+      }
+    }
+
+
+    static rollTable(table, options = {}, column = null)
+    {
+
       let modifier = options.modifier || 0;
       let minOne = options.minOne || false;
       let maxSize = options.maxSize || false;
@@ -12,12 +50,20 @@ class WFRP_Tables {
       {
         // cap at 100
         let die = this[table].die;
-        let tableSize = this[table].rows.length - 1;
+        let tableSize;
+        if (!this[table].columns)
+          tableSize = this[table].rows[this[table].rows.length - 1].range[1];
+        else
+        {
+          tableSize = this[table].rows[this[table].rows.length - 1].range[this[table].columns[0]][1]; // This isn't confusing at all
+        }
         if (!die)
           die = `1d${tableSize}`;
         let roll = new Roll(`${die} + @modifier`, {modifier}).roll();
         let rollValue = options.lookup || roll.total; // options.lookup will ignore the rolled value for the input value
         let displayTotal = options.lookup || roll.result;
+        if (modifier == 0)
+          displayTotal = eval(displayTotal)
         if (rollValue <= 0 && minOne)
           rollValue = 1;
   
@@ -37,13 +83,32 @@ class WFRP_Tables {
           else
             return {roll : roll.total}
         }
-        return mergeObject(this[table].rows[rollValue], ({roll : displayTotal}));
+        return mergeObject(this._lookup(table, rollValue, column), ({roll : displayTotal}));
       }
       else
       {
       }
     }
-  
+
+    static _lookup(table, value, column = null)
+    {
+      if (!column)
+        for (let row of this[table].rows)
+        {
+          if (value >= row.range[0] && value <= row.range[1])
+            return row
+        }
+      else 
+      {
+        for (let row of this[table].rows)
+        {
+          if (value >= row.range[column][0] && value <= row.range[column][1])
+            return row
+        }
+      }
+    }
+
+
     /* -------------------------------------------- */
   
     static generalizeTable (table)
@@ -59,10 +124,15 @@ class WFRP_Tables {
     /* -------------------------------------------- */
   
     // Wrapper for rollTable to format rolls from chat commands nicely
-    static formatChatRoll (table, options = {})
+    static formatChatRoll (table, options = {}, column = null)
     {
       table = this.generalizeTable(table);
-      let result = this.rollTable(table, options);
+      if (this[table] && this[table].columns && column == null)
+      {
+        return this.promptColumn(table, options);      
+      }
+
+      let result = this.rollTable(table, options, column);
       try{
       if (result.roll <= 0 && !options.minOne)
         return `Roll: ${result.roll} - canceled`
@@ -91,12 +161,16 @@ class WFRP_Tables {
   
         case "doom":
           return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
+        case "species":
+          return `<b>Random Species</b><br>${result.name} (${result.roll})`;
   
         case "oops":
            return `<b>Oops!</b><br>${result.description} (${result.roll})`;
   
         case "winds":
             return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
+        case "career":
+           return `<b>Random Career - ${CONFIG.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
   
         case "scatter":
           let tableHtml = '<table class = "scatter-table">' +
@@ -136,6 +210,10 @@ class WFRP_Tables {
           tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
   
         return tableHtml;
+
+        case "talents": 
+          return `<b>Random Talent</b><br> <a class="talent-lookup">${result.name}</a>`
+
   
         default:
           try {
@@ -148,7 +226,7 @@ class WFRP_Tables {
                   html += `<b>${result[part]}</b><br>`
                 else if (part == "roll")
                   html += "<b>Roll</b>: "+ eval(result[part])
-                else
+                else if (part != "range")
                   html += result[part] + "<br>"
               }
               return html;
@@ -162,7 +240,8 @@ class WFRP_Tables {
             let tableMenu =  "<b><code>/table</code> Commands</b><br>"
 
             for (let tableKey of Object.keys(this))
-              tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+              if (!this[tableKey].hide)  
+                tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
             return tableMenu;
           }
       }
@@ -183,6 +262,17 @@ class WFRP_Tables {
       return "Must Choose:<ul>" +            
               "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
               "</ul";
+    }
+
+        
+    static promptColumn(table, column)
+    {
+      let prompt =  `<h3>Select a column to roll on</h3>`
+
+      for (let c of this[table].columns)
+        prompt += `<div><a class = "table-click" data-table="${table}" data-column = "${c}">${c}</a></div>`
+        
+      return prompt;
     }
   
   }

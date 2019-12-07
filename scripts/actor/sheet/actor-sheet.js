@@ -64,10 +64,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let size;
       let trait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("size"));
       if (trait)
-      {
-        trait = this.actor.getOwnedItem(trait.id);
-        size = trait.data.data.specification.value;
-      }
+        size = trait.data.specification.value;
       else
       {
         size = sheetData.actor.talents.find(x=>x.name.toLowerCase() == "small");
@@ -100,7 +97,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         sheetData.actor.data.status.criticalWounds.max = tb;
   
       let newWounds;
-  
+      let tokenSize;
   
      if (sheetData.actor.flags.autoCalcWounds)
      {
@@ -111,38 +108,63 @@ class ActorSheetWfrp4e extends ActorSheet {
   
         case "tiny":
         newWounds = 1 + tb * tbMultiplier;
+        tokenSize = 0.3;
         break;
   
         case "ltl":
         newWounds = tb + tb * tbMultiplier;
+        tokenSize = 0.5;
         break;
   
         case "sml":
         newWounds = 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 0.8;
         break;
   
         case "avg":
         newWounds = sb + 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 1;
         break;
   
         case "lrg":
         newWounds = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 2;
         break;
   
         case "enor":
         newWounds = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 3;
         break;
   
         case "mnst":
         newWounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 4;
         break;
       }
   
         if (sheetData.actor.data.status.wounds.max != newWounds)
         {
-          this.actor.update({"data.status.wounds.max" : newWounds})
-          this.actor.update({"data.status.wounds.value" : Number(newWounds)})
-  
+          this.actor.update({
+            "data.status.wounds.max" : newWounds,
+            "data.status.wounds.value" : Number(newWounds)
+          })
+        }
+
+        if (this.actor.isToken && this.token.data.height != tokenSize)
+        {
+          this.token.update(this.token.scene._id, 
+            {
+            "height" : tokenSize,
+            "width" : tokenSize
+            })
+        }
+
+        else if (sheetData.actor.token.height != tokenSize)
+        {
+            this.actor.update({
+            "token.height" : tokenSize,
+            "token.width" : tokenSize
+            })
         }
       }
   
@@ -570,7 +592,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.update({"flags.modifier" : penaltiesFlag})
   
         let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
-        if (armorTrait)
+        if (armorTrait && !this.actor.data.data.excludedTraits.includes(armorTrait.id))
         {
           for (let loc in AP)
           {
@@ -1528,6 +1550,55 @@ class ActorSheetWfrp4e extends ActorSheet {
       else if (JSON.parse(dragData).postedItem)
       {
         this.actor.createOwnedItem(JSON.parse(dragData).data);
+      }
+      else if (JSON.parse(dragData).generation)
+      {
+        let transfer = JSON.parse(dragData)
+
+        let data = duplicate(this.actor.data.data);
+        data.details.species.value = transfer.payload.species;
+        data.details.move.value = transfer.payload.movement;
+
+        if (this.actor.data.type == "character")
+        {
+          data.status.fate.value = transfer.payload.fate;
+          data.status.fortune.value = transfer.payload.fate;
+          data.status.resilience.value = transfer.payload.resilience;
+          data.status.resolve.value = transfer.payload.resilience;
+          data.details.experience.total += transfer.payload.exp;
+
+        }
+        for (let c in CONFIG.characteristics)
+        {
+          data.characteristics[c].initial = transfer.payload.characteristics[c]
+        }
+        await this.actor.update({"data" : data})
+
+      }
+      else if (JSON.parse(dragData).lookupType)
+      {
+        let transfer = JSON.parse(dragData)
+        let item;
+        if (transfer.lookupType == "skill")
+        {
+          item = await WFRP_Utility.findSkill(transfer.name)
+        }
+        else if (transfer.lookupType == "talent")
+        {
+          item = await WFRP_Utility.findTalent(transfer.name)
+        }
+        else 
+        {
+          return
+        }
+        if (item)
+          this.actor.createOwnedItem(item.data);
+      }
+      else if (JSON.parse(dragData).exp)
+      {
+        let data = duplicate(this.actor.data.data);
+        data.details.experience.total += JSON.parse(dragData).exp;
+        await this.actor.update({"data" : data})
       }
       else
       {

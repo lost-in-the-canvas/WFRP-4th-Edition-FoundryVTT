@@ -10,9 +10,60 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-buttons").remove();
   }
 
-  html.find(".post-item")[0].setAttribute("draggable", true);
+  let postedItem = html.find(".post-item")[0]
+  if (postedItem)
+  {
+    postedItem.setAttribute("draggable", true);
 
-  html.find(".post-item")[0].addEventListener('dragstart', ev => {
-    ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+    postedItem.addEventListener('dragstart', ev => {
+      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+    })
+  }
+  let generation = html.find(".characteristics-gen")[0]
+  if (generation)
+  {
+    generation.setAttribute("draggable", true);
+    generation.addEventListener('dragstart', ev => {
+      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-char"));
+    })
+  }
+
+  html.find(".skill-drag").each(function() {
+  let skill = $(this)[0]
+  skill.setAttribute("draggable", true)
+  skill.addEventListener('dragstart', ev => {
+      let dataTransfer = {
+        name : ev.target.text,
+        lookupType : "skill"
+      }
+      ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
+    })
   })
-});
+
+  
+  html.find(".talent-drag").each(function() {
+    let talent = $(this)[0]
+    talent.setAttribute("draggable", true)
+    talent.addEventListener('dragstart', ev => {
+        let dataTransfer = {
+          name : ev.target.text,
+          lookupType : "talent"
+        }
+        ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
+      })
+    })
+
+
+  
+  html.find(".exp-drag").each(function() {
+    let exp = $(this)[0]
+    exp.setAttribute("draggable", true)
+    exp.addEventListener('dragstart', ev => {
+        let dataTransfer = {
+          exp : parseInt($(exp).attr("data-exp"))
+        }
+        ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
+      })
+    })
+
+})

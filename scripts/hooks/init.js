@@ -66,36 +66,45 @@ Hooks.once("init", () => {
       name : "Scatter",
       die : "1d10",
       rows : [
-        undefined,
         {
-          name : "Top Left"
+          name : "Top Left",
+          range: [1, 1]
         },
         {
-          name : "Top Middle"
+          name : "Top Middle",
+          range: [2, 2]
         },
         {
-          name : "Top Right"
+          name : "Top Right",
+          range: [3, 3]
         },
         {
-          name : "Center Left"
+          name : "Center Left",
+          range: [4, 4]
         },
         {
-          name : "Center Right"
+          name : "Center Right",
+          range: [5, 5]
         },
         {
-          name : "Bottom Left"
+          name : "Bottom Left",
+          range: [6, 6]
         },
         {
-          name : "Bottom Middle"
+          name : "Bottom Middle",
+          range: [7, 7]
         },
         {
-          name : "Bottom Right"
+          name : "Bottom Right",
+          range: [8, 8]
         },
         {
-          name : "At your feet"
+          name : "At your feet",
+          range: [9, 9]
         },
         {
-          name : "At the target's feet"
+          name : "At the target's feet",
+          range: [10, 10]
         },
       ]
     }
@@ -104,36 +113,25 @@ Hooks.once("init", () => {
       name : "The Swirling Winds",
       die : "1d10",
       rows : [
-        undefined,
         {
-          modifier : "-30"
+          modifier : "-30",
+          range: [1, 1]
         },
         {
-          modifier : "-10"
+          modifier : "-10",
+          range: [2, 3]
         },
         {
-          modifier : "-10"
+          modifier : "0",
+          range: [4, 7]
         },
         {
-          modifier : "0"
+          modifier : "+10",
+          range: [8, 9]
         },
         {
-          modifier : "0"
-        },
-        {
-          modifier : "0"
-        },
-        {
-          modifier : "0"
-        },
-        {
-          modifier : "+10"
-        },
-        {
-          modifier : "+10"
-        },
-        {
-          modifier : "+30"
+          modifier : "+30",
+          range: [10, 10]
         }
       ]
     }

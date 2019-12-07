@@ -311,6 +311,30 @@ CONFIG.speciesMovement = {
   "welf" : 5
 }
 
+CONFIG.speciesFate = {
+  "human" : 2,
+  "dwarf" : 0,
+  "halfling" : 0,
+  "helf" : 0,
+  "welf" : 0
+}
+
+CONFIG.speciesRes = {
+  "human" : 1,
+  "dwarf" : 2,
+  "halfling" : 2,
+  "helf" : 0,
+  "welf" : 0
+}
+
+CONFIG.speciesExtra = {
+  "human" : 3,
+  "dwarf" : 2,
+  "halfling" : 3,
+  "helf" : 2,
+  "welf" : 2
+}
+
 
 
 // Status Tiers
@@ -846,4 +870,19 @@ CONFIG.earningValues = {
   "b" : "2d10",
   "s" : "1d10",
   "g" : "1",
+}
+
+CONFIG.randomExp = {
+  speciesRand : 20,
+  careerRand : 50,
+  careerReroll : 25,
+  statsRand : 50,
+  statsReorder : 25
+}
+
+const DAMAGE_TYPE = {
+  NORMAL : 0,
+  IGNORE_AP : 1,
+  IGNORE_TB : 2,
+  IGNORE_ALL : 3
 }

@@ -11,7 +11,7 @@ Hooks.on("ready", async () => {
           FilePicker.browse("user", `modules/${m}/tables`).then(resp => {
            try 
            {
-           if (resp.error || !resp.baseDir.includes("tables"))
+           if (resp.error || !resp.target.includes("tables"))
              throw ""
            for (var file of resp.files)
            {
@@ -36,6 +36,8 @@ Hooks.on("ready", async () => {
          })
        }
      }
+
+     
 
 
     // i = 0;

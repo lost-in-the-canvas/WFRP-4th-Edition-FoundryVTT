@@ -122,6 +122,11 @@
       },
       "details": {
         "details": {
+          "species": {
+            "type": "String",
+            "label": "Species",
+            "value": ""
+          },
           "size": {
             "type": "String",
             "label": "Size",
@@ -153,22 +158,22 @@
         "fate": {
           "type": "Number",
           "label": "Fate",
-          "value": 2
+          "value": 0
         },
         "fortune": {
           "type": "Number",
           "label": "Fortune",
-          "value": 2
+          "value": 0
         },
         "resilience": {
           "type": "Number",
           "label": "Resilience",
-          "value": 2
+          "value": 0
         },
         "resolve": {
           "type": "Number",
           "label": "Resolve",
-          "value": 2
+          "value": 0
         }
       },
       "details": {
