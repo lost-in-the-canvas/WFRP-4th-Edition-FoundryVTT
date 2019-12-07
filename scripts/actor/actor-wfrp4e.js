@@ -1173,10 +1173,14 @@ class ActorWfrp4e extends Actor {
       roll.postFunction = "traitOverride";
       try 
       {
+        if (testData.extra.trait.data.rollable.bonusCharacteristic || testData.extra.trait.name.includes("Ranged") || testData.extra.trait.name.includes("Weapon"))
+        {
+          testData.extra.damage = Number(roll.SL)
+        if (Number(testData.extra.trait.data.specification.value))
+          testData.extra.damage +=  Number(testData.extra.trait.data.specification.value)
         if (testData.extra.trait.data.rollable.bonusCharacteristic)
-          testData.extra.damage = Number(roll.SL) + 
-                                  Number(testData.extra.trait.data.specification.value) + 
-                                  Number(game.actors.get(cardOptions.speaker.actor).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus);
+          testData.extra.damage += Number(game.actors.get(cardOptions.speaker.actor).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
+        }
       }
       catch (error)
       {
