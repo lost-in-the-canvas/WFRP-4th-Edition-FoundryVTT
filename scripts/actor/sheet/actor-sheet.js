@@ -592,7 +592,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.update({"flags.modifier" : penaltiesFlag})
   
         let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
-        if (armorTrait)
+        if (armorTrait && !this.actor.data.data.excludedTraits.includes(armorTrait.id))
         {
           for (let loc in AP)
           {
