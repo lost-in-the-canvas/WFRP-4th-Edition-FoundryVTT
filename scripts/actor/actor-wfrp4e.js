@@ -157,36 +157,34 @@ class ActorWfrp4e extends Actor {
     // Calculate dynamic data like Characteristic totals and movement values
     prepareData(actorData) {
       try {
-      actorData = super.prepareData(actorData);
-      const data = actorData.data;
+      super.prepareData(actorData);
+      const data = this.data;
   
-      for (let ch of Object.values(data.characteristics))
+      for (let ch of Object.values(data.data.characteristics))
       {
         ch.value = ch.initial + ch.advances;
         ch.bonus = Math.floor(ch.value / 10)
       }
   
       // Prepare Character data
-      if ( actorData.type === "character" ) this._prepareCharacterData(data);
-      else if ( actorData.type === "npc" ) this._prepareNPCData(data);
+      if ( data.type === "character" ) this._prepareCharacterData(data);
+      else if ( data.type === "npc" ) this._prepareNPCData(data);
   
-      if (actorData.flags.autoCalcWalk)
-        data.details.move.walk = parseInt(data.details.move.value)* 2;
-      if (actorData.flags.autoCalcRun)
-        data.details.move.run = parseInt(data.details.move.value) * 4;
+      if (data.flags.autoCalcWalk)
+        data.data.details.move.walk = parseInt(data.data.details.move.value)* 2;
+      if (data.flags.autoCalcRun)
+        data.data.details.move.run = parseInt(data.data.details.move.value) * 4;
   
-      if (actorData.flags.autoCalcEnc)
+      if (data.flags.autoCalcEnc)
       {
-       actorData.data.status.encumbrance.max = data.characteristics.t.bonus + data.characteristics.s.bonus;
+       data.data.status.encumbrance.max = data.data.characteristics.t.bonus + data.data.characteristics.s.bonus;
       }
   
       if (game.settings.get("wfrp4e", "capAdvantageIB"))
-        actorData.data.status.advantage.max = data.characteristics.i.bonus
+        data.data.status.advantage.max = data.data.characteristics.i.bonus
       else
-        actorData.data.status.advantage.max = 10;
+        data.data.status.advantage.max = 10;
   
-  
-      return actorData;
       }
       catch(error)
       {
@@ -202,7 +200,7 @@ class ActorWfrp4e extends Actor {
      */
     _prepareCharacterData(data) {
   
-      data.details.experience.current = data.details.experience.total - data.details.experience.spent;
+      data.data.details.experience.current = data.data.details.experience.total - data.data.details.experience.spent;
   
     }
   
@@ -1201,6 +1199,7 @@ class ActorWfrp4e extends Actor {
       {"token.bar1" :{"attribute" : "status.wounds"},
       "token.bar2" :{"attribute" : "status.advantage"},
       "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER
+      "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+      "token.name" : actor.data.name
     })
   })
