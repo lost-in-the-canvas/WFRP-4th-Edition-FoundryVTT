@@ -15,8 +15,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       return this.actor.data.type;
     }
     async _render(force = false, options = {}) {
-      if (screen.height < 900)
-        ui.notifications.warn("WARNING: Your resolution is too small! Actor sheets will not be displayed correctly until you reach the minimum vertical resolution of 900 px.")
       this._saveScrollPos();
       await super._render(force, options);
       this._setScrollPos();
