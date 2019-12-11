@@ -1181,7 +1181,7 @@
   #sidebar-tabs > [title~="Journal"] {
     background: url(../ui/sidebar-button-journal.png);
   }
-  #sidebar-tabs > [title~="SIDEBAR.TabTables"] {
+  #sidebar-tabs > [title~="Rollable"] {
     background: url(../ui/sidebar-button-tables.png);
   }
   #sidebar-tabs > [title~="Playlists"] {
