@@ -65,11 +65,17 @@ class OpposedWFRP {
         opposeResult.attackerTestResult = this.attacker.testResult;
         opposeResult.defenderTestResult = this.defender.testResult;
         if (!isNaN(this.attacker.testResult.damage))
+        {
+          let damageMultiplier = 1;
+          let sizeDiff =  CONFIG.actorSizeNums[this.attacker.testResult.size] - CONFIG.actorSizeNums[this.defender.testResult.size] 
+          damageMultiplier = sizeDiff <= 0 ? 1 : sizeDiff
+
           opposeResult.damage = 
           {
-            description : `<b>Damage</b>: ${this.attacker.testResult.damage - defenderSL}`,
-            value : this.attacker.testResult.damage - defenderSL
+            description : `<b>Damage</b>: ${(this.attacker.testResult.damage - defenderSL) * damageMultiplier}`,
+            value : (this.attacker.testResult.damage - defenderSL) * damageMultiplier
           };
+        }
         else 
         {
           opposeResult.damage = 

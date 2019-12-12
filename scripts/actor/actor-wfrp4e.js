@@ -239,7 +239,10 @@ class ActorWfrp4e extends Actor {
       let title = char.label + " Test";
       let testData = {
         target : char.value,
-        hitLocation : false
+        hitLocation : false,
+        extra : {
+          size : this.data.data.details.size.value
+        }
       };
   
       // Default a WS or BS test to use hit locations
@@ -312,7 +315,10 @@ class ActorWfrp4e extends Actor {
       let testData = {
         target : char.value + skill.data.advances.value,
         hitLocation : false,
-        income : income
+        income : income,
+        extra : {
+          size : this.data.data.details.size.value
+        }
       };
   
       // Default hit location to true if WS, BS, Melee, or Ranged is tested
@@ -441,7 +447,8 @@ class ActorWfrp4e extends Actor {
         extra : {
           weapon : wep,
           ammo : ammo,
-          attackType : event.attackType
+          attackType : event.attackType,
+          size : this.data.data.details.size.value
         }
       };
   
@@ -622,7 +629,8 @@ class ActorWfrp4e extends Actor {
           spell : preparedSpell,
           malignantInfluence : false,
           ingredient : false,
-          ID : instinctiveDiction
+          ID : instinctiveDiction,
+          size : this.data.data.details.size.value
         }
       };
   
@@ -738,7 +746,8 @@ class ActorWfrp4e extends Actor {
           spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
           malignantInfluence : false,
           ingredient : false,
-          AA : aethyricAttunement
+          AA : aethyricAttunement,
+          size : this.data.data.details.size.value
         }
       };
   
@@ -836,6 +845,8 @@ class ActorWfrp4e extends Actor {
         hitLocation : true,
         extra : {
           prayer : preparedPrayer,
+          size : this.data.data.details.size.value
+
         }
       };
   
@@ -921,7 +932,10 @@ class ActorWfrp4e extends Actor {
         target : char.value,
         hitLocation : false,
         extra : 
-        { trait : trait }
+        { 
+          trait : trait,
+          size : this.data.data.details.size.value
+        }
       };
   
       if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
@@ -1024,8 +1038,10 @@ class ActorWfrp4e extends Actor {
       if (victim.token)
         actor = canvas.tokens.get(victim.token).actor
 
-
-      // TODO: Size
+      let attacker = game.actors.get(opposeData.speakerAttack.actor);
+      if (opposeData.speakerAttack.token)
+        attacker = canvas.tokens.get(opposeData.speakerAttack.token).actor
+    
       let totalWoundLoss = opposeData.damage.value
       let newWounds = actor.data.data.status.wounds.value;
       let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
@@ -1041,6 +1057,8 @@ class ActorWfrp4e extends Actor {
         updateMsg += preparedActorData.actor.AP[opposeData.hitloc.value] + " AP"
         if (applyTB)
           updateMsg += " + "
+        else 
+          updateMssg += ")"
         // TODO: Penetrating, Undamaging
       }
 

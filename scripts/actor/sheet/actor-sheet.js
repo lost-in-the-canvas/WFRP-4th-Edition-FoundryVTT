@@ -68,16 +68,19 @@ class ActorSheetWfrp4e extends ActorSheet {
         size = sheetData.actor.talents.find(x=>x.name.toLowerCase() == "small");
         if (size)
           size = size.name;
+        else 
+          size = "Average"
       }
-  
-      if (size)
+      
+
+      for (let s in CONFIG.actorSizes)
       {
-        for (let s in CONFIG.actorSizes)
+        if (CONFIG.actorSizes[s] == size && sheetData.actor.data.details.size.value != s)
         {
-          if (CONFIG.actorSizes[s] == size)
-            sheetData.actor.data.details.size.value = s;
+          this.actor.update({"data.details.size.value" : s})
         }
       }
+  
   
       let hardyTrait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("hardy"))
       let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
@@ -139,8 +142,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         tokenSize = 4;
         break;
       }
-  
-        if (sheetData.actor.data.status.wounds.max != newWounds)
+
+      if (sheetData.actor.data.status.wounds.max != newWounds)
         {
           this.actor.update({
             "data.status.wounds.max" : newWounds,

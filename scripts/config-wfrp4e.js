@@ -705,6 +705,16 @@ CONFIG.actorSizes = {
   "mnst": "Monstrous"
 };
 
+CONFIG.actorSizeNums = {
+  "tiny": 0,
+  "ltl": 1,
+  "sml": 2,
+  "avg": 3,
+  "lrg": 4,
+  "enor": 5,
+  "mnst": 6
+};
+
 // Condition Types
 CONFIG.magicLores = {
   "petty": "Petty",
