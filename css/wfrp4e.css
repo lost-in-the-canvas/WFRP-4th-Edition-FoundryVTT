@@ -15126,3 +15126,7 @@ border: 1px dotted black;
     margin: 5px;
 }
 
+input.card-edit {
+  width: 32px;
+  border: inset;
+}
