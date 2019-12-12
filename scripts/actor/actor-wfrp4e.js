@@ -1016,6 +1016,10 @@ class ActorWfrp4e extends Actor {
 
     static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
     {
+      // If no damage value, don't attempt anything
+      if (!opposeData.damage.value)
+        return "Cannot automate damage (likely due to Tiring)"
+
       let actor = game.actors.get(victim.actor);
       if (victim.token)
         actor = canvas.tokens.get(victim.token).actor

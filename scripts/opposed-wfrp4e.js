@@ -64,12 +64,20 @@ class OpposedWFRP {
         opposeResult.speakerDefend = this.defender.speaker
         opposeResult.attackerTestResult = this.attacker.testResult;
         opposeResult.defenderTestResult = this.defender.testResult;
-        if (this.attacker.testResult.damage)
+        if (!isNaN(this.attacker.testResult.damage))
           opposeResult.damage = 
           {
             description : `<b>Damage</b>: ${this.attacker.testResult.damage - defenderSL}`,
             value : this.attacker.testResult.damage - defenderSL
           };
+        else 
+        {
+          opposeResult.damage = 
+          {
+            description : `<b>Damage</b>: ?`,
+            value : null
+          };
+        }
         if (this.attacker.testResult.hitloc)
           opposeResult.hitloc  = 
           {
