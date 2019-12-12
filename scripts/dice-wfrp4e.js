@@ -31,7 +31,7 @@ class DiceWFRP {
       mergeObject(cardOptions,
         {
           user : game.user._id,
-
+          sound : CONFIG.sounds.dice
         })
 
       var roll;

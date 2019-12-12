@@ -1150,12 +1150,26 @@ class ActorSheetWfrp4e extends ActorSheet {
       html.find('.item-toggle').click(ev => {
         let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
         let item = this.actor.getOwnedItem(itemId).data
+        let context;
         if (item.type == "armour")
+        {
           item.data.worn.value = !item.data.worn.value;
+          context = item.data.worn.value
+        }
         else if (item.type == "weapon")
+        {
           item.data.equipped = !item.data.equipped;
+          context = item.data.equipped
+        }
         else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+        {
           item.data.worn = !item.data.worn;
+          context = item.data.worn
+
+        }
+        
+        WFRP_Utility.PlayContextAudio(item, context)
+
         this.actor.updateOwnedItem(item);
       });
   
@@ -1262,6 +1276,8 @@ class ActorSheetWfrp4e extends ActorSheet {
         let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
         const spell = this.actor.getOwnedItem(itemId).data
         spell.data.memorized.value = !spell.data.memorized.value;
+        if (spell.data.memorized.value)
+            AudioHelper.play({src : "systems/wfrp4e/sounds/memorize.wav"})
         await this.actor.updateOwnedItem(spell, true);
       });
   

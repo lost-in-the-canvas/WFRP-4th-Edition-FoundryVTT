@@ -749,4 +749,39 @@ class WFRP_Utility
     ChatMessage.create(chatOptions);
   }
 
+  static async PlayContextAudio(item, equip)
+  {
+    let type = item.type
+    let files
+    await FilePicker.browse("user", `systems/wfrp4e/sounds/${type}`).then(resp => {
+      files = resp.files
+    })
+
+    let group;
+    switch(type)
+    {
+      case "weapon":
+        group = item.data.weaponGroup.value
+        break;
+      case "armour":
+        group = item.data.armorType.value
+        group = group.includes("Leather") ? "leather" : group;
+        break;
+    }
+
+    files = files.filter(f => f.includes(group))
+
+    if (equip)
+    {
+      files = files.filter(f => f.includes("equip"))
+    }
+    else
+    {
+      files = files.filter(f => f.includes("uneq"))
+    }
+
+    let file = files[new Roll(`1d${files.length}-1`).roll().total]
+    AudioHelper.play({src : file})
+  }
+
 }
