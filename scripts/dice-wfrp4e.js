@@ -68,7 +68,11 @@ class DiceWFRP {
       let successBonus = testData.successBonus;
       let slBonus = testData.slBonus;
       let targetNum = testData.target;
-      let SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
+      let SL
+      if (testData.SL == 0)
+        SL = testData.SL
+      else
+        SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
       let description = "";
 
       // Test determination logic can be complicated due to SLBonus

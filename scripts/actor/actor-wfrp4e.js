@@ -1033,7 +1033,7 @@ class ActorWfrp4e extends Actor {
       // If no damage value, don't attempt anything
       if (!opposeData.damage.value)
         return "Cannot automate damage (likely due to Tiring)"
-
+      // TODO: Shield
       let actor = game.actors.get(victim.actor);
       if (victim.token)
         actor = canvas.tokens.get(victim.token).actor
@@ -1047,14 +1047,25 @@ class ActorWfrp4e extends Actor {
       let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
       let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
 
-      let preparedActorData = actor.sheet.getData()
-
       let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b>: @TOTAL (";
 
       if (applyAP)
       {
-        totalWoundLoss -= preparedActorData.actor.AP[opposeData.hitloc.value]
-        updateMsg += preparedActorData.actor.AP[opposeData.hitloc.value] + " AP"
+
+        let AP = actor.data.flags.AP[opposeData.hitloc.value]
+        // weaponProperties = opposeData.attackerTestResult.weapon.properties;
+
+
+        // if (weaponProperties.qualities.includes("Penetrating"))
+        //   AP.value = AP.metalValue
+
+        // if (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
+        //   AP.value -= AP.partialValue
+
+        // if (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
+        //   AP.value -= AP.weakpointsValue
+
+        updateMsg += AP.value + " AP"
         if (applyTB)
           updateMsg += " + "
         else 
@@ -1064,8 +1075,8 @@ class ActorWfrp4e extends Actor {
 
       if (applyTB)
       {
-        totalWoundLoss -= preparedActorData.actor.data.characteristics.t.bonus
-        updateMsg += preparedActorData.actor.data.characteristics.t.bonus + " TB)"
+        totalWoundLoss -= actor.data.data.characteristics.t.bonus
+        updateMsg += actor.data.data.characteristics.t.bonus + " TB)"
         // TODO: Resolute talent
       }
 

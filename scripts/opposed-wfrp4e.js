@@ -62,18 +62,36 @@ class OpposedWFRP {
         opposeResult.result = `<b>${this.attacker.speaker.alias}</b> won by ${differenceSL} SL`;
         opposeResult.speakerAttack= this.attacker.speaker
         opposeResult.speakerDefend = this.defender.speaker
-        opposeResult.attackerTestResult = this.attacker.testResult;
-        opposeResult.defenderTestResult = this.defender.testResult;
-        if (!isNaN(this.attacker.testResult.damage))
+        opposeResult.attackerTestResult = duplicate(this.attacker.testResult);
+        opposeResult.defenderTestResult = duplicate(this.defender.testResult);
+        if (!isNaN(opposeResult.attackerTestResult.damage))
         {
           let damageMultiplier = 1;
-          let sizeDiff =  CONFIG.actorSizeNums[this.attacker.testResult.size] - CONFIG.actorSizeNums[this.defender.testResult.size] 
-          damageMultiplier = sizeDiff <= 0 ? 1 : sizeDiff
+          let sizeDiff =  CONFIG.actorSizeNums[opposeResult.attackerTestResult.size] - CONFIG.actorSizeNums[opposeResult.defenderTestResult.size]
+          damageMultiplier = sizeDiff < 0 ? 0 : sizeDiff
+          if (opposeResult.attackerTestResult.trait)
+          {
+            if (sizeDiff >= 1)
+            { 
+              let SL = Number(opposeResult.attackerTestResult.SL)
+              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+
+              let damageToAdd = unitValue - SL
+              if (damageToAdd > 0)
+                opposeResult.attackerTestResult.damage += damageToAdd
+              
+            }
+            if (sizeDiff >= 2)
+            {
+              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+              opposeResult.attackerTestResult.damage += unitValue
+            }
+          }
 
           opposeResult.damage = 
           {
-            description : `<b>Damage</b>: ${(this.attacker.testResult.damage - defenderSL) * damageMultiplier}`,
-            value : (this.attacker.testResult.damage - defenderSL) * damageMultiplier
+            description : `<b>Damage</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
+            value : (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
           };
         }
         else 
@@ -84,11 +102,11 @@ class OpposedWFRP {
             value : null
           };
         }
-        if (this.attacker.testResult.hitloc)
+        if (opposeResult.attackerTestResult.hitloc)
           opposeResult.hitloc  = 
           {
-            description : `<b>Hit Location</b>: ${this.attacker.testResult.hitloc.description}`,
-            value : this.attacker.testResult.hitloc.result
+            description : `<b>Hit Location</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
+            value : opposeResult.attackerTestResult.hitloc.result
           };
           
           

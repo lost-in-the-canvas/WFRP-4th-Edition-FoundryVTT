@@ -123,7 +123,7 @@
   <div class="first row">
     <div class="head column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.head}}</span>
+        <span class="armour-total" title="Armour AP">{{actor.AP.head.value}}</span>
         <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Head</span>
@@ -139,8 +139,8 @@
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
-                class="ap-value">{{item.data.currentAP.head}}</a>
+              <a title="Current: {{item.data.currentAP.head.value}} Max: {{item.data.maxAP.head.value}}"
+                class="ap-value">{{item.data.currentAP.head.value}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -176,7 +176,7 @@
 
     <div class="body column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.body}}</span>
+        <span class="armour-total" title="Armour AP">{{actor.AP.body.value}}</span>
         <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Body</span>
@@ -192,8 +192,8 @@
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
-                class="ap-value">{{item.data.currentAP.body}}</a>
+              <a title="Current: {{item.data.currentAP.body.value}} Max: {{item.data.maxAP.body.value}}"
+                class="ap-value">{{item.data.currentAP.body.value}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -231,7 +231,7 @@
   <div class="second row">
       <div class="larm column">
           <div class="armour-header">
-            <span class="armour-total" title="Armour AP">{{actor.AP.lArm}}</span>
+            <span class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</span>
             <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Arm</span>
@@ -247,8 +247,8 @@
                     <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                     <a class="name armour-item-name item-edit">{{item.name}}</a>
                   </div>
-                  <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
-                    class="ap-value">{{item.data.currentAP.lArm}}</a>
+                  <a title="Current: {{item.data.currentAP.lArm.value}} Max: {{item.data.maxAP.lArm.value}}"
+                    class="ap-value">{{item.data.currentAP.lArm.value}}</a>
                 </div>
                 <div class="content">
                   <div class="armour-property">
@@ -284,7 +284,7 @@
         
     <div class="rarm column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.rArm}}</span>
+        <span class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</span>
         <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Arm</span>
@@ -300,8 +300,8 @@
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.rArm}} Max: {{item.data.maxAP.rArm}}"
-                class="ap-value">{{item.data.currentAP.rArm}}</a>
+              <a title="Current: {{item.data.currentAP.rArm.value}} Max: {{item.data.maxAP.rArm.value}}"
+                class="ap-value">{{item.data.currentAP.rArm.value}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -339,7 +339,7 @@
   <div class="third row">
       <div class="lleg column">
           <div class="armour-header">
-            <span class="armour-total" title="Armour AP">{{actor.AP.lLeg}}</span>
+            <span class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</span>
             <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Leg</span>
@@ -355,8 +355,8 @@
                     <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                     <a class="name armour-item-name item-edit">{{item.name}}</a>
                   </div>
-                  <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
-                    class="ap-value">{{item.data.currentAP.rLeg}}</a>
+                  <a title="Current: {{item.data.currentAP.lLeg.value}} Max: {{item.data.maxAP.lLeg.value}}"
+                    class="ap-value">{{item.data.currentAP.lLeg.value}}</a>
                 </div>
                 <div class="content">
                   <div class="armour-property">
@@ -392,7 +392,7 @@
 
     <div class="rleg column">
       <div class="armour-header rLeg">
-        <span class="armour-total" title="Armour AP">{{actor.AP.rLeg}}</span>
+        <span class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</span>
         <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Leg</span>
@@ -408,8 +408,8 @@
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
-                class="ap-value">{{item.data.currentAP.rLeg}}</a>
+              <a title="Current: {{item.data.currentAP.rLeg.value}} Max: {{item.data.maxAP.rLeg.value}}"
+                class="ap-value">{{item.data.currentAP.rLeg.value}}</a>
             </div>
             <div class="content">
               <div class="armour-property">

@@ -150,6 +150,7 @@ class WFRP_Utility
 
   // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
   static _prepareArmorCombat(actorData, armor, AP){ // -1 means currentAP is maxAP
+    armor.properties = this._separateQualitiesFlaws(this._prepareQualitiesFlaws(armor));
     for (let ap in armor.data.currentAP)
     {
       if (armor.data.currentAP[ap] == -1)
@@ -161,34 +162,77 @@ class WFRP_Utility
     if (armor.data.maxAP.head > 0)
     {
       armor["protectsHead"] = true;
-      AP.head += armor.data.currentAP.head;
+      AP.head.value += armor.data.currentAP.head;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.head.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.head.partialValue += armor.data.currentAP.head
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.head.weakpointsValue += armor.data.currentAP.head
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.head.metalValue += (armor.data.currentAP.head - 1 < 0 ? 0 : armor.data.currentAP.head - 1 )
     }
     if (armor.data.maxAP.body > 0)
     {
       armor["protectsBody"] = true;
-      AP.body += armor.data.currentAP.body;
+      AP.body.value += armor.data.currentAP.body;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.body.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.body.partialValue += armor.data.currentAP.body
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.body.weakpointsValue += armor.data.currentAP.body
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.body.metalValue += (armor.data.currentAP.body - 1 < 0 ? 0 : armor.data.currentAP.body - 1 )
     }
     if (armor.data.maxAP.lArm > 0)
     {
       armor["protectslArm"] = true;
-      AP.lArm += armor.data.currentAP.lArm;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.lArm.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.lArm.partialValue += armor.data.currentAP.lArm
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.lArm.weakpointsValue += armor.data.currentAP.lArm
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.lArm.metalValue += (armor.data.currentAP.lArm - 1 < 0 ? 0 : armor.data.currentAP.lArm - 1 )
     }
     if (armor.data.maxAP.rArm > 0)
     {
       armor["protectsrArm"] = true;
-      AP.rArm += armor.data.currentAP.rArm;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.rArm.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.rArm.partialValue += armor.data.currentAP.rArm
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.rArm.weakpointsValue += armor.data.currentAP.rArm
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.rArm.metalValue += (armor.data.currentAP.rArm - 1 < 0 ? 0 : armor.data.currentAP.rArm - 1 )
     }
     if (armor.data.maxAP.lLeg > 0)
     {
       armor["protectslLeg"] = true;
-      AP.lLeg += armor.data.currentAP.lLeg;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.lLeg.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.lLeg.partialValue += armor.data.currentAP.lLeg
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.lLeg.weakpointsValue += armor.data.currentAP.lLeg
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.lLeg.metalValue += (armor.data.currentAP.lLeg - 1 < 0 ? 0 : armor.data.currentAP.lLeg - 1 )
     }
     if (armor.data.maxAP.rLeg > 0)
     {
       armor["protectsrLeg"] = true
-      AP.rLeg += armor.data.currentAP.rLeg;
+      if (armor.properties.qualities.includes("Impenetrable"))
+        AP.rLeg.impenetrable = true;
+      if (armor.properties.flaws.includes("Partial"))
+        AP.rLeg.partialValue += armor.data.currentAP.rLeg
+      if (armor.properties.flaws.includes("Weakpoints"))
+        AP.rLeg.weakpointsValue += armor.data.currentAP.rLeg
+      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+        AP.rLeg.metalValue += (armor.data.currentAP.rLeg - 1 < 0 ? 0 : armor.data.currentAP.rLeg - 1 )
     }
-    armor.properties = this._separateQualitiesFlaws(this._prepareQualitiesFlaws(armor));
     return armor;
   }
 

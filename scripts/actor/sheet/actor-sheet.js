@@ -205,15 +205,6 @@ class ActorSheetWfrp4e extends ActorSheet {
         const traits = [];
         const weapons = [];
         const armour = [];
-        const AP = {
-          head: 0,
-          body: 0,
-          rArm: 0,
-          lArm: 0,
-          rLeg: 0,
-          lLeg: 0,
-          shield: 0
-        };
         const injuries = [];
         const grimoire = [];
         const petty = [];
@@ -229,6 +220,52 @@ class ActorSheetWfrp4e extends ActorSheet {
           "Mutation" : {value : ""},
           "Criticals" : {value : ""},
         };
+
+        const AP = {
+          head: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          body: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          rArm: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          lArm: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          rLeg: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          lLeg: {
+            value : 0,
+            metalValue : 0,
+            partialValue : 0,
+            weakpointsValue : 0,
+            impenetrable : false
+          },
+          shield: 0
+        }
   
         // Inventory object is for the inventory tab
         const inventory = {
@@ -569,6 +606,11 @@ class ActorSheetWfrp4e extends ActorSheet {
         else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
           this.actor.update({"flags.rangedDamageIncrease" : 0});
   
+
+
+
+
+
   
         // Penalties box setup
         // If too much text, divide the penalties into groups
@@ -600,7 +642,7 @@ class ActorSheetWfrp4e extends ActorSheet {
             try
             {
               if (loc != "shield")
-                AP[loc] += parseInt(armorTrait.data.specification.value) || 0;
+                AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
             }
             catch
             {
@@ -608,6 +650,10 @@ class ActorSheetWfrp4e extends ActorSheet {
             }
           }
         }
+
+        // Store AP values in flags so it can easily be retrieved in Opposed Tests
+        if (this.actor.data.flags.AP != AP)
+          this.actor.update({"flags.AP" : AP});
   
         this.actor.data.flags.defensive = defensiveCounter;
   
