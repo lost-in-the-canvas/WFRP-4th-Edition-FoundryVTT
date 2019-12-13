@@ -68,7 +68,7 @@ class OpposedWFRP {
         {
           let damageMultiplier = 1;
           let sizeDiff =  CONFIG.actorSizeNums[opposeResult.attackerTestResult.size] - CONFIG.actorSizeNums[opposeResult.defenderTestResult.size]
-          damageMultiplier = sizeDiff < 0 ? 0 : sizeDiff
+          damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
           if (opposeResult.attackerTestResult.trait)
           {
             if (sizeDiff >= 1)
@@ -117,6 +117,7 @@ class OpposedWFRP {
         opposeResult.result = `<b>${this.defender.speaker.alias}</b> won by ${differenceSL} SL`;        
       }
 
+      opposeResult.hideData = true;
       renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
         let chatOptions = {
           user : game.user.id,
@@ -140,6 +141,7 @@ class OpposedWFRP {
   {
     ChatMessage.create({
       user : game.user.id,
+      hideData : true,
       content : `<div><b>${speaker.alias}<b> started an opposed test!<div>`
     }).then(msg => this.startMessage = msg)
   }
@@ -149,6 +151,7 @@ class OpposedWFRP {
     let opposeMessage = game.messages.get(msgId)
     let newCard = {
       user : game.user.id,
+      hideData : true,
       content : $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
     }
 

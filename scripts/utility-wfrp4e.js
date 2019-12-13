@@ -151,89 +151,70 @@ class WFRP_Utility
   // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
   static _prepareArmorCombat(actorData, armor, AP){ // -1 means currentAP is maxAP
     armor.properties = this._separateQualitiesFlaws(this._prepareQualitiesFlaws(armor));
-    for (let ap in armor.data.currentAP)
+    for (let apLoc in armor.data.currentAP)
     {
-      if (armor.data.currentAP[ap] == -1)
+      if (armor.data.currentAP[apLoc] == -1)
       {
-        armor.data.currentAP[ap] = armor.data.maxAP[ap];
+        armor.data.currentAP[apLoc] = armor.data.maxAP[apLoc];
       }
     }
+
+
 
     if (armor.data.maxAP.head > 0)
     {
       armor["protectsHead"] = true;
       AP.head.value += armor.data.currentAP.head;
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.head.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.head.partialValue += armor.data.currentAP.head
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.head.weakpointsValue += armor.data.currentAP.head
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.head.metalValue += (armor.data.currentAP.head - 1 < 0 ? 0 : armor.data.currentAP.head - 1 )
+      this.addLayer(AP, armor, "head")
     }
     if (armor.data.maxAP.body > 0)
     {
       armor["protectsBody"] = true;
       AP.body.value += armor.data.currentAP.body;
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.body.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.body.partialValue += armor.data.currentAP.body
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.body.weakpointsValue += armor.data.currentAP.body
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.body.metalValue += (armor.data.currentAP.body - 1 < 0 ? 0 : armor.data.currentAP.body - 1 )
+      this.addLayer(AP, armor, "body")
     }
     if (armor.data.maxAP.lArm > 0)
     {
       armor["protectslArm"] = true;
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.lArm.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.lArm.partialValue += armor.data.currentAP.lArm
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.lArm.weakpointsValue += armor.data.currentAP.lArm
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.lArm.metalValue += (armor.data.currentAP.lArm - 1 < 0 ? 0 : armor.data.currentAP.lArm - 1 )
+      AP.lArm.value += armor.data.currentAP.lArm;
+      this.addLayer(AP, armor, "lArm")
     }
     if (armor.data.maxAP.rArm > 0)
     {
       armor["protectsrArm"] = true;
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.rArm.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.rArm.partialValue += armor.data.currentAP.rArm
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.rArm.weakpointsValue += armor.data.currentAP.rArm
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.rArm.metalValue += (armor.data.currentAP.rArm - 1 < 0 ? 0 : armor.data.currentAP.rArm - 1 )
+      AP.rArm.value += armor.data.currentAP.rArm;
+      this.addLayer(AP, armor, "rArm")
     }
     if (armor.data.maxAP.lLeg > 0)
     {
       armor["protectslLeg"] = true;
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.lLeg.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.lLeg.partialValue += armor.data.currentAP.lLeg
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.lLeg.weakpointsValue += armor.data.currentAP.lLeg
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.lLeg.metalValue += (armor.data.currentAP.lLeg - 1 < 0 ? 0 : armor.data.currentAP.lLeg - 1 )
+      AP.lLeg.value += armor.data.currentAP.lLeg;
+      this.addLayer(AP, armor, "lLeg")
     }
     if (armor.data.maxAP.rLeg > 0)
     {
       armor["protectsrLeg"] = true
-      if (armor.properties.qualities.includes("Impenetrable"))
-        AP.rLeg.impenetrable = true;
-      if (armor.properties.flaws.includes("Partial"))
-        AP.rLeg.partialValue += armor.data.currentAP.rLeg
-      if (armor.properties.flaws.includes("Weakpoints"))
-        AP.rLeg.weakpointsValue += armor.data.currentAP.rLeg
-      if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
-        AP.rLeg.metalValue += (armor.data.currentAP.rLeg - 1 < 0 ? 0 : armor.data.currentAP.rLeg - 1 )
+      AP.rLeg.value += armor.data.currentAP.rLeg;
+      this.addLayer(AP, armor, "rLeg")
     }
     return armor;
+  }
+
+  static addLayer(AP, armor, loc)
+  {
+    let layer = {
+      value : armor.data.currentAP[loc]
+    }
+    if (armor.properties.qualities.includes("Impenetrable"))
+      layer.impenetrable = true;
+    if (armor.properties.flaws.includes("Partial"))
+      layer.partial = true;
+    if (armor.properties.flaws.includes("Weakpoints"))
+      layer.weakpoints = true;
+    if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+      layer.metal = true;
+    
+    AP[loc].layers.push(layer);
   }
 
   /* -------------------------------------------- */

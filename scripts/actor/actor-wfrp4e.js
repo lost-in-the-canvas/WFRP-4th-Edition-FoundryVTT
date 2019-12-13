@@ -1047,46 +1047,89 @@ class ActorWfrp4e extends Actor {
       let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
       let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
 
-      let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b>: @TOTAL (";
+      let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b><span class = 'hide-option'>: @TOTAL";
+      if (damageType != DAMAGE_TYPE.IGNORE_ALL)
+        updateMsg += " ("
 
       if (applyAP)
       {
+        let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
+        AP.ignored = 0;
+        let weaponProperties = opposeData.attackerTestResult.weapon.properties;
+        let penetrating = weaponProperties.qualities.includes("Penetrating")
+        let undamaging = weaponProperties.flaws.includes("Undamaging")
+        let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
+        let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical) 
+                                && weaponProperties.qualities.includes("Impale")
 
-        let AP = actor.data.flags.AP[opposeData.hitloc.value]
-        // weaponProperties = opposeData.attackerTestResult.weapon.properties;
+        for (let layer of AP.layers)
+        {
+          if (ignoreWeakpoints && layer.weakpoints)
+          {
+            AP.ignored += layer.value
+          }
+          else if (ignorePartial && layer.partial)
+          {
+            AP.ignored += layer.value;
+          }
+          else if (penetrating)
+          {
+            AP.ignored += layer.metal ? 1 : layer.value
+          }
+        }
+
+        AP.used = AP.value - AP.ignored
+        AP.used = AP.used < 0 ? 0 : AP.used;           // AP minimum 0
+        AP.used = undamaging ? AP.used * 2 : AP.used;  // Double AP if undamaging
 
 
-        // if (weaponProperties.qualities.includes("Penetrating"))
-        //   AP.value = AP.metalValue
+        if (AP.ignored)
+          updateMsg += `${AP.used}/${AP.value} AP`
+        else
+          updateMsg += AP.used + " AP"
 
-        // if (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-        //   AP.value -= AP.partialValue
+        let shieldAP = 0;
+        if (opposeData.defenderTestResult.weapon)
+        {
+          if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")))
+            shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")).split(" ")[1])
+        }
 
-        // if (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-        //   AP.value -= AP.weakpointsValue
+        if (shieldAP)
+          updateMsg += ` + ${shieldAP} Shield`
 
-        updateMsg += AP.value + " AP"
         if (applyTB)
           updateMsg += " + "
         else 
-          updateMssg += ")"
-        // TODO: Penetrating, Undamaging
+          updateMsg += ")"
+
+        totalWoundLoss -= (AP.used + shieldAP)
       }
 
       if (applyTB)
       {
         totalWoundLoss -= actor.data.data.characteristics.t.bonus
-        updateMsg += actor.data.data.characteristics.t.bonus + " TB)"
-        // TODO: Resolute talent
+        updateMsg += actor.data.data.characteristics.t.bonus + " TB"
       }
 
+      totalWoundLoss -= actor.data.flags.robust || 0;
+
+      if (actor.data.flags.robust)
+        updateMsg += ` + ${actor.data.flags.robust} Robust)`
+      else
+        updateMsg += ")"
+
       totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss 
-      // TODO Undamaging
 
       newWounds -= totalWoundLoss
 
-      newWounds = newWounds < 0 ? 0 : newWounds 
+      if (newWounds <= 0)
+      {
+        newWounds = 0;
+        updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
+      } 
 
+      updateMsg +="</span>"
       updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
 
       actor.update({"data.status.wounds.value" : newWounds})

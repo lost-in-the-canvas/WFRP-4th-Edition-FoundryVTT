@@ -224,45 +224,27 @@ class ActorSheetWfrp4e extends ActorSheet {
         const AP = {
           head: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           body: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           rArm: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           lArm: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           rLeg: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           lLeg: {
             value : 0,
-            metalValue : 0,
-            partialValue : 0,
-            weakpointsValue : 0,
-            impenetrable : false
+            layers : [],
           },
           shield: 0
         }
@@ -605,13 +587,14 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
         else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
           this.actor.update({"flags.rangedDamageIncrease" : 0});
-  
 
 
+        let robust = talents.find(t => t.name.toLowerCase() == "robust")
+        if (robust && this.actor.data.flags.robust != robust.data.advances.value)
+          this.actor.update({"flags.robust" : robust.data.advances.value});
+        else if (!robust && this.actor.data.flags.robust)
+          this.actor.update({"flags.robust" : 0});
 
-
-
-  
         // Penalties box setup
         // If too much text, divide the penalties into groups
         let penaltiesOverflow = false;
@@ -652,8 +635,6 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
 
         // Store AP values in flags so it can easily be retrieved in Opposed Tests
-        if (this.actor.data.flags.AP != AP)
-          this.actor.update({"flags.AP" : AP});
   
         this.actor.data.flags.defensive = defensiveCounter;
   
