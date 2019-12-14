@@ -45,25 +45,25 @@ class OpposedWFRP {
       speaker : speaker
     }
 
-    this.evaluateOpposedTest();
+    this.evaluateOpposedTest(this.attacker, this.defender);
   }
   
-  static evaluateOpposedTest()
+  static evaluateOpposedTest(attacker, defender, options = {})
   {
     try {
     let opposeResult = {};
-    let attackerSL = parseInt(this.attacker.testResult.SL);
-    let defenderSL = parseInt(this.defender.testResult.SL);
+    let attackerSL = parseInt(attacker.testResult.SL);
+    let defenderSL = parseInt(defender.testResult.SL);
   
     let differenceSL = 0;
     if (attackerSL >= defenderSL)
       {
         differenceSL = attackerSL - defenderSL;
-        opposeResult.result = `<b>${this.attacker.speaker.alias}</b> won by ${differenceSL} SL`;
-        opposeResult.speakerAttack= this.attacker.speaker
-        opposeResult.speakerDefend = this.defender.speaker
-        opposeResult.attackerTestResult = duplicate(this.attacker.testResult);
-        opposeResult.defenderTestResult = duplicate(this.defender.testResult);
+        opposeResult.result = `<b>${attacker.speaker.alias}</b> won by ${differenceSL} SL`;
+        opposeResult.speakerAttack= attacker.speaker
+        opposeResult.speakerDefend = defender.speaker
+        opposeResult.attackerTestResult = duplicate(attacker.testResult);
+        opposeResult.defenderTestResult = duplicate(defender.testResult);
         if (!isNaN(opposeResult.attackerTestResult.damage))
         {
           let damageMultiplier = 1;
@@ -94,7 +94,7 @@ class OpposedWFRP {
             value : (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
           };
         }
-        else 
+        else if (opposeResult.attackerTestResult.weapon || opposeResult.attackerTestResult.trait)
         {
           opposeResult.damage = 
           {
@@ -114,22 +114,37 @@ class OpposedWFRP {
       else
       {
         differenceSL = defenderSL - attackerSL;
-        opposeResult.result = `<b>${this.defender.speaker.alias}</b> won by ${differenceSL} SL`;        
+        opposeResult.result = `<b>${defender.speaker.alias}</b> won by ${differenceSL} SL`;        
       }
 
-      opposeResult.hideData = true;
-      renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
-        let chatOptions = {
-          user : game.user.id,
-          content : html,
-          "flags.opposeData" : opposeResult
-        }
-        this.startMessage.update(chatOptions).then(resultMsg =>{
-          ui.chat.updateMessage(resultMsg)
-          this.clearOpposed();
-
+      if (options.target)
+      {
+        opposeResult.hideData = true;
+        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
+          let chatOptions = {
+            user : game.user.id,
+            content : html,
+            "flags.opposeData" : opposeResult
+          }
+          ChatMessage.create(chatOptions)
         })
-      })
+      }
+      else 
+      {
+        opposeResult.hideData = true;
+        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
+          let chatOptions = {
+            user : game.user.id,
+            content : html,
+            "flags.opposeData" : opposeResult
+          }
+          this.startMessage.update(chatOptions).then(resultMsg =>{
+            ui.chat.updateMessage(resultMsg)
+            this.clearOpposed();
+
+          })
+        })
+      }
     }
     catch 
     {

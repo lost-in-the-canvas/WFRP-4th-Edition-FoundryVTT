@@ -150,23 +150,25 @@ class ActorSheetWfrp4e extends ActorSheet {
             "data.status.wounds.value" : Number(newWounds)
           })
         }
+        try {
+          if (this.actor.isToken && this.token.data.height != tokenSize)
+          {
+            this.token.update(this.token.scene._id, 
+              {
+              "height" : tokenSize,
+              "width" : tokenSize
+              })
+          }
 
-        if (this.actor.isToken && this.token.data.height != tokenSize)
-        {
-          this.token.update(this.token.scene._id, 
-            {
-            "height" : tokenSize,
-            "width" : tokenSize
-            })
+          else if (sheetData.actor.token.height != tokenSize)
+          {
+              this.actor.update({
+              "token.height" : tokenSize,
+              "token.width" : tokenSize
+              })
+          }
         }
-
-        else if (sheetData.actor.token.height != tokenSize)
-        {
-            this.actor.update({
-            "token.height" : tokenSize,
-            "token.width" : tokenSize
-            })
-        }
+        catch { }
       }
   
       if (sheetData.actor.flags.autoCalcRun)

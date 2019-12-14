@@ -295,6 +295,9 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
       }
+
+
+
       // Call the roll helper utility
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
@@ -1052,6 +1055,8 @@ class ActorWfrp4e extends Actor {
       if (damageType != DAMAGE_TYPE.IGNORE_ALL)
         updateMsg += " ("
 
+      let impenetrable = false;
+
       if (applyAP)
       {
         let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
@@ -1065,7 +1070,6 @@ class ActorWfrp4e extends Actor {
           let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
           let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical) 
                                   && weaponProperties.qualities.includes("Impale")
-
           for (let layer of AP.layers)
           {
             if (ignoreWeakpoints && layer.weakpoints)
@@ -1080,9 +1084,19 @@ class ActorWfrp4e extends Actor {
             {
               AP.ignored += layer.metal ? 1 : layer.value
             }
+
+    
           }
         }
 
+        for (let layer of AP.layers)
+        {
+          if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
+          {
+            impenetrable = true;
+            break;
+          }
+        }
         AP.used = AP.value - AP.ignored
         AP.used = AP.used < 0 ? 0 : AP.used;           // AP minimum 0
         AP.used = undamaging ? AP.used * 2 : AP.used;  // Double AP if undamaging
@@ -1128,11 +1142,14 @@ class ActorWfrp4e extends Actor {
 
       newWounds -= totalWoundLoss
 
-      if (newWounds <= 0)
+      if (newWounds <= 0 && !impenetrable)
       {
         newWounds = 0;
         updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
       } 
+      if (impenetrable)
+        updateMsg += `<br>Impenetrable - Criticals Nullified`
+
 
       updateMsg +="</span>"
       updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
@@ -1146,17 +1163,27 @@ class ActorWfrp4e extends Actor {
 
    
     static defaultRoll(testData, cardOptions, rerenderMessage = null) {
-      let roll = DiceWFRP.rollTest(testData);
-      roll.postFunction = "defaultRoll";
+      let result = DiceWFRP.rollTest(testData);
+      result.postFunction = "defaultRoll";
       if (testData.extra)
-        mergeObject(roll, testData.extra);
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+        mergeObject(result, testData.extra);
+
+      
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
 
     static incomeOverride(testData, cardOptions, rerenderMessage = null)
     {
-      let roll = DiceWFRP.rollTest(testData);
-      roll.postFunction = "incomeOverride"
+      let result = DiceWFRP.rollTest(testData);
+      result.postFunction = "incomeOverride"
+            
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+
       let dieAmount = CONFIG.earningValues[testData.income.tier][0]
       dieAmount = Number(dieAmount) * testData.income.standing;
       let moneyEarned;
@@ -1169,92 +1196,112 @@ class ActorWfrp4e extends Actor {
         moneyEarned = dieAmount;
 
 
-      if (roll.description.includes("Success"))
+      if (result.description.includes("Success"))
       {
-        roll.incomeResult = "You earn " + moneyEarned;
+        result.incomeResult = "You earn " + moneyEarned;
         switch (testData.income.tier)
         {
           case "b":
-            roll.incomeResult += " brass pennies."
+            result.incomeResult += " brass pennies."
             break;
           case "s":
-            roll.incomeResult += " silver shillings."
+            result.incomeResult += " silver shillings."
             break;
           case "g":
               if (moneyEarned > 1)
-                roll.incomeResult += " gold crowns."
+              result.incomeResult += " gold crowns."
               else
-                roll.incomeResult += " gold crown"
+              result.incomeResult += " gold crown"
               break;
         }
       }
       else if (Number(roll.SL) > -6)
       {
-        roll.incomeResult =  "You earn " + moneyEarned/2;
+        result.incomeResult =  "You earn " + moneyEarned/2;
         switch (testData.income.tier)
         {
           case "b":
-            roll.incomeResult += " brass pennies."
+            result.incomeResult += " brass pennies."
             break;
           case "s":
-            roll.incomeResult += " silver shillings."
+            result.incomeResult += " silver shillings."
             break;
           case "g":
               if (moneyEarned/2 > 1)
-                roll.incomeResult += " gold crowns."
+                result.incomeResult += " gold crowns."
               else
-                roll.incomeResult += " gold crown"
+                result.incomeResult += " gold crown"
               break;
         }
       }
       else
       {
-        roll.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+        result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
       }
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage); 
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage); 
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
 
     static weaponOverride(testData, cardOptions, rerenderMessage = null)
-    {
-      let roll = DiceWFRP.rollWeaponTest(testData);
-      roll.postFunction = "weaponOverride";
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    {       
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+         
+      let result = DiceWFRP.rollWeaponTest(testData);
+      result.postFunction = "weaponOverride";
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
 
     static castOverride(testData, cardOptions, rerenderMessage = null)
-    {
-      let roll = DiceWFRP.rollCastTest(testData);
-      roll.postFunction = "castOverride";
+    {    
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+
+      let result = DiceWFRP.rollCastTest(testData);
+      result.postFunction = "castOverride";
 
       // Update spell to reflect SL from channelling resetting to 0
       game.actors.get(cardOptions.speaker.actor).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
 
     static channellOverride(testData, cardOptions, rerenderMessage = null)
-    {
-      let roll = DiceWFRP.rollChannellTest(testData, game.actors.get(cardOptions.speaker.actor));
-      roll.postFunction = "channellOverride";
+    {      
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
 
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+      let result = DiceWFRP.rollChannellTest(testData, game.actors.get(cardOptions.speaker.actor));
+      result.postFunction = "channellOverride";
+
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
 
     static prayerOverride(testData, cardOptions, rerenderMessage = null)
-    {
-      let roll = DiceWFRP.rollPrayTest(testData, game.actors.get(cardOptions.speaker.actor));
-      roll.postFunction = "prayerOverride";
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+    {      
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+
+      let result = DiceWFRP.rollPrayTest(testData, game.actors.get(cardOptions.speaker.actor));
+      result.postFunction = "prayerOverride";
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
   
     static traitOverride(testData, cardOptions, rerenderMessage = null)
-    {
-      let roll = DiceWFRP.rollTest(testData);
-      roll.postFunction = "traitOverride";
+    {      
+      if (game.user.targets.size)
+         cardOptions.title += "- Opposed"
+
+      let result = DiceWFRP.rollTest(testData);
+      result.postFunction = "traitOverride";
       try 
       {
         if (!isNaN(testData.extra.trait.data.specification.value))
         {
-          testData.extra.damage = Number(roll.SL)
+          testData.extra.damage = Number(result.SL)
         if (Number(testData.extra.trait.data.specification.value))
           testData.extra.damage +=  Number(testData.extra.trait.data.specification.value)
         if (testData.extra.trait.data.rollable.bonusCharacteristic)
@@ -1266,14 +1313,33 @@ class ActorWfrp4e extends Actor {
         ui.notifications.error("Error calculating damage: " + error)
       } // If something went wrong calculating damage, do nothing and still render the card
       if (testData.extra)
-        mergeObject(roll, testData.extra);
-      DiceWFRP.renderRollCard(cardOptions, roll, rerenderMessage);
+        mergeObject(result, testData.extra);
+      DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
+      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+    }
+
+
+    static handleOpposed(speaker, testResult)
+    {
+      let actor = game.actors.get(speaker.actor);
+      if (speaker.token)
+        actor = canvas.tokens.get(speaker.token).actor
+      
+      if (actor.data.flags.oppose)
+      {
+        OpposedWFRP.evaluateOpposedTest(actor.data.flags.oppose, {speaker : speaker, testResult : testResult}, {target : true})
+      }
+      else if (game.user.targets.size)
+      {
+        game.user.targets.forEach(target => {
+          target.actor.data.flags.oppose = {testResult : testResult, speaker : speaker}
+        })
+      } 
     }
   }
   
   // Assign the actor class to the CONFIG
   CONFIG.Actor.entityClass = ActorWfrp4e;
-
 
   Hooks.on("preCreateActor", (dir, actor) =>{
     mergeObject(actor,
