@@ -1055,26 +1055,30 @@ class ActorWfrp4e extends Actor {
       {
         let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
         AP.ignored = 0;
-        let weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        let penetrating = weaponProperties.qualities.includes("Penetrating")
-        let undamaging = weaponProperties.flaws.includes("Undamaging")
-        let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-        let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical) 
-                                && weaponProperties.qualities.includes("Impale")
-
-        for (let layer of AP.layers)
+        let undamaging = false;
+        if (opposeData.attackerTestResult.weapon)
         {
-          if (ignoreWeakpoints && layer.weakpoints)
+          let weaponProperties = opposeData.attackerTestResult.weapon.properties;
+          let penetrating = weaponProperties.qualities.includes("Penetrating")
+          undamaging = weaponProperties.flaws.includes("Undamaging")
+          let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
+          let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical) 
+                                  && weaponProperties.qualities.includes("Impale")
+
+          for (let layer of AP.layers)
           {
-            AP.ignored += layer.value
-          }
-          else if (ignorePartial && layer.partial)
-          {
-            AP.ignored += layer.value;
-          }
-          else if (penetrating)
-          {
-            AP.ignored += layer.metal ? 1 : layer.value
+            if (ignoreWeakpoints && layer.weakpoints)
+            {
+              AP.ignored += layer.value
+            }
+            else if (ignorePartial && layer.partial)
+            {
+              AP.ignored += layer.value;
+            }
+            else if (penetrating)
+            {
+              AP.ignored += layer.metal ? 1 : layer.value
+            }
           }
         }
 

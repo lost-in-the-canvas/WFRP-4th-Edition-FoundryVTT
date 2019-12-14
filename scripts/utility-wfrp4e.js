@@ -565,7 +565,7 @@ class WFRP_Utility
 
   /* -------------------------------------------- */
 
-  static async findItem(itemName, itemType)
+  static async findItem(itemName, itemType, location = null)
   {
     let items = game.items.entities.filter(i => i.type == itemType)
 
@@ -575,10 +575,23 @@ class WFRP_Utility
         return i;
     }    
     let itemList
+
+    if (location)
+    {
+      let pack = game.packs.find(p => p.metadata.module + "." + p.metadata.name == location)
+      if (pack)
+      {
+        await pack.getIndex().then(index => itemList = index);
+        let searchResult = itemList.find(t => t.name == itemName)
+        if (searchResult)
+          return await pack.getEntity(searchResult.id)
+      }
+    }
+
+
     for (let p of game.packs)
     {
       await p.getIndex().then(index => itemList = index);
-      // Search for specific skill (won't find unlisted specializations)
       let searchResult = itemList.find(t => t.name == itemName)
       if (searchResult)
         return await p.getEntity(searchResult.id)
@@ -772,6 +785,20 @@ class WFRP_Utility
     if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
     ChatMessage.create(chatOptions);
+  }
+
+  static chatDataSetup(content, isRoll = false)
+  {
+    let chatData = {
+      user : game.user._id, 
+      rollMode : game.settings.get("core", "rollMode"),
+      content : content 
+    };
+    if(isRoll)
+      chatData.sound = CONFIG.sounds.dice
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+    return chatData;
   }
 
 }

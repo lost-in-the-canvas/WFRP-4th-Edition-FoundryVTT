@@ -644,7 +644,16 @@ class DiceWFRP {
 
       html.on("click", ".item-lookup", async ev => {
         let itemType = $(ev.currentTarget).attr("data-type");
-        WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+        let location = $(ev.currentTarget).attr("data-target");
+        let name = $(ev.currentTarget).attr("data-name");
+        let item;
+        if (name)
+          item = await WFRP_Utility.findItem(name, itemType, location);
+        
+        if (!item)
+          WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+        else
+          item.postItem()
       })
 
       html.on("click", ".talent-lookup", async ev => {
@@ -682,11 +691,8 @@ class DiceWFRP {
         let condDescr = CONFIG.conditionDescriptions[condkey];
         let messageContent = `<b>${cond}</b><br>${condDescr}`
 
-        let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
-        if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-        if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-        chatOptions["type"] = 0;
-        ChatMessage.create(chatOptions);
+        let chatData = WFRP_Utility.chatDataSetup(messageContent)
+        ChatMessage.create(chatData);
       })
 
 
