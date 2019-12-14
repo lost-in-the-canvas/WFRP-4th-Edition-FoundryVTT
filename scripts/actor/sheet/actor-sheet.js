@@ -1731,11 +1731,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (classes.hasClass("weapon-range"))
         {
           let range = parseInt(event.target.text);
-          expansionText = "0 yd - " + Math.ceil(range / 10) + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
-          (Math.ceil(range / 10) + 1) + " yds - " + Math.ceil(range / 2) + " yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
-          (Math.ceil(range / 2) + 1) + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
-          (range + 1) + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
-          (range * 2 + 1) + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
+          expansionText = 
+         `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${CONFIG.rangeModifiers["Point Blank"]}</a><br>
+          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${CONFIG.rangeModifiers["Short Range"]}</a><br>
+          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${CONFIG.rangeModifiers["Normal"]}</a><br>
+          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${CONFIG.rangeModifiers["Long Range"]}</a><br>
+          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${CONFIG.rangeModifiers["Extreme"]}</a><br>`;
         }
         else if (classes.hasClass("weapon-group"))
         {
@@ -1761,6 +1762,16 @@ class ActorSheetWfrp4e extends ActorSheet {
         let div = $(`<div class="item-summary">${expansionText}</div>`);
         li.append(div.hide());
         div.slideDown(200);
+
+        div.on("click", ".range-click", ev => {
+          let difficulty = $(ev.currentTarget).attr("data-range")
+
+          let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+          let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
+          let weapon = this.actor.getOwnedItem(itemId);
+          if (weapon)
+            this.actor.setupWeapon(duplicate(weapon.data), {attackType : attackType, difficulty : difficulty});
+        })
 
       }
       li.toggleClass("expanded");

@@ -510,6 +510,7 @@ class ActorWfrp4e extends Actor {
           successBonus : successBonus || 0,
           modifier : modifier || 0,
           defaultSelection : defaultSelection,
+          testDifficulty : event.difficulty,
           advantage : this.data.data.status.advantage.value || 0
         },
         callback : (html, roll) => {
