@@ -578,7 +578,10 @@ class WFRP_Utility
 
     if (location)
     {
-      let pack = game.packs.find(p => p.metadata.module + "." + p.metadata.name == location)
+      let pack = game.packs.find(p => {
+        location.split(".")[0] == p.metadata.package &&
+        location.split(".")[1] == p.metadata.name
+      })
       if (pack)
       {
         await pack.getIndex().then(index => itemList = index);

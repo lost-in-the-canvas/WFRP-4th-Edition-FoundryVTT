@@ -644,12 +644,14 @@ class DiceWFRP {
 
       html.on("click", ".item-lookup", async ev => {
         let itemType = $(ev.currentTarget).attr("data-type");
-        let location = $(ev.currentTarget).attr("data-target");
+        let location = $(ev.currentTarget).attr("data-location");
         let name = $(ev.currentTarget).attr("data-name");
         let item;
         if (name)
           item = await WFRP_Utility.findItem(name, itemType, location);
-        
+        else if (location)
+          item = await WFRP_Utility.findItem(ev.currentTarget.text, itemType, location);
+
         if (!item)
           WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
         else
