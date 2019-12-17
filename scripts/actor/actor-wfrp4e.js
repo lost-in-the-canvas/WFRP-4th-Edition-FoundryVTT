@@ -268,7 +268,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           testData.target = testData.target + testData.testModifier + testData.testDifficulty;
@@ -344,7 +344,7 @@ class ActorWfrp4e extends Actor {
         data : {
           hitLocation : testData.hitLocation,
           talents : this.data.flags.talentTests,
-          characteristicList : CONFIG.characteristics,
+          characteristicList : WFRP4E.characteristics,
           characteristicToUse : skill.data.characteristic.value,
           advantage : this.data.data.status.advantage.value || 0,
           testDifficulty : income ? "average" : "challenging" // Default to average if using income 
@@ -352,7 +352,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           let characteristicToUse = html.find('[name="characteristicToUse"]').val();
@@ -519,7 +519,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
@@ -660,7 +660,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
             cardOptions.rollMode = html.find('[name="rollMode"]').val();
             testData.testModifier = Number(html.find('[name="testModifier"]').val());
-            testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+            testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
             testData.successBonus = Number(html.find('[name="successBonus"]').val());
             testData.slBonus = Number(html.find('[name="slBonus"]').val());
     
@@ -737,7 +737,7 @@ class ActorWfrp4e extends Actor {
       let channellSkills = [{key : "wp", name : "Willpower"}]
       channellSkills = channellSkills.concat(this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill"))
       let spellLore = spell.data.lore.value;
-      let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(CONFIG.magicWind[spellLore])));
+      let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
       if (spellLore == "witchcraft")
       {
         defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
@@ -773,7 +773,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
@@ -872,7 +872,7 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           let skillSelected = praySkills[Number(html.find('[name="skillSelected"]').val())];
@@ -931,7 +931,7 @@ class ActorWfrp4e extends Actor {
       if (!trait.data.rollable.value)
         return;
       let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
-      let title =   CONFIG.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
+      let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
       let testData = {
         target : char.value,
         hitLocation : false,
@@ -956,14 +956,14 @@ class ActorWfrp4e extends Actor {
         data : {
           hitLocation : testData.hitLocation,
           talents : this.data.flags.talentTests,
-          characteristicList : CONFIG.characteristics,
+          characteristicList : WFRP4E.characteristics,
           characteristicToUse : trait.data.rollable.rollCharacteristic,
           advantage : this.data.data.status.advantage.value || 0
         },
         callback : (html, roll) => {
           cardOptions.rollMode = html.find('[name="rollMode"]').val();
           testData.testModifier = Number(html.find('[name="testModifier"]').val());
-          testData.testDifficulty = CONFIG.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
           testData.successBonus = Number(html.find('[name="successBonus"]').val());
           testData.slBonus = Number(html.find('[name="slBonus"]').val());
           let characteristicToUse = html.find('[name="characteristicToUse"]').val();
@@ -1184,7 +1184,7 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += "- Opposed"
 
-      let dieAmount = CONFIG.earningValues[testData.income.tier][0]
+      let dieAmount = WFRP4E.earningValues[testData.income.tier][0]
       dieAmount = Number(dieAmount) * testData.income.standing;
       let moneyEarned;
       if (testData.income.tier != "g")

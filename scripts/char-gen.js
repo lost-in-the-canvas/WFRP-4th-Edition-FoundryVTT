@@ -10,7 +10,7 @@ class GeneratorWfrp4e
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
-    renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", {species : CONFIG.species}).then(html => {
+    renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", {species : WFRP4E.species}).then(html => {
       chatData.content = html;
       ChatMessage.create(chatData);
     })
@@ -22,7 +22,7 @@ class GeneratorWfrp4e
     if (chosenSpecies)
     {
       exp = 0;
-      roll = {roll: "Choose", value : chosenSpecies, name : CONFIG.species[chosenSpecies], exp : 0}
+      roll = {roll: "Choose", value : chosenSpecies, name : WFRP4E.species[chosenSpecies], exp : 0}
     }
     else
     {
@@ -31,13 +31,13 @@ class GeneratorWfrp4e
     }
 
     let speciesMessage = game.messages.get(messageId)
-    let updateCardData = {roll : roll, species : CONFIG.species}
+    let updateCardData = {roll : roll, species : WFRP4E.species}
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", updateCardData).then(html =>{
       speciesMessage.update({content: html})
     })
     this.speciesSkillsTalents(roll.value, exp)
-   // this.speciesAttributes(roll.value, CONFIG.randomExp.speciesRand)
+   // this.speciesAttributes(roll.value, WFRP4E.randomExp.speciesRand)
   }
 
   static speciesSkillsTalents(species, exp)
@@ -52,15 +52,15 @@ class GeneratorWfrp4e
 
     let cardData = {
       speciesKey : species,
-      species : CONFIG.species[species],
-      speciesSkills : CONFIG.speciesSkills[species],
+      species : WFRP4E.species[species],
+      speciesSkills : WFRP4E.speciesSkills[species],
       exp : exp
     }
 
     let talents = []
     let choiceTalents = []
 
-    CONFIG.speciesTalents[species].forEach(talent => {
+    WFRP4E.speciesTalents[species].forEach(talent => {
         if (isNaN(talent))
         {
           let talentList = talent.split(", ")
@@ -70,7 +70,7 @@ class GeneratorWfrp4e
             choiceTalents.push(talentList)
         }
     })
-    let randomTalents = CONFIG.speciesTalents[species][CONFIG.speciesTalents[species].length-1]
+    let randomTalents = WFRP4E.speciesTalents[species][WFRP4E.speciesTalents[species].length-1]
     cardData.randomTalents = []
     for (let i = 0; i < randomTalents; i++)
       cardData.randomTalents.push(WFRP_Tables.rollTable("talents").name)
@@ -91,11 +91,11 @@ class GeneratorWfrp4e
       generation : true,
       type : "characteristics",
       payload : {
-        species: CONFIG.species[species],
+        species: WFRP4E.species[species],
         characteristics : characteristics,
-        movement : CONFIG.speciesMovement[species],
-        fate : CONFIG.speciesFate[species],
-        resilience : CONFIG.speciesRes[species],
+        movement : WFRP4E.speciesMovement[species],
+        fate : WFRP4E.speciesFate[species],
+        resilience : WFRP4E.speciesRes[species],
         exp : exp
       }
     }
@@ -104,12 +104,12 @@ class GeneratorWfrp4e
 
     // Turn keys into abbrevitaions (ws -> WS) for more appealing look
     cardData.characteristics = {}
-    for (let abrev in CONFIG.characteristicsAbbrev)
+    for (let abrev in WFRP4E.characteristicsAbbrev)
     {
-      cardData.characteristics[CONFIG.characteristicsAbbrev[abrev]] = dataTransfer.payload.characteristics[abrev]
+      cardData.characteristics[WFRP4E.characteristicsAbbrev[abrev]] = dataTransfer.payload.characteristics[abrev]
     }
 
-    cardData.extra = CONFIG.speciesExtra[species]
+    cardData.extra = WFRP4E.speciesExtra[species]
     cardData.dataTransfer = JSON.stringify(dataTransfer)
 
     let chatData = {
@@ -131,21 +131,28 @@ class GeneratorWfrp4e
     let roll = WFRP_Tables.rollTable("career", {}, species)
     let pack = game.packs.find(p => p.collection == "wfrp4e.careers")
     let careers =  await pack.getContent();
+    let careerFound;
     for (let c of careers)
     {
       if (c.data.data.careergroup.value == roll.name && c.data.data.level.value == 1)
-        c.postItem()
+        careerFound = c
+      if (careerFound)
+        break;
     }
+    careerFound.postItem()
 
     let chatData = {
       user : game.user._id,
-      rollMode : game.settings.get("core", "rollMode")
+      rollMode : game.settings.get("core", "rollMode"),
+      exp : WFRP4E.randomExp.careerRand,
+      trappings : WFRP4E.classTrappings[WFRP_Utility.matchClosest(WFRP4E.classTrappings, careerFound.data.data.class.value)]
     }
+
 
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
-    renderTemplate("systems/wfrp4e/templates/chat/chargen/career-select.html", {exp : CONFIG.randomExp.careerRand}).then(html => {
+    renderTemplate("systems/wfrp4e/templates/chat/chargen/career-select.html", chatData).then(html => {
       chatData.content = html;
       ChatMessage.create(chatData);
     })

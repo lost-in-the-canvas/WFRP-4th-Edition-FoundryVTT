@@ -67,7 +67,7 @@ class OpposedWFRP {
         if (!isNaN(opposeResult.attackerTestResult.damage))
         {
           let damageMultiplier = 1;
-          let sizeDiff =  CONFIG.actorSizeNums[opposeResult.attackerTestResult.size] - CONFIG.actorSizeNums[opposeResult.defenderTestResult.size]
+          let sizeDiff =  WFRP4E.actorSizeNums[opposeResult.attackerTestResult.size] - WFRP4E.actorSizeNums[opposeResult.defenderTestResult.size]
           damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
           if (opposeResult.attackerTestResult.trait)
           {
