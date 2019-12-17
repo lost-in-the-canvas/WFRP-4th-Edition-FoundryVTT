@@ -1,0 +1,75 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  <span id="header-personal-details">Personal Details</span>
+
+  <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
+    <h1 class="charname item">
+      <input class="input name" style="box-shadow: none !important;" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
+      <span class="label name">Name</span>
+    </h1>
+
+    <div class="item">
+      <input class="input species" style="box-shadow: none !important;" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
+        placeholder="Species" />
+      <span class="label species">Species</span>
+    </div>
+
+    <div id="field-gender" class="item">
+      <input class="input gender" style="box-shadow: none !important;" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
+        placeholder="Gender" />
+      <span class="label gender">Gender</span>
+    </div>
+  </header>
+
+  <section class="general" ondragstart="return false;" ondrop="return false;">
+    <img class="charimg" src="{{actor.img}}" title="{{actor.name}}" height="95" width="95" data-edit="img">
+    <div class="items">
+      <div class="characteristics">
+        <div class="characteristics-table" cellpadding="0">
+          <!-- <div class="table-header"> -->
+            {{#each actor.data.characteristics as |ch c|}}
+            <div title="{{ch.label}}" data-char="{{ch}}" class="table-header">
+              <a data-char="{{c}}">{{ch.abrev}}</a>
+            </div>
+            {{/each}}
+          <!-- </div> -->
+          <!-- <div class="table-row"> -->
+            {{#each actor.data.characteristics as |ch c|}}
+            <div class="row-type table-data">
+              <input value = "?" readonly>
+            </div>
+            {{/each}}
+          <!-- </div> -->
+          </div>
+      </div>
+
+    
+    <div class="tab notes save-scroll" data-tab="notes" data-group="primary">
+      <div class="note-section biography">
+        {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+      </div>
+    </div>
+  </section>
+  
+</form>
+
+<script>
+  textContainer = document.querySelectorAll('.npc-sheet .window-title');
+  length = textContainer.length;
+  
+  for (i = 0; i < length; i++) {
+
+    if (textContainer[i].innerHTML.includes("[Token]")) {
+      new_red = document.getElementsByClassName("npc-sheet")[i].id;
+      if ( !document.getElementById(new_red).className.includes("token-actor") ) {
+        document.getElementById(new_red).className += " token-actor";
+      }
+      else {
+      }
+    } 
+    else {
+    }
+  }
+
+  // console.log(checkIfToken);
+</script>
