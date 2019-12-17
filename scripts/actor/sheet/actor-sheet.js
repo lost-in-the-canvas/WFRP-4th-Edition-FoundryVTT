@@ -643,6 +643,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         let untrainedSkills = []
         let untrainedTalents = []
         let hasCurrentCareer = false;
+        this.actor.data.flags.careerTalents = [];
         for (let career of careers)
         {
           if (career.data.current.value)
@@ -667,6 +668,8 @@ class ActorSheetWfrp4e extends ActorSheet {
               if (trainedTalents)
               {
                 trainedTalents.career = true;
+                this.actor.data.flags.careerTalents.push(trainedTalents)
+
               }
               else
               {

@@ -140,13 +140,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
           {
             new Dialog({
               title: "Add Career Talent",
-              content: '<p>Do you want to add this Talent?</p>',
+              content: '<p>Do you want to add this Talent? (Costs 100 Exp)</p>',
               buttons: {
                 yes: {
                   label: "Yes",
                   callback: dlg => {
                     this.actor.createOwnedItem(talent.data);
-                    // this.actor.update({"data.details.experience.spent" : this.actor.data.data.details.experience.spent + 100})
+                    this.actor.update({"data.details.experience.spent" : this.actor.data.data.details.experience.spent + 100})
                   }
                 },
                 cancel: {
@@ -199,7 +199,32 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
         }
         else if (type == "talent")
         {
-  
+          if (ev.button == 0)
+          {
+          let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+          let item = this.actor.getOwnedItem(itemId);
+          let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.data.name)
+          let spent = 0;
+          if (preparedTalent.data.advances.value < preparedTalent.numMax)
+          {
+            spent = this.actor.data.data.details.experience.spent + (preparedTalent.data.advances.value + 1) * 100
+          }
+          else 
+            return
+          this.actor.createOwnedItem(item.data)
+          this.actor.update({"data.details.experience.spent" : spent})
+        }
+        else if (ev.button == 2)
+        {
+          let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+          let item = this.actor.getOwnedItem(itemId);
+          let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.data.name)
+          let spent = 0;
+          spent = this.actor.data.data.details.experience.spent - (preparedTalent.data.advances.value) * 100
+          this.actor.deleteOwnedItem(itemId)
+          this.actor.update({"data.details.experience.spent" : spent})
+        }
+
         }
         else
         {
