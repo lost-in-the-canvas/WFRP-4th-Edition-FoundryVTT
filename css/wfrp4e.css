@@ -8601,6 +8601,18 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;
   }
+  
+.limited .tab.notes.active .note-section.biography .editor {
+  height: 100%;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+}
+    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .limited-note-section.biography {
+      height: 100%;
+      width: 100%;
+      padding: 4px;
+      border: 1px solid #736953a6;
+    }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.biography,
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.gmnotes {
       height: 270px;
@@ -9467,6 +9479,7 @@
   }
 
   /* FIRST ROW */
+  .limited .general .characteristics,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics {
     border-top: none;
     margin: 1px 0px 0px 0px;
@@ -9475,6 +9488,7 @@
     width: 403px;
     max-width: 400px
   }
+  .limited .general .characteristics .characteristics-table,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -9487,7 +9501,7 @@
     background: none;
     border: 1px solid #736953a6;
   }   
-
+  .limited .general .characteristics .characteristics-table .table-header,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
     font-family: var(--actor-label-font-family);
     font-size: var(--actor-label-font-size);
@@ -9499,10 +9513,12 @@
     border-bottom: none;  
     border-right: 1px solid #736953a6;
   }  
+  .limited .general .characteristics .characteristics-table .table-header:nth-of-type(10),
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
     /* background: red; */
   }  
+  .limited .general .characteristics .characteristics-table .table-header .table-header .header-block,
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
       padding-top: 0px;
     }  
@@ -9511,13 +9527,16 @@
       margin-top: -3px;
       margin-left: 3px;
     }
+  .limited .general .characteristics-table .table-data,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data {
     border-top: 1px solid #736953a6;
     border-right: 1px solid #736953a6;
   }
+  .limited .general .characteristics-table .table-data:last-of-type,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data:last-of-type {
     border-right: none;
   }
+  .limited .general .characteristics-table .table-data input,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
@@ -9530,6 +9549,7 @@
     text-align: center;
     padding-top: 7px;
   }
+  .limited .general .characteristics-table .table-data.ch-value,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data.ch-value {
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
