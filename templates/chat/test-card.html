@@ -1,7 +1,7 @@
  
         <div class = "chat-buttons">
             <a class = "edit-toggle" title ="Edit Test"><i class="fas fa-edit"></i></a>
-            <a title="Coming Soon!"><i class="fas fa-exchange-alt"></i></a>
+            <a class = "opposed-toggle" title="Opposed Test"><i class="fas fa-exchange-alt"></i></a>
         </div>
 
         <div class="card-content test-data" data-actor-id="{{actorId}}" data-loc = "{{testData.hitloc.roll}}" data-SL = "{{testData.SL}}" data-roll = "{{testData.roll}}" data-target = "{{testData.target}}" >
@@ -26,9 +26,6 @@
             vs
             <input class="card-edit" type="text" data-edit-type = "target" value = "{{testData.target}}">
         </div>
-
-
-
         
         <div class="card-content display-toggle">
            <b>SL</b>: {{testData.SL}} {{#if testData.damage}} ({{testData.damage}} Damage) {{/if}}
@@ -78,10 +75,4 @@
             <input class="card-edit display-toggle" style = "display : none;" type="text" data-edit-type = "hitloc" value = "{{testData.hitloc.roll}}">
         </div>
         {{/if}}
-    
-       <!-- {{#if opposed}}
-        <div class ="card-buttons">
-            <button class = "oppose-button">Oppose</button>
-        </div>
-        {{/if}}-->
     

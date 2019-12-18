@@ -21,7 +21,13 @@
         <a class="name">{{item.name}}</a>
       </div>
 
-      <div class="item-max">{{item.data.advances.value}} / {{item.numMax}}</div>
+      <div class="item-max">
+        {{#if item.career}}
+        <b><a class="advancement-indicator" data-target="talent">{{item.data.advances.value}}</a></b> / {{item.numMax}}
+        {{else}}
+        {{item.data.advances.value}} / {{item.numMax}}
+        {{/if}}
+      </div>
 
       <div class="item-tests">{{item.data.tests.value}}</div>
 

@@ -36,7 +36,7 @@ Hooks.once("init", () => {
     //   }
     //   console.log(JSON.stringify(table));
     // })
-    game.socket.emit("getFiles", "systems/wfrp4e/tables", {}, resp => {
+    FilePicker.browse("user", "systems/wfrp4e/tables").then(resp => {
       try 
       {
       if (resp.error)
@@ -66,36 +66,45 @@ Hooks.once("init", () => {
       name : "Scatter",
       die : "1d10",
       rows : [
-        undefined,
         {
-          name : "Top Left"
+          name : "Top Left",
+          range: [1, 1]
         },
         {
-          name : "Top Middle"
+          name : "Top Middle",
+          range: [2, 2]
         },
         {
-          name : "Top Right"
+          name : "Top Right",
+          range: [3, 3]
         },
         {
-          name : "Center Left"
+          name : "Center Left",
+          range: [4, 4]
         },
         {
-          name : "Center Right"
+          name : "Center Right",
+          range: [5, 5]
         },
         {
-          name : "Bottom Left"
+          name : "Bottom Left",
+          range: [6, 6]
         },
         {
-          name : "Bottom Middle"
+          name : "Bottom Middle",
+          range: [7, 7]
         },
         {
-          name : "Bottom Right"
+          name : "Bottom Right",
+          range: [8, 8]
         },
         {
-          name : "At your feet"
+          name : "At your feet",
+          range: [9, 9]
         },
         {
-          name : "At the target's feet"
+          name : "At the target's feet",
+          range: [10, 10]
         },
       ]
     }
@@ -104,36 +113,25 @@ Hooks.once("init", () => {
       name : "The Swirling Winds",
       die : "1d10",
       rows : [
-        undefined,
         {
-          modifier : "-30"
+          modifier : "-30",
+          range: [1, 1]
         },
         {
-          modifier : "-10"
+          modifier : "-10",
+          range: [2, 3]
         },
         {
-          modifier : "-10"
+          modifier : "0",
+          range: [4, 7]
         },
         {
-          modifier : "0"
+          modifier : "+10",
+          range: [8, 9]
         },
         {
-          modifier : "0"
-        },
-        {
-          modifier : "0"
-        },
-        {
-          modifier : "0"
-        },
-        {
-          modifier : "+10"
-        },
-        {
-          modifier : "+10"
-        },
-        {
-          modifier : "+30"
+          modifier : "+30",
+          range: [10, 10]
         }
       ]
     }
@@ -168,7 +166,7 @@ Hooks.once("init", () => {
             careerData.data["trappings"] = [];
             for (let careerChar of careerTier.CareerCharacteristics){
               let chCounter = 0;
-              for (let ch in CONFIG.characteristics){
+              for (let ch in WFRP4E.characteristics){
                 if (chCounter == careerChar){
                   careerData.data.characteristics.push(ch);
                   break;
@@ -205,8 +203,8 @@ Hooks.once("init", () => {
   {
         talentData.name = data.Name;
         talentData.type = "talent"
-        for (let talentMax in CONFIG.talentMax)
-          if (CONFIG.talentMax[talentMax] == data.Max)
+        for (let talentMax in WFRP4E.talentMax)
+          if (WFRP4E.talentMax[talentMax] == data.Max)
             talentData.data['max.value'] = talentMax;
         talentData.data["tests.value"] = data.Tests;
         talentData.data["description.value"] = data.Description;
@@ -414,26 +412,26 @@ Hooks.once("init", () => {
   
     // Pre-load templates
     loadTemplates([
-      "public/systems/wfrp4e/templates/actors/actor-attributes.html",
-      "public/systems/wfrp4e/templates/actors/actor-abilities.html",
-      "public/systems/wfrp4e/templates/actors/actor-main.html",
-      "public/systems/wfrp4e/templates/actors/actor-combat.html",
-      "public/systems/wfrp4e/templates/actors/actor-biography.html",
-      "public/systems/wfrp4e/templates/actors/actor-inventory.html",
-      "public/systems/wfrp4e/templates/actors/actor-skills.html",
-      "public/systems/wfrp4e/templates/actors/actor-magic.html",
-      "public/systems/wfrp4e/templates/actors/actor-religion.html",
-      "public/systems/wfrp4e/templates/actors/actor-talents.html",
-      "public/systems/wfrp4e/templates/actors/actor-classes.html",
-      "public/systems/wfrp4e/templates/actors/actor-notes.html",
-      "public/systems/wfrp4e/templates/actors/npc-main.html",
-      "public/systems/wfrp4e/templates/actors/npc-notes.html",
-      "public/systems/wfrp4e/templates/actors/creature-main.html",
-      "public/systems/wfrp4e/templates/actors/creature-notes.html",
-      "public/systems/wfrp4e/templates/actors/creature-main.html",
-      "public/systems/wfrp4e/templates/chat/dialog-constant.html",
-      "public/systems/wfrp4e/templates/chat/test-card.html",
-      "public/systems/wfrp4e/templates/items/item-header.html",
-      "public/systems/wfrp4e/templates/items/item-description.html",
+      "systems/wfrp4e/templates/actors/actor-attributes.html",
+      "systems/wfrp4e/templates/actors/actor-abilities.html",
+      "systems/wfrp4e/templates/actors/actor-main.html",
+      "systems/wfrp4e/templates/actors/actor-combat.html",
+      "systems/wfrp4e/templates/actors/actor-biography.html",
+      "systems/wfrp4e/templates/actors/actor-inventory.html",
+      "systems/wfrp4e/templates/actors/actor-skills.html",
+      "systems/wfrp4e/templates/actors/actor-magic.html",
+      "systems/wfrp4e/templates/actors/actor-religion.html",
+      "systems/wfrp4e/templates/actors/actor-talents.html",
+      "systems/wfrp4e/templates/actors/actor-classes.html",
+      "systems/wfrp4e/templates/actors/actor-notes.html",
+      "systems/wfrp4e/templates/actors/npc-main.html",
+      "systems/wfrp4e/templates/actors/npc-notes.html",
+      "systems/wfrp4e/templates/actors/creature-main.html",
+      "systems/wfrp4e/templates/actors/creature-notes.html",
+      "systems/wfrp4e/templates/actors/creature-main.html",
+      "systems/wfrp4e/templates/chat/dialog-constant.html",
+      "systems/wfrp4e/templates/chat/test-card.html",
+      "systems/wfrp4e/templates/items/item-header.html",
+      "systems/wfrp4e/templates/items/item-description.html",
     ]);
   });

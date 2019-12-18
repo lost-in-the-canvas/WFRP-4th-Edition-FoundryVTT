@@ -1,5 +1,5 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
-  {{> public/systems/wfrp4e/templates/items/item-header.html}}
+  {{> systems/wfrp4e/templates/items/item-header.html}}
 
   <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
 
@@ -20,7 +20,11 @@
 
   <div class="tab description active" data-tab="description">
     {{editor content=descriptionAndLore target="data.description.value" button=true owner=owner editable=editable}}
-  </div>
+    {{#if isGM}}
+    <h2 class="note-section label">GM Notes</h2>
+    {{editor content=data.gmdescription.value target="data.gmdescription.value" button=true owner=owner editable=editable}}
+  {{/if}}
+</div>
   
   
   <!-- Spell Details -->

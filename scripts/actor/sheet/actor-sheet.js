@@ -15,8 +15,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       return this.actor.data.type;
     }
     async _render(force = false, options = {}) {
-      if (screen.height < 900)
-        ui.notifications.warn("WARNING: Your resolution is too small! Actor sheets will not be displayed correctly until you reach the minimum vertical resolution of 900 px.")
       this._saveScrollPos();
       await super._render(force, options);
       this._setScrollPos();
@@ -64,25 +62,25 @@ class ActorSheetWfrp4e extends ActorSheet {
       let size;
       let trait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("size"));
       if (trait)
-      {
-        trait = this.actor.getOwnedItem(trait.id);
-        size = trait.data.data.specification.value;
-      }
+        size = trait.data.specification.value;
       else
       {
         size = sheetData.actor.talents.find(x=>x.name.toLowerCase() == "small");
         if (size)
           size = size.name;
+        else 
+          size = "Average"
       }
-  
-      if (size)
+      
+
+      for (let s in WFRP4E.actorSizes)
       {
-        for (let s in CONFIG.actorSizes)
+        if (WFRP4E.actorSizes[s] == size && sheetData.actor.data.details.size.value != s)
         {
-          if (CONFIG.actorSizes[s] == size)
-            sheetData.actor.data.details.size.value = s;
+          this.actor.update({"data.details.size.value" : s})
         }
       }
+  
   
       let hardyTrait = sheetData.actor.traits.find(t => t.name.toLowerCase().includes("hardy"))
       let hardyTalent = sheetData.actor.talents.find(t => t.name.toLowerCase().includes("hardy"))
@@ -100,7 +98,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         sheetData.actor.data.status.criticalWounds.max = tb;
   
       let newWounds;
-  
+      let tokenSize;
   
      if (sheetData.actor.flags.autoCalcWounds)
      {
@@ -111,39 +109,66 @@ class ActorSheetWfrp4e extends ActorSheet {
   
         case "tiny":
         newWounds = 1 + tb * tbMultiplier;
+        tokenSize = 0.3;
         break;
   
         case "ltl":
         newWounds = tb + tb * tbMultiplier;
+        tokenSize = 0.5;
         break;
   
         case "sml":
         newWounds = 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 0.8;
         break;
   
         case "avg":
         newWounds = sb + 2 * tb + wpb + tb * tbMultiplier;
+        tokenSize = 1;
         break;
   
         case "lrg":
         newWounds = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 2;
         break;
   
         case "enor":
         newWounds = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 3;
         break;
   
         case "mnst":
         newWounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+        tokenSize = 4;
         break;
       }
-  
-        if (sheetData.actor.data.status.wounds.max != newWounds)
+
+      if (sheetData.actor.data.status.wounds.max != newWounds)
         {
-          this.actor.update({"data.status.wounds.max" : newWounds})
-          this.actor.update({"data.status.wounds.value" : Number(newWounds)})
-  
+          this.actor.update({
+            "data.status.wounds.max" : newWounds,
+            "data.status.wounds.value" : Number(newWounds)
+          })
         }
+        try {
+          if (this.actor.isToken && this.token.data.height != tokenSize)
+          {
+            this.token.update(this.token.scene._id, 
+              {
+              "height" : tokenSize,
+              "width" : tokenSize
+              })
+          }
+
+          else if (sheetData.actor.token.height != tokenSize)
+          {
+              this.actor.update({
+              "token.height" : tokenSize,
+              "token.width" : tokenSize
+              })
+          }
+        }
+        catch { }
       }
   
       if (sheetData.actor.flags.autoCalcRun)
@@ -182,15 +207,6 @@ class ActorSheetWfrp4e extends ActorSheet {
         const traits = [];
         const weapons = [];
         const armour = [];
-        const AP = {
-          head: 0,
-          body: 0,
-          rArm: 0,
-          lArm: 0,
-          rLeg: 0,
-          lLeg: 0,
-          shield: 0
-        };
         const injuries = [];
         const grimoire = [];
         const petty = [];
@@ -206,6 +222,34 @@ class ActorSheetWfrp4e extends ActorSheet {
           "Mutation" : {value : ""},
           "Criticals" : {value : ""},
         };
+
+        const AP = {
+          head: {
+            value : 0,
+            layers : [],
+          },
+          body: {
+            value : 0,
+            layers : [],
+          },
+          rArm: {
+            value : 0,
+            layers : [],
+          },
+          lArm: {
+            value : 0,
+            layers : [],
+          },
+          rLeg: {
+            value : 0,
+            layers : [],
+          },
+          lLeg: {
+            value : 0,
+            layers : [],
+          },
+          shield: 0
+        }
   
         // Inventory object is for the inventory tab
         const inventory = {
@@ -395,7 +439,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               actorData.currentClass = i.data.class.value;
               actorData.currentCareer = i.name;
               actorData.currentCareerGroup = i.data.careergroup.value;
-              actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+              actorData.status = WFRP4E.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
               let availableCharacteristics = i.data.characteristics
               for (let char in actorData.data.characteristics)
               {
@@ -508,9 +552,9 @@ class ActorSheetWfrp4e extends ActorSheet {
           var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
           itemsInside.map(function(item){ // Add category of item to be displayed
           if (item.type == "trapping")
-            item.type = CONFIG.trappingCategories[item.data.trappingType.value];
+            item.type = WFRP4E.trappingCategories[item.data.trappingType.value];
           else
-            item.type = CONFIG.trappingCategories[item.type];
+            item.type = WFRP4E.trappingCategories[item.type];
         } )
           cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
           cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
@@ -545,8 +589,14 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
         else if (!accshot && this.actor.data.flags.rangedDamageIncrease)
           this.actor.update({"flags.rangedDamageIncrease" : 0});
-  
-  
+
+
+        let robust = talents.find(t => t.name.toLowerCase() == "robust")
+        if (robust && this.actor.data.flags.robust != robust.data.advances.value)
+          this.actor.update({"flags.robust" : robust.data.advances.value});
+        else if (!robust && this.actor.data.flags.robust)
+          this.actor.update({"flags.robust" : 0});
+
         // Penalties box setup
         // If too much text, divide the penalties into groups
         let penaltiesOverflow = false;
@@ -570,14 +620,14 @@ class ActorSheetWfrp4e extends ActorSheet {
           this.actor.update({"flags.modifier" : penaltiesFlag})
   
         let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
-        if (armorTrait)
+        if (armorTrait && !this.actor.data.data.excludedTraits.includes(armorTrait.id))
         {
           for (let loc in AP)
           {
             try
             {
               if (loc != "shield")
-                AP[loc] += parseInt(armorTrait.data.specification.value) || 0;
+                AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
             }
             catch
             {
@@ -585,12 +635,15 @@ class ActorSheetWfrp4e extends ActorSheet {
             }
           }
         }
+
+        // Store AP values in flags so it can easily be retrieved in Opposed Tests
   
         this.actor.data.flags.defensive = defensiveCounter;
   
         let untrainedSkills = []
         let untrainedTalents = []
         let hasCurrentCareer = false;
+        this.actor.data.flags.careerTalents = [];
         for (let career of careers)
         {
           if (career.data.current.value)
@@ -615,6 +668,8 @@ class ActorSheetWfrp4e extends ActorSheet {
               if (trainedTalents)
               {
                 trainedTalents.career = true;
+                this.actor.data.flags.careerTalents.push(trainedTalents)
+
               }
               else
               {
@@ -684,17 +739,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (enc.state > 3)
         {
           enc["maxEncumbered"] = true
-          enc.penalty = CONFIG.encumbrancePenalties["maxEncumbered"];
+          enc.penalty = WFRP4E.encumbrancePenalties["maxEncumbered"];
         }
         else if (enc.state > 2)
           {
             enc["veryEncumbered"] = true
-            enc.penalty = CONFIG.encumbrancePenalties["veryEncumbered"];
+            enc.penalty = WFRP4E.encumbrancePenalties["veryEncumbered"];
           }
         else if (enc.state > 1)
         {
           enc["encumbered"] = true
-          enc.penalty = CONFIG.encumbrancePenalties["encumbered"];
+          enc.penalty = WFRP4E.encumbrancePenalties["encumbered"];
         }
         else
           enc["notEncumbered"] = true;
@@ -711,10 +766,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       let skillList
       try
       {
-        skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
+        skillList = WFRP4E.speciesSkills[this.actor.data.data.details.species.value];
         if (!skillList)
         {
-          skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+          skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
           if (!skillList)
           {
             throw "Could not add skills for species " + this.actor.data.data.details.species.value;
@@ -752,10 +807,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       let talentList
       try
       {
-        talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
+        talentList = WFRP4E.speciesTalents[this.actor.data.data.details.species.value];
         if (!talentList)
         {
-          talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+          talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
           if (!talentList)
             throw "Could not add talents for species " + this.actor.data.data.details.species.value;
         }
@@ -1085,7 +1140,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       html.find('.item-delete').click(ev => {
         let li = $(ev.currentTarget).parents(".item"),
           itemId = Number(li.attr("data-item-id"));
-          renderTemplate('public/systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
+          renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
             new Dialog({
             title: "Delete Confirmation",
             content: html,
@@ -1525,6 +1580,59 @@ class ActorSheetWfrp4e extends ActorSheet {
   
           await this.actor.updateOwnedItem(dragItem.data, true);
         }
+      else if (JSON.parse(dragData).postedItem)
+      {
+        this.actor.createOwnedItem(JSON.parse(dragData).data);
+      }
+      else if (JSON.parse(dragData).generation)
+      {
+        let transfer = JSON.parse(dragData)
+
+        let data = duplicate(this.actor.data.data);
+        data.details.species.value = transfer.payload.species;
+        data.details.move.value = transfer.payload.movement;
+
+        if (this.actor.data.type == "character")
+        {
+          data.status.fate.value = transfer.payload.fate;
+          data.status.fortune.value = transfer.payload.fate;
+          data.status.resilience.value = transfer.payload.resilience;
+          data.status.resolve.value = transfer.payload.resilience;
+          data.details.experience.total += transfer.payload.exp;
+
+        }
+        for (let c in WFRP4E.characteristics)
+        {
+          data.characteristics[c].initial = transfer.payload.characteristics[c]
+        }
+        await this.actor.update({"data" : data})
+
+      }
+      else if (JSON.parse(dragData).lookupType)
+      {
+        let transfer = JSON.parse(dragData)
+        let item;
+        if (transfer.lookupType == "skill")
+        {
+          item = await WFRP_Utility.findSkill(transfer.name)
+        }
+        else if (transfer.lookupType == "talent")
+        {
+          item = await WFRP_Utility.findTalent(transfer.name)
+        }
+        else 
+        {
+          return
+        }
+        if (item)
+          this.actor.createOwnedItem(item.data);
+      }
+      else if (JSON.parse(dragData).exp)
+      {
+        let data = duplicate(this.actor.data.data);
+        data.details.experience.total += JSON.parse(dragData).exp;
+        await this.actor.update({"data" : data})
+      }
       else
       {
         super._onDrop(event)
@@ -1581,7 +1689,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let li = $(event.currentTarget).parents(".item"),
           property = event.target.text,
           properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
-          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
+          propertyDescr = Object.assign(duplicate(WFRP4E.qualityDescriptions), WFRP4E.flawDescriptions);
   
           property = property.replace(/,/g, '').trim();
   
@@ -1628,25 +1736,26 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (classes.hasClass("weapon-range"))
         {
           let range = parseInt(event.target.text);
-          expansionText = "0 yd - " + Math.ceil(range / 10) + " yds: " + CONFIG.rangeModifiers["Point Blank"] + "<br>"+
-          (Math.ceil(range / 10) + 1) + " yds - " + Math.ceil(range / 2) + " yds: " + CONFIG.rangeModifiers["Short Range"] + "<br>" +
-          (Math.ceil(range / 2) + 1) + " yds - " + range + " yds: " + CONFIG.rangeModifiers["Normal"]  + "<br>"+
-          (range + 1) + " yds - " + range * 2 + " yds: " + CONFIG.rangeModifiers["Long Range"] + "<br>"+
-          (range * 2 + 1) + " yds - " + range * 3 + " yds: " + CONFIG.rangeModifiers["Extreme"] + "<br>";
+          expansionText = 
+         `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
+          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
+          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
+          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
+          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
         }
         else if (classes.hasClass("weapon-group"))
         {
           let weaponGroup = event.target.text;
           let weaponGroupKey = "";
-          weaponGroupKey = WFRP_Utility.findKey(weaponGroup, CONFIG.weaponGroups);
-          expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
+          weaponGroupKey = WFRP_Utility.findKey(weaponGroup, WFRP4E.weaponGroups);
+          expansionText = WFRP4E.weaponGroupDescriptions[weaponGroupKey];
         }
         else if (classes.hasClass("weapon-reach"))
         {
           let reach = event.target.text;
           let reachKey;
-          reachKey = WFRP_Utility.findKey(reach, CONFIG.weaponReaches);
-          expansionText = CONFIG.reachDescription[reachKey];
+          reachKey = WFRP_Utility.findKey(reach, WFRP4E.weaponReaches);
+          expansionText = WFRP4E.reachDescription[reachKey];
         }
   
       // Toggle summary
@@ -1658,6 +1767,16 @@ class ActorSheetWfrp4e extends ActorSheet {
         let div = $(`<div class="item-summary">${expansionText}</div>`);
         li.append(div.hide());
         div.slideDown(200);
+
+        div.on("click", ".range-click", ev => {
+          let difficulty = $(ev.currentTarget).attr("data-range")
+
+          let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+          let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
+          let weapon = this.actor.getOwnedItem(itemId);
+          if (weapon)
+            this.actor.setupWeapon(duplicate(weapon.data), {attackType : attackType, difficulty : difficulty});
+        })
 
       }
       li.toggleClass("expanded");

@@ -21,7 +21,8 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
      * @type {String}
      */
     get template() {
-      return "public/systems/wfrp4e/templates/actors/creature-sheet.html";
+      if ( !game.user.isGM && this.actor.limited ) return "systems/wfrp4e/templates/actors/actor-limited.html";
+      return "systems/wfrp4e/templates/actors/creature-sheet.html";
     }
   
     /* -------------------------------------------- */
@@ -270,6 +271,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
   // Register Creature Sheet
   Actors.registerSheet("wfrp4e", ActorSheetWfrp4eCreature, {
     types: ["creature"],
-    makeDefault: false
+    makeDefault: true
   });
   

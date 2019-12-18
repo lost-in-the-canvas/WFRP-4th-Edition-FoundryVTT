@@ -7,10 +7,11 @@ Hooks.on("ready", async () => {
        let module;
        if (activeModules[m])
        {
-         game.socket.emit("getFiles", `modules/${m}/tables`, {}, resp => {
+        
+          FilePicker.browse("user", `modules/${m}/tables`).then(resp => {
            try 
            {
-           if (resp.error || !resp.baseDir.includes("tables"))
+           if (resp.error || !resp.target.includes("tables"))
              throw ""
            for (var file of resp.files)
            {
@@ -36,6 +37,30 @@ Hooks.on("ready", async () => {
        }
      }
 
+     
+
+
+    // i = 0;
+    // critname;
+    // while (i < WFRP_Tables.critleg.rows.length)
+    // {
+    //   let row = WFRP_Tables.critleg.rows[i];
+    //   if (critname != row.name)
+    //   {
+    //     critname = row.name;
+    //     let itemData = 
+    //     {
+    //       type : "critical",
+    //       name : row.name,
+    //       ["data.description.value"] : row.description,
+    //       ["data.wounds.value"] : row.wounds,
+    //       ["data.location.value"] : "Leg",
+    //       img: "systems/wfrp4e/icons/injuries/tornleg.png"
+    //     }
+    //     ItemWfrp4e.create(itemData)
+    //   }
+    //   i++
+    // }
     
     // let table = await RollTable.create({name: WFRP_Tables.wrath.name, formula : WFRP_Tables.wrath.die})
     // let loc = 1
@@ -85,7 +110,7 @@ Hooks.on("ready", async () => {
   //   // Render the template
   //   chatData["content"] = `
   //   <div class="table-result" data-table-id="${this._id}" data-result-id="${result.id}">
-  //       <img class="result-image" src="${result.img || CONFIG.RollTable.resultIcon}"/>
+  //       <img class="result-image" src="${result.img || WFRP4E.RollTable.resultIcon}"/>
   //       <p class="result-text">${text}</p>
   //   </div>`;
 

@@ -42,7 +42,7 @@ class ItemWfrp4e extends Item {
     _mutationExpandData() {
       const data = duplicate(this.data.data);
       data.properties = [];
-      data.properties.push(CONFIG.mutationTypes[this.data.data.mutationType.value]);
+      data.properties.push(WFRP4E.mutationTypes[this.data.data.mutationType.value]);
       if (this.data.data.modifier.value)
         data.properties.push(this.data.data.modifier.value)
       return data;
@@ -77,8 +77,8 @@ class ItemWfrp4e extends Item {
       data.properties=[];
       data.properties.push("<b>Class</b>: " + this.data.data.class.value);
       data.properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
-      data.properties.push(CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-      data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
+      data.properties.push(WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+      data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
       data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
       data.properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + i));
       data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
@@ -91,6 +91,16 @@ class ItemWfrp4e extends Item {
       data.properties=[];
       return data;
     }
+
+    _criticalExpandData() {
+      const data = duplicate(this.data.data);
+      data.properties=[];
+      data.properties.push(`<b>Wounds</b>: ${this.data.data.wounds.value}`)
+      if (data.modifier.value)
+        data.properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+      return data;
+    }
+  
   
     _spellExpandData() {
       const data = duplicate(this.data.data);
@@ -127,7 +137,7 @@ class ItemWfrp4e extends Item {
       let properties = [];
   
       if (data.weaponGroup.value)
-        properties.push(CONFIG.weaponGroups[data.weaponGroup.value]);
+        properties.push(WFRP4E.weaponGroups[data.weaponGroup.value]);
       if (data.range.value)
         properties.push("Range: " + data.range.value);
       if (data.damage.meleeValue)
@@ -139,7 +149,7 @@ class ItemWfrp4e extends Item {
       if (data.twohanded.value)
         properties.push("Two Handed");
       if (data.reach.value)
-        properties.push ("Reach: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+        properties.push ("Reach: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
   
       properties = properties.filter(p => p != "Special");
       if (data.special.value)
@@ -152,7 +162,7 @@ class ItemWfrp4e extends Item {
     _armourExpandData() {
       const data = duplicate(this.data.data);
        const properties = [];
-       properties.push(CONFIG.armorTypes[data.armorType.value]);
+       properties.push(WFRP4E.armorTypes[data.armorType.value]);
        for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>"+i+"</a>"))
          properties.push(prop);
        properties.push(data.penalty.value);
@@ -164,7 +174,7 @@ class ItemWfrp4e extends Item {
      _ammunitionExpandData() {
       const data = duplicate(this.data.data);
        let properties = [];
-       properties.push (CONFIG.ammunitionGroups[data.ammunitionType.value])
+       properties.push (WFRP4E.ammunitionGroups[data.ammunitionType.value])
   
        if (data.range.value)
         properties.push("Range: " + data.range.value);
@@ -196,31 +206,28 @@ class ItemWfrp4e extends Item {
       if (chatData.img.includes("/blank.png"))
         chatData.img = null;
   
-      let html= 
-      `<div class="wfrp4e post-item">
-       <h3><b>${chatData.name}</b></h3>
-        ${ chatData.img ? `<img src="${chatData.img}" title="${chatData.name}"/>` : ""}
-    
-        ${ chatData.data.description.value ? `<div class="card-content">${chatData.data.description.value}</div>` : "<br>"}`
-        
-  
-        for (let prop of properties)
-          html = html.concat(prop+"<br>") ;
-  
-        html = html.concat("</div>")
+      chatData.transfer = JSON.stringify(
+        {
+          data : this.data,
+          postedItem : true
+        }
+      );
+
+      renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
   
         chatOptions["content"] = html;
         ChatMessage.create(chatOptions)
-    }
+    });
+  }
   
     _trappingChatData() {
       const data = duplicate(this.data.data);
       let properties = 
       [
-        `<b>Trapping Type</b>: ${CONFIG.trappingCategories[data.trappingType.value]}`,
+        `<b>Trapping Type</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
         `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
         `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-        `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+        `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
       ]
       return properties;
     }
@@ -248,7 +255,7 @@ class ItemWfrp4e extends Item {
   
     _mutationChatData() {
       let properties = [
-        `<b>Mutation Type</b>: ${CONFIG.mutationTypes[this.data.data.mutationType.value]}`,
+        `<b>Mutation Type</b>: ${WFRP4E.mutationTypes[this.data.data.mutationType.value]}`,
       ];
       if (this.data.data.modifier.value)
         properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
@@ -270,7 +277,7 @@ class ItemWfrp4e extends Item {
     _talentChatData() {
       const data = duplicate(this.data.data);
       let properties = []; 
-      properties.push("<b>Max: </b> " + CONFIG.talentMax[data.max.value]);
+      properties.push("<b>Max: </b> " + WFRP4E.talentMax[data.max.value]);
       if (data.tests.value)
         properties.push("<b>Tests: </b> " + data.tests.value);
       return properties;
@@ -288,8 +295,8 @@ class ItemWfrp4e extends Item {
       let properties=[];
       properties.push("<b>Class</b>: " + this.data.data.class.value);
       properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
-      properties.push("<b>Status</b>: " + CONFIG.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-      properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + CONFIG.characteristicsAbbrev[i]));
+      properties.push("<b>Status</b>: " + WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+      properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
       properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>"+i+"</a>"));
       properties.push("<b>Talents</b>: " + this.data.data.talents.map (i => i = " " + "<a class = 'talent-lookup'>"+i+"</a>"));
       properties.push("<b>Trappings</b>: " + this.data.data.trappings.map (i => i = " " + i));
@@ -301,15 +308,26 @@ class ItemWfrp4e extends Item {
       const data = duplicate(this.data.data);
       let properties=[];
       properties.push(`<b>Location</b>: ${data.location.value}`);
-      properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+      if (data.penalty.value) 
+        properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+      return properties;
+    }
+
+    _criticalChatData() {
+      const data = duplicate(this.data.data);
+      let properties=[];
+      properties.push(`<b>Wounds</b>: ${data.wounds.value}`);
+      properties.push(`<b>Location</b>: ${data.location.value}`);
+      if (data.modifier.value)
+        properties.push(`<b>Modifier</b>: ${data.modifier.value}`);
       return properties;
     }
   
     _spellChatData() {
       const data = duplicate(this.data.data);
       let properties = [];
-      if(CONFIG.magicLores[data.lore.value])
-        properties.push("<b>Lore</b>: " + CONFIG.magicLores[data.lore.value]);
+      if(WFRP4E.magicLores[data.lore.value])
+        properties.push("<b>Lore</b>: " + WFRP4E.magicLores[data.lore.value]);
       else
         properties.push("<b>Lore</b>: " + data.lore.value);
       properties.push("<b>CN</b>: " + data.cn.value);
@@ -339,7 +357,7 @@ class ItemWfrp4e extends Item {
       [
         `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
         `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-        `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+        `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
       ]
 
       properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
@@ -353,11 +371,11 @@ class ItemWfrp4e extends Item {
      [
        `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
        `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-       `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+       `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
      ]
   
       if (data.weaponGroup.value)
-        properties.push("<b>Weapon Group</b>: " + CONFIG.weaponGroups[data.weaponGroup.value]);
+        properties.push("<b>Weapon Group</b>: " + WFRP4E.weaponGroups[data.weaponGroup.value]);
       if (data.range.value)
         properties.push("<b>Range</b>: " + data.range.value);
       if (data.damage.meleeValue)
@@ -369,7 +387,7 @@ class ItemWfrp4e extends Item {
       if (data.twohanded.value)
         properties.push("<b>Two Handed</b>");
       if (data.reach.value) 
-        properties.push ("<b>Reach</b>: " + CONFIG.weaponReaches[data.reach.value] + " - " + CONFIG.reachDescription[data.reach.value]);
+        properties.push ("<b>Reach</b>: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
   
       let weaponProperties =  WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
   
@@ -398,11 +416,11 @@ class ItemWfrp4e extends Item {
       [
         `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
         `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-        `<b>Availability</b>: ${CONFIG.availability[data.availability.value]}`
+        `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
       ]
    
        if (data.armorType.value)
-         properties.push("<b>Armour Type</b>: " + CONFIG.armorTypes[data.armorType.value]);
+         properties.push("<b>Armour Type</b>: " + WFRP4E.armorTypes[data.armorType.value]);
        if (data.penalty.value)
          properties.push("<b>Penalty</b>: " + data.penalty.value);
   
@@ -413,9 +431,9 @@ class ItemWfrp4e extends Item {
           data.currentAP[apVal] = data.maxAP[apVal];
        }
   
-      for (let loc in CONFIG.locations)
+      for (let loc in WFRP4E.locations)
         if (data.maxAP[loc])
-          properties.push(`<b>${CONFIG.locations[loc]} AP</b>: ${data.currentAP[loc]}/${data.maxAP[loc]}`);
+          properties.push(`<b>${WFRP4E.locations[loc]} AP</b>: ${data.currentAP[loc]}/${data.maxAP[loc]}`);
   
   
         let armourProperties =  WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
@@ -442,7 +460,7 @@ class ItemWfrp4e extends Item {
      _ammunitionChatData() {
       const data = duplicate(this.data.data);
        let properties = [];
-       properties.push ("<b>Ammunition Type:</b> " + CONFIG.ammunitionGroups[data.ammunitionType.value])
+       properties.push ("<b>Ammunition Type:</b> " + WFRP4E.ammunitionGroups[data.ammunitionType.value])
   
        if (data.range.value)
         properties.push("<b>Range</b>: " + data.range.value);

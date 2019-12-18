@@ -773,6 +773,7 @@
     background-position-y: 45px;
     border-radius: 0px;
     box-shadow: 0 0 0px #000;
+    border:none;
   }
   #sidebar .sidebar-tab {
     flex: 1;
@@ -1185,7 +1186,7 @@
   #sidebar-tabs > [title~="Journal"] {
     background: url(../ui/sidebar-button-journal.png);
   }
-  #sidebar-tabs > [title~="SIDEBAR.TabTables"] {
+  #sidebar-tabs > [title~="Rollable"] {
     background: url(../ui/sidebar-button-tables.png);
   }
   #sidebar-tabs > [title~="Playlists"] {
@@ -1645,10 +1646,6 @@
     font-weight: var(--actor-input-font-weight);
     color: #dadada;
     text-shadow: 1px 1px 2px black;
-  }
-  #sidebar #journal .directory-list .directory-item h4 {
-  }
-  .sidebar-tab .directory-list .directory-item h4 {
   }
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
   #sidebar #playlists .directory-list {
@@ -5842,7 +5839,8 @@
           }
 
   /* ================== 3. INJURIES =========================== */
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header {
+    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -5860,14 +5858,16 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header .name,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .name {
         position: relative;
         left: 0px;
         height: 18px;
         width: fit-content;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .location {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header .location,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .location {
         position: relative;
         left: 270px;
         height: 18px;
@@ -5875,7 +5875,12 @@
         display: inline-block;
         /* background: bisque; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header .location{
+        left:262px
+      }
+
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.injury-header .item-controls {
         position: relative;
         top: -1px;
         left: 390px;
@@ -5889,7 +5894,13 @@
         padding: 0px;
       }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.critical-header .item-controls{
+        left: 382px
+      }
+
+
+    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
       overflow-y: hidden;
@@ -5906,7 +5917,8 @@
       margin: -5px 0px 0px 0px;
       padding: 0px;
     }
-    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item {
+    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item {
       width: 100%;
       text-align: left;
       overflow-x: hidden;
@@ -5923,7 +5935,8 @@
       justify-content: space-between;
       /* background: var(--debug-background-color-green); */
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content {
         width: 100%;
         text-align: center;
         overflow-x: hidden;
@@ -5939,13 +5952,15 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-name {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content .item-name,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-name {
         display: flex;
         flex-direction: row;
         min-width: 210px;
         max-width: 210px;
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .image {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content .image,
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .image {
           background-size: 32px;
           background-repeat: no-repeat;
           min-height: 32px;
@@ -5953,13 +5968,15 @@
           min-width: 32px;
           max-width: 32px;
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content .name,
+          .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .name {
           text-align: left;
           vertical-align: middle;
           padding: 11px 0px 0px 4px;
           overflow: hidden;
         }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .injury-location {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content .critical-location,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .injury-location{
         min-width: 237px;
         max-width: 237px;
         padding: 11px 0px 0px 0px;
@@ -5969,7 +5986,8 @@
         flex-basis: 0;
         /* background: aqua; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.critical-list .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.injury-list .item .content .item-controls {
         padding: 5px 4px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -8583,6 +8601,18 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;
   }
+  
+.limited .tab.notes.active .note-section.biography .editor {
+  height: 100%;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+}
+    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .limited-note-section.biography {
+      height: 100%;
+      width: 100%;
+      padding: 4px;
+      border: 1px solid #736953a6;
+    }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.biography,
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.gmnotes {
       height: 270px;
@@ -8600,6 +8630,8 @@
       max-height: 100%;
       /* background: aquamarine; */
     }
+
+  
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section > h4 {
     width: 100%;
@@ -9447,6 +9479,7 @@
   }
 
   /* FIRST ROW */
+  .limited .general .characteristics,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics {
     border-top: none;
     margin: 1px 0px 0px 0px;
@@ -9455,6 +9488,7 @@
     width: 403px;
     max-width: 400px
   }
+  .limited .general .characteristics .characteristics-table,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -9467,7 +9501,7 @@
     background: none;
     border: 1px solid #736953a6;
   }   
-
+  .limited .general .characteristics .characteristics-table .table-header,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
     font-family: var(--actor-label-font-family);
     font-size: var(--actor-label-font-size);
@@ -9479,10 +9513,12 @@
     border-bottom: none;  
     border-right: 1px solid #736953a6;
   }  
+  .limited .general .characteristics .characteristics-table .table-header:nth-of-type(10),
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
     /* background: red; */
   }  
+  .limited .general .characteristics .characteristics-table .table-header .table-header .header-block,
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
       padding-top: 0px;
     }  
@@ -9491,13 +9527,16 @@
       margin-top: -3px;
       margin-left: 3px;
     }
+  .limited .general .characteristics-table .table-data,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data {
     border-top: 1px solid #736953a6;
     border-right: 1px solid #736953a6;
   }
+  .limited .general .characteristics-table .table-data:last-of-type,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data:last-of-type {
     border-right: none;
   }
+  .limited .general .characteristics-table .table-data input,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
@@ -9510,6 +9549,7 @@
     text-align: center;
     padding-top: 7px;
   }
+  .limited .general .characteristics-table .table-data.ch-value,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data.ch-value {
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
@@ -13284,7 +13324,7 @@ border-image-outset: 0px !important;
       clear: both;
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
+      /*flex-wrap: wrap;*/
       margin: 4px 0;
     }
       .app.window-app .form-group label {
@@ -15052,6 +15092,9 @@ font-style : normal;
   width: 725px;
 }
 
+.filepicker .tabs {
+  color: #CCC 
+}
 #sidebar #tables .directory-list .directory-item {
   padding: 3px 3px;
   border: 3px groove #564d3a;
@@ -15076,4 +15119,117 @@ font-style : normal;
 
 #av-config .sheet-tabs .item {
   color: #CCC
+}
+
+.app.window-app .tiles-browser .form-group {
+    flex: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    align-items: center;
+  }
+
+  .tiles-browser .outer {
+    color: #CCC;
+}
+
+.app.window-app.sheet.wfrp4e.actor .general .charimg {
+  object-fit: contain;
+}
+
+.tiles-browser .directory {
+  overflow-y: auto;
+  overflow-x: hidden !important ;
+}
+
+.chargen-button {
+	box-shadow:inset 0px 1px 0px 0px #a6827e;
+	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
+	background-color:#7d5d3b;
+	border-radius:3px;
+	border:1px solid #54381e;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+  text-shadow:0px 1px 0px #4d3534;
+  position: relative;
+  left: 120px;
+}
+.attribute-career-buttons .chargen-button {
+  left : 25px;
+}
+.chargen-button:hover {
+	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
+	background-color:#634b30;
+}
+.chargen-button:active {
+	position:relative;
+	top:1px;
+}
+
+.species-select {
+  font-weight: 1000;
+}
+
+.exp-drag {
+  border: 1px dotted black;
+  width: fit-content;
+  padding: 3px;
+  margin: 5px;
+} 
+
+.gen-talents,
+.gen-skills {
+border: 1px dotted black;
+    padding: 5px;
+    margin: 5px;
+}
+
+input.card-edit {
+  width: 32px;
+  border: inset;
+}
+
+.wfrp4e.actor .combat .advantage {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 24px;
+  border: 1px solid #736953a6;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--input-label-font-weight);
+  color: var(--actor-input-color);
+  background: none;
+  box-shadow: none;
+  text-align: left;
+  display: inline-block;
+  flex-grow: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+}
+
+.wfrp4e.actor .advantage-label {
+  width: 20%;
+  height: 23px;
+  padding: 2px 0px 0px 0px;
+  font-family: var(--actor-label-font-family);
+  font-size: var(--actor-label-font-size);
+  font-weight: var(--actor-label-font-weight);
+  color: var(--actor-label-color);
+  border: none;
+  border-right: 1px solid #736953a6;
+  background: none;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  text-align: center;
+  display: inline-block;
+  flex-grow: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
 }

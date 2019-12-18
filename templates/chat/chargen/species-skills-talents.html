@@ -1,0 +1,37 @@
+<div>
+  <h2>{{species}}</h2>
+</div>
+
+<span>Choose 6 skills and drag them to your character sheet if they are not already included. Put 5 advancements in 3 of them, and 3 advancements in the other 3.</span>
+
+<div class = gen-skills>
+  <h3>Skills</h3>
+  {{#each speciesSkills as |skill key|}}
+  <div><b><a class = "skill-drag">{{skill}}</a></b></div>
+  {{/each}}
+</div>
+
+<div class = gen-talents>
+<h3>Talents</h3>
+{{#each speciesTalents as |talent key|}}
+<div><b><a class = "talent-drag">{{talent}}</a></b></div>
+{{/each}}
+
+{{#each choiceTalents as |talentList key|}}
+<div>
+  <span><b><a class = "talent-drag">{{talentList.[0]}} </a></b></span> OR <span><b><a class = "talent-drag">{{talentList.[1]}} </a></b></span>
+</div>
+{{/each}}
+
+{{#each randomTalents as |talent key|}}
+<div><b><a class = "talent-drag">{{talent}}</a></b></div>
+{{/each}}
+
+</div>
+
+<div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>
+
+<span class = "attribute-career-buttons">
+    <a class = 'chargen-button' data-button = 'rollAttributes' data-species="{{speciesKey}}" title = '+50 EXP'>Roll Attributes</a>
+    <a class = 'chargen-button' data-button = 'rollCareer' data-species="{{speciesKey}}" title = '+50 EXP'>Roll Career</a>
+  </span>

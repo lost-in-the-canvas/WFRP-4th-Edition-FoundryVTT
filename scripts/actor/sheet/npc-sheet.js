@@ -20,7 +20,8 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
      * @type {String}
      */
     get template() {
-      return "public/systems/wfrp4e/templates/actors/npc-sheet.html";
+      if ( !game.user.isGM && this.actor.limited ) return "systems/wfrp4e/templates/actors/actor-limited.html";
+      return "systems/wfrp4e/templates/actors/npc-sheet.html";
     }
   
   

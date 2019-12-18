@@ -1,0 +1,17 @@
+    <div class="characteristics-gen" data-char={{dataTransfer}}>
+      <h2>Attributes - {{species}}</h2>
+
+{{#each characteristics as |characteristic key|}}
+<div>
+  <b>{{key}}</b>: {{characteristic}}
+</div>
+{{/each}}
+
+
+<div><b>Move</b>: {{species}}</div>
+<div><b>Fate</b>: {{fate}}</div>
+<div><b>Resilience</b>: {{resilience}}</div>
+<div><b>Extra</b>: {{extra}}</div>
+<div><b>Exp</b>: {{exp}}</div>
+
+</div>

@@ -23,7 +23,7 @@ class DiceWFRP {
       mergeObject(dialogOptions.data,
         {
           testDifficulty : dialogOptions.data.testDifficulty || "challenging",
-          difficultyLabels : CONFIG.difficultyLabels,
+          difficultyLabels : WFRP4E.difficultyLabels,
           testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
           slBonus : dialogOptions.data.slBonus || 0,
           successBonus : dialogOptions.data.successBonus || 0,
@@ -39,15 +39,10 @@ class DiceWFRP {
       if (dialogOptions.rollOverride)
         roll = dialogOptions.rollOverride;
       else // Otherwise use a generic test
-        roll = () =>{
-        let roll = DiceWFRP.rollTest(testData);
-        if (testData.extra)
-          mergeObject(roll, testData.extra);
-        DiceWFRP.renderRollCard(cardOptions, roll);
-      }
+        roll = ActorWfrp4e.defaultRoll;
 
       dialogOptions.data.rollMode = rollMode;
-      dialogOptions.data.rollModes = CONFIG.rollModes;
+      dialogOptions.data.rollModes = WFRP4E.rollModes;
 
       // Render Test Dialog
       renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
@@ -55,6 +50,7 @@ class DiceWFRP {
             title: dialogOptions.title,
             content: dlg,
             buttons: dialogOptions.buttons,
+            default: "rollButton",
             close: html => dialogOptions.callback(html, roll)
           }).render(true);
       });
@@ -72,7 +68,11 @@ class DiceWFRP {
       let successBonus = testData.successBonus;
       let slBonus = testData.slBonus;
       let targetNum = testData.target;
-      let SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
+      let SL
+      if (testData.SL == 0)
+        SL = testData.SL
+      else
+        SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
       let description = "";
 
       // Test determination logic can be complicated due to SLBonus
@@ -466,7 +466,7 @@ class DiceWFRP {
         spell.data.cn.SL = spell.data.cn.value;
       else if (spell.data.cn.SL < 0)
        spell.data.cn.SL = 0;
-       
+
        actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
 
        switch (miscastCounter)
@@ -548,11 +548,11 @@ class DiceWFRP {
       extensions = Math.floor(SL/2);
      }
 
-             
-     try 
+
+     try
      {
        if (testData.extra.prayer.damage && testResults.description.includes("Granted"))
-       testData.extra.damage = Number(testResults.SL) + 
+       testData.extra.damage = Number(testResults.SL) +
                                Number(testData.extra.prayer.damage)
      }
      catch (error)
@@ -574,7 +574,7 @@ class DiceWFRP {
     {
       testData.roll = testData.SL = null;
     }
-    
+
      let chatData = {
        title : chatOptions.title,
        testData : testData,
@@ -603,17 +603,17 @@ class DiceWFRP {
         {
           let blank = $(html)
           let elementsToToggle = blank.find(".display-toggle")
-    
+
           for (let elem of elementsToToggle)
           {
             if (elem.style.display == "none")
               elem.style.display = ""
-            else 
+            else
               elem.style.display = "none"
           }
           html = blank.html();
         }
-        
+
         chatOptions["content"] = html;
 
         ChatMessage.create(chatOptions, false);
@@ -630,6 +630,7 @@ class DiceWFRP {
         rerenderMessage.update(
         {
           content: html,
+          ["flags.data"] : chatOptions["flags.data"]
         }, true).then(newMsg => {
           ui.chat.updateMessage(newMsg);
         });
@@ -638,16 +639,24 @@ class DiceWFRP {
     }
   }
 
-
-
-    // To be used in the future for opposed tests
-    // static opposeData  = {
-    //   opposeStarted : false,
-    //   actor : undefined,
-    //   rollData : undefined
-    // }
     static chatListeners(html) {
 
+
+      html.on("click", ".item-lookup", async ev => {
+        let itemType = $(ev.currentTarget).attr("data-type");
+        let location = $(ev.currentTarget).attr("data-location");
+        let name = $(ev.currentTarget).attr("data-name");
+        let item;
+        if (name)
+          item = await WFRP_Utility.findItem(name, itemType, location);
+        else if (location)
+          item = await WFRP_Utility.findItem(ev.currentTarget.text, itemType, location);
+
+        if (!item)
+          WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+        else
+          item.postItem()
+      })
 
       html.on("click", ".talent-lookup", async ev => {
         WFRP_Utility.findTalent(ev.target.text).then(talent => talent.sheet.render(true));
@@ -655,7 +664,16 @@ class DiceWFRP {
 
       html.on("click", ".skill-lookup", async ev => {
         WFRP_Utility.findSkill(ev.target.text).then(skill => skill.sheet.render(true));
+      })
 
+      html.on("mousedown", ".talent-drag", async ev => {
+        if (ev.button == 2)
+          WFRP_Utility.findTalent(ev.target.text).then(talent => talent.sheet.render(true));
+      })
+
+      html.on("mousedown", ".skill-drag", async ev => {
+        if (ev.button == 2)
+          WFRP_Utility.findSkill(ev.target.text).then(skill => skill.sheet.render(true));
       })
 
       html.on("click", ".chat-roll", ev => {
@@ -671,15 +689,12 @@ class DiceWFRP {
       html.on("click", ".condition-chat", ev => {
         let cond = ev.target.text;
         cond = cond.split(" ")[0]
-        let condkey = WFRP_Utility.findKey(cond, CONFIG.conditions);
-        let condDescr = CONFIG.conditionDescriptions[condkey];
+        let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
+        let condDescr = WFRP4E.conditionDescriptions[condkey];
         let messageContent = `<b>${cond}</b><br>${condDescr}`
 
-        let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
-        if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-        if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-        chatOptions["type"] = 0;
-        ChatMessage.create(chatOptions);
+        let chatData = WFRP_Utility.chatDataSetup(messageContent)
+        ChatMessage.create(chatData);
       })
 
 
@@ -714,7 +729,7 @@ class DiceWFRP {
           else if (sin)
             html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
           else
-            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier});
+            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier}, $(ev.currentTarget).attr("data-column"));
 
            chatOptions["content"] = html;
           chatOptions["type"] = 0;
@@ -723,7 +738,7 @@ class DiceWFRP {
         }
         else if (ev.button == 2)
         {
-          renderTemplate('public/systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+          renderTemplate('systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
             new Dialog({
               title: "Table Modifier",
               content: html,
@@ -744,9 +759,6 @@ class DiceWFRP {
             }).render(true);
           })
         }
-
-
-
       })
 
       html.on('focusout', '.card-edit', ev => {
@@ -764,7 +776,11 @@ class DiceWFRP {
           newTestData["hitloc"] = $(message.data.content).find(".card-content.test-data").attr("data-loc")
 
         if (button.attr("data-edit-type") == "SL") // If changing SL, keep both roll and hitloc
+        {
           newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
+          newTestData.slBonus = 0;
+          newTestData.successBonus = 0;
+        }
 
         if (button.attr("data-edit-type") == "target") // If changing target, keep both roll and hitloc
           newTestData["roll"] = $(message.data.content).find(".card-content.test-data").attr("data-roll")
@@ -773,15 +789,15 @@ class DiceWFRP {
         let chatOptions = {
           template : data.template,
           rollMode : data.rollMode,
-          title : data.title
+          title : data.title,
+          speaker : message.data.speaker,
+          user : message.user.data._id
         }
 
         if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
         if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
 
-        let newResult = this[`${newTestData.function}`](newTestData, actor);
-
-        this.renderRollCard(chatOptions, newResult, message);
+        ActorWfrp4e[`${data.postData.postFunction}`](newTestData, chatOptions, message);
       })
 
       // Chat card actions
@@ -790,32 +806,47 @@ class DiceWFRP {
         this.toggleEditable(ev.currentTarget)
       });
 
+      html.on('click', '.opposed-toggle', ev => {
+        ev.preventDefault();
+        OpposedWFRP.opposedClicked(ev)
+      });
+
       html.on("click", '.item-property', event => {
         event.preventDefault();
 
         WFRP_Utility.postProperty(event.target.text);
 
       });
-    }
 
-    static evaluateOpposedTest(defender, defenderRollData)
-    {
-      let opposeResult = {};
-      let attackerSL = parseInt(this.opposeData.rollData.SL);
-      let defenderSL = parseInt(defenderRollData.SL);
-      let differenceSL = 0;
-      if (attackerSL >= defenderSL)
-        {
-          differenceSL = attackerSL - defenderSL;
-          opposeResult.result = this.opposeData.actor.name + " won by " + differenceSL + " SL";
-        }
-        else
-        {
-          differenceSL = defenderSL - attackerSL;
-          opposeResult.result = defender.name + " won by " + differenceSL + " SL";
-        }
-        return opposeResult;
-    }
+    html.on("click", '.species-select', event => {
+      event.preventDefault();
+
+      GeneratorWfrp4e.rollSpecies(
+        $(event.currentTarget).parents('.message').attr("data-message-id"),
+        $(event.currentTarget).attr("data-species")); // Choose selected species
+    });
+    html.on("click", '.chargen-button', event => {
+      event.preventDefault();
+      switch ($(event.currentTarget).attr("data-button"))
+      {
+        case "rollSpecies" : GeneratorWfrp4e.rollSpecies($(event.currentTarget).parents('.message').attr("data-message-id"))
+          break;
+        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerRand)
+          break;
+        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),WFRP4E.randomExp.statsRand)
+          break;
+      }
+    });
+
+      
+  html.on("click", '.random-talents', event => {
+    event.preventDefault();
+    $(event.currentTarget).attr("data-num")
+  });
+
+  }
+
+
 
     static toggleEditable(html)
     {
@@ -827,7 +858,7 @@ class DiceWFRP {
       {
         if (elem.style.display == "none")
           elem.style.display = ""
-        else 
+        else
           elem.style.display = "none"
       }
     }
