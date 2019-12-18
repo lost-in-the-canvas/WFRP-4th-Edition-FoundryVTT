@@ -23,7 +23,7 @@ class DiceWFRP {
       mergeObject(dialogOptions.data,
         {
           testDifficulty : dialogOptions.data.testDifficulty || "challenging",
-          difficultyLabels : CONFIG.difficultyLabels,
+          difficultyLabels : WFRP4E.difficultyLabels,
           testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
           slBonus : dialogOptions.data.slBonus || 0,
           successBonus : dialogOptions.data.successBonus || 0,
@@ -42,7 +42,7 @@ class DiceWFRP {
         roll = ActorWfrp4e.defaultRoll;
 
       dialogOptions.data.rollMode = rollMode;
-      dialogOptions.data.rollModes = CONFIG.rollModes;
+      dialogOptions.data.rollModes = WFRP4E.rollModes;
 
       // Render Test Dialog
       renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
@@ -644,12 +644,14 @@ class DiceWFRP {
 
       html.on("click", ".item-lookup", async ev => {
         let itemType = $(ev.currentTarget).attr("data-type");
-        let location = $(ev.currentTarget).attr("data-target");
+        let location = $(ev.currentTarget).attr("data-location");
         let name = $(ev.currentTarget).attr("data-name");
         let item;
         if (name)
           item = await WFRP_Utility.findItem(name, itemType, location);
-        
+        else if (location)
+          item = await WFRP_Utility.findItem(ev.currentTarget.text, itemType, location);
+
         if (!item)
           WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
         else
@@ -687,8 +689,8 @@ class DiceWFRP {
       html.on("click", ".condition-chat", ev => {
         let cond = ev.target.text;
         cond = cond.split(" ")[0]
-        let condkey = WFRP_Utility.findKey(cond, CONFIG.conditions);
-        let condDescr = CONFIG.conditionDescriptions[condkey];
+        let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
+        let condDescr = WFRP4E.conditionDescriptions[condkey];
         let messageContent = `<b>${cond}</b><br>${condDescr}`
 
         let chatData = WFRP_Utility.chatDataSetup(messageContent)
@@ -829,9 +831,9 @@ class DiceWFRP {
       {
         case "rollSpecies" : GeneratorWfrp4e.rollSpecies($(event.currentTarget).parents('.message').attr("data-message-id"))
           break;
-        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), CONFIG.randomExp.careerRand)
+        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerRand)
           break;
-        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),CONFIG.randomExp.statsRand)
+        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),WFRP4E.randomExp.statsRand)
           break;
       }
     });

@@ -52,36 +52,36 @@ class ItemSheetWfrp4e extends ItemSheet {
   
       if (this.item.type === "skill")
       {
-        data['characteristics'] = CONFIG.characteristics;
-        data['skillGroup'] = CONFIG.skillGroup;
-        data['skillTypes'] = CONFIG.skillTypes;
+        data['characteristics'] = WFRP4E.characteristics;
+        data['skillGroup'] = WFRP4E.skillGroup;
+        data['skillTypes'] = WFRP4E.skillTypes;
       }
       else if (this.item.type === "talent")
       {
-        data['talentMaxs'] = CONFIG.talentMax;
+        data['talentMaxs'] = WFRP4E.talentMax;
       }
       else if (this.item.type == "weapon")
       {
-        data['weaponGroups'] = CONFIG.weaponGroups;
-        data['availability'] = CONFIG.availability;
-        data['weaponReaches'] = CONFIG.weaponReaches
-        data['ammunitionGroups'] = CONFIG.ammunitionGroups;
+        data['weaponGroups'] = WFRP4E.weaponGroups;
+        data['availability'] = WFRP4E.availability;
+        data['weaponReaches'] = WFRP4E.weaponReaches
+        data['ammunitionGroups'] = WFRP4E.ammunitionGroups;
       }
       else if (this.item.type == "ammunition")
       {
-        data['availability'] = CONFIG.availability;
-        data['ammunitionGroups'] = CONFIG.ammunitionGroups;
+        data['availability'] = WFRP4E.availability;
+        data['ammunitionGroups'] = WFRP4E.ammunitionGroups;
       }
       else if (this.item.type == "armour")
       {
-        data['armorTypes'] = CONFIG.armorTypes;
-        data['availability'] = CONFIG.availability;
+        data['armorTypes'] = WFRP4E.armorTypes;
+        data['availability'] = WFRP4E.availability;
       }
       else if (this.item.type == "spell")
       {
-        if (CONFIG.magicLores[this.item.data.data.lore.value])
+        if (WFRP4E.magicLores[this.item.data.data.lore.value])
         {
-          data["loreValue"] = CONFIG.magicLores[this.item.data.data.lore.value]
+          data["loreValue"] = WFRP4E.magicLores[this.item.data.data.lore.value]
         }
         else
         {
@@ -92,26 +92,26 @@ class ItemSheetWfrp4e extends ItemSheet {
       }
       else if (this.item.type == "prayer")
       {
-        data['prayerTypes'] = CONFIG.prayerTypes;
+        data['prayerTypes'] = WFRP4E.prayerTypes;
       }
   
   
       else if (this.item.type == "career")
       {
-        data['statusTiers'] = CONFIG.statusTiers;
+        data['statusTiers'] = WFRP4E.statusTiers;
         data['skills'] = data.data.skills.toString();
         data['earningSkills'] = data.data.incomeSkill.map(function(item) {
           return data.data.skills[item];
         });
         data['talents'] = data.data.talents.toString();
         data['trappings'] = data.data.trappings.toString();
-        let characteristicList = duplicate(CONFIG.characteristicsAbbrev);
+        let characteristicList = duplicate(WFRP4E.characteristicsAbbrev);
         for (let char in characteristicList)
         {
           if(data.data.characteristics.includes(char))
-            characteristicList[char] = {abrev : CONFIG.characteristicsAbbrev[char], checked : true};
+            characteristicList[char] = {abrev : WFRP4E.characteristicsAbbrev[char], checked : true};
          else
-          characteristicList[char] = {abrev : CONFIG.characteristicsAbbrev[char], checked : false};
+          characteristicList[char] = {abrev : WFRP4E.characteristicsAbbrev[char], checked : false};
         }
         data['characteristicList'] = characteristicList;
   
@@ -119,23 +119,23 @@ class ItemSheetWfrp4e extends ItemSheet {
   
       else if (this.item.type == "trapping")
       {
-        data['trappingTypes'] = CONFIG.trappingTypes;
-        data['availability'] = CONFIG.availability;
+        data['trappingTypes'] = WFRP4E.trappingTypes;
+        data['availability'] = WFRP4E.availability;
       }
   
       else if (this.item.type == "trait")
       {
-        data['characteristics'] = CONFIG.characteristics;
+        data['characteristics'] = WFRP4E.characteristics;
       }
   
       else if (this.item.type == "container")
       {
-        data['availability'] = CONFIG.availability;
+        data['availability'] = WFRP4E.availability;
       }
   
       else if (this.item.type == "mutation")
       {
-        data['mutationTypes'] = CONFIG.mutationTypes;
+        data['mutationTypes'] = WFRP4E.mutationTypes;
       }
   
       data.isGM = game.user.isGM;
@@ -162,15 +162,15 @@ class ItemSheetWfrp4e extends ItemSheet {
   
       html.find('.lore-input').change(async event => {
         let inputLore = event.target.value;
-        for (let lore in CONFIG.magicLores)
+        for (let lore in WFRP4E.magicLores)
         {
-          if (inputLore == CONFIG.magicLores[lore])
+          if (inputLore == WFRP4E.magicLores[lore])
           {
-            let folder = game.folders.entities.find(f => f.name == "Lore of " + CONFIG.magicLores[lore])
+            let folder = game.folders.entities.find(f => f.name == "Lore of " + WFRP4E.magicLores[lore])
   
             await this.item.update({'data.lore.value' : lore});
            // await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
-           // await this.item.update({"name" : this.item.data.name + " ("+CONFIG.magicLores[lore]+")"});
+           // await this.item.update({"name" : this.item.data.name + " ("+WFRP4E.magicLores[lore]+")"});
            // if (folder)
            //   await this.item.update({"folder" : folder.id})
             return;
@@ -268,5 +268,5 @@ try
 }
 catch // 0.3.4 and earlier compatibility
 {
-  CONFIG.Item.sheetClass = ItemSheetWfrp4e;
+  WFRP4E.Item.sheetClass = ItemSheetWfrp4e;
 }

@@ -31,8 +31,8 @@ class WFRP_Utility
       return description
     if (spell.data.lore.effect)
       description += "\n\n <b>Lore:</b> " + spell.data.lore.effect;
-    else if (CONFIG.loreEffect[spell.data.lore.value])
-      description += "\n\n <b>Lore:</b> " + CONFIG.loreEffect[spell.data.lore.value];
+    else if (WFRP4E.loreEffect[spell.data.lore.value])
+      description += "\n\n <b>Lore:</b> " + WFRP4E.loreEffect[spell.data.lore.value];
     return description;
   }
 
@@ -42,7 +42,7 @@ class WFRP_Utility
 
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
-    skill.data.characteristic.abrev = CONFIG.characteristicsAbbrev[skill.data.characteristic.value];
+    skill.data.characteristic.abrev = WFRP4E.characteristicsAbbrev[skill.data.characteristic.value];
 
     if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
       advOrGrpSkills.push(skill)
@@ -90,8 +90,8 @@ class WFRP_Utility
       skills = actorData.items.filter(i => i.type == "skill");
     }
 
-    weapon.data.reach.value = CONFIG.weaponReaches[weapon.data.reach.value];
-    weapon.data.weaponGroup.value = CONFIG.weaponGroups[weapon.data.weaponGroup.value];
+    weapon.data.reach.value = WFRP4E.weaponReaches[weapon.data.reach.value];
+    weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value];
 
     weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase())) 
     weapon["properties"] = this._prepareQualitiesFlaws(weapon, !!weapon.skillToUse);
@@ -225,7 +225,7 @@ class WFRP_Utility
       {
         item = item.trim();
         if (!(Object.values(WFRP_Utility.qualityList()).includes(item) || (Object.values(WFRP_Utility.flawList()).includes(item)))) //if the quality does not show up in either quality or flaw list, add it
-          CONFIG.itemQualities[item.toLowerCase().trim()] = item;
+          WFRP4E.itemQualities[item.toLowerCase().trim()] = item;
         return item
       }
     });
@@ -234,7 +234,7 @@ class WFRP_Utility
       {
         item = item.trim();
         if (!(Object.values(WFRP_Utility.flawList()).includes(item) || (Object.values(WFRP_Utility.qualityList()).includes(item)))) //if the quality does not show up in either quality or flaw list, add it
-          CONFIG.itemFlaws[item.toLowerCase().trim()] = item;
+          WFRP4E.itemFlaws[item.toLowerCase().trim()] = item;
         return item;
       }
     });
@@ -414,15 +414,15 @@ class WFRP_Utility
       for(let ch in actorData.data.characteristics)
       {
 
-        if (formula.includes(CONFIG.characteristics[ch].toLowerCase()))
+        if (formula.includes(WFRP4E.characteristics[ch].toLowerCase()))
         {
           if (formula.includes('bonus'))
           {
-            formula = formula.replace(CONFIG.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+            formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
           }
           else
           {
-            formula = formula.replace(CONFIG.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
+            formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
           }
         }
       }
@@ -448,11 +448,11 @@ class WFRP_Utility
       {
         if (formula.includes('bonus'))
         {
-          formula = formula.replace(CONFIG.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+          formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
         }
         else
         {
-          formula = formula.replace(CONFIG.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
+          formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
         }
       }
     }
@@ -470,11 +470,11 @@ class WFRP_Utility
   static speciesCharacteristics(species, average)
   {
     let characteristics = {};
-    let characteristicFormulae = CONFIG.speciesCharacteristics[species];
+    let characteristicFormulae = WFRP4E.speciesCharacteristics[species];
     try
     {
       if(!characteristicFormulae) // If input species was not a valid key, try finding it as a value
-        characteristicFormulae = CONFIG.speciesCharacteristics[this.findKey(species, CONFIG.species)]
+        characteristicFormulae = WFRP4E.speciesCharacteristics[this.findKey(species, WFRP4E.species)]
     }
     catch (error)
     {
@@ -483,7 +483,7 @@ class WFRP_Utility
       throw error
     }
 
-    for (let char in CONFIG.characteristics)
+    for (let char in WFRP4E.characteristics)
     {
       if (average)
       {
@@ -501,9 +501,9 @@ class WFRP_Utility
 
   static speciesMovement(species)
   {
-    let move = CONFIG.speciesMovement[species];
+    let move = WFRP4E.speciesMovement[species];
     if(!move) // If input species was not a valid key, try finding it as a value
-     move = CONFIG.speciesMovement[this.findKey(species, CONFIG.species)]
+     move = WFRP4E.speciesMovement[this.findKey(species, WFRP4E.species)]
     return move;
   }
 
@@ -578,7 +578,10 @@ class WFRP_Utility
 
     if (location)
     {
-      let pack = game.packs.find(p => p.metadata.module + "." + p.metadata.name == location)
+      let pack = game.packs.find(p => {
+        location.split(".")[0] == p.metadata.package &&
+        location.split(".")[1] == p.metadata.name
+      })
       if (pack)
       {
         await pack.getIndex().then(index => itemList = index);
@@ -613,9 +616,9 @@ class WFRP_Utility
 
   static qualityList()
   {
-    let weapon = duplicate(CONFIG.weaponQualities);
-    let armor = duplicate(CONFIG.armorQualities);
-    let item = duplicate(CONFIG.itemQualities);
+    let weapon = duplicate(WFRP4E.weaponQualities);
+    let armor = duplicate(WFRP4E.armorQualities);
+    let item = duplicate(WFRP4E.itemQualities);
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
   }
@@ -624,9 +627,9 @@ class WFRP_Utility
 
   static flawList()
   {
-    let weapon = duplicate(CONFIG.weaponFlaws);
-    let armor = duplicate(CONFIG.armorFlaws);
-    let item = duplicate(CONFIG.itemFlaws);
+    let weapon = duplicate(WFRP4E.weaponFlaws);
+    let armor = duplicate(WFRP4E.armorFlaws);
+    let item = duplicate(WFRP4E.itemFlaws);
     let list = mergeObject(weapon,mergeObject(item, armor))
     return list;
   }
@@ -638,9 +641,9 @@ class WFRP_Utility
     let index = Math.ceil((currentAdvances / 5) - 1);
     index = index < 0 ? 0 : index; // min 0
 
-    if (index >= CONFIG.xpCost[type].length)
-      return CONFIG.xpCost[CONFIG.xpCost.length-1];
-    return CONFIG.xpCost[type][index];
+    if (index >= WFRP4E.xpCost[type].length)
+      return WFRP4E.xpCost[WFRP4E.xpCost.length-1];
+    return WFRP4E.xpCost[type][index];
   }
 
   
@@ -740,7 +743,7 @@ class WFRP_Utility
    let returnConditions = [];
    for (let c in conditions)
    {
-     let displayValue = (CONFIG.conditions[c])
+     let displayValue = (WFRP4E.conditions[c])
      if (typeof conditions[c] !== "boolean")
       displayValue += " " + conditions[c]
       returnConditions.push(displayValue); 
@@ -751,8 +754,8 @@ class WFRP_Utility
 
   static postSymptom(symptom)
   {
-    let symkey = WFRP_Utility.findKey(symptom.split("(")[0].trim(), CONFIG.symptoms)
-    let content = `<b>${symptom}</b>: ${CONFIG.symptomDescriptions[symkey]}`;
+    let symkey = WFRP_Utility.findKey(symptom.split("(")[0].trim(), WFRP4E.symptoms)
+    let content = `<b>${symptom}</b>: ${WFRP4E.symptomDescriptions[symkey]}`;
     let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
     if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
@@ -760,7 +763,7 @@ class WFRP_Utility
 
     if (game.user.isGM)
     {
-      content = `<b>${symptom} Treatment</b>: ${CONFIG.symptomTreatment[symkey]}`;
+      content = `<b>${symptom} Treatment</b>: ${WFRP4E.symptomTreatment[symkey]}`;
       chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : content};
       chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
       ChatMessage.create(chatOptions);
@@ -770,7 +773,7 @@ class WFRP_Utility
   static postProperty(property)
   {
     let properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()), 
-    propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions),
+    propertyDescr = Object.assign(duplicate(WFRP4E.qualityDescriptions), WFRP4E.flawDescriptions),
     propertyKey;
 
     property = property.replace(/,/g, '').trim();
@@ -795,10 +798,31 @@ class WFRP_Utility
       content : content 
     };
     if(isRoll)
-      chatData.sound = CONFIG.sounds.dice
+      chatData.sound = WFRP4E.sounds.dice
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
     return chatData;
   }
 
+  static matchClosest(object, query)
+  {
+    let keys = Object.keys(object)
+    let match = [];
+    for (let key of keys)
+    {
+      let percentage = 0;
+      let matchCounter = 0;
+      for (let i = 0; i < key.length; i++)
+      {
+        if (key[i] == query[i])
+        {
+          matchCounter++;
+        }
+      }
+      percentage = matchCounter / key.length;
+      match.push(percentage);
+    }
+    let maxIndex = match.indexOf(Math.max.apply(Math, match));
+    return keys[maxIndex]
+  }
 }

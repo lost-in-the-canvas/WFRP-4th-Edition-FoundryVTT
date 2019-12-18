@@ -1308,7 +1308,7 @@ dnd5e/scripts/actor/sheet/base.js
 dnd5e/scripts/actor/sheet/character.js
 dnd5e/scripts/actor/sheet/npc.js
 dnd5e/scripts/actor/trait-selector.js
-dnd5e/scripts/config.js
+dnd5e/scripts/WFRP4E.js
 dnd5e/scripts/dice.js
 dnd5e/scripts/init.js
 dnd5e/scripts/item/item.js

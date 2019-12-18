@@ -73,9 +73,9 @@ class ActorSheetWfrp4e extends ActorSheet {
       }
       
 
-      for (let s in CONFIG.actorSizes)
+      for (let s in WFRP4E.actorSizes)
       {
-        if (CONFIG.actorSizes[s] == size && sheetData.actor.data.details.size.value != s)
+        if (WFRP4E.actorSizes[s] == size && sheetData.actor.data.details.size.value != s)
         {
           this.actor.update({"data.details.size.value" : s})
         }
@@ -439,7 +439,7 @@ class ActorSheetWfrp4e extends ActorSheet {
               actorData.currentClass = i.data.class.value;
               actorData.currentCareer = i.name;
               actorData.currentCareerGroup = i.data.careergroup.value;
-              actorData.status = CONFIG.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
+              actorData.status = WFRP4E.statusTiers[i.data.status.tier] + " " + i.data.status.standing;
               let availableCharacteristics = i.data.characteristics
               for (let char in actorData.data.characteristics)
               {
@@ -552,9 +552,9 @@ class ActorSheetWfrp4e extends ActorSheet {
           var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
           itemsInside.map(function(item){ // Add category of item to be displayed
           if (item.type == "trapping")
-            item.type = CONFIG.trappingCategories[item.data.trappingType.value];
+            item.type = WFRP4E.trappingCategories[item.data.trappingType.value];
           else
-            item.type = CONFIG.trappingCategories[item.type];
+            item.type = WFRP4E.trappingCategories[item.type];
         } )
           cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
           cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
@@ -643,6 +643,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         let untrainedSkills = []
         let untrainedTalents = []
         let hasCurrentCareer = false;
+        this.actor.data.flags.careerTalents = [];
         for (let career of careers)
         {
           if (career.data.current.value)
@@ -667,6 +668,8 @@ class ActorSheetWfrp4e extends ActorSheet {
               if (trainedTalents)
               {
                 trainedTalents.career = true;
+                this.actor.data.flags.careerTalents.push(trainedTalents)
+
               }
               else
               {
@@ -736,17 +739,17 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (enc.state > 3)
         {
           enc["maxEncumbered"] = true
-          enc.penalty = CONFIG.encumbrancePenalties["maxEncumbered"];
+          enc.penalty = WFRP4E.encumbrancePenalties["maxEncumbered"];
         }
         else if (enc.state > 2)
           {
             enc["veryEncumbered"] = true
-            enc.penalty = CONFIG.encumbrancePenalties["veryEncumbered"];
+            enc.penalty = WFRP4E.encumbrancePenalties["veryEncumbered"];
           }
         else if (enc.state > 1)
         {
           enc["encumbered"] = true
-          enc.penalty = CONFIG.encumbrancePenalties["encumbered"];
+          enc.penalty = WFRP4E.encumbrancePenalties["encumbered"];
         }
         else
           enc["notEncumbered"] = true;
@@ -763,10 +766,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       let skillList
       try
       {
-        skillList = CONFIG.speciesSkills[this.actor.data.data.details.species.value];
+        skillList = WFRP4E.speciesSkills[this.actor.data.data.details.species.value];
         if (!skillList)
         {
-          skillList = CONFIG.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+          skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
           if (!skillList)
           {
             throw "Could not add skills for species " + this.actor.data.data.details.species.value;
@@ -804,10 +807,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       let talentList
       try
       {
-        talentList = CONFIG.speciesTalents[this.actor.data.data.details.species.value];
+        talentList = WFRP4E.speciesTalents[this.actor.data.data.details.species.value];
         if (!talentList)
         {
-          talentList = CONFIG.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, CONFIG.species)]
+          talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
           if (!talentList)
             throw "Could not add talents for species " + this.actor.data.data.details.species.value;
         }
@@ -1598,7 +1601,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           data.details.experience.total += transfer.payload.exp;
 
         }
-        for (let c in CONFIG.characteristics)
+        for (let c in WFRP4E.characteristics)
         {
           data.characteristics[c].initial = transfer.payload.characteristics[c]
         }
@@ -1686,7 +1689,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let li = $(event.currentTarget).parents(".item"),
           property = event.target.text,
           properties = mergeObject(WFRP_Utility.qualityList(), WFRP_Utility.flawList()),
-          propertyDescr = Object.assign(duplicate(CONFIG.qualityDescriptions), CONFIG.flawDescriptions);
+          propertyDescr = Object.assign(duplicate(WFRP4E.qualityDescriptions), WFRP4E.flawDescriptions);
   
           property = property.replace(/,/g, '').trim();
   
@@ -1734,25 +1737,25 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           let range = parseInt(event.target.text);
           expansionText = 
-         `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${CONFIG.rangeModifiers["Point Blank"]}</a><br>
-          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${CONFIG.rangeModifiers["Short Range"]}</a><br>
-          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${CONFIG.rangeModifiers["Normal"]}</a><br>
-          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${CONFIG.rangeModifiers["Long Range"]}</a><br>
-          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${CONFIG.rangeModifiers["Extreme"]}</a><br>`;
+         `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
+          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
+          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
+          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
+          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
         }
         else if (classes.hasClass("weapon-group"))
         {
           let weaponGroup = event.target.text;
           let weaponGroupKey = "";
-          weaponGroupKey = WFRP_Utility.findKey(weaponGroup, CONFIG.weaponGroups);
-          expansionText = CONFIG.weaponGroupDescriptions[weaponGroupKey];
+          weaponGroupKey = WFRP_Utility.findKey(weaponGroup, WFRP4E.weaponGroups);
+          expansionText = WFRP4E.weaponGroupDescriptions[weaponGroupKey];
         }
         else if (classes.hasClass("weapon-reach"))
         {
           let reach = event.target.text;
           let reachKey;
-          reachKey = WFRP_Utility.findKey(reach, CONFIG.weaponReaches);
-          expansionText = CONFIG.reachDescription[reachKey];
+          reachKey = WFRP_Utility.findKey(reach, WFRP4E.weaponReaches);
+          expansionText = WFRP4E.reachDescription[reachKey];
         }
   
       // Toggle summary

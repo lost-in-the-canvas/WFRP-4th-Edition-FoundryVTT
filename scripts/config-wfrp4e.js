@@ -1,4 +1,6 @@
-CONFIG.statusEffects =
+const WFRP4E = {}
+
+WFRP4E.statusEffects =
 ["systems/wfrp4e/icons/conditions/bleeding1.png",
 "systems/wfrp4e/icons/conditions/bleeding2.png",
 "systems/wfrp4e/icons/conditions/bleeding3.png",
@@ -114,7 +116,7 @@ CONFIG.controlIcons.defeated = "systems/wfrp4e/icons/defeated.png";
  }
 
 // Species
-CONFIG.species = {
+WFRP4E.species = {
   "human": "Human",
   "dwarf": "Dwarf",
   "halfling": "Halfling",
@@ -122,7 +124,7 @@ CONFIG.species = {
   "welf": "Wood Elf",
 };
 
-CONFIG.speciesCharacteristics = {
+WFRP4E.speciesCharacteristics = {
   "human" :
   {
    "ws" : "2d10+20",
@@ -191,7 +193,7 @@ CONFIG.speciesCharacteristics = {
 
 }
 
-CONFIG.speciesSkills = {
+WFRP4E.speciesSkills = {
   "human" : [
     "Animal Care",
     "Charm",
@@ -264,7 +266,7 @@ CONFIG.speciesSkills = {
   ],
 }
 
-CONFIG.speciesTalents = {
+WFRP4E.speciesTalents = {
   "human" : [
     "Doomed",
     "Savvy, Suave",
@@ -303,7 +305,7 @@ CONFIG.speciesTalents = {
   ],
 }
 
-CONFIG.speciesMovement = {
+WFRP4E.speciesMovement = {
   "human" : 4,
   "dwarf" : 3,
   "halfling" : 3,
@@ -311,7 +313,7 @@ CONFIG.speciesMovement = {
   "welf" : 5
 }
 
-CONFIG.speciesFate = {
+WFRP4E.speciesFate = {
   "human" : 2,
   "dwarf" : 0,
   "halfling" : 0,
@@ -319,7 +321,7 @@ CONFIG.speciesFate = {
   "welf" : 0
 }
 
-CONFIG.speciesRes = {
+WFRP4E.speciesRes = {
   "human" : 1,
   "dwarf" : 2,
   "halfling" : 2,
@@ -327,7 +329,7 @@ CONFIG.speciesRes = {
   "welf" : 0
 }
 
-CONFIG.speciesExtra = {
+WFRP4E.speciesExtra = {
   "human" : 3,
   "dwarf" : 2,
   "halfling" : 3,
@@ -335,17 +337,28 @@ CONFIG.speciesExtra = {
   "welf" : 2
 }
 
+WFRP4E.classTrappings = {
+  "Academics" : "Clothing, Dagger, Pouch, Sling Bag containing Writing Kit and 1d10 sheets of Parchment",
+  "Burghers" : "Cloak, Clothing, Dagger, Hat, Pouch, Sling Bag containing Lunch",
+  "Courtiers" : "Fine Clothing, Dagger, Pouch containing Tweezers, Ear Pick, and a Comb",
+  "Peasants" : "Cloak, Clothing, Dagger, Pouch, Sling Bag containing Rations (1 day)",
+  "Rangers" : "Cloak, Clothing, Dagger, Pouch, Backpack containing Tinderbox, Blanket, Rations (1 day)",
+  "Riverfolk" : "Cloak, Clothing, Dagger, Pouch, Sling Bag containing a Flask of Spirits ",
+  "Rogues" : "Clothing, Dagger, Pouch, Sling Bag containing 2 Candles, 1d10 Matches, a Hood or Mask",
+  "Warriors" : "Clothing, Hand Weapon, Dagger, Pouch",
+}
+
 
 
 // Status Tiers
-CONFIG.statusTiers = {
+WFRP4E.statusTiers = {
   "g" : "Gold",
   "s" : "Silver",
   "b" : "Brass"
 };
 
 // Characteristic Names
-CONFIG.characteristics = {
+WFRP4E.characteristics = {
   "ws": "Weapon Skill",
   "bs": "Ballistic Skill",
   "s": "Strength",
@@ -359,7 +372,7 @@ CONFIG.characteristics = {
 };
 
 // Characteristic Abbreviations
-CONFIG.characteristicsAbbrev = {
+WFRP4E.characteristicsAbbrev = {
   "ws": "WS",
   "bs": "BS",
   "s": "S",
@@ -372,22 +385,22 @@ CONFIG.characteristicsAbbrev = {
   "fel": "Fel"
 };
 
-CONFIG.skillTypes = {
+WFRP4E.skillTypes = {
   "bsc" : "Basic",
   "adv" : "Advanced"
 };
 
-CONFIG.xpCost = {
+WFRP4E.xpCost = {
   "characteristic" : [25, 30, 40, 50, 70, 90, 120, 150, 190, 230, 280, 330, 390, 450, 520],
   "skill" : [10, 15, 20, 30, 40, 60, 80, 110, 140, 180, 220, 270, 320, 380, 440]
 }
 
-CONFIG.skillGroup = {
+WFRP4E.skillGroup = {
   "isSpec" : "Is Specialization",
   "noSpec" : "Not Specialization"
 };
 
-CONFIG.talentMax = {
+WFRP4E.talentMax = {
   "1":"1",
   "2":"2",
   "none":"None",
@@ -405,7 +418,7 @@ CONFIG.talentMax = {
 
 
 // Weapon Groups
-CONFIG.weaponGroups = {
+WFRP4E.weaponGroups = {
   "basic": "Basic",
   "cavalry": "Cavalry",
   "fencing": "Fencing",
@@ -425,7 +438,7 @@ CONFIG.weaponGroups = {
 };
 
 // Given a group, what's the primary type, melee or ranged
-CONFIG.groupToType = {
+WFRP4E.groupToType = {
   "basic": "Melee",
   "cavalry": "Melee",
   "fencing": "Melee",
@@ -445,7 +458,7 @@ CONFIG.groupToType = {
 };
 
 // Weapon Group Descriptions
-CONFIG.weaponGroupDescriptions = {
+WFRP4E.weaponGroupDescriptions = {
   "basic": "Basic",
   "cavalry": "Cavalry weapons are assumed to be used when mounted. When not used from horse-back, all two-handed weapons in the Cavalry Weapon Group also count as Two-Handed weapons. Single-handed Cavalry weapons are not normally used when unmounted.",
   "fencing": "Fencing",
@@ -465,7 +478,7 @@ CONFIG.weaponGroupDescriptions = {
 };
 
 // Weapon Reach
-CONFIG.weaponReaches={
+WFRP4E.weaponReaches={
   "personal":"Personal",
   "vshort":"Very Short",
   "short":"Short",
@@ -476,7 +489,7 @@ CONFIG.weaponReaches={
  }
 
  // Weapon reach descriptions
- CONFIG.reachDescription={
+ WFRP4E.reachDescription={
   "personal":"Your legs and fists, perhaps your head, and anything attached to those.",
   "vshort":"Less than a foot in length.",
   "short":"Up to 2 feet in length.",
@@ -487,7 +500,7 @@ CONFIG.weaponReaches={
  }
 
 // Ammo Groups
-CONFIG.ammunitionGroups = {
+WFRP4E.ammunitionGroups = {
   "BPandEng": "Blackpowder and Engineering",
   "bow": "Bow",
   "crossbow": "Crossbow",
@@ -495,7 +508,7 @@ CONFIG.ammunitionGroups = {
 };
 
 // Item Qualities
-CONFIG.itemQualities ={
+WFRP4E.itemQualities ={
   "durable": "Durable",
   "fine": "Fine",
   "lightweight": "Lightweight",
@@ -503,7 +516,7 @@ CONFIG.itemQualities ={
 };
 
 // Item Flaws
-CONFIG.itemFlaws = {
+WFRP4E.itemFlaws = {
   "ugly": "Ugly",
   "shoddy": "Shoddy",
   "unreliable": "Unreliable",
@@ -512,7 +525,7 @@ CONFIG.itemFlaws = {
 
 
 // Weapon Qualities
-CONFIG.weaponQualities = {
+WFRP4E.weaponQualities = {
   "accurate": "Accurate",
   "blackpowder": "Blackpowder",
   "blast": "Blast",
@@ -535,7 +548,7 @@ CONFIG.weaponQualities = {
 };
 
 // Weapon Flaws
-CONFIG.weaponFlaws = {
+WFRP4E.weaponFlaws = {
   "dangerous": "Dangerous",
   "imprecise": "Imprecise",
   "reload": "Reload",
@@ -546,7 +559,7 @@ CONFIG.weaponFlaws = {
 
 
 // Weapon Quality Descriptions (Used in dropdown info)
-CONFIG.qualityDescriptions = {
+WFRP4E.qualityDescriptions = {
   "accurate": "The weapon is accurate and easy to hit with. Gain a bonus of +10 to any Test when firing this weapon",
   "blackpowder": "The crack of gunfire followed by gouts of smoke and confusion can be terrifying. If you are targeted by a Blackpowder weapon, you must pass an Average (+20) Cool Test or take a Broken Condition, even if the shot misses.",
   "blast": "All Characters within (Rating) yards of the struck target point take SL+Weapon Damage, and suffer any Conditions the weapon inflicts.",
@@ -576,7 +589,7 @@ CONFIG.qualityDescriptions = {
 };
 
 // Weapon Flaw Descriptions (used in dropdown info)
-CONFIG.flawDescriptions = {
+WFRP4E.flawDescriptions = {
   "dangerous": "Some weapons are almost as likely to hurt you as your opponent. Any failed test including a 9 on either 10s or units die results in a Fumble.",
   "imprecise": "Imprecise weapons are difficult to bring to bear as they are unwieldy or hard to aim. Suffer a penalty of –1 SL when using the weapon to attack. An Imprecise Weapon can never be Precise (Imprecise takes precedent).",
   "reload": "The weapon is slow to reload. An unloaded weapon with this flaw requires an Extended Ranged Test for the appropriate Weapon Group scoring (Rating) SL to reload. If you are interrupted while reloading, you must start again from scratch.",
@@ -592,19 +605,19 @@ CONFIG.flawDescriptions = {
 };
 
 // Armor Qualities
-CONFIG.armorQualities = {
+WFRP4E.armorQualities = {
   "flexible": "Flexible",
   "impenetrable": "Impenetrable",
 };
 
 // Armor Flaws
-CONFIG.armorFlaws = {
+WFRP4E.armorFlaws = {
   "partial": "Partial",
   "weakpoints": "Weakpoints",
 };
 
 // Equipment Types
-CONFIG.armorTypes = {
+WFRP4E.armorTypes = {
   "softLeather": "Soft Leather",
   "boiledLeather": "Boiled Leather",
   "mail": "Mail",
@@ -613,7 +626,7 @@ CONFIG.armorTypes = {
 };
 
 // Range Test Modifiers
-CONFIG.rangeModifiers={
+WFRP4E.rangeModifiers={
   "Point Blank" : "Easy (+40)",
   "Short Range":"Average (+20)",
   "Normal" : "Challenging (+0)",
@@ -622,7 +635,7 @@ CONFIG.rangeModifiers={
  }
 
 // Difficulty Modifiers
-CONFIG.difficultyModifiers = {
+WFRP4E.difficultyModifiers = {
  "veasy" : 60,
  "easy" : 40 ,
  "average":20,
@@ -633,7 +646,7 @@ CONFIG.difficultyModifiers = {
 }
 
 // Difficulty Labels
-CONFIG.difficultyLabels = {
+WFRP4E.difficultyLabels = {
 
  "veasy" :"Very Easy (+60)",
  "easy" :"Easy (+40)",
@@ -644,7 +657,7 @@ CONFIG.difficultyLabels = {
  "vhard":"Very Hard (-30)"
 }
 
-CONFIG.locations = {
+WFRP4E.locations = {
  "head": "Head",
  "body": "Body",
  "rArm": "Right Arm",
@@ -656,7 +669,7 @@ CONFIG.locations = {
 
 
 // Trapping Availability
- CONFIG.availability = {
+ WFRP4E.availability = {
    "None": "-",
    "common": "Common",
    "scarce": "Scarce",
@@ -666,7 +679,7 @@ CONFIG.locations = {
 
 
 // Trapping Types
-CONFIG.trappingTypes = {
+WFRP4E.trappingTypes = {
   "clothingAccessories":"Clothing and Accessories",
   "foodAndDrink":"Food and Drink",
   "toolsAndKits":"Tools and Kits",
@@ -678,7 +691,7 @@ CONFIG.trappingTypes = {
 };
 
 // These categories are used to label items in containers (Trapping tab)
-CONFIG.trappingCategories = {
+WFRP4E.trappingCategories = {
   "weapon" : "Weapons",
   "armour" : "Armour",
   "money" : "Money",
@@ -695,7 +708,7 @@ CONFIG.trappingCategories = {
 };
 
 // Creature Sizes
-CONFIG.actorSizes = {
+WFRP4E.actorSizes = {
   "tiny": "Tiny",
   "ltl": "Little",
   "sml": "Small",
@@ -705,7 +718,7 @@ CONFIG.actorSizes = {
   "mnst": "Monstrous"
 };
 
-CONFIG.actorSizeNums = {
+WFRP4E.actorSizeNums = {
   "tiny": 0,
   "ltl": 1,
   "sml": 2,
@@ -716,7 +729,7 @@ CONFIG.actorSizeNums = {
 };
 
 // Condition Types
-CONFIG.magicLores = {
+WFRP4E.magicLores = {
   "petty": "Petty",
   "beasts": "Beasts",
   "death": "Death",
@@ -736,7 +749,7 @@ CONFIG.magicLores = {
 };
 
 // Given a Lore, what is the Wind
-CONFIG.magicWind = {
+WFRP4E.magicWind = {
   "petty": "None",
   "beasts": "Ghur",
   "death": "Shyish",
@@ -755,7 +768,7 @@ CONFIG.magicWind = {
   "tzeentch": "Dhar",
 };
 
-CONFIG.loreEffect = {
+WFRP4E.loreEffect = {
   "petty": "None",
   "beasts": "Whenever you successfully cast a spell from the Lore of Beasts, you may also gain the Fear (1) Creature Trait for the next 1d10 Rounds.",
   "death": "Targets afflicted by spells from the Lore of Death are drained of life, enervated, and listless. You may assign +1 Fatigued Condition to any living target aﬀected by a spell from this lore. A target may only ever have a single Fatigued Condition gained in this manner at any one time.",
@@ -775,23 +788,23 @@ CONFIG.loreEffect = {
 };
 
 // Types of prayers
-CONFIG.prayerTypes = {
+WFRP4E.prayerTypes = {
   "blessing" : "Blessing",
   "miracle" : "Miracle"
 }
 
-CONFIG.mutationTypes = {
+WFRP4E.mutationTypes = {
   "physical" : "Physical",
   "mental" : "Mental"
 }
 
-CONFIG.encumbrancePenalties = {
+WFRP4E.encumbrancePenalties = {
 "encumbered" : "–1 Movement (min: 3), –10 Agility, +1 Travel Fatigue",
 "veryEncumbered" : "–2 Movement (min: 2), –20 Agility (min: 10), +2 Travel Fatigue",
 "maxEncumbered" : "You're not moving.",
 }
 
-CONFIG.conditions = {
+WFRP4E.conditions = {
   "ablaze" : "Ablaze",
   "bleeding" : "Bleeding",
   "blinded" : "Blinded",
@@ -809,7 +822,7 @@ CONFIG.conditions = {
 }
 
 
-CONFIG.conditionDescriptions = {
+WFRP4E.conditionDescriptions = {
   "ablaze" : "At the end of every Round, you suﬀer <b><a class = 'chat-roll'>1d10</a></b> Wounds, modified by Toughness Bonus and Armor Points on the least protected Hit Location, with a minimum of 1 Wound suﬀered. Each extra Ablaze Condition you have adds +1 to the Damage suﬀered; so, three Ablaze Conditions result in 1d10+2 Damage suﬀered.<br><br>One Ablaze Condition can be removed with a successful Athletics Test, with each SL removing an extra Ablaze Condition. The Difficulty for this Test is modified by circumstances: it’s much easier to put out a fire rolling around on sand than it is in the middle of an oil-soaked kitchen",
   "bleeding" : "You are bleeding badly. Lose 1 Wound at the end of every Round, ignoring all modifiers. Further, suﬀer a penalty of –10 to any Tests to resist Festering Wounds, Minor Infection, or Blood Rot. If you reach 0 Wounds, you no longer lose Wounds and instead fall immediately unconscious (gain the <a class ='condition-chat'>Unconscious</a> Condition). At the end of Round, you have a 10% chance of dying per Bleeding Condition you have; so, if you had 3 Bleeding Conditions, you would die from blood loss on a roll of 0–30. If a double is scored on this roll, your wound clots a little: lose 1 Bleeding.You cannot regain consciousness until all Bleeding Conditions are removed (see Injury)<br><br>A Bleeding Condition can be removed with: a successful Heal Test, with each SL removing an extra Bleeding Condition; or with any spell or prayer that heals Wounds, with one Condition removed per Wound healed.<br><br>Once all Bleeding Conditions are removed, gain one <a class ='condition-chat'>Fatigued</a> Condition.",
   "blinded" : "Perhaps because of a ﬂash of light, or because of liquid sprayed in your face, you are unable to see properly. You suﬀer a –10 penalty to all Tests involving sight, and any opponent attacking you in close combat gains a bonus of +10 to hit you.<br><br>One Blinded Condition is removed at the end of every other Round",
@@ -826,7 +839,7 @@ CONFIG.conditionDescriptions = {
   "fear" : "When subject to Fear, you suffer –1 SL on all Tests to affect the source of your fear. You may not move closer to whatever is causing Fear without passing a <b>Challenging (+0) Cool</b> Test. If it comes closer to you, you must pass a <b>Challenging (+0) Cool</b> Test, or gain a <a class ='condition-chat'>Broken</a> Condition"
 }
 
-CONFIG.symptoms = {
+WFRP4E.symptoms = {
   "blight" : "Blight",
   "buboes" : "Buboes",
   "convulsions" : "Convulsions",
@@ -842,7 +855,7 @@ CONFIG.symptoms = {
   "delirium" : "Delirium"
 }
 
-CONFIG.symptomDescriptions = {
+WFRP4E.symptomDescriptions = {
   "blight" : "You are seriously ill and perhaps close to Morr’s Portal as deadly poisons ﬂood your body.\n\nPass a <b>Very Easy (+60) Endurance</b> daily (normally when you sleep) or die, passing away, perhaps in your sleep, perhaps lost in a fever, perhaps in agony. If Blight is marked as (Moderate), this Test is <b>Easy (+40)</b>; if marked as (Severe), this Test is <b>Average (+20)</b>.",
   "buboes" : "You have huge swellings of the lymph nodes, possibly in the groin, neck or armpits. These are enormously painful and may bleed or seep pus. They are disgusting, smelly, and some would argue a sure sign of the Lord of Pestilence’s favor, believing they hide tiny, growing Daemons. Common practice is to lance these terrible expressions of taint to remove whatever nestles within, though doing so often results in Festering Wounds.\n\nSuffer a penalty of –10 to all physical Tests, and to all Fellowship Tests if the buboes can be seen (or smelled!).",
   "convulsions" : "Your body periodically spasms or shakes as the infection seemingly uses you like a puppet.\n\nSuffer a penalty of –10 to all physical Tests as your body convulses beyond your control. If this symptom is marked as (Moderate), the penalty increases to –20. If it is marked as (Severe), you need to be tied down in order not to hurt yourself, leaving you eﬀectively incapacitated.",
@@ -859,7 +872,7 @@ CONFIG.symptomDescriptions = {
 
 }
 
-CONFIG.symptomTreatment = {
+WFRP4E.symptomTreatment = {
   "blight" : "None that work",
   "buboes" : "A successful Heal Test with Surgery can lance your buboes, removing the penalty. If the Test is failed, gain a Festering Wound. If your Buboes are lanced, make a <b>Difficult (–10) Endurance</b> Test once per day or more swell into place",
   "convulsions" : "Rare herbs and alchemical mixes can lessen this symptom for a day, bringing Severe down to Moderate, and Moderate down to standard convulsions. These can be created by any with the Trade (Apothecary) skill and access to the appropriate ingredients (which can cost upwards of 10 shillings or more per dose). The final medicine is Rare and usually genuine (80%), and can be bought for around 1 GC per dose from Apothecaries, putting it beyond the reach of most citizens of the Empire.",
@@ -876,13 +889,13 @@ CONFIG.symptomTreatment = {
 
 }
 
-CONFIG.earningValues = {
+WFRP4E.earningValues = {
   "b" : "2d10",
   "s" : "1d10",
   "g" : "1",
 }
 
-CONFIG.randomExp = {
+WFRP4E.randomExp = {
   speciesRand : 20,
   careerRand : 50,
   careerReroll : 25,

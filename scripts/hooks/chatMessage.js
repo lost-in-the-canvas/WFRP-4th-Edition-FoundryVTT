@@ -35,25 +35,9 @@ Hooks.on("chatMessage", (html, content, msg) => {
     else if (command[0] == "/cond")
     {
       let conditionInput = command[1].toLowerCase();
-      let condList = Object.keys(CONFIG.conditions);
-      let match = [];
-      for (let cond of condList)
-      {
-        let percentage = 0;
-        let matchCounter = 0;
-        for (let i = 0; i < cond.length; i++)
-        {
-          if (cond[i] == conditionInput[i])
-          {
-            matchCounter++;
-          }
-        }
-        percentage = matchCounter / cond.length;
-        match.push(percentage);
-      }
-      let maxIndex = match.indexOf(Math.max.apply(Math, match));
-      let description = CONFIG.conditionDescriptions[condList[maxIndex]];
-      let name = CONFIG.conditions[condList[maxIndex]];
+      let closest = WFRP_Utility.matchClosest(WFRP4E.conditions, conditionInput)
+      let description = WFRP4E.conditionDescriptions[closest];
+      let name = WFRP4E.conditions[closest];
   
       msg.content = `<b>${name}</b><br>${description}`
       ChatMessage.create(msg);
