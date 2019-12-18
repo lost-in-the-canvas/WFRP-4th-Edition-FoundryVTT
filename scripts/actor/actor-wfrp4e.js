@@ -1143,12 +1143,13 @@ class ActorWfrp4e extends Actor {
       newWounds -= totalWoundLoss
 
       if (newWounds <= 0 && !impenetrable)
-      {
-        newWounds = 0;
         updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
-      } 
-      if (impenetrable)
+        
+      else if (impenetrable)
         updateMsg += `<br>Impenetrable - Criticals Nullified`
+      
+      if (newWounds <= 0)
+        newWounds = 0;
 
 
       updateMsg +="</span>"
@@ -1334,6 +1335,7 @@ class ActorWfrp4e extends Actor {
         game.user.targets.forEach(target => {
           target.actor.data.flags.oppose = {testResult : testResult, speaker : speaker}
         })
+        canvas.tokens.get(speaker.token).setTarget(false);
       } 
     }
   }
