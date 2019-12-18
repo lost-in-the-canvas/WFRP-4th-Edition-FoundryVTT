@@ -1827,7 +1827,9 @@
       margin: 0px;
     }
     #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-footer {
-      display: none;
+      /* display: none; */
+      color: #978461;
+      margin-left: 25px;
     }
     #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-search input {
       color: white
@@ -12682,12 +12684,25 @@ border-image-outset: 0px !important;
     background-position-x: center;
     }
       #client-settings .window-content form {
-      padding: 6px;
-      margin: 0px 8px 0px 0px;
-      border: none;
-      background: none;
-      box-shadow: inset 0px 0px 4px black;
-      overflow-y: scroll;
+        padding: 6px;
+        margin: 0px 8px 0px 0px;
+        border: none;
+        background: none;
+        box-shadow: inset 0px 0px 4px black;
+        overflow-y: unset;
+      }
+      #client-settings section.content {
+        border-top: none;
+        overflow: scroll;
+        overflow-x: auto;
+        max-height: 450px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      #client-settings section.content .settings-list {
+        max-height: calc(100vh - 150px);
+        overflow-y: unset;
+        padding-right: 0.5em;
       }
       #client-settings .window-content form .form-group {
         flex: 2;
