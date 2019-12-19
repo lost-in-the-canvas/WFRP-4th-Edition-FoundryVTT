@@ -1168,34 +1168,34 @@
     background: url(../ui/sidebar-button-settings-active.png);
   }
 
-  #sidebar-tabs > [title~="Chat"] {
+  #sidebar-tabs > [data-tab~="chat"] {
     background: url(../ui/sidebar-button-chat.png);
   }
-  #sidebar-tabs > [title~="Tracker"] {
+  #sidebar-tabs > [data-tab~="combat"] {
     background: url(../ui/sidebar-button-combat.png);
   }
-  #sidebar-tabs > [title~="Scenes"] {
+  #sidebar-tabs > [data-tab~="scenes"] {
     background: url(../ui/sidebar-button-scenes.png);
   }
-  #sidebar-tabs > [title~="Actors"] {
+  #sidebar-tabs > [data-tab~="actors"] {
     background: url(../ui/sidebar-button-actors.png);
   }
-  #sidebar-tabs > [title~="Items"] {
+  #sidebar-tabs > [data-tab~="items"] {
     background: url(../ui/sidebar-button-items.png);
   }
-  #sidebar-tabs > [title~="Journal"] {
+  #sidebar-tabs > [data-tab~="journal"] {
     background: url(../ui/sidebar-button-journal.png);
   }
-  #sidebar-tabs > [title~="Rollable"] {
+  #sidebar-tabs > [data-tab~="tables"] {
     background: url(../ui/sidebar-button-tables.png);
   }
-  #sidebar-tabs > [title~="Playlists"] {
+  #sidebar-tabs > [data-tab~="playlists"] {
     background: url(../ui/sidebar-button-playlists.png);
   }
-  #sidebar-tabs > [title~="Compendium"] {
+  #sidebar-tabs > [data-tab~="compendium"] {
     background: url(../ui/sidebar-button-compendium.png);
   }
-  #sidebar-tabs > [title~="Settings"] {
+  #sidebar-tabs > [data-tab~="settings"] {
     background: url(../ui/sidebar-button-settings.png);
   }
 

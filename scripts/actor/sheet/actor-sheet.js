@@ -1525,6 +1525,11 @@ class ActorSheetWfrp4e extends ActorSheet {
         }).render(true);
       }
     })
+
+    html.find(".name-gen").click(ev => {
+      let name = NameGenWfrp4e.generateName({species : this.actor.data.data.details.species.value, gender : this.actor.data.data.details.gender.value})
+      this.actor.update({"name" : name});
+    })
   
       //Item Dragging
       let handler = ev => this._onDragItemStart(ev);

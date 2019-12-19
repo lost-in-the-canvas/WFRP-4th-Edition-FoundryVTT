@@ -434,4 +434,7 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/items/item-header.html",
       "systems/wfrp4e/templates/items/item-description.html",
     ]);
+
+
+    NameGenWfrp4e._loadNames();
   });

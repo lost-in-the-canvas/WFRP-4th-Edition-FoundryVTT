@@ -1,6 +1,6 @@
 const WFRP4E = {}
 
-WFRP4E.statusEffects =
+CONFIG.statusEffects =
 ["systems/wfrp4e/icons/conditions/bleeding1.png",
 "systems/wfrp4e/icons/conditions/bleeding2.png",
 "systems/wfrp4e/icons/conditions/bleeding3.png",
