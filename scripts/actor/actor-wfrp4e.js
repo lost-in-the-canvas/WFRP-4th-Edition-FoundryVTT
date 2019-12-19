@@ -1038,13 +1038,9 @@ class ActorWfrp4e extends Actor {
       if (!opposeData.damage.value)
         return "Cannot automate damage (likely due to Tiring)"
       // TODO: Shield
-      let actor = game.actors.get(victim.actor);
-      if (victim.token)
-        actor = canvas.tokens.get(victim.token).actor
 
-      let attacker = game.actors.get(opposeData.speakerAttack.actor);
-      if (opposeData.speakerAttack.token)
-        attacker = canvas.tokens.get(opposeData.speakerAttack.token).actor
+      let actor = WFRP_Utility.getSpeaker(victim);
+      let attacker = WFRP_Utility.getSpeaker(oppose.speakerAttack)
     
       let totalWoundLoss = opposeData.damage.value
       let newWounds = actor.data.data.status.wounds.value;
@@ -1263,7 +1259,7 @@ class ActorWfrp4e extends Actor {
       result.postFunction = "castOverride";
 
       // Update spell to reflect SL from channelling resetting to 0
-      game.actors.get(cardOptions.speaker.actor).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
+      WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
       ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
     }
@@ -1273,7 +1269,7 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += "- Opposed"
 
-      let result = DiceWFRP.rollChannellTest(testData, game.actors.get(cardOptions.speaker.actor));
+      let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "channellOverride";
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
@@ -1285,7 +1281,7 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += "- Opposed"
 
-      let result = DiceWFRP.rollPrayTest(testData, game.actors.get(cardOptions.speaker.actor));
+      let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "prayerOverride";
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
       ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
@@ -1306,7 +1302,7 @@ class ActorWfrp4e extends Actor {
         if (Number(testData.extra.trait.data.specification.value))
           testData.extra.damage +=  Number(testData.extra.trait.data.specification.value)
         if (testData.extra.trait.data.rollable.bonusCharacteristic)
-          testData.extra.damage += Number(game.actors.get(cardOptions.speaker.actor).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
+          testData.extra.damage += Number(WFRP_Utility.getSpeaker(cardOptions.speaker).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
         }
       }
       catch (error)
@@ -1322,9 +1318,7 @@ class ActorWfrp4e extends Actor {
 
     static async handleOpposed(speaker, testResult)
     {
-      let actor = game.actors.get(speaker.actor);
-      if (speaker.token)
-        actor = canvas.tokens.get(speaker.token).actor
+      let actor = WFRP_Utility.getSpeaker(speaker)
       
       if (actor.data.flags.oppose)
       {

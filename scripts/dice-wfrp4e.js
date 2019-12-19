@@ -766,7 +766,7 @@ class DiceWFRP {
         messageId = button.parents('.message').attr("data-message-id"),
         message = game.messages.get(messageId);
         let data = message.data.flags.data
-        let actor = game.actors.get(message.data.speaker.actor);
+        let actor = WFRP_Utility.getSpeaker(message.data.speaker);
         let newTestData = data.preData;
         newTestData[button.attr("data-edit-type")] = parseInt(ev.target.value)
 

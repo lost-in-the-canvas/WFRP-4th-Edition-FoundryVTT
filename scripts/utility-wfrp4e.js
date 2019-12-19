@@ -825,4 +825,12 @@ class WFRP_Utility
     let maxIndex = match.indexOf(Math.max.apply(Math, match));
     return keys[maxIndex]
   }
+
+  static getSpeaker(speaker)
+  {
+    let actor = game.actors.get(speaker.actor);
+    if (speaker.token)
+      actor = canvas.tokens.get(speaker.token).actor
+    return actor
+  }
 }
