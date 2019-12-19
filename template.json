@@ -127,6 +127,11 @@
             "label": "Species",
             "value": ""
           },
+          "gender": {
+            "type": "String",
+            "label": "Gender",
+            "value": ""
+          },
           "size": {
             "type": "String",
             "label": "Size",
