@@ -23,7 +23,7 @@ class DiceWFRP {
       mergeObject(dialogOptions.data,
         {
           testDifficulty : dialogOptions.data.testDifficulty || "challenging",
-          difficultyLabels : CONFIG.difficultyLabels,
+          difficultyLabels : WFRP4E.difficultyLabels,
           testModifier : (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
           slBonus : dialogOptions.data.slBonus || 0,
           successBonus : dialogOptions.data.successBonus || 0,
@@ -31,7 +31,7 @@ class DiceWFRP {
       mergeObject(cardOptions,
         {
           user : game.user._id,
-
+          sound : CONFIG.sounds.dice
         })
 
       var roll;
@@ -68,7 +68,11 @@ class DiceWFRP {
       let successBonus = testData.successBonus;
       let slBonus = testData.slBonus;
       let targetNum = testData.target;
-      let SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
+      let SL
+      if (testData.SL == 0)
+        SL = testData.SL
+      else
+        SL = testData.SL  || ((Math.floor(targetNum/10) - Math.floor(roll.total/10)) + slBonus); // Use custom SL if input, otherwise, calculate
       let description = "";
 
       // Test determination logic can be complicated due to SLBonus
@@ -640,7 +644,18 @@ class DiceWFRP {
 
       html.on("click", ".item-lookup", async ev => {
         let itemType = $(ev.currentTarget).attr("data-type");
-        WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+        let location = $(ev.currentTarget).attr("data-location");
+        let name = $(ev.currentTarget).attr("data-name");
+        let item;
+        if (name)
+          item = await WFRP_Utility.findItem(name, itemType, location);
+        else if (location)
+          item = await WFRP_Utility.findItem(ev.currentTarget.text, itemType, location);
+
+        if (!item)
+          WFRP_Utility.findItem(ev.currentTarget.text, itemType).then(item => item.postItem());
+        else
+          item.postItem()
       })
 
       html.on("click", ".talent-lookup", async ev => {
@@ -674,15 +689,12 @@ class DiceWFRP {
       html.on("click", ".condition-chat", ev => {
         let cond = ev.target.text;
         cond = cond.split(" ")[0]
-        let condkey = WFRP_Utility.findKey(cond, CONFIG.conditions);
-        let condDescr = CONFIG.conditionDescriptions[condkey];
+        let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
+        let condDescr = WFRP4E.conditionDescriptions[condkey];
         let messageContent = `<b>${cond}</b><br>${condDescr}`
 
-        let chatOptions = {user : game.user._id, rollMode : game.settings.get("core", "rollMode"), content : messageContent};
-        if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-        if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-        chatOptions["type"] = 0;
-        ChatMessage.create(chatOptions);
+        let chatData = WFRP_Utility.chatDataSetup(messageContent)
+        ChatMessage.create(chatData);
       })
 
 
@@ -819,9 +831,9 @@ class DiceWFRP {
       {
         case "rollSpecies" : GeneratorWfrp4e.rollSpecies($(event.currentTarget).parents('.message').attr("data-message-id"))
           break;
-        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), CONFIG.randomExp.careerRand)
+        case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerRand)
           break;
-        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),CONFIG.randomExp.statsRand)
+        case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),WFRP4E.randomExp.statsRand)
           break;
       }
     });

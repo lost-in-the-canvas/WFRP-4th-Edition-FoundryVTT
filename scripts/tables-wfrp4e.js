@@ -170,7 +170,7 @@ class WFRP_Tables {
         case "winds":
             return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
         case "career":
-           return `<b>Random Career - ${CONFIG.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
+           return `<b>Random Career - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
   
         case "scatter":
           let tableHtml = '<table class = "scatter-table">' +

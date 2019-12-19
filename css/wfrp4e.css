@@ -94,7 +94,6 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 100%
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
@@ -785,12 +784,18 @@
 
   #sidebar.collapsed {
     width: 50px !important;
-    height: 326px !important;
+    height: 364px !important;
     position: absolute;
     top: 15px;
-    right: 0px;
-    padding-left: 3px;
-    background: url(../ui/sidebar-collapsed.png) repeat;
+    right: -1px;
+    padding: 19px 0px 0px 2px;
+    margin: 3px 0px 0px 0px;
+    border: 1px solid black;
+    border-image: url(../ui/frames/sidebar-collapsed.png);
+    border-image-slice: 9 fill;
+    border-image-width: 9px;
+    border-image-outset: 0px 0px 0px 0px;
+    border-image-repeat: repeat;
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     box-shadow: -2px 0px 8px #000;
@@ -1163,34 +1168,34 @@
     background: url(../ui/sidebar-button-settings-active.png);
   }
 
-  #sidebar-tabs > [title~="Chat"] {
+  #sidebar-tabs > [data-tab~="chat"] {
     background: url(../ui/sidebar-button-chat.png);
   }
-  #sidebar-tabs > [title~="Tracker"] {
+  #sidebar-tabs > [data-tab~="combat"] {
     background: url(../ui/sidebar-button-combat.png);
   }
-  #sidebar-tabs > [title~="Scenes"] {
+  #sidebar-tabs > [data-tab~="scenes"] {
     background: url(../ui/sidebar-button-scenes.png);
   }
-  #sidebar-tabs > [title~="Actors"] {
+  #sidebar-tabs > [data-tab~="actors"] {
     background: url(../ui/sidebar-button-actors.png);
   }
-  #sidebar-tabs > [title~="Items"] {
+  #sidebar-tabs > [data-tab~="items"] {
     background: url(../ui/sidebar-button-items.png);
   }
-  #sidebar-tabs > [title~="Journal"] {
+  #sidebar-tabs > [data-tab~="journal"] {
     background: url(../ui/sidebar-button-journal.png);
   }
-  #sidebar-tabs > [title~="Rollable"] {
+  #sidebar-tabs > [data-tab~="tables"] {
     background: url(../ui/sidebar-button-tables.png);
   }
-  #sidebar-tabs > [title~="Playlists"] {
+  #sidebar-tabs > [data-tab~="playlists"] {
     background: url(../ui/sidebar-button-playlists.png);
   }
-  #sidebar-tabs > [title~="Compendium"] {
+  #sidebar-tabs > [data-tab~="compendium"] {
     background: url(../ui/sidebar-button-compendium.png);
   }
-  #sidebar-tabs > [title~="Settings"] {
+  #sidebar-tabs > [data-tab~="settings"] {
     background: url(../ui/sidebar-button-settings.png);
   }
 
@@ -1338,6 +1343,7 @@
       bottom: 0px;
       right: 0px;
       display: flex;
+      margin: 0px;
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 1px solid black;
       border-image: url(../ui/chat-form-border.png) 10 repeat;
@@ -1408,7 +1414,7 @@
       opacity: 1;
       text-shadow: 1px 1px 5px #000000;
     }
-    #sidebar #combat #combat-round a[title="Activate Previous Encounter"] {
+    #sidebar #combat #combat-round .combat-cycle {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1430,7 +1436,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-next-encounter.png);
     }
-    #sidebar #combat #combat-round a[title="Reset Initiative"] {
+    #sidebar #combat #combat-round .combat-control {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1441,7 +1447,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-reset-initiative.png);
     }
-    #sidebar #combat #combat-round a[title="Tracker Settings"] {
+    #sidebar #combat #combat-round .combat-settings {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1641,10 +1647,6 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #journal .directory-list .directory-item h4 {
-  }
-  .sidebar-tab .directory-list .directory-item h4 {
-  }
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
   #sidebar #playlists .directory-list {
     flex: 1;
@@ -1825,7 +1827,9 @@
       margin: 0px;
     }
     #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-footer {
-      display: none;
+      /* display: none; */
+      color: #978461;
+      margin-left: 25px;
     }
     #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-search input {
       color: white
@@ -8602,9 +8606,22 @@
     height: 45px;
     margin: 5px 0px -7px 0px;
   }
+
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;
   }
+  
+.limited .tab.notes.active .note-section.biography .editor {
+  height: 100%;
+  width: 100%;
+  margin: 0px 0px 0px 0px;
+}
+    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .limited-note-section.biography {
+      height: 100%;
+      width: 100%;
+      padding: 4px;
+      border: 1px solid #736953a6;
+    }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.biography,
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.gmnotes {
       height: 270px;
@@ -9471,6 +9488,7 @@
   }
 
   /* FIRST ROW */
+  .limited .general .characteristics,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics {
     border-top: none;
     margin: 1px 0px 0px 0px;
@@ -9479,6 +9497,7 @@
     width: 403px;
     max-width: 400px
   }
+  .limited .general .characteristics .characteristics-table,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -9491,7 +9510,7 @@
     background: none;
     border: 1px solid #736953a6;
   }   
-
+  .limited .general .characteristics .characteristics-table .table-header,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header {
     font-family: var(--actor-label-font-family);
     font-size: var(--actor-label-font-size);
@@ -9503,10 +9522,12 @@
     border-bottom: none;  
     border-right: 1px solid #736953a6;
   }  
+  .limited .general .characteristics .characteristics-table .table-header:nth-of-type(10),
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
     /* background: red; */
   }  
+  .limited .general .characteristics .characteristics-table .table-header .table-header .header-block,
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header .header-block {
       padding-top: 0px;
     }  
@@ -9515,13 +9536,16 @@
       margin-top: -3px;
       margin-left: 3px;
     }
+  .limited .general .characteristics-table .table-data,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data {
     border-top: 1px solid #736953a6;
     border-right: 1px solid #736953a6;
   }
+  .limited .general .characteristics-table .table-data:last-of-type,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data:last-of-type {
     border-right: none;
   }
+  .limited .general .characteristics-table .table-data input,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
@@ -9534,6 +9558,7 @@
     text-align: center;
     padding-top: 7px;
   }
+  .limited .general .characteristics-table .table-data.ch-value,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data.ch-value {
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
@@ -12666,12 +12691,25 @@ border-image-outset: 0px !important;
     background-position-x: center;
     }
       #client-settings .window-content form {
-      padding: 6px;
-      margin: 0px 8px 0px 0px;
-      border: none;
-      background: none;
-      box-shadow: inset 0px 0px 4px black;
-      overflow-y: scroll;
+        padding: 6px;
+        margin: 0px 8px 0px 0px;
+        border: none;
+        background: none;
+        box-shadow: inset 0px 0px 4px black;
+        overflow-y: unset;
+      }
+      #client-settings section.content {
+        border-top: none;
+        overflow: scroll;
+        overflow-x: auto;
+        max-height: 450px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      #client-settings section.content .settings-list {
+        max-height: calc(100vh - 150px);
+        overflow-y: unset;
+        padding-right: 0.5em;
       }
       #client-settings .window-content form .form-group {
         flex: 2;
@@ -13329,10 +13367,7 @@ border-image-outset: 0px !important;
         font-size: var(--actor-input-font-size);
         font-weight: var(--actor-input-font-weight);
         color: #d6d6d6;
-        border: 1px solid #736953a6;
-        border-left: none;
-        box-shadow: 0px 0px 10px inset black;
-        background: #352516;
+        height: auto;
       }
       .app.window-app .form-group select {
         padding: 1px 3px;
@@ -13440,6 +13475,27 @@ border-image-outset: 0px !important;
       max-height: 45px;
     }
 
+  /* ================== 3. COMBAT TRACKER SETTINGS ============ */
+    #combat-config .window-content .form-group .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: left;
+      margin: 4px 0px 4px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+    #combat-config > section > form > div:nth-child(2) > input[type=checkbox] {
+      position: relative;
+      top: 7px;
+      margin-left: 6px;
+      transform: scale(1);
+    }
+
   /* ================== 3. SCENE SHEET ======================== */
     .app.window-app.sheet.scene-sheet .window-content {
       max-height: 490px;
@@ -13450,8 +13506,17 @@ border-image-outset: 0px !important;
       overflow-x: hidden;
       padding-right: 7px;
     }
-    .app.window-app.sheet.scene-sheet .window-content form .notes{
-      color: #BBB
+    .app.window-app.sheet.scene-sheet .window-content form .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     .app.window-app.sheet.scene-sheet .window-content form hr {
       opacity: 0.8;
@@ -13463,12 +13528,13 @@ border-image-outset: 0px !important;
       margin: 3px 0px;
       padding: 4px 3px 1px 3px;
       font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
+      font-size: 16px;
       font-weight: var(--actor-input-font-weight);
       color: #d6d6d6;
       line-height: normal;
       border: 3px double #564d3a;
       background: #290a0ad9;
+      text-align: center;
     }
     .app.window-app.sheet.scene-sheet .form-group label {
       max-width: 250px;
@@ -13500,7 +13566,7 @@ border-image-outset: 0px !important;
     /* Token Vision */
     .app.window-app.sheet.scene-sheet .form-group input[type="checkbox"] { 
       position: relative;
-      top: 4px;
+      top: 7px;
       margin-left: 6px;
       transform: scale(1);
     }
@@ -13529,7 +13595,23 @@ border-image-outset: 0px !important;
       padding: 4px;
     }
   
-  /* ================== 5. DELETE ITEM FROM ACTOR ============= */
+
+  /* ================== 5. CREATE ACTOR ENTITY ================ */
+    .app.window-app.dialog .dialog-content #entity-create .form-group .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: left;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+
+  /* ================== 6. DELETE ITEM FROM ACTOR ============= */
     .app.window-app .dialog-content .delete-item-dialog.selection {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
@@ -13542,7 +13624,7 @@ border-image-outset: 0px !important;
       text-align: center;
     }
 
-  /* ================== 5. SHEET CONFIG ======================= */
+  /* ================== 7. SHEET CONFIG ======================= */
     #sheet-config .form-group:first-of-type label {
       max-height: 28px;
       white-space: nowrap;
@@ -13550,7 +13632,7 @@ border-image-outset: 0px !important;
       overflow-wrap: unset;
     }
 
-  /* ================== 6. SHOW ARTWORK ======================= */
+  /* ================== 8. SHOW ARTWORK ======================= */
     .app.window-app.image-popout .window-header .share-image {
       color: #00e5ff00;
       text-align: center;
@@ -13584,7 +13666,7 @@ border-image-outset: 0px !important;
       border-image-outset: 0px 0px 0px 0px;
     }
 
-  /* ================== 7. TOKEN CONFIG ======================= */
+  /* ================== 9. TOKEN CONFIG ======================= */
     #token-config {
       max-height: 335px;
       min-height: 335px;
@@ -13773,7 +13855,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 7. DRAWING CONFIG ======================= */
+  /* ================== 10. DRAWING CONFIG ==================== */
     #drawing-config {
       min-height: 335px;
       overflow-y: auto;
@@ -13961,7 +14043,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-  /* ================== 8. JOUNRAL ENTRIES ==================== */
+  /* ================== 11. JOUNRAL ENTRIES =================== */
     .window-app.app.journal-sheet {
       min-width: 470px;
       min-height: 362px;
@@ -14194,7 +14276,7 @@ border-image-outset: 0px !important;
       color: var(--major-button-color);
     }
 
-  /* ================== 9. COMPENDIUM ========================= */
+  /* ================== 12. COMPENDIUM ======================== */
     .window-app.app .sidebar-tab.compendium {
       padding: 0px 0px 7px 0px;
     }
@@ -14240,7 +14322,7 @@ border-image-outset: 0px !important;
       overflow-y: auto;
     }
 
-  /* ================== 10. FILE PICKER ======================= */
+  /* ================== 13. FILE PICKER ======================= */
     .app.window-app.filepicker .form-group .back {
       border: 1px solid black;
       border-image: url(../ui/footer-button.png) 10 repeat;
@@ -15126,3 +15208,51 @@ border: 1px dotted black;
     margin: 5px;
 }
 
+input.card-edit {
+  width: 32px;
+  border: inset;
+}
+
+.wfrp4e.actor .combat .advantage {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 24px;
+  border: 1px solid #736953a6;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--input-label-font-weight);
+  color: var(--actor-input-color);
+  background: none;
+  box-shadow: none;
+  text-align: left;
+  display: inline-block;
+  flex-grow: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+}
+
+.wfrp4e.actor .advantage-label {
+  width: 20%;
+  height: 23px;
+  padding: 2px 0px 0px 0px;
+  font-family: var(--actor-label-font-family);
+  font-size: var(--actor-label-font-size);
+  font-weight: var(--actor-label-font-weight);
+  color: var(--actor-label-color);
+  border: none;
+  border-right: 1px solid #736953a6;
+  background: none;
+  box-shadow: 0 0 10px #6b3a0f87 inset;
+  text-align: center;
+  display: inline-block;
+  flex-grow: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+}
+
+
+#package-configuration .package-list, #module-management .package-list {
+  height: unset
+}

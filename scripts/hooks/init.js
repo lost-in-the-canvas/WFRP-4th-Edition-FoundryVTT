@@ -166,7 +166,7 @@ Hooks.once("init", () => {
             careerData.data["trappings"] = [];
             for (let careerChar of careerTier.CareerCharacteristics){
               let chCounter = 0;
-              for (let ch in CONFIG.characteristics){
+              for (let ch in WFRP4E.characteristics){
                 if (chCounter == careerChar){
                   careerData.data.characteristics.push(ch);
                   break;
@@ -203,8 +203,8 @@ Hooks.once("init", () => {
   {
         talentData.name = data.Name;
         talentData.type = "talent"
-        for (let talentMax in CONFIG.talentMax)
-          if (CONFIG.talentMax[talentMax] == data.Max)
+        for (let talentMax in WFRP4E.talentMax)
+          if (WFRP4E.talentMax[talentMax] == data.Max)
             talentData.data['max.value'] = talentMax;
         talentData.data["tests.value"] = data.Tests;
         talentData.data["description.value"] = data.Description;
@@ -434,4 +434,7 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/items/item-header.html",
       "systems/wfrp4e/templates/items/item-description.html",
     ]);
+
+
+    NameGenWfrp4e._loadNames();
   });
