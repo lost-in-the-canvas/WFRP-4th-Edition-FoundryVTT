@@ -8582,6 +8582,7 @@
     /* background: blue; */
   }    
 
+  .app.window-app.item-sheet .note-section.label,
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label {
     width: 100%;
     height: 20px;
@@ -8600,6 +8601,12 @@
     overflow-x: hidden;
     overflow-y: hidden;
   }
+
+  .app.window-app.item-sheet .note-section.label {
+    height: 45px;
+    margin: 5px 0px -7px 0px;
+  }
+
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
     margin: 6px 0px 0px 0px;
   }
@@ -13360,10 +13367,6 @@ border-image-outset: 0px !important;
         font-size: var(--actor-input-font-size);
         font-weight: var(--actor-input-font-weight);
         color: #d6d6d6;
-        border: 1px solid #736953a6;
-        border-left: none;
-        box-shadow: 0px 0px 10px inset black;
-        background: #352516;
         height: auto;
       }
       .app.window-app .form-group select {
@@ -15247,4 +15250,9 @@ input.card-edit {
   overflow-x: hidden;
   overflow-y: hidden;
   position: relative;
+}
+
+
+#package-configuration .package-list, #module-management .package-list {
+  height: unset
 }
