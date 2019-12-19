@@ -56,10 +56,10 @@ class OpposedWFRP {
     let defenderSL = parseInt(defender.testResult.SL);
   
     let differenceSL = 0;
-    if (attackerSL >= defenderSL)
+    if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
       {
         differenceSL = attackerSL - defenderSL;
-        opposeResult.result = `<b>${attacker.speaker.alias}</b> won by ${differenceSL} SL`;
+        opposeResult.result = `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`;
         opposeResult.speakerAttack= attacker.speaker
         opposeResult.speakerDefend = defender.speaker
         opposeResult.attackerTestResult = duplicate(attacker.testResult);
@@ -114,7 +114,7 @@ class OpposedWFRP {
       else
       {
         differenceSL = defenderSL - attackerSL;
-        opposeResult.result = `<b>${defender.speaker.alias}</b> won by ${differenceSL} SL`;        
+        opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`;        
       }
 
       if (options.target)
@@ -126,7 +126,14 @@ class OpposedWFRP {
             content : html,
             "flags.opposeData" : opposeResult
           }
-          ChatMessage.create(chatOptions)
+          try {
+            game.messages.get(options.message).update(chatOptions).then(resultMsg => {
+              ui.chat.updateMessage(resultMsg)
+            })
+          }
+          catch {
+            ChatMessage.create(chatOptions)
+          }
         })
       }
       else 
@@ -138,11 +145,16 @@ class OpposedWFRP {
             content : html,
             "flags.opposeData" : opposeResult
           }
-          this.startMessage.update(chatOptions).then(resultMsg =>{
-            ui.chat.updateMessage(resultMsg)
+          try {
+            this.startMessage.update(chatOptions).then(resultMsg =>{
+              ui.chat.updateMessage(resultMsg)
+              this.clearOpposed();
+            })
+          }
+          catch {
+            ChatMessage.create(chatOptions)
             this.clearOpposed();
-
-          })
+          }
         })
       }
     }

@@ -798,7 +798,7 @@ class WFRP_Utility
       content : content 
     };
     if(isRoll)
-      chatData.sound = WFRP4E.sounds.dice
+      chatData.sound = CONFIG.sounds.dice
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
     return chatData;

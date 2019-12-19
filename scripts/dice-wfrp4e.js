@@ -31,7 +31,7 @@ class DiceWFRP {
       mergeObject(cardOptions,
         {
           user : game.user._id,
-
+          sound : CONFIG.sounds.dice
         })
 
       var roll;
@@ -42,7 +42,7 @@ class DiceWFRP {
         roll = ActorWfrp4e.defaultRoll;
 
       dialogOptions.data.rollMode = rollMode;
-      dialogOptions.data.rollModes = WFRP4E.rollModes;
+      dialogOptions.data.rollModes = CONFIG.rollModes;
 
       // Render Test Dialog
       renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg => {
