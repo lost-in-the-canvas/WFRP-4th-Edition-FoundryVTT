@@ -1040,7 +1040,7 @@ class ActorWfrp4e extends Actor {
       // TODO: Shield
 
       let actor = WFRP_Utility.getSpeaker(victim);
-      let attacker = WFRP_Utility.getSpeaker(oppose.speakerAttack)
+      let attacker = WFRP_Utility.getSpeaker(opposeData.speakerAttack)
     
       let totalWoundLoss = opposeData.damage.value
       let newWounds = actor.data.data.status.wounds.value;
