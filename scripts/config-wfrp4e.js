@@ -1,5 +1,7 @@
 const WFRP4E = {}
 
+CONFIG.ChatMessage.template = "systems/wfrp4e/templates/chat/chat-message.html"
+
 CONFIG.statusEffects =
 ["systems/wfrp4e/icons/conditions/bleeding1.png",
 "systems/wfrp4e/icons/conditions/bleeding2.png",

@@ -287,13 +287,15 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/characteristic-card.html"
+        template : "systems/wfrp4e/templates/chat/characteristic-card.html",
+        img : this.data.img
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.img = this.token.img;
       }
 
 
@@ -379,13 +381,15 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/skill-card.html"
+        template : "systems/wfrp4e/templates/chat/skill-card.html",
+        img : this.data.img
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.img = this.token.img;
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
