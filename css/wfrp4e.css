@@ -14593,9 +14593,16 @@ font-style : normal;
   }
 
   #chat-log .message .message-header img{
-    width: 30px;
+    width: 50px;
+    height: 50px;
     border: none;
+    margin: -5px 5px 2px 0px;  
   }
+
+  h4.message-sender.sender-image {
+    position: relative;
+    top: 12px;
+}
 
   #chat-log .message .fumble-roll {
     color: darkred
