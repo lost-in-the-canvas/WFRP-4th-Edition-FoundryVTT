@@ -616,8 +616,7 @@ class DiceWFRP {
 
         chatOptions["content"] = html;
 
-        ChatMessage.create(chatOptions, false);
-        return html;
+        return ChatMessage.create(chatOptions, false);
       });
     }
     else
@@ -627,14 +626,13 @@ class DiceWFRP {
 
         // Emit the HTML as a chat message
         chatOptions["content"] = html;
-        rerenderMessage.update(
+        return rerenderMessage.update(
         {
           content: html,
           ["flags.data"] : chatOptions["flags.data"]
         }, true).then(newMsg => {
           ui.chat.updateMessage(newMsg);
         });
-        return html;
       });
     }
   }
