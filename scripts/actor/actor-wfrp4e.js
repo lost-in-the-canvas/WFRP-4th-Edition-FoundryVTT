@@ -1183,7 +1183,7 @@ class ActorWfrp4e extends Actor {
 
       
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
         ActorWfrp4e.handleOpposed(msg)
@@ -1196,7 +1196,7 @@ class ActorWfrp4e extends Actor {
       result.postFunction = "incomeOverride"
             
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
       let dieAmount = WFRP4E.earningValues[testData.income.tier][0]
       dieAmount = Number(dieAmount) * testData.income.standing;
@@ -1260,7 +1260,7 @@ class ActorWfrp4e extends Actor {
     static async weaponOverride(testData, cardOptions, rerenderMessage = null)
     {       
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
          
       let result = DiceWFRP.rollWeaponTest(testData);
       result.postFunction = "weaponOverride";
@@ -1273,7 +1273,7 @@ class ActorWfrp4e extends Actor {
     static async castOverride(testData, cardOptions, rerenderMessage = null)
     {    
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
       let result = DiceWFRP.rollCastTest(testData);
       result.postFunction = "castOverride";
@@ -1303,7 +1303,7 @@ class ActorWfrp4e extends Actor {
     static async prayerOverride(testData, cardOptions, rerenderMessage = null)
     {      
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
       let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "prayerOverride";
@@ -1316,7 +1316,7 @@ class ActorWfrp4e extends Actor {
     static async traitOverride(testData, cardOptions, rerenderMessage = null)
     {      
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
       let result = DiceWFRP.rollTest(testData);
       result.postFunction = "traitOverride";
@@ -1414,9 +1414,10 @@ class ActorWfrp4e extends Actor {
       "token.bar2" :{"attribute" : "status.advantage"},
       "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.name" : actor.name,
-      "img" : "systems/wfrp4e/tokens/unknown.png"
+      "token.name" : actor.name
     })
+    if (!actor.img)
+      actor.img = "systems/wfrp4e/tokens/unknown.png"
   })
 
   Hooks.on("preUpdateActor", (data, updatedData) =>{
