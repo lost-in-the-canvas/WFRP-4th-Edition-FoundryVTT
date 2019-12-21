@@ -1041,14 +1041,9 @@ class ActorWfrp4e extends Actor {
       // If no damage value, don't attempt anything
       if (!opposeData.damage.value)
         return "Cannot automate damage (likely due to Tiring)"
-      // TODO: Shield
-      let actor = game.actors.get(victim.actor);
-      if (victim.token)
-        actor = canvas.tokens.get(victim.token).actor
 
-      let attacker = game.actors.get(opposeData.speakerAttack.actor);
-      if (opposeData.speakerAttack.token)
-        attacker = canvas.tokens.get(opposeData.speakerAttack.token).actor
+      let actor = WFRP_Utility.getSpeaker(victim);
+      let attacker = WFRP_Utility.getSpeaker(opposeData.speakerAttack)
     
       let totalWoundLoss = opposeData.damage.value
       let newWounds = actor.data.data.status.wounds.value;
@@ -1177,8 +1172,9 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += "- Opposed"
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
 
     static async incomeOverride(testData, cardOptions, rerenderMessage = null)
@@ -1243,8 +1239,9 @@ class ActorWfrp4e extends Actor {
       {
         result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
       }
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage); 
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
 
     static async weaponOverride(testData, cardOptions, rerenderMessage = null)
@@ -1254,8 +1251,10 @@ class ActorWfrp4e extends Actor {
          
       let result = DiceWFRP.rollWeaponTest(testData);
       result.postFunction = "weaponOverride";
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
 
     static async castOverride(testData, cardOptions, rerenderMessage = null)
@@ -1267,21 +1266,25 @@ class ActorWfrp4e extends Actor {
       result.postFunction = "castOverride";
 
       // Update spell to reflect SL from channelling resetting to 0
-      game.actors.get(cardOptions.speaker.actor).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+      WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
+
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
 
     static async channellOverride(testData, cardOptions, rerenderMessage = null)
     {      
       if (game.user.targets.size)
-         cardOptions.title += "- Opposed"
+         cardOptions.title += " - Opposed"
 
-      let result = DiceWFRP.rollChannellTest(testData, game.actors.get(cardOptions.speaker.actor));
+      let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "channellOverride";
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
 
     static async prayerOverride(testData, cardOptions, rerenderMessage = null)
@@ -1289,10 +1292,12 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += "- Opposed"
 
-      let result = DiceWFRP.rollPrayTest(testData, game.actors.get(cardOptions.speaker.actor));
+      let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "prayerOverride";
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        ActorWfrp4e.handleOpposed(msg)
+      })
     }
   
     static async traitOverride(testData, cardOptions, rerenderMessage = null)
@@ -1310,7 +1315,7 @@ class ActorWfrp4e extends Actor {
         if (Number(testData.extra.trait.data.specification.value))
           testData.extra.damage +=  Number(testData.extra.trait.data.specification.value)
         if (testData.extra.trait.data.rollable.bonusCharacteristic)
-          testData.extra.damage += Number(game.actors.get(cardOptions.speaker.actor).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
+          testData.extra.damage += Number(WFRP_Utility.getSpeaker(cardOptions.speaker).data.data.characteristics[testData.extra.trait.data.rollable.bonusCharacteristic].bonus) || 0;
         }
       }
       catch (error)
@@ -1319,29 +1324,39 @@ class ActorWfrp4e extends Actor {
       } // If something went wrong calculating damage, do nothing and still render the card
       if (testData.extra)
         mergeObject(result, testData.extra);
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage);
-      ActorWfrp4e.handleOpposed(cardOptions.speaker, result)
+ 
+        await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+          ActorWfrp4e.handleOpposed(msg)
+        })
     }
 
 
-    static async handleOpposed(speaker, testResult)
+    static async handleOpposed(message)
     {
-      let actor = game.actors.get(speaker.actor);
-      if (speaker.token)
-        actor = canvas.tokens.get(speaker.token).actor
-      
+      let actor = WFRP_Utility.getSpeaker(message.data.speaker)
+      let testResult = message.data.flags.data.postData
       if (actor.data.flags.oppose)
       {
-        OpposedWFRP.evaluateOpposedTest(actor.data.flags.oppose, {speaker : speaker, testResult : testResult}, {target : true, message : actor.data.flags.oppose.message})
+        let attackMessage = game.messages.get(actor.data.flags.oppose.messageId)
+        let attacker = {
+          speaker : actor.data.flags.oppose.speaker,
+          testResult : attackMessage.data.flags.data.postData
+        }
+        let defender = {
+          speaker : message.data.speaker,
+          testResult : testResult
+        }
+        OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
+        await actor.update({"-=flags.oppose" : null})
       }
       else if (game.user.targets.size)
       {
         game.user.targets.forEach(async target => {
           let content = `<b>${actor.data.name}</b> is targeting <b>${target.actor.data.name}</b>`
-          let message = await ChatMessage.create({user : game.user._id, content : content, speaker : speaker})
-          target.actor.data.flags.oppose = {testResult : testResult, speaker : speaker, message : message.id}
+          await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
+          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id}})
         })
-        canvas.tokens.get(speaker.token).setTarget(false);
+        canvas.tokens.get(message.data.speaker.token).setTarget(false);
       } 
     }
   }

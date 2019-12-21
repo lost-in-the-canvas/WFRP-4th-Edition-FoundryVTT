@@ -114,7 +114,7 @@ class OpposedWFRP {
       else
       {
         differenceSL = defenderSL - attackerSL;
-        opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`;        
+        opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${attacker.speaker.alias}</b> by ${differenceSL} SL`;        
       }
 
       if (options.target)
@@ -126,14 +126,7 @@ class OpposedWFRP {
             content : html,
             "flags.opposeData" : opposeResult
           }
-          try {
-            game.messages.get(options.message).update(chatOptions).then(resultMsg => {
-              ui.chat.updateMessage(resultMsg)
-            })
-          }
-          catch {
             ChatMessage.create(chatOptions)
-          }
         })
       }
       else 

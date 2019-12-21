@@ -616,8 +616,7 @@ class DiceWFRP {
 
         chatOptions["content"] = html;
 
-        ChatMessage.create(chatOptions, false);
-        return html;
+        return ChatMessage.create(chatOptions, false);
       });
     }
     else
@@ -627,14 +626,13 @@ class DiceWFRP {
 
         // Emit the HTML as a chat message
         chatOptions["content"] = html;
-        rerenderMessage.update(
+        return rerenderMessage.update(
         {
           content: html,
           ["flags.data"] : chatOptions["flags.data"]
         }, true).then(newMsg => {
           ui.chat.updateMessage(newMsg);
         });
-        return html;
       });
     }
   }
@@ -766,7 +764,7 @@ class DiceWFRP {
         messageId = button.parents('.message').attr("data-message-id"),
         message = game.messages.get(messageId);
         let data = message.data.flags.data
-        let actor = game.actors.get(message.data.speaker.actor);
+        let actor = WFRP_Utility.getSpeaker(message.data.speaker);
         let newTestData = data.preData;
         newTestData[button.attr("data-edit-type")] = parseInt(ev.target.value)
 
