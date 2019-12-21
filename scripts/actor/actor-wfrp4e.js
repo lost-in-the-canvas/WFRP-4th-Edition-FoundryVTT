@@ -1361,20 +1361,29 @@ class ActorWfrp4e extends Actor {
           testResult : testResult,
           img : actor.data.msg
         }
-        let winner = await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
-        let loser = winner == "attacker" ? "defender" : "attacker"
-        let startMessage = game.messages.get(actor.data.flags.oppose.startMessageId)
-        // forgive me but i'm too tired to deal with jquery
-        let newContent = startMessage.data.content.replace(winner, `${winner} winner`)
-        newContent = newContent.replace(loser, `${loser} loser`)
+        try
+        {
+          let winner = await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
+          if (game.user.isGM)
+          {
+            let loser = winner == "attacker" ? "defender" : "attacker"
+            let startMessage = game.messages.get(actor.data.flags.oppose.startMessageId)
+            // forgive me but i'm too tired to deal with jquery
+            let newContent = startMessage.data.content.replace(winner, `${winner} winner`)
+            newContent = newContent.replace(loser, `${loser} loser`)
 
-        let cardData = {
-          user : game.user._id,
-          content: newContent
+            let cardData = {
+              user : game.user._id,
+              content: newContent
+            }
+            startMessage.update(cardData).then(resultCard => {
+              ui.chat.updateMessage(resultCard)
+            })
+          }
         }
-        startMessage.update(cardData).then(resultCard => {
-          ui.chat.updateMessage(resultCard)
-        })
+        catch {
+          // if failed to update chat card, do nothing
+        }
         await actor.update({"-=flags.oppose" : null})
 
       }
