@@ -122,7 +122,7 @@
       <span class="top label">Wounds</span>
       <div class="wounds-value-box">
         <div id="value">
-          <input  data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
+          <input class="wounds-value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
         </div>
         <div id="divisor">
           /
@@ -146,7 +146,7 @@
       <span class="top label">Critical Wounds</span>
       <div class="criticalWounds-value-box">
         <div id="value">
-          <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}}">
+          <input name="data.status.criticalWounds.value" type="text" value="{{data.status.criticalWounds.value}} readonly">
         </div>
         <div id="divisor" class="divisor">
           /
