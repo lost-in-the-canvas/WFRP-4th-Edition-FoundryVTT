@@ -59,7 +59,7 @@ class OpposedWFRP {
     let differenceSL = 0;
     if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
     {
-      result = "attacker"
+      opposeResult.winner = "attacker"
       differenceSL = attackerSL - defenderSL;
       opposeResult.result = 
       `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
@@ -115,7 +115,7 @@ class OpposedWFRP {
       }
       else
       {
-        result = "defender"
+        opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL;
         opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${attacker.speaker.alias}</b> by ${differenceSL} SL`
         opposeResult.img = defender.img
@@ -128,7 +128,8 @@ class OpposedWFRP {
           let chatOptions = {
             user : game.user.id,
             content : html,
-            "flags.opposeData" : opposeResult
+            "flags.opposeData" : opposeResult,
+            "flags.startMessageId" : options.startMessageId,
           }
             ChatMessage.create(chatOptions)
         })
@@ -159,7 +160,6 @@ class OpposedWFRP {
     {
       this.clearOpposed()
     }
-    return result
   }
 
   static createOpposedStartMessage(speaker)

@@ -295,7 +295,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
-        cardOptions.img = this.token.img;
+        cardOptions.flags.img = this.token.data.img;
       }
 
 
@@ -389,7 +389,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
-        cardOptions.img = this.token.img;
+        cardOptions.flags.img = this.token.data.img;
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -581,7 +581,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.img = this.data.img
+        cardOptions.flags.img = this.token.data.img
 
       }
       // Call the roll helper utility
@@ -728,7 +728,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.img = this.data.img
+        cardOptions.flags.img = this.token.data.img
 
       }
       // Call the roll helper utility
@@ -837,7 +837,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.img = this.data.img
+        cardOptions.flags.img = this.token.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -929,7 +929,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.img = this.data.img
+        cardOptions.flags.img = this.token.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -1009,7 +1009,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.img = this.data.img
+        cardOptions.flags.img = this.token.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -1185,7 +1185,7 @@ class ActorWfrp4e extends Actor {
       if (game.user.targets.size)
          cardOptions.title += " - Opposed"
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1252,7 +1252,7 @@ class ActorWfrp4e extends Actor {
       {
         result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
       }
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1265,7 +1265,7 @@ class ActorWfrp4e extends Actor {
       let result = DiceWFRP.rollWeaponTest(testData);
       result.postFunction = "weaponOverride";
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1281,7 +1281,7 @@ class ActorWfrp4e extends Actor {
       // Update spell to reflect SL from channelling resetting to 0
       WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1295,7 +1295,7 @@ class ActorWfrp4e extends Actor {
       result.postFunction = "channellOverride";
 
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1308,7 +1308,7 @@ class ActorWfrp4e extends Actor {
       let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
       result.postFunction = "prayerOverride";
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         ActorWfrp4e.handleOpposed(msg)
       })
     }
@@ -1338,7 +1338,7 @@ class ActorWfrp4e extends Actor {
       if (testData.extra)
         mergeObject(result, testData.extra);
  
-        await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {;
+        await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
           ActorWfrp4e.handleOpposed(msg)
         })
     }
@@ -1361,29 +1361,7 @@ class ActorWfrp4e extends Actor {
           testResult : testResult,
           img : actor.data.msg
         }
-        try
-        {
-          let winner = await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
-          if (game.user.isGM)
-          {
-            let loser = winner == "attacker" ? "defender" : "attacker"
-            let startMessage = game.messages.get(actor.data.flags.oppose.startMessageId)
-            // forgive me but i'm too tired to deal with jquery
-            let newContent = startMessage.data.content.replace(winner, `${winner} winner`)
-            newContent = newContent.replace(loser, `${loser} loser`)
-
-            let cardData = {
-              user : game.user._id,
-              content: newContent
-            }
-            startMessage.update(cardData).then(resultCard => {
-              ui.chat.updateMessage(resultCard)
-            })
-          }
-        }
-        catch {
-          // if failed to update chat card, do nothing
-        }
+        await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true, startMessageId : actor.data.flags.oppose.startMessageId})
         await actor.update({"-=flags.oppose" : null})
 
       }
@@ -1391,10 +1369,10 @@ class ActorWfrp4e extends Actor {
       {
         game.user.targets.forEach(async target => {
           let content = 
-          `<div class ="opposed-message"><b>${actor.data.name}</b> is targeting <b>${target.actor.data.name}</b></div>
+          `<div class ="opposed-message"><b>${actor.token.data.name}</b> is targeting <b>${target.actor.token.data.name}</b></div>
           <div class = "opposed-tokens">
-          <div class = "attacker"><img src="${actor.data.img}" width="50" height="50"/></div>
-          <div class = "defender"><img src="${target.actor.data.img}" width="50" height="50"/></div>
+          <div class = "attacker"><img src="${actor.token.data.img}" width="50" height="50"/></div>
+          <div class = "defender"><img src="${target.actor.token.data.img}" width="50" height="50"/></div>
           </div>`
           
           let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})

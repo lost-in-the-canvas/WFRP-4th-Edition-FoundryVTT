@@ -1338,12 +1338,9 @@ class ActorSheetWfrp4e extends ActorSheet {
   
           else if (toggle == "encumbrance")
             newFlags.autoCalcEnc = !newFlags.autoCalcEnc;
-  
-  
+            
           this.actor.update({'flags' : newFlags})
-  
         }
-  
       });
   
       html.find('.disease-roll').mousedown(async ev =>  {

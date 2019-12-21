@@ -45,7 +45,7 @@ Hooks.once("init", () => {
       {
         try {
           if (!file.includes(".json"))
-            throw "Not JSON file"
+            continue
           let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
           fetch(file).then(r=>r.json()).then(async records => {
             WFRP_Tables[filename] = records;

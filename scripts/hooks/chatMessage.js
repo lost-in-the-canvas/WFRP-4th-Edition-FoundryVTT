@@ -4,6 +4,8 @@ Hooks.on("chatMessage", (html, content, msg) => {
     if ( ["gmroll", "blindroll"].includes(rollMode) ) msg["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( rollMode === "blindroll" ) msg["blind"] = true;
     msg["type"] = 0;
+
+    console.log(html);
   
     let command = content.split(" ").map(function(item) {
       return item.trim();
