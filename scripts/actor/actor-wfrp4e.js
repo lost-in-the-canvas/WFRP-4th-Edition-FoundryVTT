@@ -1406,6 +1406,13 @@ class ActorWfrp4e extends Actor {
       "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.name" : actor.name,
-      "img" : "systems/wfrp4e/tokens/ghost.png"
+      "img" : "systems/wfrp4e/tokens/unknown.png"
     })
+  })
+
+  Hooks.on("preUpdateActor", (data, updatedData) =>{
+    if (data.data.token.img == "systems/wfrp4e/tokens/unknown.png" && updatedData.img)
+    {
+      updatedData["token.img"] = updatedData.img;
+    }
   })
