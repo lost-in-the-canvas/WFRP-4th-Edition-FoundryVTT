@@ -288,7 +288,7 @@ class ActorWfrp4e extends Actor {
         },
         title: title,
         template : "systems/wfrp4e/templates/chat/characteristic-card.html",
-        img : this.data.img
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
@@ -1355,6 +1355,7 @@ class ActorWfrp4e extends Actor {
       "token.bar2" :{"attribute" : "status.advantage"},
       "token.displayName" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
       "token.displayBars" : CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "token.name" : actor.data.name
+      "token.name" : actor.name,
+      "img" : "systems/wfrp4e/tokens/ghost.png"
     })
   })
