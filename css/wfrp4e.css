@@ -14601,7 +14601,7 @@ font-style : normal;
 
   h4.message-sender.sender-image {
     position: relative;
-    top: 12px;
+    top: 13px;
 }
 
   #chat-log .message .fumble-roll {
@@ -15278,4 +15278,31 @@ input.card-edit {
 
 #package-configuration .package-list, #module-management .package-list {
   height: unset
+}
+
+.message-content .opposed-message {
+  text-align:center
+}
+.message-content .opposed-tokens {
+  display: flex;
+  justify-content: space-around;
+}
+
+.message-content .opposed-tokens img{
+  border: 1px dotted black;
+}
+
+.message-content .opposed-tokens.opposed-result {
+    height: 0;
+    top: -47px;
+    position: relative;
+    right: -138px;
+}
+
+.message-content .opposed-tokens .winner img {
+  border-color: green;
+}
+
+.message-content .opposed-tokens .loser img {
+  border-color: red;
 }

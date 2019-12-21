@@ -382,7 +382,7 @@ class ActorWfrp4e extends Actor {
         },
         title: title,
         template : "systems/wfrp4e/templates/chat/skill-card.html",
-        img : this.data.img
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
@@ -574,12 +574,15 @@ class ActorWfrp4e extends Actor {
         },
         title: title,
         template : "systems/wfrp4e/templates/chat/weapon-card.html",
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.speaker.scene = canvas.scene.id,
+        cardOptions.img = this.data.img
+
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -717,13 +720,16 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/spell-card.html"
+        template : "systems/wfrp4e/templates/chat/spell-card.html",
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.speaker.scene = canvas.scene.id,
+        cardOptions.img = this.data.img
+
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -822,13 +828,16 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/channell-card.html"
+        template : "systems/wfrp4e/templates/chat/channell-card.html",
+        flags : {img: this.data.img}
+
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.speaker.scene = canvas.scene.id,
+        cardOptions.img = this.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -912,13 +921,15 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/prayer-card.html"
+        template : "systems/wfrp4e/templates/chat/prayer-card.html",
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.speaker.scene = canvas.scene.id,
+        cardOptions.img = this.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -990,13 +1001,15 @@ class ActorWfrp4e extends Actor {
           actor : this.data._id,
         },
         title: title,
-        template : "systems/wfrp4e/templates/chat/skill-card.html" // Reuse skill card
+        template : "systems/wfrp4e/templates/chat/skill-card.html", // Reuse skill card
+        flags : {img: this.data.img}
       }
       if (this.token)
       {
         cardOptions.speaker.alias = this.token.data.name;
         cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id
+        cardOptions.speaker.scene = canvas.scene.id,
+        cardOptions.img = this.data.img
       }
       // Call the roll helper utility
       DiceWFRP.prepareTest({
@@ -1340,21 +1353,43 @@ class ActorWfrp4e extends Actor {
         let attackMessage = game.messages.get(actor.data.flags.oppose.messageId)
         let attacker = {
           speaker : actor.data.flags.oppose.speaker,
-          testResult : attackMessage.data.flags.data.postData
+          testResult : attackMessage.data.flags.data.postData,
+          img : WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
         }
         let defender = {
           speaker : message.data.speaker,
-          testResult : testResult
+          testResult : testResult,
+          img : actor.data.msg
         }
-        OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
+        let winner = await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true})
+        let loser = winner == "attacker" ? "defender" : "attacker"
+        let startMessage = game.messages.get(actor.data.flags.oppose.startMessageId)
+        // forgive me but i'm too tired to deal with jquery
+        let newContent = startMessage.data.content.replace(winner, `${winner} winner`)
+        newContent = newContent.replace(loser, `${loser} loser`)
+
+        let cardData = {
+          user : game.user._id,
+          content: newContent
+        }
+        startMessage.update(cardData).then(resultCard => {
+          ui.chat.updateMessage(resultCard)
+        })
         await actor.update({"-=flags.oppose" : null})
+
       }
       else if (game.user.targets.size)
       {
         game.user.targets.forEach(async target => {
-          let content = `<b>${actor.data.name}</b> is targeting <b>${target.actor.data.name}</b>`
-          await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
-          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id}})
+          let content = 
+          `<div class ="opposed-message"><b>${actor.data.name}</b> is targeting <b>${target.actor.data.name}</b></div>
+          <div class = "opposed-tokens">
+          <div class = "attacker"><img src="${actor.data.img}" width="50" height="50"/></div>
+          <div class = "defender"><img src="${target.actor.data.img}" width="50" height="50"/></div>
+          </div>`
+          
+          let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
+          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
         })
         canvas.tokens.get(message.data.speaker.token).setTarget(false);
       } 
