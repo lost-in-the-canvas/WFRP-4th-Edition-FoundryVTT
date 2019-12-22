@@ -1,12 +1,13 @@
 {
   "name": "Random Career",
-  "columns": ["human", "dwarf", "halfling", "helf", "welf"],
+  "columns": ["human", "dwarf", "halfling", "gnome", "helf", "welf"],
   "rows": [
     {
       "range":{
         "human" : [1, 1],
         "dwarf" : [1, 1],
         "halfling" : [1, 1],
+        "gnome" : [1, 1],
         "helf" : [1, 2],
         "welf" : []
       },
@@ -17,6 +18,7 @@
         "human" : [2, 2],
         "dwarf" : [2, 4],
         "halfling" : [2, 2],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -26,6 +28,7 @@
         "human" : [3, 3],
         "dwarf" : [5, 6],
         "halfling" : [3, 4],
+        "gnome" : [2, 2],
         "helf" : [3, 6],
         "welf" : []
       },
@@ -35,6 +38,7 @@
         "human" : [4, 5],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -44,6 +48,7 @@
         "human" : [6, 6],
         "dwarf" : [7, 7],
         "halfling" : [5, 6],
+        "gnome" : [3, 4],
         "helf" : [7, 8],
         "welf" : []
       },
@@ -53,6 +58,7 @@
         "human" : [7, 11],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [5, 5],
         "helf" : [],
         "welf" : []
       },
@@ -62,6 +68,7 @@
         "human" : [12, 13],
         "dwarf" : [8, 9],
         "halfling" : [7, 8],
+        "gnome" : [6, 7],
         "helf" : [9, 12],
         "welf" : [1, 1]
       },
@@ -71,6 +78,7 @@
         "human" : [14, 14],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [8, 14],
         "helf" : [13, 16],
         "welf" : [2, 5]
       },
@@ -80,6 +88,7 @@
         "human" : [15, 15],
         "dwarf" : [10, 11],
         "halfling" : [9, 10],
+        "gnome" : [15, 15],
         "helf" : [],
         "welf" : []
       },
@@ -89,6 +98,7 @@
         "human" : [16, 17],
         "dwarf" : [12, 17],
         "halfling" : [11, 15],
+        "gnome" : [16, 17],
         "helf" : [17, 19],
         "welf" : [6, 10]
       },
@@ -98,6 +108,7 @@
         "human" : [18, 19],
         "dwarf" : [18],
         "halfling" : [16, 19],
+        "gnome" : [18, 18],
         "helf" : [],
         "welf" : []
       },
@@ -107,6 +118,7 @@
         "human" : [20, 20],
         "dwarf" : [19, 20],
         "halfling" : [20, 21],
+        "gnome" : [19, 19],
         "helf" : [20, 21],
         "welf" : []
       },
@@ -116,6 +128,7 @@
         "human" : [21, 21],
         "dwarf" : [21, 24],
         "halfling" : [22, 25],
+        "gnome" : [20, 21],
         "helf" : [22, 26],
         "welf" : []
       },
@@ -125,6 +138,7 @@
         "human" : [22, 23],
         "dwarf" : [25, 25],
         "halfling" : [26, 28],
+        "gnome" : [22, 22],
         "helf" : [],
         "welf" : []
       },
@@ -134,6 +148,7 @@
         "human" : [24, 26],
         "dwarf" : [26, 31],
         "halfling" : [29, 31],
+        "gnome" : [23, 28],
         "helf" : [27, 28],
         "welf" : []
       },
@@ -143,6 +158,7 @@
         "human" : [27, 27],
         "dwarf" : [32, 34],
         "halfling" : [32, 33],
+        "gnome" : [29, 29],
         "helf" : [29, 29],
         "welf" : []
       },
@@ -152,6 +168,7 @@
         "human" : [28, 28],
         "dwarf" : [35, 36],
         "halfling" : [34, 34],
+        "gnome" : [30, 30],
         "helf" : [30, 31],
         "welf" : [11, 14]
       },
@@ -161,6 +178,7 @@
         "human" : [29, 29],
         "dwarf" : [37, 37],
         "halfling" : [35, 36],
+        "gnome" : [31, 31],
         "helf" : [32, 32],
         "welf" : [15, 18]
       },
@@ -170,6 +188,7 @@
         "human" : [30, 30],
         "dwarf" : [38, 38],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [33, 34],
         "welf" : []
       },
@@ -179,6 +198,7 @@
         "human" : [31, 31],
         "dwarf" : [39, 40],
         "halfling" : [37, 37],
+        "gnome" : [32, 32],
         "helf" : [35, 37],
         "welf" : [19, 25]
       },
@@ -188,6 +208,7 @@
         "human" : [32, 32],
         "dwarf" : [41, 41],
         "halfling" : [],
+        "gnome" : [33, 33],
         "helf" : [38, 40],
         "welf" : [26, 31]
       },
@@ -198,6 +219,7 @@
         "human" : [33, 35],
         "dwarf" : [42, 42],
         "halfling" : [38, 43],
+        "gnome" : [34, 35],
         "helf" : [],
         "welf" : []
       },
@@ -207,6 +229,7 @@
         "human" : [36, 36],
         "dwarf" : [43, 43],
         "halfling" : [44, 44],
+        "gnome" : [36, 40],
         "helf" : [41, 43],
         "welf" : [32, 35]
       },
@@ -216,6 +239,7 @@
         "human" : [37, 37],
         "dwarf" : [44, 45],
         "halfling" : [45, 46],
+        "gnome" : [41, 42],
         "helf" : [44, 45],
         "welf" : []
       },
@@ -225,6 +249,7 @@
         "human" : [38, 38],
         "dwarf" : [46, 47],
         "halfling" : [47, 47],
+        "gnome" : [43, 43],
         "helf" : [],
         "welf" : []
       },
@@ -234,6 +259,7 @@
         "human" : [39, 39],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -243,6 +269,7 @@
         "human" : [40, 40],
         "dwarf" : [],
         "halfling" : [48, 50],
+        "gnome" : [44, 44],
         "helf" : [46, 47],
         "welf" : [36, 42]
       },
@@ -252,6 +279,7 @@
         "human" : [41, 42],
         "dwarf" : [48, 49],
         "halfling" : [51, 52],
+        "gnome" : [45, 46],
         "helf" : [48, 50],
         "welf" : [43, 52]
       },
@@ -261,6 +289,7 @@
         "human" : [43, 43],
         "dwarf" : [50, 54],
         "halfling" : [53, 53],
+        "gnome" : [47, 54],
         "helf" : [],
         "welf" : []
       },
@@ -270,6 +299,7 @@
         "human" : [44, 44],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : [53, 57]
       },
@@ -279,6 +309,7 @@
         "human" : [45, 45],
         "dwarf" : [55, 55],
         "halfling" : [54, 54],
+        "gnome" : [55, 58],
         "helf" : [51, 56],
         "welf" : [58, 68]
       },
@@ -288,6 +319,7 @@
         "human" : [46, 50],
         "dwarf" : [56, 56],
         "halfling" : [55, 57],
+        "gnome" : [59, 62],
         "helf" : [],
         "welf" : []
       },
@@ -297,6 +329,7 @@
         "human" : [51, 51],
         "dwarf" : [57, 60],
         "halfling" : [58, 58],
+        "gnome" : [63, 63],
         "helf" : [57, 59],
         "welf" : [69, 70]
       },
@@ -306,6 +339,7 @@
         "human" : [52, 52],
         "dwarf" : [61, 61],
         "halfling" : [59, 60],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -315,6 +349,7 @@
         "human" : [53, 54],
         "dwarf" : [62, 63],
         "halfling" : [61, 63],
+        "gnome" : [64, 68],
         "helf" : [60, 62],
         "welf" : [71, 75]
       },
@@ -324,6 +359,7 @@
         "human" : [55, 56],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -333,6 +369,7 @@
         "human" : [57, 57],
         "dwarf" : [64, 65],
         "halfling" : [64, 65],
+        "gnome" : [69, 69],
         "helf" : [63, 63],
         "welf" : [76, 78]
       },
@@ -342,6 +379,7 @@
         "human" : [58, 58],
         "dwarf" : [66, 67],
         "halfling" : [66, 67],
+        "gnome" : [70, 75],
         "helf" : [],
         "welf" : []
       },
@@ -351,6 +389,7 @@
         "human" : [59, 59],
         "dwarf" : [],
         "halfling" : [68, 68],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -360,6 +399,7 @@
         "human" : [60, 60],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -369,6 +409,7 @@
         "human" : [61, 62],
         "dwarf" : [68, 69],
         "halfling" : [69, 69],
+        "gnome" : [76, 76],
         "helf" : [64, 64],
         "welf" : []
       },
@@ -378,6 +419,7 @@
         "human" : [63, 63],
         "dwarf" : [70, 70],
         "halfling" : [70, 70],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -387,6 +429,7 @@
         "human" : [64, 65],
         "dwarf" : [],
         "halfling" : [71, 71],
+        "gnome" : [77, 80],
         "helf" : [],
         "welf" : []
       },
@@ -396,6 +439,7 @@
         "human" : [66, 68],
         "dwarf" : [71, 72],
         "halfling" : [72, 74],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -405,6 +449,7 @@
         "human" : [69, 70],
         "dwarf" : [73, 73],
         "halfling" : [75, 75],
+        "gnome" : [],
         "helf" : [65, 79],
         "welf" : []
       },
@@ -414,6 +459,7 @@
         "human" : [71, 71],
         "dwarf" : [74, 75],
         "halfling" : [76, 79],
+        "gnome" : [81, 83],
         "helf" : [80, 80],
         "welf" : []
       },
@@ -423,6 +469,7 @@
         "human" : [72, 73],
         "dwarf" : [76, 77],
         "halfling" : [80, 82],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -432,6 +479,7 @@
         "human" : [74, 74],
         "dwarf" : [78, 78],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : [79, 79]
       },
@@ -441,6 +489,7 @@
         "human" : [75, 76],
         "dwarf" : [],
         "halfling" : [83, 85],
+        "gnome" : [84, 85],
         "helf" : [81, 82],
         "welf" : []
       },
@@ -450,6 +499,7 @@
         "human" : [77, 77],
         "dwarf" : [],
         "halfling" : [86, 86],
+        "gnome" : [86, 90],
         "helf" : [83, 85],
         "welf" : []
       },
@@ -459,6 +509,7 @@
         "human" : [78, 78],
         "dwarf" : [79, 79],
         "halfling" : [87, 87],
+        "gnome" : [91, 91],
         "helf" : [],
         "welf" : []
       },
@@ -468,6 +519,7 @@
         "human" : [79, 79],
         "dwarf" : [],
         "halfling" : [88, 88],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -477,6 +529,7 @@
         "human" : [80, 83],
         "dwarf" : [80, 82],
         "halfling" : [89, 89],
+        "gnome" : [92, 92],
         "helf" : [86, 88],
         "welf" : [80, 85]
       },
@@ -486,6 +539,7 @@
         "human" : [84, 84],
         "dwarf" : [83, 83],
         "halfling" : [90, 90],
+        "gnome" : [93, 94],
         "helf" : [],
         "welf" : []
       },
@@ -495,6 +549,7 @@
         "human" : [85, 87],
         "dwarf" : [84, 84],
         "halfling" : [91, 94],
+        "gnome" : [95, 97],
         "helf" : [],
         "welf" : []
       },
@@ -504,6 +559,7 @@
         "human" : [88, 88],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -513,6 +569,7 @@
         "human" : [89, 90],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [89, 92],
         "welf" : [86, 90]
       },
@@ -523,6 +580,7 @@
         "human" : [91, 92],
         "dwarf" : [85, 87],
         "halfling" : [95, 96],
+        "gnome" : [98, 98],
         "helf" : [93, 94],
         "welf" : [91, 92]
       },
@@ -532,6 +590,7 @@
         "human" : [93, 93],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [95, 95],
         "welf" : [93, 94]
       },
@@ -541,6 +600,7 @@
         "human" : [94, 94],
         "dwarf" : [88, 90],
         "halfling" : [97, 97],
+        "gnome" : [],
         "helf" : [96, 97],
         "welf" : [95, 96]
       },
@@ -550,6 +610,7 @@
         "human" : [95, 95],
         "dwarf" : [91, 93],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [98, 98],
         "welf" : []
       },
@@ -559,6 +620,7 @@
         "human" : [96, 99],
         "dwarf" : [94, 96],
         "halfling" : [98, 100],
+        "gnome" : [99, 99],
         "helf" : [99, 100],
         "welf" : [97, 100]
       },
@@ -568,6 +630,7 @@
         "human" : [],
         "dwarf" : [97, 100],
         "halfling" : [],
+        "gnome" : [],
         "helf" : [],
         "welf" : []
       },
@@ -577,6 +640,7 @@
         "human" : [100, 100],
         "dwarf" : [],
         "halfling" : [],
+        "gnome" : [100, 100],
         "helf" : [],
         "welf" : []
       },

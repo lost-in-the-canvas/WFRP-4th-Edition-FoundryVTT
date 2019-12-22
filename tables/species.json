@@ -5,17 +5,22 @@
     {
       "name": "Human",
       "value": "human",
-      "range": [1, 90]
+      "range": [1, 89]
     },
     {
       "name": "Halfling",
       "value": "halfling",
-      "range": [91, 94]
+      "range": [90, 93]
     },
     {
       "name": "Dwarf",
       "value": "dwarf",
-      "range": [95, 98]
+      "range": [94, 97]
+    },
+    {
+      "name": "Gnome",
+      "value": "gnome",
+      "range": [98, 98]
     },
     {
       "name": "High Elf",

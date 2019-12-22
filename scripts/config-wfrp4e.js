@@ -52,7 +52,7 @@ CONFIG.controlIcons.defeated = "systems/wfrp4e/icons/defeated.png";
    "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
    "Apothecary" : "systems/wfrp4e/icons/buildings/apothecary.png",
    "Beastmen Herd 1" : "systems/wfrp4e/icons/buildings/beastmen_camp1.png",
-   "Besatmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
+   "Beastmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
    "Blacksmith" : "systems/wfrp4e/icons/buildings/blacksmith.png",
    "Bretonnian City 1" : "systems/wfrp4e/icons/buildings/bret_city1.png",
    "Bretonnian City 2" : "systems/wfrp4e/icons/buildings/bret_city2.png",
@@ -124,6 +124,7 @@ WFRP4E.species = {
   "halfling": "Halfling",
   "helf": "High Elf",
   "welf": "Wood Elf",
+  "gnome": "Gnome",  
 };
 
 WFRP4E.speciesCharacteristics = {
@@ -192,6 +193,19 @@ WFRP4E.speciesCharacteristics = {
     "wp" : "2d10+30",
     "fel": "2d10+20"
   },
+  "gnome" :
+  {
+    "ws" : "2d10+20",
+    "bs" : "2d10+10",
+    "s"  : "2d10+10",
+    "t"  : "2d10+15",
+    "i"  : "2d10+30",
+    "ag" : "2d10+30",
+    "dex": "2d10+30",
+    "int": "2d10+30",
+    "wp" : "2d10+40",
+    "fel": "2d10+15"
+  },
 
 }
 
@@ -233,7 +247,7 @@ WFRP4E.speciesSkills = {
     "Intuition",
     "Language (Mootish)",
     "Lore (Reikland)",
-    "Lore (Perception)",
+    "Perception",
     "Sleight of Hand",
     "Stealth (Any)",
     "Trade (Cook)"
@@ -265,6 +279,20 @@ WFRP4E.speciesSkills = {
     "Ranged (Bow)",
     "Stealth (Rural)",
     "Track"
+  ],
+  "gnome" : [
+    "Channelling (Ulgu)",
+    "Charm",
+    "Consume Alcohol",
+    "Dodge",
+    "Entertain (Any)",
+    "Gossip",
+	"Haggle",
+    "Language (Ghassally)",
+    "Language (Magick)",
+    "Language (Wastelander)",
+    "Outdoor Survival",
+    "Stealth (Any)"
   ],
 }
 
@@ -305,6 +333,15 @@ WFRP4E.speciesTalents = {
     "Read/Write",
     0
   ],
+  "gnome" : [
+    "Beneath Notice, Suffused with Ulgu",
+    "Luck, Mimic",
+    "Night Vision",
+    "Fisherman, Read/Write",
+    "Second Sight, Sixth Sense",
+	"Small",
+    0
+  ],
 }
 
 WFRP4E.speciesMovement = {
@@ -312,7 +349,8 @@ WFRP4E.speciesMovement = {
   "dwarf" : 3,
   "halfling" : 3,
   "helf" : 5,
-  "welf" : 5
+  "welf" : 5,
+  "gnome" : 3
 }
 
 WFRP4E.speciesFate = {
@@ -320,7 +358,8 @@ WFRP4E.speciesFate = {
   "dwarf" : 0,
   "halfling" : 0,
   "helf" : 0,
-  "welf" : 0
+  "welf" : 0,
+  "gnome" : 2
 }
 
 WFRP4E.speciesRes = {
@@ -328,7 +367,8 @@ WFRP4E.speciesRes = {
   "dwarf" : 2,
   "halfling" : 2,
   "helf" : 0,
-  "welf" : 0
+  "welf" : 0,
+  "gnome" : 0
 }
 
 WFRP4E.speciesExtra = {
@@ -336,7 +376,8 @@ WFRP4E.speciesExtra = {
   "dwarf" : 2,
   "halfling" : 3,
   "helf" : 2,
-  "welf" : 2
+  "welf" : 2,
+  "gnome" : 2
 }
 
 WFRP4E.classTrappings = {
