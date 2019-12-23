@@ -52,7 +52,7 @@ CONFIG.controlIcons.defeated = "systems/wfrp4e/icons/defeated.png";
    "Marker" : "systems/wfrp4e/icons/buildings/point_of_interest.png",
    "Apothecary" : "systems/wfrp4e/icons/buildings/apothecary.png",
    "Beastmen Herd 1" : "systems/wfrp4e/icons/buildings/beastmen_camp1.png",
-   "Besatmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
+   "Beastmen Herd 2" : "systems/wfrp4e/icons/buildings/beastmen_camp2.png",
    "Blacksmith" : "systems/wfrp4e/icons/buildings/blacksmith.png",
    "Bretonnian City 1" : "systems/wfrp4e/icons/buildings/bret_city1.png",
    "Bretonnian City 2" : "systems/wfrp4e/icons/buildings/bret_city2.png",
@@ -233,7 +233,7 @@ WFRP4E.speciesSkills = {
     "Intuition",
     "Language (Mootish)",
     "Lore (Reikland)",
-    "Lore (Perception)",
+    "Perception",
     "Sleight of Hand",
     "Stealth (Any)",
     "Trade (Cook)"
