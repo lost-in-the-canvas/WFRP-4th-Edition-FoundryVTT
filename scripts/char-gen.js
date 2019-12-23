@@ -110,6 +110,7 @@ class GeneratorWfrp4e
     }
 
     cardData.extra = WFRP4E.speciesExtra[species]
+    cardData.move = WFRP4E.speciesMovement[species]
     cardData.dataTransfer = JSON.stringify(dataTransfer)
 
     let chatData = {

@@ -16,7 +16,8 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     postedItem.setAttribute("draggable", true);
 
     postedItem.addEventListener('dragstart', ev => {
-      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+      console.log(app, html, msg)
+      ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
     })
   }
   let generation = html.find(".characteristics-gen")[0]

@@ -205,17 +205,14 @@ class ItemWfrp4e extends Item {
   
       if (chatData.img.includes("/blank.png"))
         chatData.img = null;
-  
-      chatData.transfer = JSON.stringify(
-        {
-          data : this.data,
-          postedItem : true
-        }
-      );
 
       renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
   
         chatOptions["content"] = html;
+        chatOptions["flags.transfer"] = JSON.stringify({
+            data : this.data,
+            postedItem : true
+          })
         ChatMessage.create(chatOptions)
     });
   }
