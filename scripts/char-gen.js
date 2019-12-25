@@ -127,15 +127,45 @@ class GeneratorWfrp4e
     })
   }
 
-  static async rollCareer(species)
+  static async rollCareer(species, exp, isReroll)
   {
     let roll = WFRP_Tables.rollTable("career", {}, species)
+    this.displayCareer(roll.name, species, exp, isReroll)
+  }
+  
+  static async chooseCareer(species)
+  {
+    let msgContent = "<h2>Chooses Your Career</h2>";
+
+
+    for (let r of WFRP_Tables.career.rows)
+    {
+      if (r.range[species].length)
+        msgContent+=`<a class="career-select" data-career="${r.name}" data-species="${species}">${r.name}</a><br>`
+    }
+
+    let chatData = {
+      user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode"),
+      content : msgContent,
+    }
+
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+
+    ChatMessage.create(chatData);
+
+  }
+
+  static async displayCareer(careerName, species, exp, isReroll, isChosen)
+  {
     let pack = game.packs.find(p => p.collection == "wfrp4e.careers")
     let careers =  await pack.getContent();
     let careerFound;
     for (let c of careers)
     {
-      if (c.data.data.careergroup.value == roll.name && c.data.data.level.value == 1)
+      if (c.data.data.careergroup.value == careerName && c.data.data.level.value == 1)
         careerFound = c
       if (careerFound)
         break;
@@ -145,7 +175,10 @@ class GeneratorWfrp4e
     let chatData = {
       user : game.user._id,
       rollMode : game.settings.get("core", "rollMode"),
-      exp : WFRP4E.randomExp.careerRand,
+      exp : exp,
+      reroll: isReroll,
+      chcosen : isChosen,
+      speciesKey: species,
       trappings : WFRP4E.classTrappings[WFRP_Utility.matchClosest(WFRP4E.classTrappings, careerFound.data.data.class.value)]
     }
 

@@ -15204,6 +15204,12 @@ font-style : normal;
 .attribute-career-buttons .chargen-button {
   left : 25px;
 }
+
+.attribute-career-buttons .chargen-button.careerReroll {
+  left : 83px;
+  margin-top : 10px;
+}
+
 .chargen-button:hover {
 	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
 	background-color:#634b30;

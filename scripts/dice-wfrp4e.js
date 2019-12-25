@@ -831,11 +831,22 @@ class DiceWFRP {
           break;
         case "rollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerRand)
           break;
+        case "rerollCareer" : GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerReroll, true)
+                              GeneratorWfrp4e.rollCareer($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.careerReroll, true)
+          break;
+        case "chooseCareer" : GeneratorWfrp4e.chooseCareer($(event.currentTarget).attr("data-species"))
+          break;
         case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),WFRP4E.randomExp.statsRand)
           break;
       }
     });
 
+    html.on("click", '.career-select', event => {
+      event.preventDefault();
+      let careerSelected = $(event.currentTarget).attr("data-career")
+      let species = $(event.currentTarget).attr("data-species")
+      GeneratorWfrp4e.displayCareer(careerSelected, species, 0, false, true)
+    });
       
   html.on("click", '.random-talents', event => {
     event.preventDefault();
