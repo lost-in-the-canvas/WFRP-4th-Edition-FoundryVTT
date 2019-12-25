@@ -833,4 +833,48 @@ class WFRP_Utility
       actor = canvas.tokens.get(speaker.token).actor
     return actor
   }
+
+  static async allBasicSkills()
+  {
+    let returnSkills = [];
+
+    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    let skills = [];
+    await pack.getIndex().then(index => skills = index);
+    for (let sk of skills)
+    {
+      let skillItem = undefined;
+      await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      if (skillItem.data.data.advanced.value == "bsc")
+      {
+        if (skillItem.data.data.grouped.value != "noSpec")
+        {
+          let startParen = skillItem.data.name.indexOf("(")
+          skillItem.data.name = skillItem.data.name.substring(0, startParen).trim();
+          if (returnSkills.filter(x => x.name.includes(skillItem.name)).length <= 0)
+            returnSkills.push(skillItem.data);
+        }
+        else
+          returnSkills.push(skillItem.data)
+      }
+    }
+    return returnSkills;
+  }
+
+  static async allMoneyItems()
+  {
+    let moneyItems = []
+    const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+    let trappingsIndex = [];
+    await trappings.getIndex().then(index => trappingsIndex = index);
+
+    let money = trappingsIndex.filter (t => t.name.toLowerCase() == "gold crown" || t.name.toLowerCase() == "silver shilling" || t.name.toLowerCase() == "brass penny")
+
+    for (let m of money)
+    {
+      let moneyItem = await trappings.getEntity(m.id);
+      moneyItems.push(moneyItem.data);
+    }
+    return moneyItems
+  }
 }
