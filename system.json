@@ -22,6 +22,7 @@
     "./scripts/hooks/canvasInit.js",
     "./scripts/hooks/chatMessage.js",
     "./scripts/hooks/createOwnedItem.js",
+    "./scripts/hooks/renderTokenHUD.js",
     "./scripts/hooks/deleteCombat.js",
     "./scripts/hooks/getActorDirectoryEntryContext.js",
     "./scripts/hooks/getCombatTrackerEntryContext.js",
