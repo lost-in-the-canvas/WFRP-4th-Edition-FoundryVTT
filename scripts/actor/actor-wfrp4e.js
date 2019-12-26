@@ -1,5 +1,3 @@
-
-
 /**
  * Provides the main Actor data computation and organization.
  *
@@ -799,9 +797,10 @@ class ActorWfrp4e extends Actor {
           // If an actual Channelling skill was selected, use that skill to calculate the target number
           if (skillSelected.key != "wp")
           {
-          testData.target = testData.testModifier + testData.testDifficulty
-                           + this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
-                           + skillSelected.data.data.advances.value
+            testData.target = testData.testModifier + testData.testDifficulty
+                              + this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+                              + skillSelected.data.data.advances.value
+            testData.extra.channellSkill = skillSelected.data
           }
           else // if the ccharacteristic was selected, use just the characteristic
             testData.target = testData.testModifier + testData.testDifficulty + this.data.data.characteristics.wp.value

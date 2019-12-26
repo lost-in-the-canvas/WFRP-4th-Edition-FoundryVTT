@@ -877,4 +877,5 @@ class WFRP_Utility
     }
     return moneyItems
   }
+
 }
