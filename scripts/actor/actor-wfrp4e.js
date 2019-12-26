@@ -311,10 +311,12 @@ class ActorWfrp4e extends Actor {
           testData.slBonus =        Number(html.find('[name="slBonus"]').val());
           let characteristicToUse = html.find('[name="characteristicToUse"]').val();
           // Target value is the final value being tested against, after all modifiers and bonuses are added
-          testData.target =         this.data.data.characteristics[characteristicToUse].value
-                                    + testData.testModifier
-                                    + testData.testDifficulty
-                                    + skill.data.advances.value;
+          testData.target =         
+          this.data.data.characteristics[characteristicToUse].value
+          + testData.testModifier
+          + testData.testDifficulty
+          + skill.data.advances.value;
+
           testData.hitLocation =    html.find('[name="hitLocation"]').is(':checked');
           let talentBonuses =       html.find('[name = "talentBonuses"]').val();
 
@@ -493,12 +495,12 @@ class ActorWfrp4e extends Actor {
         callback : (html, roll) => {
           // When dialog confirmed, fill testData dialog information
           // Note that this does not execute until DiceWFRP.prepareTest() has finished and the user confirms the dialog
-          cardOptions.rollMode = html.find('[name="rollMode"]').val();
-          testData.testModifier = Number(html.find('[name="testModifier"]').val());
+          cardOptions.rollMode =    html.find('[name="rollMode"]').val();
+          testData.testModifier =   Number(html.find('[name="testModifier"]').val());
           testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-          testData.successBonus = Number(html.find('[name="successBonus"]').val());
-          testData.slBonus = Number(html.find('[name="slBonus"]').val());
-          let skillSelected = skillCharList[Number(html.find('[name="skillSelected"]').val())];
+          testData.successBonus =   Number(html.find('[name="successBonus"]').val());
+          testData.slBonus =        Number(html.find('[name="slBonus"]').val());
+          let skillSelected =       skillCharList[Number(html.find('[name="skillSelected"]').val())];
 
           // Determine final target if a characteristic was selected
           if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
@@ -516,10 +518,11 @@ class ActorWfrp4e extends Actor {
             // Target value is the final value being tested against, after all modifiers and bonuses are added
             let skillUsed = testData.extra.weapon.skillToUse;
 
-            testData.target = this.data.data.characteristics[skillUsed.data.characteristic.value].value
-                                                                                + testData.testModifier
-                                                                                + testData.testDifficulty
-                                                                                + skillUsed.data.advances.value;
+            testData.target = 
+            this.data.data.characteristics[skillUsed.data.characteristic.value].value
+            + testData.testModifier
+            + testData.testDifficulty
+            + skillUsed.data.advances.value;
           }
 
           testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
@@ -543,12 +546,12 @@ class ActorWfrp4e extends Actor {
           }
         },
 
-        // Override the default test evaluation to use specialized weaponTest function
+        // Override the default test evaluation to use specialized rollWeaponTest function
         rollOverride : this.constructor.weaponOverride
       };
 
       // Call the universal cardOptions helper
-      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
+      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/weapon-card.html", title)
 
       // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function     
       DiceWFRP.prepareTest({
@@ -558,9 +561,17 @@ class ActorWfrp4e extends Actor {
     }
 
 
-    // Roll spell Dialog - choose between Casting or Channelling
-    spellDialog(spell, options) {
-
+    /**
+     * Display a dialog for the user to choose casting or channelling.
+     * 
+     * When clicking on a spell, the user will get an option to Cast or Channell that spell
+     * Each option leads to their respective "setup" functions.
+     * 
+     * @param {Object} spell     The spell item clicked on, petty spells will automatically be Casted, without the option to channell.
+     * 
+     */
+    spellDialog(spell) {
+      // Do not show the dialog for Petty spells, just cast it.
       if (spell.data.lore.value == "petty")
         this.setupCast(spell, options)
       else
@@ -573,13 +584,13 @@ class ActorWfrp4e extends Actor {
               cast: {
                 label: "Cast",
                 callback: btn => {
-                  this.setupCast(spell, options);
+                  this.setupCast(spell);
                 }
               },
               channell: {
                 label: "Channell",
                 callback: btn => {
-                  this.setupChannell(spell, options);
+                  this.setupChannell(spell);
                 }
               },
             },
@@ -590,20 +601,35 @@ class ActorWfrp4e extends Actor {
     }
 
     /**
-     * Setup a Cast Test
-     * @param spell {Object}   Spell being cast
+     * Setup a Casting Test.
+     * 
+     * Casting tests are more complicated due to the nature of spell miscasts, ingredients, etc. Whatever ingredient
+     * is selected will automatically be used and negate one miscast. For the spell rolling logic, see DiceWFRP.rollCastTest
+     * where all this data is passed to in order to calculate the roll result.
+     * 
+     * @param {Object} spell    The spell Item being Casted. The spell item has information like CN, lore, and current ingredient ID
+     * 
      */
     setupCast(spell) {
       let title = "Casting Test - " + spell.name;
-      let castSkills = [{key : "int", name : "Intelligence"}]
+
+      // castSkill array holds the available skills/characteristics to cast with - Casting: Intelligence
+      let castSkills = [{key : "int", name : "Intelligence"}] 
+      
+      // if the actor has Language (Magick), add it to the array.
       castSkills = castSkills.concat(this.items.filter(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill"))
+      
+      // Default to Language Magick if it exists
       let defaultSelection = castSkills.findIndex(i => i.name.toLowerCase() == "language (magick)")
+      
+      // Whether the actor has Instinctive Diction is important in the test rolling logic
       let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
 
+      // Prepare the spell to have the complete data object, including damage values, range values, CN, etc.
       let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
       let testData = {
         target : 0,
-        extra : {
+        extra : { // Store this data to be used by the test logic
           spell : preparedSpell,
           malignantInfluence : false,
           ingredient : false,
@@ -612,9 +638,11 @@ class ActorWfrp4e extends Actor {
         }
       };
 
+      // If the spell does damage, default the hit location to checked
       if (preparedSpell.damage)
         testData.hitLocation = true;
 
+      // Setup dialog data: title, template, buttons, prefilled data
       let dialogOptions = {
         title: title,
         template : "/systems/wfrp4e/templates/chat/spell-dialog.html",
@@ -623,6 +651,7 @@ class ActorWfrp4e extends Actor {
             label: "Roll"
           },
         },
+        // Prefilled dialog data
         data : {
           hitLocation : testData.hitLocation,
           malignantInfluence : testData.malignantInfluence,
@@ -632,98 +661,105 @@ class ActorWfrp4e extends Actor {
           castSkills : castSkills
         },
         callback : (html, roll) => {
-            cardOptions.rollMode = html.find('[name="rollMode"]').val();
-            testData.testModifier = Number(html.find('[name="testModifier"]').val());
-            testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-            testData.successBonus = Number(html.find('[name="successBonus"]').val());
-            testData.slBonus = Number(html.find('[name="slBonus"]').val());
+          // When dialog confirmed, fill testData dialog information
+          // Note that this does not execute until DiceWFRP.prepareTest() has finished and the user confirms the dialog
+          cardOptions.rollMode =    html.find('[name="rollMode"]').val();
+          testData.testModifier =   Number(html.find('[name="testModifier"]').val());
+          testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
+          testData.successBonus =   Number(html.find('[name="successBonus"]').val());
+          testData.slBonus =        Number(html.find('[name="slBonus"]').val());
 
-            let skillSelected = castSkills[Number(html.find('[name="skillSelected"]').val())];
+          let skillSelected = castSkills[Number(html.find('[name="skillSelected"]').val())];
 
-            if (skillSelected.key != "int")
-            {
-              testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
-              + skillSelected.data.data.advances.value
-              + testData.testDifficulty
-              + testData.testModifier;
-            }
-            else
-            {
-              testData.target = this.data.data.characteristics.int.value
-              + testData.testDifficulty
-              + testData.testModifier;
-            }
+          // If an actual skill (Language Magick) was selected, use that skill to calculate the target number
+          if (skillSelected.key != "int")
+          {
+            testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
+            + skillSelected.data.data.advances.value
+            + testData.testDifficulty
+            + testData.testModifier;
+          }
+          else // if a characteristic was selected, use just the characteristic
+          {
+            testData.target = this.data.data.characteristics.int.value
+            + testData.testDifficulty
+            + testData.testModifier;
+          }
 
-            testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
-            testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
-            let talentBonuses = html.find('[name = "talentBonuses"]').val();
-            testData.successBonus += talentBonuses.reduce(function (prev, cur){
-              return prev + Number(cur)
-            }, 0)
+          testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+          testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
 
+          let talentBonuses = html.find('[name = "talentBonuses"]').val();
+          // Combine all Talent Bonus values (their times taken) into one sum          
+          testData.successBonus += talentBonuses.reduce(function (prev, cur){
+            return prev + Number(cur)
+          }, 0)
 
+          // Find ingredient being used, if any
+          let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+          if (ing)
+          {
+            // Decrease ingredient quantity
+            ing = ing.data;
+            testData.extra.ingredient = true;
+            ing.data.quantity.value--;
+            this.updateOwnedItem(ing);
+          }
+          // If quantity of ingredient is 0, disregard the ingredient
+          else if (!ing || ing.data.data.quantity.value <= 0)
+            testData.extra.ingredient = false;
 
-            // Find ingredient being used, if any
-            let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
-            if (ing)
-            {
-              // Decrease ingredient quantity
-              ing = ing.data;
-              testData.extra.ingredient = true;
-              ing.data.quantity.value--;
-              this.updateOwnedItem(ing);
-            }
-            else if (!ing || ing.data.data.quantity.value <= 0)
-              testData.extra.ingredient = false;
-
-            roll(testData, cardOptions);
-          },
-          // Override generic roll with cast specific roll
-          rollOverride : this.constructor.castOverride
-      };
-      let cardOptions = {
-        speaker: {
-          alias: this.data.name,
-          actor : this.data._id,
+          // Use the assigned roll function (see below for how rollOverride is assigned, and then
+          // DiceWFRP.prepareTest() for more info on how the override is used, if any)
+          roll(testData, cardOptions);
         },
-        title: title,
-        template : "systems/wfrp4e/templates/chat/spell-card.html",
-        flags : {img: this.data.img}
-      }
-      if (this.token)
-      {
-        cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.flags.img = this.token.data.img
+        // Override the default test evaluation to use specialized rollCastTest function          
+        rollOverride : this.constructor.castOverride
+      };
 
-      }
-      // Call the roll helper utility
+      // Call the universal cardOptions helper
+      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/spell-card.html", title)
+      
+      // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function     
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
         testData : testData,
         cardOptions : cardOptions});
     }
 
-   /**
-     * Setup a Channelling Test
-     * @param spell {Object}   Spell being channelled
+    /**
+     * Setup a Channelling Test.
+     * 
+     * Channelling tests are more complicated due to the nature of spell miscasts, ingredients, etc. Whatever ingredient
+     * is selected will automatically be used and mitigate miscasts. For the spell rolling logic, see DiceWFRP.rollChannellTest
+     * where all this data is passed to in order to calculate the roll result.
+     * 
+     * @param {Object} spell    The spell Item being Channelled. The spell item has information like CN, lore, and current ingredient ID
+     * This spell SL will then be updated accordingly.
+     * 
      */
     setupChannell(spell) {
       let title = "Channelling Test - " + spell.name;
+
+      // channellSkills array holds the available skills/characteristics to channell with - Channelling: Willpower
       let channellSkills = [{key : "wp", name : "Willpower"}]
+
+      // if the actor has any channell skills, add them to the array.
       channellSkills = channellSkills.concat(this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill"))
+      
+      // Find the spell lore, and use that to determine the default channelling selection
       let spellLore = spell.data.lore.value;
       let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
+
       if (spellLore == "witchcraft")
-      {
         defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
-      }
+
+      // Whether the actor has Aethyric Attunement is important in the test rolling logic
       let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
 
       let testData = {
         target : 0,
-        extra : {
+        extra : { // Store data to be used by the test logic
           spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
           malignantInfluence : false,
           ingredient : false,
@@ -732,6 +768,7 @@ class ActorWfrp4e extends Actor {
         }
       };
 
+      // Setup dialog data: title, template, buttons, prefilled data
       let dialogOptions = {
         title: title,
         template : "/systems/wfrp4e/templates/chat/channell-dialog.html",
@@ -740,6 +777,7 @@ class ActorWfrp4e extends Actor {
             label: "Roll"
           }
         },
+        // Prefilled dialog data
         data : {
           malignantInfluence : testData.malignantInfluence,
           channellSkills : channellSkills,
@@ -748,24 +786,28 @@ class ActorWfrp4e extends Actor {
           advantage : "N/A"
         },
         callback : (html, roll) => {
-          cardOptions.rollMode = html.find('[name="rollMode"]').val();
-          testData.testModifier = Number(html.find('[name="testModifier"]').val());
+           // When dialog confirmed, fill testData dialog information
+          // Note that this does not execute until DiceWFRP.prepareTest() has finished and the user confirms the dialog
+          cardOptions.rollMode =    html.find('[name="rollMode"]').val();
+          testData.testModifier =   Number(html.find('[name="testModifier"]').val());
           testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-          testData.successBonus = Number(html.find('[name="successBonus"]').val());
-          testData.slBonus = Number(html.find('[name="slBonus"]').val());
+          testData.successBonus =   Number(html.find('[name="successBonus"]').val());
+          testData.slBonus =        Number(html.find('[name="slBonus"]').val());
           testData.extra.malignantInfluence = html.find('[name="malignantInfluence"]').is(':checked');
-          let skillSelected = channellSkills[Number(html.find('[name="skillSelected"]').val())];
 
+          let skillSelected = channellSkills[Number(html.find('[name="skillSelected"]').val())];
+          // If an actual Channelling skill was selected, use that skill to calculate the target number
           if (skillSelected.key != "wp")
           {
           testData.target = testData.testModifier + testData.testDifficulty
                            + this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
                            + skillSelected.data.data.advances.value
           }
-          else
+          else // if the ccharacteristic was selected, use just the characteristic
             testData.target = testData.testModifier + testData.testDifficulty + this.data.data.characteristics.wp.value
 
           let talentBonuses = html.find('[name = "talentBonuses"]').val();
+          // Combine all Talent Bonus values (their times taken) into one sum          
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
@@ -781,59 +823,62 @@ class ActorWfrp4e extends Actor {
             ing.data.quantity.value--;
             this.updateOwnedItem(ing);
           }
+          // If quantity of ingredient is 0, disregard the ingredient
           else if(!ing || ing.data.data.quantity.value <= 0)
             testData.extra.ingredient = false;
 
+          // Use the assigned roll function (see below for how rollOverride is assigned, and then
+          // DiceWFRP.prepareTest() for more info on how the override is used, if any)
           roll(testData, cardOptions);
-          },
-          // Override generic roll with channell specific function
+        },
+        // Override the default test evaluation to use specialized rollCastTest function          
         rollOverride : this.constructor.channellOverride
       };
-      let cardOptions = {
-        speaker: {
-          alias: this.data.name,
-          actor : this.data._id,
-        },
-        title: title,
-        template : "systems/wfrp4e/templates/chat/channell-card.html",
-        flags : {img: this.data.img}
 
-      }
-      if (this.token)
-      {
-        cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.flags.img = this.token.data.img
-      }
-      // Call the roll helper utility
+      // Call the universal cardOptions helper
+      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/channell-card.html", title)
+
+      // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function      
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
         testData : testData,
         cardOptions : cardOptions});
     }
 
-     /**
-     * Setup a Prayer Test
-     * @param prayer {Object}   prayer being invoked
+    /**
+     * Setup a Prayer Test.
+     * 
+     * Prayer tests are fairly simple, with the main complexity coming from sin and wrath of the gods,
+     * the logic of which can be found in DiceWFRP.rollPrayerTest, where all this data here is passed
+     * to in order to calculate the roll result.
+     * 
+     * @param {Object} prayer    The prayer Item being used, compared to spells, not much information 
+     * from the prayer itself is needed. 
      */
     setupPrayer(prayer) {
       let title = "Prayer Test - " + prayer.name;
+
+      // ppraySkills array holds the available skills/characteristics to pray with - Prayers: Fellowship
       let praySkills = [{key : "fel", name : "Fellowship"}]
+
+      // if the actor has the Pray skill, add it to the array.
       praySkills = praySkills.concat(this.items.filter(i => i.name.toLowerCase() == "pray" && i.type == "skill"));
+
+      // Default to Pray skill if available
       let defaultSelection = praySkills.findIndex(i => i.name.toLowerCase() == "pray")
 
+      // Prepare the prayer to have the complete data object, including damage values, range values, etc.
       let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
-      let testData = {
+      let testData = { // Store this data to be used in the test logic
         target : 0,
         hitLocation : true,
         extra : {
           prayer : preparedPrayer,
           size : this.data.data.details.size.value
-
         }
       };
 
+      // Setup dialog data: title, template, buttons, prefilled data
       let dialogOptions = {
         title: title,
         template : "/systems/wfrp4e/templates/chat/prayer-dialog.html",
@@ -842,6 +887,7 @@ class ActorWfrp4e extends Actor {
             label: "Roll"
           }
         },
+        // Prefilled dialog data
         data : {
           hitLocation : testData.hitLocation,
           talents : this.data.flags.talentTests,
@@ -850,13 +896,16 @@ class ActorWfrp4e extends Actor {
           defaultSelection : defaultSelection
         },
         callback : (html, roll) => {
-          cardOptions.rollMode = html.find('[name="rollMode"]').val();
-          testData.testModifier = Number(html.find('[name="testModifier"]').val());
+          // When dialog confirmed, fill testData dialog information
+          // Note that this does not execute until DiceWFRP.prepareTest() has finished and the user confirms the dialog
+          cardOptions.rollMode =    html.find('[name="rollMode"]').val();
+          testData.testModifier =   Number(html.find('[name="testModifier"]').val());
           testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-          testData.successBonus = Number(html.find('[name="successBonus"]').val());
-          testData.slBonus = Number(html.find('[name="slBonus"]').val());
-          let skillSelected = praySkills[Number(html.find('[name="skillSelected"]').val())];
+          testData.successBonus =   Number(html.find('[name="successBonus"]').val());
+          testData.slBonus =        Number(html.find('[name="slBonus"]').val());
 
+          let skillSelected = praySkills[Number(html.find('[name="skillSelected"]').val())];
+          // If an actual skill (Pray) was selected, use that skill to calculate the target number
           if (skillSelected.key != "fel")
           {
             testData.target = this.data.data.characteristics[skillSelected.data.data.characteristic.value].value
@@ -864,7 +913,7 @@ class ActorWfrp4e extends Actor {
             + testData.testDifficulty
             + testData.testModifier;
           }
-          else
+          else // if a characteristic was selected, use just the characteristic
           {
             testData.target = this.data.data.characteristics.fel.value
             + testData.testDifficulty
@@ -872,33 +921,25 @@ class ActorWfrp4e extends Actor {
           }
 
           testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
+
           let talentBonuses = html.find('[name = "talentBonuses"]').val();
+          // Combine all Talent Bonus values (their times taken) into one sum          
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
-
+          
+          // Use the assigned roll function (see below for how rollOverride is assigned, and then
+          // DiceWFRP.prepareTest() for more info on how the override is used, if any)
           roll(testData, cardOptions);
-          },
-          // Override generic test function with prayer specific function
+        },
+        // Override the default test evaluation to use specialized rollPrayerTest function   
         rollOverride : this.constructor.prayerOverride
       };
-      let cardOptions = {
-        speaker: {
-          alias: this.data.name,
-          actor : this.data._id,
-        },
-        title: title,
-        template : "systems/wfrp4e/templates/chat/prayer-card.html",
-        flags : {img: this.data.img}
-      }
-      if (this.token)
-      {
-        cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.flags.img = this.token.data.img
-      }
-      // Call the roll helper utility
+
+      // Call the universal cardOptions helper
+      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/prayer-card.html", title)
+
+      // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function           
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
         testData : testData,
@@ -906,27 +947,32 @@ class ActorWfrp4e extends Actor {
     }
 
     /**
-     * Roll a test associated with a trait
-     * @param prayer {Object}   Trait being tested
+     * Setup a Trait Test.
+     *
+     * Some traits are rollable, and so are assigned a rollable characteristic, this is where
+     * rolling those characteristics is setup. Additonally, sometimes these traits have a 
+     * "Bonus characteristic" which in most all cases means what characteristic bonus to add 
+     * to determine damage. See the logic in traitOverride.
+     * 
+     * @param {Object} trait   The trait Item being used, containing which characteristic/bonus characteristic to use
      */
     setupTrait(trait) {
       if (!trait.data.rollable.value)
         return;
-      let char = this.data.data.characteristics[trait.data.rollable.rollCharacteristic];
       let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
       let testData = {
-        target : char.value,
         hitLocation : false,
-        extra :
-        {
+        extra : { // Store this trait data for later use
           trait : trait,
           size : this.data.data.details.size.value
         }
       };
 
+      // Default hit location checked if the rollable trait's characteristic is WS or BS
       if (trait.data.rollable.rollCharacteristic == "ws" || trait.data.rollable.rollCharacteristic == "bs" )
         testData.hitLocation = true;
 
+      // Setup dialog data: title, template, buttons, prefilled data
       let dialogOptions = {
         title: title,
         template : "/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
@@ -935,6 +981,7 @@ class ActorWfrp4e extends Actor {
             label: "Roll"
           }
         },
+        // Prefilled dialog data
         data : {
           hitLocation : testData.hitLocation,
           talents : this.data.flags.talentTests,
@@ -943,42 +990,38 @@ class ActorWfrp4e extends Actor {
           advantage : this.data.data.status.advantage.value || 0
         },
         callback : (html, roll) => {
-          cardOptions.rollMode = html.find('[name="rollMode"]').val();
-          testData.testModifier = Number(html.find('[name="testModifier"]').val());
+          // When dialog confirmed, fill testData dialog information
+          // Note that this does not execute until DiceWFRP.prepareTest() has finished and the user confirms the dialog
+          cardOptions.rollMode =    html.find('[name="rollMode"]').val();
+          testData.testModifier =   Number(html.find('[name="testModifier"]').val());
           testData.testDifficulty = WFRP4E.difficultyModifiers[html.find('[name="testDifficulty"]').val()];
-          testData.successBonus = Number(html.find('[name="successBonus"]').val());
-          testData.slBonus = Number(html.find('[name="slBonus"]').val());
+          testData.successBonus =   Number(html.find('[name="successBonus"]').val());
+          testData.slBonus =        Number(html.find('[name="slBonus"]').val());
           let characteristicToUse = html.find('[name="characteristicToUse"]').val();
+          // Target value is the final value being tested against, after all modifiers and bonuses are added
           testData.target = this.data.data.characteristics[characteristicToUse].value
                                + testData.testModifier
                                + testData.testDifficulty
           testData.hitLocation = html.find('[name="hitLocation"]').is(':checked');
-          let talentBonuses = html.find('[name = "talentBonuses"]').val();
+          let talentBonuses =    html.find('[name = "talentBonuses"]').val();
+
+          // Combine all Talent Bonus values (their times taken) into one sum          
           testData.successBonus += talentBonuses.reduce(function (prev, cur){
             return prev + Number(cur)
           }, 0)
+          
+          // Use the assigned roll function (see below for how rollOverride is assigned, and then
+          // DiceWFRP.prepareTest() for more info on how the override is used, if any)
           roll(testData, cardOptions);
           },
-          rollOverride : this.constructor.traitOverride
+        // Override the default test evaluation to use a specialized function to handle traits          
+        rollOverride : this.constructor.traitOverride
       };
 
-      let cardOptions = {
-        speaker: {
-          alias: this.data.name,
-          actor : this.data._id,
-        },
-        title: title,
-        template : "systems/wfrp4e/templates/chat/skill-card.html", // Reuse skill card
-        flags : {img: this.data.img}
-      }
-      if (this.token)
-      {
-        cardOptions.speaker.alias = this.token.data.name;
-        cardOptions.speaker.token = this.token.data.id;
-        cardOptions.speaker.scene = canvas.scene.id,
-        cardOptions.flags.img = this.token.data.img
-      }
-      // Call the roll helper utility
+      // Call the universal cardOptions helper
+      let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
+
+      // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function      
       DiceWFRP.prepareTest({
         dialogOptions : dialogOptions,
         testData : testData,
@@ -986,7 +1029,15 @@ class ActorWfrp4e extends Actor {
     }
 
     
-
+    /**
+     * Universal card options for setup functions.
+     *
+     * The setup_____() functions all use the same cardOptions, just different templates. So this is
+     * a standardized helper function to maintain DRY code.
+     * 
+     * @param {string} template   Fileptah to the template being used
+     * @param {string} title      Title of the Test to be displayed on the dialog and card
+     */
     _setupCardOptions(template, title)
     {
       let cardOptions = {
@@ -996,25 +1047,36 @@ class ActorWfrp4e extends Actor {
         },
         title: title,
         template : template,
-        flags : {img: this.data.img}
+        flags : {img: this.data.img} // img to be displayed next to the name on the test card
       }
+
+      // If the test is coming from a token sheet
       if (this.token)
       {
-        cardOptions.speaker.alias = this.token.data.name;
+        cardOptions.speaker.alias = this.token.data.name; // Use the token name instead of the actor name
         cardOptions.speaker.token = this.token.data.id;
         cardOptions.speaker.scene = canvas.scene.id
-        cardOptions.flags.img = this.token.data.img;
+        cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
       }
       return cardOptions
     }
 
-    // Readds all Basic and ungrouped skills that aren't already owned
+    /**
+     * Adds all missing basic skills to the Actor.
+     *
+     * This function will add all mising basic skills, used when an Actor is created (see create())
+     * as well as from the right click menu from the Actor directory.
+     * 
+     */
     async addBasicSkills() {
       let allItems = duplicate(this.data.items)
       let ownedBasicSkills = allItems.filter(i => i.type == "skill" && i.data.advanced.value == "bsc");
       let allBasicSkills = await WFRP_Utility.allBasicSkills()
+
+      // Filter allBasicSkills with ownedBasicSkills, resulting in all the missing skills
       let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
 
+      // Add those missing basic skills
       for(let skill of skillsToAdd)
       {
         await this.createOwnedItem(skill)
