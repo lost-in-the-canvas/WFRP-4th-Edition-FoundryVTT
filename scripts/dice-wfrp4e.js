@@ -31,7 +31,8 @@ class DiceWFRP {
       mergeObject(cardOptions,
         {
           user : game.user._id,
-          sound : CONFIG.sounds.dice
+          sound : CONFIG.sounds.dice,
+          type: CONST.CHAT_MESSAGE_TYPES.ROLL
         })
 
       var roll;
@@ -583,6 +584,7 @@ class DiceWFRP {
 
      if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
      if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
+     //else if ( chatOptions.rollMode === "selfroll" ) chatOptions["whisper"] = [game.user._id];
 
      // All the data need to recreate the test when chat card is edited
      chatOptions["flags.data"] = {

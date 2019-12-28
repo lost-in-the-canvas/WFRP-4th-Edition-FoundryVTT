@@ -790,17 +790,20 @@ class WFRP_Utility
     ChatMessage.create(chatOptions);
   }
 
-  static chatDataSetup(content, isRoll = false)
+  static chatDataSetup(content, modeOverride, isRoll = false)
   {
     let chatData = {
       user : game.user._id, 
-      rollMode : game.settings.get("core", "rollMode"),
+      rollMode : modeOverride || game.settings.get("core", "rollMode"),
       content : content 
     };
     if(isRoll)
       chatData.sound = CONFIG.sounds.dice
+
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+    else if ( chatData.rollMode === "selfroll" ) chatData["whisper"] = game.user._id;
+
     return chatData;
   }
 

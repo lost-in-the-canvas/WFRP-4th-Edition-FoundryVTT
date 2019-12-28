@@ -668,8 +668,6 @@ WFRP4E.locations = {
  "lLeg": "Left Leg",
 }
 
-
-
 // Trapping Availability
  WFRP4E.availability = {
    "None": "-",
