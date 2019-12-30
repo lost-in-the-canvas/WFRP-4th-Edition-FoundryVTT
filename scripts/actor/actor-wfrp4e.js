@@ -1128,8 +1128,11 @@ class ActorWfrp4e extends Actor {
       // Prepare the entire actor to get the AP layers at the hitloc
       let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
       AP.ignored = 0;
+      let hack
       if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
       {
+        if (opposeData.attackerTestResult.weapon.properties.qualities.includes("Hack"))
+          hack = true;
         // Determine its qualities/flaws to be used for damage calculation
         let weaponProperties = opposeData.attackerTestResult.weapon.properties;
         let penetrating = weaponProperties.qualities.includes("Penetrating")
@@ -1228,6 +1231,9 @@ class ActorWfrp4e extends Actor {
 
     else if (impenetrable)
       updateMsg += `<br>Impenetrable - Criticals Nullified`
+
+    if (hack)
+      updateMsg += `<br>1 AP Damaged at ${opposeData.hitloc.value}`
 
     if (newWounds <= 0)
       newWounds = 0; // Do not go below 0 wounds
