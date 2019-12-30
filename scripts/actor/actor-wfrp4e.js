@@ -1042,12 +1042,13 @@ class ActorWfrp4e extends Actor {
   {
     let cardOptions = {
       speaker: {
-        alias: this.data.name,
+        alias: this.data.token.name,
         actor : this.data._id,
       },
       title: title,
       template : template,
-      flags : {img: this.data.img} // img to be displayed next to the name on the test card
+      flags : {img: this.data.token.randomImg ? this.data.img : this.data.token.img} 
+      // img to be displayed next to the name on the test card - if it's a wildcard img, use the actor image
     }
 
     // If the test is coming from a token sheet
@@ -1058,6 +1059,17 @@ class ActorWfrp4e extends Actor {
       cardOptions.speaker.scene = canvas.scene.id
       cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
     }
+    else // If a linked actor - use the currently selected token's data if the actor id matches
+    {
+      let speaker = ChatMessage.getSpeaker()
+      if (speaker.actor == this.data._id)
+      {
+        cardOptions.speaker.alias = speaker.alias
+        cardOptions.speaker.token = speaker.token
+        cardOptions.speaker.scene = speaker.scene
+      }
+    }
+
     return cardOptions
   }
 
@@ -1121,6 +1133,8 @@ class ActorWfrp4e extends Actor {
     let impenetrable = false;
     // If weapon is undamaging
     let undamaging = false;
+    // If weapon has Hack
+    let hack
 
     if (applyAP)
     {
@@ -1128,7 +1142,6 @@ class ActorWfrp4e extends Actor {
       // Prepare the entire actor to get the AP layers at the hitloc
       let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
       AP.ignored = 0;
-      let hack
       if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
       {
         if (opposeData.attackerTestResult.weapon.properties.qualities.includes("Hack"))
@@ -1512,7 +1525,7 @@ class ActorWfrp4e extends Actor {
    * 1. Responding to a target: If the actor has a value in flags.oppose, that means another actor targeted them: Organize
    *    attacker and defender data, and send it to the OpposedWFRP.evaluateOpposedTest() method. Afterward, remove the oppose
    *    flag
-   * 2. Starting an opposed test: If the user using the acctor has a target, start an opposed Test: create the message then
+   * 2. Starting an opposed test: If the user using the actor has a target, start an opposed Test: create the message then
    *    insert oppose data into the target's flags.oppose object.
    * 3. Neither: If no data in the actor's oppose flags, and no targets, skip everything and return.
    *
@@ -1525,45 +1538,61 @@ class ActorWfrp4e extends Actor {
     let actor = WFRP_Utility.getSpeaker(message.data.speaker)
     let testResult = message.data.flags.data.postData
 
-    /* -------------- IF OPPOSING AFTER BEING TARGETED -------------- */
-    if (actor.data.flags.oppose) // If someone targets an actor, they insert data in the target's flags.oppose
-    {                            // So if data exists here, this actor has been targeted, see below for what kind of data is stored here
-      let attackMessage = game.messages.get(actor.data.flags.oppose.messageId) // Retrieve attacker's test result message
-      // Organize attacker/defender data
-      let attacker = {
-        speaker : actor.data.flags.oppose.speaker,
-        testResult : attackMessage.data.flags.data.postData,
-        img : WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
-      }
-      let defender = {
-        speaker : message.data.speaker,
-        testResult : testResult,
-        img : actor.data.msg
-      }                             // evaluateOpposedTest is usually for manual opposed tests, it requires extra options for targeted opposed test
-      await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true, startMessageId : actor.data.flags.oppose.startMessageId})
-      await actor.update({"-=flags.oppose" : null}) // After opposing, remove oppose
-
-    }
-    /* -------------- IF TARGETING SOMEONE -------------- */
-    else if (game.user.targets.size) // if user using the actor has targets
+    try 
     {
-      // For each target, create a message, and insert oppose data in the targets' flags
-      game.user.targets.forEach(async target => {
-        let content =
-        `<div class ="opposed-message"><b>${actor.token.data.name}</b> is targeting <b>${target.actor.token.data.name}</b></div>
-        <div class = "opposed-tokens">
-        <div class = "attacker"><img src="${actor.token.data.img}" width="50" height="50"/></div>
-        <div class = "defender"><img src="${target.actor.token.data.img}" width="50" height="50"/></div>
-        </div>`
+      /* -------------- IF OPPOSING AFTER BEING TARGETED -------------- */
+      if (actor.data.flags.oppose) // If someone targets an actor, they insert data in the target's flags.oppose
+      {                            // So if data exists here, this actor has been targeted, see below for what kind of data is stored here
+        let attackMessage = game.messages.get(actor.data.flags.oppose.messageId) // Retrieve attacker's test result message
+        // Organize attacker/defender data
+        let attacker = {
+          speaker : actor.data.flags.oppose.speaker,
+          testResult : attackMessage.data.flags.data.postData,
+          img : WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
+        }
+        let defender = {
+          speaker : message.data.speaker,
+          testResult : testResult,
+          img : actor.data.msg
+        }                             // evaluateOpposedTest is usually for manual opposed tests, it requires extra options for targeted opposed test
+        await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true, startMessageId : actor.data.flags.oppose.startMessageId})
+        await actor.update({"-=flags.oppose" : null}) // After opposing, remove oppose
 
-        // Create the Opposed starting message
-        //let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker, timestamp : message.data.timestamp - 1})
-        let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
-        // Add oppose data flag to the target
-        target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
-      })
-      // Remove current targets
-      canvas.tokens.get(message.data.speaker.token).setTarget(false);
+      }
+
+      /* -------------- IF TARGETING SOMEONE -------------- */
+      else if (game.user.targets.size) // if user using the actor has targets
+      {
+        let attacker;
+        // If token data was found in the message speaker (see setupChatOptions)
+        if (message.data.speaker.token)
+          attacker = canvas.tokens.get(message.data.speaker.token).data
+
+        else // If no token data was found in the speaker, use the actor's token data instead
+          attacker = actor.data.token
+
+        // For each target, create a message, and insert oppose data in the targets' flags
+        game.user.targets.forEach(async target => {
+          let content =
+          `<div class ="opposed-message"><b>${attacker.name}</b> is targeting <b>${target.data.name}</b></div>
+          <div class = "opposed-tokens">
+          <div class = "attacker"><img src="${attacker.img}" width="50" height="50"/></div>
+          <div class = "defender"><img src="${target.data.img}" width="50" height="50"/></div>
+          </div>`
+
+          // Create the Opposed starting message
+          //let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker, timestamp : message.data.timestamp - 1})
+          let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
+          // Add oppose data flag to the target
+          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
+          // Remove current targets
+          target.setTarget(false);
+        })
+      }
+    }
+    catch
+    {
+      await actor.update({"-=flags.oppose" : null}) // If something went wrong, remove incoming opposed tests
     }
   }
 }

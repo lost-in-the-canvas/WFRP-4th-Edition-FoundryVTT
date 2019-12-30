@@ -82,7 +82,7 @@ class DiceWFRP {
       // Additionally, the auto-success/failure range can complicate things even more.
 
       // Failure
-      if (roll.total >= 96 || roll.total > targetNum)
+      if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
       {
         description = "Failure"
         if (roll.total >= 96 && SL > -1)
