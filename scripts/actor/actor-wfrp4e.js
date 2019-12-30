@@ -362,7 +362,7 @@ class ActorWfrp4e extends Actor {
     let title = "Weapon Test - " + weapon.name;
 
     // Prepare the weapon to have the complete data object, including qualities/flaws, damage value, etc.
-    let wep = WFRP_Utility._prepareWeaponCombat(this.data, duplicate(weapon));
+    let wep = this.prepareWeaponCombat(duplicate(weapon));
     let ammo; // Ammo object, if needed
 
     let testData = {
@@ -625,7 +625,7 @@ class ActorWfrp4e extends Actor {
     let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
 
     // Prepare the spell to have the complete data object, including damage values, range values, CN, etc.
-    let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.data, spell);
+    let preparedSpell = this.prepareSpellOrPrayer(spell);
     let testData = {
       target : 0,
       extra : { // Store this data to be used by the test logic
@@ -759,7 +759,7 @@ class ActorWfrp4e extends Actor {
     let testData = {
       target : 0,
       extra : { // Store data to be used by the test logic
-        spell : WFRP_Utility._prepareSpellOrPrayer(this.data, spell),
+        spell : this.prepareSpellOrPrayer(spell),
         malignantInfluence : false,
         ingredient : false,
         AA : aethyricAttunement,
@@ -868,15 +868,20 @@ class ActorWfrp4e extends Actor {
     let defaultSelection = praySkills.findIndex(i => i.name.toLowerCase() == "pray")
 
     // Prepare the prayer to have the complete data object, including damage values, range values, etc.
-    let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.data, prayer);
+    let preparedPrayer = this.prepareSpellOrPrayer(prayer);
     let testData = { // Store this data to be used in the test logic
       target : 0,
-      hitLocation : true,
+      hitLocation : false,
       extra : {
         prayer : preparedPrayer,
         size : this.data.data.details.size.value
       }
     };
+
+
+    // If the spell does damage, default the hit location to checked
+    if (preparedPrayer.damage)
+      testData.hitLocation = true;
 
     // Setup dialog data: title, template, buttons, prefilled data
     let dialogOptions = {
@@ -1594,6 +1599,382 @@ class ActorWfrp4e extends Actor {
     {
       await actor.update({"-=flags.oppose" : null}) // If something went wrong, remove incoming opposed tests
     }
+  }
+
+
+  prepareSkill(basicSkills, advOrGrpSkills, skill) 
+  {
+    let actorData = this.data
+    skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
+    skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
+    skill.data.characteristic.abrev = WFRP4E.characteristicsAbbrev[skill.data.characteristic.value];
+
+    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
+      advOrGrpSkills.push(skill)
+    else
+      basicSkills.push(skill);
+   }
+
+  /* -------------------------------------------- */
+
+   prepareTalent(talent, talentList) {
+    let actorData = this.data
+    let existingTalent = talentList.find(t => t.name == talent.name)
+    if (existingTalent){
+      if (!existingTalent.numMax){
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+        existingTalent.data.advances.value++;
+    }
+    else{
+      switch(talent.data.max.value){
+        case '1':
+        talent["numMax"] = 1;
+        break;
+
+        case '2':
+        talent["numMax"] = 2;
+        break;
+
+        case 'none':
+        talent["numMax"] = "-";
+        break;
+
+        default:
+        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+      }
+      talentList.push(talent);
+    }
+   }
+
+  prepareWeaponCombat(weapon, skills)
+  {
+    let actorData = this.data
+
+    if (!skills)
+    {
+      skills = actorData.items.filter(i => i.type == "skill");
+    }
+
+    weapon.data.reach.value = WFRP4E.weaponReaches[weapon.data.reach.value];
+    weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value];
+
+    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase())) 
+    weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(weapon, !!weapon.skillToUse);
+
+    if (weapon.data.weaponGroup.value == "Flail" && !weapon.skillToUse && !weapon.properties.includes("Dangerous"))
+      weapon.properties.push("Dangerous");
+
+    weapon.data.range.value = this.calculateRangeOrDamage(weapon.data.range.value);
+    if (weapon.data.damage.meleeValue)
+    {
+      weapon.data.damage.meleeValue = this.calculateRangeOrDamage(weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.meleeValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
+    }
+    if (weapon.data.damage.rangedValue)
+    {
+      weapon.data.damage.rangedValue = this.calculateRangeOrDamage(weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
+      if (weapon.data.weaponDamage)
+        weapon.data.damage.rangedValue -= weapon.data.weaponDamage
+      else 
+        weapon.data["weaponDamage"] = 0;
+    }
+
+    if (Number(weapon.data.range.value) > 0)
+      weapon["rangedWeaponType"] = true;
+    if (weapon.data.reach.value)
+      weapon["meleeWeaponType"] = true;
+
+    // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
+    if (weapon.data.ammunitionGroup.value != "none") {
+      weapon["ammo"] = [];
+      for ( let a of actorData.items ) {
+        if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
+            weapon.ammo.push(a);
+      }
+      this.prepareWeaponWithAmmo(weapon);
+    }
+    else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
+    {
+      weapon["ammo"] = [weapon];
+      weapon.data.ammunitionGroup.value = "";
+    }
+    else if (weapon.data.weaponGroup.value == "Entangling")
+    {
+      weapon.data.ammunitionGroup.value = "";
+    }
+    weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
+    if (weapon.properties.special)
+      weapon.properties.special = weapon.data.special.value;
+    return weapon;
+  }
+
+  // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
+  prepareArmorCombat(armor, AP)
+  { // -1 means currentAP is maxAP
+    armor.properties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(armor));
+    for (let apLoc in armor.data.currentAP)
+    {
+      if (armor.data.currentAP[apLoc] == -1)
+      {
+        armor.data.currentAP[apLoc] = armor.data.maxAP[apLoc];
+      }
+    }
+    if (armor.data.maxAP.head > 0)
+    {
+      armor["protectsHead"] = true;
+      AP.head.value += armor.data.currentAP.head;
+      WFRP_Utility.addLayer(AP, armor, "head")
+    }
+    if (armor.data.maxAP.body > 0)
+    {
+      armor["protectsBody"] = true;
+      AP.body.value += armor.data.currentAP.body;
+      WFRP_Utility.addLayer(AP, armor, "body")
+    }
+    if (armor.data.maxAP.lArm > 0)
+    {
+      armor["protectslArm"] = true;
+      AP.lArm.value += armor.data.currentAP.lArm;
+      WFRP_Utility.addLayer(AP, armor, "lArm")
+    }
+    if (armor.data.maxAP.rArm > 0)
+    {
+      armor["protectsrArm"] = true;
+      AP.rArm.value += armor.data.currentAP.rArm;
+      WFRP_Utility.addLayer(AP, armor, "rArm")
+    }
+    if (armor.data.maxAP.lLeg > 0)
+    {
+      armor["protectslLeg"] = true;
+      AP.lLeg.value += armor.data.currentAP.lLeg;
+      WFRP_Utility.addLayer(AP, armor, "lLeg")
+    }
+    if (armor.data.maxAP.rLeg > 0)
+    {
+      armor["protectsrLeg"] = true
+      AP.rLeg.value += armor.data.currentAP.rLeg;
+      WFRP_Utility.addLayer(AP, armor, "rLeg")
+    }
+    return armor;
+  }
+
+ 
+
+  prepareWeaponWithAmmo(weapon)
+  {
+    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    if (!ammo)
+      return;
+
+    let ammoProperties = WFRP_Utility._prepareQualitiesFlaws(ammo);           // Skip undefined
+    let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == "special"));
+    if (specialPropInd != -1)
+      ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " Ammo"
+
+    let ammoRange = ammo.data.range.value || "0";
+    let ammoDamage = ammo.data.damage.value || "0";
+
+    if (ammoRange.toLowerCase() == "as weapon")
+    {
+      // Do nothing to weapon's range
+    }
+    else if (ammoRange.toLowerCase() == "half weapon")
+    {
+      weapon.data.range.value /= 2;
+    }
+    else if (ammoRange.toLowerCase() == "third weapon")
+    {
+      weapon.data.range.value /= 3;
+    }
+    else if (ammoRange.toLowerCase() == "quarter weapon")
+    {
+      weapon.data.range.value /= 4;
+    }
+    else if (ammoRange.toLowerCase() == "twice weapon")
+    {
+      weapon.data.range.value *= 2;
+    }
+    else
+    {
+      try {
+        ammoRange = eval(ammoRange);
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
+      }
+      catch 
+      {
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange)); // Eval throws exception for "/2" for example. 
+      }
+    }
+    
+    try {
+      ammoDamage = eval(ammoDamage);
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+    }
+    catch { 
+      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
+    }
+    
+    // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
+    // Example: Blast +1 should turn a weapon's Blast 4 into Blast 5
+    ammoProperties = ammoProperties.filter(p => p != undefined);
+    let propertyChange = ammoProperties.filter(p => p.includes("+") || p.includes("-")); // Properties that increase or decrease another (Blast +1, Blast -1)
+
+    // Normal properties (Impale, Penetrating)
+    let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
+
+    for (let inc of propertyChange)
+    {
+      let index = inc.indexOf(" ");
+      let property = inc.substring(0, index).trim();
+      let value = inc.substring(index, inc.length);
+
+      if (weapon.properties.find(p => p.includes(property)))
+      {
+        let basePropertyIndex = weapon.properties.findIndex(p => p.includes(property))
+        let baseValue = weapon.properties[basePropertyIndex].split(" ")[1];
+        let newValue = eval(baseValue + value)
+
+        weapon.properties[basePropertyIndex] = `${property} ${newValue}`;
+      }
+      else
+      {
+        propertiesToAdd.push(property + " " + Number(value));
+      }
+    }
+
+    weapon.properties = weapon.properties.concat(propertiesToAdd);
+  }
+
+  prepareSpellOrPrayer(item) {
+    let actorData = this.data
+    item['target'] = this.calculateSpellRangeOrDuration(item.data.target.value, item.data.target.aoe);
+    item['duration'] = this.calculateSpellRangeOrDuration(item.data.duration.value);
+    if (item.data.duration.extendable)
+    {
+      item.duration += "+";
+    }
+    item['range'] = this.calculateSpellRangeOrDuration(item.data.range.value);
+    if (item.type == "spell")
+      item['damage'] = this.calculateSpellDamage(item.data.damage.value, item.data.magicMissile.value);
+    else
+      item['damage'] = this.calculateSpellDamage(item.data.damage.value, false);
+
+    if (item.type == "spell")
+    {
+      item.data.description.value = WFRP_Utility._spellDescription(item);
+      if (!item.data.memorized.value )
+        item.data.cn.value *= 2;
+    }
+
+    return item;
+  }
+
+
+  calculateSpellRangeOrDuration(formula, aoe=false)
+  {
+    let actorData = this.data
+    formula = formula.toLowerCase();
+
+    if (formula != "you" && formula != "special" && formula != "instant")
+    {
+      for(let ch in actorData.data.characteristics)
+      {
+        if (formula.includes(WFRP4E.characteristics[ch].toLowerCase()))
+        {
+          if (formula.includes('bonus'))
+          {
+            formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+          }
+          else
+          {
+            formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
+          }
+        }
+      }
+    }
+
+    if (aoe)
+      formula = "AoE (" + formula.capitalize() + ")";
+    return formula.capitalize();
+  }
+
+  calculateSpellDamage(formula, isMagicMissile)
+  {
+    let actorData = this.data
+    formula = formula.toLowerCase();
+
+    if (isMagicMissile)
+    {
+      formula += "+ willpower bonus"
+    }
+
+    for(let ch in actorData.data.characteristics)
+    {
+
+      while (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      {
+        if (formula.includes('bonus'))
+        {
+          formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
+        }
+        else
+        {
+          formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
+        }
+      }
+    }
+
+    return eval(formula);
+  }
+
+  calculateArmorPenalties(armorList)
+  {
+    // Parsing armor penalties for the combat tab
+    let armorPenaltiesString = "";
+    let wearingMail = false;
+    let wearingPlate = false;
+    for (let a of armorList)
+    {
+      armorPenaltiesString += a.data.penalty.value + " ";
+      if (a.data.armorType.value == "mail")
+        wearingMail = true;
+      if (a.data.armorType.value == "plate")
+        wearingPlate = true;
+    }
+
+    if (wearingMail || wearingPlate)
+    {
+      let stealthPenaltyValue = 0;
+      if (wearingMail)
+        stealthPenaltyValue += -10;
+      if (wearingPlate)
+        stealthPenaltyValue += -10;
+
+      armorPenaltiesString += (stealthPenaltyValue + " Stealth");
+    }
+    return armorPenaltiesString;
+  }
+
+  calculateRangeOrDamage(formula)
+  {
+    let actorData = this.data
+    try {formula = formula.toLowerCase();}
+    catch {return formula}
+
+    for(let ch in actorData.data.characteristics)
+    {
+      if (formula.includes(ch.concat('b')))
+      {
+        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+      }
+    }
+    formula = formula.replace('x', '*');
+
+    return eval(formula);
   }
 }
 

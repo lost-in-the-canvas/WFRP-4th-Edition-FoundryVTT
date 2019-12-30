@@ -319,12 +319,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         i.img = i.img || DEFAULT_TOKEN;
         if (i.type === "talent")
         {
-          WFRP_Utility._prepareTalent(actorData, i, talents);
+          this.actor.prepareTalent(i, talents);
         }
 
         else if ( i.type === "skill" )
         {
-          WFRP_Utility._prepareSkill(actorData, basicSkills, advancedOrGroupedSkills, i);
+          this.actor.prepareSkill(basicSkills, advancedOrGroupedSkills, i);
         }
 
 
@@ -375,7 +375,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           }
 
           if (i.data.worn.value)
-            armour.push(WFRP_Utility._prepareArmorCombat(actorData, i, AP));
+            armour.push(this.actor.prepareArmorCombat(i, AP));
         }
 
         else if (i.type == "injury")
@@ -456,18 +456,18 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           hasSpells = true;
           if (i.data.lore.value == "petty")
-            petty.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+            petty.push(this.actor.prepareSpellOrPrayer(i));
           else
-            grimoire.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+            grimoire.push(this.actor.prepareSpellOrPrayer(i));
         }
 
         else if (i.type === "prayer")
         {
           hasPrayers = true;
           if (i.data.type.value == "blessing")
-            blessings.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+            blessings.push(this.actor.prepareSpellOrPrayer(i));
           else
-            miracles.push(WFRP_Utility._prepareSpellOrPrayer(actorData, i));
+            miracles.push(this.actor.prepareSpellOrPrayer(i));
         }
 
         else if (i.type === "career")
@@ -551,7 +551,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         if (wep.data.equipped)
         {
-          weapons.push(WFRP_Utility._prepareWeaponCombat(actorData, wep, basicSkills.concat(advancedOrGroupedSkills)));
+          weapons.push(this.actor.prepareWeaponCombat(wep, basicSkills.concat(advancedOrGroupedSkills)));
           let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
           if (shieldProperty)
           {
@@ -638,7 +638,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       // Penalties box setup
       // If too much text, divide the penalties into groups
       let penaltiesOverflow = false;
-      penalties["Armour"].value += WFRP_Utility._calculateArmorPenalties(actorData, armour);
+      penalties["Armour"].value += this.actor.calculateArmorPenalties(armour);
       if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50)
       {
         penaltiesOverflow = true;
@@ -1748,7 +1748,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         else{
           let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
           propertyDescr = Object.assign(propertyDescr, {"Special" : item.data.data.special.value});
-          item = WFRP_Utility._prepareWeaponCombat(this.actor.data, duplicate(item.data));
+          item = this.actor.prepareWeaponCombat(duplicate(item.data));
           propertyKey = "Special";
         }
 

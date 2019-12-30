@@ -104,7 +104,7 @@ class ItemWfrp4e extends Item {
   
     _spellExpandData() {
       const data = duplicate(this.data.data);
-      let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, duplicate(this.data));
+      let preparedSpell = this.actor.prepareSpellOrPrayer(duplicate(this.data));
       data.description = preparedSpell.data.description
       data.properties = [];
       data.properties.push("Range: " + preparedSpell.range);
@@ -120,7 +120,7 @@ class ItemWfrp4e extends Item {
   
      _prayerExpandData() {
       const data = duplicate(this.data.data);
-      let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
+      let preparedPrayer = this.actor.prepareSpellOrPrayer(this.data);
       data.properties = [];
       data.properties.push("Range: " + preparedPrayer.range);
       data.properties.push("Target: " + preparedPrayer.target);
