@@ -1078,194 +1078,6 @@ class ActorWfrp4e extends Actor {
     return cardOptions
   }
 
-  /**
-   * Adds all missing basic skills to the Actor.
-   *
-   * This function will add all mising basic skills, used when an Actor is created (see create())
-   * as well as from the right click menu from the Actor directory.
-   *
-   */
-  async addBasicSkills() {
-    let allItems = duplicate(this.data.items)
-    let ownedBasicSkills = allItems.filter(i => i.type == "skill" && i.data.advanced.value == "bsc");
-    let allBasicSkills = await WFRP_Utility.allBasicSkills()
-
-    // Filter allBasicSkills with ownedBasicSkills, resulting in all the missing skills
-    let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
-
-    // Add those missing basic skills
-    for(let skill of skillsToAdd)
-    {
-      await this.createOwnedItem(skill)
-    }
-  }
-
-
-  /**
-   * Apply damage to an actor, taking into account armor, size, and weapons.
-   *
-   * applyDamage() is typically called at the end of an oppposed tests, where you can
-   * right click the chat message and apply damage. This function goes through the
-   * process of calculating and reducing damage if needede based on armor, toughness,
-   * size, armor qualities/flaws, and weapon qualities/flaws
-   *
-   * @param {Object} victim       id of actor taking damage
-   * @param {Object} opposedData  Test results, all the information needed to calculate damage
-   * @param {var}    damageType   enum for what the damage ignores, see config.js
-   */
-  static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
-  {
-    // If no damage value, don't attempt anything
-    if (!opposeData.damage.value)
-      return "Cannot automate damage (likely due to Tiring)"
-
-    // Get actor/tokens for those in the opposed test
-    let actor = WFRP_Utility.getSpeaker(victim);
-    let attacker = WFRP_Utility.getSpeaker(opposeData.speakerAttack)
-
-    // Start wound loss at the damage value
-    let totalWoundLoss = opposeData.damage.value
-    let newWounds = actor.data.data.status.wounds.value;
-    let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
-    let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
-
-    // Start message update string
-    let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b><span class = 'hide-option'>: @TOTAL";
-    if (damageType != DAMAGE_TYPE.IGNORE_ALL)
-      updateMsg += " ("
-
-    // If armor at hitloc has impenetrable value or not
-    let impenetrable = false;
-    // If weapon is undamaging
-    let undamaging = false;
-    // If weapon has Hack
-    let hack
-
-    if (applyAP)
-    {
-      // I dislike this solution but I can't think of any other way to do it
-      // Prepare the entire actor to get the AP layers at the hitloc
-      let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
-      AP.ignored = 0;
-      if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
-      {
-        if (opposeData.attackerTestResult.weapon.properties.qualities.includes("Hack"))
-          hack = true;
-        // Determine its qualities/flaws to be used for damage calculation
-        let weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        let penetrating = weaponProperties.qualities.includes("Penetrating")
-        undamaging = weaponProperties.flaws.includes("Undamaging")
-        // see if armor flaws should be triggered
-        let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-        let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-                                && weaponProperties.qualities.includes("Impale")
-
-        // Mitigate damage with armor one layer at a time
-        for (let layer of AP.layers)
-        {
-          if (ignoreWeakpoints && layer.weakpoints)
-          {
-            AP.ignored += layer.value
-          }
-          else if (ignorePartial && layer.partial)
-          {
-            AP.ignored += layer.value;
-          }
-          else if (penetrating) // If penetrating - ignore 1 or all armor depending on material
-          {
-            AP.ignored += layer.metal ? 1 : layer.value
-          }
-        }
-      } // end if weapon
-
-      // Go through the layers again to determine the location is impenetrable
-      // This is its own loop because it should be checked regardless of the
-      // attacker using a weapon
-      for (let layer of AP.layers)
-      {
-        if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
-        {
-          impenetrable = true;
-          break;
-        }
-      }
-      // AP.used is the actual amount of AP considered
-      AP.used = AP.value - AP.ignored
-      AP.used = AP.used < 0 ? 0 : AP.used;           // AP minimum 0
-      AP.used = undamaging ? AP.used * 2 : AP.used;  // Double AP if undamaging
-
-      // show the AP usage in the updated message
-      if (AP.ignored)
-        updateMsg += `${AP.used}/${AP.value} AP`
-      else
-        updateMsg += AP.used + " AP"
-
-      // If using a shield, add that APP as well
-      let shieldAP = 0;
-      if (opposeData.defenderTestResult.weapon)
-      {
-        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")))
-          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")).split(" ")[1])
-      }
-
-      if (shieldAP)
-        updateMsg += ` + ${shieldAP} Shield`
-
-      if (applyTB)
-        updateMsg += " + "
-      else
-        updateMsg += ")"
-
-      // Reduce damage done by AP
-      totalWoundLoss -= (AP.used + shieldAP)
-    }
-
-    // Reduce damage by TB
-    if (applyTB)
-    {
-      totalWoundLoss -= actor.data.data.characteristics.t.bonus
-      updateMsg += actor.data.data.characteristics.t.bonus + " TB"
-    }
-
-    // If the actor has the Robust talent, reduce damage by times taken
-    totalWoundLoss -= actor.data.flags.robust || 0;
-
-    if (actor.data.flags.robust)
-      updateMsg += ` + ${actor.data.flags.robust} Robust)`
-    else
-      updateMsg += ")"
-
-    // Minimum 1 wound if not undamaging
-    if (!undamaging)
-      totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss
-    else
-      totalWoundLoss = totalWoundLoss <= 0 ? 0 : totalWoundLoss
-
-    newWounds -= totalWoundLoss
-
-    // If damage taken reduces wounds to 0, show Critical
-    if (newWounds <= 0 && !impenetrable)
-      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
-
-    else if (impenetrable)
-      updateMsg += `<br>Impenetrable - Criticals Nullified`
-
-    if (hack)
-      updateMsg += `<br>1 AP Damaged at ${opposeData.hitloc.value}`
-
-    if (newWounds <= 0)
-      newWounds = 0; // Do not go below 0 wounds
-
-
-    updateMsg +="</span>"
-    updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
-
-    // Update actor wound value
-    actor.update({"data.status.wounds.value" : newWounds})
-    return updateMsg;
-  }
-
-
   /* --------------------------------------------------------------------------------------------------------- */
   /* --------------------------------------------- Roll Overides --------------------------------------------- */
   /* --------------------------------------------------------------------------------------------------------- */
@@ -1601,128 +1413,220 @@ class ActorWfrp4e extends Actor {
     }
   }
 
+  /* --------------------------------------------------------------------------------------------------------- */
+  /* --------------------------------- Preparation & Calculation Functions ----------------------------------- */
+  /* --------------------------------------------------------------------------------------------------------- */
+  /**
+   * Preparation function takes raw item data and processes it with actor data, typically using the calculate
+   * functions to do so. For example, A weapon passed into prepareWeaponCombat will turn the weapon's damage 
+   * from "SB + 4" to the actual damage value by using the actor's strength bonus. See the specific functions
+   * below for more details on what exactly is processed. These functions are used when rolling a test 
+   * (determining a weapon's base damage) or setting up the actor sheet to be displayed (displaying the damage
+   * in the combat tab).
+   *
+  /* --------------------------------------------------------------------------------------------------------- */
 
-  prepareSkill(basicSkills, advOrGrpSkills, skill) 
+  /**
+   * Prepares a skill Item.
+   * 
+   * Preparation of a skill is simply determining the `total` value, which is the base characteristic + advances.
+   * 
+   * @param   {Object} skill    'skill' type Item 
+   * @return  {Object} skill    Processed skill, with total value calculated
+   */
+  prepareSkill(skill) 
   {
     let actorData = this.data
+
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
+    // Characteristic Total + Skill Advancement = Skill Total
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
     skill.data.characteristic.abrev = WFRP4E.characteristicsAbbrev[skill.data.characteristic.value];
-
-    if (skill.data.grouped.value == "isSpec" || skill.data.advanced.value == "adv")
-      advOrGrpSkills.push(skill)
-    else
-      basicSkills.push(skill);
+    return skill
    }
 
-  /* -------------------------------------------- */
-
-   prepareTalent(talent, talentList) {
+   /**
+    * 
+    * Prepares a talent Item.
+    * 
+    * Prepares a talent with actor data and other talents. Two different ways to prepare a talent:
+    * 
+    * 1. If a talent with the same name is already prepared, don't prepare this talent and instead
+    * add to the advancements of the existing talent.
+    * 
+    * 2. If the talent does not exist yet, turn its "Max" value into "numMax", in other words, turn
+    * "Max: Initiative Bonus" into an actual number value.
+    * 
+    * @param {Object} talent      'talent' type Item.
+    * @param {Array}  talentList  List of talents prepared so far. Prepared talent is pushed here instead of returning.
+    */
+   prepareTalent(talent, talentList) 
+   {
     let actorData = this.data
+
+    // Find an existing prepared talent with the same name
     let existingTalent = talentList.find(t => t.name == talent.name)
-    if (existingTalent){
-      if (!existingTalent.numMax){
+    if (existingTalent) // If it exists
+    { 
+      if (!existingTalent.numMax) // If for some reason, it does not have a numMax, assign it one
         talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
-      }
-        existingTalent.data.advances.value++;
+      // Add an advancement to the existing talent
+      existingTalent.data.advances.value++;
     }
-    else{
-      switch(talent.data.max.value){
+    else // If a talent of the same name does not exist
+    { 
+      switch(talent.data.max.value) // Turn its max value into "numMax", which is an actual numeric value
+      {
         case '1':
-        talent["numMax"] = 1;
+          talent["numMax"] = 1;
         break;
 
         case '2':
-        talent["numMax"] = 2;
+          talent["numMax"] = 2;
         break;
 
         case 'none':
-        talent["numMax"] = "-";
+          talent["numMax"] = "-";
         break;
 
         default:
-        talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
+          talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
-      talentList.push(talent);
+      talentList.push(talent); // Add the prepared talent to the talent list
     }
    }
 
-  prepareWeaponCombat(weapon, skills)
+   /**
+    * Prepares a weapon Item.
+    * 
+    * Prepares a weapon using actor data, ammunition, properties, and flags. The weapon's raw
+    * data is turned into more user friendly / meaningful data with either config values or
+    * calculations. Also turns all qualities/flaws into a more structured object.
+    * 
+    * @param  {Object} weapon      'weapon' type Item
+    * @param  {Array}  ammoList    array of 'ammo' type Items
+    * @param  {Array}  skills      array of 'skill' type Items
+    * 
+    * @return {Object} weapon      processed weapon
+    */
+  prepareWeaponCombat(weapon, ammoList, skills)
   {
     let actorData = this.data
 
-    if (!skills)
-    {
+    if (!skills) // If a skill list isn't provided, filter all items to find skills
       skills = actorData.items.filter(i => i.type == "skill");
-    }
 
     weapon.data.reach.value = WFRP4E.weaponReaches[weapon.data.reach.value];
     weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value];
 
-    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase())) 
+    // Attach the available skills to use to the weapon.
+    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase()))
+    
+    // prepareQualitiesFlaws turns the comma separated qualities/flaws string into a string array
+    // Does not include qualities if no skill could be found above
     weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(weapon, !!weapon.skillToUse);
 
+    // Special flail rule - if no skill could be found, add the Dangerous property
     if (weapon.data.weaponGroup.value == "Flail" && !weapon.skillToUse && !weapon.properties.includes("Dangerous"))
       weapon.properties.push("Dangerous");
 
+    // Turn range into a numeric value (important for ranges including SB, see the function for details)
     weapon.data.range.value = this.calculateRangeOrDamage(weapon.data.range.value);
+    
+    // Melee Damage calculation
     if (weapon.data.damage.meleeValue)
     {
+      // Turn melee damage formula into a numeric value (SB + 4 into a number)         Melee damage increase flag comes from Strike Mighty Blow talent
       weapon.data.damage.meleeValue = this.calculateRangeOrDamage(weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+
+      // Very poor wording, but if the weapon has suffered damage (weaponDamage), subtract that amount from meleeValue (melee damage the weapon deals)
       if (weapon.data.weaponDamage)
         weapon.data.damage.meleeValue -= weapon.data.weaponDamage
       else 
         weapon.data["weaponDamage"] = 0;
     }
+    // Ranged Damage calculation
     if (weapon.data.damage.rangedValue)
     {
+      // Turn ranged damage formula into numeric value, same as melee                 Ranged damage increase flag comes from Accurate Shot
       weapon.data.damage.rangedValue = this.calculateRangeOrDamage(weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
+      // Very poor wording, but if the weapon has suffered damage (weaponDamage), subtract that amount from rangedValue (ranged damage the weapon deals)
       if (weapon.data.weaponDamage)
         weapon.data.damage.rangedValue -= weapon.data.weaponDamage
       else 
         weapon.data["weaponDamage"] = 0;
     }
 
+    // rangedWeaponType or meleeWeaponType determines which area the weapon is displayed. 
+    // If the weapon has melee damage values, it should be displayed in the melee weapon section, for example
     if (Number(weapon.data.range.value) > 0)
       weapon["rangedWeaponType"] = true;
     if (weapon.data.reach.value)
       weapon["meleeWeaponType"] = true;
 
-    // assign available ammo (TODO: Improve by keeping a constant list of ammo so a loop each time is necessary)
-    if (weapon.data.ammunitionGroup.value != "none") {
+    // If the weapon uses ammo...
+    if (weapon.data.ammunitionGroup.value != "none") 
+    {
       weapon["ammo"] = [];
-      for ( let a of actorData.items ) {
-        if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
-            weapon.ammo.push(a);
+      // If a list of ammo has been provided, filter it by ammo that is compatible with the weapon type
+      if (ammoList)
+      {
+        weapon.ammo = ammoList.filter(a => a.data.ammunitionType.value == weapon.data.ammunitionGroup.value)
       }
+      else // If no ammo has been provided, filter through all items and find ammo that is compaptible
+        for ( let a of actorData.items ) 
+          if (a.type == "ammunition" && a.data.ammunitionType.value == weapon.data.ammunitionGroup.value) // If is ammo and the correct type of ammo
+              weapon.ammo.push(a);
+
+      // Send to prepareWeaponWithAmmo for further calculation (Damage/range modifications based on ammo)
       this.prepareWeaponWithAmmo(weapon);
     }
+    // If throwing or explosive weapon, its ammo is its own quantity
     else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
     {
       weapon["ammo"] = [weapon];
       weapon.data.ammunitionGroup.value = "";
     }
+    // If entangling, it has no ammo
     else if (weapon.data.weaponGroup.value == "Entangling")
     {
       weapon.data.ammunitionGroup.value = "";
     }
+    // Separate qualities and flaws into their own arrays: weapon.properties.qualities/flaws
     weapon.properties = WFRP_Utility._separateQualitiesFlaws(weapon.properties);
+
     if (weapon.properties.special)
       weapon.properties.special = weapon.data.special.value;
     return weapon;
   }
 
-  // Prepare a weapon to be displayed in the combat tab (calculate APs, organize qualities/flaws)
+  /**
+   * Prepares an armour Item.
+   * 
+   * Takes a an armour item, along with a persistent AP object to process the armour
+   * into a useable format. Adding AP values and qualities to the AP object to be used
+   * in display and opposed tests.
+   * 
+   * @param   {Object} armor  'armour' type item
+   * @param   {Object} AP      Object consisting of numeric AP value for each location and a layer array to represent each armour layer
+   * @return  {Object} armor  processed armor item
+   */
   prepareArmorCombat(armor, AP)
-  { // -1 means currentAP is maxAP
+  { 
+    // Turn comma separated qualites/flaws into a more structured 'properties.qualities/flaws` string array
     armor.properties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(armor));
+
+    // Iterate through armor locations covered
     for (let apLoc in armor.data.currentAP)
     {
+      // -1 is what all newly created armor's currentAP is initialized to, so if -1: currentAP = maxAP (undamaged)
       if (armor.data.currentAP[apLoc] == -1)
       {
         armor.data.currentAP[apLoc] = armor.data.maxAP[apLoc];
       }
     }
+    // If the armor protects a certain location, add the AP value of the armor to the AP object's location value
+    // Then pass it to addLayer to parse out important information about the armor layer, namely qualities/flaws
     if (armor.data.maxAP.head > 0)
     {
       armor["protectsHead"] = true;
@@ -1763,14 +1667,28 @@ class ActorWfrp4e extends Actor {
   }
 
  
-
+  /**
+   * Augments a prepared weapon based on its equipped ammo.
+   * 
+   * Ammo can provide bonuses or penalties to the weapon using it, this function
+   * takes a weapon, finds its current ammo, and applies those modifiers to the
+   * weapon stats. For instance, if ammo that halves weapon range is equipped,
+   * this is where it modifies the range of the weapon
+   * 
+   * @param   {Object} weapon A *prepared* weapon item
+   * @return  {Object} weapon Augmented weapon item
+   */
   prepareWeaponWithAmmo(weapon)
   {
+    // Find the current ammo equipped to the weapon, if none, return
     let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
     if (!ammo)
       return;
 
-    let ammoProperties = WFRP_Utility._prepareQualitiesFlaws(ammo);           // Skip undefined
+    let ammoProperties = WFRP_Utility._prepareQualitiesFlaws(ammo);          
+
+    // If ammo properties include a "special" value, rename the property as "Special Ammo" to not overlap
+    // with the weapon's "Special" property
     let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == "special"));
     if (specialPropInd != -1)
       ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " Ammo"
@@ -1778,43 +1696,38 @@ class ActorWfrp4e extends Actor {
     let ammoRange = ammo.data.range.value || "0";
     let ammoDamage = ammo.data.damage.value || "0";
 
+    // If range modification was handwritten, process it
     if (ammoRange.toLowerCase() == "as weapon")
-    {
+    {}
       // Do nothing to weapon's range
-    }
     else if (ammoRange.toLowerCase() == "half weapon")
-    {
       weapon.data.range.value /= 2;
-    }
     else if (ammoRange.toLowerCase() == "third weapon")
-    {
       weapon.data.range.value /= 3;
-    }
     else if (ammoRange.toLowerCase() == "quarter weapon")
-    {
       weapon.data.range.value /= 4;
-    }
     else if (ammoRange.toLowerCase() == "twice weapon")
-    {
       weapon.data.range.value *= 2;
-    }
-    else
+    else // If the range modification is a formula (supports +X -X /X *X)
     {
-      try {
+      try // Works for + and -
+      {
         ammoRange = eval(ammoRange);
         weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));
       }
-      catch 
-      {
-        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange)); // Eval throws exception for "/2" for example. 
+      catch // if *X and /X
+      {                                      // eval (50 + "/5") = eval(50/5) = 10
+        weapon.data.range.value = Math.floor(eval(weapon.data.range.value + ammoRange));  
       }
     }
     
-    try {
+    try // Works for + and -
+    {
       ammoDamage = eval(ammoDamage);
       weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
     }
-    catch { 
+    catch // if *X and /X
+    {                                      // eval (5 + "*2") = eval(5*2) = 10
       weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
     }
     
@@ -1823,46 +1736,61 @@ class ActorWfrp4e extends Actor {
     ammoProperties = ammoProperties.filter(p => p != undefined);
     let propertyChange = ammoProperties.filter(p => p.includes("+") || p.includes("-")); // Properties that increase or decrease another (Blast +1, Blast -1)
 
-    // Normal properties (Impale, Penetrating)
+    // Normal properties (Impale, Penetrating) from ammo that need to be added to the equipped weapon
     let propertiesToAdd = ammoProperties.filter(p => !(p.includes("+") || p.includes("-")));
 
-    for (let inc of propertyChange)
-    {
-      let index = inc.indexOf(" ");
-      let property = inc.substring(0, index).trim();
-      let value = inc.substring(index, inc.length);
 
-      if (weapon.properties.find(p => p.includes(property)))
+    for (let change of propertyChange)
+    {
+      // Using the example of "Blast +1" to a weapon with "Blast 3"
+      let index = change.indexOf(" ");
+      let property = change.substring(0, index).trim();   // "Blast"
+      let value = change.substring(index, change.length); // "+1"
+
+      if (weapon.properties.find(p => p.includes(property))) // Find the "Blast" quality in the main weapon
       {
         let basePropertyIndex = weapon.properties.findIndex(p => p.includes(property))
-        let baseValue = weapon.properties[basePropertyIndex].split(" ")[1];
-        let newValue = eval(baseValue + value)
+        let baseValue = weapon.properties[basePropertyIndex].split(" ")[1]; // Find the Blast value of the weapon (3)
+        let newValue = eval(baseValue + value) // Assign the new value of Blast 4
 
-        weapon.properties[basePropertyIndex] = `${property} ${newValue}`;
+        weapon.properties[basePropertyIndex] = `${property} ${newValue}`; // Replace old Blast
       }
-      else
+      else // If the weapon does not have the Blast quality to begin with
       {
-        propertiesToAdd.push(property + " " + Number(value));
+        propertiesToAdd.push(property + " " + Number(value)); // Add blast as a new quality (Blast 1)
       }
     }
-
+    // Add the new Blast property to the rest of the qualities the ammo adds to the weapon
     weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
 
-  prepareSpellOrPrayer(item) {
-    let actorData = this.data
-    item['target'] = this.calculateSpellRangeOrDuration(item.data.target.value, item.data.target.aoe);
-    item['duration'] = this.calculateSpellRangeOrDuration(item.data.duration.value);
+  /**
+   * Prepares a 'spell' or 'prayer' Item type.
+   * 
+   * Calculates many aspects of spells/prayers defined by characteristics - range, duration, damage, aoe, etc.
+   * See the calculation function used for specific on how it processes these attributes.
+   * 
+   * @param   {Object} item   'spell' or 'prayer' Item 
+   * @return  {Object} item   Processed spell/prayer
+   */
+  prepareSpellOrPrayer(item) 
+  {
+    // Turns targets and duration into a number - (e.g. Willpower Bonus allies -> 4 allies, Willpower Bonus Rounds -> 4 rounds, Willpower Yards -> 46 yards)
+    item['target'] =    this.calculateSpellAttributes(item.data.target.value, item.data.target.aoe);
+    item['duration'] =  this.calculateSpellAttributes(item.data.duration.value);
+    item['range'] =     this.calculateSpellAttributes(item.data.range.value);
+
+    // Add the + to the duration if it's extendable
     if (item.data.duration.extendable)
-    {
       item.duration += "+";
-    }
-    item['range'] = this.calculateSpellRangeOrDuration(item.data.range.value);
+
+    // Calculate the damage different if it's a Magic Misile spell versus a prayer
     if (item.type == "spell")
       item['damage'] = this.calculateSpellDamage(item.data.damage.value, item.data.magicMissile.value);
     else
       item['damage'] = this.calculateSpellDamage(item.data.damage.value, false);
 
+    // If it's a spell, augment the description (see _spellDescription() and CN based on memorization) 
     if (item.type == "spell")
     {
       item.data.description.value = WFRP_Utility._spellDescription(item);
@@ -1874,71 +1802,104 @@ class ActorWfrp4e extends Actor {
   }
 
 
-  calculateSpellRangeOrDuration(formula, aoe=false)
+  /**
+   * Turns a formula into a processed string for display
+   * 
+   * Turns a spell attribute such as "Willpower Bonus Rounds" into a more user friendly, processed value
+   * such as "4 Rounds". If the aoe is checked, it wraps the result in AoE (Result).
+   * 
+   * @param   {String}  formula   Formula to process - "Willpower Bonus Rounds" 
+   * @param   {boolean} aoe       Whether or not it's calculating AoE (changes string return)
+   * @returns {String}  formula   processed formula
+   */
+  calculateSpellAttributes(formula, aoe=false)
   {
     let actorData = this.data
     formula = formula.toLowerCase();
 
+    // Do not process these special values
     if (formula != "you" && formula != "special" && formula != "instant")
     {
+      // Iterate through characteristics
       for(let ch in actorData.data.characteristics)
       {
+        // If formula includes characteristic name
         if (formula.includes(WFRP4E.characteristics[ch].toLowerCase()))
         {
+          // Determine if it's looking for the bonus or the value
           if (formula.includes('bonus'))
-          {
             formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
-          }
           else
-          {
             formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
-          }
         }
       }
     }
 
+    // If AoE - wrap with AoE ( )
     if (aoe)
       formula = "AoE (" + formula.capitalize() + ")";
+
     return formula.capitalize();
   }
 
+  /**
+   * Turns a formula into a processed string for display
+   * 
+   * Processes damage formula based - same as calculateSpellAttributes, but with additional
+   * consideration to whether its a magic missile or not
+   * 
+   * @param   {String}  formula         Formula to process - "Willpower Bonus + 4" 
+   * @param   {boolean} isMagicMissile  Whether or not it's a magic missile - used in calculating additional damage
+   * @returns {String}  Processed formula
+   */
   calculateSpellDamage(formula, isMagicMissile)
   {
     let actorData = this.data
     formula = formula.toLowerCase();
 
-    if (isMagicMissile)
+    if (isMagicMissile) // If it's a magic missile, damage includes willpower bonus
     {
       formula += "+ willpower bonus"
     }
 
+    // Iterate through characteristics
     for(let ch in actorData.data.characteristics)
-    {
-
+    { 
+      // If formula includes characteristic name
       while (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
       {
+        // Determine if it's looking for the bonus or the value
         if (formula.includes('bonus'))
-        {
           formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase().concat(" bonus"),  actorData.data.characteristics[ch].bonus);
-        }
         else
-        {
           formula = formula.replace(WFRP4E.characteristics[ch].toLowerCase(),  actorData.data.characteristics[ch].value);
-        }
       }
     }
 
     return eval(formula);
   }
 
+  /**
+   * Construct armor penalty string based on armors equipped.
+   * 
+   * For each armor, compile penalties and concatenate them into one string.
+   * Does not stack armor *type* penalties.
+   * 
+   * @param {Array} armorList array of processed armor items 
+   * @return {string} Penalty string
+   */
   calculateArmorPenalties(armorList)
   {
-    // Parsing armor penalties for the combat tab
     let armorPenaltiesString = "";
+
+    // Armor type penalties do not stack, only apply if you wear any of that type
     let wearingMail = false;
     let wearingPlate = false;
+
     for (let a of armorList)
     {
+      // For each armor, apply its specific penalty value, as well as marking down whether
+      // it qualifies for armor type penalties (wearingMail/Plate)
       armorPenaltiesString += a.data.penalty.value + " ";
       if (a.data.armorType.value == "mail")
         wearingMail = true;
@@ -1946,6 +1907,7 @@ class ActorWfrp4e extends Actor {
         wearingPlate = true;
     }
 
+    // Apply armor type penalties at the end
     if (wearingMail || wearingPlate)
     {
       let stealthPenaltyValue = 0;
@@ -1953,28 +1915,227 @@ class ActorWfrp4e extends Actor {
         stealthPenaltyValue += -10;
       if (wearingPlate)
         stealthPenaltyValue += -10;
-
+      // Add the penalties together to reduce redundancy
       armorPenaltiesString += (stealthPenaltyValue + " Stealth");
     }
     return armorPenaltiesString;
   }
 
+  /**
+   * Calculates a weapon's range or damage formula.
+   * 
+   * Takes a weapon formula for Damage or Range (SB + 4 or SBx3) and converts to a numeric value.
+   * 
+   * @param {String} formula formula to be processed (SBx3 => 9).
+   * 
+   * @return {Number} Numeric formula evaluation
+   */
   calculateRangeOrDamage(formula)
   {
     let actorData = this.data
     try {formula = formula.toLowerCase();}
     catch {return formula}
 
+    // Iterate through characteristics
     for(let ch in actorData.data.characteristics)
     {
+      // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
       if (formula.includes(ch.concat('b')))
       {
+        // Replace that abbreviation with the Bonus value
         formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
       }
     }
+    // To evaluate multiplication, replace x with *
     formula = formula.replace('x', '*');
 
     return eval(formula);
+  }
+
+    /**
+   * Adds all missing basic skills to the Actor.
+   *
+   * This function will add all mising basic skills, used when an Actor is created (see create())
+   * as well as from the right click menu from the Actor directory.
+   *
+   */
+  async addBasicSkills() {
+    let allItems = duplicate(this.data.items)
+    let ownedBasicSkills = allItems.filter(i => i.type == "skill" && i.data.advanced.value == "bsc");
+    let allBasicSkills = await WFRP_Utility.allBasicSkills()
+
+    // Filter allBasicSkills with ownedBasicSkills, resulting in all the missing skills
+    let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
+
+    // Add those missing basic skills
+    for(let skill of skillsToAdd)
+    {
+      await this.createOwnedItem(skill)
+    }
+  }
+
+  /**
+   * Apply damage to an actor, taking into account armor, size, and weapons.
+   *
+   * applyDamage() is typically called at the end of an oppposed tests, where you can
+   * right click the chat message and apply damage. This function goes through the
+   * process of calculating and reducing damage if needede based on armor, toughness,
+   * size, armor qualities/flaws, and weapon qualities/flaws
+   *
+   * @param {Object} victim       id of actor taking damage
+   * @param {Object} opposedData  Test results, all the information needed to calculate damage
+   * @param {var}    damageType   enum for what the damage ignores, see config.js
+   */
+  static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
+  {
+    // If no damage value, don't attempt anything
+    if (!opposeData.damage.value)
+      return "Cannot automate damage (likely due to Tiring)"
+
+    // Get actor/tokens for those in the opposed test
+    let actor = WFRP_Utility.getSpeaker(victim);
+    let attacker = WFRP_Utility.getSpeaker(opposeData.speakerAttack)
+
+    // Start wound loss at the damage value
+    let totalWoundLoss = opposeData.damage.value
+    let newWounds = actor.data.data.status.wounds.value;
+    let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
+    let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
+
+    // Start message update string
+    let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b><span class = 'hide-option'>: @TOTAL";
+    if (damageType != DAMAGE_TYPE.IGNORE_ALL)
+      updateMsg += " ("
+
+    // If armor at hitloc has impenetrable value or not
+    let impenetrable = false;
+    // If weapon is undamaging
+    let undamaging = false;
+    // If weapon has Hack
+    let hack
+
+    if (applyAP)
+    {
+      // I dislike this solution but I can't think of any other way to do it
+      // Prepare the entire actor to get the AP layers at the hitloc
+      let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
+      AP.ignored = 0;
+      if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
+      {
+        if (opposeData.attackerTestResult.weapon.properties.qualities.includes("Hack"))
+          hack = true;
+        // Determine its qualities/flaws to be used for damage calculation
+        let weaponProperties = opposeData.attackerTestResult.weapon.properties;
+        let penetrating = weaponProperties.qualities.includes("Penetrating")
+        undamaging = weaponProperties.flaws.includes("Undamaging")
+        // see if armor flaws should be triggered
+        let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
+        let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
+                                && weaponProperties.qualities.includes("Impale")
+
+        // Mitigate damage with armor one layer at a time
+        for (let layer of AP.layers)
+        {
+          if (ignoreWeakpoints && layer.weakpoints)
+          {
+            AP.ignored += layer.value
+          }
+          else if (ignorePartial && layer.partial)
+          {
+            AP.ignored += layer.value;
+          }
+          else if (penetrating) // If penetrating - ignore 1 or all armor depending on material
+          {
+            AP.ignored += layer.metal ? 1 : layer.value
+          }
+        }
+      } // end if weapon
+
+      // Go through the layers again to determine the location is impenetrable
+      // This is its own loop because it should be checked regardless of the
+      // attacker using a weapon
+      for (let layer of AP.layers)
+      {
+        if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
+        {
+          impenetrable = true;
+          break;
+        }
+      }
+      // AP.used is the actual amount of AP considered
+      AP.used = AP.value - AP.ignored
+      AP.used = AP.used < 0 ? 0 : AP.used;           // AP minimum 0
+      AP.used = undamaging ? AP.used * 2 : AP.used;  // Double AP if undamaging
+
+      // show the AP usage in the updated message
+      if (AP.ignored)
+        updateMsg += `${AP.used}/${AP.value} AP`
+      else
+        updateMsg += AP.used + " AP"
+
+      // If using a shield, add that APP as well
+      let shieldAP = 0;
+      if (opposeData.defenderTestResult.weapon)
+      {
+        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")))
+          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")).split(" ")[1])
+      }
+
+      if (shieldAP)
+        updateMsg += ` + ${shieldAP} Shield`
+
+      if (applyTB)
+        updateMsg += " + "
+      else
+        updateMsg += ")"
+
+      // Reduce damage done by AP
+      totalWoundLoss -= (AP.used + shieldAP)
+    }
+
+    // Reduce damage by TB
+    if (applyTB)
+    {
+      totalWoundLoss -= actor.data.data.characteristics.t.bonus
+      updateMsg += actor.data.data.characteristics.t.bonus + " TB"
+    }
+
+    // If the actor has the Robust talent, reduce damage by times taken
+    totalWoundLoss -= actor.data.flags.robust || 0;
+
+    if (actor.data.flags.robust)
+      updateMsg += ` + ${actor.data.flags.robust} Robust)`
+    else
+      updateMsg += ")"
+
+    // Minimum 1 wound if not undamaging
+    if (!undamaging)
+      totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss
+    else
+      totalWoundLoss = totalWoundLoss <= 0 ? 0 : totalWoundLoss
+
+    newWounds -= totalWoundLoss
+
+    // If damage taken reduces wounds to 0, show Critical
+    if (newWounds <= 0 && !impenetrable)
+      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
+
+    else if (impenetrable)
+      updateMsg += `<br>Impenetrable - Criticals Nullified`
+
+    if (hack)
+      updateMsg += `<br>1 AP Damaged at ${opposeData.hitloc.value}`
+
+    if (newWounds <= 0)
+      newWounds = 0; // Do not go below 0 wounds
+
+
+    updateMsg +="</span>"
+    updateMsg = updateMsg.replace("@TOTAL", totalWoundLoss)
+
+    // Update actor wound value
+    actor.update({"data.status.wounds.value" : newWounds})
+    return updateMsg;
   }
 }
 

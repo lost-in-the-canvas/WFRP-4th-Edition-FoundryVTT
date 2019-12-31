@@ -324,7 +324,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
         else if ( i.type === "skill" )
         {
-          this.actor.prepareSkill(basicSkills, advancedOrGroupedSkills, i);
+          this.actor.prepareSkill(i);
+          if (i.data.grouped.value == "isSpec" || i.data.advanced.value == "adv")
+            advancedOrGroupedSkills.push(i)
+          else
+            basicSkills.push(i);
         }
 
 
@@ -551,7 +555,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         if (wep.data.equipped)
         {
-          weapons.push(this.actor.prepareWeaponCombat(wep, basicSkills.concat(advancedOrGroupedSkills)));
+          weapons.push(this.actor.prepareWeaponCombat(wep, inventory.ammo, basicSkills.concat(advancedOrGroupedSkills)));
           let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
           if (shieldProperty)
           {
