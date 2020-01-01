@@ -1369,16 +1369,16 @@ class ActorWfrp4e extends Actor {
       {
         game.user.targets.forEach(async target => {
           let content = 
-          `<div class ="opposed-message"><b>${actor.token.data.name}</b> is targeting <b>${target.actor.token.data.name}</b></div>
+          `<div class ="opposed-message"><b>${actor.data.token.name}</b> is targeting <b>${target.actor.data.token.name}</b></div>
           <div class = "opposed-tokens">
-          <div class = "attacker"><img src="${actor.token.data.img}" width="50" height="50"/></div>
-          <div class = "defender"><img src="${target.actor.token.data.img}" width="50" height="50"/></div>
+          <div class = "attacker"><img src="${actor.data.token.img}" width="50" height="50"/></div>
+          <div class = "defender"><img src="${target.actor.data.token.img}" width="50" height="50"/></div>
           </div>`
           
           let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
           target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
+          target.actor.token.setTarget(false);
         })
-        canvas.tokens.get(message.data.speaker.token).setTarget(false);
       } 
     }
   }
