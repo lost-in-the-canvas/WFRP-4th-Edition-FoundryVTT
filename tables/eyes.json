@@ -1,0 +1,393 @@
+{
+  "name": "Random Eye Colour",
+  "columns": ["human", "dwarf", "halfling", "helf", "welf", "gnome"],
+  "die": "2d10",
+  "hide": true,
+  "rows": [
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [15, 17],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Amber"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [3, 3],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Amethyst"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [4, 4],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Aquamarine"
+    },
+    {
+      "range":{
+        "human" : [10, 20],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [5, 7],
+        "welf" : [],
+        "gnome" : [2, 2]
+      },
+      "name": "Black"
+    },
+    {
+      "range":{
+        "human" : [5, 7],
+        "dwarf" : [5, 7],
+        "halfling" : [5, 7],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [3, 3]
+      },
+      "name": "Blue"
+    },
+    {
+      "range":{
+        "human" : [15, 17],
+        "dwarf" : [],
+        "halfling" : [15, 17],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [18, 18]
+      },
+      "name": "Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [8, 14],
+        "gnome" : []
+      },
+      "name": "Chestnut"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [19, 19],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Citrine"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [2, 2],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Coal"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [19, 19],
+        "halfling" : [18, 18],
+        "helf" : [19, 19],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Copper"
+    },
+    {
+      "range":{
+        "human" : [19, 19],
+        "dwarf" : [12, 14],
+        "halfling" : [19, 20],
+        "helf" : [],
+        "welf" : [15, 17],
+        "gnome" : [19, 19]
+      },
+      "name": "Dark Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [8, 11],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Earth Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [4, 4]
+      },
+      "name": "Earth Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [12, 14],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Emerald"
+    },
+    {
+      "range":{
+        "human" : [2, 2],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Free Choice"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [20, 20],
+        "halfling" : [],
+        "helf" : [20, 20],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Gold"
+    },
+    {
+      "range":{
+        "human" : [3, 3],
+        "dwarf" : [18, 18],
+        "halfling" : [8, 11],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Green"
+    },
+    {
+      "range":{
+        "human" : [12, 14],
+        "dwarf" : [],
+        "halfling" : [3, 3],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Grey"
+    },
+    {
+      "range":{
+        "human" : [18, 18],
+        "dwarf" : [15, 17],
+        "halfling" : [12, 14],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [12, 14]
+      },
+      "name": "Hazel"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [2, 2],
+        "gnome" : []
+      },
+      "name": "Ivory"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [4, 4],
+        "gnome" : []
+      },
+      "name": "Ivy Green"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [2, 2],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Jet"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [3, 3],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Lead"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [2, 2],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Light Grey"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [5, 7],
+        "gnome" : []
+      },
+      "name": "Mossy Green"
+    },
+    {
+      "range":{
+        "human" : [4, 4],
+        "dwarf" : [],
+        "halfling" : [4, 4],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [2, 2]
+      },
+      "name": "Pale Blue"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [15, 17]
+      },
+      "name": "Pale Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : [8, 11]
+      },
+      "name": "Pale Green"
+    },
+    {
+      "range":{
+        "human" : [8, 11],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Pale Grey"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [19, 19],
+        "gnome" : []
+      },
+      "name": "Sandy Brown"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [5, 7],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Sapphire"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [4, 4],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [],
+        "gnome" : []
+      },
+      "name": "Steel"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [18, 18],
+        "gnome" : []
+      },
+      "name": "Tan"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [8, 11],
+        "welf" : [],
+        "gnome" : [5, 7]
+      },
+      "name": "Turquoise"
+    },
+    {
+      "range":{
+        "human" : [],
+        "dwarf" : [],
+        "halfling" : [],
+        "helf" : [],
+        "welf" : [20, 20],
+        "gnome" : [20, 20]
+      },
+      "name": "Violet"
+    }
+  ]
+}
