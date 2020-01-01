@@ -16,8 +16,23 @@ class WFRP_Utility
   }
 
 
-  /* -------------------------------------------- *
-
+  /* -------------------------------------------- */
+  static addLayer(AP, armor, loc)
+  {
+    let layer = {
+      value : armor.data.currentAP[loc]
+    }
+    if (armor.properties.qualities.includes("Impenetrable"))
+      layer.impenetrable = true;
+    if (armor.properties.flaws.includes("Partial"))
+      layer.partial = true;
+    if (armor.properties.flaws.includes("Weakpoints"))
+      layer.weakpoints = true;
+    if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
+      layer.metal = true;
+    
+    AP[loc].layers.push(layer);
+  }
   /* -------------------------------------------- */
 
   static _prepareQualitiesFlaws(item, includeQualities = true){

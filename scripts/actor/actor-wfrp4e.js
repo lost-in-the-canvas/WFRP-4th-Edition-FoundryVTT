@@ -1072,6 +1072,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = speaker.alias
         cardOptions.speaker.token = speaker.token
         cardOptions.speaker.scene = speaker.scene
+        cardOptions.flags.img = canvas.tokens.get(speaker.token).data.img
       }
     }
 
@@ -1381,7 +1382,7 @@ class ActorWfrp4e extends Actor {
       else if (game.user.targets.size) // if user using the actor has targets
       {
         let attacker;
-        // If token data was found in the message speaker (see setupChatOptions)
+        // If token data was found in the message speaker (see setupCardOptions)
         if (message.data.speaker.token)
           attacker = canvas.tokens.get(message.data.speaker.token).data
 
@@ -1426,6 +1427,773 @@ class ActorWfrp4e extends Actor {
    *
   /* --------------------------------------------------------------------------------------------------------- */
 
+  prepare()
+  {
+    let preparedData = duplicate(this.data)
+      mergeObject(preparedData, this.prepareItems())
+
+    if (preparedData.type == "character")
+    this.prepareCharacter(preparedData)
+
+    if (preparedData.type == "npc")
+      this.prepareNPC(preparedData)
+
+    if (preparedData.type == "creature")
+      this.prepareCreature(preparedData)
+
+    let size;
+    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes("size"));
+    if (trait)
+      size = trait.data.specification.value;
+    else
+    {
+      size = preparedData.talents.find(x=>x.name.toLowerCase() == "small");
+      if (size)
+        size = size.name;
+      else 
+        size = "Average"
+    }
+    
+
+    for (let s in WFRP4E.actorSizes)
+    {
+      if (WFRP4E.actorSizes[s] == size && preparedData.data.details.size.value != s)
+      {
+        this.update({"data.details.size.value" : s})
+      }
+    }
+
+
+    let hardyTrait = preparedData.traits.find(t => t.name.toLowerCase().includes("hardy"))
+    let hardyTalent = preparedData.talents.find(t => t.name.toLowerCase().includes("hardy"))
+
+
+    let tbMultiplier = (hardyTrait ? 1 : 0)
+    if (hardyTalent)
+      tbMultiplier += hardyTalent.data.advances.value || 0
+
+    let sb = preparedData.data.characteristics.s.bonus;
+    let tb = preparedData.data.characteristics.t.bonus;
+    let wpb =preparedData.data.characteristics.wp.bonus;
+
+    if (preparedData.flags.autoCalcCritW)
+      preparedData.data.status.criticalWounds.max = tb;
+
+    let newWounds;
+    let tokenSize;
+
+    if (preparedData.flags.autoCalcWounds)
+    {
+      if (preparedData.traits.find(t => t.name.toLowerCase().includes("construct")))
+      wpb = sb;
+    switch (preparedData.data.details.size.value)
+    {
+
+      case "tiny":
+      newWounds = 1 + tb * tbMultiplier;
+      tokenSize = 0.3;
+      break;
+
+      case "ltl":
+      newWounds = tb + tb * tbMultiplier;
+      tokenSize = 0.5;
+      break;
+
+      case "sml":
+      newWounds = 2 * tb + wpb + tb * tbMultiplier;
+      tokenSize = 0.8;
+      break;
+
+      case "avg":
+      newWounds = sb + 2 * tb + wpb + tb * tbMultiplier;
+      tokenSize = 1;
+      break;
+
+      case "lrg":
+      newWounds = 2 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      tokenSize = 2;
+      break;
+
+      case "enor":
+      newWounds = 4 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      tokenSize = 3;
+      break;
+
+      case "mnst":
+      newWounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
+      tokenSize = 4;
+      break;
+    }
+
+    if (preparedData.data.status.wounds.max != newWounds)
+      {
+        this.update({
+          "data.status.wounds.max" : newWounds,
+          "data.status.wounds.value" : Number(newWounds)
+        })
+      }
+      try {
+        if (this.isToken && this.token.data.height != tokenSize)
+        {
+          this.token.update(this.token.scene._id, 
+            {
+            "height" : tokenSize,
+            "width" : tokenSize
+            })
+        }
+
+        else if (preparedData.token.height != tokenSize)
+        {
+            this.update({
+            "token.height" : tokenSize,
+            "token.width" : tokenSize
+            })
+        }
+      }
+      catch { }
+    }
+
+    if (preparedData.flags.autoCalcRun)
+    {
+      if(preparedData.traits.find(t => t.name.toLowerCase() == "stride"))
+        preparedData.data.details.move.run += preparedData.data.details.move.walk;
+    }
+
+    if (preparedData.flags.autoCalcEnc)
+    {
+      let strongBackTalent = preparedData.talents.find(t => t.name.toLowerCase() == "strong back")
+      let sturdyTalent = preparedData.talents.find(t => t.name.toLowerCase() == "sturdy")
+
+      if (strongBackTalent)
+        preparedData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
+      if (sturdyTalent)
+        preparedData.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
+    }
+
+    preparedData.isToken = !!this.token;
+
+
+    // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function)
+    // instead of iterating through every item again to find talents when rolling
+    this.data.flags.talentTests = [];
+    for (let talent of preparedData.talents)
+      if (talent.data.tests.value)
+        this.data.flags.talentTests.push({talentName: talent.name, test : talent.data.tests.value, SL : talent.data.advances.value});
+
+    this.data.flags.combatSkills = [];
+    for (let skill of preparedData.basicSkills.concat(preparedData.advancedOrGroupedSkills))
+      if (skill.name.includes ("Melee") || skill.name.includes("Ranged"))
+        this.data.flags.combatSkills.push(skill);
+
+    let smb = preparedData.talents.find(t => t.name.toLowerCase() == "strike mighty blow")
+    if (smb && this.data.flags.meleeDamageIncrease != smb.data.advances.value)
+      this.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
+    else if (!smb && this.data.flags.meleeDamageIncrease)
+      this.update({"flags.meleeDamageIncrease" : 0});
+
+
+    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == "accurate shot")
+    if (accshot && this.data.flags.rangedDamageIncrease != accshot.data.advances.value)
+      this.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
+    else if (!accshot && this.data.flags.rangedDamageIncrease)
+      this.update({"flags.rangedDamageIncrease" : 0});
+
+
+    let robust = preparedData.talents.find(t => t.name.toLowerCase() == "robust")
+    if (robust && this.data.flags.robust != robust.data.advances.value)
+      this.update({"flags.robust" : robust.data.advances.value});
+    else if (!robust && this.data.flags.robust)
+      this.update({"flags.robust" : 0});
+
+
+
+
+    return preparedData;
+  }
+
+  prepareCharacter(actorData)
+  {
+    if (!actorData)
+    {
+      return this.prepare()
+    }
+
+    let tb = actorData.data.characteristics.t.bonus;
+    let wpb = actorData.data.characteristics.wp.bonus;
+    if (actorData.flags.autoCalcCorruption)
+    {
+      actorData.data.status.corruption.max = tb + wpb;
+      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == "pure soul")
+      if (pureSoulTalent)
+        actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
+    }
+    for (let career of actorData.careers)
+    {
+      if (career.data.current.value)
+      {
+        actorData.currentClass = career.data.class.value;
+        actorData.currentCareer = career.name;
+        actorData.currentCareerGroup = career.data.careergroup.value;
+        actorData.status = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
+        let availableCharacteristics = career.data.characteristics
+        for (let char in actorData.data.characteristics)
+        {
+          if (availableCharacteristics.includes(char))
+            actorData.data.characteristics[char].career = true;
+        }
+      }
+    }
+  }
+
+  prepareNPC(actorData)
+  {
+
+  }
+
+  prepareCreature(actorData)
+  {
+    for (let trait of actorData.traits)
+    {
+      if (actorData.data.excludedTraits.includes(trait.id))
+      {
+        trait.included = false;
+      }
+      else
+      {
+        trait.included = true;
+      }
+    }
+ 
+    actorData.notesTraits = actorData.traits.sort(WFRP_Utility.nameSorter); // Display all traits in the notes section of a creature
+    actorData.traits = actorData.traits.filter(t => t.included);
+ 
+    actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
+    actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
+ 
+    for (let weapon of actorData.weapons)
+    {
+      try 
+      {
+        if (weapon.data.currentAmmo.value)
+          weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+      }
+      catch
+      {
+         weapon.data.currentAmmo.value
+      }
+    }
+  }
+
+  prepareItems()
+  {
+      let actorData = duplicate(this.data)
+      // These containers are for the various different tabs
+      const careers = [];
+      const basicSkills = [];
+      const advancedOrGroupedSkills = [];
+      const talents = [];
+      const traits = [];
+      const weapons = [];
+      const armour = [];
+      const injuries = [];
+      const grimoire = [];
+      const petty = [];
+      const blessings = [];
+      const miracles = [];
+      const psychology = [];
+      const mutations = [];
+      const diseases = [];
+      const criticals = [];
+      let penalties = {
+        "Armour" : {value : ""},
+        "Injury" : {value : ""},
+        "Mutation" : {value : ""},
+        "Criticals" : {value : ""},
+      };
+
+      const AP = {
+        head: {
+          value : 0,
+          layers : [],
+        },
+        body: {
+          value : 0,
+          layers : [],
+        },
+        rArm: {
+          value : 0,
+          layers : [],
+        },
+        lArm: {
+          value : 0,
+          layers : [],
+        },
+        rLeg: {
+          value : 0,
+          layers : [],
+        },
+        lLeg: {
+          value : 0,
+          layers : [],
+        },
+        shield: 0
+      }
+
+      // Inventory object is for the inventory tab
+      const inventory = {
+        weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false, dataType : "weapon" },
+        armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "armour"},
+        ammunition: { label: "Ammunition", items: [], quantified: true, show : false, dataType : "ammunition"},
+        clothingAccessories: { label: "Clothing and Accessories", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "trapping" },
+        booksAndDocuments: {label: "Books and Documents", items: [], show : false, dataType : "trapping"},
+        toolsAndKits: {label: "Tools and Kits", items: [], show : false, dataType : "trapping"},
+        foodAndDrink: {label: "Food and Drink", items: [], show : false, dataType : "trapping"},
+        drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false, dataType : "trapping"},
+        misc: {label: "Miscellaneous", items: [], show : true, dataType : "trapping"}
+      };
+      const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false, dataType : "trapping"};
+      const money = {coins: [], total: 0, show : true};
+      const containers = {items: [], show : false};
+      const inContainers = [];
+
+      // Money and ingredients are not in inventory object because they need more customization
+
+      // Iterate through items, allocating to containers
+      let totalEnc = 0;
+      let hasSpells = false;
+      let hasPrayers = false;
+      let defensiveCounter = 0;
+
+      for ( let i of actorData.items ) {
+        try {
+        i.img = i.img || DEFAULT_TOKEN;
+        if (i.type === "talent")
+        {
+          this.prepareTalent(i, talents);
+        }
+
+        else if ( i.type === "skill" )
+        {
+          this.prepareSkill(i);
+          if (i.data.grouped.value == "isSpec" || i.data.advanced.value == "adv")
+            advancedOrGroupedSkills.push(i)
+          else
+            basicSkills.push(i);
+        }
+
+
+        else if (i.type === "ammunition")
+        {
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
+          if (i.data.location.value == 0){
+            inventory.ammunition.items.push(i);
+            inventory.ammunition.show = true
+            totalEnc += Number(i.encumbrance);
+          }
+          else{
+            inContainers.push(i);
+          }
+        }
+
+        else if (i.type === "weapon")
+        {
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            i.toggleValue = i.data.equipped || false;
+            inventory.weapons.items.push(i);
+            inventory.weapons.show = true;
+            totalEnc += i.encumbrance;
+          }
+          else {
+            inContainers.push(i);
+          }
+        }
+
+        else if (i.type === "armour")
+        {
+
+          i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
+          if (i.data.location.value == 0){
+            i.toggleValue = i.data.worn.value || false;
+            if (i.data.worn.value)
+            {
+              i.encumbrance = i.encumbrance - 1;
+              i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+            }
+            inventory.armor.items.push(i);
+            inventory.armor.show = true;
+            totalEnc += i.encumbrance;
+          }
+          else {
+            inContainers.push(i);
+          }
+
+          if (i.data.worn.value)
+            armour.push(this.prepareArmorCombat(i, AP));
+        }
+
+        else if (i.type == "injury")
+        {
+          injuries.push(i);
+          penalties["Injury"].value += i.data.penalty.value;
+        }
+
+        else if (i.type == "critical")
+        {
+          criticals.push(i);
+          penalties["Criticals"].value += i.data.modifier.value;
+        }
+
+        else if (i.type === "container")
+        {
+          i.encumbrance = i.data.encumbrance.value;
+
+          if (i.data.location.value == 0){
+          if (i.data.worn.value)
+          {
+            i.encumbrance = i.encumbrance - 1;
+            i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+          }
+          totalEnc += i.encumbrance;
+          }
+          else{
+            inContainers.push(i);
+          }
+          containers.items.push(i);
+          containers.show = true;
+        }
+
+        else if (i.type === "trapping")
+        {
+          i.encumbrance = i.data.encumbrance.value * i.data.quantity.value;
+          if (i.data.location.value == 0)
+          {
+            if (i.data.trappingType.value == "ingredient")
+            {
+              ingredients.items.push(i)
+            }
+            else if (i.data.trappingType.value == "clothingAccessories")
+            {
+              i.toggleValue = i.data.worn || false;
+              inventory[i.data.trappingType.value].items.push(i);
+              inventory[i.data.trappingType.value].show = true;
+              if (i.data.worn)
+              {
+                i.encumbrance = i.encumbrance - 1;
+                i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+              }
+            }
+            else if (i.data.trappingType.value == "tradeTools")
+            {
+              inventory["toolsAndKits"].items.push(i)
+              inventory["toolsAndKits"].show = true;
+            }
+            else if (i.data.trappingType.value)
+            {
+              inventory[i.data.trappingType.value].items.push(i);
+              inventory[i.data.trappingType.value].show = true;
+            }
+            else
+            {
+              inventory.misc.items.push(i);
+              inventory.misc.show = true;
+            }
+            totalEnc += i.encumbrance;
+          }
+          else{
+            inContainers.push(i);
+          }
+
+        }
+
+
+        else if (i.type === "spell")
+        {
+          hasSpells = true;
+          if (i.data.lore.value == "petty")
+            petty.push(this.prepareSpellOrPrayer(i));
+          else
+            grimoire.push(this.prepareSpellOrPrayer(i));
+        }
+
+        else if (i.type === "prayer")
+        {
+          hasPrayers = true;
+          if (i.data.type.value == "blessing")
+            blessings.push(this.prepareSpellOrPrayer(i));
+          else
+            miracles.push(this.prepareSpellOrPrayer(i));
+        }
+
+        else if (i.type === "career")
+        {
+
+          careers.push(i);
+        }
+
+
+        else if (i.type === "trait")
+        {
+          if (i.data.specification.value)
+          {
+            if (i.data.rollable.bonusCharacteristic)
+            {
+              i.data.specification.value = parseInt(i.data.specification.value) || 0
+              i.data.specification.value += actorData.data.characteristics[i.data.rollable.bonusCharacteristic].bonus;
+            }
+            i.name = i.name + " (" + i.data.specification.value + ")";
+
+          }
+          traits.push(i);
+        }
+
+
+        else if (i.type === "psychology")
+        {
+          psychology.push(i);
+        }
+
+        else if (i.type === "disease")
+        {
+          i.data.incubation.roll = i.data.incubation.roll || i.data.incubation.value;
+          i.data.duration.roll = i.data.duration.roll || i.data.duration.value;
+          diseases.push(i);
+        }
+
+        else if (i.type === "mutation")
+        {
+          mutations.push(i);
+          if (i.data.modifiesSkills.value)
+            penalties["Mutation"].value += i.data.modifier.value;
+        }
+
+        else if (i.type === "money")
+        {
+          i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
+          if (i.data.location.value == 0){
+            money.coins.push(i);
+            totalEnc += Number(i.encumbrance);
+          }
+          else{
+            inContainers.push(i);
+          }
+          money.total += i.data.quantity.value * i.data.coinValue.value;
+
+        }
+      }
+      catch (error){
+        console.error("Something went wrong with preparing item " + i.name + ": " + error)
+        ui.notifications.error("Something went wrong with preparing item "+ i.name + ": " + error)
+        ui.notifications.error("Deleting "+ i.name);
+        this.deleteOwnedItem(i.id, true);
+        }
+      }
+
+      // Prepare weapons for combat after items passthrough for efficiency
+      for (let wep of inventory.weapons.items)
+      {
+        if (wep.data.equipped)
+        {
+          weapons.push(this.prepareWeaponCombat(wep, inventory.ammo, basicSkills.concat(advancedOrGroupedSkills)));
+          let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+          if (shieldProperty)
+          {
+              AP.shield += parseInt(shieldProperty.split(" ")[1]);
+          }
+          if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
+          {
+            defensiveCounter++;
+          }
+        }
+      }
+
+
+      // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
+      if (grimoire.length > 0 && ingredients.items.length > 0)
+      {
+        ingredients.show = true;
+        actorData.ingredients = ingredients;
+        for (let s of grimoire)
+            s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
+      }
+      else
+        inventory.misc.items = inventory.misc.items.concat(ingredients.items);
+
+
+      // Container Setup
+      var containerMissing = inContainers.filter(i => containers.items.find(c => c.data.id == i.data.location.value));
+      for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
+      {
+        itemNoContainer.data.location.value = 0;
+        this.updateOwnedItem(itemNoContainer, true);;
+      }
+      for (var cont of containers.items) // For each container
+      {
+        // All items referencing (inside) that container
+        var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
+        itemsInside.map(function(item){ // Add category of item to be displayed
+        if (item.type == "trapping")
+          item.type = WFRP4E.trappingCategories[item.data.trappingType.value];
+        else
+          item.type = WFRP4E.trappingCategories[item.type];
+      } )
+        cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
+        cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
+        cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
+          return Number(prev) + Number(cur.encumbrance);
+        }, 0);
+        cont.holding = Math.floor(cont.holding)
+      }
+
+      containers.items = containers.items.filter(c => c.data.location.value == 0); // Do not show containers inside other containers as top level (a location value of 0 means not inside a container)
+      // Penalties box setup
+      // If too much text, divide the penalties into groups
+      let penaltiesOverflow = false;
+      penalties["Armour"].value += this.calculateArmorPenalties(armour);
+      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50)
+      {
+        penaltiesOverflow = true;
+        for (let penaltyType in penalties)
+        {
+          if (penalties[penaltyType].value)
+            penalties[penaltyType].show = true;
+          else
+            penalties[penaltyType].show = false;
+        }
+      }
+
+      let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.data.data.status.penalties.value
+      penaltiesFlag = penaltiesFlag.trim();
+      // This is for the penalty string in flags, for combat turn message
+      if (this.data.flags.modifier != penaltiesFlag)
+        this.update({"flags.modifier" : penaltiesFlag})
+
+      let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
+      if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait.id)))
+      {
+        for (let loc in AP)
+        {
+          try
+          {
+            if (loc != "shield")
+              AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
+          }
+          catch
+          {
+            //ignore armor traits with invalid values
+          }
+        }
+      }
+
+      // Store AP values in flags so it can easily be retrieved in Opposed Tests
+
+      this.data.flags.defensive = defensiveCounter;
+      
+      let untrainedSkills = []
+      let untrainedTalents = []
+      let hasCurrentCareer = false;
+      this.data.flags.careerTalents = [];
+      for (let career of careers)
+      {
+        if (career.data.current.value)
+        {
+          hasCurrentCareer = true;
+          for (let sk of career.data.skills)
+          {
+            let trainedSkill = basicSkills.concat(advancedOrGroupedSkills).find(s => s.name.toLowerCase() == sk.toLowerCase())
+            if (trainedSkill)
+            {
+              trainedSkill.career = true;
+            }
+            else
+            {
+              untrainedSkills.push(sk);
+            }
+          }
+
+          for (let talent of career.data.talents)
+          {
+            let trainedTalents = talents.find(t => t.name == talent)
+            if (trainedTalents)
+            {
+              trainedTalents.career = true;
+              this.data.flags.careerTalents.push(trainedTalents)
+
+            }
+            else
+            {
+              untrainedTalents.push(talent);
+            }
+          }
+        }
+      }
+      if (!hasCurrentCareer)
+      {
+        for (let char in actorData.data.characteristics)
+          actorData.data.characteristics[char].career = false;
+      }
+      let enc;
+      totalEnc = Math.floor(totalEnc);
+
+      enc = {
+        max: actorData.data.status.encumbrance.max,
+        value: Math.round(totalEnc * 10) / 10,
+      };
+    
+      enc.pct = Math.min(enc.value * 100 / enc.max, 100);
+      enc.state = enc.value / enc.max;
+      if (enc.state > 3)
+      {
+        enc["maxEncumbered"] = true
+        enc.penalty = WFRP4E.encumbrancePenalties["maxEncumbered"];
+      }
+      else if (enc.state > 2)
+      {
+        enc["veryEncumbered"] = true
+        enc.penalty = WFRP4E.encumbrancePenalties["veryEncumbered"];
+      }
+      else if (enc.state > 1)
+      {
+        enc["encumbered"] = true
+        enc.penalty = WFRP4E.encumbrancePenalties["encumbered"];
+      }
+      else
+        enc["notEncumbered"] = true;
+     
+      let preparedData = {
+       inventory : inventory,
+       containers : containers,
+       basicSkills : basicSkills.sort(WFRP_Utility.nameSorter),
+       advancedOrGroupedSkills : advancedOrGroupedSkills.sort(WFRP_Utility.nameSorter),
+       talents : talents,
+       traits : traits,
+       weapons : weapons,
+       diseases : diseases,
+       mutations : mutations,
+       armour : armour,
+       penalties : penalties,
+       penaltyOverflow : penaltiesOverflow,
+       AP : AP,
+       injuries : injuries,
+       grimoire : grimoire,
+       petty : petty,
+       careers : careers.reverse(),
+       blessings : blessings,
+       miracles : miracles,
+       money : money,
+       psychology : psychology,
+       untrainedSkills : untrainedSkills,
+       untrainedTalents : untrainedTalents,
+       criticals : criticals,
+       criticalCount : criticals.length,
+       encumbrance : enc,
+       ["flags.hasSpells"] : hasSpells,
+       ["flags.hasPrayers"] : hasPrayers
+    }
+
+    return preparedData
+  }
+  
   /**
    * Prepares a skill Item.
    * 
@@ -2003,53 +2771,58 @@ class ActorWfrp4e extends Actor {
     let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
 
     // Start message update string
-    let updateMsg = "Damage Applied to <b>"+ actor.data.name + "</b><span class = 'hide-option'>: @TOTAL";
+    let updateMsg = "<b>Damage Applied</b><span class = 'hide-option'>: @TOTAL";
     if (damageType != DAMAGE_TYPE.IGNORE_ALL)
       updateMsg += " ("
 
+    let weaponProperties
     // If armor at hitloc has impenetrable value or not
     let impenetrable = false;
     // If weapon is undamaging
     let undamaging = false;
     // If weapon has Hack
-    let hack
+    let hack = false;
+    // If weapon has Impale
+    let impale = false;
+    // If weapon has Penetrating
+    let penetrating = false;
 
     if (applyAP)
     {
       // I dislike this solution but I can't think of any other way to do it
       // Prepare the entire actor to get the AP layers at the hitloc
-      let AP = actor.sheet.getData().actor.AP[opposeData.hitloc.value]
+      let AP = actor.prepareItems().AP[opposeData.hitloc.value]
       AP.ignored = 0;
       if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
       {
-        if (opposeData.attackerTestResult.weapon.properties.qualities.includes("Hack"))
-          hack = true;
         // Determine its qualities/flaws to be used for damage calculation
-        let weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        let penetrating = weaponProperties.qualities.includes("Penetrating")
+        weaponProperties = opposeData.attackerTestResult.weapon.properties;
+        penetrating = weaponProperties.qualities.includes("Penetrating")
         undamaging = weaponProperties.flaws.includes("Undamaging")
-        // see if armor flaws should be triggered
-        let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-        let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-                                && weaponProperties.qualities.includes("Impale")
+        hack = weaponProperties.qualities.includes("Hack")
+        hack = weaponProperties.qualities.includes("Hack")
+      }
+      // see if armor flaws should be triggered
+      let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
+      let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
+                              && impale
 
-        // Mitigate damage with armor one layer at a time
-        for (let layer of AP.layers)
+      // Mitigate damage with armor one layer at a time
+      for (let layer of AP.layers)
+      {
+        if (ignoreWeakpoints && layer.weakpoints)
         {
-          if (ignoreWeakpoints && layer.weakpoints)
-          {
-            AP.ignored += layer.value
-          }
-          else if (ignorePartial && layer.partial)
-          {
-            AP.ignored += layer.value;
-          }
-          else if (penetrating) // If penetrating - ignore 1 or all armor depending on material
-          {
-            AP.ignored += layer.metal ? 1 : layer.value
-          }
+          AP.ignored += layer.value
         }
-      } // end if weapon
+        else if (ignorePartial && layer.partial)
+        {
+          AP.ignored += layer.value;
+        }
+        else if (penetrating) // If penetrating - ignore 1 or all armor depending on material
+        {
+          AP.ignored += layer.metal ? 1 : layer.value
+        }
+      }
 
       // Go through the layers again to determine the location is impenetrable
       // This is its own loop because it should be checked regardless of the

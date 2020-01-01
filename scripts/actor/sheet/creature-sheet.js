@@ -32,7 +32,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
      */
     getData() {
       const sheetData = super.getData();
-      // Return data for rendering
       return sheetData;
     }
   
@@ -44,36 +43,6 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
      */
     _prepareItems(actorData) {
      super._prepareItems(actorData);
-  
-     for (let trait of actorData.traits)
-     {
-       if (actorData.data.excludedTraits.includes(trait.id))
-       {
-         trait.included = false;
-       }
-       else
-       {
-         trait.included = true;
-       }
-     }
-  
-     actorData.notesTraits = actorData.traits.sort(WFRP_Utility.nameSorter); // Display all traits in the notes section of a creature
-     // Use only included traits for calculation
-     actorData.traits = actorData.traits.filter(t => t.included);
-  
-     actorData.skills = (actorData.basicSkills.concat(actorData.advancedOrGroupedSkills)).sort(WFRP_Utility.nameSorter);
-     actorData.trainedSkills = actorData.skills.filter(s => s.data.advances.value > 0) 
-  
-     for (let weapon of actorData.weapons)
-     {
-       try {
-       if (weapon.data.currentAmmo.value)
-        weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
-       }
-       catch
-        {weapon.data.currentAmmo.value}
-     }
-  
     }
   
   
