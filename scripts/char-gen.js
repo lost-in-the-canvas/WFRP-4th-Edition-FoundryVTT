@@ -89,7 +89,7 @@ class GeneratorWfrp4e
     let characteristics = WFRP_Utility.speciesCharacteristics(species, false)
     let dataTransfer = {
       generation : true,
-      type : "characteristics",
+      type : "attributes",
       payload : {
         species: WFRP4E.species[species],
         characteristics : characteristics,
@@ -177,7 +177,7 @@ class GeneratorWfrp4e
       rollMode : game.settings.get("core", "rollMode"),
       exp : exp,
       reroll: isReroll,
-      chcosen : isChosen,
+      chosen : isChosen,
       speciesKey: species,
       trappings : WFRP4E.classTrappings[WFRP_Utility.matchClosest(WFRP4E.classTrappings, careerFound.data.data.class.value)]
     }
@@ -187,6 +187,43 @@ class GeneratorWfrp4e
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/career-select.html", chatData).then(html => {
+      chatData.content = html;
+      ChatMessage.create(chatData);
+    })
+  }
+
+  static async rollDetails(species)
+  {
+    let name, eyes, hair
+
+    name = NameGenWfrp.generateName({species : species})
+    if (!name)
+      name = species + " names TBD"
+    eyes = WFRP_Tables.rollTable("eyes", {}, species).name
+    hair = WFRP_Tables.rollTable("hair", {}, species).name
+    let dataTransfer = {
+      generation : true,
+      type : "details",
+      payload : {
+        name : name,
+        eyes : eyes,
+        hair : hair
+      }
+    }
+
+    let chatData = {
+      user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode"),
+      species: WFRP4E.species[species],
+      name : name,
+      eyes : eyes,
+      hair : hair
+    }
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+
+    renderTemplate(`systems/wfrp4e/templates/chat/chargen/details.html`, chatData).then(html => {
+      chatData["flags.transfer"] = JSON.stringify(dataTransfer);
       chatData.content = html;
       ChatMessage.create(chatData);
     })

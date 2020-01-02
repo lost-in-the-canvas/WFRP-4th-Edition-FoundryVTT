@@ -870,7 +870,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   })
 
   html.find(".name-gen").click(ev => {
-    let name = NameGenWfrp4e.generateName({species : this.actor.data.data.details.species.value, gender : this.actor.data.data.details.gender.value})
+    let name = NameGenWfrp.generateName({species : this.actor.data.data.details.species.value, gender : this.actor.data.data.details.gender.value})
     this.actor.update({"name" : name});
   })
 
@@ -937,23 +937,33 @@ class ActorSheetWfrp4e extends ActorSheet {
       let transfer = JSON.parse(dragData)
 
       let data = duplicate(this.actor.data.data);
-      data.details.species.value = transfer.payload.species;
-      data.details.move.value = transfer.payload.movement;
-
-      if (this.actor.data.type == "character")
+      if (transfer.type == "attributes")
       {
-        data.status.fate.value = transfer.payload.fate;
-        data.status.fortune.value = transfer.payload.fate;
-        data.status.resilience.value = transfer.payload.resilience;
-        data.status.resolve.value = transfer.payload.resilience;
-        data.details.experience.total += transfer.payload.exp;
+        data.details.species.value = transfer.payload.species;
+        data.details.move.value = transfer.payload.movement;
 
+        if (this.actor.data.type == "character")
+        {
+          data.status.fate.value = transfer.payload.fate;
+          data.status.fortune.value = transfer.payload.fate;
+          data.status.resilience.value = transfer.payload.resilience;
+          data.status.resolve.value = transfer.payload.resilience;
+          data.details.experience.total += transfer.payload.exp;
+        }
+        for (let c in WFRP4E.characteristics)
+        {
+          data.characteristics[c].initial = transfer.payload.characteristics[c]
+        }
+        await this.actor.update({"data" : data})
       }
-      for (let c in WFRP4E.characteristics)
+      else if (transfer.type == "details")
       {
-        data.characteristics[c].initial = transfer.payload.characteristics[c]
+        data.details.eyecolour.value = transfer.payload.eyes
+        data.details.haircolour.value = transfer.payload.hair
+        let name = transfer.payload.name
+        await this.actor.update({"name" : name, "data" : data})
       }
-      await this.actor.update({"data" : data})
+
 
     }
     else if (JSON.parse(dragData).lookupType)

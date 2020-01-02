@@ -171,7 +171,9 @@ class WFRP_Tables {
             return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
         case "career":
            return `<b>Random Career - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
-  
+        case "eyes":
+        case "hair":
+          return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>Roll:</b> ${eval(result.roll)}`
         case "scatter":
           let tableHtml = '<table class = "scatter-table">' +
           " <tr>"+
@@ -219,7 +221,7 @@ class WFRP_Tables {
           try {
             if (result)
             {
-              let html = "";
+              let html = `<b>${this[table].name}</b><br>`;
               for (let part in result)
               {
                 if (part == "name")

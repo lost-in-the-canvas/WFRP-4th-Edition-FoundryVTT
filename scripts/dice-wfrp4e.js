@@ -840,6 +840,8 @@ class DiceWFRP {
           break;
         case "rollAttributes" : GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"),WFRP4E.randomExp.statsRand)
           break;
+        case "rollDetails" : GeneratorWfrp4e.rollDetails($(event.currentTarget).attr("data-species"))
+          break;
       }
     });
 

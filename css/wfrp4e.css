@@ -15201,12 +15201,16 @@ font-style : normal;
   position: relative;
   left: 120px;
 }
+.attribute-career-buttons{
+  display:flex;
+  justify-content: space-evenly
+}
 .attribute-career-buttons .chargen-button {
-  left : 25px;
+  left : 0px;
+  
 }
 
 .attribute-career-buttons .chargen-button.careerReroll {
-  left : 83px;
   margin-top : 10px;
 }
 
