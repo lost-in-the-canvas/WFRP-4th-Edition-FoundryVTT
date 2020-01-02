@@ -728,6 +728,16 @@ WFRP4E.actorSizeNums = {
   "mnst": 6
 };
 
+WFRP4E.tokenSizes= {
+  "tiny": 0.3,
+  "ltl": 0.5,
+  "sml": 0.8,
+  "avg": 1,
+  "lrg": 2,
+  "enor": 3,
+  "mnst": 4
+};
+
 // Condition Types
 WFRP4E.magicLores = {
   "petty": "Petty",
