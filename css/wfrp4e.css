@@ -15312,3 +15312,9 @@ input.card-edit {
 .message-content .opposed-tokens .loser img {
   border-color: red;
 }
+
+.message-content .unopposed-button {
+  text-align: right;
+  height: 0px;
+  margin-bottom:15px
+}

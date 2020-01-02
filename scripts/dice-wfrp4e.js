@@ -850,10 +850,16 @@ class DiceWFRP {
       GeneratorWfrp4e.displayCareer(careerSelected, species, 0, false, true)
     });
       
-  html.on("click", '.random-talents', event => {
-    event.preventDefault();
-    $(event.currentTarget).attr("data-num")
-  });
+    html.on("click", '.random-talents', event => {
+      event.preventDefault();
+      $(event.currentTarget).attr("data-num")
+    });
+
+    html.on("click", '.unopposed-button', event =>{
+      event.preventDefault()
+      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id")
+      OpposedWFRP.resolveUnopposed(messageId)
+    })
 
   }
 

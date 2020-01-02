@@ -1097,7 +1097,7 @@ class ActorWfrp4e extends Actor {
    *
    * defaultRoll is the default roll override (see DiceWFRP.prepareTest() for where it's assigned). This follows
    * the basic steps. Call DiceWFRP.rollTest for standard test logic, send the result and display data to
-   * DiceWFRP.renderRollCard() as well as handleOpposed().
+   * DiceWFRP.renderRollCard() as well as handleOpposedTarget().
    *
    * @param {Object} testData         All the data needed to evaluate test results - see setupSkill/Characteristic
    * @param {Object} cardOptions      Data for the card display, title, template, etc.
@@ -1114,7 +1114,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.title += " - Opposed"
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
   }
 
@@ -1192,7 +1192,7 @@ class ActorWfrp4e extends Actor {
       result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
     }
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg)
+      OpposedWFRP.handleOpposedTarget(msg)
     })
   }
 
@@ -1215,7 +1215,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "weaponOverride";
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
   }
 
@@ -1241,7 +1241,7 @@ class ActorWfrp4e extends Actor {
     WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
   }
 
@@ -1264,7 +1264,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "channellOverride";
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
   }
 
@@ -1287,7 +1287,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "prayerOverride";
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-      ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
   }
 
@@ -1331,88 +1331,10 @@ class ActorWfrp4e extends Actor {
       mergeObject(result, testData.extra);
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-        ActorWfrp4e.handleOpposed(msg) // Send to handleOpposed to determine opposed status, if any.
+        OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
       })
   }
 
-  /**
-   * Determines opposed status, sets flags accordingly, creates start/result messages.
-   *
-   * There's 3 paths handleOpposed can take, either 1. Responding to being targeted, 2. Starting an opposed test, or neither.
-   *
-   * 1. Responding to a target: If the actor has a value in flags.oppose, that means another actor targeted them: Organize
-   *    attacker and defender data, and send it to the OpposedWFRP.evaluateOpposedTest() method. Afterward, remove the oppose
-   *    flag
-   * 2. Starting an opposed test: If the user using the actor has a target, start an opposed Test: create the message then
-   *    insert oppose data into the target's flags.oppose object.
-   * 3. Neither: If no data in the actor's oppose flags, and no targets, skip everything and return.
-   *
-   *
-   * @param {Object} message    The message created by the override (see above) - this message is the Test result message.
-   */
-  static async handleOpposed(message)
-  {
-    // Get actor/tokens and test results
-    let actor = WFRP_Utility.getSpeaker(message.data.speaker)
-    let testResult = message.data.flags.data.postData
-
-    try 
-    {
-      /* -------------- IF OPPOSING AFTER BEING TARGETED -------------- */
-      if (actor.data.flags.oppose) // If someone targets an actor, they insert data in the target's flags.oppose
-      {                            // So if data exists here, this actor has been targeted, see below for what kind of data is stored here
-        let attackMessage = game.messages.get(actor.data.flags.oppose.messageId) // Retrieve attacker's test result message
-        // Organize attacker/defender data
-        let attacker = {
-          speaker : actor.data.flags.oppose.speaker,
-          testResult : attackMessage.data.flags.data.postData,
-          img : WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
-        }
-        let defender = {
-          speaker : message.data.speaker,
-          testResult : testResult,
-          img : actor.data.msg
-        }                             // evaluateOpposedTest is usually for manual opposed tests, it requires extra options for targeted opposed test
-        await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true, startMessageId : actor.data.flags.oppose.startMessageId})
-        await actor.update({"-=flags.oppose" : null}) // After opposing, remove oppose
-
-      }
-
-      /* -------------- IF TARGETING SOMEONE -------------- */
-      else if (game.user.targets.size) // if user using the actor has targets
-      {
-        let attacker;
-        // If token data was found in the message speaker (see setupCardOptions)
-        if (message.data.speaker.token)
-          attacker = canvas.tokens.get(message.data.speaker.token).data
-
-        else // If no token data was found in the speaker, use the actor's token data instead
-          attacker = actor.data.token
-
-        // For each target, create a message, and insert oppose data in the targets' flags
-        game.user.targets.forEach(async target => {
-          let content =
-          `<div class ="opposed-message"><b>${attacker.name}</b> is targeting <b>${target.data.name}</b></div>
-          <div class = "opposed-tokens">
-          <div class = "attacker"><img src="${attacker.img}" width="50" height="50"/></div>
-          <div class = "defender"><img src="${target.data.img}" width="50" height="50"/></div>
-          </div>`
-
-          // Create the Opposed starting message
-          //let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker, timestamp : message.data.timestamp - 1})
-          let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker})
-          // Add oppose data flag to the target
-          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
-          // Remove current targets
-          target.setTarget(false);
-        })
-      }
-    }
-    catch
-    {
-      await actor.update({"-=flags.oppose" : null}) // If something went wrong, remove incoming opposed tests
-    }
-  }
 
   /* --------------------------------------------------------------------------------------------------------- */
   /* --------------------------------- Preparation & Calculation Functions ----------------------------------- */
