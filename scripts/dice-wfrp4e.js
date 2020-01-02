@@ -295,9 +295,9 @@ class DiceWFRP {
         if (weapon.properties.flaws.includes("Tiring") && (damageToUse != testResults.SL || weapon.properties.qualities.includes("Impact")))
         {
           if (testData.extra.attackType == "melee")
-            testResults.damage = `${eval(weapon.data.damage.meleeValue + testResults.SL)} | ${testResults.damage}` ;
+            testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.meleeValue + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>` ;
           if (testData.extra.attackType == "ranged")
-            testResults.damage = `${eval(weapon.data.damage.rangedValue + testResults.SL)} | ${testResults.damage}` ;
+            testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.rangedValue + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>` ;
         }
 
        return testResults;
@@ -859,6 +859,18 @@ class DiceWFRP {
       event.preventDefault()
       let messageId = $(event.currentTarget).parents('.message').attr("data-message-id")
       OpposedWFRP.resolveUnopposed(messageId)
+    })
+
+    html.on("click", '.damage-select', event =>{
+      event.preventDefault()
+      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id")
+      let message = game.messages.get(messageId)
+      let msgContent = $(message.data.content)
+      msgContent.find(".card-damage").replaceWith(`(${event.target.text} Damage)`)
+      let newContent = msgContent.html()
+
+      message.update({content: newContent , "flags.data.postData.damage" : Number(event.target.text)})
+
     })
 
   }

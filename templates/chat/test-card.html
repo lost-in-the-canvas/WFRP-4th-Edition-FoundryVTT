@@ -28,10 +28,10 @@
         </div>
         
         <div class="card-content display-toggle">
-           <b>SL</b>: {{testData.SL}} {{#if testData.damage}} ({{testData.damage}} Damage) {{/if}}
+           <b>SL</b>: {{testData.SL}} {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} Damage)</span>{{/if}}
         </div>
-        <div class="card-content display-toggle" style = "display : none;">
-            <b>SL</b>: <input class="card-edit" type="text" data-edit-type = "SL" value = "{{testData.SL}}"> {{#if testData.damage}} ({{testData.damage}} Damage) {{/if}}
+        <div class="card-content display-toggle " style = "display : none;">
+            <b>SL</b>: <input class="card-edit" type="text" data-edit-type = "SL" value = "{{testData.SL}}"> {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} Damage)</span>{{/if}}
          </div>
         
         <div class="card-content" roll-description = "{{description}}">
