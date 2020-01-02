@@ -111,7 +111,6 @@ class GeneratorWfrp4e
 
     cardData.extra = WFRP4E.speciesExtra[species]
     cardData.move = WFRP4E.speciesMovement[species]
-    cardData.dataTransfer = JSON.stringify(dataTransfer)
 
     let chatData = {
       user : game.user._id,
@@ -123,6 +122,7 @@ class GeneratorWfrp4e
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/attributes.html", cardData).then(html => {
       chatData.content = html;
+      chatData["flags.transfer"] = JSON.stringify(dataTransfer);
       ChatMessage.create(chatData);
     })
   }

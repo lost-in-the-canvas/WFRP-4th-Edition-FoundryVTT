@@ -16,7 +16,6 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     postedItem.setAttribute("draggable", true);
 
     postedItem.addEventListener('dragstart', ev => {
-      console.log(app, html, msg)
       ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
     })
   }
@@ -25,7 +24,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
   {
     generation.setAttribute("draggable", true);
     generation.addEventListener('dragstart', ev => {
-      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-char"));
+      ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
     })
   }
 
