@@ -2722,7 +2722,7 @@ class ActorWfrp4e extends Actor {
         penetrating = weaponProperties.qualities.includes("Penetrating")
         undamaging = weaponProperties.flaws.includes("Undamaging")
         hack = weaponProperties.qualities.includes("Hack")
-        hack = weaponProperties.qualities.includes("Hack")
+        impale = weaponProperties.qualities.includes("Impale")
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
@@ -2744,19 +2744,13 @@ class ActorWfrp4e extends Actor {
         {
           AP.ignored += layer.metal ? 1 : layer.value
         }
-      }
-
-      // Go through the layers again to determine the location is impenetrable
-      // This is its own loop because it should be checked regardless of the
-      // attacker using a weapon
-      for (let layer of AP.layers)
-      {
         if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
         {
           impenetrable = true;
           break;
         }
       }
+
       // AP.used is the actual amount of AP considered
       AP.used = AP.value - AP.ignored
       AP.used = AP.used < 0 ? 0 : AP.used;           // AP minimum 0
@@ -2768,7 +2762,7 @@ class ActorWfrp4e extends Actor {
       else
         updateMsg += AP.used + " AP"
 
-      // If using a shield, add that APP as well
+      // If using a shield, add that AP as well
       let shieldAP = 0;
       if (opposeData.defenderTestResult.weapon)
       {
