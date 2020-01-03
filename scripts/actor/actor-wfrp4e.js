@@ -1664,138 +1664,236 @@ class ActorWfrp4e extends Actor {
     }
   }
 
+  /**
+   * Iterates through the Owned Items, processes them and organizes them into containers.
+   * 
+   * This behemoth of a function goes through all Owned Items, separating them into individual arrays
+   * that the html templates use. Before adding them into the array, they are typically processed with
+   * the actor data, which can either be a large function itself (see prepareWeaponCombat) or not, such
+   * as career items which have minimal processing. These items, as well as some auxiliary data (e.g.
+   * encumbrance, AP) are bundled into an return object
+   * 
+   */
   prepareItems()
   {
-      let actorData = duplicate(this.data)
-      // These containers are for the various different tabs
-      const careers = [];
-      const basicSkills = [];
-      const advancedOrGroupedSkills = [];
-      const talents = [];
-      const traits = [];
-      const weapons = [];
-      const armour = [];
-      const injuries = [];
-      const grimoire = [];
-      const petty = [];
-      const blessings = [];
-      const miracles = [];
-      const psychology = [];
-      const mutations = [];
-      const diseases = [];
-      const criticals = [];
-      let penalties = {
-        "Armour" : {value : ""},
-        "Injury" : {value : ""},
-        "Mutation" : {value : ""},
-        "Criticals" : {value : ""},
-      };
+    let actorData = duplicate(this.data)
+    // These containers are for the various different tabs
+    const careers = [];
+    const basicSkills = [];
+    const advancedOrGroupedSkills = [];
+    const talents = [];
+    const traits = [];
+    const weapons = [];
+    const armour = [];
+    const injuries = [];
+    const grimoire = [];
+    const petty = [];
+    const blessings = [];
+    const miracles = [];
+    const psychology = [];
+    const mutations = [];
+    const diseases = [];
+    const criticals = [];
+    let penalties = {
+      "Armour": {
+        value: ""
+      },
+      "Injury": {
+        value: ""
+      },
+      "Mutation": {
+        value: ""
+      },
+      "Criticals": {
+        value: ""
+      },
+    };
 
-      const AP = {
-        head: {
-          value : 0,
-          layers : [],
-        },
-        body: {
-          value : 0,
-          layers : [],
-        },
-        rArm: {
-          value : 0,
-          layers : [],
-        },
-        lArm: {
-          value : 0,
-          layers : [],
-        },
-        rLeg: {
-          value : 0,
-          layers : [],
-        },
-        lLeg: {
-          value : 0,
-          layers : [],
-        },
-        shield: 0
+    const AP = {
+      head: {
+        value: 0,
+        layers: [],
+      },
+      body: {
+        value: 0,
+        layers: [],
+      },
+      rArm: {
+        value: 0,
+        layers: [],
+      },
+      lArm: {
+        value: 0,
+        layers: [],
+      },
+      rLeg: {
+        value: 0,
+        layers: [],
+      },
+      lLeg: {
+        value: 0,
+        layers: [],
+      },
+      shield: 0
+    }
+
+    // Inventory object is for the Trappings tab - each sub object is for an individual inventory section
+    const inventory = {
+      weapons: {
+        label: "Weapons",         // Label - what is displayed in the inventory section header
+        items: [],                // Array of items in the section
+        toggle: true,             // Is there a toggle in the section? (Equipped, worn, etc.)
+        toggleName: "Equipped",   // What is the name of the toggle in the header
+        show: false,              // Should this section be shown (if an item exists in this list, it is set to true)
+        dataType: "weapon"        // What type of FVTT Item is in this section (used by the + button to add an item of this type)
+      },
+      armor: {
+        label: "Armour",
+        items: [],
+        toggle: true,
+        toggleName: "Worn",
+        show: false,
+        dataType: "armour"
+      },
+      ammunition: {
+        label: "Ammunition",
+        items: [],
+        show: false,            
+        dataType: "ammunition"
+      },
+      clothingAccessories: {
+        label: "Clothing and Accessories",
+        items: [],
+        toggle: true,
+        toggleName: "Worn",
+        show: false,
+        dataType: "trapping"
+      },
+      booksAndDocuments: {
+        label: "Books and Documents",
+        items: [],
+        show: false,
+        dataType: "trapping"
+      },
+      toolsAndKits: {
+        label: "Tools and Kits",
+        items: [],
+        show: false,
+        dataType: "trapping"
+      },
+      foodAndDrink: {
+        label: "Food and Drink",
+        items: [],
+        show: false,
+        dataType: "trapping"
+      },
+      drugsPoisonsHerbsDraughts: {
+        label: "Drugs, Herbs, Poisons, Draughts",
+        items: [],
+        show: false,
+        dataType: "trapping"
+      },
+      misc: {
+        label: "Miscellaneous",
+        items: [],
+        show: true,
+        dataType: "trapping"
       }
+    };
 
-      // Inventory object is for the inventory tab
-      const inventory = {
-        weapons: { label: "Weapons", items: [], toggle: true, toggleName: "Equipped", show : false, dataType : "weapon" },
-        armor: { label: "Armour", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "armour"},
-        ammunition: { label: "Ammunition", items: [], quantified: true, show : false, dataType : "ammunition"},
-        clothingAccessories: { label: "Clothing and Accessories", items: [], toggle: true, toggleName: "Worn", show : false, dataType : "trapping" },
-        booksAndDocuments: {label: "Books and Documents", items: [], show : false, dataType : "trapping"},
-        toolsAndKits: {label: "Tools and Kits", items: [], show : false, dataType : "trapping"},
-        foodAndDrink: {label: "Food and Drink", items: [], show : false, dataType : "trapping"},
-        drugsPoisonsHerbsDraughts: {label: "Drugs, Herbs, Poisons, Draughts", items: [], quantified: true, show : false, dataType : "trapping"},
-        misc: {label: "Miscellaneous", items: [], show : true, dataType : "trapping"}
-      };
-      const ingredients =  {label: "Ingredients", items: [], quantified: true, show: false, dataType : "trapping"};
-      const money = {coins: [], total: 0, show : true};
-      const containers = {items: [], show : false};
-      const inContainers = [];
+    // Money and ingredients are not in inventory object because they need more customization - note in actor-inventory.html that they do not exist in the main inventory loop
+    const ingredients = {
+      label: "Ingredients",
+      items: [],
+      show: false,
+      dataType: "trapping"
+    };
+    const money = {
+      coins: [],    
+      total: 0,     // Total coinage value
+      show: true
+    };
+    const containers = {
+      items: [],
+      show: false
+    };
+    const inContainers = []; // inContainers is the temporary storage for items within a container
 
-      // Money and ingredients are not in inventory object because they need more customization
 
-      // Iterate through items, allocating to containers
-      let totalEnc = 0;
-      let hasSpells = false;
-      let hasPrayers = false;
-      let defensiveCounter = 0;
+    let totalEnc = 0;         // Total encumbrance of items
+    let hasSpells = false;    // if the actor has atleast a single spell - used to display magic tab
+    let hasPrayers = false;   // if the actor has atleast a single prayer - used to display religion tab
+    let defensiveCounter = 0; // Counter for weapons with the defensive quality
 
-      for ( let i of actorData.items ) {
-        try {
+    // Iterate through items, allocating to containers
+    // Items that need more intense processing are sent to a specialized function (see preparation functions below)
+    // Physical items are also placed into containers instead of the inventory object if their 'location' is not 0
+    // A location of 0 means not in a container, otherwise, the location corresponds to the id of the container the item is in
+    for (let i of actorData.items) 
+    {
+      try 
+      {
         i.img = i.img || DEFAULT_TOKEN;
-        if (i.type === "talent")
+
+        // *********** TALENTS ***********
+        if (i.type === "talent") 
         {
           this.prepareTalent(i, talents);
-        }
+        } 
 
-        else if ( i.type === "skill" )
+        // *********** Skills ***********
+        else if (i.type === "skill") 
         {
           this.prepareSkill(i);
           if (i.data.grouped.value == "isSpec" || i.data.advanced.value == "adv")
             advancedOrGroupedSkills.push(i)
           else
             basicSkills.push(i);
-        }
+        } 
 
-
-        else if (i.type === "ammunition")
+        // *********** Ammunition ***********
+        else if (i.type === "ammunition") 
         {
           i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
-          if (i.data.location.value == 0){
+          if (i.data.location.value == 0) 
+          {
             inventory.ammunition.items.push(i);
             inventory.ammunition.show = true
             totalEnc += Number(i.encumbrance);
-          }
-          else{
+          } 
+          else 
+          {
             inContainers.push(i);
           }
-        }
+        } 
 
-        else if (i.type === "weapon")
+        // *********** Weapons ***********
+        // Weapons are "processed" at the end for efficency
+        else if (i.type === "weapon") 
         {
           i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-          if (i.data.location.value == 0){
+          if (i.data.location.value == 0) 
+          {
             i.toggleValue = i.data.equipped || false;
             inventory.weapons.items.push(i);
             inventory.weapons.show = true;
             totalEnc += i.encumbrance;
-          }
-          else {
+          } 
+          else 
+          {
             inContainers.push(i);
           }
-        }
+        } 
 
-        else if (i.type === "armour")
+        // *********** Armour ***********
+        // Armour is prepared only if it is worn, otherwise, it is just pushed to inventory and encumbrance is calculated
+        else if (i.type === "armour") 
         {
-
           i.encumbrance = Math.floor(i.data.encumbrance.value * i.data.quantity.value);
-          if (i.data.location.value == 0){
+          if (i.data.location.value == 0) 
+          {
             i.toggleValue = i.data.worn.value || false;
-            if (i.data.worn.value)
+            if (i.data.worn.value) 
             {
               i.encumbrance = i.encumbrance - 1;
               i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
@@ -1803,90 +1901,103 @@ class ActorWfrp4e extends Actor {
             inventory.armor.items.push(i);
             inventory.armor.show = true;
             totalEnc += i.encumbrance;
-          }
-          else {
+          } 
+          else 
+          {
             inContainers.push(i);
           }
 
           if (i.data.worn.value)
             armour.push(this.prepareArmorCombat(i, AP));
-        }
 
-        else if (i.type == "injury")
+        } 
+        // *********** Injuries ***********
+        else if (i.type == "injury") 
         {
           injuries.push(i);
           penalties["Injury"].value += i.data.penalty.value;
-        }
+        } 
 
-        else if (i.type == "critical")
+        // *********** Criticals ***********
+        else if (i.type == "critical") 
         {
           criticals.push(i);
           penalties["Criticals"].value += i.data.modifier.value;
-        }
+        } 
 
-        else if (i.type === "container")
+        // *********** Containers ***********
+        // Items within containers are organized at the end
+        else if (i.type === "container") 
         {
           i.encumbrance = i.data.encumbrance.value;
 
-          if (i.data.location.value == 0){
-          if (i.data.worn.value)
+          if (i.data.location.value == 0) 
           {
-            i.encumbrance = i.encumbrance - 1;
-            i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+            if (i.data.worn.value) 
+            {
+              i.encumbrance = i.encumbrance - 1;
+              i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+            }
+            totalEnc += i.encumbrance;
           }
-          totalEnc += i.encumbrance;
-          }
-          else{
+          else 
+          {
             inContainers.push(i);
           }
           containers.items.push(i);
           containers.show = true;
-        }
+        } 
 
-        else if (i.type === "trapping")
+        // *********** Trappings ***********
+        // Trappings have several sub-categories, most notably Ingredients
+        // The trappings tab does not have a "Trappings" section, but sections for each type of trapping instead
+        else if (i.type === "trapping") 
         {
           i.encumbrance = i.data.encumbrance.value * i.data.quantity.value;
-          if (i.data.location.value == 0)
+          if (i.data.location.value == 0) 
           {
-            if (i.data.trappingType.value == "ingredient")
+            // Push ingredients to a speciality array for futher customization in the trappings tab
+            if (i.data.trappingType.value == "ingredient") 
             {
               ingredients.items.push(i)
-            }
+            } 
+            // The trapping will fall into one of these if statements and set the array accordingly
             else if (i.data.trappingType.value == "clothingAccessories")
             {
               i.toggleValue = i.data.worn || false;
               inventory[i.data.trappingType.value].items.push(i);
               inventory[i.data.trappingType.value].show = true;
-              if (i.data.worn)
+              if (i.data.worn) 
               {
-                i.encumbrance = i.encumbrance - 1;
-                i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;
+                i.encumbrance = i.encumbrance - 1;                      // Since some trappings are worn, they need special treatment
+                i.encumbrance = i.encumbrance < 0 ? 0 : i.encumbrance;  // This if statement is specific to worn clothing Trappings
               }
-            }
-            else if (i.data.trappingType.value == "tradeTools")
+            } 
+            else if (i.data.trappingType.value == "tradeTools") 
             {
-              inventory["toolsAndKits"].items.push(i)
-              inventory["toolsAndKits"].show = true;
+              inventory["toolsAndKits"].items.push(i)             // I decided not to separate "Trade Tools" and "Tools and Kits"
+              inventory["toolsAndKits"].show = true;              // Instead, merging them both into "Tools and Kits"
             }
-            else if (i.data.trappingType.value)
+            else if (i.data.trappingType.value) 
             {
-              inventory[i.data.trappingType.value].items.push(i);
+              inventory[i.data.trappingType.value].items.push(i); // Generic - add anything else to their appropriate array
               inventory[i.data.trappingType.value].show = true;
-            }
-            else
+            } 
+            else 
             {
-              inventory.misc.items.push(i);
-              inventory.misc.show = true;
+              inventory.misc.items.push(i); // If somehow it didn't fall into the other categories (it should)
+              inventory.misc.show = true;   // Just push it to miscellaneous
             }
             totalEnc += i.encumbrance;
           }
-          else{
+          else 
+          {
             inContainers.push(i);
           }
+        } 
 
-        }
-
-
+        // *********** Spells ***********
+        // See this.prepareSpellOrPrayer() for how these items are processed 
         else if (i.type === "spell")
         {
           hasSpells = true;
@@ -1894,8 +2005,9 @@ class ActorWfrp4e extends Actor {
             petty.push(this.prepareSpellOrPrayer(i));
           else
             grimoire.push(this.prepareSpellOrPrayer(i));
-        }
-
+        } 
+        // *********** Prayers ***********
+        // See this.prepareSpellOrPrayer() for how these items are processed 
         else if (i.type === "prayer")
         {
           hasPrayers = true;
@@ -1905,225 +2017,252 @@ class ActorWfrp4e extends Actor {
             miracles.push(this.prepareSpellOrPrayer(i));
         }
 
-        else if (i.type === "career")
+        // *********** Careers ***********   
+        else if (i.type === "career") 
         {
-
           careers.push(i);
-        }
+        } 
 
-
-        else if (i.type === "trait")
+        // *********** Trait ***********   
+        // Display Traits as Trait-Name (Specification)
+        // Such as Animosity (Elves)
+        else if (i.type === "trait") 
         {
-          if (i.data.specification.value)
+          if (i.data.specification.value) 
           {
-            if (i.data.rollable.bonusCharacteristic)
+            if (i.data.rollable.bonusCharacteristic)  // Bonus characteristic adds to the specification (Weapon +X includes SB for example)
             {
               i.data.specification.value = parseInt(i.data.specification.value) || 0
               i.data.specification.value += actorData.data.characteristics[i.data.rollable.bonusCharacteristic].bonus;
             }
             i.name = i.name + " (" + i.data.specification.value + ")";
-
           }
           traits.push(i);
-        }
+        } 
 
-
-        else if (i.type === "psychology")
+        // *********** Psychologies ***********   
+        else if (i.type === "psychology") 
         {
           psychology.push(i);
-        }
+        } 
 
-        else if (i.type === "disease")
+        // *********** Diseases ***********   
+        // .roll is the roll result. If it doesn't exist, show the formula instead
+        else if (i.type === "disease") 
         {
           i.data.incubation.roll = i.data.incubation.roll || i.data.incubation.value;
           i.data.duration.roll = i.data.duration.roll || i.data.duration.value;
           diseases.push(i);
-        }
+        } 
 
-        else if (i.type === "mutation")
+        // *********** Mutations ***********   
+        // Some mutations have modifiers - see the penalties section below 
+        else if (i.type === "mutation") 
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
             penalties["Mutation"].value += i.data.modifier.value;
-        }
+        } 
 
-        else if (i.type === "money")
+        // *********** Money ***********   
+        // Keep a running total of the coin value the actor has outside of containers
+        else if (i.type === "money") 
         {
           i.encumbrance = (i.data.encumbrance.value * i.data.quantity.value).toFixed(2);
-          if (i.data.location.value == 0){
+          if (i.data.location.value == 0) 
+          {
             money.coins.push(i);
             totalEnc += Number(i.encumbrance);
-          }
-          else{
+          } 
+          else 
+          {
             inContainers.push(i);
           }
           money.total += i.data.quantity.value * i.data.coinValue.value;
-
         }
-      }
-      catch (error){
+      } 
+      catch (error) 
+      {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
-        ui.notifications.error("Something went wrong with preparing item "+ i.name + ": " + error)
-        ui.notifications.error("Deleting "+ i.name);
+        ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
+        ui.notifications.error("Deleting " + i.name);
         this.deleteOwnedItem(i.id, true);
-        }
       }
+    } // END ITEM SORTING
 
-      // Prepare weapons for combat after items passthrough for efficiency
-      for (let wep of inventory.weapons.items)
+    // Prepare weapons for combat after items passthrough for efficiency - weapons need to know the ammo possessed, so instead of iterating through
+    // all items to find, iterate through the inventory.ammo array we just made
+    for (let wep of inventory.weapons.items) 
+    {
+      // We're only preparing equipped items here - this is for displaying weapons in the combat tab after all
+      if (wep.data.equipped) 
       {
-        if (wep.data.equipped)
+        // Process weapon taking into account actor data, skills, and ammo
+        weapons.push(this.prepareWeaponCombat(wep, inventory.ammo, basicSkills.concat(advancedOrGroupedSkills)));
+        // Add shield AP to AP object
+        let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+        if (shieldProperty) 
         {
-          weapons.push(this.prepareWeaponCombat(wep, inventory.ammo, basicSkills.concat(advancedOrGroupedSkills)));
-          let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
-          if (shieldProperty)
-          {
-              AP.shield += parseInt(shieldProperty.split(" ")[1]);
-          }
-          if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive")))
-          {
-            defensiveCounter++;
-          }
+          AP.shield += parseInt(shieldProperty.split(" ")[1]);
+        }
+        // Keep a running total of defensive weapons equipped
+        if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
+        {
+          defensiveCounter++;
         }
       }
+    }
 
 
-      // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
-      if (grimoire.length > 0 && ingredients.items.length > 0)
-      {
-        ingredients.show = true;
-        actorData.ingredients = ingredients;
-        for (let s of grimoire)
-            s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
-      }
-      else
-        inventory.misc.items = inventory.misc.items.concat(ingredients.items);
+    // If you have no spells, just put all ingredients in the miscellaneous section, otherwise, setup the ingredients to be available
+    if (grimoire.length > 0 && ingredients.items.length > 0) 
+    {
+      ingredients.show = true;
+      actorData.ingredients = ingredients;
+      // For each spell, set available ingredients to ingredients that have been assigned to that spell
+      for (let s of grimoire)
+        s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
+    } 
+    else
+      inventory.misc.items = inventory.misc.items.concat(ingredients.items);
 
 
-      // Container Setup
-      var containerMissing = inContainers.filter(i => containers.items.find(c => c.data.id == i.data.location.value));
-      for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
-      {
-        itemNoContainer.data.location.value = 0;
-        this.updateOwnedItem(itemNoContainer, true);;
-      }
-      for (var cont of containers.items) // For each container
-      {
-        // All items referencing (inside) that container
-        var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
-        itemsInside.map(function(item){ // Add category of item to be displayed
+
+    // ******************************** Container Setup ***********************************
+
+    // containerMissing is an array of items whose container does not exist (needed for when a container is deleted)
+    var containerMissing = inContainers.filter(i => !containers.items.find(c => c.id == i.data.location.value));
+    for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
+      itemNoContainer.data.location.value = 0;
+    
+    // If there were missing containers, reset the items that are orphaned
+    if (containerMissing.length)
+      this.updateManyOwnedItem(containerMissing)
+    
+    for (var cont of containers.items) // For each container
+    {
+      // All items referencing (inside) that container
+      var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
+      itemsInside.map(function (item) 
+      { // Add category of item to be displayed
         if (item.type == "trapping")
           item.type = WFRP4E.trappingCategories[item.data.trappingType.value];
         else
           item.type = WFRP4E.trappingCategories[item.type];
-      } )
-        cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
-        cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
-        cont["holding"] = itemsInside.reduce(function (prev, cur){            // cont.holding -> total encumbrance the container is holding
-          return Number(prev) + Number(cur.encumbrance);
-        }, 0);
-        cont.holding = Math.floor(cont.holding)
-      }
-
-      containers.items = containers.items.filter(c => c.data.location.value == 0); // Do not show containers inside other containers as top level (a location value of 0 means not inside a container)
-      // Penalties box setup
-      // If too much text, divide the penalties into groups
-      let penaltiesOverflow = false;
-      penalties["Armour"].value += this.calculateArmorPenalties(armour);
-      if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50)
-      {
-        penaltiesOverflow = true;
-        for (let penaltyType in penalties)
-        {
-          if (penalties[penaltyType].value)
-            penalties[penaltyType].show = true;
-          else
-            penalties[penaltyType].show = false;
-        }
-      }
-
-      let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.data.data.status.penalties.value
-      penaltiesFlag = penaltiesFlag.trim();
-      // This is for the penalty string in flags, for combat turn message
-      if (this.data.flags.modifier != penaltiesFlag)
-        this.update({"flags.modifier" : penaltiesFlag})
-
-      let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
-      if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait.id)))
-      {
-        for (let loc in AP)
-        {
-          try
-          {
-            if (loc != "shield")
-              AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
-          }
-          catch
-          {
-            //ignore armor traits with invalid values
-          }
-        }
-      }
-
-      this.data.flags.defensive = defensiveCounter;
-
-      let enc;
-      totalEnc = Math.floor(totalEnc);
-
-      enc = {
-        max: actorData.data.status.encumbrance.max,
-        value: Math.round(totalEnc * 10) / 10,
-      };
-    
-      enc.pct = Math.min(enc.value * 100 / enc.max, 100);
-      enc.state = enc.value / enc.max;
-      if (enc.state > 3)
-      {
-        enc["maxEncumbered"] = true
-        enc.penalty = WFRP4E.encumbrancePenalties["maxEncumbered"];
-      }
-      else if (enc.state > 2)
-      {
-        enc["veryEncumbered"] = true
-        enc.penalty = WFRP4E.encumbrancePenalties["veryEncumbered"];
-      }
-      else if (enc.state > 1)
-      {
-        enc["encumbered"] = true
-        enc.penalty = WFRP4E.encumbrancePenalties["encumbered"];
-      }
-      else
-        enc["notEncumbered"] = true;
-     
-      let preparedData = {
-       inventory : inventory,
-       containers : containers,
-       basicSkills : basicSkills.sort(WFRP_Utility.nameSorter),
-       advancedOrGroupedSkills : advancedOrGroupedSkills.sort(WFRP_Utility.nameSorter),
-       talents : talents,
-       traits : traits,
-       weapons : weapons,
-       diseases : diseases,
-       mutations : mutations,
-       armour : armour,
-       penalties : penalties,
-       penaltyOverflow : penaltiesOverflow,
-       AP : AP,
-       injuries : injuries,
-       grimoire : grimoire,
-       petty : petty,
-       careers : careers.reverse(),
-       blessings : blessings,
-       miracles : miracles,
-       money : money,
-       psychology : psychology,
-       criticals : criticals,
-       criticalCount : criticals.length,
-       encumbrance : enc,
-       ["flags.hasSpells"] : hasSpells,
-       ["flags.hasPrayers"] : hasPrayers
+      })
+      cont["carrying"] = itemsInside.filter(i => i.type != "Container");    // cont.carrying -> items the container is carrying
+      cont["packsInside"] = itemsInside.filter(i => i.type == "Container"); // cont.packsInside -> containers the container is carrying
+      cont["holding"] = itemsInside.reduce(function (prev, cur) {           // cont.holding -> total encumbrance the container is holding
+        return Number(prev) + Number(cur.encumbrance);
+      }, 0);
+      cont.holding = Math.floor(cont.holding)
     }
 
+    containers.items = containers.items.filter(c => c.data.location.value == 0); // Do not show containers inside other containers as top level (a location value of 0 means not inside a container)
+    
+    
+    // ******************************** Penalties Setup ***********************************        
+    
+    // Penalties box setup
+    // If too much text, divide the penalties into groups
+    let penaltiesOverflow = false;
+    penalties["Armour"].value += this.calculateArmorPenalties(armour);
+    if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50) // ~50 characters is when the text box overflows
+    {                                                                                                                                     // When that happens, break it up into categories 
+      penaltiesOverflow = true;
+      for (let penaltyType in penalties) 
+      {
+        if (penalties[penaltyType].value)
+          penalties[penaltyType].show = true;
+        else
+          penalties[penaltyType].show = false; // Don't show categories without any penalties 
+      }
+    }
+
+    // Penalties flag is teh string that shows when the actor's turn in combat starts
+    let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.data.data.status.penalties.value
+    penaltiesFlag = penaltiesFlag.trim();
+
+    // This is for the penalty string in flags, for combat turn message
+    if (this.data.flags.modifier != penaltiesFlag)
+      this.update({"flags.modifier": penaltiesFlag})
+
+    // Add armor trait to AP object
+    let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
+    if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait.id))) 
+    {
+      for (let loc in AP) 
+      {
+        try 
+        {
+          if (loc != "shield")
+            AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
+        } 
+        catch {//ignore armor traits with invalid values
+        }
+      }
+    }
+
+    // keep defensive counter in flags to use for test auto fill (see setupWeapon())
+    this.data.flags.defensive = defensiveCounter;
+
+    // enc used for encumbrance bar in trappings tab
+    let enc;
+    totalEnc = Math.floor(totalEnc);
+    enc = {
+      max: actorData.data.status.encumbrance.max,
+      value: Math.round(totalEnc * 10) / 10,
+    };
+    // percentage of the bar filled
+    enc.pct = Math.min(enc.value * 100 / enc.max, 100);
+    enc.state = enc.value / enc.max; // state is how many times over you are max encumbrance
+    if (enc.state > 3) 
+    {
+      enc["maxEncumbered"] = true
+      enc.penalty = WFRP4E.encumbrancePenalties["maxEncumbered"];
+    } 
+    else if (enc.state > 2) 
+    {
+      enc["veryEncumbered"] = true
+      enc.penalty = WFRP4E.encumbrancePenalties["veryEncumbered"];
+    } 
+    else if (enc.state > 1) 
+    {
+      enc["encumbered"] = true
+      enc.penalty = WFRP4E.encumbrancePenalties["encumbered"];
+    } 
+    else
+      enc["notEncumbered"] = true;
+
+    // Return all processed objects
+    let preparedData = {
+      inventory: inventory,
+      containers: containers,
+      basicSkills: basicSkills.sort(WFRP_Utility.nameSorter),
+      advancedOrGroupedSkills: advancedOrGroupedSkills.sort(WFRP_Utility.nameSorter),
+      talents: talents,
+      traits: traits,
+      weapons: weapons,
+      diseases: diseases,
+      mutations: mutations,
+      armour: armour,
+      penalties: penalties,
+      penaltyOverflow: penaltiesOverflow,
+      AP: AP,
+      injuries: injuries,
+      grimoire: grimoire,
+      petty: petty,
+      careers: careers.reverse(),
+      blessings: blessings,
+      miracles: miracles,
+      money: money,
+      psychology: psychology,
+      criticals: criticals,
+      criticalCount: criticals.length,
+      encumbrance: enc,
+      ["flags.hasSpells"]: hasSpells,
+      ["flags.hasPrayers"]: hasPrayers
+    }
     return preparedData
   }
   
@@ -2481,7 +2620,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcCritW)
       actorData.data.status.criticalWounds.max = tb;
 
-    let wounds;
+    let wounds = actorData.data.status.wounds.max;
 
     if (actorData.flags.autoCalcWounds)
     {
@@ -2518,8 +2657,8 @@ class ActorWfrp4e extends Actor {
         wounds = 8 * (sb + 2 * tb + wpb + tb * tbMultiplier);
         break;
       }
-      return wounds
     }
+    return wounds
   }
 
   /**
