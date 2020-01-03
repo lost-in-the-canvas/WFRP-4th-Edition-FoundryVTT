@@ -3020,7 +3020,7 @@ class ActorWfrp4e extends Actor {
       updateMsg += `<br>Impenetrable - Criticals Nullified`
 
     if (hack)
-      updateMsg += `<br>1 AP Damaged at ${opposeData.hitloc.value}`
+      updateMsg += `<br>1 AP Damaged on ${WFRP4E.locations[opposeData.hitloc.value]}`
 
     if (newWounds <= 0)
       newWounds = 0; // Do not go below 0 wounds

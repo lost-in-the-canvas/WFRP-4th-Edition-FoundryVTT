@@ -6,7 +6,7 @@ class WFRP_Utility
 
   static _spellDescription (spell) {
     let description = spell.data.description.value;
-    if (description && description.includes ("Lore:"))
+    if (description && description.includes ("<b>Lore:</b>"))
       return description
     if (spell.data.lore.effect)
       description += "\n\n <b>Lore:</b> " + spell.data.lore.effect;
