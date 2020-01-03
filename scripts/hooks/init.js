@@ -436,5 +436,5 @@ Hooks.once("init", () => {
     ]);
 
 
-    NameGenWfrp4e._loadNames();
+    NameGenWfrp._loadNames();
   });

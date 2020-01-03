@@ -16,15 +16,15 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     postedItem.setAttribute("draggable", true);
 
     postedItem.addEventListener('dragstart', ev => {
-      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-transfer"));
+      ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
     })
   }
-  let generation = html.find(".characteristics-gen")[0]
+  let generation = html.find(".char-gen")[0]
   if (generation)
   {
     generation.setAttribute("draggable", true);
     generation.addEventListener('dragstart', ev => {
-      ev.dataTransfer.setData("text/plain", $(ev.currentTarget).attr("data-char"));
+      ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
     })
   }
 

@@ -54,7 +54,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
     {
       let gender = (command[1] || "").toLowerCase()
       let species = (command[2] || "").toLowerCase();
-      let name = NameGenWfrp4e.generateName({species, gender})
+      let name = NameGenWfrp.generateName({species, gender})
       ChatMessage.create(WFRP_Utility.chatDataSetup(name))
       return false
     }

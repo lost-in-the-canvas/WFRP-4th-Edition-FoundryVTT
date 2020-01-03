@@ -8,3 +8,15 @@
 
 <div><b>Class Trappings:</b></div>
 <div>{{trappings}}</div>
+
+{{#unless chosen}}
+{{#if reroll}}
+<span class = "attribute-career-buttons">
+  <a class = 'chargen-button careerReroll' data-button = 'chooseCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can instead chcoose your Career for no bonus EXP'>Choose Career</a>
+</span>
+{{else}}
+<span class = "attribute-career-buttons">
+  <a class = 'chargen-button careerReroll' data-button = 'rerollCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can reroll twice for only +25 EXP'>Reroll Career</a>
+</span>
+{{/if}}
+{{/unless}}

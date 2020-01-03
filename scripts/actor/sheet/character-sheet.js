@@ -28,17 +28,6 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e {
      */
     getData() {
       const sheetData = super.getData();
-      let tb = sheetData.actor.data.characteristics.t.bonus;
-      let wpb =sheetData.actor.data.characteristics.wp.bonus;
-      if (sheetData.actor.flags.autoCalcCorruption)
-      {
-        sheetData.actor.data.status.corruption.max = tb + wpb;
-        let pureSoulTalent = sheetData.actor.talents.find(x => x.name.toLowerCase() == "pure soul")
-        if (pureSoulTalent)
-          sheetData.actor.data.status.corruption.max += pureSoulTalent.data.advances.value;
-      }
-  
-  
       return sheetData;
     }
   

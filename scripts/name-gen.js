@@ -1,4 +1,4 @@
-class NameGenWfrp4e 
+class NameGenWfrp 
 {
   static _loadNames()
   {
@@ -25,12 +25,20 @@ class NameGenWfrp4e
     })
   }
 
-  static generateName(options = {species : "human", gender : "male"})
+  static generateName(options = {species : "human"})
   {
+    if (!options.species)
+    {
+      options.species = "human"
+    }
+    if (options.species != "human")
+      return ""
     if (options.species)
       options.species = options.species.toLowerCase()
     if (options.gender)
       options.gender = options.gender.toLowerCase();
+    else 
+      options.gender = (new Roll("1d2").roll().total == 1 ? "male" : "female") 
     
     return this.generateForename(options) + " " + this.generateSurname(options)        
   }

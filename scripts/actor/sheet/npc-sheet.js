@@ -30,8 +30,6 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
      */
     getData() {
       const sheetData = super.getData();
-  
-      // Return data for rendering
       return sheetData;
     }
   
