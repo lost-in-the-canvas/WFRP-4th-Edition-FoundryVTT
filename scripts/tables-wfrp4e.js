@@ -214,7 +214,7 @@ class WFRP_Tables {
         return tableHtml;
 
         case "talents": 
-          return `<b>Random Talent</b><br> <a class="talent-lookup">${result.name}</a>`
+          return `<b>Random Talent</b><br> <a class="talent-drag">${result.name}</a>`
 
   
         default:
