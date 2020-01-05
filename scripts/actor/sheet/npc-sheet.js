@@ -44,26 +44,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
     }
   
   
-      /**
-     * Advance NPC based on given career
-     * @private
-     */
-    async _advanceNPC(careerData) {
-      let updateObj = {};
-      let advancesNeeded = careerData.level.value * 5;
-  
-      for (let advChar of careerData.characteristics)
-        if (this.actor.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
-          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-  
-      for (let skill of careerData.skills)
-        await this._advanceSkill(skill, advancesNeeded);
-  
-      for (let talent of careerData.talents)
-        await this._advanceTalent(talent);
-  
-      this.actor.update(updateObj);
-    }
+
   
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
@@ -92,7 +73,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
           let careerItem = duplicate(this.actor.getOwnedItem(id).data);
           careerItem.data.complete.value = !careerItem.data.complete.value
           if (careerItem.data.complete.value)
-            this._advanceNPC(careerItem.data)
+            this.actor._advanceNPC(careerItem.data)
   
           this.actor.updateOwnedItem({id : id, 'data' : careerItem.data});
         });

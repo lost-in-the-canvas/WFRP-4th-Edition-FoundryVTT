@@ -575,7 +575,7 @@ class ActorWfrp4e extends Actor {
   spellDialog(spell) {
     // Do not show the dialog for Petty spells, just cast it.
     if (spell.data.lore.value == "petty")
-      this.setupCast(spell, options)
+      this.setupCast(spell)
     else
     {
       renderTemplate("systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
@@ -2604,15 +2604,29 @@ class ActorWfrp4e extends Actor {
     weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
 
+  /**
+   * Calculates the wounds of an actor based on prepared items
+   * 
+   * Once all the item preparation is done (prepareItems()), we have a list of traits/talents to use that will
+   * factor into Wonuds calculation. Namely: Hardy and Size traits. If we find these, they must be considered
+   * in Wound calculation. 
+   * 
+   * @param {Object} actorData    prepared actor data - all items organized and processed 
+   * 
+   * @returns {Number} Max wound value calculated
+   */
   calculateWounds(actorData)
   {
+    /// There's both a Hardy Trait and Hardy Talent (thanks C7) so find both.
     let hardyTrait = actorData.traits.find(t => t.name.toLowerCase().includes("hardy"))
     let hardyTalent = actorData.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
+    /// tbMultiplier is the additional amount of TB to add to Wounds. 0 if no Hardy
     let tbMultiplier = (hardyTrait ? 1 : 0)
-    if (hardyTalent)
+    if (hardyTalent) // The talent can be taken multiple times, so take into account advances.
       tbMultiplier += hardyTalent.data.advances.value || 0
 
+    // Easy to reference bonuses
     let sb = actorData.data.characteristics.s.bonus;
     let tb = actorData.data.characteristics.t.bonus;
     let wpb =actorData.data.characteristics.wp.bonus;
@@ -2624,11 +2638,11 @@ class ActorWfrp4e extends Actor {
 
     if (actorData.flags.autoCalcWounds)
     {
+      // Construct trait means you use SB instead of WPB 
       if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")))
         wpb = sb;
-      switch (actorData.data.details.size.value)
+      switch (actorData.data.details.size.value) // Use the size to get the correct formula (size determined in prepare())
       {
-
         case "tiny":
         wounds = 1 + tb * tbMultiplier;
         break;
@@ -3033,6 +3047,241 @@ class ActorWfrp4e extends Actor {
     actor.update({"data.status.wounds.value" : newWounds})
     return updateMsg;
   }
+
+
+  
+  /* --------------------------------------------------------------------------------------------------------- */
+  /* -------------------------------------- Auto-Advancement Functions --------------------------------------- */
+  /* --------------------------------------------------------------------------------------------------------- */
+  /**
+   * These functions are primarily for NPCs and Creatures and their automatic advancement capabilities. 
+   *
+  /* --------------------------------------------------------------------------------------------------------- */
+
+
+  /**
+   * Advances an actor's skills based on their species and character creation rules
+   * 
+    * Per character creation, 3 skills from your species list are advanced by 5, and 3 more are advanced by 3.
+    * This functions uses the Foundry Roll class to randomly select skills from the list (defined in config.js)
+    * and advance the first 3 selected by 5, and the second 3 selected by 3. This function uses the advanceSkill()
+    * helper defined below.
+   */
+  async _advanceSpeciesSkills() 
+  {
+    let skillList
+
+    // A species may not be entered in the actor, so use some error handling.
+    try
+    {
+      skillList = WFRP4E.speciesSkills[this.data.data.details.species.value];
+      if (!skillList)
+      {
+        // findKey() will do an inverse lookup of the species key in the species object defined in config.js, and use that if 
+        // user-entered species value does not work (which it probably will not)
+        skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
+        if (!skillList)
+        {
+          throw "Could not add skills for species " + this.data.data.details.species.value;
+        }
+      }
+    }
+    catch(error)
+    {
+        ui.notifications.info("Could not find species " + this.data.data.details.species.value)
+        console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+        throw error
+    }
+    // The Roll class used to randomly select skills
+    let skillSelector = new Roll(`1d${skillList.length}- 1`);
+    skillSelector.roll().total;
+
+    // Store selected skills
+    let skillsSelected = [];
+    while (skillsSelected.length < 6)
+    {
+      skillSelector = skillSelector.reroll()
+      if (!skillsSelected.includes(skillSelector.total)) // Do not push duplicates
+        skillsSelected.push(skillSelector.total);
+    }
+
+    // Advance the first 3 by 5, advance the second 3 by 3.
+    for (let skillIndex = 0; skillIndex < skillsSelected.length; skillIndex++)
+    {
+      if (skillIndex <= 2)
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
+      else
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
+    }
+  }
+
+
+  /**
+   * Advances an actor's talents based on their species and character creation rules
+   * 
+   * Character creation rules for talents state that you get all talents in your species, but there
+   * are a few where you must choose between two instead. See config.js for how the species talent 
+   * object is set up for support in this. Basically species talents are an array of strings, however
+   * ones that offer a choice is formatted as "<talent1>, <talent2>", each talent being a choice. Finally,
+   * the last element of the talent list is a number denoting the number of random talents. This function uses
+   * the advanceTalent() helper defined below.
+   */
+  async _advanceSpeciesTalents() 
+  {
+    // A species may not be entered in the actor, so use some error handling.
+    let talentList
+    try
+    {
+      talentList = WFRP4E.speciesTalents[this.data.data.details.species.value];
+      if (!talentList)
+      {
+        // findKey() will do an inverse lookup of the species key in the species object defined in config.js, and use that if 
+        // user-entered species value does not work (which it probably will not)
+        talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
+        if (!talentList)
+          throw "Could not add talents for species " + this.data.data.details.species.value;
+      }
+    }
+    catch (error)
+    {
+      ui.notifications.info("Could not find species " + this.data.data.details.species.value)
+      console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+      throw error
+    }
+    let talentSelector;
+    for (let talent of talentList)
+    {
+      if (!isNaN(talent)) // If is a number, roll on random talents
+      {
+        for (let i = 0; i < talent; i++)
+        {
+          let result = WFRP_Tables.rollTable("talents")
+          await this._advanceTalent(result.name);
+        }
+        continue
+      }
+      // If there is a comma, talent.split() will yield an array of length > 1
+      let talentOptions = talent.split(',').map(function(item) {
+        return item.trim();
+      });
+
+      // Randomly choose a talent option and advance it.
+      if (talentOptions.length > 1)
+      {
+        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
+          await this._advanceTalent(talentOptions[talentSelector.roll().total])
+      }
+      else // If no option, simply advance the talent.
+      {
+        await this._advanceTalent(talent)
+      }
+    }
+
+  }
+
+
+  /**
+   * Adds (if needed) and advances a skill by the specified amount.
+   * 
+   * As the name suggests, this function advances any given skill, if 
+   * the actor does not currently have that skill, it will be added 
+   * from the compendium and advanced. Note that this function is neither
+   * used by manually advancing skills nor when clicking on advancement 
+   * indicators. This will simply add the advancement value with no
+   * other processing.
+   * 
+   * @param {String} skillName    Name of the skill to advance/add
+   * @param {Number} advances     Advances to add to the skill
+   */
+  async _advanceSkill(skillName, advances)
+  {
+    // Look through items and determine if the actor has the skill
+    let existingSkill = this.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    // If so, simply update the skill with the new advancement value. 
+    if (existingSkill)
+    {
+      // If the existing skill has a greater amount of advances, use the greater value instead (make no change) - ??? Is this needed? I'm not sure why I did this. TODO: Evaluate.
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
+      await this.updateOwnedItem(existingSkill);
+      return;
+    }
+
+    // If the actor does not already own skill, search through compendium and add it
+    try
+    {
+      // See findSkill() for a detailed explanation of how it works
+      // Advanced find function, returns the skill the user expects it to return, even with skills not included in the compendium (Lore (whatever))
+      let skillToAdd = await WFRP_Utility.findSkill(skillName)
+      skillToAdd.data.data.advances.value = advances;
+      await this.createOwnedItem(skillToAdd.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding skill " + skillName +": " + error);
+      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
+    }
+  }
+
+  /**
+   * Adds the given talent to the actor
+   * 
+   * In my implementation, adding a talent is the same as advancing a talent. See
+   * prepareTalent() and you'll see that the total number of any given talent is the
+   * advencement value.
+   * 
+   * @param {String} talentName     Name of the talent to add/advance.
+   */
+  async _advanceTalent(talentName)
+  {
+    try
+    {
+      // See findTalent() for a detailed explanation of how it works
+      // Advanced find function, returns the Talent the user expects it to return, even with Talents not included in the compendium (Etiquette (whatever))
+      let talent = await WFRP_Utility.findTalent(talentName);
+      await this.createOwnedItem(talent.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding talent " + talentName +": " + error);
+      ui.notifications.error("Something went wrong when adding talent " + talentName +": " + error);
+    }
+  }
+
+    /**
+     * Advance NPC based on given career
+     * 
+     * A specialized function used by NPC type Actors that triggers when you click on a 
+     * career to be "complete". This takes all the career data and uses it (and the helpers
+     * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
+     * correct amount to be considered complete), advances all characteristics similarly, and 
+     * adds all talents.
+     * 
+     * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
+     * However, I find deleting the ones you don't want to be much easier than trying to pick and 
+     * choose the ones you do want.
+     *
+     * @param {Object} careerData     Career type Item to be used for advancement.
+     * 
+     * TODO Refactor for embedded entity along with the helper functions
+     */
+    async _advanceNPC(careerData) 
+    {
+      let updateObj = {};
+      let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
+  
+      // Update all necessary characteristics to the advancesNeeded
+      for (let advChar of careerData.characteristics)
+        if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+  
+      // Advance all skills in the career
+      for (let skill of careerData.skills)
+        await this._advanceSkill(skill, advancesNeeded);
+  
+      // Add all talents in the career
+      for (let talent of careerData.talents)
+        await this._advanceTalent(talent);
+  
+      this.update(updateObj);
+    }
 }
 
 // Assign the actor class to the CONFIG

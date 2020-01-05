@@ -90,10 +90,8 @@ class ActorSheetWfrp4e extends ActorSheet {
   /**
    * Provides the data to the template when rendering the actor sheet
    * 
-   * The key function in this class which organizes and processes all the data and items
-   * in the sheet. From HP, to damage values on weapons, to encumbrance. It initially calls
-   * prepareItems, and then does further processing using those items (calculating hp based on
-   * Size trait items, for example).  This function is called upstream when rendering.
+   * This function is called when rendering the sheet, where it calls the base actor class
+   * to organize, process, and prepare all actor data for display. See ActorWfrp4e.prepare()
    * 
    * @returns {Object} sheetData    Data given to the template when rendering
    */
@@ -104,138 +102,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     return sheetData;
   }
 
-
-  /* -------------------------------------------- */
-  /*  Auto Advancement Functions
-  /* -------------------------------------------- */
-  async _advanceSpeciesSkills() {
-    let skillList
-    try
-    {
-      skillList = WFRP4E.speciesSkills[this.actor.data.data.details.species.value];
-      if (!skillList)
-      {
-        skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
-        if (!skillList)
-        {
-          throw "Could not add skills for species " + this.actor.data.data.details.species.value;
-        }
-      }
-    }
-    catch(error)
-    {
-        ui.notifications.info("Could not find species " + this.actor.data.data.details.species.value)
-        console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
-        throw error
-    }
-    let skillSelector = new Roll(`1d${skillList.length}- 1`);
-    skillSelector.roll().total;
-
-    let skillsSelected = [];
-    while (skillsSelected.length < 6)
-    {
-      skillSelector = skillSelector.reroll()
-      if (!skillsSelected.includes(skillSelector.total))
-        skillsSelected.push(skillSelector.total);
-    }
-
-    for (let skillIndex = 0; skillIndex < skillsSelected.length; skillIndex++)
-    {
-      if (skillIndex <= 2)
-        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
-      else
-        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
-    }
-  }
-
-
-  async _advanceSpeciesTalents() {
-    let talentList
-    try
-    {
-      talentList = WFRP4E.speciesTalents[this.actor.data.data.details.species.value];
-      if (!talentList)
-      {
-        talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.actor.data.data.details.species.value, WFRP4E.species)]
-        if (!talentList)
-          throw "Could not add talents for species " + this.actor.data.data.details.species.value;
-      }
-    }
-    catch (error)
-    {
-      ui.notifications.info("Could not find species " + this.actor.data.data.details.species.value)
-      console.log("Could not find species " + this.actor.data.data.details.species.value + ": " + error);
-      throw error
-    }
-    let talentSelector;
-    for (let talent of talentList)
-    {
-      if (!isNaN(talent)) // If is a number, roll on random talents
-      {
-        for (let i = 0; i < talent; i++)
-        {
-          let result = WFRP_Tables.rollTable("talents")
-          await this._advanceTalent(result.name);
-        }
-        continue
-      }
-      let talentOptions = talent.split(',').map(function(item) {
-        return item.trim();
-      });
-
-      if (talentOptions.length > 1)
-      {
-        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
-          await this._advanceTalent(talentOptions[talentSelector.roll().total])
-      }
-      else
-      {
-        await this._advanceTalent(talent)
-      }
-    }
-
-  }
-
-  async _advanceSkill(skillName, advances){
-    let existingSkill = this.actor.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
-    if (existingSkill)
-    {
-      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
-      await this.actor.updateOwnedItem(existingSkill);
-      return;
-    }
-
-    // If does not already own skill, search through compendium
-    try
-    {
-        let skillToAdd = await WFRP_Utility.findSkill(skillName)
-        skillToAdd.data.data.advances.value = advances;
-        await this.actor.createOwnedItem(skillToAdd.data);
-    }
-    catch(error) {
-      console.error("Something went wrong when adding skill " + skillName +": " + error);
-      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
-    }
-  }
-
-  async _advanceTalent(talentName){
-
-    try
-    {
-      let talent = await WFRP_Utility.findTalent(talentName);
-      await this.actor.createOwnedItem(talent.data);
-    }
-    catch(error) {
-      console.error("Something went wrong when adding talent " + talentName +": " + error);
-      ui.notifications.error("Something went wrong when adding talent " + talentName +": " + error);
-    }
-  }
-
-
-  _modifyWounds(event)
+  
+  _modifyWounds(value)
   {
-    let inputValue = event.target.value;
-    let sign = event.target.value.split('')[0]
+    ;
+    let sign = value.split('')[0]
     let wounds;
     if (sign == "+" || sign == "-")
       wounds = eval(this.actor.data.data.status.wounds.value + parseInt(inputValue))
@@ -279,7 +150,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.options.editable) return;
 
       html.find(".wounds-value").change(event => {
-        this._modifyWounds(event)
+        this._modifyWounds(event.target.text)
       })
 
       // This disgusting mess allows characteristics to be tabbed through. (Used only by Creature and NPC sheets, placed here to maintain DRY code)
@@ -822,11 +693,11 @@ class ActorSheetWfrp4e extends ActorSheet {
             return
 
           case "S":
-            this._advanceSpeciesSkills()
+            this.actor._advanceSpeciesSkills()
             return
 
           case "T":
-            this._advanceSpeciesTalents()
+            this.actor._advanceSpeciesTalents()
             return
         }
       }
