@@ -2,7 +2,7 @@
   <h2>Career Advancement</h2>
 </div>
 
-<span>Drag the career onto your character sheet and allocate 40 advances to the available skills. Also, add 1 Talent.</span>
+<span>Drag the career onto your character sheet and allocate 40 advances to the available skills. Also, add 1 Talent and allocate 5 advances across the marked characteristics.</span>
 
 <div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>
 
@@ -12,7 +12,7 @@
 {{#unless chosen}}
 {{#if reroll}}
 <span class = "attribute-career-buttons">
-  <a class = 'chargen-button careerReroll' data-button = 'chooseCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can instead chcoose your Career for no bonus EXP'>Choose Career</a>
+  <a class = 'chargen-button careerReroll' data-button = 'chooseCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can instead choose your Career for no bonus EXP'>Choose Career</a>
 </span>
 {{else}}
 <span class = "attribute-career-buttons">
