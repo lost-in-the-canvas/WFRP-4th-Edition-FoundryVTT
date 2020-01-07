@@ -69,7 +69,7 @@
 </ol>
 
 {{#each actor.inventory as |section sid|}}
-{{#if section.items}}
+{{#if section.show}}
 <div class="inventory-header item {{section.label}}">
   {{#if section.toggle}}
   <span class="name">{{section.label}}</span>
@@ -137,9 +137,8 @@
 
   <span id="spell-label" class="spell item-toggle">Spell</span>
 
-  {{#if actor.ingredients.quantified}}
   <span class="quantity aggregate" data-type="ingredient">Qty.</span>
-  {{/if}}
+  
   <span class="weight">Enc.</span>
   {{#if owner}}
   <div class="item-controls">

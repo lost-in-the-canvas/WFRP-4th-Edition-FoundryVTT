@@ -89,7 +89,7 @@ class GeneratorWfrp4e
     let characteristics = WFRP_Utility.speciesCharacteristics(species, false)
     let dataTransfer = {
       generation : true,
-      type : "characteristics",
+      type : "attributes",
       payload : {
         species: WFRP4E.species[species],
         characteristics : characteristics,
@@ -110,7 +110,7 @@ class GeneratorWfrp4e
     }
 
     cardData.extra = WFRP4E.speciesExtra[species]
-    cardData.dataTransfer = JSON.stringify(dataTransfer)
+    cardData.move = WFRP4E.speciesMovement[species]
 
     let chatData = {
       user : game.user._id,
@@ -122,19 +122,50 @@ class GeneratorWfrp4e
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/attributes.html", cardData).then(html => {
       chatData.content = html;
+      chatData["flags.transfer"] = JSON.stringify(dataTransfer);
       ChatMessage.create(chatData);
     })
   }
 
-  static async rollCareer(species)
+  static async rollCareer(species, exp, isReroll)
   {
     let roll = WFRP_Tables.rollTable("career", {}, species)
+    this.displayCareer(roll.name, species, exp, isReroll)
+  }
+  
+  static async chooseCareer(species)
+  {
+    let msgContent = "<h2>Chooses Your Career</h2>";
+
+
+    for (let r of WFRP_Tables.career.rows)
+    {
+      if (r.range[species].length)
+        msgContent+=`<a class="career-select" data-career="${r.name}" data-species="${species}">${r.name}</a><br>`
+    }
+
+    let chatData = {
+      user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode"),
+      content : msgContent,
+    }
+
+
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+
+    ChatMessage.create(chatData);
+
+  }
+
+  static async displayCareer(careerName, species, exp, isReroll, isChosen)
+  {
     let pack = game.packs.find(p => p.collection == "wfrp4e.careers")
     let careers =  await pack.getContent();
     let careerFound;
     for (let c of careers)
     {
-      if (c.data.data.careergroup.value == roll.name && c.data.data.level.value == 1)
+      if (c.data.data.careergroup.value == careerName && c.data.data.level.value == 1)
         careerFound = c
       if (careerFound)
         break;
@@ -144,7 +175,10 @@ class GeneratorWfrp4e
     let chatData = {
       user : game.user._id,
       rollMode : game.settings.get("core", "rollMode"),
-      exp : WFRP4E.randomExp.careerRand,
+      exp : exp,
+      reroll: isReroll,
+      chosen : isChosen,
+      speciesKey: species,
       trappings : WFRP4E.classTrappings[WFRP_Utility.matchClosest(WFRP4E.classTrappings, careerFound.data.data.class.value)]
     }
 
@@ -153,6 +187,43 @@ class GeneratorWfrp4e
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
 
     renderTemplate("systems/wfrp4e/templates/chat/chargen/career-select.html", chatData).then(html => {
+      chatData.content = html;
+      ChatMessage.create(chatData);
+    })
+  }
+
+  static async rollDetails(species)
+  {
+    let name, eyes, hair
+
+    name = NameGenWfrp.generateName({species : species})
+    if (!name)
+      name = species + " names TBD"
+    eyes = WFRP_Tables.rollTable("eyes", {}, species).name
+    hair = WFRP_Tables.rollTable("hair", {}, species).name
+    let dataTransfer = {
+      generation : true,
+      type : "details",
+      payload : {
+        name : name,
+        eyes : eyes,
+        hair : hair
+      }
+    }
+
+    let chatData = {
+      user : game.user._id,
+      rollMode : game.settings.get("core", "rollMode"),
+      species: WFRP4E.species[species],
+      name : name,
+      eyes : eyes,
+      hair : hair
+    }
+    if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
+    if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;
+
+    renderTemplate(`systems/wfrp4e/templates/chat/chargen/details.html`, chatData).then(html => {
+      chatData["flags.transfer"] = JSON.stringify(dataTransfer);
       chatData.content = html;
       ChatMessage.create(chatData);
     })

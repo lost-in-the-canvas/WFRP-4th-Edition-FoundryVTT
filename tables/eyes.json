@@ -10,8 +10,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [15, 17],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Amber"
     },
@@ -21,8 +20,7 @@
         "dwarf" : [],
         "halfling" : [3, 3],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Amethyst"
     },
@@ -32,8 +30,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [4, 4],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Aquamarine"
     },
@@ -43,8 +40,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [5, 7],
-        "welf" : [],
-        "gnome" : [2, 2]
+        "welf" : []
       },
       "name": "Black"
     },
@@ -54,8 +50,7 @@
         "dwarf" : [5, 7],
         "halfling" : [5, 7],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [3, 3]
+        "welf" : []
       },
       "name": "Blue"
     },
@@ -65,8 +60,7 @@
         "dwarf" : [],
         "halfling" : [15, 17],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [18, 18]
+        "welf" : []
       },
       "name": "Brown"
     },
@@ -76,8 +70,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [8, 14],
-        "gnome" : []
+        "welf" : [8, 14]
       },
       "name": "Chestnut"
     },
@@ -87,8 +80,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [19, 19],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Citrine"
     },
@@ -98,8 +90,7 @@
         "dwarf" : [2, 2],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Coal"
     },
@@ -109,8 +100,7 @@
         "dwarf" : [19, 19],
         "halfling" : [18, 18],
         "helf" : [19, 19],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Copper"
     },
@@ -120,8 +110,7 @@
         "dwarf" : [12, 14],
         "halfling" : [19, 20],
         "helf" : [],
-        "welf" : [15, 17],
-        "gnome" : [19, 19]
+        "welf" : [15, 17]
       },
       "name": "Dark Brown"
     },
@@ -131,8 +120,7 @@
         "dwarf" : [8, 11],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Earth Brown"
     },
@@ -142,8 +130,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [4, 4]
+        "welf" : []
       },
       "name": "Earth Brown"
     },
@@ -153,8 +140,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [12, 14],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Emerald"
     },
@@ -164,8 +150,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Free Choice"
     },
@@ -175,8 +160,7 @@
         "dwarf" : [20, 20],
         "halfling" : [],
         "helf" : [20, 20],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Gold"
     },
@@ -186,8 +170,7 @@
         "dwarf" : [18, 18],
         "halfling" : [8, 11],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Green"
     },
@@ -197,8 +180,7 @@
         "dwarf" : [],
         "halfling" : [3, 3],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Grey"
     },
@@ -208,8 +190,7 @@
         "dwarf" : [15, 17],
         "halfling" : [12, 14],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [12, 14]
+        "welf" : []
       },
       "name": "Hazel"
     },
@@ -219,8 +200,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [2, 2],
-        "gnome" : []
+        "welf" : [2, 2]
       },
       "name": "Ivory"
     },
@@ -230,8 +210,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [4, 4],
-        "gnome" : []
+        "welf" : [4, 4]
       },
       "name": "Ivy Green"
     },
@@ -241,8 +220,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [2, 2],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Jet"
     },
@@ -252,8 +230,7 @@
         "dwarf" : [3, 3],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Lead"
     },
@@ -263,8 +240,7 @@
         "dwarf" : [],
         "halfling" : [2, 2],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Light Grey"
     },
@@ -274,8 +250,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [5, 7],
-        "gnome" : []
+        "welf" : [5, 7]
       },
       "name": "Mossy Green"
     },
@@ -285,8 +260,7 @@
         "dwarf" : [],
         "halfling" : [4, 4],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [2, 2]
+        "welf" : []
       },
       "name": "Pale Blue"
     },
@@ -296,8 +270,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [15, 17]
+        "welf" : []
       },
       "name": "Pale Brown"
     },
@@ -307,8 +280,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : [8, 11]
+        "welf" : []
       },
       "name": "Pale Green"
     },
@@ -318,8 +290,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Pale Grey"
     },
@@ -329,8 +300,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [19, 19],
-        "gnome" : []
+        "welf" : [19, 19]
       },
       "name": "Sandy Brown"
     },
@@ -340,8 +310,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [5, 7],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Sapphire"
     },
@@ -351,8 +320,7 @@
         "dwarf" : [4, 4],
         "halfling" : [],
         "helf" : [],
-        "welf" : [],
-        "gnome" : []
+        "welf" : []
       },
       "name": "Steel"
     },
@@ -362,8 +330,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [18, 18],
-        "gnome" : []
+        "welf" : [18, 18]
       },
       "name": "Tan"
     },
@@ -373,8 +340,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [8, 11],
-        "welf" : [],
-        "gnome" : [5, 7]
+        "welf" : []
       },
       "name": "Turquoise"
     },
@@ -384,8 +350,7 @@
         "dwarf" : [],
         "halfling" : [],
         "helf" : [],
-        "welf" : [20, 20],
-        "gnome" : [20, 20]
+        "welf" : [20, 20]
       },
       "name": "Violet"
     }

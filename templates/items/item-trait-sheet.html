@@ -36,6 +36,7 @@
       <label class="label-text">Roll Characteristic</label>
       <select name="data.rollable.rollCharacteristic" data-dtype="String">
         {{#select data.rollable.rollCharacteristic}}
+        <option value=""></option>
         {{#each characteristics as |ch char|}}
         <option value="{{char}}">{{ch}}</option>
         {{/each}}

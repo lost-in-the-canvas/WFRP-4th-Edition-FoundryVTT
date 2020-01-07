@@ -104,7 +104,7 @@ class ItemWfrp4e extends Item {
   
     _spellExpandData() {
       const data = duplicate(this.data.data);
-      let preparedSpell = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, duplicate(this.data));
+      let preparedSpell = this.actor.prepareSpellOrPrayer(duplicate(this.data));
       data.description = preparedSpell.data.description
       data.properties = [];
       data.properties.push("Range: " + preparedSpell.range);
@@ -120,7 +120,7 @@ class ItemWfrp4e extends Item {
   
      _prayerExpandData() {
       const data = duplicate(this.data.data);
-      let preparedPrayer = WFRP_Utility._prepareSpellOrPrayer(this.actor.data, this.data);
+      let preparedPrayer = this.actor.prepareSpellOrPrayer(this.data);
       data.properties = [];
       data.properties.push("Range: " + preparedPrayer.range);
       data.properties.push("Target: " + preparedPrayer.target);
@@ -205,17 +205,14 @@ class ItemWfrp4e extends Item {
   
       if (chatData.img.includes("/blank.png"))
         chatData.img = null;
-  
-      chatData.transfer = JSON.stringify(
-        {
-          data : this.data,
-          postedItem : true
-        }
-      );
 
       renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html => {
   
         chatOptions["content"] = html;
+        chatOptions["flags.transfer"] = JSON.stringify({
+            data : this.data,
+            postedItem : true
+          })
         ChatMessage.create(chatOptions)
     });
   }

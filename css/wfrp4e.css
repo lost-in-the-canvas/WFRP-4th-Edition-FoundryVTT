@@ -15201,9 +15201,19 @@ font-style : normal;
   position: relative;
   left: 120px;
 }
-.attribute-career-buttons .chargen-button {
-  left : 25px;
+.attribute-career-buttons{
+  display:flex;
+  justify-content: space-evenly
 }
+.attribute-career-buttons .chargen-button {
+  left : 0px;
+  
+}
+
+.attribute-career-buttons .chargen-button.careerReroll {
+  margin-top : 10px;
+}
+
 .chargen-button:hover {
 	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
 	background-color:#634b30;
@@ -15305,4 +15315,10 @@ input.card-edit {
 
 .message-content .opposed-tokens .loser img {
   border-color: red;
+}
+
+.message-content .unopposed-button {
+  text-align: right;
+  height: 0px;
+  margin-bottom:15px
 }
