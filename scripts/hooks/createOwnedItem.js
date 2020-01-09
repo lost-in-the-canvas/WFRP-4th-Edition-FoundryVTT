@@ -30,93 +30,49 @@ Hooks.on("createOwnedItem", (item) => {
 
     if (item.data.type == "talent")
     {
-      let charToIncrease;
-      switch (item.data.name.toLowerCase().trim()) // TODO: investigate why trim is needed here
-      {
-        case "savvy":
-          charToIncrease = "int";
-          break;
-        case "suave":
-            charToIncrease = "fel";
-          break;
-        case "marksman":
-            charToIncrease = "bs";
-          break;
-        case "very strong":
-            charToIncrease = "s";
-          break;
-        case "sharp":
-            charToIncrease = "i";
-          break;
-        case "lightning reflexes":
-            charToIncrease = "ag";
-          break;
-        case "coolheaded":
-            charToIncrease = "wp";
-          break;
-        case "very resilient":
-            charToIncrease = "t";
-          break;
-        case "nimble fingered":
-            charToIncrease = "dex";
-          break;
-        case "warrior born":
-            charToIncrease = "ws";
-          break;
-        default:
-          return;
-      }
+      let charToIncrease = WFRP4E.talentBonuses[item.data.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
       if (charToIncrease)
       {
         let newValue = item.actor.data.data.characteristics[charToIncrease].initial + 5;
         item.actor.update({[`data.characteristics.${charToIncrease}.initial`] : newValue})
       }
     }  
+    if (item.data.type == "trait")
+    {
+      if (item.actor.data.data.excludedTraits.length && item.actor.data.data.excludedTraits.includes(item.id))
+        return
+      let bonuses = WFRP4E.traitBonuses[item.data.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
+      let data = duplicate(item.actor.data.data)
+      for (let char in bonuses)
+      {
+        data.characteristics[char].initial += bonuses[char]
+      }
+      item.actor.update({data : data})
+    }  
 })
 
 Hooks.on("deleteOwnedItem", (item) => {
   if (item.data.type == "talent")
+  {
+    let charToDecrease = WFRP4E.talentBonuses[item.data.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
+
+    if (charToDecrease)
     {
-      let charToIncrease;
-      switch (item.data.name.toLowerCase().trim()) 
-      {
-        case "savvy":
-          charToIncrease = "int";
-          break;
-        case "suave":
-            charToIncrease = "fel";
-          break;
-        case "marksman":
-            charToIncrease = "bs";
-          break;
-        case "very strong":
-            charToIncrease = "s";
-          break;
-        case "sharp":
-            charToIncrease = "i";
-          break;
-        case "lightning reflexes":
-            charToIncrease = "ag";
-          break;
-        case "coolheaded":
-            charToIncrease = "wp";
-          break;
-        case "very resilient":
-            charToIncrease = "t";
-          break;
-        case "nimble fingered":
-            charToIncrease = "dex";
-          break;
-        case "warrior born":
-            charToIncrease = "ws";
-          break;
-        default:
-          return;
-      }
-      if (charToIncrease)
-      {
-        let newValue = item.actor.data.data.characteristics[charToIncrease].initial - 5;
-        item.actor.update({[`data.characteristics.${charToIncrease}.initial`] : newValue})
-      }
-    }  
+      let newValue = item.actor.data.data.characteristics[charToDecrease].initial - 5;
+      item.actor.update({[`data.characteristics.${charToDecrease}.initial`] : newValue})
+    }
+  }
+  if (item.data.type == "trait")
+  {
+    if (item.actor.data.data.excludedTraits.length && item.actor.data.data.excludedTraits.includes(item.id))
+      return
+    
+    let bonuses = WFRP4E.traitBonuses[item.data.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
+    let data = duplicate(item.actor.data.data)
+    for (let char in bonuses)
+    {
+      data.characteristics[char].initial -= bonuses[char]
+    }
+    item.actor.update({data : data})
+  }  
 })

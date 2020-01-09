@@ -914,6 +914,59 @@ WFRP4E.randomExp = {
   statsReorder : 25
 }
 
+WFRP4E.traitBonuses = {
+  "big" : { 
+    "s" :   10,
+    "t" :   10,
+    "ag" : -5
+  },
+  "brute" : {
+    "m" :  -1,
+    "t" :   10,
+    "s" :   10,
+    "ag" : -10
+  },
+  "clever" : { 
+    "int" : 20,
+    "i" :   10
+  },
+  "cunning" : { 
+    "int" : 10,
+    "fel" : 10,
+    "i" :   10
+  },
+  "elite" : { 
+    "ws" : 20,
+    "bs" : 20,
+    "wp" : 20
+  },
+  "fast" : { 
+    "ag" : 10,
+    "m" : 1
+  },
+  "leader" : { 
+    "fel" : 10,
+    "wp" :  10
+  },
+  "tough" : { 
+    "t" :   10,
+    "wp" :  10
+  }
+}
+
+WFRP4E.talentBonuses = {
+  "savvy" : "int",
+  "suave" : "fel",
+  "marksman" : "bs",
+  "very strong" : "s",
+  "sharp" : "i",
+  "lightning reflexes" : "ag",
+  "coolheaded" : "wp",
+  "very resilient" : "t",
+  "nimble fingered" : "dex",
+  "warrior born" : "ws"
+}
+
 const DAMAGE_TYPE = {
   NORMAL : 0,
   IGNORE_AP : 1,

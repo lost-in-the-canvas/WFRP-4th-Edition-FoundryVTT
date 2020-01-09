@@ -101,6 +101,32 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
         this.clicks = 0;             //after action performed, reset counter
     }
   }
+
+  _onExcludeTrait(traitId) {
+    let trait = this.actor.getOwnedItem(traitId)
+    let data = duplicate(this.actor.data.data) 
+
+    let bonuses = WFRP4E.traitBonuses[trait.data.name.toLowerCase()]
+    for (let char in bonuses)
+    {
+      data.characteristics[char].initial -= bonuses[char]
+    }
+
+    this.actor.update({"data" : data})
+  }
+  _onIncludeTrait(traitId) {
+    let trait = this.actor.getOwnedItem(traitId)    
+    let data = duplicate(this.actor.data.data)
+
+    
+    let bonuses = WFRP4E.traitBonuses[trait.data.name.toLowerCase()]
+    for (let char in bonuses)
+    {
+      data.characteristics[char].initial += bonuses[char]
+    }
+
+    this.actor.update({"data" : data})
+  }
   
     // Creature sheet dropdowns need specific implementation to correctly display
     _onCreatureItemSummary(event) {
@@ -213,17 +239,28 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e {
       html.find('.trait-name').mousedown(async event => {
         event.preventDefault();
         let traitId =  Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+        let included = false;
 
         if (event.button == 0)
         {
           let newExcludedTraits = duplicate(this.actor.data.data.excludedTraits);
     
           if (this.actor.data.data.excludedTraits.includes(traitId))
+          {
             newExcludedTraits = newExcludedTraits.filter(i => i != traitId)
+            included = true;
+          }
           else
+          {
             newExcludedTraits.push(traitId);
+            included = false
+          }
     
-            await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+          await this.actor.update({"data.excludedTraits" : newExcludedTraits});
+          if (included)
+            this._onIncludeTrait(traitId)
+          else 
+            this._onExcludeTrait(traitId)
 
         }
         else if (event.button == 2)
