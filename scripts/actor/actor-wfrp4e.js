@@ -2424,7 +2424,6 @@ class ActorWfrp4e extends Actor {
     // If throwing or explosive weapon, its ammo is its own quantity
     else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
     {
-      weapon["ammo"] = [weapon];
       weapon.data.ammunitionGroup.value = "";
     }
     // If entangling, it has no ammo
