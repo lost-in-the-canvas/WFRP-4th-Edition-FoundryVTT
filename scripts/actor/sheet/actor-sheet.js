@@ -1,4 +1,3 @@
-
 /**
  * Provides the data and general interaction with Actor Sheets - Abstract class.
  *
