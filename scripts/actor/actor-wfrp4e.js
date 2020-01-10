@@ -211,11 +211,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/characteristic-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -289,11 +284,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -477,11 +467,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/weapon-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -648,11 +633,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/spell-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        },
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -774,11 +754,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/channell-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         malignantInfluence : testData.malignantInfluence,
@@ -890,11 +865,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/prayer-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -984,11 +954,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,

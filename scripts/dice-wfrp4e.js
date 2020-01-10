@@ -50,9 +50,13 @@ class DiceWFRP {
         new Dialog({
             title: dialogOptions.title,
             content: dlg,
-            buttons: dialogOptions.buttons,
-            default: "rollButton",
-            close: html => dialogOptions.callback(html, roll)
+            buttons : {
+              rollButton : {
+                label: "Roll",
+                callback : html => dialogOptions.callback(html, roll)
+              }
+            },
+            default: "rollButton"
           }).render(true);
       });
     }
