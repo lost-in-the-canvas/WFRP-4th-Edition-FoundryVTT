@@ -239,14 +239,35 @@ class WFRP_Tables {
           }
           catch
           {
-            let tableMenu =  "<b><code>/table</code> Commands</b><br>"
-
-            for (let tableKey of Object.keys(this))
-              if (!this[tableKey].hide)  
-                tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
-            return tableMenu;
+            return this.tableMenu();
           }
       }
+    }
+
+    static tableMenu(showHidden = false)
+    {
+      let tableMenu =  "<b><code>/table</code> Commands</b><br>"
+      let hiddenTableCounter = 0;
+      for (let tableKey of Object.keys(this))
+      {
+        if (!showHidden)
+        {
+          if (!this[tableKey].hide)  
+            tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+          else
+            hiddenTableCounter++;
+        }
+        else 
+        {
+          tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+        }
+      }
+      if (hiddenTableCounter)
+      {
+        if (!showHidden)
+          tableMenu += `<a class = 'hidden-table'>+ ${hiddenTableCounter} Hidden Tables</a>`          
+      }
+      return tableMenu;
     }
   
     static criticalCastMenu(crittable)

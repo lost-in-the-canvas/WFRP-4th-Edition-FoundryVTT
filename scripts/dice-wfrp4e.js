@@ -872,8 +872,16 @@ class DiceWFRP {
       let newContent = msgContent.html()
 
       message.update({content: newContent , "flags.data.postData.damage" : Number(event.target.text)})
-
     })
+
+    html.on("click", '.hidden-table', event =>{
+      event.preventDefault()
+      let html = WFRP_Tables.tableMenu(true);
+      let chatData = WFRP_Utility.chatDataSetup(html)
+      ChatMessage.create(chatData);
+    })
+
+
 
   }
 
