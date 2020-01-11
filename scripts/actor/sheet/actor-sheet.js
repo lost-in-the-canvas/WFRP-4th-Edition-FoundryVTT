@@ -240,8 +240,8 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.skill-advances').focusout(async event => {
     if (!this.skillsToEdit)
       this.skillsToEdit = []
-    let itemId = Number(event.target.attributes["data-item-id"].value);
-    let itemToEdit = duplicate(this.actor.getOwnedItem(itemId).data);
+    let itemId = event.target.attributes["data-item-id"].value;
+    let itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.advances.value = Number(event.target.value);
     this.skillsToEdit.push(itemToEdit);
 
@@ -249,7 +249,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.skillUpdateFlag)
       return;
 
-    await this.actor.updateManyOwnedItem(this.skillsToEdit);
+    await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
 
     this.skillsToEdit = [];
   });
@@ -260,10 +260,10 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Ammo selector in the combat tab - change the currentAmmo value of the item to the selected value
   html.find('.ammo-selector').change(async event => {
-    let itemId = Number(event.target.attributes["data-item-id"].value);
-    const itemToEdit = this.actor.getOwnedItem(itemId).data;
-    itemToEdit.data.currentAmmo.value = Number(event.target.value);
-    await this.actor.updateOwnedItem(itemToEdit, true);
+    let itemId = event.target.attributes["data-item-id"].value;
+    const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    itemToEdit.data.currentAmmo.value = event.target.value;
+    this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
   });
 
 
@@ -273,18 +273,18 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Spell selector for ingredients - change the spellIngredient value of the item to the selected spell
   html.find('.spell-selector').change(async event => {
-    let itemId = Number(event.target.attributes["data-item-id"].value);
-    const ing = this.actor.getOwnedItem(itemId).data;
-    ing.data.spellIngredient.value = Number(event.target.value);
-    await this.actor.updateOwnedItem(ing, true);
+    let itemId = event.target.attributes["data-item-id"].value;
+    const ing = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    ing.data.spellIngredient.value = event.target.value;
+    this.actor.updateEmbeddedEntity("OwnedItem", ing);
   });
 
   // Ingredient Selector for spells - change the currently used ingredient to the selected value
   html.find('.ingredient-selector').change(async event => {
-    let itemId = Number(event.target.attributes["data-item-id"].value);
-    const spell = this.actor.getOwnedItem(itemId).data;
-    spell.data.currentIng.value = Number(event.target.value);
-    await this.actor.updateOwnedItem(spell, true);
+    let itemId = event.target.attributes["data-item-id"].value;
+    const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    spell.data.currentIng.value = event.target.value;
+    this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
   // Characteristic Tests
@@ -296,11 +296,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Skill Tests (right click to open skill sheet)
   html.find('.skill-total, .skill-select').mousedown(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let skill = this.actor.getOwnedItem(itemId)
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let skill = this.actor.getEmbeddedEntity("OwnedItem", itemId)
 
     if (ev.button == 0)
-      this.actor.setupSkill(skill.data);
+      this.actor.setupSkill(skill);
 
     else if (ev.button == 2)
       skill.sheet.render(true);
@@ -309,11 +309,11 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Weapon tests (combat tab)
   html.find('.weapon-item-name').click(event => {
     event.preventDefault();
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
     let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
-    let weapon = this.actor.getOwnedItem(itemId);
+    let weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (weapon)
-      this.actor.setupWeapon(duplicate(weapon.data), {attackType : attackType});
+      this.actor.setupWeapon(duplicate(weapon), {attackType : attackType});
   })
 
   // Unarmed attack button (fist in the combat tab)
@@ -324,7 +324,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     await pack.getIndex().then(index => weapons = index);
     let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed");
     let unarmed = await pack.getEntity(unarmedId.id);
-    this.actor.setupWeapon(duplicate(unarmed.data), {attackType : "melee"})
+    this.actor.setupWeapon(duplicate(unarmed), {attackType : "melee"})
     // Roll Fist Attack
   })
 
@@ -336,8 +336,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       this._onItemSummary(event);
       return;
     }
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-    let trait = this.actor.getOwnedItem(itemId).data;
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+    let trait = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     this.actor.setupTrait((duplicate(trait)));
   })
 
@@ -349,8 +349,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       this._onItemSummary(event);
       return;
     }
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-    let spell = this.actor.getOwnedItem(itemId).data;
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+    let spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     this.actor.spellDialog(duplicate(spell));
   })
 
@@ -362,16 +362,16 @@ class ActorSheetWfrp4e extends ActorSheet {
       this._onItemSummary(event);
       return;
     }
-    let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-    let prayer = this.actor.getOwnedItem(itemId).data;
+    let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+    let prayer = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     this.actor.setupPrayer(duplicate(prayer));
   })
 
   // Change the AP Damaged value in the combat tab based no left click or right click
   html.find('.ap-value').mousedown(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
-    let item = this.actor.getOwnedItem(itemId).data
+    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     if (item.data.currentAP[APlocation] == -1)
       item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
     switch (event.button)
@@ -387,13 +387,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         item.data.currentAP[APlocation] = 0;
         break;
     }
-    this.actor.updateOwnedItem(item);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Change the Weapon Damage value in the combat tab based on left click or right click (damage TO weapon)
   html.find('.weapon-damage').mousedown(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let item = duplicate(this.actor.getOwnedItem(itemId).data);
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (!item.data.weaponDamage)
       item.data["weaponDamage"] = 0;
 
@@ -404,21 +404,21 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     if (item.data.weaponDamage < 0)
       item.data.weaponDamage = 0;
-    this.actor.updateOwnedItem(item);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Toggle whether a spell is memorized
   html.find('.memorized-toggle').click(async ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    const spell = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
-    await this.actor.updateOwnedItem(spell, true);
+    await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
   // Manually increment/decrement spell SL for channelling 
   html.find('.sl-counter').mousedown(async ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    const spell = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    const spell = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     switch (event.button)
     {
       case 0:
@@ -430,7 +430,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       spell.data.cn.SL--;
       break;
     }
-    await this.actor.updateOwnedItem(spell, true);
+    await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
   // Change auto calculation flags on right click
@@ -465,8 +465,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Roll a disease and then right click decrement once rolled
   html.find('.disease-roll').mousedown(async ev =>  {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    const disease = this.actor.getOwnedItem(itemId).data;
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    const disease = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     let type = ev.target.attributes.class.value.split(" ")[0].trim(); // Incubation or duration
 
     // If left click - TODO: Enum
@@ -483,7 +483,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         disease.data[type].roll = disease.data[type].value;
       }
 
-      this.actor.updateOwnedItem(disease);
+      this.actor.updateEmbeddedEntity("OwnedItem", disease);
     }
     // If right click
     else if (ev.button == 2)
@@ -494,7 +494,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         let timeUnit = disease.data[type].roll.split(" ")[1];
         disease.data[type].roll = `${number} ${timeUnit}`;
       }
-      this.actor.updateOwnedItem(disease);
+      this.actor.updateEmbeddedEntity("OwnedItem", disease);
     }
   });
 
@@ -516,8 +516,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Update Inventory Item
   html.find('.item-edit').click(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    const item = this.actor.getOwnedItem(itemId);
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    const item = this.actor.items.find(i => i.data._id == itemId)
     item.sheet.render(true);
   });
 
@@ -525,7 +525,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Delete Inventory Item
   html.find('.item-delete').click(ev => {
     let li = $(ev.currentTarget).parents(".item"),
-      itemId = Number(li.attr("data-item-id"));
+      itemId = li.attr("data-item-id");
       renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
         new Dialog({
         title: "Delete Confirmation",
@@ -535,7 +535,7 @@ class ActorSheetWfrp4e extends ActorSheet {
             icon: '<i class="fa fa-check"></i>',
             label: "Yes",
             callback: dlg => {
-              this.actor.deleteOwnedItem(itemId, true);
+              this.actor.deleteEmbeddedEntity("OwnedItem", itemId);
               li.slideUp(200, () => this.render(false));
             }
           },
@@ -552,45 +552,45 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Remove Inventory Item from Container - change location value to 0
   html.find('.item-remove').click(ev => {
     let li = $(ev.currentTarget).parents(".item"),
-      itemId = Number(li.attr("data-item-id"));
-    const item = this.actor.getOwnedItem(itemId).data
+      itemId = li.attr("data-item-id");
+    const item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     item.data.location.value = 0;
-    this.actor.updateOwnedItem(item, true);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Toggle Count Enc for containers 
   html.find('.toggle-enc').click(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let item = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     item.data.countEnc.value = !item.data.countEnc.value;
-    this.actor.updateOwnedItem(item, true);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Switch an item's toggle, such as wearing armor, clothing, or equipping weapons
   html.find('.item-toggle').click(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let item = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (item.type == "armour")
       item.data.worn.value = !item.data.worn.value;
     else if (item.type == "weapon")
       item.data.equipped = !item.data.equipped;
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
       item.data.worn = !item.data.worn;
-    this.actor.updateOwnedItem(item);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Toggle whether a container is worn
   html.find('.worn-container').click(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let item = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     item.data.worn.value = !item.data.worn.value;
-    this.actor.updateOwnedItem(item, true);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Increment or decrement an items quantity by 1 or 10 (if holding crtl)
   html.find('.quantity-click').mousedown(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    let item = this.actor.getOwnedItem(itemId).data
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
     switch (event.button)
     {
       case 0:
@@ -610,7 +610,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           item.data.quantity.value = 0;
         break;
     }
-    this.actor.updateOwnedItem(item);
+    this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
   // Clicking the 'Qty.' label in an inventory section - aggregates all items with the same name
@@ -634,10 +634,10 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (!noDuplicates.find(x => x.name == i.name))
       {
         noDuplicates.push(i);
-        await this.actor.updateOwnedItem({"id" : i.id, "data.quantity.value" : i.data.quantity.value})
+        await this.actor.updateEmbeddedEntity("OwnedItem", {"id" : i.id, "data.quantity.value" : i.data.quantity.value})
       }
       else
-        await this.actor.deleteOwnedItem(i.id);
+        await this.actor.deleteEmbeddedEntity("OwnedItem", i.id);
     }
   })
 
@@ -653,7 +653,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           yes: {
             label: "Yes",
             callback: (dlg) => {
-              this.duplicateItem(Number($(ev.currentTarget).parents(".item").attr("data-item-id")));
+              this.duplicateItem($(ev.currentTarget).parents(".item").attr("data-item-id"));
             }
           },
           cancel: {
@@ -790,8 +790,8 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Post Item to chat
   html.find(".item-post").click(ev => {
-    let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-    const item = this.actor.getOwnedItem(itemId);
+    let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+    const item = this.actor.items.find(i => i.data._id == itemId)
     item.postItem();
   })
 
@@ -831,8 +831,8 @@ class ActorSheetWfrp4e extends ActorSheet {
    * @param {Object} event    event triggered by item dragging
    */
   _onDragItemStart(event) {
-    let itemId = Number(event.currentTarget.getAttribute("data-item-id"));
-    const item = this.actor.getOwnedItem(itemId);
+    let itemId = event.currentTarget.getAttribute("data-item-id");
+    const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor.id,
@@ -858,12 +858,12 @@ class ActorSheetWfrp4e extends ActorSheet {
   async _onDrop(event) // TODO: This function needs a heavy refactor because it's quite gross
   { 
     var dragData = event.dataTransfer.getData("text/plain");
-    var dropID = Number($(event.target).parents(".item").attr("data-item-id")); // Only relevant if container drop
+    var dropID = $(event.target).parents(".item").attr("data-item-id"); // Only relevant if container drop
 
     // Inventory Tab - Containers
     if ($(event.target).parents(".item").attr("inventory-type") == "container")
     {
-      var dragItem = this.actor.getOwnedItem(JSON.parse(dragData).data.id);
+      var dragItem = duplicate(this.actor.getEmbeddedEntity("OwnedItem", JSON.parse(dragData)).id)
       if (dragItem.data.id == dropID) // Prevent placing a container within itself (we all know the cataclysmic effects that can cause)
         throw "";
       else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container")) 
@@ -890,12 +890,12 @@ class ActorSheetWfrp4e extends ActorSheet {
         dragItem.data.data.worn = false;
 
 
-      await this.actor.updateOwnedItem(dragItem.data, true);
+      await this.actor.updateEmbeddedEntity("OwnedItem", dragItem.data, true);
     }
     // Dropping an item from chat
     else if (JSON.parse(dragData).postedItem)
     {
-      this.actor.createOwnedItem(JSON.parse(dragData).data);
+      this.actor.createEmbeddedEntity("OwnedItem", JSON.parse(dragData).data);
     }
     // Dropping a character creation result
     else if (JSON.parse(dragData).generation)
@@ -954,7 +954,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         return
       }
       if (item)
-        this.actor.createOwnedItem(item.data);
+        this.actor.createEmbeddedEntity("OwnedItem", item.data);
     }
     // From character creation - exp drag values
     else if (JSON.parse(dragData).exp)
@@ -983,7 +983,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
-      item = this.actor.getOwnedItem(Number(li.attr("data-item-id"))),
+      item = this.actor.items.find(i => i.data._id == li.attr("data-item-id")),
       // Call the item's expandData() function which gives us what to display
       expandData = item.getExpandData( 
       {
@@ -1023,14 +1023,14 @@ class ActorSheetWfrp4e extends ActorSheet {
       // Roll a career income skill
       div.on("click", ".career-income", ev =>
       {
-        let skill = this.actor.items.find(i => i.data.name === ev.target.text.trim() && i.data.type == "skill").data;
-        let career = this.actor.items.find(i => i.data.id === Number($(ev.target).attr("data-career-id"))).data;
+        let skill = this.actor.items.find(i => i.data.name === ev.target.text.trim() && i.data.type == "skill");
+        let career = this.actor.getEmbeddedEntity("OwnedItem", $(ev.target).attr("data-career-id"));
         if (!skill)
         {
           ui.notifications.error("You don't have this skill")
           return;
         }
-        this.actor.setupSkill(skill, career.data.status);
+        this.actor.setupSkill(skill.data, career.data.status);
       })
     }
     li.toggleClass("expanded");
@@ -1059,8 +1059,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     let propertyKey = "";
     if (property == "Special Ammo") // Special Ammo comes from user-entry in an Ammo's Special box
     {
-      let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
-      let ammo = this.actor.getOwnedItem(item.data.data.currentAmmo.value);
+      let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", li.attr("data-item-id")))
+      let ammo = duplicate(this.actor.getEmbeddedEntity("OwnedItem", item.data.currentAmmo.value))
       // Add the special value to the object so that it can be looked up
       propertyDescr = Object.assign(propertyDescr,
       {
@@ -1070,11 +1070,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     else if (property == "Special") // Special comes from user-entry in a Weapon's Special box
     {
-      let item = this.actor.getOwnedItem(Number(li.attr("data-item-id")));
+      let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", li.attr("data-item-id")))
       // Add the special value to the object so that it can be looked up
       propertyDescr = Object.assign(propertyDescr,
       {
-        "Special": item.data.data.special.value
+        "Special": item.data.special.value
       });
       item = this.actor.prepareWeaponCombat(duplicate(item.data));
       propertyKey = "Special";
@@ -1164,11 +1164,11 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         let difficulty = $(ev.currentTarget).attr("data-range")
   
-        let itemId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+        let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
         let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
-        let weapon = this.actor.getOwnedItem(itemId);
+        let weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
         if (weapon)
-          this.actor.setupWeapon(duplicate(weapon.data),
+          this.actor.setupWeapon(duplicate(weapon),
           {
             attackType: attackType,
             difficulty: difficulty
@@ -1233,7 +1233,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createOwnedItem(data, true,
+    this.actor.createEmbeddedEntity("OwnedItem", data,
     {
       renderSheet: true
     });
@@ -1246,8 +1246,8 @@ class ActorSheetWfrp4e extends ActorSheet {
    */
   duplicateItem(itemId)
   {
-    let item = this.actor.getOwnedItem(itemId);
-    this.actor.createOwnedItem(item.data);
+    let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    this.actor.createEmbeddedEntity("OwnedItem", item.data);
   }
 
   /* -------------------------------------------- */

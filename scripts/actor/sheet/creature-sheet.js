@@ -60,8 +60,8 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 		else
 		{
 			clearTimeout(this.timer); //prevent single-click action
-			let itemId = Number($(event.currentTarget).attr("data-item-id"));
-			const item = this.actor.getOwnedItem(itemId);
+			let itemId = $(event.currentTarget).attr("data-item-id");
+			const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
 			item.sheet.render(true);
 			this.clicks = 0; //after action performed, reset counter
 		}
@@ -76,7 +76,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 	 */
 	_onTraitClick(traitId, include)
 	{
-		let trait = this.actor.getOwnedItem(traitId)
+		let trait = this.actor.getEmbeddedEntity("OwnedItem", traitId)
 		let data = duplicate(this.actor.data.data)
 
 		let bonuses = WFRP4E.traitBonuses[trait.data.name.toLowerCase()]
@@ -104,7 +104,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 	{
 		event.preventDefault();
     let li = $(event.currentTarget).parent('.list'),
-      item = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id"))),
+      item = this.actor.getEmbeddedEntity("OwnedItem", $(event.currentTarget).attr("data-item-id")),
       // Get expansion info to place in the dropdown
 			expandData = item.getExpandData(
 			{
@@ -157,7 +157,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 			if (event.keyCode == 46)
 			{
 				let itemId = $(event.currentTarget).attr("data-item-id");
-				this.actor.deleteOwnedItem(itemId, true);
+				this.actor.deleteEmbeddedEntity("OwnedItem", itemId, true);
 			}
 		});
 		// Use delayed dropdown to allow for double clicks
@@ -177,7 +177,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 		{
 			let newAdv
 			let advAmt;
-			let skill = this.actor.getOwnedItem(Number($(event.currentTarget).parents(".content").attr("data-item-id")));
+			let skill = duplicate(this.actor.getEmbeddedEntity("OwnedItem", $(event.currentTarget).parents(".content").attr("data-item-id")))
 
 			if (event.shiftKey || event.ctrlKey)
 			{
@@ -193,7 +193,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 				if (advAmt)
 				{
 					newAdv = skill.data.data.advances.value + advAmt;
-					this.actor.updateOwnedItem(
+					this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
 						id: skill.data.id,
 						"data.advances.value": newAdv
@@ -210,7 +210,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 					newAdv = skill.data.data.advances.value - advAmt;
 					if (newAdv < 0)
 						newAdv = 0;
-					this.actor.updateOwnedItem(
+					this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
 						id: skill.data.id,
 						"data.advances.value": newAdv
@@ -218,8 +218,8 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 				}
 				else // If neither control or shift was held, show the item sheet
 				{
-					let itemId = Number($(event.currentTarget).parents(".content").attr("data-item-id"));
-					const item = this.actor.getOwnedItem(itemId)
+					let itemId = $(event.currentTarget).parents(".content").attr("data-item-id");
+					const item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
 					item.sheet.render(true);
 				}
 			}
@@ -229,7 +229,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
     // Right click will always display dropdown, left click will sometimes display (if the trait isn't rollable)
 		html.find(".traits.content").mousedown(event =>
 		{
-			let trait = this.actor.getOwnedItem(Number($(event.currentTarget).attr("data-item-id")));
+			let trait = duplicate(this.actor.getEmbeddedEntity("OwnedItem", $(event.currentTarget).attr("data-item-id")))
 
       // If rightclick or not rollable, show dropdown
 			if (event.button == 2 || !trait.data.data.rollable.value)
@@ -257,7 +257,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
       // Creatures have an excludedTraits array that holds the ids of the excluded traits
       // Update that array when a new trait is clicked
 			event.preventDefault();
-			let traitId = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
+			let traitId = $(event.currentTarget).parents(".item").attr("data-item-id");
 			let included = false;
 
 			if (event.button == 0)

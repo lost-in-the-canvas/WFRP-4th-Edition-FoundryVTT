@@ -19,7 +19,7 @@ Hooks.on("canvasInit", async () => {
     //   let img = pathList.find(p =>p.includes(name));
     //   if (!img)
     //     console.log(name);
-    //   await pack.updateEntity({"_id": item.id, "img" : img});
+    //   await pack.updateEntity({"_id": item._id, "img" : img});
     // }
     // for (let item of list)
     // {
@@ -30,7 +30,7 @@ Hooks.on("canvasInit", async () => {
     //   let img = pathList.find(p =>p.includes(name));
     //   if (!img)
     //     console.log(name);
-    //   await pack.updateEntity({"_id": item.id, "img" : img});
+    //   await pack.updateEntity({"_id": item._id, "img" : img});
     // }
   
     // for (let item of list)
@@ -41,7 +41,7 @@ Hooks.on("canvasInit", async () => {
     //   let img = pathList.find(p =>p.includes(name));
     //   if (!img)
     //     console.log(name);
-    //   await pack.updateEntity({"_id": item.id, "img" : img});
+    //   await pack.updateEntity({"_id": item._id, "img" : img});
     // }
       
     //  let pack = game.packs.find(p => p.collection == "world.arcanecareers")
@@ -49,7 +49,7 @@ Hooks.on("canvasInit", async () => {
     //  for (let skill of list)
     //  {
     //   let item = await pack.getEntity(skill.id);
-    //   item.data.data.skills[0] = item.data.data.skills[0].replace("Channeling", "Channelling");
+    //   item.data.skills[0] = item.data.skills[0].replace("Channeling", "Channelling");
     //   console.log(item);
     //   await pack.updateEntity(item.data);
     //  }

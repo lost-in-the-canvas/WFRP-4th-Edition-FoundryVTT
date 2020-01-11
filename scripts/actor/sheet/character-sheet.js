@@ -52,9 +52,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
     // Career toggle click (current or complete)
 		html.find('.career-toggle').click(async ev =>
 		{
-			let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
+			let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
 			let type = $(ev.currentTarget).attr("toggle-type")
-			let item = this.actor.getOwnedItem(itemId).data;
+			let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
 			item.data[type].value = !item.data[type].value; // Toggle the value
 
       // "Current" is the toggle that actually means something, so needs more processing
@@ -88,11 +88,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 			// Only one career can be current - make all other careers not current
 			if (type == "current" && item.data.current.value == true)
 			{
-				let updateCareers = duplicate(this.actor.data.items.filter(c => c.type == "career" && c.id != item.id))
+				let updateCareers = duplicate(this.actor.data.items.filter(c => c.type == "career" && c._id != item._id))
 				updateCareers.map(x => x.data.current.value = false)
-				await this.actor.updateManyOwnedItem(updateCareers)
+				await this.actor.updateManyEmbeddedEntities("OwnedItem", updateCareers)
 			}
-			this.actor.updateOwnedItem(item);
+			this.actor.updateEmbeddedEntity("OwnedItem", item);
 		});
 
     // Grayed-out skill click - prompt to add the skill
@@ -121,7 +121,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 								label: "Yes",
 								callback: dlg =>
 								{
-									this.actor.createOwnedItem(skill.data);
+									this.actor.createEmbeddedEntity("OwnedItem", skill.data);
 								}
 							},
 							cancel:
@@ -170,7 +170,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 								label: "Yes",
 								callback: dlg =>
 								{
-									this.actor.createOwnedItem(talent.data);
+									this.actor.createEmbeddedEntity("OwnedItem", talent.data);
 									this.actor.update( // Subtract experience if added
 									{
 										"data.details.experience.spent": this.actor.data.data.details.experience.spent + 100
@@ -207,19 +207,19 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
       // Skills
 			if (type == "skill")
 			{
-				let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-				let item = this.actor.getOwnedItem(itemId);
+				let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+				let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
 
 				if (ev.button == 0)
 				{
           // Calculate the advancement cost based on the current number of advances, subtract that amount, advance by 1
-					let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+					let cost = WFRP_Utility._calculateAdvCost(item.data.advances.value, type)
 					data.details.experience.spent = Number(data.details.experience.spent) + cost;
-					item.data.data.advances.value++;
-					this.actor.updateOwnedItem(
+					item.data.advances.value++;
+					await this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
-						id: itemId,
-						"data.advances.value": item.data.data.advances.value
+						_id: itemId,
+						"data.advances.value": item.data.advances.value
 					});
 					this.actor.update(
 					{
@@ -229,15 +229,15 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 				else if (ev.button = 2)
 				{
           // Do the reverse, calculate the advancement cost (after subtracting 1 advancement), add that exp back
-					if (item.data.data.advances.value == 0)
+					if (item.data.advances.value == 0)
 						return;
-					item.data.data.advances.value--;
-					let cost = WFRP_Utility._calculateAdvCost(item.data.data.advances.value, type)
+					item.data.advances.value--;
+					let cost = WFRP_Utility._calculateAdvCost(item.data.advances.value, type)
 					data.details.experience.spent = Number(data.details.experience.spent) - cost;
-					this.actor.updateOwnedItem(
+					this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
-						id: itemId,
-						"data.advances.value": item.data.data.advances.value
+						_id: itemId,
+						"data.advances.value": item.data.advances.value
 					});
 					this.actor.update(
 					{
@@ -251,9 +251,9 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 				if (ev.button == 0)
 				{
           // All career talents are stored in flags, retrieve the one clicked - use to calculate exp
-					let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-					let item = this.actor.getOwnedItem(itemId);
-					let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.data.name)
+					let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+					let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+					let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.name)
 					let spent = 0;
 					if (preparedTalent.data.advances.value < preparedTalent.numMax)
 					{
@@ -261,7 +261,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 					}
 					else
 						return
-					this.actor.createOwnedItem(item.data)
+					this.actor.createEmbeddedEntity("OwnedItem", item)
 					this.actor.update(
 					{
 						"data.details.experience.spent": spent
@@ -270,12 +270,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 				else if (ev.button == 2)
 				{
           // Reverse the cost, add to exp, and remove the talent
-					let itemId = Number($(ev.currentTarget).parents(".item").attr("data-item-id"));
-					let item = this.actor.getOwnedItem(itemId);
-					let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.data.name)
+					let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
+					let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))				
+					let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.name)
 					let spent = 0;
 					spent = this.actor.data.data.details.experience.spent - (preparedTalent.data.advances.value) * 100
-					this.actor.deleteOwnedItem(itemId)
+					this.actor.deleteEmbeddedEntity("OwnedItem", itemId)
 					this.actor.update(
 					{
 						"data.details.experience.spent": spent

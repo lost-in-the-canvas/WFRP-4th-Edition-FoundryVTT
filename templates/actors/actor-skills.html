@@ -19,7 +19,7 @@
 
       <ol class="inventory-list save-scroll">
         {{#each actor.basicSkills as |item i|}}
-        <li class="item" data-item-id="{{item.id}}">
+        <li class="item" data-item-id="{{item._id}}">
           <div class="skill-name">
             <a class="name skill-select">{{item.name}}</a>
             {{#if item.career}}
@@ -33,7 +33,7 @@
           <h3 class="row-value">{{item.data.characteristic.num}}</h3>
 
           <div class="skill-advances input-field">
-            <input name="skill-{{item.id}}" data-item-id="{{item.id}}" type="text"
+            <input name="skill-{{item._id}}" data-item-id="{{item._id}}" type="text"
               data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
           </div>
 
@@ -68,7 +68,7 @@
 
       <ol class="inventory-list save-scroll">
         {{#each actor.advancedOrGroupedSkills as |item i|}}
-        <li class="item skill-item" data-item-id="{{item.id}}">
+        <li class="item skill-item" data-item-id="{{item._id}}">
           <div class="skill-name">
             <a class="name skill-select">{{item.name}}</a>
             {{#if item.career}}
@@ -82,7 +82,7 @@
           <h3 class="row-value">{{item.data.characteristic.num}}</h3>
 
           <div class="skill-advances input-field">
-            <input name="skill-{{item.id}}" data-item-id="{{item.id}}" type="text"
+            <input name="skill-{{item._id}}" data-item-id="{{item._id}}" type="text"
               data-dtype="{{item.data.advances.type}}" value="{{item.data.advances.value}}" />
           </div>
 

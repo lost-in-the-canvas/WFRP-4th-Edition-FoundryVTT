@@ -163,7 +163,7 @@
       "entity": "RollTable",
       "module": "wfrp4e",
       "system": "wfrp4e",
-      "tag" : "trapping"
+      "tag" : "table"
     }
   ],
   "languages": ["en"],
@@ -172,7 +172,7 @@
   "gridUnits": "yd",
   "primaryTokenAttribute": "status.wounds",
   "secondaryTokenAttribute": "status.advantage",
-  "minimumCoreVersion" : "0.4.2",
+  "minimumCoreVersion" : "0.4.4",
   "templateVersion":2,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
   "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",

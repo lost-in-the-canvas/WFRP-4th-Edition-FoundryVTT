@@ -53,13 +53,13 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
       // Advance NPC if a career is marked as "complete"
       html.find('.npc-career').click(event => {
         event.preventDefault();
-        let id = Number($(event.currentTarget).parents(".item").attr("data-item-id"));
-        let careerItem = duplicate(this.actor.getOwnedItem(id).data);
+        let id = $(event.currentTarget).parents(".item").attr("data-item-id");
+        let careerItem = duplicate(this.actor.getEmbeddedEntity("OwnedItem", id))
         careerItem.data.complete.value = !careerItem.data.complete.value
         if (careerItem.data.complete.value)
           this.actor._advanceNPC(careerItem.data)
 
-        this.actor.updateOwnedItem({id : id, 'data' : careerItem.data});
+        this.actor.updateEmbeddedEntity("OwnedItem", {id : id, 'data' : careerItem.data});
       });
     }
   }

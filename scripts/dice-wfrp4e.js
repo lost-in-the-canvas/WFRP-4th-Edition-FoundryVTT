@@ -50,9 +50,13 @@ class DiceWFRP {
         new Dialog({
             title: dialogOptions.title,
             content: dlg,
-            buttons: dialogOptions.buttons,
-            default: "rollButton",
-            close: html => dialogOptions.callback(html, roll)
+            buttons : {
+              rollButton : {
+                label: "Roll",
+                callback : html => dialogOptions.callback(html, roll)
+              }
+            },
+            default: "rollButton"
           }).render(true);
       });
     }
@@ -468,7 +472,7 @@ class DiceWFRP {
       else if (spell.data.cn.SL < 0)
        spell.data.cn.SL = 0;
 
-       actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
+       actor.updateEmbeddedEntity("OwnedItem", {_id: spell._id , 'data.cn.SL' : spell.data.cn.SL});
 
        switch (miscastCounter)
        {

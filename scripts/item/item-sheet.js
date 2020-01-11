@@ -170,7 +170,7 @@ class ItemSheetWfrp4e extends ItemSheet {
   
             await this.item.update({'data.lore.value' : lore});
            // await this.item.update({'img' : `systems/wfrp4e/icons/spells/${lore}.png`})
-           // await this.item.update({"name" : this.item.data.name + " ("+WFRP4E.magicLores[lore]+")"});
+           // await this.item.update({"name" : this.item.data.data.name + " ("+WFRP4E.magicLores[lore]+")"});
            // if (folder)
            //   await this.item.update({"folder" : folder.id})
             return;
@@ -193,7 +193,7 @@ class ItemSheetWfrp4e extends ItemSheet {
           characteristicList.push(charChanged);
   
         if (this.item.actor)
-          this.item.actor.updateOwnedItem({id: this.item.data.id, 'data.characteristics' : characteristicList})
+          this.item.actor.updateEmbeddedEntity("OwnedItem", {id: this.item.data.data.id, 'data.characteristics' : characteristicList})
         else
           await this.item.update({'data.characteristics' : characteristicList})
   
@@ -218,7 +218,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         {
           case 'skills':
           {
-            await this.item.update({id: this.item.data.id, 'data.skills': list});
+            await this.item.update({id: this.item.data.data.id, 'data.skills': list});
           }
           break;
   
@@ -229,7 +229,7 @@ class ItemSheetWfrp4e extends ItemSheet {
             this.item.update({'data.incomeSkill': []});
             let earningSkills = [];
             for (let sk in list){
-              let skillIndex = this.item.data.data.skills.indexOf(list[Number(sk)])
+              let skillIndex = this.item.data.skills.indexOf(list[Number(sk)])
               if (skillIndex == -1)
                 continue;
   
