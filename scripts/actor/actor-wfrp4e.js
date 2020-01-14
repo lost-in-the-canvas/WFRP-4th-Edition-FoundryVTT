@@ -575,7 +575,7 @@ class ActorWfrp4e extends Actor {
   spellDialog(spell) {
     // Do not show the dialog for Petty spells, just cast it.
     if (spell.data.lore.value == "petty")
-      this.setupCast(spell, options)
+      this.setupCast(spell)
     else
     {
       renderTemplate("systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
