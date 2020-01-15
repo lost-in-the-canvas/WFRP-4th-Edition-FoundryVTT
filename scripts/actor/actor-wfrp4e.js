@@ -379,16 +379,14 @@ class ActorWfrp4e extends Actor {
       if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
       {
         // Check to see if they have ammo if appropriate
-        ammo = this.getOwnedItem(weapon.data.currentAmmo.value);
-        if (ammo)
-          ammo = ammo.data
+        ammo = duplicate(this.getEmbeddedEntity("OwnedItem", weapon.data.currentAmmo.value))
         if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
         {
           ui.notifications.error("No Ammo!")
           return
         }
       }
-      else if (weapon.data.quantity.value == 0)
+      else if (weapon.data.weaponGroup.value != "entangling" && weapon.data.quantity.value == 0)
       {
         // If this executes, it means it uses its own quantity for ammo (e.g. throwing), which it has none of
         ui.notifications.error("No Ammo!")
@@ -529,7 +527,7 @@ class ActorWfrp4e extends Actor {
         if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup.value != "Entangling")
         {
           ammo.data.quantity.value--;
-          this.updateOwnedItem({id: ammo.id, "data.quantity.value" : ammo.data.quantity.value });
+          this.updateEmbeddedEntity("OwnedItem", {_id: ammo._id, "data.quantity.value" : ammo.data.quantity.value });
         }
       },
 
@@ -678,14 +676,13 @@ class ActorWfrp4e extends Actor {
         }, 0)
 
         // Find ingredient being used, if any
-        let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+        let ing = duplicate(this.getEmbeddedEntity("OwnedItem", testData.extra.spell.data.currentIng.value))
         if (ing)
         {
           // Decrease ingredient quantity
-          ing = ing.data;
           testData.extra.ingredient = true;
           ing.data.quantity.value--;
-          this.updateOwnedItem(ing);
+          this.updateEmbeddedEntity("OwnedItem", ing);
         }
         // If quantity of ingredient is 0, disregard the ingredient
         else if (!ing || ing.data.data.quantity.value <= 0)
@@ -792,14 +789,13 @@ class ActorWfrp4e extends Actor {
 
 
         // Find ingredient being used, if any
-        let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+        let ing = duplicate(this.getEmbeddedEntity("OwnedItem", testData.extra.spell.data.currentIng.value))
         if (ing)
         {
           // Decrease ingredient quantity
-          ing = ing.data;
           testData.extra.ingredient = true;
           ing.data.quantity.value--;
-          this.updateOwnedItem(ing);
+          this.updateEmbeddedEntity("OwnedItem", ing);
         }
         // If quantity of ingredient is 0, disregard the ingredient
         else if(!ing || ing.data.data.quantity.value <= 0)
@@ -1028,7 +1024,7 @@ class ActorWfrp4e extends Actor {
     if (this.token)
     {
       cardOptions.speaker.alias = this.token.data.name; // Use the token name instead of the actor name
-      cardOptions.speaker.token = this.token.data.id;
+      cardOptions.speaker.token = this.token.data._id;
       cardOptions.speaker.scene = canvas.scene.id
       cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
     }
@@ -1206,7 +1202,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "castOverride";
 
     // Update spell to reflect SL from channelling resetting to 0
-    WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
+    WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {id: testData.extra.spell.id, 'data.cn.SL' : 0});
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1597,7 +1593,7 @@ class ActorWfrp4e extends Actor {
     // mark each trait as included or not
     for (let trait of actorData.traits)
     {
-      if (actorData.data.excludedTraits.includes(trait.id))
+      if (actorData.data.excludedTraits.includes(trait._id))
       {
         trait.included = false;
       }
@@ -1622,7 +1618,7 @@ class ActorWfrp4e extends Actor {
       try // For each weapon, if it has ammo equipped, add the ammo name to the weapon
       {   // This is needed because we can't have both ammo dropdowns functional in the main tab and the combat tab easily
         if (weapon.data.currentAmmo.value)
-          weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+          weapon.ammoName = actorData.inventory.ammunition.items.find(a => a._id == weapon.data.currentAmmo.value).name;
       }
       catch
       {}
@@ -2051,7 +2047,7 @@ class ActorWfrp4e extends Actor {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Deleting " + i.name);
-        this.deleteOwnedItem(i.id, true);
+        this.deleteEmbeddedEntity("OwnedItem", i.id);
       }
     } // END ITEM SORTING
 
@@ -2083,10 +2079,9 @@ class ActorWfrp4e extends Actor {
     if (grimoire.length > 0 && ingredients.items.length > 0) 
     {
       ingredients.show = true;
-      actorData.ingredients = ingredients;
       // For each spell, set available ingredients to ingredients that have been assigned to that spell
       for (let s of grimoire)
-        s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
+        s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s._id && i.data.quantity.value > 0)
     } 
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
@@ -2102,7 +2097,7 @@ class ActorWfrp4e extends Actor {
     
     // If there were missing containers, reset the items that are orphaned
     if (containerMissing.length)
-      this.updateManyOwnedItem(containerMissing)
+      this.updateManyEmbeddedEntities("OwnedItem", containerMissing)
     
     for (var cont of containers.items) // For each container
     {
@@ -2225,6 +2220,7 @@ class ActorWfrp4e extends Actor {
       criticals: criticals,
       criticalCount: criticals.length,
       encumbrance: enc,
+      ingredients: ingredients,
       ["flags.hasSpells"]: hasSpells,
       ["flags.hasPrayers"]: hasPrayers
     }
@@ -2485,7 +2481,7 @@ class ActorWfrp4e extends Actor {
   prepareWeaponWithAmmo(weapon)
   {
     // Find the current ammo equipped to the weapon, if none, return
-    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    let ammo = weapon.ammo.find(a => a._id == weapon.data.currentAmmo.value);
     if (!ammo)
       return;
 
@@ -2808,23 +2804,28 @@ class ActorWfrp4e extends Actor {
   calculateRangeOrDamage(formula)
   {
     let actorData = this.data
-    try {formula = formula.toLowerCase();}
-    catch {return formula}
-
-    // Iterate through characteristics
-    for(let ch in actorData.data.characteristics)
+    try 
     {
-      // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
-      if (formula.includes(ch.concat('b')))
+      formula = formula.toLowerCase();
+      // Iterate through characteristics
+      for(let ch in actorData.data.characteristics)
       {
-        // Replace that abbreviation with the Bonus value
-        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
+        if (formula.includes(ch.concat('b')))
+        {
+          // Replace that abbreviation with the Bonus value
+          formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        }
       }
-    }
-    // To evaluate multiplication, replace x with *
-    formula = formula.replace('x', '*');
+      // To evaluate multiplication, replace x with *
+      formula = formula.replace('x', '*');
 
-    return eval(formula);
+      return eval(formula);
+    }
+    catch 
+    {
+      return formula
+    }
   }
 
     /**
@@ -2843,10 +2844,7 @@ class ActorWfrp4e extends Actor {
     let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
 
     // Add those missing basic skills
-    for(let skill of skillsToAdd)
-    {
-      await this.createOwnedItem(skill)
-    }
+    this.createManyEmbeddedEntities("OwnedItem", skillsToAdd);
   }
 
   /**
@@ -3166,7 +3164,7 @@ class ActorWfrp4e extends Actor {
     {
       // If the existing skill has a greater amount of advances, use the greater value instead (make no change) - ??? Is this needed? I'm not sure why I did this. TODO: Evaluate.
       existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
-      await this.updateOwnedItem(existingSkill);
+      await this.updateEmbeddedEntity("OwnedItem", existingSkill);
       return;
     }
 
@@ -3177,7 +3175,7 @@ class ActorWfrp4e extends Actor {
       // Advanced find function, returns the skill the user expects it to return, even with skills not included in the compendium (Lore (whatever))
       let skillToAdd = await WFRP_Utility.findSkill(skillName)
       skillToAdd.data.data.advances.value = advances;
-      await this.createOwnedItem(skillToAdd.data);
+      await this.createEmbeddedEntity("OwnedItem", skillToAdd.data);
     }
     catch(error) {
       console.error("Something went wrong when adding skill " + skillName +": " + error);
@@ -3201,7 +3199,7 @@ class ActorWfrp4e extends Actor {
       // See findTalent() for a detailed explanation of how it works
       // Advanced find function, returns the Talent the user expects it to return, even with Talents not included in the compendium (Etiquette (whatever))
       let talent = await WFRP_Utility.findTalent(talentName);
-      await this.createOwnedItem(talent.data);
+      await this.createEmbeddedEntity("OwnedItem", talent.data);
     }
     catch(error) {
       console.error("Something went wrong when adding talent " + talentName +": " + error);
