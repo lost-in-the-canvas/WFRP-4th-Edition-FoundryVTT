@@ -300,7 +300,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let skill = this.actor.items.find(i => i.data._id == itemId);
 
     if (ev.button == 0)
-      this.actor.setupSkill(skill);
+      this.actor.setupSkill(skill.data);
 
     else if (ev.button == 2)
       skill.sheet.render(true);
@@ -719,7 +719,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Increment or decrement an items quantity by 1 or 10 (if holding crtl)
   html.find('.quantity-click').mousedown(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
-    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
+    let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId));
     switch (event.button)
     {
       case 0:
