@@ -116,9 +116,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     let sign = value.split('')[0] // Sign is the first character entered
     let wounds;
     if (sign == "+" || sign == "-") // Relative
-      wounds = eval(this.actor.data.data.status.wounds.value + parseInt(inputValue))
+      wounds = eval(this.actor.data.data.status.wounds.value + parseInt(value))
     else                            // Absolute
-      wounds = parseInt(inputValue);
+      wounds = parseInt(value);
     
     this.actor.update({"data.status.wounds.value" : wounds});
   }
@@ -166,7 +166,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   
     // Use customized input interpreter when manually changing wounds 
     html.find(".wounds-value").change(event => {
-        this._modifyWounds(event.target.text)
+        this._modifyWounds(event.target.value)
       })
 
     // This disgusting mess allows characteristics to be tabbed through. (Used only by Creature and NPC sheets, placed here to maintain DRY code)
@@ -297,7 +297,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Skill Tests (right click to open skill sheet)
   html.find('.skill-total, .skill-select').mousedown(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
-    let skill = this.actor.getEmbeddedEntity("OwnedItem", itemId)
+    let skill = this.actor.items.find(i => i.data._id == itemId);
 
     if (ev.button == 0)
       this.actor.setupSkill(skill);
@@ -324,7 +324,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     await pack.getIndex().then(index => weapons = index);
     let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed");
     let unarmed = await pack.getEntity(unarmedId.id);
-    this.actor.setupWeapon(duplicate(unarmed), {attackType : "melee"})
+    this.actor.setupWeapon(unarmed.data, {attackType : "melee"})
     // Roll Fist Attack
   })
 
@@ -371,7 +371,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.ap-value').mousedown(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
-    let item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
+    let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (item.data.currentAP[APlocation] == -1)
       item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
     switch (event.button)
@@ -406,6 +406,135 @@ class ActorSheetWfrp4e extends ActorSheet {
       item.data.weaponDamage = 0;
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
+
+  // Click on the AP total in the combat tab - damage AP by one, prioritizing Armour trait over Armour Items
+  html.find(".armour-total").mousedown(ev => {
+    let location = $(ev.currentTarget).closest(".column").find(".item").attr("data-location")
+    if (!location) return;
+    let armourTrait = this.actor.items.find(i => (i.data.name.toLowerCase() == "armour" || i.data.name.toLowerCase() == "armor") && i.data.type == "trait")
+    if (armourTrait)
+      armourTrait = duplicate(armourTrait.data);
+    let armourItems = this.actor.items.filter(i => i.data.type == "armour")
+    let armourToDamage;
+
+    // Add damage values if trait hasn't been damaged before
+    if (armourTrait && !armourTrait.APdamage)
+        armourTrait.APdamage = {head : 0, body : 0, lArm : 0, rArm: 0, lLeg: 0, rLeg: 0};
+        
+    // Used trait is a flag to denote whether the trait was damaged or not. If it was not, armor is damaged instead
+    let usedTrait = false;;
+    if (armourTrait)
+    {
+      // Left click decreases APdamage (makes total AP increase)
+      if (ev.button == 0)
+      {
+        if (armourTrait.APdamage[location] != 0)
+        {
+            armourTrait.APdamage[location]--;
+            usedTrait = true;
+        }
+      }
+      // Right click increases Apdamage (makes total AP decrease)
+      if (ev.button == 2)
+      {
+        // Don't increase APdamage past total AP value
+        if (armourTrait.APdamage[location] != Number(armourTrait.data.specification.value))
+        {
+          armourTrait.APdamage[location]++;
+          usedTrait = true;
+        }
+      }
+      // If trait was damaged, update
+      if (usedTrait)
+      {
+        this.actor.updateEmbeddedEntity("OwnedItem", armourTrait)
+        return;
+      }
+    }
+
+    if (armourItems && !usedTrait)
+    {
+      // Find the first armor item that has AP at the damaged area
+      for (let a of armourItems)
+      {
+        if (ev.button == 2)
+        {
+          // If damaging the item, only select items that have AP at the location
+          if (a.data.data.maxAP[location] != 0 && a.data.data.currentAP[location] != 0)
+          {
+            armourToDamage = duplicate(a.data);
+            break;
+          }
+        }
+        else if (ev.button == 0)
+        {
+          // If repairing, select only items that *should* have AP there, ie has a maxAP, and isn't at maxAP
+          if (a.data.data.maxAP[location] != 0 && a.data.data.currentAP[location] != -1 && a.data.data.currentAP[location] != a.data.data.maxAP[location])
+          {
+            armourToDamage = duplicate(a.data);
+            break;
+          }
+        }
+      }
+      if (!armourToDamage)
+        return
+
+      // Replace -1 flag with maxAP
+      if (armourToDamage.data.currentAP[location] == -1)
+        armourToDamage.data.currentAP[location] = armourToDamage.data.maxAP[location]
+      
+      if (ev.button == 2)
+      {
+        if (armourToDamage.data.currentAP[location] != 0)
+          armourToDamage.data.currentAP[location]--          
+      }
+      if (ev.button == 0)
+      {
+        if (armourToDamage.data.currentAP[location] != armourToDamage.data.maxAP[location])
+          armourToDamage.data.currentAP[location]++        
+      }
+      this.actor.updateEmbeddedEntity("OwnedItem", armourToDamage)
+    }
+  })
+
+  // Damage a shield item by clicking on the shield AP amount in the combat tab
+  html.find(".shield-total").mousedown(ev => {
+    let weapons = this.actor.prepareItems().weapons
+    let shields = weapons.filter(w => w.properties.qualities.find(p => p.includes("Shield")))
+    let shieldDamaged = false;
+    // If for some reason using multiple shields...damage the first one available 
+    for (let s of shields)
+    {
+      let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
+      let shieldQualityValue = s.properties.qualities.find(p => p.includes("Shield")).split(" ")[1];
+      
+      if (!shield.data.APdamage)
+        shield.data.APdamage = 0;
+      // Right click - damage
+      if (ev.button == 2)
+      {
+        if (shield.data.APdamage < Number(shieldQualityValue)) // Don't damage more than shield value
+        {
+          shield.data.APdamage++
+          shieldDamaged = true;
+        }
+      }
+      // Left click - repair
+      if (ev.button == 0)
+      {
+        if (shield.data.APdamage != 0)
+        {
+          shield.data.APdamage--;
+          shieldDamaged = true;
+        }
+      }
+      if (shieldDamaged)
+      {
+        this.actor.updateEmbeddedEntity("OwnedItem", shield)
+        return;
+      }
+    }
+  })
 
   // Toggle whether a spell is memorized
   html.find('.memorized-toggle').click(async ev => {
@@ -836,7 +965,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor.id,
-      data: item.data,
+      data: item,
       root : Number(event.currentTarget.getAttribute("root"))
     }));
   }
@@ -1076,7 +1205,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         "Special": item.data.special.value
       });
-      item = this.actor.prepareWeaponCombat(duplicate(item.data));
+      item = this.actor.prepareWeaponCombat(item);
       propertyKey = "Special";
     }
     else // Otherwise, just lookup the key for the property and use that to lookup the description

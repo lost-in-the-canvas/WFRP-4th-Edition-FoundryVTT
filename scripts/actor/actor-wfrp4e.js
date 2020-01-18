@@ -386,7 +386,7 @@ class ActorWfrp4e extends Actor {
           return
         }
       }
-      else if (weapon.data.quantity.value == 0)
+      else if (weapon.data.weaponGroup.value != "entangling" && weapon.data.quantity.value == 0)
       {
         // If this executes, it means it uses its own quantity for ammo (e.g. throwing), which it has none of
         ui.notifications.error("No Ammo!")
@@ -1024,7 +1024,7 @@ class ActorWfrp4e extends Actor {
     if (this.token)
     {
       cardOptions.speaker.alias = this.token.data.name; // Use the token name instead of the actor name
-      cardOptions.speaker.token = this.token.data.id;
+      cardOptions.speaker.token = this.token.data._id;
       cardOptions.speaker.scene = canvas.scene.id
       cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
     }
@@ -1593,7 +1593,7 @@ class ActorWfrp4e extends Actor {
     // mark each trait as included or not
     for (let trait of actorData.traits)
     {
-      if (actorData.data.excludedTraits.includes(trait.id))
+      if (actorData.data.excludedTraits.includes(trait._id))
       {
         trait.included = false;
       }
@@ -2064,7 +2064,8 @@ class ActorWfrp4e extends Actor {
         let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
         if (shieldProperty) 
         {
-          AP.shield += parseInt(shieldProperty.split(" ")[1]);
+          let shieldDamage = wep.data.APdamage || 0;
+          AP.shield += (parseInt(shieldProperty.split(" ")[1]) - shieldDamage);
         }
         // Keep a running total of defensive weapons equipped
         if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
@@ -2155,8 +2156,11 @@ class ActorWfrp4e extends Actor {
       {
         try 
         {
+          let traitDamage = 0;
+          if (armorTrait.APdamage)
+            traitDamage = armorTrait.APdamage[loc] || 0;
           if (loc != "shield")
-            AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
+            AP[loc].value += (parseInt(armorTrait.data.specification.value) || 0) - traitDamage;
         } 
         catch {//ignore armor traits with invalid values
         }
@@ -2804,23 +2808,28 @@ class ActorWfrp4e extends Actor {
   calculateRangeOrDamage(formula)
   {
     let actorData = this.data
-    try {formula = formula.toLowerCase();}
-    catch {return formula}
-
-    // Iterate through characteristics
-    for(let ch in actorData.data.characteristics)
+    try 
     {
-      // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
-      if (formula.includes(ch.concat('b')))
+      formula = formula.toLowerCase();
+      // Iterate through characteristics
+      for(let ch in actorData.data.characteristics)
       {
-        // Replace that abbreviation with the Bonus value
-        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
+        if (formula.includes(ch.concat('b')))
+        {
+          // Replace that abbreviation with the Bonus value
+          formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        }
       }
-    }
-    // To evaluate multiplication, replace x with *
-    formula = formula.replace('x', '*');
+      // To evaluate multiplication, replace x with *
+      formula = formula.replace('x', '*');
 
-    return eval(formula);
+      return eval(formula);
+    }
+    catch 
+    {
+      return formula
+    }
   }
 
     /**
@@ -2856,6 +2865,8 @@ class ActorWfrp4e extends Actor {
    */
   static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
   {
+    if (!opposeData.damage)
+      return "<b>Error</b>: No damage values. Ensure the attacker is using a damage-causing item, like a weapon."
     // If no damage value, don't attempt anything
     if (!opposeData.damage.value)
       return "Cannot automate damage (likely due to Tiring)"

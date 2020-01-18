@@ -59,7 +59,7 @@ class ActorSheetWfrp4eNPC extends ActorSheetWfrp4e {
         if (careerItem.data.complete.value)
           this.actor._advanceNPC(careerItem.data)
 
-        this.actor.updateEmbeddedEntity("OwnedItem", {id : id, 'data' : careerItem.data});
+        this.actor.updateEmbeddedEntity("OwnedItem", {_id : id, 'data' : careerItem.data});
       });
     }
   }

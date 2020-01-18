@@ -61,7 +61,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 		{
 			clearTimeout(this.timer); //prevent single-click action
 			let itemId = $(event.currentTarget).attr("data-item-id");
-			const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+			const item = this.actor.items.find(i => i.data._id == itemId)
 			item.sheet.render(true);
 			this.clicks = 0; //after action performed, reset counter
 		}
@@ -79,7 +79,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 		let trait = this.actor.getEmbeddedEntity("OwnedItem", traitId)
 		let data = duplicate(this.actor.data.data)
 
-		let bonuses = WFRP4E.traitBonuses[trait.data.name.toLowerCase()]
+		let bonuses = WFRP4E.traitBonuses[trait.name.toLowerCase()]
 		for (let char in bonuses)
 		{
 			if (include)
@@ -104,7 +104,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 	{
 		event.preventDefault();
     let li = $(event.currentTarget).parent('.list'),
-      item = this.actor.getEmbeddedEntity("OwnedItem", $(event.currentTarget).attr("data-item-id")),
+      	item = this.actor.items.find(i => i.data._id == $(event.currentTarget).attr("data-item-id")),
       // Get expansion info to place in the dropdown
 			expandData = item.getExpandData(
 			{
@@ -192,34 +192,34 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 			{
 				if (advAmt)
 				{
-					newAdv = skill.data.data.advances.value + advAmt;
+					newAdv = skill.data.advances.value + advAmt;
 					this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
-						id: skill.data.id,
+						_id: skill._id,
 						"data.advances.value": newAdv
 					})
 				}
 				else // If neither control or shift was held, roll the skill instead
-					this.actor.setupSkill(skill.data);
+					this.actor.setupSkill(skill);
       }
       // Subtract if right click
 			else if (event.button == 2)
 			{
 				if (advAmt)
 				{
-					newAdv = skill.data.data.advances.value - advAmt;
+					newAdv = skill.data.advances.value - advAmt;
 					if (newAdv < 0)
 						newAdv = 0;
 					this.actor.updateEmbeddedEntity("OwnedItem", 
 					{
-						id: skill.data.id,
+						_id: skill._id,
 						"data.advances.value": newAdv
 					})
 				}
 				else // If neither control or shift was held, show the item sheet
 				{
 					let itemId = $(event.currentTarget).parents(".content").attr("data-item-id");
-					const item = this.actor.getEmbeddedEntity("OwnedItem", itemId)
+					const item = this.actor.items.find(i => i.data._id == itemId)
 					item.sheet.render(true);
 				}
 			}
@@ -232,14 +232,14 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 			let trait = duplicate(this.actor.getEmbeddedEntity("OwnedItem", $(event.currentTarget).attr("data-item-id")))
 
       // If rightclick or not rollable, show dropdown
-			if (event.button == 2 || !trait.data.data.rollable.value)
+			if (event.button == 2 || !trait.data.rollable.value)
 			{
 				this._delayedDropdown(event);
 				return;
 			}
 
       // Otherwise, prompt to roll
-			this.actor.setupTrait(trait.data);
+			this.actor.setupTrait(trait);
 
 		})
 

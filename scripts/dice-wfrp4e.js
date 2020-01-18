@@ -884,13 +884,8 @@ class DiceWFRP {
       let chatData = WFRP_Utility.chatDataSetup(html)
       ChatMessage.create(chatData);
     })
-
-
-
   }
-
-
-
+  
     static toggleEditable(html)
     {
       let elementsToToggle = $(html).parents(".chat-card").find(".display-toggle")
