@@ -965,7 +965,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       actorId: this.actor.id,
-      data: item.data,
+      data: item,
       root : Number(event.currentTarget.getAttribute("root"))
     }));
   }

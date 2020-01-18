@@ -13759,7 +13759,6 @@ border-image-outset: 0px !important;
     #token-config .tab[data-tab="image"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
-      top: 160px;
       left: 329px;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
