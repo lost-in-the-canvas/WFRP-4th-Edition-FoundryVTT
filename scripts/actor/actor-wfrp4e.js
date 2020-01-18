@@ -2064,7 +2064,8 @@ class ActorWfrp4e extends Actor {
         let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
         if (shieldProperty) 
         {
-          AP.shield += parseInt(shieldProperty.split(" ")[1]);
+          let shieldDamage = wep.data.APdamage || 0;
+          AP.shield += (parseInt(shieldProperty.split(" ")[1]) - shieldDamage);
         }
         // Keep a running total of defensive weapons equipped
         if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
@@ -2155,8 +2156,11 @@ class ActorWfrp4e extends Actor {
       {
         try 
         {
+          let traitDamage = 0;
+          if (armorTrait.APdamage)
+            traitDamage = armorTrait.APdamage[loc] || 0;
           if (loc != "shield")
-            AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
+            AP[loc].value += (parseInt(armorTrait.data.specification.value) || 0) - traitDamage;
         } 
         catch {//ignore armor traits with invalid values
         }
@@ -2861,6 +2865,8 @@ class ActorWfrp4e extends Actor {
    */
   static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
   {
+    if (!opposeData.damage)
+      return "<b>Error</b>: No damage values. Ensure the attacker is using a damage-causing item, like a weapon."
     // If no damage value, don't attempt anything
     if (!opposeData.damage.value)
       return "Cannot automate damage (likely due to Tiring)"
