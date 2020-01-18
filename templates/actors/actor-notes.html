@@ -54,7 +54,7 @@
 
 <ol class="inventory-list psychology-list save-scroll">
   {{#each actor.psychology as |psych p|}}
-  <li class="item" data-item-id="{{psych.id}}">
+  <li class="item" data-item-id="{{psych._id}}">
     <div class="content">
       <div class="item-name item-dropdown">
         <div class="image item-image" style="background-image: url({{psych.img}})"></div>
@@ -90,7 +90,7 @@
 
 <ol class="inventory-list mutation-list save-scroll">
   {{#each actor.mutations as |item i|}}
-  <li class="item" data-item-id="{{item.id}}">
+  <li class="item" data-item-id="{{item._id}}">
     <div class="content">
       <div class="item-name currency-name item-dropdown">
         <div class="image item-image" style="background-image: url({{item.img}})"></div>
@@ -127,7 +127,7 @@
 
 <ol class="inventory-list disease-list save-scroll">
   {{#each actor.diseases as |item i|}}
-  <li class="item" data-item-id="{{item.id}}">
+  <li class="item" data-item-id="{{item._id}}">
     <div class="content">
       <div class="item-name currency-name item-dropdown">
         <div class="image item-image" style="background-image: url({{item.img}})"></div>

@@ -50,9 +50,13 @@ class DiceWFRP {
         new Dialog({
             title: dialogOptions.title,
             content: dlg,
-            buttons: dialogOptions.buttons,
-            default: "rollButton",
-            close: html => dialogOptions.callback(html, roll)
+            buttons : {
+              rollButton : {
+                label: "Roll",
+                callback : html => dialogOptions.callback(html, roll)
+              }
+            },
+            default: "rollButton"
           }).render(true);
       });
     }
@@ -468,7 +472,7 @@ class DiceWFRP {
       else if (spell.data.cn.SL < 0)
        spell.data.cn.SL = 0;
 
-       actor.updateOwnedItem({id: spell.id , 'data.cn.SL' : spell.data.cn.SL});
+       actor.updateEmbeddedEntity("OwnedItem", {_id: spell._id , 'data.cn.SL' : spell.data.cn.SL});
 
        switch (miscastCounter)
        {
@@ -872,13 +876,16 @@ class DiceWFRP {
       let newContent = msgContent.html()
 
       message.update({content: newContent , "flags.data.postData.damage" : Number(event.target.text)})
-
     })
 
+    html.on("click", '.hidden-table', event =>{
+      event.preventDefault()
+      let html = WFRP_Tables.tableMenu(true);
+      let chatData = WFRP_Utility.chatDataSetup(html)
+      ChatMessage.create(chatData);
+    })
   }
-
-
-
+  
     static toggleEditable(html)
     {
       let elementsToToggle = $(html).parents(".chat-card").find(".display-toggle")

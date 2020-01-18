@@ -16,7 +16,7 @@
 <ol class="inventory-list melee-weapon-list save-scroll" data-weapon-type="melee">
   {{#each actor.weapons as |item i|}}
   {{#if item.meleeWeaponType}}
-  <li class="item" data-item-id="{{item.id}}">
+  <li class="item" data-item-id="{{item._id}}">
     <div class="content">
       <div class="item-name">
         <a class="image" style="background-image: url({{item.img}})"></a>
@@ -67,7 +67,7 @@
 <ol class="inventory-list ranged-weapon-list save-scroll" data-weapon-type="ranged">
   {{#each actor.weapons as |item i|}}
   {{#if item.rangedWeaponType}}
-  <li class="item" data-item-id="{{item.id}}">
+  <li class="item" data-item-id="{{item._id}}">
     <div class="content">
       <div class="item-name">
         <div class="image" style="background-image: url({{item.img}})"></div>
@@ -76,12 +76,12 @@
       <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
       {{#if item.data.ammunitionGroup.value}}
       <div class="ammo-selector selector">
-        <select name="currentAmmo-{{item.id}}" data-item-id="{{item.id}}"
+        <select name="currentAmmo-{{item._id}}" data-item-id="{{item._id}}"
           data-dtype="{{item.data.currentAmmo.type}}">
           {{#select item.data.currentAmmo.value}}
           <option class="ammo-option" value="0">None</option>
           {{#each item.ammo as |ammo a|}}
-          <option class="ammo-option" value="{{ammo.id}}"> ({{ammo.data.quantity.value}}) {{ammo.name}}</option>
+          <option class="ammo-option" value="{{ammo._id}}"> ({{ammo.data.quantity.value}}) {{ammo.name}}</option>
           {{/each}}
           {{/select}}
         </select>
@@ -128,8 +128,8 @@
   <div class="first row">
     <div class="head column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.head.value}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.head.value}}</a>
+        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Head</span>
         <span class="armour-ap">AP</span>
@@ -138,14 +138,14 @@
         <ol class="inventory-list armour-list">
           {{#each actor.armour as |item i|}}
           {{#if item.protectsHead}}
-          <li class="item" data-item-id="{{item.id}}" data-location="head">
+          <li class="item" data-item-id="{{item._id}}" data-location="head">
             <div class="content">
               <div class="item-name">
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.head.value}} Max: {{item.data.maxAP.head.value}}"
-                class="ap-value">{{item.data.currentAP.head.value}}</a>
+              <a title="Current: {{item.data.currentAP.head}} Max: {{item.data.maxAP.head}}"
+                class="ap-value">{{item.data.currentAP.head}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -181,8 +181,8 @@
 
     <div class="body column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.body.value}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.body.value}}</a>
+        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Body</span>
         <span class="armour-ap">AP</span>
@@ -191,14 +191,14 @@
         <ol class="inventory-list armour-list">
           {{#each actor.armour as |item i|}}
           {{#if item.protectsBody}}
-          <li class="item" data-item-id="{{item.id}}" data-location="body">
+          <li class="item" data-item-id="{{item._id}}" data-location="body">
             <div class="content">
               <div class="item-name">
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.body.value}} Max: {{item.data.maxAP.body.value}}"
-                class="ap-value">{{item.data.currentAP.body.value}}</a>
+              <a title="Current: {{item.data.currentAP.body}} Max: {{item.data.maxAP.body}}"
+                class="ap-value">{{item.data.currentAP.body}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -236,8 +236,8 @@
   <div class="second row">
       <div class="larm column">
           <div class="armour-header">
-            <span class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</span>
-            <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+            <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
+            <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Arm</span>
             <span class="armour-ap">AP</span>
@@ -246,14 +246,14 @@
             <ol class="inventory-list armour-list">
               {{#each actor.armour as |item i|}}
               {{#if item.protectslArm}}
-              <li class="item" data-item-id="{{item.id}}" data-location="lArm">
+              <li class="item" data-item-id="{{item._id}}" data-location="lArm">
                 <div class="content">
                   <div class="item-name">
                     <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                     <a class="name armour-item-name item-edit">{{item.name}}</a>
                   </div>
-                  <a title="Current: {{item.data.currentAP.lArm.value}} Max: {{item.data.maxAP.lArm.value}}"
-                    class="ap-value">{{item.data.currentAP.lArm.value}}</a>
+                  <a title="Current: {{item.data.currentAP.lArm}} Max: {{item.data.maxAP.lArm}}"
+                    class="ap-value">{{item.data.currentAP.lArm}}</a>
                 </div>
                 <div class="content">
                   <div class="armour-property">
@@ -289,8 +289,8 @@
         
     <div class="rarm column">
       <div class="armour-header">
-        <span class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</a>
+        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Arm</span>
         <span class="armour-ap">AP</span>
@@ -299,14 +299,14 @@
         <ol class="inventory-list armour-list">
           {{#each actor.armour as |item i|}}
           {{#if item.protectsrArm}}
-          <li class="item" data-item-id="{{item.id}}" data-location="rArm">
+          <li class="item" data-item-id="{{item._id}}" data-location="rArm">
             <div class="content">
               <div class="item-name">
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.rArm.value}} Max: {{item.data.maxAP.rArm.value}}"
-                class="ap-value">{{item.data.currentAP.rArm.value}}</a>
+              <a title="Current: {{item.data.currentAP.rArm}} Max: {{item.data.maxAP.rArm}}"
+                class="ap-value">{{item.data.currentAP.rArm}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -344,8 +344,8 @@
   <div class="third row">
       <div class="lleg column">
           <div class="armour-header">
-            <span class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</span>
-            <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+            <a class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</a>
+            <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Leg</span>
             <span class="armour-ap">AP</span>
@@ -354,14 +354,14 @@
             <ol class="inventory-list armour-list">
               {{#each actor.armour as |item i|}}
               {{#if item.protectslLeg}}
-              <li class="item" data-item-id="{{item.id}}" data-location="lLeg">
+              <li class="item" data-item-id="{{item._id}}" data-location="lLeg">
                 <div class="content">
                   <div class="item-name">
                     <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                     <a class="name armour-item-name item-edit">{{item.name}}</a>
                   </div>
-                  <a title="Current: {{item.data.currentAP.lLeg.value}} Max: {{item.data.maxAP.lLeg.value}}"
-                    class="ap-value">{{item.data.currentAP.lLeg.value}}</a>
+                  <a title="Current: {{item.data.currentAP.lLeg}} Max: {{item.data.maxAP.lLeg}}"
+                    class="ap-value">{{item.data.currentAP.lLeg}}</a>
                 </div>
                 <div class="content">
                   <div class="armour-property">
@@ -397,8 +397,8 @@
 
     <div class="rleg column">
       <div class="armour-header rLeg">
-        <span class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</span>
-        <span class="shield-total" title="Shield AP">{{actor.AP.shield}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</a>
+        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Leg</span>
         <span class="armour-ap">AP</span>
@@ -407,14 +407,14 @@
         <ol class="inventory-list armour-list">
           {{#each actor.armour as |item i|}}
           {{#if item.protectsrLeg}}
-          <li class="item" data-item-id="{{item.id}}" data-location="rLeg">
+          <li class="item" data-item-id="{{item._id}}" data-location="rLeg">
             <div class="content">
               <div class="item-name">
                 <div class="image item-image" title="{{item.name}}" style="background-image: url({{item.img}})"></div>
                 <a class="name armour-item-name item-edit">{{item.name}}</a>
               </div>
-              <a title="Current: {{item.data.currentAP.rLeg.value}} Max: {{item.data.maxAP.rLeg.value}}"
-                class="ap-value">{{item.data.currentAP.rLeg.value}}</a>
+              <a title="Current: {{item.data.currentAP.rLeg}} Max: {{item.data.maxAP.rLeg}}"
+                class="ap-value">{{item.data.currentAP.rLeg}}</a>
             </div>
             <div class="content">
               <div class="armour-property">
@@ -461,7 +461,7 @@
 
 <ol class="inventory-list injury-list save-scroll">
   {{#each actor.injuries as |injury i|}}
-  <li class="item" data-item-id="{{injury.id}}">
+  <li class="item" data-item-id="{{injury._id}}">
     <div class="content">
       <div class="item-name injury-name item-dropdown">
         <div class="image" style="background-image: url({{injury.img}})"></div>
@@ -494,7 +494,7 @@
 
 <ol class="inventory-list critical-list save-scroll">
   {{#each actor.criticals as |critical c|}}
-  <li class="item" data-item-id="{{critical.id}}">
+  <li class="item" data-item-id="{{critical._id}}">
     <div class="content">
       <div class="item-name critical-name item-dropdown">
         <div class="image" style="background-image: url({{critical.img}})"></div>

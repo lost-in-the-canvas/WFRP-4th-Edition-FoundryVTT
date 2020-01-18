@@ -211,11 +211,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/characteristic-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -289,11 +284,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -389,16 +379,14 @@ class ActorWfrp4e extends Actor {
       if (weapon.data.weaponGroup.value != "throwing" && weapon.data.weaponGroup.value != "explosives" && weapon.data.weaponGroup.value != "entangling")
       {
         // Check to see if they have ammo if appropriate
-        ammo = this.getOwnedItem(weapon.data.currentAmmo.value);
-        if (ammo)
-          ammo = ammo.data
+        ammo = duplicate(this.getEmbeddedEntity("OwnedItem", weapon.data.currentAmmo.value))
         if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
         {
           ui.notifications.error("No Ammo!")
           return
         }
       }
-      else if (weapon.data.quantity.value == 0)
+      else if (weapon.data.weaponGroup.value != "entangling" && weapon.data.quantity.value == 0)
       {
         // If this executes, it means it uses its own quantity for ammo (e.g. throwing), which it has none of
         ui.notifications.error("No Ammo!")
@@ -477,11 +465,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/weapon-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -544,7 +527,7 @@ class ActorWfrp4e extends Actor {
         if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup.value != "Entangling")
         {
           ammo.data.quantity.value--;
-          this.updateOwnedItem({id: ammo.id, "data.quantity.value" : ammo.data.quantity.value });
+          this.updateEmbeddedEntity("OwnedItem", {_id: ammo._id, "data.quantity.value" : ammo.data.quantity.value });
         }
       },
 
@@ -648,11 +631,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/spell-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        },
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -698,14 +676,13 @@ class ActorWfrp4e extends Actor {
         }, 0)
 
         // Find ingredient being used, if any
-        let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+        let ing = duplicate(this.getEmbeddedEntity("OwnedItem", testData.extra.spell.data.currentIng.value))
         if (ing)
         {
           // Decrease ingredient quantity
-          ing = ing.data;
           testData.extra.ingredient = true;
           ing.data.quantity.value--;
-          this.updateOwnedItem(ing);
+          this.updateEmbeddedEntity("OwnedItem", ing);
         }
         // If quantity of ingredient is 0, disregard the ingredient
         else if (!ing || ing.data.data.quantity.value <= 0)
@@ -774,11 +751,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/channell-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         malignantInfluence : testData.malignantInfluence,
@@ -817,14 +789,13 @@ class ActorWfrp4e extends Actor {
 
 
         // Find ingredient being used, if any
-        let ing = this.getOwnedItem(testData.extra.spell.data.currentIng.value)
+        let ing = duplicate(this.getEmbeddedEntity("OwnedItem", testData.extra.spell.data.currentIng.value))
         if (ing)
         {
           // Decrease ingredient quantity
-          ing = ing.data;
           testData.extra.ingredient = true;
           ing.data.quantity.value--;
-          this.updateOwnedItem(ing);
+          this.updateEmbeddedEntity("OwnedItem", ing);
         }
         // If quantity of ingredient is 0, disregard the ingredient
         else if(!ing || ing.data.data.quantity.value <= 0)
@@ -890,11 +861,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/prayer-dialog.html",
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -984,11 +950,6 @@ class ActorWfrp4e extends Actor {
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html", // Reuse skill dialog
-      buttons : {
-        rollButton : {
-          label: "Roll"
-        }
-      },
       // Prefilled dialog data
       data : {
         hitLocation : testData.hitLocation,
@@ -1063,7 +1024,7 @@ class ActorWfrp4e extends Actor {
     if (this.token)
     {
       cardOptions.speaker.alias = this.token.data.name; // Use the token name instead of the actor name
-      cardOptions.speaker.token = this.token.data.id;
+      cardOptions.speaker.token = this.token.data._id;
       cardOptions.speaker.scene = canvas.scene.id
       cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
     }
@@ -1241,7 +1202,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "castOverride";
 
     // Update spell to reflect SL from channelling resetting to 0
-    WFRP_Utility.getSpeaker(cardOptions.speaker).updateOwnedItem({id: testData.extra.spell.id, 'data.cn.SL' : 0});
+    WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {id: testData.extra.spell.id, 'data.cn.SL' : 0});
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1632,7 +1593,7 @@ class ActorWfrp4e extends Actor {
     // mark each trait as included or not
     for (let trait of actorData.traits)
     {
-      if (actorData.data.excludedTraits.includes(trait.id))
+      if (actorData.data.excludedTraits.includes(trait._id))
       {
         trait.included = false;
       }
@@ -1657,7 +1618,7 @@ class ActorWfrp4e extends Actor {
       try // For each weapon, if it has ammo equipped, add the ammo name to the weapon
       {   // This is needed because we can't have both ammo dropdowns functional in the main tab and the combat tab easily
         if (weapon.data.currentAmmo.value)
-          weapon.ammoName = actorData.inventory.ammunition.items.find(a => a.id == weapon.data.currentAmmo.value).name;
+          weapon.ammoName = actorData.inventory.ammunition.items.find(a => a._id == weapon.data.currentAmmo.value).name;
       }
       catch
       {}
@@ -2086,7 +2047,7 @@ class ActorWfrp4e extends Actor {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Deleting " + i.name);
-        this.deleteOwnedItem(i.id, true);
+        this.deleteEmbeddedEntity("OwnedItem", i.id);
       }
     } // END ITEM SORTING
 
@@ -2103,7 +2064,8 @@ class ActorWfrp4e extends Actor {
         let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
         if (shieldProperty) 
         {
-          AP.shield += parseInt(shieldProperty.split(" ")[1]);
+          let shieldDamage = wep.data.APdamage || 0;
+          AP.shield += (parseInt(shieldProperty.split(" ")[1]) - shieldDamage);
         }
         // Keep a running total of defensive weapons equipped
         if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
@@ -2118,10 +2080,9 @@ class ActorWfrp4e extends Actor {
     if (grimoire.length > 0 && ingredients.items.length > 0) 
     {
       ingredients.show = true;
-      actorData.ingredients = ingredients;
       // For each spell, set available ingredients to ingredients that have been assigned to that spell
       for (let s of grimoire)
-        s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s.id && i.data.quantity.value > 0)
+        s.data.ingredients = ingredients.items.filter(i => i.data.spellIngredient.value == s._id && i.data.quantity.value > 0)
     } 
     else
       inventory.misc.items = inventory.misc.items.concat(ingredients.items);
@@ -2137,7 +2098,7 @@ class ActorWfrp4e extends Actor {
     
     // If there were missing containers, reset the items that are orphaned
     if (containerMissing.length)
-      this.updateManyOwnedItem(containerMissing)
+      this.updateManyEmbeddedEntities("OwnedItem", containerMissing)
     
     for (var cont of containers.items) // For each container
     {
@@ -2195,8 +2156,11 @@ class ActorWfrp4e extends Actor {
       {
         try 
         {
+          let traitDamage = 0;
+          if (armorTrait.APdamage)
+            traitDamage = armorTrait.APdamage[loc] || 0;
           if (loc != "shield")
-            AP[loc].value += parseInt(armorTrait.data.specification.value) || 0;
+            AP[loc].value += (parseInt(armorTrait.data.specification.value) || 0) - traitDamage;
         } 
         catch {//ignore armor traits with invalid values
         }
@@ -2260,6 +2224,7 @@ class ActorWfrp4e extends Actor {
       criticals: criticals,
       criticalCount: criticals.length,
       encumbrance: enc,
+      ingredients: ingredients,
       ["flags.hasSpells"]: hasSpells,
       ["flags.hasPrayers"]: hasPrayers
     }
@@ -2520,7 +2485,7 @@ class ActorWfrp4e extends Actor {
   prepareWeaponWithAmmo(weapon)
   {
     // Find the current ammo equipped to the weapon, if none, return
-    let ammo = weapon.ammo.find(a => a.id == weapon.data.currentAmmo.value);
+    let ammo = weapon.ammo.find(a => a._id == weapon.data.currentAmmo.value);
     if (!ammo)
       return;
 
@@ -2603,15 +2568,29 @@ class ActorWfrp4e extends Actor {
     weapon.properties = weapon.properties.concat(propertiesToAdd);
   }
 
+  /**
+   * Calculates the wounds of an actor based on prepared items
+   * 
+   * Once all the item preparation is done (prepareItems()), we have a list of traits/talents to use that will
+   * factor into Wonuds calculation. Namely: Hardy and Size traits. If we find these, they must be considered
+   * in Wound calculation. 
+   * 
+   * @param {Object} actorData    prepared actor data - all items organized and processed 
+   * 
+   * @returns {Number} Max wound value calculated
+   */
   calculateWounds(actorData)
   {
+    /// There's both a Hardy Trait and Hardy Talent (thanks C7) so find both.
     let hardyTrait = actorData.traits.find(t => t.name.toLowerCase().includes("hardy"))
     let hardyTalent = actorData.talents.find(t => t.name.toLowerCase().includes("hardy"))
 
+    /// tbMultiplier is the additional amount of TB to add to Wounds. 0 if no Hardy
     let tbMultiplier = (hardyTrait ? 1 : 0)
-    if (hardyTalent)
+    if (hardyTalent) // The talent can be taken multiple times, so take into account advances.
       tbMultiplier += hardyTalent.data.advances.value || 0
 
+    // Easy to reference bonuses
     let sb = actorData.data.characteristics.s.bonus;
     let tb = actorData.data.characteristics.t.bonus;
     let wpb =actorData.data.characteristics.wp.bonus;
@@ -2623,11 +2602,11 @@ class ActorWfrp4e extends Actor {
 
     if (actorData.flags.autoCalcWounds)
     {
+      // Construct trait means you use SB instead of WPB 
       if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")))
         wpb = sb;
-      switch (actorData.data.details.size.value)
+      switch (actorData.data.details.size.value) // Use the size to get the correct formula (size determined in prepare())
       {
-
         case "tiny":
         wounds = 1 + tb * tbMultiplier;
         break;
@@ -2829,23 +2808,28 @@ class ActorWfrp4e extends Actor {
   calculateRangeOrDamage(formula)
   {
     let actorData = this.data
-    try {formula = formula.toLowerCase();}
-    catch {return formula}
-
-    // Iterate through characteristics
-    for(let ch in actorData.data.characteristics)
+    try 
     {
-      // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
-      if (formula.includes(ch.concat('b')))
+      formula = formula.toLowerCase();
+      // Iterate through characteristics
+      for(let ch in actorData.data.characteristics)
       {
-        // Replace that abbreviation with the Bonus value
-        formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        // Determine if the formula includes the characteristic's abbreviation + B (SB, WPB, etc.)
+        if (formula.includes(ch.concat('b')))
+        {
+          // Replace that abbreviation with the Bonus value
+          formula = formula.replace(ch.concat('b'), actorData.data.characteristics[ch].bonus.toString());
+        }
       }
-    }
-    // To evaluate multiplication, replace x with *
-    formula = formula.replace('x', '*');
+      // To evaluate multiplication, replace x with *
+      formula = formula.replace('x', '*');
 
-    return eval(formula);
+      return eval(formula);
+    }
+    catch 
+    {
+      return formula
+    }
   }
 
     /**
@@ -2864,10 +2848,7 @@ class ActorWfrp4e extends Actor {
     let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
 
     // Add those missing basic skills
-    for(let skill of skillsToAdd)
-    {
-      await this.createOwnedItem(skill)
-    }
+    this.createManyEmbeddedEntities("OwnedItem", skillsToAdd);
   }
 
   /**
@@ -2884,6 +2865,8 @@ class ActorWfrp4e extends Actor {
    */
   static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
   {
+    if (!opposeData.damage)
+      return "<b>Error</b>: No damage values. Ensure the attacker is using a damage-causing item, like a weapon."
     // If no damage value, don't attempt anything
     if (!opposeData.damage.value)
       return "Cannot automate damage (likely due to Tiring)"
@@ -3032,6 +3015,241 @@ class ActorWfrp4e extends Actor {
     actor.update({"data.status.wounds.value" : newWounds})
     return updateMsg;
   }
+
+
+  
+  /* --------------------------------------------------------------------------------------------------------- */
+  /* -------------------------------------- Auto-Advancement Functions --------------------------------------- */
+  /* --------------------------------------------------------------------------------------------------------- */
+  /**
+   * These functions are primarily for NPCs and Creatures and their automatic advancement capabilities. 
+   *
+  /* --------------------------------------------------------------------------------------------------------- */
+
+
+  /**
+   * Advances an actor's skills based on their species and character creation rules
+   * 
+    * Per character creation, 3 skills from your species list are advanced by 5, and 3 more are advanced by 3.
+    * This functions uses the Foundry Roll class to randomly select skills from the list (defined in config.js)
+    * and advance the first 3 selected by 5, and the second 3 selected by 3. This function uses the advanceSkill()
+    * helper defined below.
+   */
+  async _advanceSpeciesSkills() 
+  {
+    let skillList
+
+    // A species may not be entered in the actor, so use some error handling.
+    try
+    {
+      skillList = WFRP4E.speciesSkills[this.data.data.details.species.value];
+      if (!skillList)
+      {
+        // findKey() will do an inverse lookup of the species key in the species object defined in config.js, and use that if 
+        // user-entered species value does not work (which it probably will not)
+        skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
+        if (!skillList)
+        {
+          throw "Could not add skills for species " + this.data.data.details.species.value;
+        }
+      }
+    }
+    catch(error)
+    {
+        ui.notifications.info("Could not find species " + this.data.data.details.species.value)
+        console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+        throw error
+    }
+    // The Roll class used to randomly select skills
+    let skillSelector = new Roll(`1d${skillList.length}- 1`);
+    skillSelector.roll().total;
+
+    // Store selected skills
+    let skillsSelected = [];
+    while (skillsSelected.length < 6)
+    {
+      skillSelector = skillSelector.reroll()
+      if (!skillsSelected.includes(skillSelector.total)) // Do not push duplicates
+        skillsSelected.push(skillSelector.total);
+    }
+
+    // Advance the first 3 by 5, advance the second 3 by 3.
+    for (let skillIndex = 0; skillIndex < skillsSelected.length; skillIndex++)
+    {
+      if (skillIndex <= 2)
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 5)
+      else
+        await this._advanceSkill(skillList[skillsSelected[skillIndex]], 3)
+    }
+  }
+
+
+  /**
+   * Advances an actor's talents based on their species and character creation rules
+   * 
+   * Character creation rules for talents state that you get all talents in your species, but there
+   * are a few where you must choose between two instead. See config.js for how the species talent 
+   * object is set up for support in this. Basically species talents are an array of strings, however
+   * ones that offer a choice is formatted as "<talent1>, <talent2>", each talent being a choice. Finally,
+   * the last element of the talent list is a number denoting the number of random talents. This function uses
+   * the advanceTalent() helper defined below.
+   */
+  async _advanceSpeciesTalents() 
+  {
+    // A species may not be entered in the actor, so use some error handling.
+    let talentList
+    try
+    {
+      talentList = WFRP4E.speciesTalents[this.data.data.details.species.value];
+      if (!talentList)
+      {
+        // findKey() will do an inverse lookup of the species key in the species object defined in config.js, and use that if 
+        // user-entered species value does not work (which it probably will not)
+        talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
+        if (!talentList)
+          throw "Could not add talents for species " + this.data.data.details.species.value;
+      }
+    }
+    catch (error)
+    {
+      ui.notifications.info("Could not find species " + this.data.data.details.species.value)
+      console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+      throw error
+    }
+    let talentSelector;
+    for (let talent of talentList)
+    {
+      if (!isNaN(talent)) // If is a number, roll on random talents
+      {
+        for (let i = 0; i < talent; i++)
+        {
+          let result = WFRP_Tables.rollTable("talents")
+          await this._advanceTalent(result.name);
+        }
+        continue
+      }
+      // If there is a comma, talent.split() will yield an array of length > 1
+      let talentOptions = talent.split(',').map(function(item) {
+        return item.trim();
+      });
+
+      // Randomly choose a talent option and advance it.
+      if (talentOptions.length > 1)
+      {
+        talentSelector = new Roll(`1d${talentOptions.length} - 1`)
+          await this._advanceTalent(talentOptions[talentSelector.roll().total])
+      }
+      else // If no option, simply advance the talent.
+      {
+        await this._advanceTalent(talent)
+      }
+    }
+
+  }
+
+
+  /**
+   * Adds (if needed) and advances a skill by the specified amount.
+   * 
+   * As the name suggests, this function advances any given skill, if 
+   * the actor does not currently have that skill, it will be added 
+   * from the compendium and advanced. Note that this function is neither
+   * used by manually advancing skills nor when clicking on advancement 
+   * indicators. This will simply add the advancement value with no
+   * other processing.
+   * 
+   * @param {String} skillName    Name of the skill to advance/add
+   * @param {Number} advances     Advances to add to the skill
+   */
+  async _advanceSkill(skillName, advances)
+  {
+    // Look through items and determine if the actor has the skill
+    let existingSkill = this.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    // If so, simply update the skill with the new advancement value. 
+    if (existingSkill)
+    {
+      // If the existing skill has a greater amount of advances, use the greater value instead (make no change) - ??? Is this needed? I'm not sure why I did this. TODO: Evaluate.
+      existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
+      await this.updateEmbeddedEntity("OwnedItem", existingSkill);
+      return;
+    }
+
+    // If the actor does not already own skill, search through compendium and add it
+    try
+    {
+      // See findSkill() for a detailed explanation of how it works
+      // Advanced find function, returns the skill the user expects it to return, even with skills not included in the compendium (Lore (whatever))
+      let skillToAdd = await WFRP_Utility.findSkill(skillName)
+      skillToAdd.data.data.advances.value = advances;
+      await this.createEmbeddedEntity("OwnedItem", skillToAdd.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding skill " + skillName +": " + error);
+      ui.notifications.error("Something went wrong when adding skill " + skillName +": " + error);
+    }
+  }
+
+  /**
+   * Adds the given talent to the actor
+   * 
+   * In my implementation, adding a talent is the same as advancing a talent. See
+   * prepareTalent() and you'll see that the total number of any given talent is the
+   * advencement value.
+   * 
+   * @param {String} talentName     Name of the talent to add/advance.
+   */
+  async _advanceTalent(talentName)
+  {
+    try
+    {
+      // See findTalent() for a detailed explanation of how it works
+      // Advanced find function, returns the Talent the user expects it to return, even with Talents not included in the compendium (Etiquette (whatever))
+      let talent = await WFRP_Utility.findTalent(talentName);
+      await this.createEmbeddedEntity("OwnedItem", talent.data);
+    }
+    catch(error) {
+      console.error("Something went wrong when adding talent " + talentName +": " + error);
+      ui.notifications.error("Something went wrong when adding talent " + talentName +": " + error);
+    }
+  }
+
+    /**
+     * Advance NPC based on given career
+     * 
+     * A specialized function used by NPC type Actors that triggers when you click on a 
+     * career to be "complete". This takes all the career data and uses it (and the helpers
+     * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
+     * correct amount to be considered complete), advances all characteristics similarly, and 
+     * adds all talents.
+     * 
+     * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
+     * However, I find deleting the ones you don't want to be much easier than trying to pick and 
+     * choose the ones you do want.
+     *
+     * @param {Object} careerData     Career type Item to be used for advancement.
+     * 
+     * TODO Refactor for embedded entity along with the helper functions
+     */
+    async _advanceNPC(careerData) 
+    {
+      let updateObj = {};
+      let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
+  
+      // Update all necessary characteristics to the advancesNeeded
+      for (let advChar of careerData.characteristics)
+        if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+  
+      // Advance all skills in the career
+      for (let skill of careerData.skills)
+        await this._advanceSkill(skill, advancesNeeded);
+  
+      // Add all talents in the career
+      for (let talent of careerData.talents)
+        await this._advanceTalent(talent);
+  
+      this.update(updateObj);
+    }
 }
 
 // Assign the actor class to the CONFIG

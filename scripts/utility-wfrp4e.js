@@ -149,20 +149,24 @@ class WFRP_Utility
   static async findSkill(skillName)
   {
     let skillList = [];
-    let pack = game.packs.find(p => p.collection == "wfrp4e.skills")
-    await pack.getIndex().then(index => skillList = index);
-    // Search for specific skill (won't find unlisted specializations)
-    let searchResult = skillList.find(s => s.name == skillName)
-    if (!searchResult)
-      searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
+    let packs = game.packs.filter(p => p.metadata.tag == "skill")
+    for (let pack of packs)
+    {
+      await pack.getIndex().then(index => skillList = index);
+      // Search for specific skill (won't find unlisted specializations)
+      let searchResult = skillList.find(s => s.name == skillName)
+      if (!searchResult)
+        searchResult = skillList.find(s => s.name.split("(")[0].trim() == skillName.split("(")[0].trim())
 
-    if (!searchResult)
-      throw "Could not find skill (or specialization of) " + skillName + " in compendum"
-
-    let dbSkill;
-    await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
-    dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
-    return dbSkill;
+      if (searchResult)
+      {
+        let dbSkill;
+        await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
+        dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+        return dbSkill;
+      }
+    }
+    throw "Could not find skill (or specialization of) " + skillName + " in compendum"
 
   }
 
@@ -171,21 +175,24 @@ class WFRP_Utility
   static async findTalent(talentName)
   {
     let talentList = [];
-    let pack = game.packs.find(p => p.collection == "wfrp4e.talents")
-    await pack.getIndex().then(index => talentList = index);
-    // Search for specific skill (won't find unlisted specializations)
-    let searchResult = talentList.find(t => t.name == talentName)
-    if (!searchResult)
-      searchResult = talentList.find(t => t.name.split("(")[0].trim() == talentName.split("(")[0].trim())
+    let packs = game.packs.filter(p => p.metadata.tag == "talent")
+    for (let pack of packs)
+    {
+      await pack.getIndex().then(index => talentList = index);
+      // Search for specific skill (won't find unlisted specializations)
+      let searchResult = talentList.find(t => t.name == talentName)
+      if (!searchResult)
+        searchResult = talentList.find(t => t.name.split("(")[0].trim() == talentName.split("(")[0].trim())
 
-    if (!searchResult)
-      throw "Could not find skill (or specialization of) " + talentName + " in compendum"
-
-    let dbTalent;
-    await pack.getEntity(searchResult.id).then(packTalent  => dbTalent = packTalent);
-    dbTalent.data.name = talentName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
-    return dbTalent;
-
+      if (searchResult)
+      {
+        let dbTalent;
+        await pack.getEntity(searchResult.id).then(packTalent  => dbTalent = packTalent);
+        dbTalent.data.name = talentName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added intsead of <Skill (Specialization)>
+        return dbTalent;
+      }
+    }
+    throw "Could not find skill (or specialization of) " + talentName + " in compendium"
   }
 
   /* -------------------------------------------- */

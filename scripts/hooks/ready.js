@@ -37,7 +37,32 @@ Hooks.on("ready", async () => {
        }
      }
 
-     
+     FilePicker.browse("user", `worlds/${game.world.name}/tables`).then(resp => {
+      try 
+      {
+      if (resp.error || !resp.target.includes("tables"))
+        throw ""
+      for (var file of resp.files)
+      {
+        try {
+          if (!file.includes(".json"))
+            continue
+          let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
+
+          fetch(file).then(r=>r.json()).then(async records => {
+           WFRP_Tables[filename] = records;
+          })
+        }
+        catch(error) {
+         console.error("Error reading " + file + ": " + error)
+        }
+      }
+    }
+    catch
+    {
+      // Do nothing
+    }   
+  })
 
 
     // i = 0;
