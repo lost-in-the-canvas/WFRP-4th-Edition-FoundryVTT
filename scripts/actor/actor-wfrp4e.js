@@ -2092,7 +2092,7 @@ class ActorWfrp4e extends Actor {
     // ******************************** Container Setup ***********************************
 
     // containerMissing is an array of items whose container does not exist (needed for when a container is deleted)
-    var containerMissing = inContainers.filter(i => !containers.items.find(c => c.id == i.data.location.value));
+    var containerMissing = inContainers.filter(i => !containers.items.find(c => c._id == i.data.location.value));
     for (var itemNoContainer of containerMissing) // Reset all items without container references (items that were removed from a contanier)
       itemNoContainer.data.location.value = 0;
     
@@ -2103,7 +2103,7 @@ class ActorWfrp4e extends Actor {
     for (var cont of containers.items) // For each container
     {
       // All items referencing (inside) that container
-      var itemsInside = inContainers.filter(i => i.data.location.value == cont.id);
+      var itemsInside = inContainers.filter(i => i.data.location.value == cont._id);
       itemsInside.map(function (item) 
       { // Add category of item to be displayed
         if (item.type == "trapping")
