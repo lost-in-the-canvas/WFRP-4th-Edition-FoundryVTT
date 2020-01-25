@@ -57,17 +57,12 @@ class ActorWfrp4e extends Actor {
     // If character, automatically add basic skills and money items
     if (data.type == "character")
     {
-      let id = 1;
       for (let sk of basicSkills) // Add basic skills
       {
-        sk.id = id;
-        id++;
         data.items.push(sk);
       }
       for (let m of moneyItems)   // Add money items, with a quantity of 0
       {
-        m.id = id;
-        id++;
         m.data.quantity.value = 0;
         data.items.push(m);
       }
@@ -83,17 +78,12 @@ class ActorWfrp4e extends Actor {
           yes: {
             label: "Yes",
             callback: async dlg => {
-              let id = 1;
               for (let sk of basicSkills) // Add basic skills
               {
-                sk.id = id;
-                id++;
                 data.items.push(sk);
               }
               for (let m of moneyItems)   // Add the money items, with a quantity of 0
               {
-                m.id = id;
-                id++;
                 m.data.quantity.value = 0;
                 data.items.push(m);
               }
@@ -438,7 +428,7 @@ class ActorWfrp4e extends Actor {
         else // If the actor is not a token
         {
           // If it is NOT the actor's turn
-          if (currentTurn && currentTurn.tokenId != this.token.id)
+          if (currentTurn && currentTurn.tokenId != this.token._id)
             slBonus = this.data.flags.defensive;
 
           else // If it is the actor's turn
@@ -1025,7 +1015,7 @@ class ActorWfrp4e extends Actor {
     {
       cardOptions.speaker.alias = this.token.data.name; // Use the token name instead of the actor name
       cardOptions.speaker.token = this.token.data._id;
-      cardOptions.speaker.scene = canvas.scene.id
+      cardOptions.speaker.scene = canvas.scene._id
       cardOptions.flags.img = this.token.data.img; // Use the token image instead of the actor image
     }
     else // If a linked actor - use the currently selected token's data if the actor id matches
@@ -1202,7 +1192,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "castOverride";
 
     // Update spell to reflect SL from channelling resetting to 0
-    WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {id: testData.extra.spell.id, 'data.cn.SL' : 0});
+    WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {_id: testData.extra.spell._id, 'data.cn.SL' : 0});
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -2047,7 +2037,7 @@ class ActorWfrp4e extends Actor {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Deleting " + i.name);
-        this.deleteEmbeddedEntity("OwnedItem", i.id);
+        this.deleteEmbeddedEntity("OwnedItem", i._id);
       }
     } // END ITEM SORTING
 
@@ -2150,7 +2140,7 @@ class ActorWfrp4e extends Actor {
 
     // Add armor trait to AP object
     let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
-    if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait.id))) 
+    if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait._id))) 
     {
       for (let loc in AP) 
       {

@@ -192,10 +192,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         else
           characteristicList.push(charChanged);
   
-        if (this.item.actor)
-          this.item.actor.updateEmbeddedEntity("OwnedItem", {id: this.item.data.data.id, 'data.characteristics' : characteristicList})
-        else
-          await this.item.update({'data.characteristics' : characteristicList})
+        await this.item.update({'data.characteristics' : characteristicList})
   
       }),
   
@@ -218,7 +215,7 @@ class ItemSheetWfrp4e extends ItemSheet {
         {
           case 'skills':
           {
-            await this.item.update({id: this.item.data.data.id, 'data.skills': list});
+            await this.item.update({'data.skills': list});
           }
           break;
   

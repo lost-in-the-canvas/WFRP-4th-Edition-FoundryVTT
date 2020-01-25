@@ -370,7 +370,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Change the AP Damaged value in the combat tab based no left click or right click
   html.find('.ap-value').mousedown(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
-    let APlocation =  $(ev.currentTarget).parents(".item").attr("data-location");
+    let APlocation =  $(ev.currentTarget).parents(".armour-box").attr("data-location");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (item.data.currentAP[APlocation] == -1)
       item.data.currentAP[APlocation] = item.data.maxAP[APlocation];
@@ -409,7 +409,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Click on the AP total in the combat tab - damage AP by one, prioritizing Armour trait over Armour Items
   html.find(".armour-total").mousedown(ev => {
-    let location = $(ev.currentTarget).closest(".column").find(".item").attr("data-location")
+    let location = $(ev.currentTarget).closest(".column").find(".armour-box").attr("data-location")
     if (!location) return;
     let armourTrait = this.actor.items.find(i => (i.data.name.toLowerCase() == "armour" || i.data.name.toLowerCase() == "armor") && i.data.type == "trait")
     if (armourTrait)
@@ -547,7 +547,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Manually increment/decrement spell SL for channelling 
   html.find('.sl-counter').mousedown(async ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
-    const spell = this.actor.getEmbeddedEntity("OwnedItem", itemId)
+    const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     switch (event.button)
     {
       case 0:
