@@ -7,11 +7,11 @@ Hooks.on("updateCombat", (combat) => {
         WFRP_Utility.displayRoundSummary(combat)
 
       if (game.settings.get("wfrp4e", "statusOnTurnStart"))
-        WFRP_Utility.displayStatus(turn.token.id, combat.data.round);
+        WFRP_Utility.displayStatus(turn.token._id, combat.data.round);
   
       if (game.settings.get("wfrp4e", "focusOnTurnStart"))
       {
-        canvas.tokens.get(turn.token.id).control();
+        canvas.tokens.get(turn.token._id).control();
         canvas.tokens.cycleTokens(1, true);  
       }
     }

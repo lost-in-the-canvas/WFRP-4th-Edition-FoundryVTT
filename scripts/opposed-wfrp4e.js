@@ -273,7 +273,7 @@ class OpposedWFRP {
                 attackMessageId : message.data._id, 
                 targetSpeaker: {
                   scene: target.scene.data._id,
-                  token: target.data.id,
+                  token: target.data._id,
                   scene: target.actor.data._id,
                   alias: target.data.name
                 }}
