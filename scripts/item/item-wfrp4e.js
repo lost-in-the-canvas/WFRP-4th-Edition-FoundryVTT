@@ -54,7 +54,7 @@ class ItemWfrp4e extends Item {
       data.properties.push("<b>Contraction:</b> " + data.contraction.value);
       data.properties.push("<b>Incubation:</b> " + data.incubation.value);
       data.properties.push("<b>Duration:</b> " + data.duration.value);
-      data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'>"+i.trim()+"</a>") );
+      data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> "+i.trim()+"</a>") );
       if (data.permanent.value)
         data.properties.push("<b>Permanent:</b> " + data.permanent.value);
       return data;
@@ -265,7 +265,7 @@ class ItemWfrp4e extends Item {
       properties.push("<b>Contraction:</b> " + data.contraction.value);
       properties.push("<b>Incubation:</b> " + `<a class = 'chat-roll'>${data.incubation.value}</a>`);
       properties.push("<b>Duration:</b> " + `<a class = 'chat-roll'>${data.duration.value}</a>`);
-      properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'>"+i.trim()+"</a>")).join(", "));
+      properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> "+i.trim()+"</a>")).join(", "));
       if (data.permanent.value)
         properties.push("<b>Permanent:</b> " + data.permanent.value);
       return properties;

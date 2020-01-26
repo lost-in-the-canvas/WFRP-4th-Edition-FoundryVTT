@@ -15354,3 +15354,20 @@ input.card-edit {
 button.capture-position {
   color: #CCC;
 }
+
+
+.condition-chat,
+.chat-roll,
+.table-click,
+.symptom-click,
+.skill-lookup,
+.talent-lookup,
+.skill-drag,
+.talent-drag {
+  background: #DDD;
+  border-radius: 2px;
+  padding: 0 2px;
+  border: 1px solid #BBB;
+  white-space: nowrap;
+  word-break: break-all;
+}

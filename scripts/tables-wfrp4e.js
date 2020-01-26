@@ -214,7 +214,7 @@ class WFRP_Tables {
         return tableHtml;
 
         case "talents": 
-          return `<b>Random Talent</b><br> <a class="talent-drag">${result.name}</a>`
+          return `<b>Random Talent</b><br> <a class="talent-drag"><i class="fas fa-suitcase"></i> ${result.name}</a>`
 
   
         default:
@@ -253,13 +253,13 @@ class WFRP_Tables {
         if (!showHidden)
         {
           if (!this[tableKey].hide)  
-            tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+            tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
           else
             hiddenTableCounter++;
         }
         else 
         {
-          tableMenu += `<a data-table='${tableKey}' class='table-click'><code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+          tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
         }
       }
       if (hiddenTableCounter)
@@ -273,7 +273,7 @@ class WFRP_Tables {
     static criticalCastMenu(crittable)
     {
       return "Choose from:<ul>" +            
-              `<li><b>Critical Cast</b>: If the spell causes damage, it inflicts a <a class=table-click data-table=${crittable}><b>Critical Wound</b></a></li>`+
+              `<li><b>Critical Cast</b>: If the spell causes damage, it inflicts a <a class=table-click data-table=${crittable}><b><i class="fas fa-list"></i> Critical Wound</b></a></li>`+
               "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>"+
               "<li><b>Unstoppable Force</b>: If the spell is successfully cast, it cannot be dispelled.</li>"+
               "</ul";
@@ -293,7 +293,7 @@ class WFRP_Tables {
       let prompt =  `<h3>Select a column to roll on</h3>`
 
       for (let c of this[table].columns)
-        prompt += `<div><a class = "table-click" data-table="${table}" data-column = "${c}">${c}</a></div>`
+        prompt += `<div><a class = "table-click" data-table="${table}" data-column = "${c}"><i class="fas fa-list"></i> ${c}</a></div>`
         
       return prompt;
     }

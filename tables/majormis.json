@@ -7,15 +7,15 @@
     "range": [1, 5]
   }, {
     "name": "Hexeyes",
-    "description": "Your eyes turn an unnatural colour associated with your Lore for <b><a class = 'chat-roll'>1d10</a></b> hours. While your eyes are discoloured, you have 1 Blinded Condition that cannot be resolved by any means.",
+    "description": "Your eyes turn an unnatural colour associated with your Lore for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> hours. While your eyes are discoloured, you have 1 Blinded Condition that cannot be resolved by any means.",
     "range": [6, 10]
   }, {
     "name": "Aethyric Shock",
-    "description": "You suffer <b><a class = 'chat-roll'>1d10</a></b> wounds, ignoring your Toughness Bonus and Armour Points. Pass an Average (+20) Endurance Test, or also gain a Stunned Condition.",
+    "description": "You suffer <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> wounds, ignoring your Toughness Bonus and Armour Points. Pass an Average (+20) Endurance Test, or also gain a Stunned Condition.",
     "range": [11, 15]
   }, {
     "name": "Death Walker",
-    "description": "Your footsteps leave death in their wake. For the next <b><a class = 'chat-roll'>1d10</a></b> hours, any plant life near you withers and dies.",
+    "description": "Your footsteps leave death in their wake. For the next <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> hours, any plant life near you withers and dies.",
     "range": [16, 20]
   }, {
     "name": "Intestinal Rebellion",
@@ -27,39 +27,39 @@
     "range": [26, 30]
   }, {
     "name": "Speak in Tongues",
-    "description": "You gabble unintelligibly for <b><a class = 'chat-roll'>1d10</a></b> rounds. During this time, you cannot communicate verbally, or make any Casting Tests, although you may otherwise act normally.",
+    "description": "You gabble unintelligibly for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> rounds. During this time, you cannot communicate verbally, or make any Casting Tests, although you may otherwise act normally.",
     "range": [31, 35]
   }, {
     "name": "Swarmed",
-    "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After <b><a class = 'chat-roll'>1d10</a></b> rounds, if not yet destroyed, the swarm retreats.",
+    "description": "You are engaged by a swarm of aethyric Rats, Giant Spiders, Snakes, or similar (GM's choice). Use the standard profiles for the relevant creature type, adding the Swarm Creature Trait. After <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> rounds, if not yet destroyed, the swarm retreats.",
     "range": [36, 40]
   }, {
     "name": "Ragdoll",
-    "description": "You are flung <b><a class = 'chat-roll'>1d10</a></b> yards through the air in a random direction, taking <b><a class = 'chat-roll'>1d10</a></b> wounds on landing, ignoring Armour Points, and receiving the Prone Condition.",
+    "description": "You are flung <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> yards through the air in a random direction, taking <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> wounds on landing, ignoring Armour Points, and receiving the Prone Condition.",
     "range": [41, 45]
   }, {
     "name": "Limb Frozen",
-    "description": "One limb (randomly determined) is frozen in place for <b><a class = 'chat-roll'>1d10</a></b> hours. The limb is useless, as if it had been Amputated.",
+    "description": "One limb (randomly determined) is frozen in place for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> hours. The limb is useless, as if it had been Amputated.",
     "range": [46, 50]
   }, {
     "name": "Darkling Sight",
-    "description": "You lose the benefit of the Second Sight Talent for <b><a class = 'chat-roll'>1d10</a></b> hours. Channelling Tests also suffer a penalty of -20 for the duration.",
+    "description": "You lose the benefit of the Second Sight Talent for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> hours. Channelling Tests also suffer a penalty of -20 for the duration.",
     "range": [51, 55]
   }, {
     "name": "Chaotic Foresight",
-    "description": "Gain a bonus pool of <b><a class = 'chat-roll'>1d10</a></b> Fortune points (this may take you beyond your natural limit). Every time you spend one of these points, gain 1 Corruption point. Any of these points remaining at the end of the session are lost.",
+    "description": "Gain a bonus pool of <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Fortune points (this may take you beyond your natural limit). Every time you spend one of these points, gain 1 Corruption point. Any of these points remaining at the end of the session are lost.",
     "range": [56, 60]
   }, {
     "name": "Levititation",
-    "description": "You are borne aloft on the Winds of Magic, floating <b><a class = 'chat-roll'>1d10</a></b> yards above the ground for <b><a class = 'chat-roll'>1d10</a></b> minutes. Other characters may forcibly move you, and you may move using spells, wings or similar, but will continually return to your levitating position if otherwise left alone. Refer to the Falling rules (see page 166) for what happens when Levitation ends.",
+    "description": "You are borne aloft on the Winds of Magic, floating <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> yards above the ground for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> minutes. Other characters may forcibly move you, and you may move using spells, wings or similar, but will continually return to your levitating position if otherwise left alone. Refer to the Falling rules (see page 166) for what happens when Levitation ends.",
     "range": [61, 65]
   }, {
     "name": "Regurgitation",
-    "description": "You spew uncontrollably, throwing up far more foul-smelling vomitus than your body can possibly contain. Gain the Stunned Condition, which lasts for <b><a class = 'chat-roll'>1d10</a></b> Rounds.",
+    "description": "You spew uncontrollably, throwing up far more foul-smelling vomitus than your body can possibly contain. Gain the Stunned Condition, which lasts for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Rounds.",
     "range": [66, 70]
   }, {
     "name": "Chaos Quake",
-    "description": "All creatures within <b><a class = 'chat-roll'>1d10</a></b>0 yards must pass an Average (+0) Athletics Test or gain the Prone Condition.",
+    "description": "All creatures within <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a>0 yards must pass an Average (+0) Athletics Test or gain the Prone Condition.",
     "range": [71, 75]
   }, {
     "name": "Traitor's Heart",
@@ -71,15 +71,15 @@
     "range": [81, 85]
   }, {
     "name": "Hellish Stench",
-    "description": "You now smell really bad! You gain the Distracting Creature Trait (see page 339), and probably the enmity of anyone with a sense of smell. This lasts for <b><a class = 'chat-roll'>1d10</a></b> hours.",
+    "description": "You now smell really bad! You gain the Distracting Creature Trait (see page 339), and probably the enmity of anyone with a sense of smell. This lasts for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> hours.",
     "range": [86, 90]
   }, {
     "name": "Power Drain",
-    "description": "You are unable to use the Talent used to cast the spell (usually Arcane Magic , though it could be Chaos Magic , or a similar Talent), for <b><a class = 'chat-roll'>1d10</a></b> minutes.",
+    "description": "You are unable to use the Talent used to cast the spell (usually Arcane Magic , though it could be Chaos Magic , or a similar Talent), for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> minutes.",
     "range": [91, 95]
   }, {
     "name": "Aethyric Feedback",
-    "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers <b><a class = 'chat-roll'>1d10</a></b> wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly.",
+    "description": "Everyone within a number of yards equal to your Willpower Bonus — friend and foe alike — suffers <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> wounds, ignoring Toughness Bonus and Armour Points, and receives the Prone Condition. If there are no targets in range, the magic has nowhere to vent, so your head explodes, killing you instantly.",
     "range": [96, 100]
   }]
 }

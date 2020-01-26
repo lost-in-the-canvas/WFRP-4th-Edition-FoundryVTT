@@ -2986,7 +2986,7 @@ class ActorWfrp4e extends Actor {
 
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
-      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" >Critical</a>`
+      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> Critical</a>`
 
     else if (impenetrable)
       updateMsg += `<br>Impenetrable - Criticals Nullified`

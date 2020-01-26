@@ -69,12 +69,12 @@
   }, {
     "name": "Concussive Blow",
     "wounds": "4",
-    "description": "Your brain rattles in your skull as blood spurts from your nose and ears. Take 1 Deafened , 2 Bleeding , and <b><a class = 'chat-roll'>1d10</a></b> Stunned Conditions. Gain a Fatigued Condition that lasts for <b><a class = 'chat-roll'>1d10</a></b> days. If you receive another Critical Wound to your head while suffering this Fatigued Condition, make an Average (+20) Endurance Test or also gain an Unconscious Condition.",
+    "description": "Your brain rattles in your skull as blood spurts from your nose and ears. Take 1 Deafened , 2 Bleeding , and <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Stunned Conditions. Gain a Fatigued Condition that lasts for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> days. If you receive another Critical Wound to your head while suffering this Fatigued Condition, make an Average (+20) Endurance Test or also gain an Unconscious Condition.",
     "range": [76, 80]
   }, {
     "name": "Smashed Mouth",
     "wounds": "4",
-    "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose <b><a class = 'chat-roll'>1d10</a></b> teeth — Amputation (Easy).",
+    "description": "With a sickening crunch, your mouth is suddenly filled with broken teeth and blood. Gain 2 Bleeding Conditions. Lose <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> teeth — Amputation (Easy).",
     "range": [81, 85]
   }, {
     "name": "Mangled Ear",
@@ -94,12 +94,12 @@
   }, {
     "name": "Mangled Jaw",
     "wounds": "5",
-    "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (-30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and <b><a class = 'chat-roll'>1d10</a></b> teeth — Amputation (Hard).",
+    "description": "The blow almost removes your jaw as it utterly destroys your tongue, sending teeth flying in a shower of blood. Gain 4 Bleeding and 3 Stunned Conditions. Make a Very Hard (-30) Endurance Test or gain an Unconscious Condition. Suffer a Broken Bone (Major) injury and lose your tongue and <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> teeth — Amputation (Hard).",
     "range": [97, 99]
   }, {
     "name": "Decapitated",
     "wounds": "Death",
-    "description": "Your head is entirely severed from your neck and soars through the air, landing <b><a class = 'chat-roll'>1d10</a></b> feet away in a random direction (see Scatter). Your body collapses, instantly dead.",
+    "description": "Your head is entirely severed from your neck and soars through the air, landing <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> feet away in a random direction (see Scatter). Your body collapses, instantly dead.",
     "range": [100, 100]
   }]
 }

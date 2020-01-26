@@ -681,7 +681,7 @@ class DiceWFRP {
       })
 
       html.on("click", ".chat-roll", ev => {
-        let roll = ev.target.text;
+        let roll = ev.target.text.trim();
         let rollMode = game.settings.get("core", "rollMode");
         new Roll(roll).roll().toMessage({user : game.user._id, rollMode})
       })
@@ -691,7 +691,7 @@ class DiceWFRP {
       })
 
       html.on("click", ".condition-chat", ev => {
-        let cond = ev.target.text;
+        let cond = ev.target.text.trim();
         cond = cond.split(" ")[0]
         let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
         let condDescr = WFRP4E.conditionDescriptions[condkey];
