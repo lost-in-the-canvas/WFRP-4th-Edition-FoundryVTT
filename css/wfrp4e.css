@@ -917,6 +917,7 @@
     min-height: 50px;
     max-height: 50px;
   }
+    #macros .directory-footer button,
     #sidebar .directory-footer button {
       margin: 0 2%;
       padding: 2px 0px 0px 0px;
@@ -15431,7 +15432,7 @@ button.capture-position {
 .condition-chat,
 .chat-roll,
 .table-click,
-.symptom-click,
+.symptom-tag,
 .skill-lookup,
 .talent-lookup,
 .skill-drag,

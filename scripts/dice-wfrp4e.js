@@ -681,88 +681,19 @@ class DiceWFRP {
       })
 
       html.on("click", ".chat-roll", ev => {
-        let roll = ev.target.text.trim();
-        let rollMode = game.settings.get("core", "rollMode");
-        new Roll(roll).roll().toMessage({user : game.user._id, rollMode})
+        WFRP_Utility.handleRollClick(ev)
       })
 
       html.on("click", ".symptom-tag", ev => {
-        WFRP_Utility.postSymptom(ev.target.text)
+        WFRP_Utility.handleSymptomClick(ev)
       })
 
       html.on("click", ".condition-chat", ev => {
-        let cond = ev.target.text.trim();
-        cond = cond.split(" ")[0]
-        let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
-        let condDescr = WFRP4E.conditionDescriptions[condkey];
-        let messageContent = `<b>${cond}</b><br>${condDescr}`
-
-        let chatData = WFRP_Utility.chatDataSetup(messageContent)
-        ChatMessage.create(chatData);
+        WFRP_Utility.handleConditionClick(ev)
       })
 
-
       html.on('mousedown', '.table-click', ev => {
-        ev.preventDefault();
-        let sin = Number($(ev.currentTarget).attr("data-sin"));
-        let modifier = sin * 10 || 0;
-        let html;
-        let messageId = $(ev.currentTarget).parents('.message').attr("data-message-id");
-        let senderId = game.messages.get(messageId).user._id;
-        let chatOptions = {user : senderId, rollMode : game.settings.get("core", "rollMode")};
-
-
-        if ( ["gmroll", "blindroll"].includes(chatOptions.rollMode) ) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-        if ( chatOptions.rollMode === "blindroll" ) chatOptions["blind"] = true;
-
-        if (ev.button == 0)
-        {
-          if (ev.target.text == "Critical Cast")
-          {
-            html = WFRP_Tables.criticalCastMenu($(ev.currentTarget).attr("data-table"));
-          }
-
-          else if (ev.target.text == "Total Power")
-            html = WFRP_Tables.restrictedCriticalCastMenu();
-
-          else if ($(ev.currentTarget).attr("data-table") == "misfire")
-          {
-            let damage = $(ev.currentTarget).attr("data-damage")
-            html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
-          }
-          else if (sin)
-            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
-          else
-            html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: modifier}, $(ev.currentTarget).attr("data-column"));
-
-           chatOptions["content"] = html;
-          chatOptions["type"] = 0;
-          ChatMessage.create(chatOptions);
-
-        }
-        else if (ev.button == 2)
-        {
-          renderTemplate('systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
-            new Dialog({
-              title: "Table Modifier",
-              content: html,
-              buttons: {
-                roll: {
-                  label: "Roll",
-                  callback: (html) => {
-                    let tableModifier = html.find('[name="tableModifier"]').val();
-                    let minOne = html.find('[name="minOne"]').is(':checked');
-                    html = WFRP_Tables.formatChatRoll($(ev.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
-                    chatOptions["content"] = html;
-                    chatOptions["type"] = 0;
-                    ChatMessage.create(chatOptions);
-                  }
-                },
-              },
-              default: 'roll'
-            }).render(true);
-          })
-        }
+        WFRP_Utility.handleTableClick(ev)
       })
 
       html.on('focusout', '.card-edit', ev => {

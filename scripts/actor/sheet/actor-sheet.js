@@ -938,6 +938,24 @@ class ActorSheetWfrp4e extends ActorSheet {
     li.setAttribute("draggable", true);
     li.addEventListener("dragstart", handler, false);
   });
+
+  // ---- Listen for custom entity links -----
+  html.on("click", ".chat-roll", ev => {
+    WFRP_Utility.handleRollClick(ev)
+  })
+
+  html.on("click", ".symptom-tag", ev => {
+    WFRP_Utility.handleSymptomClick(ev)
+  })
+
+  html.on("click", ".condition-chat", ev => {
+    WFRP_Utility.handleConditionClick(ev)
+  })
+
+  html.on('mousedown', '.table-click', ev => {
+    WFRP_Utility.handleTableClick(ev)
+  })
+
   }
 
   /* --------------------------------------------------------------------------------------------------------- */

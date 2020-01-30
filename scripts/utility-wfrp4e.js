@@ -513,4 +513,107 @@ class WFRP_Utility
     return moneyItems
   }
 
+  static _replaceCustomLink(match, entityType, id, name)
+  {
+    switch (entityType)
+    {
+      case "Roll":
+        return `<a class="chat-roll" data-roll="${id}"><i class='fas fa-dice'></i> ${name ? name : id}</a>`
+      case "Table":
+          return `<a class = "table-click" data-table="${id}"><i class="fas fa-list"></i> ${(WFRP_Tables[id] && !name) ? WFRP_Tables[id].name : name}</a>`
+      case "Symptom":
+          return `<a class = "symptom-tag" data-symptom="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
+      case "Condition":
+          return `<a class = "condition-chat" data-cond="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
+    }
+  }
+
+  static handleTableClick(event)
+  {
+    let sin = Number($(event.currentTarget).attr("data-sin"));
+    let modifier = sin * 10 || 0;
+    let html;
+    let chatOptions = this.chatDataSetup("", game.settings.get("core", "rollMode"))
+
+    if (event.button == 0)
+    {
+      if (event.target.text == "Critical Cast")
+      {
+        html = WFRP_Tables.criticalCastMenu($(event.currentTarget).attr("data-table"));
+      }
+
+      else if (event.target.text == "Total Power")
+        html = WFRP_Tables.restrictedCriticalCastMenu();
+
+      else if ($(event.currentTarget).attr("data-table") == "misfire")
+      {
+        let damage = $(event.currentTarget).attr("data-damage")
+        html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
+      }
+      else if (sin)
+        html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"), {modifier: modifier, maxSize: false});
+      else
+        html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"), {modifier: modifier}, $(event.currentTarget).attr("data-column"));
+
+       chatOptions["content"] = html;
+      chatOptions["type"] = 0;
+      ChatMessage.create(chatOptions);
+
+    }
+    else if (event.button == 2)
+    {
+      renderTemplate('systems/wfrp4e/templates/chat/table-dialog.html').then(html => {
+        new Dialog({
+          title: "Table Modifier",
+          content: html,
+          buttons: {
+            roll: {
+              label: "Roll",
+              callback: (html) => {
+                let tableModifier = html.find('[name="tableModifier"]').val();
+                let minOne = html.find('[name="minOne"]').is(':checked');
+                html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"), {modifier: tableModifier, minOne : minOne});
+                chatOptions["content"] = html;
+                chatOptions["type"] = 0;
+                ChatMessage.create(chatOptions);
+              }
+            },
+          },
+          default: 'roll'
+        }).render(true);
+      })
+    }
+  }
+
+  static handleConditionClick(event)
+  {
+    let cond = $(event.currentTarget).attr("data-cond")
+    if (!cond)
+      cond = event.target.text.trim();
+    cond = cond.split(" ")[0]
+    let condkey = WFRP_Utility.findKey(cond, WFRP4E.conditions);
+    let condDescr = WFRP4E.conditionDescriptions[condkey];
+    let messageContent = `<b>${cond}</b><br>${condDescr}`
+
+    let chatData = WFRP_Utility.chatDataSetup(messageContent)
+    ChatMessage.create(chatData);
+  }
+
+  static handleSymptomClick(event)
+  {
+    let symptom = $(event.currentTarget).attr("data-symptom")
+    if (!symptom)
+      symptom=event.target.text;
+    WFRP_Utility.postSymptom(symptom)
+  }
+
+  static handleRollClick(event)
+  {
+    let roll = $(event.currentTarget).attr("data-roll")
+    if (!roll)
+      roll = event.target.text.trim();
+    let rollMode = game.settings.get("core", "rollMode");
+    new Roll(roll).roll().toMessage({user : game.user._id, rollMode})
+  }
+
 }

@@ -973,3 +973,10 @@ const DAMAGE_TYPE = {
   IGNORE_TB : 2,
   IGNORE_ALL : 3
 }
+
+const PSEUDO_ENTITIES = [
+  "Table",
+  "Condition",
+  "Symptom",
+  "Roll"
+]
