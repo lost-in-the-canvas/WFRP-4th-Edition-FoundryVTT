@@ -440,7 +440,7 @@ WFRP4E.weaponGroups = {
 };
 
 // Given a group, what's the primary type, melee or ranged
-WFRP4E.groupToType = {
+WFRP4E.defaultAttackType = {
   "basic": "Melee",
   "cavalry": "Melee",
   "fencing": "Melee",

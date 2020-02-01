@@ -34,7 +34,8 @@
     "./scripts/hooks/renderChatMessage.js",
     "./scripts/hooks/renderJournalSheet.js",
     "./scripts/hooks/updateCombat.js",
-    "./scripts/hooks/createChatMessage.js"
+    "./scripts/hooks/createChatMessage.js",
+    "./scripts/hooks/hotbarDrop.js"
   ],
   "styles": ["./css/wfrp4e.css"],
   "packs": [

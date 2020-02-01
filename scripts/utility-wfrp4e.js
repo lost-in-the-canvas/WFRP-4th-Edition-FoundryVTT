@@ -616,4 +616,40 @@ class WFRP_Utility
     new Roll(roll).roll().toMessage({user : game.user._id, rollMode})
   }
 
+
+  static rollItemMacro(itemName, itemType) 
+  {
+    const speaker = ChatMessage.getSpeaker();
+    let actor;
+    if ( speaker.token ) actor = game.actors.tokens[speaker.token];
+    if ( !actor ) actor = game.actors.get(speaker.actor);
+    let item
+    if (itemType == "characteristic")
+    {
+      return actor.setupCharacteristic(itemName)
+    }
+    else 
+    {
+      item = actor ? actor.items.find(i => i.name === itemName && i.type == itemType) : null;
+    }
+    if ( !item ) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
+  
+    item = item.data;
+
+    // Trigger the item roll
+    switch(item.type)
+    {
+      case "weapon" :
+        return actor.setupWeapon(item)
+      case "spell" : 
+        return actor.spellDialog(item) 
+      case "prayer" :
+        return actor.setupPrayer(item) 
+      case "trait" : 
+        return actor.setupTrait(item) 
+      case "skill" : 
+        return actor.setupSkill(item) 
+    }
+  }
+
 }

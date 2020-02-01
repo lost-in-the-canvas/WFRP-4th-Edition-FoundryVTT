@@ -348,6 +348,12 @@ class ActorWfrp4e extends Actor {
     let wep = this.prepareWeaponCombat(duplicate(weapon));
     let ammo; // Ammo object, if needed
 
+    // Use default attack type based on weapon group if event is not available (macros)
+    if (!event)
+    {
+      event = {attackType : WFRP4E.defaultAttackType[weapon.data.weaponGroup.value].toLowerCase()}
+    }
+
     let testData = {
       target : 0,
       hitLocation : true,

@@ -984,6 +984,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
+      sheetTab : this.actor.data.flags["_sheetTab"],
       actorId: this.actor.id,
       data: item,
       root : event.currentTarget.getAttribute("root")
