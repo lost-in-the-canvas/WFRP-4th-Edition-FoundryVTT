@@ -951,6 +951,9 @@ WFRP4E.traitBonuses = {
   "tough" : { 
     "t" :   10,
     "wp" :  10
+  },
+  "swarm" : { 
+    "ws" :   10
   }
 }
 

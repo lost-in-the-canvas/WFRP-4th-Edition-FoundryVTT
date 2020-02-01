@@ -2632,6 +2632,12 @@ class ActorWfrp4e extends Actor {
         break;
       }
     }
+
+    let swarmTrait = actorData.traits.find(t => t.name.toLowerCase().includes("swarm"))
+    if (swarmTrait)
+      wounds *= 5;
+
+
     return wounds
   }
 
