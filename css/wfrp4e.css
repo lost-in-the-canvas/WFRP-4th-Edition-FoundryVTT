@@ -15444,3 +15444,7 @@ button.capture-position {
   white-space: nowrap;
   word-break: break-all;
 }
+
+.table-input {
+  width: 200px;
+}

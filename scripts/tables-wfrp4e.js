@@ -133,6 +133,8 @@ class WFRP_Tables {
       }
 
       let result = this.rollTable(table, options, column);
+      if (options.lookup && !game.user.isGM)
+        result.roll = "Lookup: " + result.roll;
       try{
       if (result.roll <= 0 && !options.minOne)
         return `Roll: ${result.roll} - canceled`
