@@ -844,7 +844,8 @@ class ActorWfrp4e extends Actor {
       hitLocation : false,
       extra : {
         prayer : preparedPrayer,
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        sin: this.data.data.status.sin.value
       }
     };
 
@@ -2049,6 +2050,7 @@ class ActorWfrp4e extends Actor {
 
     // Prepare weapons for combat after items passthrough for efficiency - weapons need to know the ammo possessed, so instead of iterating through
     // all items to find, iterate through the inventory.ammo array we just made
+    let totalShieldDamage = 0; // Used for damage tooltip
     for (let wep of inventory.weapons.items) 
     {
       // We're only preparing equipped items here - this is for displaying weapons in the combat tab after all
@@ -2062,6 +2064,7 @@ class ActorWfrp4e extends Actor {
         {
           let shieldDamage = wep.data.APdamage || 0;
           AP.shield += (parseInt(shieldProperty.split(" ")[1]) - shieldDamage);
+          totalShieldDamage += shieldDamage;
         }
         // Keep a running total of defensive weapons equipped
         if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
@@ -2221,6 +2224,7 @@ class ActorWfrp4e extends Actor {
       criticalCount: criticals.length,
       encumbrance: enc,
       ingredients: ingredients,
+      totalShieldDamage : totalShieldDamage,
       ["flags.hasSpells"]: hasSpells,
       ["flags.hasPrayers"]: hasPrayers
     }

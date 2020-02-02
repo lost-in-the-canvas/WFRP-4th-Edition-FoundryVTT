@@ -255,13 +255,13 @@ class WFRP_Tables {
         if (!showHidden)
         {
           if (!this[tableKey].hide)  
-            tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+            tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code></a> - ${this[tableKey].name}<br>`
           else
             hiddenTableCounter++;
         }
         else 
         {
-          tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code> - ${this[tableKey].name}<br></a>`
+          tableMenu += `<a data-table='${tableKey}' class='table-click'><i class="fas fa-list"></i> <code>${tableKey}</code></a> - ${this[tableKey].name}<br>`
         }
       }
       if (hiddenTableCounter)

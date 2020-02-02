@@ -189,6 +189,10 @@ class ItemWfrp4e extends Item
 			properties.push("Two Handed");
 		if (data.reach.value)
 			properties.push("Reach: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
+		if (data.weaponDamage)
+			properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
+		if (data.APdamage)
+			properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
 
 		properties = properties.filter(p => p != "Special");
 		if (data.special.value)
@@ -461,6 +465,8 @@ class ItemWfrp4e extends Item
 			properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
 		if (data.weaponDamage)
 			properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
+		if (data.APdamage)
+			properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
 		if (data.twohanded.value)
 			properties.push("<b>Two Handed</b>");
 		if (data.reach.value)
