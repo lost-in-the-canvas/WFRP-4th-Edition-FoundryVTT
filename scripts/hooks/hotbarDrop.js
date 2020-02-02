@@ -44,7 +44,7 @@ Hooks.on("hotbarDrop", async (bar, data, slot) =>
       macro = await Macro.create({
       name: journal.data.name,
       type : "script",
-      img: journal.data.img,
+      img: "systems/wfrp4e/icons/buildings/scroll.png",
       command : command
       }, {displaySheet: false})
       game.user.assignHotbarMacro(macro, slot);
