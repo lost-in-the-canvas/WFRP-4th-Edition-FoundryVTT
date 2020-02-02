@@ -950,6 +950,27 @@ class DiceWFRP
 			let chatData = WFRP_Utility.chatDataSetup(html)
 			ChatMessage.create(chatData);
 		})
+
+		// Cancel an opposed test - triggered by deleting the opposed message
+		html.on("click", ".message-delete", event => {
+			let message = game.messages.get($(event.currentTarget).parents(".message").attr("data-message-id"))
+			let targeted = message.data.flags.unopposeData // targeted opposed test
+			let manual = message.data.flags.opposedStartMessage // manual opposed test
+			if (!targeted && !manual)
+				return;
+			
+			if (targeted)
+			{
+				let target = canvas.tokens.get(message.data.flags.unopposeData.targetSpeaker.token)
+				target.actor.update({"-=flags.oppose" : null}) // After opposing, remove oppose
+			}
+			if (manual)
+			{
+				if (message.data.flags.opposeData)
+					OpposedWFRP.clearOpposed();
+			}
+			ui.notifications.notify("Opposed Test Canceled")			
+		})
 	}
 
 	/**
