@@ -19,12 +19,12 @@
   }, {
     "wounds": "2",
     "name": "Winded",
-    "description": "Gain 2 Stunned Conditions. Pass a Simple Average (+20) Endurance Test, or gain the Prone Condition. Movement is halved for <b><a class = 'chat-roll'>1d10</a></b> Rounds as you get your breath back.",
+    "description": "Gain 2 Stunned Conditions. Pass a Simple Average (+20) Endurance Test, or gain the Prone Condition. Movement is halved for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Rounds as you get your breath back.",
     "range": [31, 40]
   }, {
     "wounds": "2",
     "name": "Bruised",
-    "description": "All Agility-based Tests suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> days.",
+    "description": "All Agility-based Tests suffer a -10 penalty for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> days.",
     "range": [41, 50]
   }, {
     "wounds": "2",
@@ -74,7 +74,7 @@
   },{
     "wounds": "Dead",
     "name": "Torn Apart",
-    "description": "You are hacked in two. Your top half lands <b><a class = 'chat-roll'>1d10</a></b> feet in a random direction and all nearby Characters are showered in blood.",
+    "description": "You are hacked in two. Your top half lands <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> feet in a random direction and all nearby Characters are showered in blood.",
     "range": [100, 100]
   }]
 }

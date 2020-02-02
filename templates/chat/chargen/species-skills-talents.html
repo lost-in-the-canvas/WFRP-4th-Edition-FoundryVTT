@@ -7,28 +7,28 @@
 <div class = gen-skills>
   <h3>Skills</h3>
   {{#each speciesSkills as |skill key|}}
-  <div><b><a class = "skill-drag">{{skill}}</a></b></div>
+  <div><a class = "skill-drag"><i class="fas fa-suitcase"></i> {{skill}}</a></div>
   {{/each}}
 </div>
 
 <div class = gen-talents>
 <h3>Talents</h3>
 {{#each speciesTalents as |talent key|}}
-<div><b><a class = "talent-drag">{{talent}}</a></b></div>
+<div><a class = "talent-drag"><i class="fas fa-suitcase"></i> {{talent}}</a></div>
 {{/each}}
 
 {{#each choiceTalents as |talentList key|}}
 <div>
-  <span><b><a class = "talent-drag">{{talentList.[0]}} </a></b></span> OR <span><b><a class = "talent-drag">{{talentList.[1]}} </a></b></span>
+  <span><a class = "talent-drag"><i class="fas fa-suitcase"></i> {{talentList.[0]}}</a></span> OR <span><a class = "talent-drag"><i class="fas fa-suitcase"></i> {{talentList.[1]}}</a></span>
 </div>
 {{/each}}
 
 {{#each randomTalents as |talent key|}}
-<div><b><a class = "talent-drag">{{talent}}</a></b></div>
+<div><a class = "talent-drag"><i class="fas fa-suitcase"></i> {{talent}}</a></div>
 {{/each}}
 </div>
 
-<div><b><a class = "table-click" data-table="talents">You may reroll any duplicate Talent.</a></b></div>
+<div><a class = "table-click" data-table="talents"><i class="fas fa-list"></i> You may reroll any duplicate Talent.</a></div>
 
 <div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>
 

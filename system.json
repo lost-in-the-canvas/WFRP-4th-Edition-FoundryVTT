@@ -2,7 +2,7 @@
   "name": "wfrp4e",
   "title": "Warhammer Fantasy Roleplay 4th Edition",
   "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Roleplay in the Foundry VTT environment.",
-  "version": "0.9.6.4",
+  "version": "0.9.7",
   "author": "CatoThe1stElder, Moo Man",
   "scripts": [
     "./scripts/config-wfrp4e.js",
@@ -34,7 +34,8 @@
     "./scripts/hooks/renderChatMessage.js",
     "./scripts/hooks/renderJournalSheet.js",
     "./scripts/hooks/updateCombat.js",
-    "./scripts/hooks/createChatMessage.js"
+    "./scripts/hooks/createChatMessage.js",
+    "./scripts/hooks/hotbarDrop.js"
   ],
   "styles": ["./css/wfrp4e.css"],
   "packs": [

@@ -170,6 +170,7 @@ class OpposedWFRP {
     ChatMessage.create({
       user : game.user.id,
       hideData : true,
+      flags : {"opposedStartMessage" : true},
       content : `<div><b>${speaker.alias}<b> started an opposed test!<div>`
     }).then(msg => this.startMessage = msg)
   }

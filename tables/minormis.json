@@ -18,7 +18,7 @@
     "range": [16, 20]
   }, {
     "name": "Witchlight",
-    "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for <b><a class = 'chat-roll'>1d10</a></b> Rounds.",
+    "description": "You glow with an eerie light related to your Lore, emitting as much light as a large bonfire, which lasts for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Rounds.",
     "range": [21, 25]
   }, {
     "name": "Fell Whispers",
@@ -26,7 +26,7 @@
     "range": [26, 30]
   }, {
     "name": "Rupture",
-    "description": "Your nose, eyes, and ears bleed profusely. Gain <b><a class = 'chat-roll'>1d10</a></b> Bleeding Conditions.",
+    "description": "Your nose, eyes, and ears bleed profusely. Gain <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Bleeding Conditions.",
     "range": [31, 35]
   }, {
     "name": "Soulquake",
@@ -38,7 +38,7 @@
     "range": [41, 45]
   }, {
     "name": "Wayward Garb",
-    "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of <b><a class = 'chat-roll'>1d10</a></b>×5 to resist.",
+    "description": "Your clothes seem to writhe with a mind of their own. Receive 1 Entangled Condition with a Strength of <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a>×5 to resist.",
     "range": [46, 50]
   }, {
     "name": "Curse of Temperence",
