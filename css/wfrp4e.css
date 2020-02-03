@@ -14374,6 +14374,21 @@ border-image-outset: 0px !important;
       display: none;
     }
 
+  /* ================== 14. NEW MACRO WINDOW ================== */
+    .app.window-app.sheet.macro-sheet .window-content {
+      padding: 3px 7px 0px 7px;
+    }
+    .app.window-app.sheet.macro-sheet .sheet-header img {
+      border: 1px solid #736953a6;
+    }
+    .app.window-app.sheet.macro-sheet .sheet-header h1 input {
+      border-left: 1px solid #736953a6;
+      width: 100%;
+    }
+    .app.window-app.sheet.macro-sheet .editable .form-group.stacked {
+      border-top: none;
+      border-left: 1px solid #736953a6;
+    }
 /******************************************************************/
 /******************************************************************/
 
@@ -14444,8 +14459,6 @@ border-image-outset: 0px !important;
         position: relative;
         top: 4px;
       }
-        
-
     
 /******************************************************************/
 /******************************************************************/
