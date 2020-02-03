@@ -917,6 +917,7 @@
     min-height: 50px;
     max-height: 50px;
   }
+    #macros .directory-footer button,
     #sidebar .directory-footer button {
       margin: 0 2%;
       padding: 2px 0px 0px 0px;
@@ -15438,4 +15439,25 @@ input.card-edit {
 
 button.capture-position {
   color: #CCC;
+}
+
+
+.condition-chat,
+.chat-roll,
+.table-click,
+.symptom-tag,
+.skill-lookup,
+.talent-lookup,
+.skill-drag,
+.talent-drag {
+  background: #DDD;
+  border-radius: 2px;
+  padding: 0 2px;
+  border: 1px solid #BBB;
+  white-space: nowrap;
+  word-break: break-all;
+}
+
+.table-input {
+  width: 200px;
 }

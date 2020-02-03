@@ -129,7 +129,7 @@
     <div class="head column">
       <div class="armour-header">
         <a class="armour-total" title="Armour AP">{{actor.AP.head.value}}</a>
-        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Head</span>
         <span class="armour-ap">AP</span>
@@ -182,7 +182,7 @@
     <div class="body column">
       <div class="armour-header">
         <a class="armour-total" title="Armour AP">{{actor.AP.body.value}}</a>
-        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Body</span>
         <span class="armour-ap">AP</span>
@@ -237,7 +237,7 @@
       <div class="larm column">
           <div class="armour-header">
             <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
-            <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+            <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Arm</span>
             <span class="armour-ap">AP</span>
@@ -290,7 +290,7 @@
     <div class="rarm column">
       <div class="armour-header">
         <a class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</a>
-        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Arm</span>
         <span class="armour-ap">AP</span>
@@ -345,7 +345,7 @@
       <div class="lleg column">
           <div class="armour-header">
             <a class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</a>
-            <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+            <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
             <span class="armour-label">Left Leg</span>
             <span class="armour-ap">AP</span>
@@ -398,7 +398,7 @@
     <div class="rleg column">
       <div class="armour-header rLeg">
         <a class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</a>
-        <a class="shield-total" title="Shield AP">{{actor.AP.shield}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
         <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         <span class="armour-label">Right Leg</span>
         <span class="armour-ap">AP</span>

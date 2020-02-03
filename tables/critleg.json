@@ -9,7 +9,7 @@
   }, {
     "name": "Twisted Ankle",
     "wounds": "1",
-    "description": "You go over your ankle, hurting it. Agility Tests suffer a -10 penalty for <b><a class = 'chat-roll'>1d10</a></b> rounds.",
+    "description": "You go over your ankle, hurting it. Agility Tests suffer a -10 penalty for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> rounds.",
     "range": [11, 20]
   }, {
     "name": "Minor Cut",
@@ -34,7 +34,7 @@
   }, {
     "name": "Twisted Knee",
     "wounds": "2",
-    "description": "You twist your knee too far. Agility Tests suffer a -20 penalty for <b><a class = 'chat-roll'>1d10</a></b> rounds.",
+    "description": "You twist your knee too far. Agility Tests suffer a -20 penalty for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> rounds.",
     "range": [41, 45]
   }, {
     "name": "Badly Cut Toe",
@@ -84,12 +84,12 @@
   }, {
     "name": "Crushed Foot",
     "wounds": "5",
-    "description": "The blow crushes your foot. Make an Average (+20) Endurance Test; if you fail, gain the Prone condition and lose 1 toe, plus 1 additional toe for each SL below 0 — Amputation (Average). Gain 2 Bleeding Conditions. If you don't receive Surgery within <b><a class = 'chat-roll'>1d10</a></b> days, you will lose the foot entirely.",
+    "description": "The blow crushes your foot. Make an Average (+20) Endurance Test; if you fail, gain the Prone condition and lose 1 toe, plus 1 additional toe for each SL below 0 — Amputation (Average). Gain 2 Bleeding Conditions. If you don't receive Surgery within <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> days, you will lose the foot entirely.",
     "range": [91, 93]
   }, {
     "name": "Severed Foot",
     "wounds": "5",
-    "description": "Your foot is severed at the ankle and lands <b><a class = 'chat-roll'>1d10</a></b> feet away in a random direction — Amputation (Hard). You gain 3 Bleeding , 2 Stunned , and 1 Prone Condition.",
+    "description": "Your foot is severed at the ankle and lands <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> feet away in a random direction — Amputation (Hard). You gain 3 Bleeding , 2 Stunned , and 1 Prone Condition.",
     "range": [94, 96]
   }, {
     "name": "Cut Tendon",

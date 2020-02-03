@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.9.6.3
+Current Version: Beta 0.9.7
 
 Compatibility: Foundry VTT 0.4.5 (0.4.4 will work, but some functionality is broken) 
 
@@ -32,7 +32,7 @@ If you have any questions, feel free to message us on Discord, Moo Man#7518 or C
 
 ## Modules
 
-I've made a module out of my homebrew supplement [Arcane Marks & Careers](https://drive.google.com/file/d/1uTy2r0EDMdcISFqqyxeIOSadtzz-OTAg/view) which can also serve as an example for others to build off of. It includes a compendium pack of all the careers as well as tables to roll for marks. Read more and download from [here](https://github.com/moo-man/Arcane-Marks-Careers-FVTT)
+[Arcane Marks & Careers](https://github.com/moo-man/Arcane-Marks-Careers-FVTT) - I've made a module out of my [homebrew supplement](https://drive.google.com/file/d/1uTy2r0EDMdcISFqqyxeIOSadtzz-OTAg/view) which can also serve as an example for others to build off of. It includes a compendium pack of all the careers as well as tables to roll for marks. 
 
 [Rough Nights & Hard Days](https://github.com/Jagusti/fvtt-wfrp4e-rnhd) - Spearheaded by @Jagusti, namely adds gnomes to character generation!
 
