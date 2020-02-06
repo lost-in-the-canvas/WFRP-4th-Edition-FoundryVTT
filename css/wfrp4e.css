@@ -93,12 +93,24 @@
   }
   .app.window-app .editor-content {
     height: 100%;
+    width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+  }
+  .app.window-app .editor-content img {
+    min-height: none !important;
+    max-height: none !important;
+    min-width: none !important;
+    max-width: none !important;
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
     height: inherit !important;
+    width: 100%;
+  }
+  #tinymce > p > span {
+    width: 100%;
+    color: red !important;
   }
   .app.window-app .editor .editor-content h1 {
     margin: 0 0 0.5rem;
@@ -166,6 +178,7 @@
     color: var(--actor-input-color);
     background: none;
     border: none;
+    width: 100%;
   }
   .app.window-app .editor .editor-content blockquote {
     margin: 0.5em 0 0.5em 5px;
@@ -2122,12 +2135,12 @@
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 6px 0px 0px 54px;
+    margin: 6px 0px 0px 0px;
     justify-content: unset;
     padding: 0px;
-    padding-left: 0px;
+    padding-left: 54px;
     height: 25px;
-    width: 85%;
+    width: 100%;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -12440,7 +12453,7 @@
   box-shadow: 0 0 3px #ff6400;
 }
 
-#navigation #scene-list .scene.gm {
+#navigation #nav-toggle {
   cursor: default;
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
@@ -12453,10 +12466,24 @@
   font-size: 14px;
   padding-top: 2px;
 }
-#navigation #scene-list .scene.gm.active {
+
+#navigation #scene-list .scene.nav-item {
+  cursor: default;
+  color: #FFF;
+  background: url(../ui/sidebar_button-background_cyan.png) repeat;
+  background-origin: padding-box;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+  font-family: CaslonPro;
+  font-weight: 500;
+  font-size: 14px;
+  padding-top: 2px;
+}
+#navigation #scene-list .scene.nav-item.active {
   background: url(../ui/sidebar_button-background_red.png) repeat;
 }
-  #navigation #scene-list .scene li.scene-player {
+  #navigation #scene-list .scenenav-item li.scene-player {
     float: left;
     height: 15px;
     width: 15px;
@@ -14391,6 +14418,33 @@ border-image-outset: 0px !important;
       border-top: none;
       border-left: 1px solid #736953a6;
     }
+
+  /* ================== 15. PLAYER CONFIGURATION ============== */
+    #player-config label {
+      font-size: 14px;
+      font-weight: normal;
+      color: #d6d6d6;
+    }
+      #player-config .window-content .form-group:first-of-type label {
+        vertical-align: middle;
+        margin-right: 5px;
+        padding-top: 26px;
+      }
+    #player-config .entity-name {
+      font-family: var(--actor-input-font-family);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      text-align: left;
+      padding: 0px 4px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+
+
+
+
+  
 /******************************************************************/
 /******************************************************************/
 
