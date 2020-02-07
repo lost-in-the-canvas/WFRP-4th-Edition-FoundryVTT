@@ -66,4 +66,16 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
       })
     })
 
+    html.find(".money-drag").each(function() {
+      let amount = $(this)[0]
+      amount.setAttribute("draggable", true)
+      amount.addEventListener('dragstart', ev => {
+          let dataTransfer = {
+            money : $(amount).attr("data-amt")
+          }
+          ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
+          console.log($(amount).attr("data-amt"))
+        })
+      })
+
 })

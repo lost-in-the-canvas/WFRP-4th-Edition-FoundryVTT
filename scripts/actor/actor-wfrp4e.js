@@ -1132,7 +1132,8 @@ class ActorWfrp4e extends Actor {
     }
     else if (Number(result.SL) > -6)
     {
-      result.incomeResult =  "You earn " + moneyEarned/2;
+      moneyEarned /= 2;
+      result.incomeResult =  "You earn " + moneyEarned;
       switch (testData.income.tier)
       {
         case "b":
@@ -1142,7 +1143,7 @@ class ActorWfrp4e extends Actor {
           result.incomeResult += " silver shillings."
           break;
         case "g":
-            if (moneyEarned/2 > 1)
+            if (moneyEarned > 1)
               result.incomeResult += " gold crowns."
             else
               result.incomeResult += " gold crown"
@@ -1152,7 +1153,9 @@ class ActorWfrp4e extends Actor {
     else
     {
       result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+      moneyEarned = 0;
     }
+    result.moneyEarned = moneyEarned + testData.income.tier;
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
@@ -2280,6 +2283,7 @@ class ActorWfrp4e extends Actor {
         talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       // Add an advancement to the existing talent
       existingTalent.data.advances.value++;
+      existingTalent.cost = (existingTalent.data.advances.value + 1) * 100
     }
     else // If a talent of the same name does not exist
     { 
@@ -2300,6 +2304,7 @@ class ActorWfrp4e extends Actor {
         default:
           talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
+      talent.cost = 200;
       talentList.push(talent); // Add the prepared talent to the talent list
     }
    }
