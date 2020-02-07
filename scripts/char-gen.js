@@ -194,20 +194,33 @@ class GeneratorWfrp4e
 
   static async rollDetails(species)
   {
-    let name, eyes, hair
+    let name, eyes, hair, heightRoll, hFeet, hInches, age
 
     name = NameGenWfrp.generateName({species : species})
     if (!name)
       name = species + " names TBD"
     eyes = WFRP_Tables.rollTable("eyes", {}, species).name
     hair = WFRP_Tables.rollTable("hair", {}, species).name
+
+    age = new Roll(WFRP4E.speciesAge[species]).roll().total;
+    heightRoll = new Roll(WFRP4E.speciesHeight[species].die).roll().total;
+    hFeet = WFRP4E.speciesHeight[species].feet;
+    hInches = WFRP4E.speciesHeight[species].inches + heightRoll;
+    hFeet += Math.floor(hInches / 12)
+    hInches = hInches % 12
+    console.log(hFeet, hInches)
+
+
+
     let dataTransfer = {
       generation : true,
       type : "details",
       payload : {
         name : name,
         eyes : eyes,
-        hair : hair
+        hair : hair,
+        age : age,
+        height : `${hFeet}'${hInches}`
       }
     }
 
@@ -217,7 +230,9 @@ class GeneratorWfrp4e
       species: WFRP4E.species[species],
       name : name,
       eyes : eyes,
-      hair : hair
+      hair : hair,
+      age : age,
+      height : `${hFeet}'${hInches}`
     }
     if ( ["gmroll", "blindroll"].includes(chatData.rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if ( chatData.rollMode === "blindroll" ) chatData["blind"] = true;

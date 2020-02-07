@@ -1076,6 +1076,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         data.details.eyecolour.value = transfer.payload.eyes
         data.details.haircolour.value = transfer.payload.hair
+        data.details.age.value = transfer.payload.age;
+        data.details.height.value = transfer.payload.height;
         let name = transfer.payload.name
         await this.actor.update({"name" : name, "data" : data})
       }
