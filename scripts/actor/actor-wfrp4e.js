@@ -128,6 +128,7 @@ class ActorWfrp4e extends Actor {
       {
         ch.value = ch.initial + ch.advances;
         ch.bonus = Math.floor(ch.value / 10)
+        ch.cost = WFRP_Utility._calculateAdvCost(ch.advances, "characteristic")
       }
 
       // Only characters have experience
@@ -2244,11 +2245,11 @@ class ActorWfrp4e extends Actor {
   prepareSkill(skill) 
   {
     let actorData = this.data
-
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
     // Characteristic Total + Skill Advancement = Skill Total
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
     skill.data.characteristic.abrev = WFRP4E.characteristicsAbbrev[skill.data.characteristic.value];
+    skill.data.cost = WFRP_Utility._calculateAdvCost(skill.data.advances.value, "skill")
     return skill
    }
 
@@ -2605,7 +2606,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcWounds)
     {
       // Construct trait means you use SB instead of WPB 
-      if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")))
+      if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")) || actorData.traits.find(t => t.name.toLowerCase().includes("mindless")))
         wpb = sb;
       switch (actorData.data.details.size.value) // Use the size to get the correct formula (size determined in prepare())
       {
