@@ -1033,7 +1033,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = speaker.alias
         cardOptions.speaker.token = speaker.token
         cardOptions.speaker.scene = speaker.scene
-        cardOptions.flags.img = canvas.tokens.get(speaker.token).data.img
+        cardOptions.flags.img = speaker.token ? canvas.tokens.get(speaker.token).data.img : cardOptions.flags.img
       }
     }
 
@@ -1404,17 +1404,6 @@ class ActorWfrp4e extends Actor {
       // This is specifically for the Stride trait, see prepareData() for the other auto-calc movement values
       if(preparedData.traits.find(t => t.name.toLowerCase() == "stride"))
         preparedData.data.details.move.run += preparedData.data.details.move.walk;
-    }
-    // Encumbrance is initially calculated in prepareItems() - this area augments it based on talents
-    if (preparedData.flags.autoCalcEnc)
-    {
-      let strongBackTalent = preparedData.talents.find(t => t.name.toLowerCase() == "strong back")
-      let sturdyTalent = preparedData.talents.find(t => t.name.toLowerCase() == "sturdy")
-
-      if (strongBackTalent)
-        preparedData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
-      if (sturdyTalent)
-        preparedData.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
     }
 
     // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function and dialog)
@@ -2168,6 +2157,19 @@ class ActorWfrp4e extends Actor {
 
     // keep defensive counter in flags to use for test auto fill (see setupWeapon())
     this.data.flags.defensive = defensiveCounter;
+
+    // Encumbrance is initially calculated in prepareItems() - this area augments it based on talents
+    if (actorData.flags.autoCalcEnc)
+    {
+      let strongBackTalent = talents.find(t => t.name.toLowerCase() == "strong back")
+      let sturdyTalent = talents.find(t => t.name.toLowerCase() == "sturdy")
+
+      if (strongBackTalent)
+        actorData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
+      if (sturdyTalent)
+        actorData.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
+    }
+
 
     // enc used for encumbrance bar in trappings tab
     let enc;
