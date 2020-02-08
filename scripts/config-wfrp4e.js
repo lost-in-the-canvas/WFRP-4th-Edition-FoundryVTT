@@ -339,6 +339,22 @@ WFRP4E.speciesExtra = {
   "welf" : 2
 }
 
+WFRP4E.speciesAge = {
+  "human" : "15+1d10",
+  "dwarf" : "15+10d10",
+  "halfling" : "15+5d10",
+  "helf" : "30+10d10",
+  "welf" : "30+10d10"
+}
+
+WFRP4E.speciesHeight = {
+  "human" : {feet: 4 , inches : 9, die : "2d10"},
+  "dwarf" : {feet: 4 , inches : 3, die : "1d10"},
+  "halfling" : {feet: 3 , inches : 1, die : "1d10"},
+  "helf" : {feet: 5 , inches : 11, die : "1d10"},
+  "welf" : {feet: 5 , inches : 11, die : "1d10"}
+}
+
 WFRP4E.classTrappings = {
   "Academics" : "Clothing, Dagger, Pouch, Sling Bag containing Writing Kit and 1d10 sheets of Parchment",
   "Burghers" : "Cloak, Clothing, Dagger, Hat, Pouch, Sling Bag containing Lunch",

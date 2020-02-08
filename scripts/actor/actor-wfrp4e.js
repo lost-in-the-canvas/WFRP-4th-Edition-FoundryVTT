@@ -128,6 +128,7 @@ class ActorWfrp4e extends Actor {
       {
         ch.value = ch.initial + ch.advances;
         ch.bonus = Math.floor(ch.value / 10)
+        ch.cost = WFRP_Utility._calculateAdvCost(ch.advances, "characteristic")
       }
 
       // Only characters have experience
@@ -1033,7 +1034,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.speaker.alias = speaker.alias
         cardOptions.speaker.token = speaker.token
         cardOptions.speaker.scene = speaker.scene
-        cardOptions.flags.img = canvas.tokens.get(speaker.token).data.img
+        cardOptions.flags.img = speaker.token ? canvas.tokens.get(speaker.token).data.img : cardOptions.flags.img
       }
     }
 
@@ -1131,7 +1132,8 @@ class ActorWfrp4e extends Actor {
     }
     else if (Number(result.SL) > -6)
     {
-      result.incomeResult =  "You earn " + moneyEarned/2;
+      moneyEarned /= 2;
+      result.incomeResult =  "You earn " + moneyEarned;
       switch (testData.income.tier)
       {
         case "b":
@@ -1141,7 +1143,7 @@ class ActorWfrp4e extends Actor {
           result.incomeResult += " silver shillings."
           break;
         case "g":
-            if (moneyEarned/2 > 1)
+            if (moneyEarned > 1)
               result.incomeResult += " gold crowns."
             else
               result.incomeResult += " gold crown"
@@ -1151,7 +1153,9 @@ class ActorWfrp4e extends Actor {
     else
     {
       result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+      moneyEarned = 0;
     }
+    result.moneyEarned = moneyEarned + testData.income.tier;
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
@@ -1404,17 +1408,6 @@ class ActorWfrp4e extends Actor {
       // This is specifically for the Stride trait, see prepareData() for the other auto-calc movement values
       if(preparedData.traits.find(t => t.name.toLowerCase() == "stride"))
         preparedData.data.details.move.run += preparedData.data.details.move.walk;
-    }
-    // Encumbrance is initially calculated in prepareItems() - this area augments it based on talents
-    if (preparedData.flags.autoCalcEnc)
-    {
-      let strongBackTalent = preparedData.talents.find(t => t.name.toLowerCase() == "strong back")
-      let sturdyTalent = preparedData.talents.find(t => t.name.toLowerCase() == "sturdy")
-
-      if (strongBackTalent)
-        preparedData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
-      if (sturdyTalent)
-        preparedData.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
     }
 
     // talentTests is used to easily reference talent bonuses (e.g. in prepareTest function and dialog)
@@ -2169,6 +2162,19 @@ class ActorWfrp4e extends Actor {
     // keep defensive counter in flags to use for test auto fill (see setupWeapon())
     this.data.flags.defensive = defensiveCounter;
 
+    // Encumbrance is initially calculated in prepareItems() - this area augments it based on talents
+    if (actorData.flags.autoCalcEnc)
+    {
+      let strongBackTalent = talents.find(t => t.name.toLowerCase() == "strong back")
+      let sturdyTalent = talents.find(t => t.name.toLowerCase() == "sturdy")
+
+      if (strongBackTalent)
+        actorData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
+      if (sturdyTalent)
+        actorData.data.status.encumbrance.max += sturdyTalent.data.advances.value * 2;
+    }
+
+
     // enc used for encumbrance bar in trappings tab
     let enc;
     totalEnc = Math.floor(totalEnc);
@@ -2242,11 +2248,11 @@ class ActorWfrp4e extends Actor {
   prepareSkill(skill) 
   {
     let actorData = this.data
-
     skill.data.characteristic.num = actorData.data.characteristics[skill.data.characteristic.value].value;
     // Characteristic Total + Skill Advancement = Skill Total
     skill.data.total.value = actorData.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value;
     skill.data.characteristic.abrev = WFRP4E.characteristicsAbbrev[skill.data.characteristic.value];
+    skill.data.cost = WFRP_Utility._calculateAdvCost(skill.data.advances.value, "skill")
     return skill
    }
 
@@ -2277,6 +2283,7 @@ class ActorWfrp4e extends Actor {
         talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       // Add an advancement to the existing talent
       existingTalent.data.advances.value++;
+      existingTalent.cost = (existingTalent.data.advances.value + 1) * 100
     }
     else // If a talent of the same name does not exist
     { 
@@ -2297,6 +2304,7 @@ class ActorWfrp4e extends Actor {
         default:
           talent["numMax"]= actorData.data.characteristics[talent.data.max.value].bonus;
       }
+      talent.cost = 200;
       talentList.push(talent); // Add the prepared talent to the talent list
     }
    }
@@ -2603,7 +2611,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcWounds)
     {
       // Construct trait means you use SB instead of WPB 
-      if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")))
+      if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")) || actorData.traits.find(t => t.name.toLowerCase().includes("mindless")))
         wpb = sb;
       switch (actorData.data.details.size.value) // Use the size to get the correct formula (size determined in prepare())
       {
