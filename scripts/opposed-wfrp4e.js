@@ -1,4 +1,5 @@
-class OpposedWFRP {
+class OpposedWFRP
+{
   /**
    * This class is the handler for opposed tests
    */
@@ -6,15 +7,15 @@ class OpposedWFRP {
   static opposedClicked(event)
   {
     let button = $(event.currentTarget),
-    messageId = button.parents('.message').attr("data-message-id"),
-    message = game.messages.get(messageId);
+      messageId = button.parents('.message').attr("data-message-id"),
+      message = game.messages.get(messageId);
     let data = message.data.flags.data
 
     if (this.opposedInProgress)
     {
       if (game.messages.get(this.startMessage._id)) // If the startMessage still exists, proceed with the opposed test. Otherwise, start a new opposed test
         this.defenderClicked(data.postData, message.data.speaker)
-      else 
+      else
       {
         this.clearOpposed()
         this.opposedClicked(event);
@@ -30,8 +31,8 @@ class OpposedWFRP {
   static attackerClicked(testResult, speaker)
   {
     this.attacker = {
-      testResult : testResult,
-      speaker : speaker
+      testResult: testResult,
+      speaker: speaker
     }
 
     this.createOpposedStartMessage(speaker);
@@ -41,78 +42,76 @@ class OpposedWFRP {
   static defenderClicked(testResult, speaker)
   {
     this.defender = {
-      testResult : testResult,
-      speaker : speaker
+      testResult: testResult,
+      speaker: speaker
     }
 
     this.evaluateOpposedTest(this.attacker, this.defender);
   }
-  
+
   static evaluateOpposedTest(attacker, defender, options = {})
   {
     let result;
-    try {
-    let opposeResult = {};
-    let attackerSL = parseInt(attacker.testResult.SL);
-    let defenderSL = parseInt(defender.testResult.SL);
-  
-    let differenceSL = 0;
-    if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
+    try
     {
-      opposeResult.winner = "attacker"
-      differenceSL = attackerSL - defenderSL;
-      opposeResult.result = 
-      `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
-      opposeResult.img = attacker.img;
-      opposeResult.speakerAttack= attacker.speaker
-      opposeResult.speakerDefend = defender.speaker
-      opposeResult.attackerTestResult = duplicate(attacker.testResult);
-      opposeResult.defenderTestResult = duplicate(defender.testResult);
-      if (!isNaN(opposeResult.attackerTestResult.damage))
-      {
-        let damageMultiplier = 1;
-        let sizeDiff =  WFRP4E.actorSizeNums[opposeResult.attackerTestResult.size] - WFRP4E.actorSizeNums[opposeResult.defenderTestResult.size]
-        damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
-        if (opposeResult.attackerTestResult.trait)
-        {
-          if (sizeDiff >= 1)
-          { 
-            let SL = Number(opposeResult.attackerTestResult.SL)
-            let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-            if (unitValue == 0)
-              unitValue = 10;
-            let damageToAdd = unitValue - SL
-            if (damageToAdd > 0)
-              opposeResult.attackerTestResult.damage += damageToAdd
-            
-          }
-          if (sizeDiff >= 2)
-          {
-            let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-            opposeResult.attackerTestResult.damage += unitValue
-          }
-        }
+      let opposeResult = {};
+      let attackerSL = parseInt(attacker.testResult.SL);
+      let defenderSL = parseInt(defender.testResult.SL);
 
-        opposeResult.damage = 
-        {
-          description : `<b>Damage</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
-          value : (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
-        };
-      }
-      else if (opposeResult.attackerTestResult.weapon || opposeResult.attackerTestResult.trait)
+      let differenceSL = 0;
+      if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
       {
-        opposeResult.damage = 
+        opposeResult.winner = "attacker"
+        differenceSL = attackerSL - defenderSL;
+        opposeResult.result =
+          `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
+        opposeResult.img = attacker.img;
+        opposeResult.speakerAttack = attacker.speaker
+        opposeResult.speakerDefend = defender.speaker
+        opposeResult.attackerTestResult = duplicate(attacker.testResult);
+        opposeResult.defenderTestResult = duplicate(defender.testResult);
+        if (!isNaN(opposeResult.attackerTestResult.damage))
         {
-          description : `<b>Damage</b>: ?`,
-          value : null
-        };
-      }
-      if (opposeResult.attackerTestResult.hitloc)
-        opposeResult.hitloc  = 
+          let damageMultiplier = 1;
+          let sizeDiff = WFRP4E.actorSizeNums[opposeResult.attackerTestResult.size] - WFRP4E.actorSizeNums[opposeResult.defenderTestResult.size]
+          damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
+          if (opposeResult.attackerTestResult.trait)
+          {
+            if (sizeDiff >= 1)
+            {
+              let SL = Number(opposeResult.attackerTestResult.SL)
+              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+              if (unitValue == 0)
+                unitValue = 10;
+              let damageToAdd = unitValue - SL
+              if (damageToAdd > 0)
+                opposeResult.attackerTestResult.damage += damageToAdd
+
+            }
+            if (sizeDiff >= 2)
+            {
+              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+              opposeResult.attackerTestResult.damage += unitValue
+            }
+          }
+
+          opposeResult.damage = {
+            description: `<b>Damage</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
+            value: (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
+          };
+        }
+        else if (opposeResult.attackerTestResult.weapon || opposeResult.attackerTestResult.trait)
         {
-          description : `<b>Hit Location</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
-          value : opposeResult.attackerTestResult.hitloc.result
-        };
+          opposeResult.damage = {
+            description: `<b>Damage</b>: ?`,
+            value: null
+          };
+        }
+        if (opposeResult.attackerTestResult.hitloc)
+          opposeResult.hitloc = {
+            description: `<b>Hit Location</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
+            value: opposeResult.attackerTestResult.hitloc.result
+          };
       }
       else
       {
@@ -125,32 +124,37 @@ class OpposedWFRP {
       if (options.target)
       {
         opposeResult.hideData = true;
-        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
+        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html =>
+        {
           let chatOptions = {
-            user : game.user.id,
-            content : html,
-            "flags.opposeData" : opposeResult,
-            "flags.startMessageId" : options.startMessageId,
+            user: game.user.id,
+            content: html,
+            "flags.opposeData": opposeResult,
+            "flags.startMessageId": options.startMessageId,
           }
-            ChatMessage.create(chatOptions)
+          ChatMessage.create(chatOptions)
         })
       }
-      else 
+      else
       {
         opposeResult.hideData = true;
-        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html => {
+        renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html =>
+        {
           let chatOptions = {
-            user : game.user.id,
-            content : html,
-            "flags.opposeData" : opposeResult
+            user: game.user.id,
+            content: html,
+            "flags.opposeData": opposeResult
           }
-          try {
-            this.startMessage.update(chatOptions).then(resultMsg =>{
+          try
+          {
+            this.startMessage.update(chatOptions).then(resultMsg =>
+            {
               ui.chat.updateMessage(resultMsg)
               this.clearOpposed();
             })
           }
-          catch {
+          catch
+          {
             ChatMessage.create(chatOptions)
             this.clearOpposed();
           }
@@ -167,11 +171,15 @@ class OpposedWFRP {
 
   static createOpposedStartMessage(speaker)
   {
-    ChatMessage.create({
-      user : game.user.id,
-      hideData : true,
-      flags : {"opposedStartMessage" : true},
-      content : `<div><b>${speaker.alias}<b> started an opposed test!<div>`
+    ChatMessage.create(
+    {
+      user: game.user.id,
+      hideData: true,
+      flags:
+      {
+        "opposedStartMessage": true
+      },
+      content: `<div><b>${speaker.alias}<b> started an opposed test!<div>`
     }).then(msg => this.startMessage = msg)
   }
 
@@ -179,13 +187,14 @@ class OpposedWFRP {
   {
     let opposeMessage = game.messages.get(msgId)
     let newCard = {
-      user : game.user.id,
-      hideData : true,
-      content : $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
+      user: game.user.id,
+      hideData: true,
+      content: $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
     }
 
-    opposeMessage.update(newCard).then(resultMsg =>{
-        ui.chat.updateMessage(resultMsg)
+    opposeMessage.update(newCard).then(resultMsg =>
+    {
+      ui.chat.updateMessage(resultMsg)
     })
   }
 
@@ -218,25 +227,32 @@ class OpposedWFRP {
     let actor = WFRP_Utility.getSpeaker(message.data.speaker)
     let testResult = message.data.flags.data.postData
 
-    try 
+    try
     {
       /* -------------- IF OPPOSING AFTER BEING TARGETED -------------- */
       if (actor.data.flags.oppose) // If someone targets an actor, they insert data in the target's flags.oppose
-      {                            // So if data exists here, this actor has been targeted, see below for what kind of data is stored here
+      { // So if data exists here, this actor has been targeted, see below for what kind of data is stored here
         let attackMessage = game.messages.get(actor.data.flags.oppose.messageId) // Retrieve attacker's test result message
         // Organize attacker/defender data
         let attacker = {
-          speaker : actor.data.flags.oppose.speaker,
-          testResult : attackMessage.data.flags.data.postData,
-          img : WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
+          speaker: actor.data.flags.oppose.speaker,
+          testResult: attackMessage.data.flags.data.postData,
+          img: WFRP_Utility.getSpeaker(actor.data.flags.oppose.speaker).data.img
         }
         let defender = {
-          speaker : message.data.speaker,
-          testResult : testResult,
-          img : actor.data.msg
-        }                             // evaluateOpposedTest is usually for manual opposed tests, it requires extra options for targeted opposed test
-        await OpposedWFRP.evaluateOpposedTest(attacker, defender, {target : true, startMessageId : actor.data.flags.oppose.startMessageId})
-        await actor.update({"-=flags.oppose" : null}) // After opposing, remove oppose
+          speaker: message.data.speaker,
+          testResult: testResult,
+          img: actor.data.msg
+        } // evaluateOpposedTest is usually for manual opposed tests, it requires extra options for targeted opposed test
+        await OpposedWFRP.evaluateOpposedTest(attacker, defender,
+        {
+          target: true,
+          startMessageId: actor.data.flags.oppose.startMessageId
+        })
+        await actor.update(
+        {
+          "-=flags.oppose": null
+        }) // After opposing, remove oppose
 
       }
 
@@ -252,9 +268,10 @@ class OpposedWFRP {
           attacker = actor.data.token
 
         // For each target, create a message, and insert oppose data in the targets' flags
-        game.user.targets.forEach(async target => {
+        game.user.targets.forEach(async target =>
+        {
           let content =
-          `<div class ="opposed-message">
+            `<div class ="opposed-message">
             <b>${attacker.name}</b> is targeting <b>${target.data.name}</b>
           </div>
           <div class = "opposed-tokens">
@@ -266,21 +283,32 @@ class OpposedWFRP {
           // Create the Opposed starting message
           //let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker, timestamp : message.data.timestamp - 1})
           let startMessage = await ChatMessage.create(
+          {
+            user: game.user._id,
+            content: content,
+            speaker: message.data.speaker,
+            ["flags.unopposeData"]:
             {
-              user : game.user._id, 
-              content : content, 
-              speaker : message.data.speaker,
-              ["flags.unopposeData"] : {
-                attackMessageId : message.data._id, 
-                targetSpeaker: {
-                  scene: target.scene.data._id,
-                  token: target.data._id,
-                  scene: target.actor.data._id,
-                  alias: target.data.name
-                }}
-            })
+              attackMessageId: message.data._id,
+              targetSpeaker:
+              {
+                scene: target.scene.data._id,
+                token: target.data._id,
+                scene: target.actor.data._id,
+                alias: target.data.name
+              }
+            }
+          })
           // Add oppose data flag to the target
-          target.actor.update({"flags.oppose" : {speaker : message.data.speaker, messageId : message.data._id, startMessageId : startMessage.data._id}})
+          target.actor.update(
+          {
+            "flags.oppose":
+            {
+              speaker: message.data.speaker,
+              messageId: message.data._id,
+              startMessageId: startMessage.data._id
+            }
+          })
           // Remove current targets
           target.setTarget(false);
         })
@@ -288,7 +316,10 @@ class OpposedWFRP {
     }
     catch
     {
-      await actor.update({"-=flags.oppose" : null}) // If something went wrong, remove incoming opposed tests
+      await actor.update(
+      {
+        "-=flags.oppose": null
+      }) // If something went wrong, remove incoming opposed tests
     }
   }
 
@@ -301,24 +332,32 @@ class OpposedWFRP {
     let attackMessage = game.messages.get(unopposeData.attackMessageId) // Retrieve attacker's test result message
     // Organize attacker/defender data
     let attacker = {
-      speaker : attackMessage.data.speaker,
-      testResult : attackMessage.data.flags.data.postData,
+      speaker: attackMessage.data.speaker,
+      testResult: attackMessage.data.flags.data.postData,
     }
 
     let target = canvas.tokens.get(unopposeData.targetSpeaker.token)
     let defender = {
-      speaker : unopposeData.targetSpeaker,
-      testResult : {
-        SL : 0,
-        size : target.actor.data.data.details.size.value,
-        target : 0,
-        roll : 0
+      speaker: unopposeData.targetSpeaker,
+      testResult:
+      {
+        SL: 0,
+        size: target.actor.data.data.details.size.value,
+        target: 0,
+        roll: 0
       }
     }
 
-    await target.actor.update({"-=flags.oppose" : null})
+    await target.actor.update(
+    {
+      "-=flags.oppose": null
+    })
 
-    this.evaluateOpposedTest(attacker, defender, {target: true, startMessageId : startMessageId})
+    this.evaluateOpposedTest(attacker, defender,
+    {
+      target: true,
+      startMessageId: startMessageId
+    })
   }
-  
+
 }

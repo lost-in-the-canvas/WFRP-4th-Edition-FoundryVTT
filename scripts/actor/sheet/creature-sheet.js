@@ -157,7 +157,7 @@ class ActorSheetWfrp4eCreature extends ActorSheetWfrp4e
 			if (event.keyCode == 46)
 			{
 				let itemId = $(event.currentTarget).attr("data-item-id");
-				this.actor.deleteEmbeddedEntity("OwnedItem", itemId, true);
+				this.actor.deleteEmbeddedEntity("OwnedItem", itemId);
 			}
 		});
 		// Use delayed dropdown to allow for double clicks
