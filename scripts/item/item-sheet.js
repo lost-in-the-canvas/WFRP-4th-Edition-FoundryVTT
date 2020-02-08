@@ -289,22 +289,26 @@ class ItemSheetWfrp4e extends ItemSheet
       });
 
 
+    // If the user changes a grouped skill that is in their current career,
+    // offer to propagate that change to the career as well.
     html.on("focusout", ".item-name", ev => {
       if (this.item.type != "skill" || !this.item.actor || this.item.data.data.grouped.value != "isSpec")
         return;
-
+      // If no change
       if (ev.target.value == this.item.name)
         return
-        
+      
       let currentCareer = duplicate(this.item.actor.data.items.filter(i => i.type == "career").find(i => i.data.current.value));
 
-      if(currentCareer.data.skills.includes(this.item.name))
+      // If career has the skill that was changed, change the name in the career
+      if(currentCareer && currentCareer.data.skills.includes(this.item.name))
         currentCareer.data.skills[currentCareer.data.skills.indexOf(this.item.name)] = ev.target.value;
-      else
+      else // if it doesn't, return
         return;
       
       let oldName = this.item.name
 
+      // Ask the user to confirm the change
       new Dialog({
           title : "Changing Career Skill",
           content: "<p>You are changing the specialization of a skill in your current career. Do you want to apply this change to the career as well?</p>",
