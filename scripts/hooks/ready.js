@@ -8,9 +8,9 @@ Hooks.on("ready", async () => {
        if (activeModules[m])
        {
         
-          FilePicker.browse("user", `modules/${m}/tables`).then(resp => {
-           try 
-           {
+          try{
+          await FilePicker.browse("user", `modules/${m}/tables`).then(resp => {
+
            if (resp.error || !resp.target.includes("tables"))
              throw ""
            for (var file of resp.files)
@@ -21,23 +21,30 @@ Hooks.on("ready", async () => {
                let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
    
                fetch(file).then(r=>r.json()).then(async records => {
-                WFRP_Tables[filename] = records;
+                if(records.extend && WFRP_Tables[filename])
+                {
+                  WFRP_Tables[filename].columns = WFRP_Tables[filename].columns.concat(records.columns)
+                   WFRP_Tables[filename].rows.forEach((obj, row) => {
+                    for (let c of records.columns)
+                      WFRP_Tables[filename].rows[row].range[c] = records.rows[row].range[c]
+                   })
+                }
+                else
+                  WFRP_Tables[filename] = records;
                })
              }
              catch(error) {
               console.error("Error reading " + file + ": " + error)
              }
            }
-         }
-         catch
-         {
-           // Do nothing
-         }
          })
+          }
+         catch {
+         }
        }
      }
 
-     FilePicker.browse("user", `worlds/${game.world.name}/tables`).then(resp => {
+     await FilePicker.browse("user", `worlds/${game.world.name}/tables`).then(resp => {
       try 
       {
       if (resp.error || !resp.target.includes("tables"))
@@ -50,7 +57,10 @@ Hooks.on("ready", async () => {
           let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
 
           fetch(file).then(r=>r.json()).then(async records => {
-           WFRP_Tables[filename] = records;
+            if(records.extend)
+              WFRP_Tables.extensions.push(records);
+            else
+              WFRP_Tables[filename] = records;
           })
         }
         catch(error) {
@@ -63,6 +73,8 @@ Hooks.on("ready", async () => {
       // Do nothing
     }   
   })
+
+
 
   TextEditor._replaceContentLinks = (match, entityType, id, name) => {
 
