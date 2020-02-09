@@ -1,6 +1,8 @@
 <div class="char-gen">
       <h2>Attributes - {{species}}</h2>
 
+<p>Drag this card onto your sheet. You may rearrange the numbers at the cost of 25 XP. Or, if you wish to reroll or allocate points, subtract 50 XP.</p>
+
 {{#each characteristics as |characteristic key|}}
 <div>
   <b>{{key}}</b>: {{characteristic}}
@@ -13,5 +15,11 @@
 <div><b>Resilience</b>: {{resilience}}</div>
 <div><b>Extra</b>: {{extra}}</div>
 <div><b>Exp</b>: {{exp}}</div>
+
+<span class = "attribute-career-buttons">
+  <a class = 'chargen-button' data-button = 'rollSpeciesSkillsTalents' data-species="{{speciesKey}}">Skills/Talents</a>
+  <a class = 'chargen-button' data-button = 'rollCareer' data-species="{{speciesKey}}" title = '+50 XP'>Career</a>
+  <a class = 'chargen-button' data-button = 'rollDetails' data-species="{{speciesKey}}">Details</a>
+</span>
 
 </div>

@@ -17,10 +17,10 @@
     "description": "You mishandle your weapon, or you drop your ammunition. Miss your next Action.",
     "range": [71, 80]
   }, {
-    "description": "You overextend yourself or stumble and twist your ankle. Suffer a Torn Muscle (Minor) injury (see page 179). This counts as a Critical Wound.",
+    "description": "You overextend yourself or stumble and twist your ankle. Suffer a @Compendium[wfrp4e.injuries.rlXUw5Bgz2xUjVbU]{Torn Muscle (Minor)}. This counts as a Critical Wound.",
     "range": [81, 90]
   }, {
-    "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a Stunned Condition.",
+    "description": "You completely mess up, hitting 1 random ally in range using your rolled units die to determine the SL of the hit. If that's not possible, you somehow hit yourself in the face and gain a @Condition[Stunned] Condition.",
     "range": [91, 100]
   }]
 }

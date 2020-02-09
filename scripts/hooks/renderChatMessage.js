@@ -10,6 +10,10 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-buttons").remove();
   }
 
+
+  if (html.hasClass("blind") && !game.user.isGM)
+    html.html("").css("display", "none");
+
   let postedItem = html.find(".post-item")[0]
   if (postedItem)
   {
@@ -65,5 +69,17 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
         ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
       })
     })
+
+    html.find(".money-drag").each(function() {
+      let amount = $(this)[0]
+      amount.setAttribute("draggable", true)
+      amount.addEventListener('dragstart', ev => {
+          let dataTransfer = {
+            money : $(amount).attr("data-amt")
+          }
+          ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
+          console.log($(amount).attr("data-amt"))
+        })
+      })
 
 })

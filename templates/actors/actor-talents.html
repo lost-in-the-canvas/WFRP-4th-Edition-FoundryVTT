@@ -23,7 +23,7 @@
 
       <div class="item-max">
         {{#if item.career}}
-        <b><a class="advancement-indicator" data-target="talent">{{item.data.advances.value}}</a></b> / {{item.numMax}}
+        <b><a class="advancement-indicator" title="{{item.cost}} Exp" data-target="talent">{{item.data.advances.value}}</a></b> / {{item.numMax}}
         {{else}}
         {{item.data.advances.value}} / {{item.numMax}}
         {{/if}}

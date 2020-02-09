@@ -1076,6 +1076,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         data.details.eyecolour.value = transfer.payload.eyes
         data.details.haircolour.value = transfer.payload.hair
+        data.details.age.value = transfer.payload.age;
+        data.details.height.value = transfer.payload.height;
         let name = transfer.payload.name
         await this.actor.update({"name" : name, "data" : data})
       }
@@ -1112,6 +1114,59 @@ class ActorSheetWfrp4e extends ActorSheet {
       let data = duplicate(this.actor.data.data);
       data.details.experience.total += JSON.parse(dragData).exp;
       await this.actor.update({"data" : data})
+    }
+    // From Income results - drag money value over to add
+    else if (JSON.parse(dragData).money)
+    {
+      // Money string is in the format of <amt><type>, so 12b, 5g, 1.5g
+      let moneyString = JSON.parse(dragData).money;
+      let type = moneyString.slice(-1);
+      let amt;
+      // Failure means divide by two, so mark whether we should add half a gold or half a silver, just round pennies
+      let halfS = false, halfG = false
+      if (type == "b")
+        amt = Math.round(moneyString.slice(0, -1));
+      else if (type == "s")
+      {
+        if (moneyString.slice(0, -1).includes("."))
+          halfS = true;
+        amt = Math.floor(moneyString.slice(0, -1))
+      }
+      else if (type == "g")
+      {
+        if (moneyString.slice(0, -1).includes("."))
+          halfG = true;
+        amt = Math.floor(moneyString.slice(0, -1))
+      }
+      let money = duplicate(this.actor.data.items.filter(i => i.type == "money"));
+
+      let moneyItem;
+      switch(type)
+      {
+        case 'b' : 
+        moneyItem = money.find(i => i.name == "Brass Penny");
+        break;
+        case 's' : 
+        moneyItem = money.find(i => i.name == "Silver Shilling");
+        break;
+        case 'g' : 
+        moneyItem = money.find(i => i.name == "Gold Crown");
+        break;
+      }
+
+      // If 0, means they failed the roll by -6 or more, delete all money
+      if (!amt)
+        money.forEach(m => m.data.quantity.value = 0);
+      else // Otherwise, add amount to designated type
+        moneyItem.data.quantity.value += amt;
+
+      // add halves
+      if (halfS)
+         money.find(i => i.name == "Brass Penny").data.quantity.value += 6;
+      if (halfG)
+        money.find(i => i.name == "Silver Shilling").data.quantity.value += 10;
+
+      await this.actor.updateManyEmbeddedEntities("OwnedItem", money);
     }
     else // If none of the above, just process whatever was dropped upstream
     {

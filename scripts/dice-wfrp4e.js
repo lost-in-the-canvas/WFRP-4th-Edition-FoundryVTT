@@ -41,8 +41,7 @@ class DiceWFRP
 		mergeObject(cardOptions,
 		{
 			user: game.user._id,
-			sound: CONFIG.sounds.dice,
-			type: CONST.CHAT_MESSAGE_TYPES.ROLL
+			sound: CONFIG.sounds.dice
 		})
 
 		var roll;
@@ -682,6 +681,7 @@ class DiceWFRP
 
 		if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
 		if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
+		else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user._id];
 
 		// All the data need to recreate the test when chat card is edited
 		chatOptions["flags.data"] = {
@@ -899,8 +899,8 @@ class DiceWFRP
 				case "chooseCareer":
 					GeneratorWfrp4e.chooseCareer($(event.currentTarget).attr("data-species"))
 					break;
-				case "rollAttributes":
-					GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.statsRand)
+				case "rollSpeciesSkillsTalents":
+					GeneratorWfrp4e.speciesSkillsTalents($(event.currentTarget).attr("data-species"))
 					break;
 				case "rollDetails":
 					GeneratorWfrp4e.rollDetails($(event.currentTarget).attr("data-species"))

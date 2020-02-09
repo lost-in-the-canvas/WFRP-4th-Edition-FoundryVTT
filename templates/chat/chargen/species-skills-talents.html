@@ -2,7 +2,7 @@
   <h2>{{species}}</h2>
 </div>
 
-<span>Choose 6 skills and drag them to your character sheet if they are not already included. Put 5 advancements in 3 of them, and 3 advancements in the other 3.</span>
+<span>Choose 6 skills and drag them to your character sheet if they are not already included. Put 5 advancements in 3 of them, and 3 advancements in the other 3. These do not cost experience so avoid clicking the advancement buttons.</span>
 
 <div class = gen-skills>
   <h3>Skills</h3>
@@ -29,12 +29,3 @@
 </div>
 
 <div><a class = "table-click" data-table="talents"><i class="fas fa-list"></i> You may reroll any duplicate Talent.</a></div>
-
-<div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>
-
-<span class = "attribute-career-buttons">
-    <a class = 'chargen-button' data-button = 'rollAttributes' data-species="{{speciesKey}}" title = '+50 EXP'>Attributes</a>
-    <a class = 'chargen-button' data-button = 'rollCareer' data-species="{{speciesKey}}" title = '+50 EXP'>Career</a>
-    <a class = 'chargen-button' data-button = 'rollDetails' data-species="{{speciesKey}}">Details</a>
-  </span>
-  
