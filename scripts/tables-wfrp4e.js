@@ -1,46 +1,29 @@
+/**
+ * This class handles all aspects of custom WFRP tables.
+ * 
+ * The WFRP_Tables is given table objects on 'init' and 'ready' hooks by
+ * both the system, modules, and the world. See the tables folder for 
+ * how they're structured. All files in that folder will be
+ * added to WFRP_Tables if possible. 
+ */
+
 class WFRP_Tables
 {
 
-
-  static convert()
-  {
-    let newTable = {}
-    for (let table in WFRP_Tables)
-    {
-      if (table == "scatter" || table == "winds")
-        continue;
-      newTable.name = WFRP_Tables[table].name
-      newTable.die = WFRP_Tables[table].die
-      newTable.rows = [];
-
-      let startIndex = 1
-      let end;
-      for (let index = 2; index < WFRP_Tables[table].rows.length; index++)
-      {
-        if (WFRP_Tables[table].rows[index].description != WFRP_Tables[table].rows[startIndex].description)
-        {
-          end = index - 1
-
-          WFRP_Tables[table].rows[startIndex].range = [startIndex, end]
-          newTable.rows.push(WFRP_Tables[table].rows[startIndex])
-          startIndex = index;
-        }
-      }
-
-      end = WFRP_Tables[table].rows.length - 1
-
-      WFRP_Tables[table].rows[startIndex].range = [startIndex, end]
-      newTable.rows.push(WFRP_Tables[table].rows[startIndex])
-
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + table + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-      console.log(JSON.stringify(newTable))
-    }
-  }
-
-
+  /**
+   * The base function to retrieve a result from a table given various parameters.
+   * 
+   * Options: 
+   * `modifier` - modify the roll result by a certain amount
+   * `minOne` - If true, the minimum roll on the table is 1 (used when a negative modifier is applied)
+   * `lookup` - forego rolling and use this value to lookup the result on the table.
+   * 
+   * @param {String} table Table name - the filename of the table file
+   * @param {Object} options Various options for rolling the table, like modifier
+   * @param {String} column Which column to roll on, if possible.
+   */
   static rollTable(table, options = {}, column = null)
   {
-
     let modifier = options.modifier || 0;
     let minOne = options.minOne || false;
     let maxSize = options.maxSize || false;
@@ -48,26 +31,25 @@ class WFRP_Tables
     table = table.toLowerCase();
     if (this[table])
     {
-      // cap at 100
       let die = this[table].die;
       let tableSize;
+      // Take the last result of the table, and find it's max range, that is the highest value on the table.
       if (!this[table].columns)
         tableSize = this[table].rows[this[table].rows.length - 1].range[1];
       else
       {
-        tableSize = this[table].rows[this[table].rows.length - 1].range[this[table].columns[0]][1]; // This isn't confusing at all
+        tableSize = this[table].rows[this[table].rows.length - 1].range[this[table].columns[0]][1]; // This isn't confusing at all - take the first column, find its last (max) value, that is the table size
       }
+      // If no die specified, just use the table size and roll
       if (!die)
         die = `1d${tableSize}`;
-      let roll = new Roll(`${die} + @modifier`,
-      {
-        modifier
-      }).roll();
+      let roll = new Roll(`${die} + @modifier`,{modifier}).roll();
+
       let rollValue = options.lookup || roll.total; // options.lookup will ignore the rolled value for the input value
-      let displayTotal = options.lookup || roll.result;
+      let displayTotal = options.lookup || roll.result; // Roll value displayed to the user
       if (modifier == 0)
-        displayTotal = eval(displayTotal)
-      if (rollValue <= 0 && minOne)
+        displayTotal = eval(displayTotal) // Clean up display value if modifier 0 (59 instead of 59 + 0)
+      if (rollValue <= 0 && minOne) // Min one provides a lower bound of 1 on the result
         rollValue = 1;
 
       else if (rollValue <= 0)
@@ -78,30 +60,31 @@ class WFRP_Tables
       if (rollValue > tableSize)
         rollValue = tableSize;
 
+      // Scatter is a special table - calculate distance and return
       if (table == "scatter")
       {
-        if (roll.total <= 8)
+        if (roll.total <= 8) // Rolls of 9 and 10 do not need distance calculated
         {
           let distRoll = new Roll('2d10').roll().total;
-          return {
-            roll: roll.total,
-            dist: distRoll
-          }
+          return {roll: roll.total, dist: distRoll}
         }
         else
-          return {
-            roll: roll.total
-          }
+          return {roll: roll.total}
       }
-      return mergeObject(this._lookup(table, rollValue, column), (
-      {
-        roll: displayTotal
-      }));
+      // Lookup the value on the table, merge it with the roll, and return
+      return mergeObject(this._lookup(table, rollValue, column), ({roll: displayTotal}));
     }
     else
     {}
   }
 
+  /**
+   * Retrieves a value from a table, using the column if specified
+   * 
+   * @param {String} table table name
+   * @param {Number} value value to lookup
+   * @param {String} column column to look under, if needed
+   */
   static _lookup(table, value, column = null)
   {
     if (!column)
@@ -123,6 +106,8 @@ class WFRP_Tables
 
   /* -------------------------------------------- */
 
+  // critlleg doesn't exist, yet will be asked for because hit location and 'crit' are concatenated
+  // Therefore, change specific locations to generalized ones (rarm -> arm)
   static generalizeTable(table)
   {
     table = table.toLowerCase();
@@ -135,25 +120,41 @@ class WFRP_Tables
 
   /* -------------------------------------------- */
 
-  // Wrapper for rollTable to format rolls from chat commands nicely
+  /**
+   * 
+   * Wrapper for rollTable to format rolls from chat commands nicely.
+   * 
+   * Calls rollTable() and displays the result in a specific format depending
+   * on the table rolled on.
+   * 
+   * @param {String} table Table name - the filename of the table file
+   * @param {Object} options Various options for rolling the table, like modifier
+   * @param {String} column Which column to roll on, if possible.
+   */
   static formatChatRoll(table, options = {}, column = null)
   {
     table = this.generalizeTable(table);
+
+    // If table has columns but none given, prompt for one.
     if (this[table] && this[table].columns && column == null)
     {
       return this.promptColumn(table, options);
     }
 
     let result = this.rollTable(table, options, column);
-    if (options.lookup && !game.user.isGM)
+    if (options.lookup && !game.user.isGM) // If the player (not GM) rolled with a lookup value, display it so they can't be cheeky cheaters
       result.roll = "Lookup: " + result.roll;
     try
     {
+      // Cancel the roll if below 1 and not minimum one
       if (result.roll <= 0 && !options.minOne)
         return `Roll: ${result.roll} - canceled`
     }
     catch
     {}
+
+    // Provide specialized display for different tables
+    // I should probably standardize this better.
     switch (table)
     {
       case "hitloc":
@@ -190,6 +191,8 @@ class WFRP_Tables
       case "eyes":
       case "hair":
         return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>Roll:</b> ${eval(result.roll)}`
+
+      // Special scatter table display
       case "scatter":
         let tableHtml = '<table class = "scatter-table">' +
           " <tr>" +
@@ -233,6 +236,7 @@ class WFRP_Tables
         return `<b>Random Talent</b><br> <a class="talent-drag"><i class="fas fa-suitcase"></i> ${result.name}</a>`
 
 
+      // Non-system table display. Display everything associated with that row.
       default:
         try
         {
@@ -261,10 +265,17 @@ class WFRP_Tables
     }
   }
 
+  /**
+   * Show the table help menu, display all tables as clickables and hidden tables if requested.
+   * 
+   * @param {Boolean} showHidden Show hidden tables
+   */
   static tableMenu(showHidden = false)
   {
     let tableMenu = "<b><code>/table</code> Commands</b><br>"
     let hiddenTableCounter = 0;
+
+    // For each table, display a clickable link.
     for (let tableKey of Object.keys(this))
     {
       if (!showHidden)
@@ -287,6 +298,7 @@ class WFRP_Tables
     return tableMenu;
   }
 
+  // When critical casting, there are few options available, one could be a critical wound on a location, so offer a clickable link.
   static criticalCastMenu(crittable)
   {
     return "Choose from:<ul>" +
@@ -297,6 +309,7 @@ class WFRP_Tables
   }
 
 
+  // Critical casting without reaching appropriate SL - forced to be Total power in order to get the spell off
   static restrictedCriticalCastMenu()
   {
     return "Must Choose:<ul>" +
@@ -304,7 +317,7 @@ class WFRP_Tables
       "</ul";
   }
 
-
+  // Display all columns for a table so the user can click on them and roll them.
   static promptColumn(table, column)
   {
     let prompt = `<h3>Select a column to roll on</h3>`

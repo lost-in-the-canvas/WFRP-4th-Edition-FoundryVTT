@@ -1,9 +1,23 @@
+/**
+ * This class is where all opposed rolls are calculated, both targeted and manual.
+ * 
+ * Manual flow: 
+ * First click - attacker test result and speaker are stored, opposedInProgress flag raised, opposed roll message created (and stored for editing)
+ * Second click - defender test result and speaker stored, opposed values compared, roll message updated with result.
+ * 
+ * Targeted flow:
+ * Every roll (see roll overrides, ActorWfrp4e) checks to see if a target is selected, if so, handleOpposed is called. See this function for details
+ * on how targeted opposed rolls are handled.
+ */
 class OpposedWFRP
 {
-  /**
-   * This class is the handler for opposed tests
-   */
 
+  /**
+   * The opposed button was clicked, evaluate whether it is an attacker or defender, then proceed
+   * to evaluate if necessary.
+   * 
+   * @param {Object} event Click event for opposed button click
+   */
   static opposedClicked(event)
   {
     let button = $(event.currentTarget),
@@ -11,9 +25,11 @@ class OpposedWFRP
       message = game.messages.get(messageId);
     let data = message.data.flags.data
 
+    // If opposed already in progress, the click was for the defender
     if (this.opposedInProgress)
     {
-      if (game.messages.get(this.startMessage._id)) // If the startMessage still exists, proceed with the opposed test. Otherwise, start a new opposed test
+      // If the startMessage still exists, proceed with the opposed test. Otherwise, start a new opposed test
+      if (game.messages.get(this.startMessage._id)) 
         this.defenderClicked(data.postData, message.data.speaker)
       else
       {
@@ -21,48 +37,71 @@ class OpposedWFRP
         this.opposedClicked(event);
       }
     }
-    else
+    else // If no opposed roll in progress, click was for the attacker
     {
       this.opposedInProgress = true
       this.attackerClicked(data.postData, message.data.speaker)
     }
   }
 
+  /**
+   * Attacker starts an opposed test.
+   * 
+   * @param {Object} testResult Test result values
+   * @param {Object} speaker actor, token, etc. for the attacker
+   */
   static attackerClicked(testResult, speaker)
   {
+    // Store attacker in object member
     this.attacker = {
       testResult: testResult,
       speaker: speaker
     }
 
     this.createOpposedStartMessage(speaker);
-
   }
 
+  /**
+   * Defender responds to an opposed test - evaluate result
+   * 
+   * @param {Object} testResult Test result values
+   * @param {Object} speaker actor, token, etc. for the defender
+   */
   static defenderClicked(testResult, speaker)
   {
+    // Store defender in object member
     this.defender = {
       testResult: testResult,
       speaker: speaker
     }
-
     this.evaluateOpposedTest(this.attacker, this.defender);
   }
 
+  /**
+   * Main Opposed test evaluation logic. Takes attacker and defender test data and 
+   * determines who won, by how much, etc. Displays who won accordingly, with different
+   * logic for manual and targeted opposed tests
+   * 
+   * @param {Object} attacker Attacker data
+   * @param {Object} defender Defender Data
+   * @param {Object} options Targeted?
+   */
   static evaluateOpposedTest(attacker, defender, options = {})
   {
-    let result;
     try
     {
       let opposeResult = {};
       let attackerSL = parseInt(attacker.testResult.SL);
       let defenderSL = parseInt(defender.testResult.SL);
-
       let differenceSL = 0;
+
+      // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
+      // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
       if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
       {
         opposeResult.winner = "attacker"
         differenceSL = attackerSL - defenderSL;
+        // Update message
         opposeResult.result =
           `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
         opposeResult.img = attacker.img;
@@ -70,11 +109,16 @@ class OpposedWFRP
         opposeResult.speakerDefend = defender.speaker
         opposeResult.attackerTestResult = duplicate(attacker.testResult);
         opposeResult.defenderTestResult = duplicate(defender.testResult);
+
+        // If Damage is a numerical value
         if (!isNaN(opposeResult.attackerTestResult.damage))
         {
+          // Calculate size damage multiplier 
           let damageMultiplier = 1;
           let sizeDiff = WFRP4E.actorSizeNums[opposeResult.attackerTestResult.size] - WFRP4E.actorSizeNums[opposeResult.defenderTestResult.size]
           damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
+
+          // If the attacker is using a Trait0 to do damage, calculate damaging and impact if necessary
           if (opposeResult.attackerTestResult.trait)
           {
             if (sizeDiff >= 1)
@@ -100,6 +144,7 @@ class OpposedWFRP
             value: (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
           };
         }
+        // If attacker is using a weapon or trait but there wasn't a numerical damage value, output unknown
         else if (opposeResult.attackerTestResult.weapon || opposeResult.attackerTestResult.trait)
         {
           opposeResult.damage = {
@@ -113,7 +158,7 @@ class OpposedWFRP
             value: opposeResult.attackerTestResult.hitloc.result
           };
       }
-      else
+      else // Defender won
       {
         opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL;
@@ -121,6 +166,7 @@ class OpposedWFRP
         opposeResult.img = defender.img
       }
 
+      // If targeting, Create a new result message
       if (options.target)
       {
         opposeResult.hideData = true;
@@ -135,7 +181,7 @@ class OpposedWFRP
           ChatMessage.create(chatOptions)
         })
       }
-      else
+      else // If manual - update start message and clear opposed data
       {
         opposeResult.hideData = true;
         renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html =>
@@ -169,6 +215,7 @@ class OpposedWFRP
     }
   }
 
+  // Opposed starting message - manual opposed
   static createOpposedStartMessage(speaker)
   {
     ChatMessage.create(
@@ -183,6 +230,7 @@ class OpposedWFRP
     }).then(msg => this.startMessage = msg)
   }
 
+  // Update starting mesasge with result - manual opposed
   static updateOpposedMessage(damageConfirmation, msgId)
   {
     let opposeMessage = game.messages.get(msgId)
@@ -198,6 +246,7 @@ class OpposedWFRP
     })
   }
 
+  // Clear all opposed data - manual opposed
   static clearOpposed()
   {
     this.opposedInProgress = false;
@@ -281,13 +330,12 @@ class OpposedWFRP
           <div class="unopposed-button" data-target="true" title="Unopposed"><a><i class="fas fa-arrow-down"></i></a></div>`
 
           // Create the Opposed starting message
-          //let startMessage = await ChatMessage.create({user : game.user._id, content : content, speaker : message.data.speaker, timestamp : message.data.timestamp - 1})
           let startMessage = await ChatMessage.create(
           {
             user: game.user._id,
             content: content,
             speaker: message.data.speaker,
-            ["flags.unopposeData"]:
+            ["flags.unopposeData"]: // Optional data to resolve unopposed tests - used for damage values
             {
               attackMessageId: message.data._id,
               targetSpeaker:
@@ -316,13 +364,17 @@ class OpposedWFRP
     }
     catch
     {
-      await actor.update(
-      {
-        "-=flags.oppose": null
-      }) // If something went wrong, remove incoming opposed tests
+      await actor.update({"-=flags.oppose": null}) // If something went wrong, remove incoming opposed tests
     }
   }
 
+  /**
+   * Unopposed test resolution is an option after starting a targeted opposed test. Unopposed data is
+   * stored in the the opposed start message. We can compare this with dummy values of 0 for the defender
+   * to simulate an unopposed test. This allows us to calculate damage values for ranged weapons and the like.
+   * 
+   * @param {String} startMessageId Id of opposed start message
+   */
   static async resolveUnopposed(startMessageId)
   {
 
@@ -330,12 +382,12 @@ class OpposedWFRP
     let unopposeData = startMessage.data.flags.unopposeData;
 
     let attackMessage = game.messages.get(unopposeData.attackMessageId) // Retrieve attacker's test result message
-    // Organize attacker/defender data
+    // Organize attacker data
     let attacker = {
       speaker: attackMessage.data.speaker,
       testResult: attackMessage.data.flags.data.postData,
     }
-
+    // Organize dummy values for defender
     let target = canvas.tokens.get(unopposeData.targetSpeaker.token)
     let defender = {
       speaker: unopposeData.targetSpeaker,
@@ -347,12 +399,9 @@ class OpposedWFRP
         roll: 0
       }
     }
-
-    await target.actor.update(
-    {
-      "-=flags.oppose": null
-    })
-
+    // Remove opposed flag
+    await target.actor.update({"-=flags.oppose": null})
+    // Evaluate
     this.evaluateOpposedTest(attacker, defender,
     {
       target: true,
