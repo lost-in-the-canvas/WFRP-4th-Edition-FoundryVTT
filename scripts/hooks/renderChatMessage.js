@@ -10,6 +10,10 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-buttons").remove();
   }
 
+
+  if (html.hasClass("blind") && !game.user.isGM)
+    html.html("").css("display", "none");
+
   let postedItem = html.find(".post-item")[0]
   if (postedItem)
   {
