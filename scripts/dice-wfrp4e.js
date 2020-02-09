@@ -899,8 +899,8 @@ class DiceWFRP
 				case "chooseCareer":
 					GeneratorWfrp4e.chooseCareer($(event.currentTarget).attr("data-species"))
 					break;
-				case "rollAttributes":
-					GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"), WFRP4E.randomExp.statsRand)
+				case "rollSpeciesSkillsTalents":
+					GeneratorWfrp4e.speciesSkillsTalents($(event.currentTarget).attr("data-species"))
 					break;
 				case "rollDetails":
 					GeneratorWfrp4e.rollDetails($(event.currentTarget).attr("data-species"))

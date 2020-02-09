@@ -174,6 +174,11 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
                     })
                 }
               },
+              yesNoExp:
+              {
+                label: "Free",
+                callback: dlg =>{ this.actor.createEmbeddedEntity("OwnedItem", talent.data); }
+              },
               cancel:
               {
                 label: "Cancel",
@@ -247,19 +252,51 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
             "data.details.experience.spent": spent
           })
         }
+        // If right click, ask to refund EXP or not
         else if (ev.button == 2)
         {
-          // Reverse the cost, add to exp, and remove the talent
           let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
           let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
           let preparedTalent = this.actor.data.flags.careerTalents.find(t => t.name == item.name)
           let spent = 0;
           spent = this.actor.data.data.details.experience.spent - (preparedTalent.data.advances.value) * 100
-          this.actor.deleteEmbeddedEntity("OwnedItem", itemId)
-          this.actor.update(
-          {
-            "data.details.experience.spent": spent
-          })
+
+          new Dialog(
+            {
+              title: "Add Exp Back?",
+              content: `<p>Do you want to refund the experience? (${(preparedTalent.data.advances.value) * 100})</p>`,
+              buttons:
+              {
+                yes:
+                {
+                  label: "Yes",
+                  callback: dlg =>
+                  {
+                    this.actor.deleteEmbeddedEntity("OwnedItem", itemId)
+                    this.actor.update(
+                    {
+                      "data.details.experience.spent": spent
+                    })
+                  }
+                },
+                no:
+                {
+                  label: "No",
+                  callback : dlg => 
+                  {
+                    this.actor.deleteEmbeddedEntity("OwnedItem", itemId)                  
+                  },
+                },
+                cancel: 
+                {
+                  label: "Cancel",
+                  callback: dlg =>{ return }
+                }
+              },
+              default: 'yes'
+            }).render(true);
+          // Reverse the cost, add to exp, and remove the talent
+
         }
 
       }
