@@ -15496,3 +15496,26 @@ button.capture-position {
 .table-input {
   width: 200px;
 }
+.app.window-app .window-header .popout {
+  color: #00c2d800;
+  text-align: center;
+  background: url(../ui/buttons/popout.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  overflow: hidden;
+}
+
+.app.window-app.character-sheet .popout,
+  .app.window-app.npc-sheet .popout,
+    .app.window-app.creature-sheet .popout{
+left: 30px;
+top: 25px;
+}
+
+.app.window-app.journal-sheet .popout {
+  left: 26px;
+    top: 8px;
+}
