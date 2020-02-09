@@ -3,7 +3,7 @@
     {{> systems/wfrp4e/templates/chat/test-card.html}}
 
     {{#if testData.incomeResult}}
-    <b>{{testData.incomeResult}}</b>
+    <b><a class = "money-drag" data-amt = "{{testData.moneyEarned}}">{{testData.incomeResult}}</a></b>
     {{/if}}
    <!-- {{#if opposed}}
     <div class ="card-buttons">

@@ -11,12 +11,12 @@
 class ItemWfrp4e extends Item
 {
   // Upon creation, assign a blank image if item is new (not duplicated) instead of mystery-man default
-	static async create(data, options)
-	{
-		if (!data.img)
-			data.img = "systems/wfrp4e/icons/blank.png";
-		super.create(data, options);
-	}
+  static async create(data, options)
+  {
+    if (!data.img)
+      data.img = "systems/wfrp4e/icons/blank.png";
+    super.create(data, options);
+  }
 
   /******* ITEM EXPAND DATA ***********
    * Expansion data is called when an item's dropdown is created. Each function organizes a 'properties' array. 
@@ -28,554 +28,554 @@ class ItemWfrp4e extends Item
    * 
    * @param {Object} htmlOptions    Currently unused - example: show secrets?
    */
-	getExpandData(htmlOptions)
-	{
-		const data = this[`_${this.data.type}ExpandData`]();
-		data.description.value = data.description.value || "";
-		data.description.value = enrichHTML(data.description.value, htmlOptions);
-		return data;
-	}
+  getExpandData(htmlOptions)
+  {
+    const data = this[`_${this.data.type}ExpandData`]();
+    data.description.value = data.description.value || "";
+    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    return data;
+  }
 
   // Trapping Expansion Data
-	_trappingExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		return data;
-	}
+  _trappingExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
 
   // Money Expansion Data
-	_moneyExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [`Value (in d): ${data.coinValue.value}`];
-		return data;
-	}
+  _moneyExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [`Value (in d): ${data.coinValue.value}`];
+    return data;
+  }
 
   // Psychology Expansion Data
-	_psychologyExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		return data;
-	}
+  _psychologyExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
 
   // Mutation Expansion Data
-	_mutationExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		data.properties.push(WFRP4E.mutationTypes[this.data.data.mutationType.value]);
-		if (this.data.data.modifier.value)
-			data.properties.push(this.data.data.modifier.value)
-		return data;
-	}
+  _mutationExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    data.properties.push(WFRP4E.mutationTypes[this.data.data.mutationType.value]);
+    if (this.data.data.modifier.value)
+      data.properties.push(this.data.data.modifier.value)
+    return data;
+  }
 
   // Disease Expansion Data
-	_diseaseExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		data.properties.push("<b>Contraction:</b> " + data.contraction.value);
-		data.properties.push("<b>Incubation:</b> " + data.incubation.value);
-		data.properties.push("<b>Duration:</b> " + data.duration.value);
-		data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>"));
-		if (data.permanent.value)
-			data.properties.push("<b>Permanent:</b> " + data.permanent.value);
-		return data;
-	}
+  _diseaseExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    data.properties.push("<b>Contraction:</b> " + data.contraction.value);
+    data.properties.push("<b>Incubation:</b> " + data.incubation.value);
+    data.properties.push("<b>Duration:</b> " + data.duration.value);
+    data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>"));
+    if (data.permanent.value)
+      data.properties.push("<b>Permanent:</b> " + data.permanent.value);
+    return data;
+  }
 
   // Talent Expansion Data
-	_talentExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		return data;
-	}
+  _talentExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
 
   // Trait Expansion Data
-	_traitExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		return data;
-	}
+  _traitExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
 
   // Career Expansion Data
-	_careerExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		data.properties.push("<b>Class</b>: " + this.data.data.class.value);
-		data.properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
-		data.properties.push(WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-		data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
-		data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
-		data.properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + i));
-		data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
+  _careerExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    data.properties.push("<b>Class</b>: " + this.data.data.class.value);
+    data.properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
+    data.properties.push(WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
+    data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
+    data.properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + i));
+    data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
     data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => ` <a class = 'career-income' data-career-id=${this.data._id}> ${this.data.data.skills[i]} <i class="fas fa-coins"></i></a>`));
     // When expansion data is called, a listener is added for 'career-income'
-		return data;
-	}
+    return data;
+  }
 
   // Injury Expansion Data
-	_injuryExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		return data;
-	}
+  _injuryExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    return data;
+  }
 
   // Critical Expansion Data
-	_criticalExpandData()
-	{
-		const data = duplicate(this.data.data);
-		data.properties = [];
-		data.properties.push(`<b>Wounds</b>: ${this.data.data.wounds.value}`)
-		if (data.modifier.value)
-			data.properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
-		return data;
-	}
+  _criticalExpandData()
+  {
+    const data = duplicate(this.data.data);
+    data.properties = [];
+    data.properties.push(`<b>Wounds</b>: ${this.data.data.wounds.value}`)
+    if (data.modifier.value)
+      data.properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+    return data;
+  }
 
   // Spell Expansion Data
-	_spellExpandData()
-	{
-		const data = duplicate(this.data.data);
-		let preparedSpell = this.actor.prepareSpellOrPrayer(duplicate(this.data));
-		data.description = preparedSpell.data.description
-		data.properties = [];
-		data.properties.push("Range: " + preparedSpell.range);
-		data.properties.push("Target: " + preparedSpell.target);
-		data.properties.push("Duration: " + preparedSpell.duration);
-		if (data.magicMissile.value)
-			data.properties.push("Magic Missile: +" + preparedSpell.damage);
-		else if (preparedSpell.data.damage.value)
-			data.properties.push("Damage: +" + preparedSpell.damage);
+  _spellExpandData()
+  {
+    const data = duplicate(this.data.data);
+    let preparedSpell = this.actor.prepareSpellOrPrayer(duplicate(this.data));
+    data.description = preparedSpell.data.description
+    data.properties = [];
+    data.properties.push("Range: " + preparedSpell.range);
+    data.properties.push("Target: " + preparedSpell.target);
+    data.properties.push("Duration: " + preparedSpell.duration);
+    if (data.magicMissile.value)
+      data.properties.push("Magic Missile: +" + preparedSpell.damage);
+    else if (preparedSpell.data.damage.value)
+      data.properties.push("Damage: +" + preparedSpell.damage);
 
-		return data;
-	}
+    return data;
+  }
 
   // Prayer Expansion Data
-	_prayerExpandData()
-	{
-		const data = duplicate(this.data.data);
-		let preparedPrayer = this.actor.prepareSpellOrPrayer(this.data);
-		data.properties = [];
-		data.properties.push("Range: " + preparedPrayer.range);
-		data.properties.push("Target: " + preparedPrayer.target);
-		data.properties.push("Duration: " + preparedPrayer.duration);
-		if (preparedPrayer.data.damage.value)
-			data.properties.push("Damage: " + preparedPrayer.data.damage.value);
-		return data;
-	}
+  _prayerExpandData()
+  {
+    const data = duplicate(this.data.data);
+    let preparedPrayer = this.actor.prepareSpellOrPrayer(this.data);
+    data.properties = [];
+    data.properties.push("Range: " + preparedPrayer.range);
+    data.properties.push("Target: " + preparedPrayer.target);
+    data.properties.push("Duration: " + preparedPrayer.duration);
+    if (preparedPrayer.data.damage.value)
+      data.properties.push("Damage: " + preparedPrayer.data.damage.value);
+    return data;
+  }
 
   // Weapon Expansion Data
-	_weaponExpandData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
+  _weaponExpandData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
 
-		if (data.weaponGroup.value)
-			properties.push(WFRP4E.weaponGroups[data.weaponGroup.value]);
-		if (data.range.value)
-			properties.push("Range: " + data.range.value);
-		if (data.damage.meleeValue)
-			properties.push("Melee Damage: " + data.damage.meleeValue);
-		if (data.damage.rangedValue)
-			properties.push("Ranged Damage: " + data.damage.rangedValue);
-		for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
-			properties.push(prop);
-		if (data.twohanded.value)
-			properties.push("Two Handed");
-		if (data.reach.value)
-			properties.push("Reach: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
-		if (data.weaponDamage)
-			properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
-		if (data.APdamage)
-			properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
+    if (data.weaponGroup.value)
+      properties.push(WFRP4E.weaponGroups[data.weaponGroup.value]);
+    if (data.range.value)
+      properties.push("Range: " + data.range.value);
+    if (data.damage.meleeValue)
+      properties.push("Melee Damage: " + data.damage.meleeValue);
+    if (data.damage.rangedValue)
+      properties.push("Ranged Damage: " + data.damage.rangedValue);
+    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
+      properties.push(prop);
+    if (data.twohanded.value)
+      properties.push("Two Handed");
+    if (data.reach.value)
+      properties.push("Reach: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
+    if (data.weaponDamage)
+      properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
+    if (data.APdamage)
+      properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
 
-		properties = properties.filter(p => p != "Special");
-		if (data.special.value)
-			properties.push("Special: " + data.special.value);
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push("Special: " + data.special.value);
 
-		data.properties = properties.filter(p => !!p);
-		return data;
-	}
+    data.properties = properties.filter(p => !!p);
+    return data;
+  }
 
   // Armour Expansion Data
-	_armourExpandData()
-	{
-		const data = duplicate(this.data.data);
-		const properties = [];
-		properties.push(WFRP4E.armorTypes[data.armorType.value]);
-		for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
-			properties.push(prop);
-		properties.push(data.penalty.value);
+  _armourExpandData()
+  {
+    const data = duplicate(this.data.data);
+    const properties = [];
+    properties.push(WFRP4E.armorTypes[data.armorType.value]);
+    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
+      properties.push(prop);
+    properties.push(data.penalty.value);
 
-		data.properties = properties.filter(p => !!p);
-		return data;
+    data.properties = properties.filter(p => !!p);
+    return data;
   }
-  
+
   // Ammunition Expansion Data
-	_ammunitionExpandData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push(WFRP4E.ammunitionGroups[data.ammunitionType.value])
+  _ammunitionExpandData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push(WFRP4E.ammunitionGroups[data.ammunitionType.value])
 
-		if (data.range.value)
-			properties.push("Range: " + data.range.value);
+    if (data.range.value)
+      properties.push("Range: " + data.range.value);
 
-		if (data.damage.value)
-			properties.push("Damage: " + data.damage.value);
+    if (data.damage.value)
+      properties.push("Damage: " + data.damage.value);
 
-		for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
-			properties.push(prop);
-		properties = properties.filter(p => p != "Special");
-		if (data.special.value)
-			properties.push("Special: " + data.special.value);
+    for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
+      properties.push(prop);
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push("Special: " + data.special.value);
 
-		data.properties = properties.filter(p => !!p);
-		return data;
-	}
+    data.properties = properties.filter(p => !!p);
+    return data;
+  }
 
 
- /**
-  * Posts this item to chat.
-  * 
-  * postItem() prepares this item's chat data to post it to chat, setting up 
-  * the image if it exists, as well as setting flags so drag+drop works.
-  * 
-  */
-	postItem()
-	{
-		const properties = this[`_${this.data.type}ChatData`]();
-		let chatData = duplicate(this.data);
-		chatData["properties"] = properties
+  /**
+   * Posts this item to chat.
+   * 
+   * postItem() prepares this item's chat data to post it to chat, setting up 
+   * the image if it exists, as well as setting flags so drag+drop works.
+   * 
+   */
+  postItem()
+  {
+    const properties = this[`_${this.data.type}ChatData`]();
+    let chatData = duplicate(this.data);
+    chatData["properties"] = properties
 
     // Don't post any image for the item (which would leave a large gap) if the default image is used
-		if (chatData.img.includes("/blank.png"))
-			chatData.img = null;
+    if (chatData.img.includes("/blank.png"))
+      chatData.img = null;
 
-		renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html =>
-		{
+    renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html =>
+    {
       let chatOptions = WFRP_Utility.chatDataSetup(html)
       // Setup drag and drop data
-			chatOptions["flags.transfer"] = JSON.stringify(
-			{
-				data: this.data,
-				postedItem: true
-			})
-			ChatMessage.create(chatOptions)
-		});
+      chatOptions["flags.transfer"] = JSON.stringify(
+      {
+        data: this.data,
+        postedItem: true
+      })
+      ChatMessage.create(chatOptions)
+    });
   }
-  
+
   /******* ITEM CHAT DATA ***********
    * Chat data is called when an item is posted to chat. Each function organizes a 'properties' array. 
    * Each element of the array is shown as a list below the description.
    */
 
-   // Trapping Chat Data
-	_trappingChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [
-			`<b>Trapping Type</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
-			`<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-			`<b>Encumbrance</b>: ${data.encumbrance.value}`,
-			`<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
-		]
-		return properties;
-	}
+  // Trapping Chat Data
+  _trappingChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [
+      `<b>Trapping Type</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+    ]
+    return properties;
+  }
 
   // Skill Chat Data
-	_skillChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = []
-		properties.push(data.advanced == "adv" ? "<b>Advanced</b>" : "<b>Basic</b>")
-		return properties;
-	}
+  _skillChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = []
+    properties.push(data.advanced == "adv" ? "<b>Advanced</b>" : "<b>Basic</b>")
+    return properties;
+  }
 
   // Money Chat Data
-	_moneyChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [
-			`<b>Value (in pennies)</b>: ${data.coinValue.value}`,
-			`<b>Encumbrance</b>: ${data.encumbrance.value}`,
-		]
-		return properties;
-	}
+  _moneyChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [
+      `<b>Value (in pennies)</b>: ${data.coinValue.value}`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+    ]
+    return properties;
+  }
 
   // Psychology Chat Data
-	_psychologyChatData()
-	{
-		return [];
-	}
+  _psychologyChatData()
+  {
+    return [];
+  }
 
   // Mutation Chat Data
-	_mutationChatData()
-	{
-		let properties = [
-			`<b>Mutation Type</b>: ${WFRP4E.mutationTypes[this.data.data.mutationType.value]}`,
-		];
-		if (this.data.data.modifier.value)
-			properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
-		return properties;
-	}
+  _mutationChatData()
+  {
+    let properties = [
+      `<b>Mutation Type</b>: ${WFRP4E.mutationTypes[this.data.data.mutationType.value]}`,
+    ];
+    if (this.data.data.modifier.value)
+      properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+    return properties;
+  }
 
   // Disease Chat Data
-	_diseaseChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push("<b>Contraction:</b> " + data.contraction.value);
-		properties.push("<b>Incubation:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.incubation.value}</a>`);
-		properties.push("<b>Duration:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.duration.value}</a>`);
-		properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>")).join(", "));
-		if (data.permanent.value)
-			properties.push("<b>Permanent:</b> " + data.permanent.value);
-		return properties;
-	}
+  _diseaseChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Contraction:</b> " + data.contraction.value);
+    properties.push("<b>Incubation:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.incubation.value}</a>`);
+    properties.push("<b>Duration:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.duration.value}</a>`);
+    properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>")).join(", "));
+    if (data.permanent.value)
+      properties.push("<b>Permanent:</b> " + data.permanent.value);
+    return properties;
+  }
 
   // Talent Chat Data
-	_talentChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push("<b>Max: </b> " + WFRP4E.talentMax[data.max.value]);
-		if (data.tests.value)
-			properties.push("<b>Tests: </b> " + data.tests.value);
-		return properties;
-	}
+  _talentChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Max: </b> " + WFRP4E.talentMax[data.max.value]);
+    if (data.tests.value)
+      properties.push("<b>Tests: </b> " + data.tests.value);
+    return properties;
+  }
 
   // Trait Chat Data
-	_traitChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		if (data.specification.value)
-			properties.push("<b>Specification: </b> " + data.specification.value);
-		return properties;
-	}
+  _traitChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    if (data.specification.value)
+      properties.push("<b>Specification: </b> " + data.specification.value);
+    return properties;
+  }
 
   // Career Chat Data
-	_careerChatData()
-	{
-		let properties = [];
-		properties.push("<b>Class</b>: " + this.data.data.class.value);
-		properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
-		properties.push("<b>Status</b>: " + WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-		properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
-		properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>" + i + "</a>"));
-		properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + "<a class = 'talent-lookup'>" + i + "</a>"));
-		properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
-		properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
-		return properties;
+  _careerChatData()
+  {
+    let properties = [];
+    properties.push("<b>Class</b>: " + this.data.data.class.value);
+    properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
+    properties.push("<b>Status</b>: " + WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
+    properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
+    properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>" + i + "</a>"));
+    properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + "<a class = 'talent-lookup'>" + i + "</a>"));
+    properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
+    properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+    return properties;
   }
 
   // Injury Chat Data
-	_injuryChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push(`<b>Location</b>: ${data.location.value}`);
-		if (data.penalty.value)
-			properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
-		return properties;
-	}
+  _injuryChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push(`<b>Location</b>: ${data.location.value}`);
+    if (data.penalty.value)
+      properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+    return properties;
+  }
 
   // Critical Chat Data
-	_criticalChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push(`<b>Wounds</b>: ${data.wounds.value}`);
-		properties.push(`<b>Location</b>: ${data.location.value}`);
-		if (data.modifier.value)
-			properties.push(`<b>Modifier</b>: ${data.modifier.value}`);
-		return properties;
-	}
+  _criticalChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push(`<b>Wounds</b>: ${data.wounds.value}`);
+    properties.push(`<b>Location</b>: ${data.location.value}`);
+    if (data.modifier.value)
+      properties.push(`<b>Modifier</b>: ${data.modifier.value}`);
+    return properties;
+  }
 
   // Spell Chat Data
-	_spellChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		if (WFRP4E.magicLores[data.lore.value])
-			properties.push("<b>Lore</b>: " + WFRP4E.magicLores[data.lore.value]);
-		else
-			properties.push("<b>Lore</b>: " + data.lore.value);
-		properties.push("<b>CN</b>: " + data.cn.value);
-		properties.push("<b>Range</b>: " + data.range.value);
-		properties.push("<b>Target</b>: " + data.target.value);
-		properties.push("<b>Duration</b>: " + data.duration.value);
-		if (data.damage.value)
-			properties.push("<b>Damage</b>: " + data.damage.value);
+  _spellChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    if (WFRP4E.magicLores[data.lore.value])
+      properties.push("<b>Lore</b>: " + WFRP4E.magicLores[data.lore.value]);
+    else
+      properties.push("<b>Lore</b>: " + data.lore.value);
+    properties.push("<b>CN</b>: " + data.cn.value);
+    properties.push("<b>Range</b>: " + data.range.value);
+    properties.push("<b>Target</b>: " + data.target.value);
+    properties.push("<b>Duration</b>: " + data.duration.value);
+    if (data.damage.value)
+      properties.push("<b>Damage</b>: " + data.damage.value);
 
-		return properties;
-	}
+    return properties;
+  }
 
   // Prayer Chat Data
-	_prayerChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push("<b>Range</b>: " + data.range.value);
-		properties.push("<b>Target</b>: " + data.target.value);
-		properties.push("<b>Duration</b>: " + data.duration.value);
-		if (data.damage.value)
-			properties.push("Damage: " + data.damage.value);
-		return properties;
-	}
+  _prayerChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Range</b>: " + data.range.value);
+    properties.push("<b>Target</b>: " + data.target.value);
+    properties.push("<b>Duration</b>: " + data.duration.value);
+    if (data.damage.value)
+      properties.push("Damage: " + data.damage.value);
+    return properties;
+  }
 
   // Container Chat Data
-	_containerChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [
-			`<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-			`<b>Encumbrance</b>: ${data.encumbrance.value}`,
-			`<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
-		]
+  _containerChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+    ]
 
-		properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
-		properties.push("<b>Count toward owner's encumbrance?</b>: " + (data.countEnc.value ? "Yes" : "No"));
-		return properties;
-	}
+    properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
+    properties.push("<b>Count toward owner's encumbrance?</b>: " + (data.countEnc.value ? "Yes" : "No"));
+    return properties;
+  }
 
   // Weapon Chat Data
-	_weaponChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [
-			`<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-			`<b>Encumbrance</b>: ${data.encumbrance.value}`,
-			`<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
-		]
+  _weaponChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+    ]
 
-		if (data.weaponGroup.value)
-			properties.push("<b>Weapon Group</b>: " + WFRP4E.weaponGroups[data.weaponGroup.value]);
-		if (data.range.value)
-			properties.push("<b>Range</b>: " + data.range.value);
-		if (data.damage.meleeValue)
-			properties.push("<b>Melee Damage</b>: " + data.damage.meleeValue);
-		if (data.damage.rangedValue)
-			properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
-		if (data.weaponDamage)
-			properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
-		if (data.APdamage)
-			properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
-		if (data.twohanded.value)
-			properties.push("<b>Two Handed</b>");
-		if (data.reach.value)
-			properties.push("<b>Reach</b>: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
+    if (data.weaponGroup.value)
+      properties.push("<b>Weapon Group</b>: " + WFRP4E.weaponGroups[data.weaponGroup.value]);
+    if (data.range.value)
+      properties.push("<b>Range</b>: " + data.range.value);
+    if (data.damage.meleeValue)
+      properties.push("<b>Melee Damage</b>: " + data.damage.meleeValue);
+    if (data.damage.rangedValue)
+      properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
+    if (data.weaponDamage)
+      properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
+    if (data.APdamage)
+      properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
+    if (data.twohanded.value)
+      properties.push("<b>Two Handed</b>");
+    if (data.reach.value)
+      properties.push("<b>Reach</b>: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
 
-		let weaponProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+    let weaponProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
 
     // Make qualities and flaws clickable
-		weaponProperties.qualities = weaponProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
-		weaponProperties.flaws = weaponProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    weaponProperties.qualities = weaponProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    weaponProperties.flaws = weaponProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
-		if (weaponProperties.qualities.length)
-			properties.push("<b>Qualities</b>: " + weaponProperties.qualities.join(", "))
-
-
-		if (weaponProperties.flaws.length)
-			properties.push("<b>Flaws</b>: " + weaponProperties.flaws.join(", "))
+    if (weaponProperties.qualities.length)
+      properties.push("<b>Qualities</b>: " + weaponProperties.qualities.join(", "))
 
 
-		properties = properties.filter(p => p != "Special");
-		if (data.special.value)
-			properties.push("<b>Special</b>: " + data.special.value);
+    if (weaponProperties.flaws.length)
+      properties.push("<b>Flaws</b>: " + weaponProperties.flaws.join(", "))
 
-		properties = properties.filter(p => !!p);
-		return properties;
-	}
+
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push("<b>Special</b>: " + data.special.value);
+
+    properties = properties.filter(p => !!p);
+    return properties;
+  }
 
   // Armour Chat Data
-	_armourChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [
-			`<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-			`<b>Encumbrance</b>: ${data.encumbrance.value}`,
-			`<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
-		]
+  _armourChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [
+      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+    ]
 
-		if (data.armorType.value)
-			properties.push("<b>Armour Type</b>: " + WFRP4E.armorTypes[data.armorType.value]);
-		if (data.penalty.value)
-			properties.push("<b>Penalty</b>: " + data.penalty.value);
-
-
-		for (let apVal in data.currentAP)
-		{
-			if (data.currentAP[apVal] == -1)
-				data.currentAP[apVal] = data.maxAP[apVal];
-		}
-
-		for (let loc in WFRP4E.locations)
-			if (data.maxAP[loc])
-				properties.push(`<b>${WFRP4E.locations[loc]} AP</b>: ${data.currentAP[loc]}/${data.maxAP[loc]}`);
+    if (data.armorType.value)
+      properties.push("<b>Armour Type</b>: " + WFRP4E.armorTypes[data.armorType.value]);
+    if (data.penalty.value)
+      properties.push("<b>Penalty</b>: " + data.penalty.value);
 
 
-		let armourProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+    for (let apVal in data.currentAP)
+    {
+      if (data.currentAP[apVal] == -1)
+        data.currentAP[apVal] = data.maxAP[apVal];
+    }
+
+    for (let loc in WFRP4E.locations)
+      if (data.maxAP[loc])
+        properties.push(`<b>${WFRP4E.locations[loc]} AP</b>: ${data.currentAP[loc]}/${data.maxAP[loc]}`);
+
+
+    let armourProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
 
     // Make qualities and flaws clickable
-		armourProperties.qualities = armourProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
-		armourProperties.flaws = armourProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    armourProperties.qualities = armourProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    armourProperties.flaws = armourProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
-		if (armourProperties.qualities.length)
-			properties.push("<b>Qualities</b>: " + armourProperties.qualities.join(", "))
-
-
-		if (armourProperties.flaws.length)
-			properties.push("<b>Flaws</b>: " + armourProperties.flaws.join(", "))
+    if (armourProperties.qualities.length)
+      properties.push("<b>Qualities</b>: " + armourProperties.qualities.join(", "))
 
 
-		properties = properties.filter(p => p != "Special");
-		if (data.special.value)
-			properties.push("<b>Special</b>: " + data.special.value);
+    if (armourProperties.flaws.length)
+      properties.push("<b>Flaws</b>: " + armourProperties.flaws.join(", "))
 
-		properties = properties.filter(p => !!p);
-		return properties;
+
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push("<b>Special</b>: " + data.special.value);
+
+    properties = properties.filter(p => !!p);
+    return properties;
   }
-  
+
   // Ammunition Chat Data
-	_ammunitionChatData()
-	{
-		const data = duplicate(this.data.data);
-		let properties = [];
-		properties.push("<b>Ammunition Type:</b> " + WFRP4E.ammunitionGroups[data.ammunitionType.value])
+  _ammunitionChatData()
+  {
+    const data = duplicate(this.data.data);
+    let properties = [];
+    properties.push("<b>Ammunition Type:</b> " + WFRP4E.ammunitionGroups[data.ammunitionType.value])
 
-		if (data.range.value)
-			properties.push("<b>Range</b>: " + data.range.value);
+    if (data.range.value)
+      properties.push("<b>Range</b>: " + data.range.value);
 
-		if (data.damage.value)
-			properties.push("<b>Damage</b>: " + data.damage.value);
+    if (data.damage.value)
+      properties.push("<b>Damage</b>: " + data.damage.value);
 
-		let ammoProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
+    let ammoProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
 
-		ammoProperties.qualities = ammoProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
-		ammoProperties.flaws = ammoProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    ammoProperties.qualities = ammoProperties.qualities.map(i => i = "<a class ='item-property'>" + i + "</a>");
+    ammoProperties.flaws = ammoProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
-		if (ammoProperties.qualities.length)
-			properties.push("<b>Qualities</b>: " + ammoProperties.qualities.join(", "))
-
-
-		if (ammoProperties.flaws.length)
-			properties.push("<b>Flaws</b>: " + ammoProperties.flaws.join(", "))
+    if (ammoProperties.qualities.length)
+      properties.push("<b>Qualities</b>: " + ammoProperties.qualities.join(", "))
 
 
-		properties = properties.filter(p => p != "Special");
-		if (data.special.value)
-			properties.push("Special: " + data.special.value);
+    if (ammoProperties.flaws.length)
+      properties.push("<b>Flaws</b>: " + ammoProperties.flaws.join(", "))
 
-		properties = properties.filter(p => !!p);
-		return properties;
-	}
+
+    properties = properties.filter(p => p != "Special");
+    if (data.special.value)
+      properties.push("Special: " + data.special.value);
+
+    properties = properties.filter(p => !!p);
+    return properties;
+  }
 }
 // Assign ItemWfrp4e class to CONFIG
 CONFIG.Item.entityClass = ItemWfrp4e;
