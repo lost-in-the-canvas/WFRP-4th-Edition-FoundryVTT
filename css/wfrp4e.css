@@ -15068,6 +15068,7 @@ font-style : normal;
       }
 
       .app.window-app.sheet.item-sheet .import,
+      .app.window-app.sheet.journal-sheet .import,
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.wfrp4e.actor .window-header .import {
         color: #00e5ff00;
@@ -15085,10 +15086,16 @@ font-style : normal;
       }
       
       .app.window-app.sheet.item-sheet .configure-sheet,
-      .app.window-app.sheet.item-sheet .import {
+      .app.window-app.sheet.item-sheet .import{
         top: 19px;
         right: 59px;
       }
+
+      .app.window-app.sheet.journal-sheet .import {
+        top: 8px;
+        right: 36px;
+      }
+
 
       .app.window-app.sheet.item-sheet .configure-sheet {
         background: url(../ui/buttons/button-configure-sheet.png);
