@@ -1,0 +1,21 @@
+<div class = "browser">
+    <div class = "item-filter">
+    {{#each itemTypes as |type index|}}
+    <div>
+    <input type="checkbox" {{checked malignantInfluence}}/> {{type}}
+    </div>
+    {{/each}}
+    </div>
+
+    <div class ="query-results">
+        <h2>Items</h2>
+        <ol class = "item-list">
+            {{#each items as |item i|}}
+            <li class = "browser-item">
+                <div class="image" style="background-image: url({{item.img}})"></div>
+                <div class = "item-name">{{item.name}}</div>
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+</div>

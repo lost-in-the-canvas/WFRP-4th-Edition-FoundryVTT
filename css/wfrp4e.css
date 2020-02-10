@@ -15093,7 +15093,7 @@ font-style : normal;
 
       .app.window-app.sheet.journal-sheet .import {
         top: 8px;
-        right: 36px;
+        left: 36px;
       }
 
 
@@ -15495,4 +15495,75 @@ button.capture-position {
 
 .table-input {
   width: 200px;
+}
+.app.window-app .window-header .popout {
+  color: #00c2d800;
+  text-align: center;
+  background: url(../ui/buttons/popout.png);
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  overflow: hidden;
+}
+
+.app.window-app.character-sheet .popout,
+  .app.window-app.npc-sheet .popout,
+    .app.window-app.creature-sheet .popout{
+left: 30px;
+top: 25px;
+}
+
+.app.window-app.journal-sheet .popout {
+  left: 26px;
+    top: 8px;
+}
+
+#wfrp4e-browser .window-content 
+{
+  background: url(../ui/background.png);
+  color: white;
+}
+
+#wfrp4e-browser .browser {
+  display: flex;
+  height: 100%
+}
+
+#wfrp4e-browser .browser > *{
+  flex: 1;
+}
+
+#wfrp4e-browser .item-filter 
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#wfrp4e-browser .query-results {
+
+}
+
+#wfrp4e-browser .item-list {
+  list-style: none;
+  line-height: 48px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #DDD;
+  box-shadow: none;
+  height: 100%;
+  overflow: auto
+}
+
+#wfrp4e-browser .browser-item{
+  display: flex;
+}
+
+#wfrp4e-browser .item-list .image {
+  background-size: 32px;
+    background-repeat: no-repeat;
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
 }
