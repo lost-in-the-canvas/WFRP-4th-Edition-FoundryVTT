@@ -1459,3 +1459,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 }
 
 Actors.unregisterSheet("core", ActorSheet);
+
+Hooks.on("renderPopout", (sheet) => {
+  sheet.element.css({ width: "610px", height: "740px"})
+})
