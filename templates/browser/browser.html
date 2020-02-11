@@ -1,11 +1,16 @@
 <div class = "browser">
     <div class = "item-filter">
-    {{#each itemTypes as |type index|}}
+    {{#each filters.type as |value filter|}}
     <div>
-    <input type="checkbox" {{checked malignantInfluence}}/> {{type}}
+    <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
     </div>
     {{/each}}
+    <div>
+        <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
     </div>
+    </div>
+
+    
 
     <div class ="query-results">
         <h2>Items</h2>
