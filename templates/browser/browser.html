@@ -1,26 +1,88 @@
 <div class = "browser">
-    <div class = "item-filter">
-    {{#each filters.type as |value filter|}}
-    <div>
-    <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
-    </div>
-    {{/each}}
-    <div>
-        <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
-    </div>
-    </div>
-
-    
-
-    <div class ="query-results">
-        <h2>Items</h2>
-        <ol class = "item-list">
-            {{#each items as |item i|}}
-            <li class = "browser-item">
-                <div class="image" style="background-image: url({{item.img}})"></div>
-                <div class = "item-name">{{item.name}}</div>
-            </li>
-            {{/each}}
-        </ol>
-    </div>
-</div>
+        <div class = "item-filter">
+           {{#each filters.type as |value filter|}}
+           <div>
+              <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
+           </div>
+           {{/each}}
+           <div>
+              Name
+              <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
+           </div>
+           <div>
+              Description
+              <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
+           </div>
+           {{#if filters.dynamic.careergroup.show}}
+           <div>
+              Career Group
+              <div>
+                 <select class="dynamic-filter" data-filter = "careergroup">
+                    <option value=""></option>
+                    {{#select filters.dynamic.careergroup.value}}
+                    {{#each careerGroups as |value index|}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.class.show}}
+           <div>
+              Career Class
+              <div>
+                 <select class="dynamic-filter" data-filter = "class">
+                    <option value=""></option>
+                    {{#select filters.dynamic.class.value}}
+                    {{#each careerClasses as |value index|}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.level.show}}
+           <div>
+              Career Tier
+              <div>
+                 <select class="dynamic-filter" data-filter = "level">
+                    <option value=""></option>
+                    {{#select filters.dynamic.level.value}}
+                    {{#each careerTiers as |value index|}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.statusTier.show}}
+           <div>
+              Status Tier
+              <div>
+                 <select class="dynamic-filter" data-filter = "statusTier">
+                    <option value=""></option>
+                    {{#select filters.dynamic.statusTier.value}}
+                    {{#each statusTiers as |value index|}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+        </div>
+        <div class ="query-results">
+           <h2>Items</h2>
+           <ol class = "item-list">
+              {{#each items as |item i|}}
+              <li class = "browser-item">
+                 <div class="image" style="background-image: url({{item.img}})"></div>
+                 <div class = "item-name">{{item.name}}</div>
+              </li>
+              {{/each}}
+           </ol>
+        </div>
+     </div>

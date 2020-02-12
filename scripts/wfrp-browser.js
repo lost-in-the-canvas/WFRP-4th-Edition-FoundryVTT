@@ -25,9 +25,21 @@ class BrowserWfrp4e extends Application
         "weapon" : false
       },
       attribute : {
-        name : ""
+        name : "",
+        description: "",
+      },
+      dynamic : {
+        careergroup : {value : "", type : ["career"], show : false},
+        class : {value : "", type : ["career"], show : false},
+        level : {value : "", type : ["career"], show : false},
+        statusTier : {value : "", type : ["career"], show : false},
       }
     }
+
+    this.careerGroups = [];
+    this.careerClasses = [];
+    this.careerTiers = [1,2,3,4]
+    this.statusTiers = ["Gold", "Silver", "Brass"]
     
   }
 
@@ -44,11 +56,26 @@ class BrowserWfrp4e extends Application
     return options;
   }
 
+  async _render(force = false, options = {}) {
+    await super._render(force, options);
+
+    if (options.textInputFocused)
+    {
+      $(this._element).find(options.textInputFocused).focus();
+      $(this._element).find(options.textInputFocused)[0].selectionStart = $(this._element).find(options.textInputFocused)[0].value.length
+    }
+  }
+
 
   getData() {
     let data = super.getData();
-
+    this.checkDynamicFilters();
     data.filters = this.filters;
+
+    data.careerGroups = this.careerGroups;
+    data.careerClasses = this.careerClasses
+    data.careerTiers = this.careerTiers;
+    data.statusTiers = this.statusTiers;
 
     data.items = this.applyFilter(this.items);
 
@@ -63,6 +90,18 @@ class BrowserWfrp4e extends Application
       if (p.metadata.entity == "Item")
       {
         await p.getContent().then(content => {
+          for (let item of content)
+          {
+            if (item.type == "career")
+            {
+              if (!this.careerGroups.includes(item.data.data.careergroup.value))
+                this.careerGroups.push(item.data.data.careergroup.value);
+              if (!this.careerClasses.includes(item.data.data.class.value))
+                this.careerClasses.push(item.data.data.class.value);
+            }
+          }
+          this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
+          this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
           this.items = this.items.concat(content)
         })
       }
@@ -95,14 +134,44 @@ class BrowserWfrp4e extends Application
         {
           case "name" :
             filteredItems = filteredItems.filter(i => i.data.name.toLowerCase().includes(this.filters.attribute.name.toLowerCase()))
-            console.log("NAME FILTER")
-            noItemFilter = false;
+            break;
+          case "description" :
+            filteredItems = filteredItems.filter(i => i.data.data.description.value && i.data.data.description.value.toLowerCase().includes(this.filters.attribute.description.toLowerCase()))
+            break;
+        }
+      }
+    }
 
+    for (let filter in this.filters.dynamic)
+    {
+      if (this.filters.dynamic[filter].show && this.filters.dynamic[filter].value)
+      {
+        switch(filter)
+        {
+          case "statusTier":
+            filteredItems = filteredItems.filter(i => !i.data.data.status || (i.data.data.status && i.data.data.status.tier.toLowerCase() == this.filters.dynamic[filter].value[0].toLowerCase()))
+            break;
+          default:
+            filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase().includes(this.filters.dynamic[filter].value.toLowerCase())))
+            break;
         }
       }
     }
     
     return filteredItems.sort((a, b) => (a.data.name > b.data.name) ? 1 : -1);
+  }
+
+  checkDynamicFilters()
+  {
+    for (let dynamicFilter in this.filters.dynamic)
+    {
+      this.filters.dynamic[dynamicFilter].show = false;
+      for (let typeFilter of this.filters.dynamic[dynamicFilter].type)
+      {
+        if (this.filters.type[typeFilter])
+          this.filters.dynamic[dynamicFilter].show = true;
+      }
+    }
   }
 
 
@@ -115,7 +184,20 @@ class BrowserWfrp4e extends Application
 
     html.on("keyup", ".name-filter", ev => {
       this.filters.attribute.name = $(ev.currentTarget).val();
-      this.render(true);
+      this.render(true, {textInputFocused : ".name-filter"});
+    })
+    html.on("keyup", ".description-filter", ev => {
+      this.filters.attribute.description = $(ev.currentTarget).val();
+      this.render(true, {textInputFocused : ".description-filter"});
+    })
+    html.on("keyup change", ".dynamic-filter", ev => {
+      this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).val();
+      let options = {}
+      if (ev.target.type == "text")
+      {
+        options["textInputFocused"] = `.${$(ev.currentTarget).attr("data-filter")}`
+      }
+      this.render(true, options);
     })
   }
 
