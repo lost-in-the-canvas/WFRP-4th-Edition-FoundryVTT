@@ -33,6 +33,10 @@ class BrowserWfrp4e extends Application
         class : {value : "", type : ["career"], show : false},
         level : {value : "", type : ["career"], show : false},
         statusTier : {value : "", type : ["career"], show : false},
+        statusStanding : {value : "", relation : "", type : ["career"], show : false},
+        characteristics : {value : [], type : ["career"], show : false},
+        skills : {value : [], type : ["career"], show : false},
+        talents : {value : [], type : ["career"], show : false}
       }
     }
 
@@ -57,7 +61,9 @@ class BrowserWfrp4e extends Application
   }
 
   async _render(force = false, options = {}) {
+    this._saveScrollPos(); // Save scroll positions
     await super._render(force, options);
+    this._setScrollPos(); // Save scroll positions
 
     if (options.textInputFocused)
     {
@@ -72,6 +78,7 @@ class BrowserWfrp4e extends Application
     this.checkDynamicFilters();
     data.filters = this.filters;
 
+    data.relations = ["<", "<=", "=", ">=", ">"]
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
     data.careerTiers = this.careerTiers;
@@ -151,6 +158,24 @@ class BrowserWfrp4e extends Application
           case "statusTier":
             filteredItems = filteredItems.filter(i => !i.data.data.status || (i.data.data.status && i.data.data.status.tier.toLowerCase() == this.filters.dynamic[filter].value[0].toLowerCase()))
             break;
+          case "statusStanding":
+            filteredItems = filteredItems.filter(i => !i.data.data.status || (i.data.data.status && this.filters.dynamic[filter].relation && eval(`${i.data.data.status.standing}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
+            break;
+          case "characteristics":
+              if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
+                filteredItems = filteredItems.filter(i => !i.data.data.characteristics || (i.data.data.characteristics && this.filters.dynamic[filter].value.every(value => 
+                  { return i.data.data.characteristics.find(v => v.toLowerCase() == value.toLowerCase())})))
+              break;
+          case "skills":
+            if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
+              filteredItems = filteredItems.filter(i => !i.data.data.skills || (i.data.data.skills && this.filters.dynamic[filter].value.every(value => 
+                { return i.data.data.skills.find(v => v.toLowerCase().includes(value.toLowerCase()))})))
+              break;
+          case "talents":
+              if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
+                filteredItems = filteredItems.filter(i => !i.data.data.talents || (i.data.data.talents && this.filters.dynamic[filter].value.every(value => 
+                  { return i.data.data.talents.find(v => v.toLowerCase().includes(value.toLowerCase()))})))
+              break;
           default:
             filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase().includes(this.filters.dynamic[filter].value.toLowerCase())))
             break;
@@ -199,6 +224,43 @@ class BrowserWfrp4e extends Application
       }
       this.render(true, options);
     })
+    html.on("change", ".dynamic-filter-comparator", ev => {
+      this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].relation = $(ev.currentTarget).val();
+      this.render(true);
+    })
+    html.on("change", ".csv-filter", ev => {
+      this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).val().split(",").map(i => {
+        return i.trim();
+      })
+      this.render(true);
+    })
+  }
+
+  _saveScrollPos()
+  {
+    if (this.form === null)
+      return;
+
+    const html = this._element;
+    if (!html) return
+    this.scrollPos = [];
+    let lists = $(html.find(".save-scroll"));
+    for (let list of lists)
+    {
+      this.scrollPos.push($(list).scrollTop());
+    }
+  }
+  _setScrollPos()
+  {
+    if (this.scrollPos)
+    {
+      const html = this._element;
+      let lists = $(html.find(".save-scroll"));
+      for (let i = 0; i < lists.length; i++)
+      {
+        $(lists[i]).scrollTop(this.scrollPos[i]);
+      }
+    }
   }
 
 }

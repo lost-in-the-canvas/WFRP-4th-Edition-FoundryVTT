@@ -15539,6 +15539,7 @@ top: 25px;
 {
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 #wfrp4e-browser .query-results {
@@ -15576,4 +15577,8 @@ top: 25px;
   font-family: var( --actor-input-font-family);
   font-size : 18px;
   font-weight: normal;
+}
+
+#wfrp4e-browser .comparison-filter {
+  display: flex;
 }

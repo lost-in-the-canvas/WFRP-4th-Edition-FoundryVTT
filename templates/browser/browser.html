@@ -1,5 +1,5 @@
 <div class = "browser">
-        <div class = "item-filter">
+        <div class = "item-filter save-scroll">
            {{#each filters.type as |value filter|}}
            <div>
               <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
@@ -73,7 +73,45 @@
               </div>
            </div>
            {{/if}}
-        </div>
+           {{#if filters.dynamic.statusStanding.show}}
+           <div>
+              Status Standing
+              <div class = "comparison-filter">
+                  <select class="dynamic-filter-comparator" data-filter = "statusStanding">
+                     <option value=""></option>
+                     {{#select filters.dynamic.statusStanding.relation}}
+                     {{#each relations as |value index|}}
+                     <option value="{{value}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+                  <input class="dynamic-filter statusStanding" type="text" data-filter="statusStanding" value="{{filters.dynamic.statusStanding.value}}"/>
+              </div>
+           </div>
+           {{/if}}
+
+           
+           {{#if filters.dynamic.characteristics.show}}
+           <div title = "Example Input: 'Ws, T, fel' (case insensitive)">
+               Characteristics (comma separated)
+               <input class="csv-filter characteristics" type="text" data-filter="characteristics" value="{{filters.dynamic.characteristics.value}}"/>
+            </div>
+           {{/if}}
+           {{#if filters.dynamic.skills.show}}
+           <div>
+               Skills (comma separated)
+               <input class="csv-filter skills" type="text" data-filter="skills" value="{{filters.dynamic.skills.value}}"/>
+            </div>
+           {{/if}}
+           {{#if filters.dynamic.talents.show}}
+           <div>
+               Talents (comma separated)
+               <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
+            </div>
+           {{/if}}
+         </div>
+
+
         <div class ="query-results">
            <h2>Items</h2>
            <ol class = "item-list">
