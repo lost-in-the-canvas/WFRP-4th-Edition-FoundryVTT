@@ -13,6 +13,75 @@
               Description
               <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
            </div>
+
+           {{#if filters.dynamic.encumbrance.show}}
+           <div>
+              Encumbrance
+              <div class = "comparison-filter">
+                  <select class="dynamic-filter-comparator" data-filter = "encumbrance">
+                     <option value=""></option>
+                     {{#select filters.dynamic.encumbrance.relation}}
+                     {{#each relations as |value index|}}
+                     <option value="{{value}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+                  <input class="dynamic-filter encumbrancce" type="text" data-filter="encumbrance" value="{{filters.dynamic.encumbrance.value}}"/>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.availability.show}}
+           <div>
+              Availability
+              <div>
+                 <select class="dynamic-filter" data-filter = "availability">
+                    <option value=""></option>
+                    {{#select filters.dynamic.availability.value}}
+                    {{#each availability as |value index|}}
+                    <option value="{{index}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.ammunitionType.show}}
+           <div>
+              Ammunition Type
+              <div>
+                 <select class="dynamic-filter" data-filter = "ammunitionType">
+                    <option value=""></option>
+                    {{#select filters.dynamic.ammunitionType.value}}
+                    {{#each ammunitionGroups as |value index|}}
+                    <option value="{{index}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.modifiesDamage.show}}
+           <div>
+              Modifies Damage
+              <div>
+                 <input class="boolean-filter" type = "checkbox" data-filter = "modifiesDamage" {{checked filters.dynamic.modifiesDamage.value}}></input>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.modifiesRange.show}}
+           <div>
+              Modifies Range
+              <div>
+                 <input class="boolean-filter" type = "checkbox" data-filter = "modifiesRange" {{checked filters.dynamic.modifiesRange.value}}></input>
+              </div>
+           </div>
+           {{/if}}
+           {{#if filters.dynamic.qualitiesFlaws.show}}
+           <div>
+               Qualities/Flaws (comma separated)
+               <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
+            </div>
+           {{/if}}
            {{#if filters.dynamic.careergroup.show}}
            <div>
               Career Group

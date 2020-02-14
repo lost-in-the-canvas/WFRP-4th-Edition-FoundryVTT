@@ -35,8 +35,14 @@ class BrowserWfrp4e extends Application
         statusTier : {value : "", type : ["career"], show : false},
         statusStanding : {value : "", relation : "", type : ["career"], show : false},
         characteristics : {value : [], type : ["career"], show : false},
+        ammunitionType : {value : "", exactMatch : true, type : ["ammunition"], show : false},
         skills : {value : [], type : ["career"], show : false},
-        talents : {value : [], type : ["career"], show : false}
+        talents : {value : [], type : ["career"], show : false},
+        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons"], show : false},
+        availability : {value : "", type : ["ammunition", "armour", "weapons"], show : false},
+        modifiesDamage : {value : false, type : ["ammunition"], show : false},
+        modifiesRange : {value : false, type : ["ammunition"], show : false},
+        qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false}
       }
     }
 
@@ -78,7 +84,9 @@ class BrowserWfrp4e extends Application
     this.checkDynamicFilters();
     data.filters = this.filters;
 
-    data.relations = ["<", "<=", "=", ">=", ">"]
+    data.relations = ["<", "<=", "==", ">=", ">"]
+    data.availability = WFRP4E.availability;
+    data.ammunitionGroups = WFRP4E.ammunitionGroups;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
     data.careerTiers = this.careerTiers;
@@ -161,23 +169,40 @@ class BrowserWfrp4e extends Application
           case "statusStanding":
             filteredItems = filteredItems.filter(i => !i.data.data.status || (i.data.data.status && this.filters.dynamic[filter].relation && eval(`${i.data.data.status.standing}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
             break;
-          case "characteristics":
-              if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-                filteredItems = filteredItems.filter(i => !i.data.data.characteristics || (i.data.data.characteristics && this.filters.dynamic[filter].value.every(value => 
-                  { return i.data.data.characteristics.find(v => v.toLowerCase() == value.toLowerCase())})))
-              break;
-          case "skills":
+          case "qualitiesFlaws":
             if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-              filteredItems = filteredItems.filter(i => !i.data.data.skills || (i.data.data.skills && this.filters.dynamic[filter].value.every(value => 
-                { return i.data.data.skills.find(v => v.toLowerCase().includes(value.toLowerCase()))})))
-              break;
+            filteredItems = filteredItems.filter(i => 
+              {
+                let properties = WFRP_Utility._prepareQualitiesFlaws(i.data, true)
+                if (!properties.length || (properties.length == 1 && properties[0] == "Special"))
+                  return;
+
+                return this.filters.dynamic[filter].value.every(value => 
+                  { return properties.find(v => v.toLowerCase().includes(value.toLowerCase())) })
+                
+              })
+          case "characteristics":
+          case "skills":
           case "talents":
               if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-                filteredItems = filteredItems.filter(i => !i.data.data.talents || (i.data.data.talents && this.filters.dynamic[filter].value.every(value => 
-                  { return i.data.data.talents.find(v => v.toLowerCase().includes(value.toLowerCase()))})))
+                filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value.every(value => 
+                  { return i.data.data[filter].find(v => v.toLowerCase().includes(value.toLowerCase()))})))
               break;
+          
+          case "encumbrance":
+            filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].relation && eval(`${i.data.data[filter].value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
+            break;
+          case "modifiesDamage": 
+            filteredItems = filteredItems.filter(i => !i.data.data.damage || (i.data.data.damage && this.filters.dynamic[filter].value == (!!i.data.data.damage.value)))
+            break;
+          case "modifiesRange": 
+            filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range && this.filters.dynamic[filter].value == (!!i.data.data.range.value)) && i.data.data.range.value.toLowerCase() != "as weapon") // kinda gross but whatev
+            break;
           default:
-            filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase().includes(this.filters.dynamic[filter].value.toLowerCase())))
+            if (this.filters.dynamic[filter].exactMatch)
+              filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase() == this.filters.dynamic[filter].value.toLowerCase()))
+            else
+              filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase().includes(this.filters.dynamic[filter].value.toLowerCase())))
             break;
         }
       }
@@ -232,6 +257,10 @@ class BrowserWfrp4e extends Application
       this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).val().split(",").map(i => {
         return i.trim();
       })
+      this.render(true);
+    })
+    html.on("change", ".boolean-filter", ev => {
+      this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
       this.render(true);
     })
   }
