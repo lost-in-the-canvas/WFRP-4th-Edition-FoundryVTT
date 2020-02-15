@@ -48,6 +48,7 @@ class BrowserWfrp4e extends Application
         carries : {value : "", relation : "", type : ["container"], show : false},
         location : {value : "", type : ["critical", "injury"], show : false},
         wounds : {value : "", relation : "", type : ["critical"], show : false},
+        symptoms : {value : [],  type : ["disease"], show : false},
       }
     }
 
@@ -188,6 +189,17 @@ class BrowserWfrp4e extends Application
                   { return properties.find(v => v.toLowerCase().includes(value.toLowerCase())) })
                 
               })
+          case "symptoms" : {
+            if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
+            filteredItems = filteredItems.filter(i => 
+              {
+                let s = i.data.data[filter].value.split(",").map(i => {
+                  return i.trim().toLowerCase();
+                })      
+                return this.filters.dynamic[filter].value.every(f => s.find(symptom => symptom.includes(f.toLowerCase())))
+              })
+          }
+          break;
           case "characteristics":
           case "skills":
           case "talents":

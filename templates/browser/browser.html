@@ -176,6 +176,13 @@
            </div>
            {{/if}}
 
+           {{#if filters.dynamic.symptoms.show}}
+           <div>
+               Symptoms
+               <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
+            </div>
+           {{/if}}
+
            {{#if filters.dynamic.careergroup.show}}
            <div>
               Career Group
