@@ -182,6 +182,22 @@
                <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
             </div>
            {{/if}}
+           
+           {{#if filters.dynamic.mutationType.show}}
+           <div>
+              Mutation Type
+              <div>
+                 <select class="dynamic-filter" data-filter = "mutationType">
+                    <option value=""></option>
+                    {{#select filters.dynamic.mutationType.value}}
+                    {{#each mutationTypes as |value index|}}
+                    <option value="{{index}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
 
            {{#if filters.dynamic.careergroup.show}}
            <div>

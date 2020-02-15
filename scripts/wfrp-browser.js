@@ -49,6 +49,7 @@ class BrowserWfrp4e extends Application
         location : {value : "", type : ["critical", "injury"], show : false},
         wounds : {value : "", relation : "", type : ["critical"], show : false},
         symptoms : {value : [],  type : ["disease"], show : false},
+        mutationType : {value : "",  type : ["mutation"], show : false},
       }
     }
 
@@ -94,6 +95,7 @@ class BrowserWfrp4e extends Application
     data.availability = WFRP4E.availability;
     data.ammunitionGroups = WFRP4E.ammunitionGroups;
     data.locations = ["Head", "Body", "Arm", "Leg"];
+    data.mutationTypes = WFRP4E.mutationTypes;
     data.armorTypes = WFRP4E.armorTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
