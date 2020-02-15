@@ -46,7 +46,8 @@ class BrowserWfrp4e extends Application
         armorType : {value : "", type : ["armour"], show : false},
         protects : {value : {head : true, body: true, arms : true, legs : true}, type : ["armour"], show : false},
         carries : {value : "", relation : "", type : ["container"], show : false},
-        wearable : {value : false, relation : "", type : ["container"], show : false},
+        location : {value : "", type : ["critical", "injury"], show : false},
+        wounds : {value : "", relation : "", type : ["critical"], show : false},
       }
     }
 
@@ -91,7 +92,7 @@ class BrowserWfrp4e extends Application
     data.relations = ["<", "<=", "==", ">=", ">"]
     data.availability = WFRP4E.availability;
     data.ammunitionGroups = WFRP4E.ammunitionGroups;
-    data.locations = WFRP4E.locations;
+    data.locations = ["Head", "Body", "Arm", "Leg"];
     data.armorTypes = WFRP4E.armorTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses

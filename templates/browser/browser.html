@@ -143,6 +143,39 @@
            </div>
            {{/if}}
 
+           {{#if filters.dynamic.location.show}}
+           <div>
+              Location
+              <div>
+                 <select class="dynamic-filter" data-filter = "location">
+                    <option value=""></option>
+                    {{#select filters.dynamic.location.value}}
+                    {{#each locations as |value index|}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
+
+           {{#if filters.dynamic.wounds.show}}
+           <div>
+              Wounds
+              <div class = "comparison-filter">
+                  <select class="dynamic-filter-comparator" data-filter = "wounds">
+                     <option value=""></option>
+                     {{#select filters.dynamic.wounds.relation}}
+                     {{#each relations as |value index|}}
+                     <option value="{{value}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+                  <input class="dynamic-filter wounds" type="text" data-filter="wounds" value="{{filters.dynamic.wounds.value}}"/>
+              </div>
+           </div>
+           {{/if}}
+
            {{#if filters.dynamic.careergroup.show}}
            <div>
               Career Group
@@ -158,6 +191,7 @@
               </div>
            </div>
            {{/if}}
+
            {{#if filters.dynamic.class.show}}
            <div>
               Career Class
