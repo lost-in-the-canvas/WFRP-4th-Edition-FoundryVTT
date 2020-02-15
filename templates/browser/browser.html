@@ -296,8 +296,63 @@
                <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
             </div>
            {{/if}}
+         
+         {{#if filters.dynamic.prayerType.show}}
+         <div>
+            Prayer Type
+            <div>
+               <select class="dynamic-filter" data-filter = "prayerType">
+                  <option value=""></option>
+                  {{#select filters.dynamic.prayerType.value}}
+                  {{#each prayerTypes as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
          </div>
+         {{/if}}
 
+         {{#if filters.dynamic.god.show}}
+         <div>
+            God
+            <div>
+               <select class="dynamic-filter" data-filter = "god">
+                  <option value=""></option>
+                  {{#select filters.dynamic.god.value}}
+                  {{#each gods as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.duration.show}}
+         <div>
+            Duration
+            <input class="dynamic-filter duration" type="text" data-filter="duration" value="{{filters.dynamic.duration.value}}"/>
+         </div>
+         {{/if}}
+
+         
+         {{#if filters.dynamic.range.show}}
+         <div>
+            Range
+            <input class="dynamic-filter range" type="text" data-filter="range" value="{{filters.dynamic.range.value}}"/>
+         </div>
+         {{/if}}
+
+         
+         {{#if filters.dynamic.target.show}}
+         <div>
+            Targets
+            <input class="dynamic-filter target" type="text" data-filter="target" value="{{filters.dynamic.target.value}}"/>
+         </div>
+         {{/if}}
+
+      </div>
 
         <div class ="query-results">
            <h2>Items</h2>

@@ -50,11 +50,17 @@ class BrowserWfrp4e extends Application
         wounds : {value : "", relation : "", type : ["critical"], show : false},
         symptoms : {value : [],  type : ["disease"], show : false},
         mutationType : {value : "",  type : ["mutation"], show : false},
+        god : {value : "",  type : ["prayer"], show : false},
+        prayerType : {value : "",  type : ["prayer"], show : false},
+        range : {value : "",  type : ["prayer", "spell"], show : false},
+        duration : {value : "", type : ["prayer", "spell"], show : false},
+        target : {value : "",  type : ["prayer", "spell"], show : false}
       }
     }
 
     this.careerGroups = [];
     this.careerClasses = [];
+    this.gods = [];
     this.careerTiers = [1,2,3,4]
     this.statusTiers = ["Gold", "Silver", "Brass"]
     
@@ -97,6 +103,8 @@ class BrowserWfrp4e extends Application
     data.locations = ["Head", "Body", "Arm", "Leg"];
     data.mutationTypes = WFRP4E.mutationTypes;
     data.armorTypes = WFRP4E.armorTypes;
+    data.gods = this.gods;
+    data.prayerTypes = WFRP4E.prayerTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
     data.careerTiers = this.careerTiers;
@@ -123,6 +131,16 @@ class BrowserWfrp4e extends Application
                 this.careerGroups.push(item.data.data.careergroup.value);
               if (!this.careerClasses.includes(item.data.data.class.value))
                 this.careerClasses.push(item.data.data.class.value);
+            }
+            if (item.type == "prayer")
+            {
+              let godList = item.data.data.god.value.split(", ").map(i => {
+                return i.trim();
+              })
+              godList.forEach(god => {
+                if (!this.gods.includes(god))
+                  this.gods.push(god);
+              })      
             }
           }
           this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
@@ -237,6 +255,9 @@ class BrowserWfrp4e extends Application
               return show;
             })
             break;
+          case "prayerType" : 
+            filteredItems = filteredItems.filter(i => !i.data.data.type || (i.data.data.type && i.data.data.type.value == this.filters.dynamic.prayerType.value))
+            break;            
           default:
             if (this.filters.dynamic[filter].exactMatch)
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase() == this.filters.dynamic[filter].value.toLowerCase()))
@@ -299,7 +320,12 @@ class BrowserWfrp4e extends Application
       this.render(true);
     })
     html.on("change", ".boolean-filter", ev => {
-      this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
+      if ($(ev.currentTarget).hasClass("exactMatch"))
+        this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].exactMatch = $(ev.currentTarget).is(":checked");
+
+      else if ($(ev.currentTarget).attr("data-filter"))
+        this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
+
       this.render(true);
     })
     html.on("click", ".protects-filter", ev => {
