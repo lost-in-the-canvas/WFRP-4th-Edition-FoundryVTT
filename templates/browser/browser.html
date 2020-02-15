@@ -116,6 +116,33 @@
                   <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
                </div>
            {{/if}}
+           
+           {{#if filters.dynamic.carries.show}}
+           <div>
+              Carries
+              <div class = "comparison-filter">
+                  <select class="dynamic-filter-comparator" data-filter = "carries">
+                     <option value=""></option>
+                     {{#select filters.dynamic.carries.relation}}
+                     {{#each relations as |value index|}}
+                     <option value="{{value}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+                  <input class="dynamic-filter carries" type="text" data-filter="carries" value="{{filters.dynamic.carries.value}}"/>
+              </div>
+           </div>
+           {{/if}}
+
+           {{#if filters.dynamic.wearable.show}}
+           <div>
+              Wearable
+              <div>
+                 <input class="boolean-filter" type = "checkbox" data-filter = "wearable" {{checked filters.dynamic.wearable.value}}></input>
+              </div>
+           </div>
+           {{/if}}
+
            {{#if filters.dynamic.careergroup.show}}
            <div>
               Career Group

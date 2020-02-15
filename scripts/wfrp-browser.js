@@ -38,13 +38,15 @@ class BrowserWfrp4e extends Application
         ammunitionType : {value : "", exactMatch : true, type : ["ammunition"], show : false},
         skills : {value : [], type : ["career"], show : false},
         talents : {value : [], type : ["career"], show : false},
-        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons"], show : false},
-        availability : {value : "", type : ["ammunition", "armour", "weapons"], show : false},
+        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons", "container"], show : false},
+        availability : {value : "", type : ["ammunition", "armour", "weapons", "container"], show : false},
         modifiesDamage : {value : false, type : ["ammunition"], show : false},
         modifiesRange : {value : false, type : ["ammunition"], show : false},
         qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false},
         armorType : {value : "", type : ["armour"], show : false},
         protects : {value : {head : true, body: true, arms : true, legs : true}, type : ["armour"], show : false},
+        carries : {value : "", relation : "", type : ["container"], show : false},
+        wearable : {value : false, relation : "", type : ["container"], show : false},
       }
     }
 
@@ -193,6 +195,10 @@ class BrowserWfrp4e extends Application
                   { return i.data.data[filter].find(v => v.toLowerCase().includes(value.toLowerCase()))})))
               break;
           
+          case "wearable" :
+              filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value == (!!i.data.data[filter].value)))
+              break;
+          case "carries" :
           case "encumbrance":
             filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].relation && eval(`${i.data.data[filter].value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
             break;
