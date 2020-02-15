@@ -42,7 +42,9 @@ class BrowserWfrp4e extends Application
         availability : {value : "", type : ["ammunition", "armour", "weapons"], show : false},
         modifiesDamage : {value : false, type : ["ammunition"], show : false},
         modifiesRange : {value : false, type : ["ammunition"], show : false},
-        qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false}
+        qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false},
+        armorType : {value : "", type : ["armour"], show : false},
+        protects : {value : {head : true, body: true, arms : true, legs : true}, type : ["armour"], show : false},
       }
     }
 
@@ -87,6 +89,8 @@ class BrowserWfrp4e extends Application
     data.relations = ["<", "<=", "==", ">=", ">"]
     data.availability = WFRP4E.availability;
     data.ammunitionGroups = WFRP4E.ammunitionGroups;
+    data.locations = WFRP4E.locations;
+    data.armorTypes = WFRP4E.armorTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
     data.careerTiers = this.careerTiers;
@@ -198,6 +202,20 @@ class BrowserWfrp4e extends Application
           case "modifiesRange": 
             filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range && this.filters.dynamic[filter].value == (!!i.data.data.range.value)) && i.data.data.range.value.toLowerCase() != "as weapon") // kinda gross but whatev
             break;
+          case "protects":
+            filteredItems = filteredItems.filter(i => {
+              let show
+              if (this.filters.dynamic.protects.value.head && i.data.data.maxAP.head)
+                show = true;
+              if (this.filters.dynamic.protects.value.body && i.data.data.maxAP.body)
+                show = true;
+              if (this.filters.dynamic.protects.value.arms && (i.data.data.maxAP.lArm || i.data.data.maxAP.rArm))
+                show = true;
+              if (this.filters.dynamic.protects.value.legs && (i.data.data.maxAP.lLeg || i.data.data.maxAP.rLeg))
+                show = true;
+              return show;
+            })
+            break;
           default:
             if (this.filters.dynamic[filter].exactMatch)
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase() == this.filters.dynamic[filter].value.toLowerCase()))
@@ -261,6 +279,10 @@ class BrowserWfrp4e extends Application
     })
     html.on("change", ".boolean-filter", ev => {
       this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
+      this.render(true);
+    })
+    html.on("click", ".protects-filter", ev => {
+      this.filters.dynamic.protects.value[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
       this.render(true);
     })
   }

@@ -76,11 +76,45 @@
               </div>
            </div>
            {{/if}}
+           {{#if filters.dynamic.armorType.show}}
+           <div>
+              Armour Type
+              <div>
+                 <select class="dynamic-filter" data-filter = "armorType">
+                    <option value=""></option>
+                    {{#select filters.dynamic.armorType.value}}
+                    {{#each armorTypes as |value index|}}
+                    <option value="{{index}}">{{value}}</option>
+                    {{/each}}
+                    {{/select}}
+                 </select>
+              </div>
+           </div>
+           {{/if}}
            {{#if filters.dynamic.qualitiesFlaws.show}}
            <div>
                Qualities/Flaws (comma separated)
                <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
             </div>
+           {{/if}}
+           {{#if filters.dynamic.protects.show}}
+           Protects
+               Head           
+               <div>
+                  <input class="protects-filter" type = "checkbox" data-filter = "head" {{checked filters.dynamic.protects.value.head}}></input>
+               </div>
+               Body           
+               <div>
+                  <input class="protects-filter" type = "checkbox" data-filter = "body" {{checked filters.dynamic.protects.value.body}}></input>
+               </div>
+               Arms           
+               <div>
+                  <input class="protects-filter" type = "checkbox" data-filter = "arms" {{checked filters.dynamic.protects.value.arms}}></input>
+               </div>
+               Legs     
+               <div>
+                  <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
+               </div>
            {{/if}}
            {{#if filters.dynamic.careergroup.show}}
            <div>
