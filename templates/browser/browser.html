@@ -352,11 +352,73 @@
          </div>
          {{/if}}
 
+         {{#if filters.dynamic.magicMissile.show}}
+         <div>
+            Magic Missile
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "magicMissile" {{checked filters.dynamic.magicMissile.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.aoe.show}}
+         <div>
+            AoE
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "aoe" {{checked filters.dynamic.aoe.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.extendable.show}}
+         <div>
+            Extendable Duration
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "extendable" {{checked filters.dynamic.extendable.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+
+         {{#if filters.dynamic.lore.show}}
+         <div>
+            Lore
+            <div>
+               <select class="dynamic-filter" data-filter = "lore">
+                  <option value=""></option>
+                  {{#select filters.dynamic.lore.value}}
+                  {{#each lores as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.cn.show}}
+         <div>
+            CN
+            <div class = "comparison-filter">
+                <select class="dynamic-filter-comparator" data-filter = "cn">
+                   <option value=""></option>
+                   {{#select filters.dynamic.cn.relation}}
+                   {{#each relations as |value index|}}
+                   <option value="{{value}}">{{value}}</option>
+                   {{/each}}
+                   {{/select}}
+                </select>
+                <input class="dynamic-filter cn" type="text" data-filter="cn" value="{{filters.dynamic.cn.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+
       </div>
+
 
         <div class ="query-results">
            <h2>Items</h2>
-           <ol class = "item-list">
+           <ol class = "item-list save-scroll">
               {{#each items as |item i|}}
               <li class = "browser-item">
                  <div class="image" style="background-image: url({{item.img}})"></div>

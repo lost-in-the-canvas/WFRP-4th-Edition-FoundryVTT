@@ -54,7 +54,12 @@ class BrowserWfrp4e extends Application
         prayerType : {value : "",  type : ["prayer"], show : false},
         range : {value : "",  type : ["prayer", "spell"], show : false},
         duration : {value : "", type : ["prayer", "spell"], show : false},
-        target : {value : "",  type : ["prayer", "spell"], show : false}
+        target : {value : "",  type : ["prayer", "spell"], show : false},
+        cn : {value : "", relation : "",  type : ["spell"], show : false},
+        magicMissile : {value : false,  type : ["spell"], show : false},
+        aoe : {value : false,  type : ["spell"], show : false},
+        lore : {value : "", type : ["spell"], show : false},
+        extendable : {value : "", type : ["spell"], show : false}
       }
     }
 
@@ -63,6 +68,7 @@ class BrowserWfrp4e extends Application
     this.gods = [];
     this.careerTiers = [1,2,3,4]
     this.statusTiers = ["Gold", "Silver", "Brass"]
+    this.lores = [];
     
   }
 
@@ -104,6 +110,7 @@ class BrowserWfrp4e extends Application
     data.mutationTypes = WFRP4E.mutationTypes;
     data.armorTypes = WFRP4E.armorTypes;
     data.gods = this.gods;
+    data.lores = this.lores;
     data.prayerTypes = WFRP4E.prayerTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
@@ -142,13 +149,26 @@ class BrowserWfrp4e extends Application
                   this.gods.push(god);
               })      
             }
+            if (item.type == "spell")
+            {
+              if (!this.lores.includes(item.data.data.lore.value))
+                this.lores.push(item.data.data.lore.value);
+            }
           }
-          this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
-          this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
+          this.lores = this.lores.filter(l => l).sort((a, b) => (a > b) ? 1 : -1);
+          this.lores = this.lores.map (p => {
+            if (WFRP4E.magicLores[p])
+              return WFRP4E.magicLores[p];
+            else
+              return p;
+          })
           this.items = this.items.concat(content)
         })
       }
     }
+    this.lores.push("None");
+    this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
+    this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
   }
 
 
@@ -201,6 +221,8 @@ class BrowserWfrp4e extends Application
             if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
             filteredItems = filteredItems.filter(i => 
               {
+                if (!i.data.data.qualities && !i.data.data.flaws)
+                  return true;
                 let properties = WFRP_Utility._prepareQualitiesFlaws(i.data, true)
                 if (!properties.length || (properties.length == 1 && properties[0] == "Special"))
                   return;
@@ -209,10 +231,13 @@ class BrowserWfrp4e extends Application
                   { return properties.find(v => v.toLowerCase().includes(value.toLowerCase())) })
                 
               })
+              break;
           case "symptoms" : {
             if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
             filteredItems = filteredItems.filter(i => 
               {
+                if (!i.data.data.symptoms)
+                  return true;
                 let s = i.data.data[filter].value.split(",").map(i => {
                   return i.trim().toLowerCase();
                 })      
@@ -228,9 +253,17 @@ class BrowserWfrp4e extends Application
                   { return i.data.data[filter].find(v => v.toLowerCase().includes(value.toLowerCase()))})))
               break;
           
+          case "magicMissile":
           case "wearable" :
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value == (!!i.data.data[filter].value)))
-              break;
+            break;
+          case "aoe" :
+              filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.target && this.filters.dynamic[filter].value == i.data.data.target.aoe))
+            break;
+          case "extendable" :
+              filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.duration && this.filters.dynamic[filter].value == i.data.data.duration.extendable))
+            break;
+          case "cn" :
           case "carries" :
           case "encumbrance":
             filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].relation && eval(`${i.data.data[filter].value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
@@ -243,6 +276,8 @@ class BrowserWfrp4e extends Application
             break;
           case "protects":
             filteredItems = filteredItems.filter(i => {
+              if (!i.data.data.maxAP)
+                return true;
               let show
               if (this.filters.dynamic.protects.value.head && i.data.data.maxAP.head)
                 show = true;
