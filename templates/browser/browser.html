@@ -420,6 +420,54 @@
             </div>
          {{/if}}
 
+         {{#if filters.dynamic.characteristic.show}}
+         <div>
+               Characteristic
+               <div>
+                  <select class="dynamic-filter" data-filter = "characteristic">
+                     <option value=""></option>
+                     {{#select filters.dynamic.characteristic.value}}
+                     {{#each characteristics as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.advanced.show}}
+         <div>
+               Advanced/Basic
+               <div>
+                  <select class="dynamic-filter" data-filter = "advanced">
+                     <option value=""></option>
+                     {{#select filters.dynamic.advanced.value}}
+                     {{#each skillTypes as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.grouped.show}}
+         <div>
+               Is Grouped
+               <div>
+                  <select class="dynamic-filter" data-filter = "grouped">
+                     <option value=""></option>
+                     {{#select filters.dynamic.grouped.value}}
+                     {{#each skillGroup as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
 
          {{#if filters.dynamic.lore.show}}
          <div>
@@ -450,6 +498,108 @@
                    {{/select}}
                 </select>
                 <input class="dynamic-filter cn" type="text" data-filter="cn" value="{{filters.dynamic.cn.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+
+
+         {{#if filters.dynamic.rollable.show}}
+         <div>
+            Rollable
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "rollable" {{checked filters.dynamic.rollable.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.weaponGroup.show}}
+         <div>
+               Weapon Group
+               <div>
+                  <select class="dynamic-filter" data-filter = "weaponGroup">
+                     <option value=""></option>
+                     {{#select filters.dynamic.weaponGroup.value}}
+                     {{#each weaponGroups as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.ammunitionGroup.show}}
+         <div>
+               Ammunition Group
+               <div>
+                  <select class="dynamic-filter" data-filter = "ammunitionGroup">
+                     <option value=""></option>
+                     {{#select filters.dynamic.ammunitionGroup.value}}
+                     {{#each ammunitionGroups as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.reach.show}}
+         <div>
+               Reach
+               <div>
+                  <select class="dynamic-filter" data-filter = "reach">
+                     <option value=""></option>
+                     {{#select filters.dynamic.reach.value}}
+                     {{#each weaponReaches as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.weaponRange.show}}
+         <div>
+            Range
+            <div class = "comparison-filter">
+                <select class="dynamic-filter-comparator" data-filter = "weaponRange">
+                   <option value=""></option>
+                   {{#select filters.dynamic.weaponRange.relation}}
+                   {{#each relations as |value index|}}
+                   <option value="{{value}}">{{value}}</option>
+                   {{/each}}
+                   {{/select}}
+                </select>
+                <input class="dynamic-filter weaponRange" type="text" data-filter="weaponRange" value="{{filters.dynamic.weaponRange.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.melee.show}}
+         <div>
+            Melee
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "melee" {{checked filters.dynamic.melee.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.ranged.show}}
+         <div>
+            Ranged
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "ranged" {{checked filters.dynamic.ranged.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+
+         {{#if filters.dynamic.twohanded.show}}
+         <div>
+            Is Two Handed
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "twohanded" {{checked filters.dynamic.twohanded.value}}></input>
             </div>
          </div>
          {{/if}}

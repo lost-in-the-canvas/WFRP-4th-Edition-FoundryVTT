@@ -38,11 +38,11 @@ class BrowserWfrp4e extends Application
         ammunitionType : {value : "", exactMatch : true, type : ["ammunition"], show : false},
         skills : {value : [], type : ["career"], show : false},
         talents : {value : [], type : ["career"], show : false},
-        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons", "container", "trapping"], show : false},
-        availability : {value : "", type : ["ammunition", "armour", "weapons", "container", "trapping"], show : false},
+        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapon", "container", "trapping"], show : false},
+        availability : {value : "", type : ["ammunition", "armour", "weapon", "container", "trapping"], show : false},
         modifiesDamage : {value : false, type : ["ammunition"], show : false},
         modifiesRange : {value : false, type : ["ammunition"], show : false},
-        qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false},
+        qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapon"], show : false},
         armorType : {value : "", type : ["armour"], show : false},
         protects : {value : {head : true, body: true, arms : true, legs : true}, type : ["armour"], show : false},
         carries : {value : "", relation : "", type : ["container"], show : false},
@@ -62,7 +62,18 @@ class BrowserWfrp4e extends Application
         extendable : {value : "", type : ["spell"], show : false},
         max : {value : "", type : ["talent"], show : false},
         tests : {value : "", type : ["talent"], show : false},
-        trappingType : {value : "", type : ["trapping"], show : false}
+        trappingType : {value : "", type : ["trapping"], show : false},
+        characteristic : {value : "", type : ["skill"], show : false},
+        grouped : {value : "", type : ["skill"], show : false},
+        advanced : {value : "", type : ["skill"], show : false},
+        rollable : {value : false,  type : ["trait"], show : false},
+        weaponGroup : {value : "",  type : ["weapon"], show : false},
+        reach : {value : "", type : ["weapon"], show : false},
+        weaponRange : {value : "", relation : "", type : ["weapon"], show : false},
+        melee : {value : false,  type : ["weapon"], show : false},
+        ranged : {value : false,  type : ["weapon"], show : false},
+        twohanded : {value : false,  type : ["weapon"], show : false},
+        ammunitionGroup : {value : "",  type : ["weapon"], show : false},
       }
     }
 
@@ -113,9 +124,14 @@ class BrowserWfrp4e extends Application
     data.mutationTypes = WFRP4E.mutationTypes;
     data.armorTypes = WFRP4E.armorTypes;
     data.gods = this.gods;
+    data.weaponGroups = WFRP4E.weaponGroups
+    data.weaponReaches = WFRP4E.weaponReaches;
     data.talentMax = WFRP4E.talentMax;
     data.trappingTypes = WFRP4E.trappingTypes;
     data.lores = this.lores;
+    data.characteristics = WFRP4E.characteristicsAbbrev;
+    data.skillTypes = WFRP4E.skillTypes
+    data.skillGroup = WFRP4E.skillGroup
     data.prayerTypes = WFRP4E.prayerTypes;
     data.careerGroups = this.careerGroups;
     data.careerClasses = this.careerClasses
@@ -250,6 +266,7 @@ class BrowserWfrp4e extends Application
               })
           }
           break;
+
           case "characteristics":
           case "skills":
           case "talents":
@@ -258,6 +275,8 @@ class BrowserWfrp4e extends Application
                   { return i.data.data[filter].find(v => v.toLowerCase().includes(value.toLowerCase()))})))
               break;
           
+          case "twohanded":
+          case "rollable":
           case "magicMissile":
           case "wearable" :
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value == (!!i.data.data[filter].value)))
@@ -267,6 +286,16 @@ class BrowserWfrp4e extends Application
             break;
           case "extendable" :
               filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.duration && this.filters.dynamic[filter].value == i.data.data.duration.extendable))
+            break;
+          
+          case "melee": 
+            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.meleeValue))    
+            break;              
+          case "ranged":
+            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.rangedValue))                  
+            break;
+          case "weaponRange":
+            filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range.value && !isNaN(i.data.data.range.value) && this.filters.dynamic[filter].relation && eval(`${i.data.data.range.value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
             break;
           case "cn" :
           case "carries" :
