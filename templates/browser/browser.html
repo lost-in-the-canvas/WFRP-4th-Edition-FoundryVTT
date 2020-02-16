@@ -379,6 +379,32 @@
          </div>
          {{/if}}
 
+         {{#if filters.dynamic.max.show}}
+         <div>
+               Talent Max
+               <div>
+                  <select class="dynamic-filter" data-filter = "max">
+                     <option value=""></option>
+                     {{#select filters.dynamic.max.value}}
+                     {{#each talentMax as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
+
+         {{#if filters.dynamic.tests.show}}
+         <div>
+            Talent Tests
+            <div>
+                  <input class="dynamic-filter tests" type="text" data-filter="tests" value="{{filters.dynamic.tests.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+
+
 
          {{#if filters.dynamic.lore.show}}
          <div>

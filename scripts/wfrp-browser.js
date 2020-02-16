@@ -59,7 +59,9 @@ class BrowserWfrp4e extends Application
         magicMissile : {value : false,  type : ["spell"], show : false},
         aoe : {value : false,  type : ["spell"], show : false},
         lore : {value : "", type : ["spell"], show : false},
-        extendable : {value : "", type : ["spell"], show : false}
+        extendable : {value : "", type : ["spell"], show : false},
+        max : {value : "", type : ["talent"], show : false},
+        tests : {value : "", type : ["talent"], show : false}
       }
     }
 
@@ -110,6 +112,7 @@ class BrowserWfrp4e extends Application
     data.mutationTypes = WFRP4E.mutationTypes;
     data.armorTypes = WFRP4E.armorTypes;
     data.gods = this.gods;
+    data.talentMax = WFRP4E.talentMax;
     data.lores = this.lores;
     data.prayerTypes = WFRP4E.prayerTypes;
     data.careerGroups = this.careerGroups;
