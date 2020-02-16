@@ -83,10 +83,10 @@ class BrowserWfrp4e extends Application
     this.careerTiers = [1,2,3,4]
     this.statusTiers = ["Gold", "Silver", "Brass"]
     this.lores = [];
-    
+
   }
 
-  static get defaultOptions() 
+  static get defaultOptions()
   {
     const options = super.defaultOptions;
     options.id = "wfrp4e-browser";
@@ -168,7 +168,7 @@ class BrowserWfrp4e extends Application
               godList.forEach(god => {
                 if (!this.gods.includes(god))
                   this.gods.push(god);
-              })      
+              })
             }
             if (item.type == "spell")
             {
@@ -206,7 +206,7 @@ class BrowserWfrp4e extends Application
       }
     }
 
-    
+
     if (noItemFilter)
       filteredItems = items;
 
@@ -240,7 +240,7 @@ class BrowserWfrp4e extends Application
             break;
           case "qualitiesFlaws":
             if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-            filteredItems = filteredItems.filter(i => 
+            filteredItems = filteredItems.filter(i =>
               {
                 if (!i.data.data.qualities && !i.data.data.flaws)
                   return true;
@@ -248,20 +248,20 @@ class BrowserWfrp4e extends Application
                 if (!properties.length || (properties.length == 1 && properties[0] == "Special"))
                   return;
 
-                return this.filters.dynamic[filter].value.every(value => 
+                return this.filters.dynamic[filter].value.every(value =>
                   { return properties.find(v => v.toLowerCase().includes(value.toLowerCase())) })
-                
+
               })
               break;
           case "symptoms" : {
             if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-            filteredItems = filteredItems.filter(i => 
+            filteredItems = filteredItems.filter(i =>
               {
                 if (!i.data.data.symptoms)
                   return true;
                 let s = i.data.data[filter].value.split(",").map(i => {
                   return i.trim().toLowerCase();
-                })      
+                })
                 return this.filters.dynamic[filter].value.every(f => s.find(symptom => symptom.includes(f.toLowerCase())))
               })
           }
@@ -271,10 +271,10 @@ class BrowserWfrp4e extends Application
           case "skills":
           case "talents":
               if (this.filters.dynamic[filter].value.length && this.filters.dynamic[filter].value.some(x => x))
-                filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value.every(value => 
+                filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value.every(value =>
                   { return i.data.data[filter].find(v => v.toLowerCase().includes(value.toLowerCase()))})))
               break;
-          
+
           case "twohanded":
           case "rollable":
           case "magicMissile":
@@ -287,12 +287,12 @@ class BrowserWfrp4e extends Application
           case "extendable" :
               filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.duration && this.filters.dynamic[filter].value == i.data.data.duration.extendable))
             break;
-          
-          case "melee": 
-            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.meleeValue))    
-            break;              
+
+          case "melee":
+            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.meleeValue))
+            break;
           case "ranged":
-            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.rangedValue))                  
+            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.rangedValue))
             break;
           case "weaponRange":
             filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range.value && !isNaN(i.data.data.range.value) && this.filters.dynamic[filter].relation && eval(`${i.data.data.range.value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
@@ -302,10 +302,10 @@ class BrowserWfrp4e extends Application
           case "encumbrance":
             filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].relation && eval(`${i.data.data[filter].value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
             break;
-          case "modifiesDamage": 
+          case "modifiesDamage":
             filteredItems = filteredItems.filter(i => !i.data.data.damage || (i.data.data.damage && this.filters.dynamic[filter].value == (!!i.data.data.damage.value)))
             break;
-          case "modifiesRange": 
+          case "modifiesRange":
             filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range && this.filters.dynamic[filter].value == (!!i.data.data.range.value)) && i.data.data.range.value.toLowerCase() != "as weapon") // kinda gross but whatev
             break;
           case "protects":
@@ -324,9 +324,9 @@ class BrowserWfrp4e extends Application
               return show;
             })
             break;
-          case "prayerType" : 
+          case "prayerType" :
             filteredItems = filteredItems.filter(i => !i.data.data.type || (i.data.data.type && i.data.data.type.value == this.filters.dynamic.prayerType.value))
-            break;            
+            break;
           default:
             if (this.filters.dynamic[filter].exactMatch)
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && i.data.data[filter].value.toString().toLowerCase() == this.filters.dynamic[filter].value.toLowerCase()))
@@ -336,7 +336,7 @@ class BrowserWfrp4e extends Application
         }
       }
     }
-    
+
     return filteredItems.sort((a, b) => (a.data.name > b.data.name) ? 1 : -1);
   }
 
@@ -356,6 +356,28 @@ class BrowserWfrp4e extends Application
 
   activateListeners(html)
   {
+
+    html.find(".browser-item").each((i, li) => {
+      let item = this.items.find(i => i._id == $(li).attr("data-item-id"))
+
+      li.setAttribute("draggable", true);
+      li.addEventListener("dragstart", event => {
+        event.dataTransfer.setData("text/plain", JSON.stringify({
+          type: item.compendium.metadata.entity,
+          pack : `${item.compendium.metadata.package}.${item.compendium.metadata.name}`,
+          id : item._id
+
+        }))
+
+      })
+    })
+
+    html.on("click", ".item-name", ev => {
+      let itemId = $(ev.currentTarget).parents(".browser-item").attr("data-item-id")
+      this.items.find(i => i._id == itemId).sheet.render(true);
+
+    })
+
     html.on("click", ".filter", ev => {
       this.filters.type[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
       this.render(true);
@@ -402,6 +424,7 @@ class BrowserWfrp4e extends Application
       this.render(true);
     })
   }
+
 
   _saveScrollPos()
   {

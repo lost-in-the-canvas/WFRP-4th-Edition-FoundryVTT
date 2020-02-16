@@ -1,302 +1,290 @@
 <div class = "browser">
-        <div class = "item-filter save-scroll">
-           {{#each filters.type as |value filter|}}
-           <div>
-              <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
-           </div>
-           {{/each}}
-           <div>
-              Name
-              <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
-           </div>
-           <div>
-              Description
-              <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
-           </div>
-
-           {{#if filters.dynamic.encumbrance.show}}
-           <div>
-              Encumbrance
-              <div class = "comparison-filter">
-                  <select class="dynamic-filter-comparator" data-filter = "encumbrance">
-                     <option value=""></option>
-                     {{#select filters.dynamic.encumbrance.relation}}
-                     {{#each relations as |value index|}}
-                     <option value="{{value}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-                  <input class="dynamic-filter encumbrancce" type="text" data-filter="encumbrance" value="{{filters.dynamic.encumbrance.value}}"/>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.availability.show}}
-           <div>
-              Availability
-              <div>
-                 <select class="dynamic-filter" data-filter = "availability">
-                    <option value=""></option>
-                    {{#select filters.dynamic.availability.value}}
-                    {{#each availability as |value index|}}
-                    <option value="{{index}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.ammunitionType.show}}
-           <div>
-              Ammunition Type
-              <div>
-                 <select class="dynamic-filter" data-filter = "ammunitionType">
-                    <option value=""></option>
-                    {{#select filters.dynamic.ammunitionType.value}}
-                    {{#each ammunitionGroups as |value index|}}
-                    <option value="{{index}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.modifiesDamage.show}}
-           <div>
-              Modifies Damage
-              <div>
-                 <input class="boolean-filter" type = "checkbox" data-filter = "modifiesDamage" {{checked filters.dynamic.modifiesDamage.value}}></input>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.modifiesRange.show}}
-           <div>
-              Modifies Range
-              <div>
-                 <input class="boolean-filter" type = "checkbox" data-filter = "modifiesRange" {{checked filters.dynamic.modifiesRange.value}}></input>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.armorType.show}}
-           <div>
-              Armour Type
-              <div>
-                 <select class="dynamic-filter" data-filter = "armorType">
-                    <option value=""></option>
-                    {{#select filters.dynamic.armorType.value}}
-                    {{#each armorTypes as |value index|}}
-                    <option value="{{index}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.qualitiesFlaws.show}}
-           <div>
-               Qualities/Flaws (comma separated)
-               <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
+      <div class = "item-filter save-scroll">
+         {{#each filters.type as |value filter|}}
+         <div>
+            <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
+         </div>
+         {{/each}}
+         <div>
+            Name
+            <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
+         </div>
+         <div>
+            Description
+            <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
+         </div>
+         {{#if filters.dynamic.encumbrance.show}}
+         <div>
+            Encumbrance
+            <div class = "comparison-filter">
+               <select class="dynamic-filter-comparator" data-filter = "encumbrance">
+                  <option value=""></option>
+                  {{#select filters.dynamic.encumbrance.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter encumbrancce" type="text" data-filter="encumbrance" value="{{filters.dynamic.encumbrance.value}}"/>
             </div>
-           {{/if}}
-           {{#if filters.dynamic.protects.show}}
-           Protects
-               Head           
-               <div>
-                  <input class="protects-filter" type = "checkbox" data-filter = "head" {{checked filters.dynamic.protects.value.head}}></input>
-               </div>
-               Body           
-               <div>
-                  <input class="protects-filter" type = "checkbox" data-filter = "body" {{checked filters.dynamic.protects.value.body}}></input>
-               </div>
-               Arms           
-               <div>
-                  <input class="protects-filter" type = "checkbox" data-filter = "arms" {{checked filters.dynamic.protects.value.arms}}></input>
-               </div>
-               Legs     
-               <div>
-                  <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
-               </div>
-           {{/if}}
-           
-           {{#if filters.dynamic.carries.show}}
-           <div>
-              Carries
-              <div class = "comparison-filter">
-                  <select class="dynamic-filter-comparator" data-filter = "carries">
-                     <option value=""></option>
-                     {{#select filters.dynamic.carries.relation}}
-                     {{#each relations as |value index|}}
-                     <option value="{{value}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-                  <input class="dynamic-filter carries" type="text" data-filter="carries" value="{{filters.dynamic.carries.value}}"/>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.wearable.show}}
-           <div>
-              Wearable
-              <div>
-                 <input class="boolean-filter" type = "checkbox" data-filter = "wearable" {{checked filters.dynamic.wearable.value}}></input>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.location.show}}
-           <div>
-              Location
-              <div>
-                 <select class="dynamic-filter" data-filter = "location">
-                    <option value=""></option>
-                    {{#select filters.dynamic.location.value}}
-                    {{#each locations as |value index|}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.wounds.show}}
-           <div>
-              Wounds
-              <div class = "comparison-filter">
-                  <select class="dynamic-filter-comparator" data-filter = "wounds">
-                     <option value=""></option>
-                     {{#select filters.dynamic.wounds.relation}}
-                     {{#each relations as |value index|}}
-                     <option value="{{value}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-                  <input class="dynamic-filter wounds" type="text" data-filter="wounds" value="{{filters.dynamic.wounds.value}}"/>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.symptoms.show}}
-           <div>
-               Symptoms
-               <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.availability.show}}
+         <div>
+            Availability
+            <div>
+               <select class="dynamic-filter" data-filter = "availability">
+                  <option value=""></option>
+                  {{#select filters.dynamic.availability.value}}
+                  {{#each availability as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
-           {{/if}}
-           
-           {{#if filters.dynamic.mutationType.show}}
-           <div>
-              Mutation Type
-              <div>
-                 <select class="dynamic-filter" data-filter = "mutationType">
-                    <option value=""></option>
-                    {{#select filters.dynamic.mutationType.value}}
-                    {{#each mutationTypes as |value index|}}
-                    <option value="{{index}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.careergroup.show}}
-           <div>
-              Career Group
-              <div>
-                 <select class="dynamic-filter" data-filter = "careergroup">
-                    <option value=""></option>
-                    {{#select filters.dynamic.careergroup.value}}
-                    {{#each careerGroups as |value index|}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-
-           {{#if filters.dynamic.class.show}}
-           <div>
-              Career Class
-              <div>
-                 <select class="dynamic-filter" data-filter = "class">
-                    <option value=""></option>
-                    {{#select filters.dynamic.class.value}}
-                    {{#each careerClasses as |value index|}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.level.show}}
-           <div>
-              Career Tier
-              <div>
-                 <select class="dynamic-filter" data-filter = "level">
-                    <option value=""></option>
-                    {{#select filters.dynamic.level.value}}
-                    {{#each careerTiers as |value index|}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.statusTier.show}}
-           <div>
-              Status Tier
-              <div>
-                 <select class="dynamic-filter" data-filter = "statusTier">
-                    <option value=""></option>
-                    {{#select filters.dynamic.statusTier.value}}
-                    {{#each statusTiers as |value index|}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/each}}
-                    {{/select}}
-                 </select>
-              </div>
-           </div>
-           {{/if}}
-           {{#if filters.dynamic.statusStanding.show}}
-           <div>
-              Status Standing
-              <div class = "comparison-filter">
-                  <select class="dynamic-filter-comparator" data-filter = "statusStanding">
-                     <option value=""></option>
-                     {{#select filters.dynamic.statusStanding.relation}}
-                     {{#each relations as |value index|}}
-                     <option value="{{value}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-                  <input class="dynamic-filter statusStanding" type="text" data-filter="statusStanding" value="{{filters.dynamic.statusStanding.value}}"/>
-              </div>
-           </div>
-           {{/if}}
-
-           
-           {{#if filters.dynamic.characteristics.show}}
-           <div title = "Example Input: 'Ws, T, fel' (case insensitive)">
-               Characteristics (comma separated)
-               <input class="csv-filter characteristics" type="text" data-filter="characteristics" value="{{filters.dynamic.characteristics.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.ammunitionType.show}}
+         <div>
+            Ammunition Type
+            <div>
+               <select class="dynamic-filter" data-filter = "ammunitionType">
+                  <option value=""></option>
+                  {{#select filters.dynamic.ammunitionType.value}}
+                  {{#each ammunitionGroups as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
-           {{/if}}
-           {{#if filters.dynamic.skills.show}}
-           <div>
-               Skills (comma separated)
-               <input class="csv-filter skills" type="text" data-filter="skills" value="{{filters.dynamic.skills.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.modifiesDamage.show}}
+         <div>
+            Modifies Damage
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "modifiesDamage" {{checked filters.dynamic.modifiesDamage.value}}></input>
             </div>
-           {{/if}}
-           {{#if filters.dynamic.talents.show}}
-           <div>
-               Talents (comma separated)
-               <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.modifiesRange.show}}
+         <div>
+            Modifies Range
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "modifiesRange" {{checked filters.dynamic.modifiesRange.value}}></input>
             </div>
-           {{/if}}
-         
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.armorType.show}}
+         <div>
+            Armour Type
+            <div>
+               <select class="dynamic-filter" data-filter = "armorType">
+                  <option value=""></option>
+                  {{#select filters.dynamic.armorType.value}}
+                  {{#each armorTypes as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.qualitiesFlaws.show}}
+         <div>
+            Qualities/Flaws (comma separated)
+            <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.protects.show}}
+         Protects
+         Head           
+         <div>
+            <input class="protects-filter" type = "checkbox" data-filter = "head" {{checked filters.dynamic.protects.value.head}}></input>
+         </div>
+         Body           
+         <div>
+            <input class="protects-filter" type = "checkbox" data-filter = "body" {{checked filters.dynamic.protects.value.body}}></input>
+         </div>
+         Arms           
+         <div>
+            <input class="protects-filter" type = "checkbox" data-filter = "arms" {{checked filters.dynamic.protects.value.arms}}></input>
+         </div>
+         Legs     
+         <div>
+            <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.carries.show}}
+         <div>
+            Carries
+            <div class = "comparison-filter">
+               <select class="dynamic-filter-comparator" data-filter = "carries">
+                  <option value=""></option>
+                  {{#select filters.dynamic.carries.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter carries" type="text" data-filter="carries" value="{{filters.dynamic.carries.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.wearable.show}}
+         <div>
+            Wearable
+            <div>
+               <input class="boolean-filter" type = "checkbox" data-filter = "wearable" {{checked filters.dynamic.wearable.value}}></input>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.location.show}}
+         <div>
+            Location
+            <div>
+               <select class="dynamic-filter" data-filter = "location">
+                  <option value=""></option>
+                  {{#select filters.dynamic.location.value}}
+                  {{#each locations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.wounds.show}}
+         <div>
+            Wounds
+            <div class = "comparison-filter">
+               <select class="dynamic-filter-comparator" data-filter = "wounds">
+                  <option value=""></option>
+                  {{#select filters.dynamic.wounds.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter wounds" type="text" data-filter="wounds" value="{{filters.dynamic.wounds.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.symptoms.show}}
+         <div>
+            Symptoms
+            <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.mutationType.show}}
+         <div>
+            Mutation Type
+            <div>
+               <select class="dynamic-filter" data-filter = "mutationType">
+                  <option value=""></option>
+                  {{#select filters.dynamic.mutationType.value}}
+                  {{#each mutationTypes as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.careergroup.show}}
+         <div>
+            Career Group
+            <div>
+               <select class="dynamic-filter" data-filter = "careergroup">
+                  <option value=""></option>
+                  {{#select filters.dynamic.careergroup.value}}
+                  {{#each careerGroups as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.class.show}}
+         <div>
+            Career Class
+            <div>
+               <select class="dynamic-filter" data-filter = "class">
+                  <option value=""></option>
+                  {{#select filters.dynamic.class.value}}
+                  {{#each careerClasses as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.level.show}}
+         <div>
+            Career Tier
+            <div>
+               <select class="dynamic-filter" data-filter = "level">
+                  <option value=""></option>
+                  {{#select filters.dynamic.level.value}}
+                  {{#each careerTiers as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.statusTier.show}}
+         <div>
+            Status Tier
+            <div>
+               <select class="dynamic-filter" data-filter = "statusTier">
+                  <option value=""></option>
+                  {{#select filters.dynamic.statusTier.value}}
+                  {{#each statusTiers as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.statusStanding.show}}
+         <div>
+            Status Standing
+            <div class = "comparison-filter">
+               <select class="dynamic-filter-comparator" data-filter = "statusStanding">
+                  <option value=""></option>
+                  {{#select filters.dynamic.statusStanding.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter statusStanding" type="text" data-filter="statusStanding" value="{{filters.dynamic.statusStanding.value}}"/>
+            </div>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.characteristics.show}}
+         <div title = "Example Input: 'Ws, T, fel' (case insensitive)">
+            Characteristics (comma separated)
+            <input class="csv-filter characteristics" type="text" data-filter="characteristics" value="{{filters.dynamic.characteristics.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.skills.show}}
+         <div>
+            Skills (comma separated)
+            <input class="csv-filter skills" type="text" data-filter="skills" value="{{filters.dynamic.skills.value}}"/>
+         </div>
+         {{/if}}
+         {{#if filters.dynamic.talents.show}}
+         <div>
+            Talents (comma separated)
+            <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
+         </div>
+         {{/if}}
          {{#if filters.dynamic.prayerType.show}}
          <div>
             Prayer Type
@@ -312,7 +300,6 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.god.show}}
          <div>
             God
@@ -328,30 +315,24 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.duration.show}}
          <div>
             Duration
             <input class="dynamic-filter duration" type="text" data-filter="duration" value="{{filters.dynamic.duration.value}}"/>
          </div>
          {{/if}}
-
-         
          {{#if filters.dynamic.range.show}}
          <div>
             Range
             <input class="dynamic-filter range" type="text" data-filter="range" value="{{filters.dynamic.range.value}}"/>
          </div>
          {{/if}}
-
-         
          {{#if filters.dynamic.target.show}}
          <div>
             Targets
             <input class="dynamic-filter target" type="text" data-filter="target" value="{{filters.dynamic.target.value}}"/>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.magicMissile.show}}
          <div>
             Magic Missile
@@ -360,7 +341,6 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.aoe.show}}
          <div>
             AoE
@@ -369,7 +349,6 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.extendable.show}}
          <div>
             Extendable Duration
@@ -378,23 +357,21 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.max.show}}
          <div>
-               Talent Max
-               <div>
-                  <select class="dynamic-filter" data-filter = "max">
-                     <option value=""></option>
-                     {{#select filters.dynamic.max.value}}
-                     {{#each talentMax as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Talent Max
+            <div>
+               <select class="dynamic-filter" data-filter = "max">
+                  <option value=""></option>
+                  {{#select filters.dynamic.max.value}}
+                  {{#each talentMax as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.tests.show}}
          <div>
             Talent Tests
@@ -403,72 +380,66 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.trappingType.show}}
          <div>
-               Trapping Type
-               <div>
-                  <select class="dynamic-filter" data-filter = "trappingType">
-                     <option value=""></option>
-                     {{#select filters.dynamic.trappingType.value}}
-                     {{#each trappingTypes as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Trapping Type
+            <div>
+               <select class="dynamic-filter" data-filter = "trappingType">
+                  <option value=""></option>
+                  {{#select filters.dynamic.trappingType.value}}
+                  {{#each trappingTypes as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.characteristic.show}}
          <div>
-               Characteristic
-               <div>
-                  <select class="dynamic-filter" data-filter = "characteristic">
-                     <option value=""></option>
-                     {{#select filters.dynamic.characteristic.value}}
-                     {{#each characteristics as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Characteristic
+            <div>
+               <select class="dynamic-filter" data-filter = "characteristic">
+                  <option value=""></option>
+                  {{#select filters.dynamic.characteristic.value}}
+                  {{#each characteristics as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.advanced.show}}
          <div>
-               Advanced/Basic
-               <div>
-                  <select class="dynamic-filter" data-filter = "advanced">
-                     <option value=""></option>
-                     {{#select filters.dynamic.advanced.value}}
-                     {{#each skillTypes as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Advanced/Basic
+            <div>
+               <select class="dynamic-filter" data-filter = "advanced">
+                  <option value=""></option>
+                  {{#select filters.dynamic.advanced.value}}
+                  {{#each skillTypes as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.grouped.show}}
          <div>
-               Is Grouped
-               <div>
-                  <select class="dynamic-filter" data-filter = "grouped">
-                     <option value=""></option>
-                     {{#select filters.dynamic.grouped.value}}
-                     {{#each skillGroup as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Is Grouped
+            <div>
+               <select class="dynamic-filter" data-filter = "grouped">
+                  <option value=""></option>
+                  {{#select filters.dynamic.grouped.value}}
+                  {{#each skillGroup as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
-
          {{#if filters.dynamic.lore.show}}
          <div>
             Lore
@@ -484,25 +455,22 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.cn.show}}
          <div>
             CN
             <div class = "comparison-filter">
-                <select class="dynamic-filter-comparator" data-filter = "cn">
-                   <option value=""></option>
-                   {{#select filters.dynamic.cn.relation}}
-                   {{#each relations as |value index|}}
-                   <option value="{{value}}">{{value}}</option>
-                   {{/each}}
-                   {{/select}}
-                </select>
-                <input class="dynamic-filter cn" type="text" data-filter="cn" value="{{filters.dynamic.cn.value}}"/>
+               <select class="dynamic-filter-comparator" data-filter = "cn">
+                  <option value=""></option>
+                  {{#select filters.dynamic.cn.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter cn" type="text" data-filter="cn" value="{{filters.dynamic.cn.value}}"/>
             </div>
          </div>
          {{/if}}
-
-
          {{#if filters.dynamic.rollable.show}}
          <div>
             Rollable
@@ -511,72 +479,67 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.weaponGroup.show}}
          <div>
-               Weapon Group
-               <div>
-                  <select class="dynamic-filter" data-filter = "weaponGroup">
-                     <option value=""></option>
-                     {{#select filters.dynamic.weaponGroup.value}}
-                     {{#each weaponGroups as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Weapon Group
+            <div>
+               <select class="dynamic-filter" data-filter = "weaponGroup">
+                  <option value=""></option>
+                  {{#select filters.dynamic.weaponGroup.value}}
+                  {{#each weaponGroups as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.ammunitionGroup.show}}
          <div>
-               Ammunition Group
-               <div>
-                  <select class="dynamic-filter" data-filter = "ammunitionGroup">
-                     <option value=""></option>
-                     {{#select filters.dynamic.ammunitionGroup.value}}
-                     {{#each ammunitionGroups as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Ammunition Group
+            <div>
+               <select class="dynamic-filter" data-filter = "ammunitionGroup">
+                  <option value=""></option>
+                  {{#select filters.dynamic.ammunitionGroup.value}}
+                  {{#each ammunitionGroups as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.reach.show}}
          <div>
-               Reach
-               <div>
-                  <select class="dynamic-filter" data-filter = "reach">
-                     <option value=""></option>
-                     {{#select filters.dynamic.reach.value}}
-                     {{#each weaponReaches as |value index|}}
-                     <option value="{{index}}">{{value}}</option>
-                     {{/each}}
-                     {{/select}}
-                  </select>
-               </div>
+            Reach
+            <div>
+               <select class="dynamic-filter" data-filter = "reach">
+                  <option value=""></option>
+                  {{#select filters.dynamic.reach.value}}
+                  {{#each weaponReaches as |value index|}}
+                  <option value="{{index}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
             </div>
+         </div>
          {{/if}}
-
          {{#if filters.dynamic.weaponRange.show}}
          <div>
             Range
             <div class = "comparison-filter">
-                <select class="dynamic-filter-comparator" data-filter = "weaponRange">
-                   <option value=""></option>
-                   {{#select filters.dynamic.weaponRange.relation}}
-                   {{#each relations as |value index|}}
-                   <option value="{{value}}">{{value}}</option>
-                   {{/each}}
-                   {{/select}}
-                </select>
-                <input class="dynamic-filter weaponRange" type="text" data-filter="weaponRange" value="{{filters.dynamic.weaponRange.value}}"/>
+               <select class="dynamic-filter-comparator" data-filter = "weaponRange">
+                  <option value=""></option>
+                  {{#select filters.dynamic.weaponRange.relation}}
+                  {{#each relations as |value index|}}
+                  <option value="{{value}}">{{value}}</option>
+                  {{/each}}
+                  {{/select}}
+               </select>
+               <input class="dynamic-filter weaponRange" type="text" data-filter="weaponRange" value="{{filters.dynamic.weaponRange.value}}"/>
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.melee.show}}
          <div>
             Melee
@@ -585,7 +548,6 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.ranged.show}}
          <div>
             Ranged
@@ -594,7 +556,6 @@
             </div>
          </div>
          {{/if}}
-
          {{#if filters.dynamic.twohanded.show}}
          <div>
             Is Two Handed
@@ -603,19 +564,18 @@
             </div>
          </div>
          {{/if}}
-
       </div>
-
-
-        <div class ="query-results">
-           <h2>Items</h2>
-           <ol class = "item-list save-scroll">
-              {{#each items as |item i|}}
-              <li class = "browser-item">
-                 <div class="image" style="background-image: url({{item.img}})"></div>
-                 <div class = "item-name">{{item.name}}</div>
-              </li>
-              {{/each}}
-           </ol>
-        </div>
-     </div>
+      <div class ="query-results">
+         <h2>Items</h2>
+         <ol class = "item-list save-scroll">
+            {{#each items as |item i|}}
+            <li class = "browser-item" data-item-id = {{item._id}}>
+               <div class="image" style="background-image: url({{item.img}})"></div>
+               <a>
+                  <div class = "item-name">{{item.name}}</div>
+               </a>
+            </li>
+            {{/each}}
+         </ol>
+      </div>
+   </div>
