@@ -38,8 +38,8 @@ class BrowserWfrp4e extends Application
         ammunitionType : {value : "", exactMatch : true, type : ["ammunition"], show : false},
         skills : {value : [], type : ["career"], show : false},
         talents : {value : [], type : ["career"], show : false},
-        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons", "container"], show : false},
-        availability : {value : "", type : ["ammunition", "armour", "weapons", "container"], show : false},
+        encumbrance : {value : "", relation : "", type : ["ammunition", "armour", "weapons", "container", "trapping"], show : false},
+        availability : {value : "", type : ["ammunition", "armour", "weapons", "container", "trapping"], show : false},
         modifiesDamage : {value : false, type : ["ammunition"], show : false},
         modifiesRange : {value : false, type : ["ammunition"], show : false},
         qualitiesFlaws : {value : [], type : ["ammunition", "armour", "weapons"], show : false},
@@ -61,7 +61,8 @@ class BrowserWfrp4e extends Application
         lore : {value : "", type : ["spell"], show : false},
         extendable : {value : "", type : ["spell"], show : false},
         max : {value : "", type : ["talent"], show : false},
-        tests : {value : "", type : ["talent"], show : false}
+        tests : {value : "", type : ["talent"], show : false},
+        trappingType : {value : "", type : ["trapping"], show : false}
       }
     }
 
@@ -113,6 +114,7 @@ class BrowserWfrp4e extends Application
     data.armorTypes = WFRP4E.armorTypes;
     data.gods = this.gods;
     data.talentMax = WFRP4E.talentMax;
+    data.trappingTypes = WFRP4E.trappingTypes;
     data.lores = this.lores;
     data.prayerTypes = WFRP4E.prayerTypes;
     data.careerGroups = this.careerGroups;

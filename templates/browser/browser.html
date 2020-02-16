@@ -399,11 +399,26 @@
          <div>
             Talent Tests
             <div>
-                  <input class="dynamic-filter tests" type="text" data-filter="tests" value="{{filters.dynamic.tests.value}}"/>
+               <input class="dynamic-filter tests" type="text" data-filter="tests" value="{{filters.dynamic.tests.value}}"/>
             </div>
          </div>
          {{/if}}
 
+         {{#if filters.dynamic.trappingType.show}}
+         <div>
+               Trapping Type
+               <div>
+                  <select class="dynamic-filter" data-filter = "trappingType">
+                     <option value=""></option>
+                     {{#select filters.dynamic.trappingType.value}}
+                     {{#each trappingTypes as |value index|}}
+                     <option value="{{index}}">{{value}}</option>
+                     {{/each}}
+                     {{/select}}
+                  </select>
+               </div>
+            </div>
+         {{/if}}
 
 
          {{#if filters.dynamic.lore.show}}
