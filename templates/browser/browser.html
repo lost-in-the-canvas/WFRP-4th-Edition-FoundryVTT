@@ -13,8 +13,8 @@
             Description
             <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
          </div>
-         {{#if filters.dynamic.encumbrance.show}}
-         <div>
+
+         <div class = "encumbrance" style = "display: none;">
             Encumbrance
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "encumbrance">
@@ -28,9 +28,8 @@
                <input class="dynamic-filter encumbrancce" type="text" data-filter="encumbrance" value="{{filters.dynamic.encumbrance.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.availability.show}}
-         <div>
+
+         <div class = "availability" style = "display: none;">
             Availability
             <div>
                <select class="dynamic-filter" data-filter = "availability">
@@ -43,9 +42,8 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.ammunitionType.show}}
-         <div>
+
+         <div class = "ammunitionType" style = "display: none;">
             Ammunition Type
             <div>
                <select class="dynamic-filter" data-filter = "ammunitionType">
@@ -58,25 +56,19 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.modifiesDamage.show}}
-         <div>
+         <div class = "modifiesDamage" style = "display: none;">
             Modifies Damage
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "modifiesDamage" {{checked filters.dynamic.modifiesDamage.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.modifiesRange.show}}
-         <div>
+         <div class = "modifiesRange" style = "display: none;">
             Modifies Range
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "modifiesRange" {{checked filters.dynamic.modifiesRange.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.armorType.show}}
-         <div>
+         <div class = "armorType" style = "display: none;">
             Armour Type
             <div>
                <select class="dynamic-filter" data-filter = "armorType">
@@ -89,14 +81,11 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.qualitiesFlaws.show}}
-         <div>
+         <div class = "qualitiesFlaws" style = "display: none;">
             Qualities/Flaws (comma separated)
             <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.protects.show}}
+         <div  class = "protects" style = "display: none;">
          Protects
          Head           
          <div>
@@ -114,9 +103,8 @@
          <div>
             <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.carries.show}}
-         <div>
+      </div>
+         <div class = "carries" style = "display: none;">
             Carries
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "carries">
@@ -130,17 +118,13 @@
                <input class="dynamic-filter carries" type="text" data-filter="carries" value="{{filters.dynamic.carries.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.wearable.show}}
-         <div>
+         <div class = "wearable" style = "display: none;">
             Wearable
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "wearable" {{checked filters.dynamic.wearable.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.location.show}}
-         <div>
+         <div class = "location" style = "display: none;">
             Location
             <div>
                <select class="dynamic-filter" data-filter = "location">
@@ -153,9 +137,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.wounds.show}}
-         <div>
+         <div class = "wounds" style = "display: none;">
             Wounds
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "wounds">
@@ -169,15 +151,11 @@
                <input class="dynamic-filter wounds" type="text" data-filter="wounds" value="{{filters.dynamic.wounds.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.symptoms.show}}
-         <div>
+         <div class = "symptoms" style = "display: none;">
             Symptoms
             <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.mutationType.show}}
-         <div>
+         <div class = "mutationType" style = "display: none;">
             Mutation Type
             <div>
                <select class="dynamic-filter" data-filter = "mutationType">
@@ -190,9 +168,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.careergroup.show}}
-         <div>
+         <div class = "careergroup" style = "display: none;">
             Career Group
             <div>
                <select class="dynamic-filter" data-filter = "careergroup">
@@ -205,9 +181,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.class.show}}
-         <div>
+         <div class = "class" style = "display: none;">
             Career Class
             <div>
                <select class="dynamic-filter" data-filter = "class">
@@ -220,9 +194,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.level.show}}
-         <div>
+         <div class = "level" style = "display: none;">
             Career Tier
             <div>
                <select class="dynamic-filter" data-filter = "level">
@@ -235,9 +207,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.statusTier.show}}
-         <div>
+         <div class = "statusTier" style = "display: none;">
             Status Tier
             <div>
                <select class="dynamic-filter" data-filter = "statusTier">
@@ -250,9 +220,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.statusStanding.show}}
-         <div>
+         <div class = "statusStanding" style = "display: none;">
             Status Standing
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "statusStanding">
@@ -266,27 +234,19 @@
                <input class="dynamic-filter statusStanding" type="text" data-filter="statusStanding" value="{{filters.dynamic.statusStanding.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.characteristics.show}}
-         <div title = "Example Input: 'Ws, T, fel' (case insensitive)">
+         <div  class = "characteristics" style = "display: none;" title = "Example Input: 'Ws, T, fel' (case insensitive)">
             Characteristics (comma separated)
             <input class="csv-filter characteristics" type="text" data-filter="characteristics" value="{{filters.dynamic.characteristics.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.skills.show}}
-         <div>
+         <div class = "skills" style = "display: none;">
             Skills (comma separated)
             <input class="csv-filter skills" type="text" data-filter="skills" value="{{filters.dynamic.skills.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.talents.show}}
-         <div>
+         <div class = "talents" style = "display: none;">
             Talents (comma separated)
             <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.prayerType.show}}
-         <div>
+         <div class = "prayerType" style = "display: none;">
             Prayer Type
             <div>
                <select class="dynamic-filter" data-filter = "prayerType">
@@ -299,9 +259,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.god.show}}
-         <div>
+         <div class = "god" style = "display: none;">
             God
             <div>
                <select class="dynamic-filter" data-filter = "god">
@@ -314,51 +272,37 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.duration.show}}
-         <div>
+         <div class = "duration" style = "display: none;">
             Duration
             <input class="dynamic-filter duration" type="text" data-filter="duration" value="{{filters.dynamic.duration.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.range.show}}
-         <div>
+         <div class = "range" style = "display: none;">
             Range
             <input class="dynamic-filter range" type="text" data-filter="range" value="{{filters.dynamic.range.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.target.show}}
-         <div>
+         <div class = "target" style = "display: none;">
             Targets
             <input class="dynamic-filter target" type="text" data-filter="target" value="{{filters.dynamic.target.value}}"/>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.magicMissile.show}}
-         <div>
+         <div class = "magicMissile" style = "display: none;">
             Magic Missile
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "magicMissile" {{checked filters.dynamic.magicMissile.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.aoe.show}}
-         <div>
+         <div class = "aoe" style = "display: none;">
             AoE
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "aoe" {{checked filters.dynamic.aoe.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.extendable.show}}
-         <div>
+         <div class = "extendable" style = "display: none;">
             Extendable Duration
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "extendable" {{checked filters.dynamic.extendable.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.max.show}}
-         <div>
+         <div class = "max" style = "display: none;">
             Talent Max
             <div>
                <select class="dynamic-filter" data-filter = "max">
@@ -371,17 +315,13 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.tests.show}}
-         <div>
+         <div class = "tests" style = "display: none;">
             Talent Tests
             <div>
                <input class="dynamic-filter tests" type="text" data-filter="tests" value="{{filters.dynamic.tests.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.trappingType.show}}
-         <div>
+         <div class = "trappingType" style = "display: none;">
             Trapping Type
             <div>
                <select class="dynamic-filter" data-filter = "trappingType">
@@ -394,9 +334,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.characteristic.show}}
-         <div>
+         <div class = "characteristic" style = "display: none;">
             Characteristic
             <div>
                <select class="dynamic-filter" data-filter = "characteristic">
@@ -409,9 +347,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.advanced.show}}
-         <div>
+         <div class = "advanced" style = "display: none;">
             Advanced/Basic
             <div>
                <select class="dynamic-filter" data-filter = "advanced">
@@ -424,9 +360,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.grouped.show}}
-         <div>
+         <div class = "grouped" style = "display: none;">
             Is Grouped
             <div>
                <select class="dynamic-filter" data-filter = "grouped">
@@ -439,9 +373,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.lore.show}}
-         <div>
+         <div class = "lore" style = "display: none;">
             Lore
             <div>
                <select class="dynamic-filter" data-filter = "lore">
@@ -454,9 +386,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.cn.show}}
-         <div>
+         <div class = "cn" style = "display: none;">
             CN
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "cn">
@@ -470,17 +400,13 @@
                <input class="dynamic-filter cn" type="text" data-filter="cn" value="{{filters.dynamic.cn.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.rollable.show}}
-         <div>
+         <div class = "rollable" style = "display: none;">
             Rollable
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "rollable" {{checked filters.dynamic.rollable.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.weaponGroup.show}}
-         <div>
+         <div class = "weaponGroup" style = "display: none;">
             Weapon Group
             <div>
                <select class="dynamic-filter" data-filter = "weaponGroup">
@@ -493,9 +419,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.ammunitionGroup.show}}
-         <div>
+         <div class = "ammunitionGroup" style = "display: none;">
             Ammunition Group
             <div>
                <select class="dynamic-filter" data-filter = "ammunitionGroup">
@@ -508,9 +432,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.reach.show}}
-         <div>
+         <div class = "reach" style = "display: none;">
             Reach
             <div>
                <select class="dynamic-filter" data-filter = "reach">
@@ -523,9 +445,7 @@
                </select>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.weaponRange.show}}
-         <div>
+         <div class = "weaponRange" style = "display: none;">
             Range
             <div class = "comparison-filter">
                <select class="dynamic-filter-comparator" data-filter = "weaponRange">
@@ -539,37 +459,30 @@
                <input class="dynamic-filter weaponRange" type="text" data-filter="weaponRange" value="{{filters.dynamic.weaponRange.value}}"/>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.melee.show}}
-         <div>
+         <div class = "melee" style = "display: none;">
             Melee
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "melee" {{checked filters.dynamic.melee.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.ranged.show}}
-         <div>
+         <div class = "ranged" style = "display: none;">
             Ranged
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "ranged" {{checked filters.dynamic.ranged.value}}></input>
             </div>
          </div>
-         {{/if}}
-         {{#if filters.dynamic.twohanded.show}}
-         <div>
+         <div class = "twohanded" style = "display: none;">
             Is Two Handed
             <div>
                <input class="boolean-filter" type = "checkbox" data-filter = "twohanded" {{checked filters.dynamic.twohanded.value}}></input>
             </div>
          </div>
-         {{/if}}
       </div>
       <div class ="query-results">
          <h2>Items</h2>
          <ol class = "item-list save-scroll">
             {{#each items as |item i|}}
-            <li class = "browser-item" data-item-id = {{item._id}}>
+            <li class = "browser-item" data-item-id = {{item._id}} data-filter-id = {{item.filterId}}>
                <div class="image" style="background-image: url({{item.img}})"></div>
                <a>
                   <div class = "item-name">{{item.name}}</div>

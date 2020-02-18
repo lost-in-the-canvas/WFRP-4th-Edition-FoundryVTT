@@ -114,9 +114,7 @@ class BrowserWfrp4e extends Application
 
   getData() {
     let data = super.getData();
-    this.checkDynamicFilters();
     data.filters = this.filters;
-
     data.relations = ["<", "<=", "==", ">=", ">"]
     data.availability = WFRP4E.availability;
     data.ammunitionGroups = WFRP4E.ammunitionGroups;
@@ -137,8 +135,7 @@ class BrowserWfrp4e extends Application
     data.careerClasses = this.careerClasses
     data.careerTiers = this.careerTiers;
     data.statusTiers = this.statusTiers;
-
-    data.items = this.applyFilter(this.items);
+    data.items = this.items;
 
     return data;
   }
@@ -146,6 +143,8 @@ class BrowserWfrp4e extends Application
   async loadItems()
   {
     this.items = [];
+    let filterId = 0;
+
     for (let p of game.packs)
     {
       if (p.metadata.entity == "Item")
@@ -175,6 +174,8 @@ class BrowserWfrp4e extends Application
               if (!this.lores.includes(item.data.data.lore.value))
                 this.lores.push(item.data.data.lore.value);
             }
+            item.filterId = filterId;
+            filterId++;
           }
           this.lores = this.lores.filter(l => l).sort((a, b) => (a > b) ? 1 : -1);
           this.lores = this.lores.map (p => {
@@ -187,14 +188,16 @@ class BrowserWfrp4e extends Application
         })
       }
     }
+    this.items = this.items.sort((a, b) => (a.name > b.name) ? 1 : -1);
     this.lores.push("None");
     this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
     this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
   }
 
 
-  applyFilter(items)
+  applyFilter(html)
   {
+    let items = this.items
     let noItemFilter = true;
     let filteredItems = [];
     for (let filter in this.filters.type)
@@ -225,6 +228,8 @@ class BrowserWfrp4e extends Application
         }
       }
     }
+
+    this.checkDynamicFilters(html);
 
     for (let filter in this.filters.dynamic)
     {
@@ -337,10 +342,18 @@ class BrowserWfrp4e extends Application
       }
     }
 
-    return filteredItems.sort((a, b) => (a.data.name > b.data.name) ? 1 : -1);
+    this.filterIds = filteredItems.map(i => i.filterId);
+    let list = html.find(".browser-item")
+    for (let element of list) 
+    {
+      if (this.filterIds.includes(Number(element.getAttribute('data-filter-id'))))
+        $(element).show();
+      else
+        $(element).hide();
+    }
   }
 
-  checkDynamicFilters()
+  checkDynamicFilters(html)
   {
     for (let dynamicFilter in this.filters.dynamic)
     {
@@ -349,6 +362,16 @@ class BrowserWfrp4e extends Application
       {
         if (this.filters.type[typeFilter])
           this.filters.dynamic[dynamicFilter].show = true;
+      }
+
+      let filter = html.find(`.${dynamicFilter}`)
+      if (this.filters.dynamic[dynamicFilter].show)
+      {
+        $(filter).show();
+      }
+      else
+      {
+        $(filter).hide();
       }
     }
   }
@@ -380,35 +403,31 @@ class BrowserWfrp4e extends Application
 
     html.on("click", ".filter", ev => {
       this.filters.type[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
-      this.render(true);
+      this.applyFilter(html);
     })
 
     html.on("keyup", ".name-filter", ev => {
       this.filters.attribute.name = $(ev.currentTarget).val();
-      this.render(true, {textInputFocused : ".name-filter"});
+      this.applyFilter(html);
+
     })
     html.on("keyup", ".description-filter", ev => {
       this.filters.attribute.description = $(ev.currentTarget).val();
-      this.render(true, {textInputFocused : ".description-filter"});
+      this.applyFilter(html);
     })
     html.on("keyup change", ".dynamic-filter", ev => {
       this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).val();
-      let options = {}
-      if (ev.target.type == "text")
-      {
-        options["textInputFocused"] = `.${$(ev.currentTarget).attr("data-filter")}`
-      }
-      this.render(true, options);
+      this.applyFilter(html);
     })
     html.on("change", ".dynamic-filter-comparator", ev => {
       this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].relation = $(ev.currentTarget).val();
-      this.render(true);
+      this.applyFilter(html);
     })
     html.on("change", ".csv-filter", ev => {
       this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).val().split(",").map(i => {
         return i.trim();
       })
-      this.render(true);
+      this.applyFilter(html);
     })
     html.on("change", ".boolean-filter", ev => {
       if ($(ev.currentTarget).hasClass("exactMatch"))
@@ -417,11 +436,11 @@ class BrowserWfrp4e extends Application
       else if ($(ev.currentTarget).attr("data-filter"))
         this.filters.dynamic[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
 
-      this.render(true);
+      this.applyFilter(html);
     })
     html.on("click", ".protects-filter", ev => {
       this.filters.dynamic.protects.value[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
-      this.render(true);
+      this.applyFilter(html);
     })
   }
 
