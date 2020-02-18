@@ -546,10 +546,10 @@ class ActorWfrp4e extends Actor {
   /**
    * Display a dialog for the user to choose casting or channelling.
    *
-   * When clicking on a spell, the user will get an option to Cast or Channell that spell
+   * When clicking on a spell, the user will get an option to Cast or Channel that spell
    * Each option leads to their respective "setup" functions.
    *
-   * @param {Object} spell     The spell item clicked on, petty spells will automatically be Casted, without the option to channell.
+   * @param {Object} spell     The spell item clicked on, petty spells will automatically be Casted, without the option to channel.
    *
    */
   spellDialog(spell) {
@@ -560,7 +560,7 @@ class ActorWfrp4e extends Actor {
     {
       renderTemplate("systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
         new Dialog({
-          title: "Cast or Channell",
+          title: "Cast or Channel",
           content: dlg,
           buttons: {
             cast: {
@@ -569,8 +569,8 @@ class ActorWfrp4e extends Actor {
                 this.setupCast(spell);
               }
             },
-            channell: {
-              label: "Channell",
+            channel: {
+              label: "Channel",
               callback: btn => {
                 this.setupChannell(spell);
               }
@@ -717,10 +717,10 @@ class ActorWfrp4e extends Actor {
   setupChannell(spell) {
     let title = "Channelling Test - " + spell.name;
 
-    // channellSkills array holds the available skills/characteristics to channell with - Channelling: Willpower
+    // channellSkills array holds the available skills/characteristics to  with - Channelling: Willpower
     let channellSkills = [{key : "wp", name : "Willpower"}]
 
-    // if the actor has any channell skills, add them to the array.
+    // if the actor has any channel skills, add them to the array.
     channellSkills = channellSkills.concat(this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill"))
 
     // Find the spell lore, and use that to determine the default channelling selection
@@ -747,7 +747,7 @@ class ActorWfrp4e extends Actor {
     // Setup dialog data: title, template, buttons, prefilled data
     let dialogOptions = {
       title: title,
-      template : "/systems/wfrp4e/templates/chat/channell-dialog.html",
+      template : "/systems/wfrp4e/templates/chat/channel-dialog.html",
       // Prefilled dialog data
       data : {
         malignantInfluence : testData.malignantInfluence,
@@ -807,7 +807,7 @@ class ActorWfrp4e extends Actor {
     };
 
     // Call the universal cardOptions helper
-    let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/channell-card.html", title)
+    let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/channel-card.html", title)
 
     // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function
     DiceWFRP.prepareTest({

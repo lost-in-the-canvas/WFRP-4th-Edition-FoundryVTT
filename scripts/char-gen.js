@@ -60,9 +60,21 @@ class GeneratorWfrp4e
    * @param {String} species speciesKey for species selected
    * @param {Number} exp Experience received from random generation
    */
-  static rollAttributes(species, exp = 0)
+  static rollAttributes(species, exp = 0, reroll = false)
   {
     let characteristics = WFRP_Utility.speciesCharacteristics(species, false)
+
+    let calcExp = exp;
+    if (reroll)
+    {
+      if (exp == 70)
+        calcExp = exp-50;
+    }
+    else 
+      calcExp = exp + 50;
+
+
+
     // Setup the drag and drop payload
     let dataTransfer = {
       generation : true,
@@ -73,7 +85,7 @@ class GeneratorWfrp4e
         movement : WFRP4E.speciesMovement[species],
         fate : WFRP4E.speciesFate[species],
         resilience : WFRP4E.speciesRes[species],
-        exp : exp + 50
+        exp : calcExp
       }
     }
 

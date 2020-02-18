@@ -508,7 +508,7 @@ class DiceWFRP
 			if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
 				SL = -1;
 
-      testResults.description = "Channell Failed"
+      testResults.description = "Channel Failed"
       // Major Miscast on fumble
 			if (testResults.roll % 11 == 0 || testResults.roll % 10 == 0 || testResults.roll == 100)
 			{
@@ -518,18 +518,18 @@ class DiceWFRP
 		}
 		else // Successs - add SL to spell for further use
 		{
-			testResults.description = "Channell Succeeded"
+			testResults.description = "Channel Succeeded"
 
 			// Optional Rule: If SL in extended test is -/+0, counts as -/+1
 			if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
 				SL = 1;
 
-      // Critical Channell - miscast and set SL gained to CN
+      // Critical Channel - miscast and set SL gained to CN
 			if (testResults.roll % 11 == 0)
 			{
 				testResults.extra.color_green = true;
 				spell.data.cn.SL = spell.data.cn.value;
-				testResults.extra.criticalchannell = "Critical Channell"
+				testResults.extra.criticalchannell = "Critical Channel"
 				if (!testData.extra.AA)
 					miscastCounter++;
 			}
@@ -880,7 +880,7 @@ class DiceWFRP
 		});
 
 		// Respond to character generation button clicks
-		html.on("click", '.chargen-button', event =>
+		html.on("click", '.chargen-button, .chargen-button-nostyle', event =>
 		{
 			event.preventDefault();
 			// data-button tells us what button was clicked
@@ -904,6 +904,10 @@ class DiceWFRP
 					break;
 				case "rollDetails":
 					GeneratorWfrp4e.rollDetails($(event.currentTarget).attr("data-species"))
+					break;
+
+				case "rerollAttributes":
+					GeneratorWfrp4e.rollAttributes($(event.currentTarget).attr("data-species"), Number($(event.currentTarget).attr("data-exp")), true)
 					break;
 			}
 		});

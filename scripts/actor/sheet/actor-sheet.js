@@ -145,6 +145,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       initial: this.actor.data.flags["_sheetTab"],
       callback: clicked => this.actor.data.flags["_sheetTab"] = clicked.attr("data-tab")
     });
+  
 
     // Item summaries - displays a customized dropdown description
     html.find('.item-dropdown').click(event => this._onItemSummary(event));
@@ -232,6 +233,19 @@ class ActorSheetWfrp4e extends ActorSheet {
     else
     {
       this.skillUpdateFlag = true;
+    }
+    if (event.keyCode == 13)
+    {
+      if (!this.skillsToEdit)
+        this.skillsToEdit = []
+      let itemId = event.target.attributes["data-item-id"].value;
+      let itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+      itemToEdit.data.advances.value = Number(event.target.value);
+      this.skillsToEdit.push(itemToEdit);
+
+      await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+
+      this.skillsToEdit = [];
     }
   });
 
