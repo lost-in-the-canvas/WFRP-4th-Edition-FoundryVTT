@@ -1,3 +1,6 @@
+/**
+ * Displays round/turn summaries as combat turns go by, also focuses on token whose turn is starting
+ */
 Hooks.on("updateCombat", (combat) => {
     if (game.user.isGM && combat.data.round != 0 && combat.turns && combat.data.active)
     {

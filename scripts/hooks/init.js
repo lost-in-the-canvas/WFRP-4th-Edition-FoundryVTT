@@ -1,41 +1,9 @@
+/**
+ * Init function loads tables, registers settings, and loads templates
+ */
 Hooks.once("init", () => {
-    // fetch ("fgdb.json").then (r => r.json()).then(async records => {
-    //   var fgtable = records["tables"]["category"]["id-00001"];
-    //   var newtable = {
-    //     name : "General Critical Hits",
-    //     die : "1d100",
-    //     rows : ["-"]
-    //   }
-  
-    //   for (var fgrow in fgtable["tablerows"])
-    //   {
-    //     fgrow = fgtable["tablerows"][fgrow];
-    //     var from = fgrow.fromrange;
-    //     var to = fgrow.torange;
-    //     for (var i = from; i <= to; i++)
-    //     {
-    //       var rowObj = {
-    //         wounds : fgrow.results["id-00002"].result,
-    //         name : fgrow.results["id-00001"].result,
-    //         description : fgrow.results["id-00003"].result,
-    //       }
-    //       newtable.rows.push(rowObj);
-    //     }
-    //   }
-    //   console.log(JSON.stringify(newtable));
-    // })
-  
-    // fetch("doomings.txt").then(r => r.text()).then(t => {
-    //   let array = t.split("\n").map(function(item) {
-    //     return item.substring(3);
-    //   });
-    //   let table = {rows: [undefined]};
-    //   for (let i = 0; i < array.length; i++)
-    //   {
-    //     table.rows.push({description : array[i]})
-    //   }
-    //   console.log(JSON.stringify(table));
-    // })
+
+    // load tables from system folder
     FilePicker.browse("user", "systems/wfrp4e/tables").then(resp => {
       try 
       {
@@ -61,7 +29,7 @@ Hooks.once("init", () => {
       // Do nothing
     }
     })
-  
+    // Create scatter table
     WFRP_Tables.scatter = {
       name : "Scatter",
       die : "1d10",
@@ -109,6 +77,7 @@ Hooks.once("init", () => {
       ]
     }
   
+    // Create Winds table
     WFRP_Tables.winds = {
       name : "The Swirling Winds",
       die : "1d10",
@@ -135,100 +104,7 @@ Hooks.once("init", () => {
         }
       ]
     }
-  
-    // IMPORT CODE FOR CAREERS
-  /* let counter = 0;
-    fetch ("careers.json").then(r => r.json()).then(async records => {
-      let careerData = {
-        data : {}
-      };
-  
-      for (let careerClass of records) {
-        for (let careerGroup of careerClass.CareerPaths) {
-          for (let careerTier of careerGroup.Tiers) {
-            careerData.name = careerTier.Name;
-            careerData.type = "career"
-            careerData.data["class.value"] = careerClass.ClassName;
-            careerData.data["careergroup.value"] = careerGroup.PathName;
-            careerData.data["level.value"] = careerTier.Tier;
-  
-            try {
-            careerData.data["status.tier"] = careerTier.StatusTier[0].toLowerCase();
-            careerData.data["status.standing"] = careerTier.StatusStanding;
-            }
-            catch{
-              careerData.data["status.tier"] = "";
-              careerData.data["status.standing"] = 0;
-            }
-            careerData.data["characteristics"] = [];
-            careerData.data["skills"] = [];
-            careerData.data["talents"] = [];
-            careerData.data["trappings"] = [];
-            for (let careerChar of careerTier.CareerCharacteristics){
-              let chCounter = 0;
-              for (let ch in WFRP4E.characteristics){
-                if (chCounter == careerChar){
-                  careerData.data.characteristics.push(ch);
-                  break;
-                }
-                chCounter++;
-              }
-            }
-            for (let skill of careerTier.CareerSkills)
-              careerData.data.skills.push(skill);
-            for (let talent of careerTier.CareerTalents)
-              careerData.data.talents.push(talent);
-            for (let trappings of careerTier.CareerTrappings)
-              careerData.data.trappings.push(trappings);
-  
-            let folder = game.folders.entities.find(f => f.name == careerGroup.PathName)
-            try {
-            careerData.folder = folder.data._id;
-            }
-            catch{
-              careerData.folder = undefined;
-            }
-            await Item.create(careerData, {displaySheet : false});
-          }
-      }
-    }
-    })*/
-  
-      // IMPORT CODE FOR TALENTS
-   /* fetch ("talents.json").then(r => r.json()).then(async records => {
-      let talentData = {
-        data : {},
-      };
-      for (data of records)
-  {
-        talentData.name = data.Name;
-        talentData.type = "talent"
-        for (let talentMax in WFRP4E.talentMax)
-          if (WFRP4E.talentMax[talentMax] == data.Max)
-            talentData.data['max.value'] = talentMax;
-        talentData.data["tests.value"] = data.Tests;
-        talentData.data["description.value"] = data.Description;
-        let folder = game.data.folders.find(f => f.name == "Talents");
-        talentData.folder = folder._id;
-        await Item.create(talentData, {displaySheet : false});
-      }
-    })*/
-  
-        // IMPORT CODE FOR TRAITS
-   /*fetch ("traits.json").then(r => r.json()).then(async records => {
-      let traitData = {
-        data : {},
-      };
-      for (data of records)
-  {
-        traitData.name = data.Name;
-        traitData.type = "trait"
-        traitData.data["description.value"] = data.Description;
-        let folder = game.data.folders.find(f => f.name == "Traits");
-        traitData.folder = folder._id;
-        await Item.create(traitData, {displaySheet : false});
-      }
-    })*/
+
   
     // Register initiative rule
     game.settings.register("wfrp4e", "initiativeRule", {
@@ -309,6 +185,7 @@ Hooks.once("init", () => {
       type: Boolean
     });
 
+    // Register Criticals/Fumbles on all tests
     game.settings.register("wfrp4e", "criticalsFumblesOnAllTests", {
       name: "Criticals and Fumbles on all Tests",
       hint: "Rolling a double on any test results in an Astounding Success/Failure.",
@@ -358,7 +235,7 @@ Hooks.once("init", () => {
         type: Boolean
       });
 
-      // Register Status on Turn Start
+      // Register Round Summary
       game.settings.register("wfrp4e", "displayRoundSummary", {
         name: "Display Round Summary",
         hint: "When a round ends, display all combatants with conditions.",
@@ -435,6 +312,6 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/items/item-description.html",
     ]);
 
-
+    // Load name construction from files
     NameGenWfrp._loadNames();
   });
