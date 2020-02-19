@@ -818,7 +818,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   ******************************************************/
 
   // Entering a recognized species sets the characteristics to the average values
-  html.find('.input.species').focusout(async event => {
+  html.find('.input.species').change(async event => {
     if (this.actor.data.type == "character")
       return
     if (game.settings.get("wfrp4e", "npcSpeciesCharacteristics"))
