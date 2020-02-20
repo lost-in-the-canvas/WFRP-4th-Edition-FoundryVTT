@@ -2,6 +2,18 @@
  * Ready hook loads tables, and override's foundry's entity link functions to provide extension to pseudo entities
  */
 Hooks.on("ready", async () => {
+
+    // Localize strings in the WFRP4E object
+    for (let obj in WFRP4E)
+    {
+      for (let el in WFRP4E[obj])
+      {
+        if (typeof WFRP4E[obj][el] === "string")
+        {
+          WFRP4E[obj][el] = game.i18n.localize(WFRP4E[obj][el])
+        }
+      }
+    }
   
     let activeModules = game.settings.get("core", "moduleConfiguration");
    

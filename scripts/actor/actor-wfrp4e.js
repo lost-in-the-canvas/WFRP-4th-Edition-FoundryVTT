@@ -72,8 +72,8 @@ class ActorWfrp4e extends Actor {
     else if (data.type == "npc" || data.type == "creature")
     {
       new Dialog({
-        title: "Add Basic Skills",
-        content: '<p>Add Basic Skills?</p>',
+        title: game.i18n.localize("ACTOR.BasicSkillsTitle"),
+        content: `<p>${game.i18n.localize("ACTOR.BasicSkillsPrompt")}</p>`,
         buttons: {
           yes: {
             label: "Yes",
@@ -154,7 +154,7 @@ class ActorWfrp4e extends Actor {
     catch(error)
     {
       console.error("Something went wrong with preparing actor data: " + error)
-      ui.notifications.error("Something went wrong with preparing actor data: " + error)
+      ui.notifications.error(game.i18n.localize("ACTOR.PreparationError") + error)
     }
   }
 
@@ -185,7 +185,7 @@ class ActorWfrp4e extends Actor {
    */
   setupCharacteristic(characteristicId) {
     let char = this.data.data.characteristics[characteristicId];
-    let title = char.label + " Test";
+    let title = char.label + " " + game.i18n.localize("Test");
     let testData = {
       target : char.value,
       hitLocation : false,
@@ -253,7 +253,7 @@ class ActorWfrp4e extends Actor {
    * @param {bool}   income   Whether or not the skill is being tested to determine Income.
    */
   setupSkill(skill, income = false) {
-    let title = skill.name + " Test";
+    let title = skill.name + " " + game.i18n.localize("Test");
     let testData = {
       hitLocation : false,
       income : income,
@@ -343,7 +343,7 @@ class ActorWfrp4e extends Actor {
     let slBonus = 0   // Used when wielding Defensive weapons
     let modifier = 0; // Used when atatcking with Accurate weapons
     let successBonus = 0;
-    let title = "Weapon Test - " + weapon.name;
+    let title = game.i18n.localize("WeaponTest") + " - " + weapon.name;
 
     // Prepare the weapon to have the complete data object, including qualities/flaws, damage value, etc.
     let wep = this.prepareWeaponCombat(duplicate(weapon));
@@ -560,17 +560,17 @@ class ActorWfrp4e extends Actor {
     {
       renderTemplate("systems/wfrp4e/templates/chat/cast-channel-dialog.html").then(dlg => {
         new Dialog({
-          title: "Cast or Channel",
+          title: game.i18n.localize("ACTOR.CastOrChannel"),
           content: dlg,
           buttons: {
             cast: {
-              label: "Cast",
+              label: game.i18n.localize("Cast"),
               callback: btn => {
                 this.setupCast(spell);
               }
             },
             channel: {
-              label: "Channel",
+              label: game.i18n.localize("Channel"),
               callback: btn => {
                 this.setupChannell(spell);
               }
@@ -593,7 +593,7 @@ class ActorWfrp4e extends Actor {
    *
    */
   setupCast(spell) {
-    let title = "Casting Test - " + spell.name;
+    let title = game.i18n.localize("CastingTest") + " - " + spell.name;
 
     // castSkill array holds the available skills/characteristics to cast with - Casting: Intelligence
     let castSkills = [{key : "int", name : "Intelligence"}]
@@ -715,7 +715,7 @@ class ActorWfrp4e extends Actor {
    *
    */
   setupChannell(spell) {
-    let title = "Channelling Test - " + spell.name;
+    let title = game.i18n.localize("ChannellingTest") +  " - " + spell.name;
 
     // channellSkills array holds the available skills/characteristics to  with - Channelling: Willpower
     let channellSkills = [{key : "wp", name : "Willpower"}]
@@ -827,7 +827,7 @@ class ActorWfrp4e extends Actor {
    * from the prayer itself is needed.
    */
   setupPrayer(prayer) {
-    let title = "Prayer Test - " + prayer.name;
+    let title = game.i18n.localize("PrayerTest") + " - " + prayer.name;
 
     // ppraySkills array holds the available skills/characteristics to pray with - Prayers: Fellowship
     let praySkills = [{key : "fel", name : "Fellowship"}]
@@ -931,7 +931,7 @@ class ActorWfrp4e extends Actor {
   setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
-    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + " Test - " + trait.name;
+    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + `${game.i18n.localize("Test")} - ` + trait.name;
     let testData = {
       hitLocation : false,
       extra : { // Store this trait data for later use
@@ -1073,7 +1073,7 @@ class ActorWfrp4e extends Actor {
 
 
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1097,7 +1097,7 @@ class ActorWfrp4e extends Actor {
     result.postFunction = "incomeOverride"
 
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let dieAmount = WFRP4E.earningValues[testData.income.tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
     dieAmount = Number(dieAmount) * testData.income.standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
@@ -1113,7 +1113,7 @@ class ActorWfrp4e extends Actor {
     // After rolling, determined how much, if any, was actually earned
     if (result.description.includes("Success"))
     {
-      result.incomeResult = "You earn " + moneyEarned;
+      result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
       switch (testData.income.tier)
       {
         case "b":
@@ -1133,7 +1133,7 @@ class ActorWfrp4e extends Actor {
     else if (Number(result.SL) > -6)
     {
       moneyEarned /= 2;
-      result.incomeResult =  "You earn " + moneyEarned;
+      result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
       switch (testData.income.tier)
       {
         case "b":
@@ -1152,7 +1152,7 @@ class ActorWfrp4e extends Actor {
     }
     else
     {
-      result.incomeResult =  "You have a very bad week, and earn nothing (or have your money stolen, or some similar mishap)."
+      result.incomeResult = game.i18n.localize("INCOME.Failure")
       moneyEarned = 0;
     }
     result.moneyEarned = moneyEarned + testData.income.tier;
@@ -1174,7 +1174,7 @@ class ActorWfrp4e extends Actor {
   static async weaponOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
@@ -1197,7 +1197,7 @@ class ActorWfrp4e extends Actor {
   static async castOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
@@ -1223,7 +1223,7 @@ class ActorWfrp4e extends Actor {
   static async channellOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
@@ -1246,7 +1246,7 @@ class ActorWfrp4e extends Actor {
   static async prayerOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
@@ -1269,7 +1269,7 @@ class ActorWfrp4e extends Actor {
   static async traitOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += " - Opposed"
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
 
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
@@ -1289,7 +1289,7 @@ class ActorWfrp4e extends Actor {
     }
     catch (error)
     {
-      ui.notifications.error("Error calculating damage: " + error)
+      ui.notifications.error(game.i18n.localize("CHAT.DamageError") + " " + error)
     } // If something went wrong calculating damage, do nothing and still render the card
 
     if (testData.extra)
@@ -1646,16 +1646,16 @@ class ActorWfrp4e extends Actor {
     const diseases = [];
     const criticals = [];
     let penalties = {
-      "Armour": {
+      [game.i18n.localize("Armour")]: {
         value: ""
       },
-      "Injury": {
+      [game.i18n.localize("Injury")]: {
         value: ""
       },
-      "Mutation": {
+      [game.i18n.localize("Mutation")]: {
         value: ""
       },
-      "Criticals": {
+      [game.i18n.localize("Criticals")]: {
         value: ""
       },
     };
@@ -1691,61 +1691,61 @@ class ActorWfrp4e extends Actor {
     // Inventory object is for the Trappings tab - each sub object is for an individual inventory section
     const inventory = {
       weapons: {
-        label: "Weapons",         // Label - what is displayed in the inventory section header
-        items: [],                // Array of items in the section
-        toggle: true,             // Is there a toggle in the section? (Equipped, worn, etc.)
-        toggleName: "Equipped",   // What is the name of the toggle in the header
-        show: false,              // Should this section be shown (if an item exists in this list, it is set to true)
-        dataType: "weapon"        // What type of FVTT Item is in this section (used by the + button to add an item of this type)
+        label: game.i18n.localize("WFRP4E.TrappingType.Weapon"), // Label - what is displayed in the inventory section header
+        items: [],                                  // Array of items in the section
+        toggle: true,                               // Is there a toggle in the section? (Equipped, worn, etc.)
+        toggleName: game.i18n.localize("Equipped"), // What is the name of the toggle in the header
+        show: false,                                // Should this section be shown (if an item exists in this list, it is set to true)
+        dataType: "weapon"                          // What type of FVTT Item is in this section (used by the + button to add an item of this type)
       },
       armor: {
-        label: "Armour",
+        label: game.i18n.localize("WFRP4E.TrappingType.Armour"),
         items: [],
         toggle: true,
-        toggleName: "Worn",
+        toggleName: game.i18n.localize("Worn"),
         show: false,
         dataType: "armour"
       },
       ammunition: {
-        label: "Ammunition",
+        label: game.i18n.localize("WFRP4E.TrappingType.Ammunition"),
         items: [],
         show: false,            
         dataType: "ammunition"
       },
       clothingAccessories: {
-        label: "Clothing and Accessories",
+        label: game.i18n.localize("WFRP4E.TrappingType.ClothingAccessories"),
         items: [],
         toggle: true,
-        toggleName: "Worn",
+        toggleName: game.i18n.localize("Worn"),
         show: false,
         dataType: "trapping"
       },
       booksAndDocuments: {
-        label: "Books and Documents",
+        label: game.i18n.localize("WFRP4E.TrappingType.BooksDocuments"),
         items: [],
         show: false,
         dataType: "trapping"
       },
       toolsAndKits: {
-        label: "Tools and Kits",
+        label: game.i18n.localize("WFRP4E.TrappingType.ToolsKits"),
         items: [],
         show: false,
         dataType: "trapping"
       },
       foodAndDrink: {
-        label: "Food and Drink",
+        label: game.i18n.localize("WFRP4E.TrappingType.TradeTools"),
         items: [],
         show: false,
         dataType: "trapping"
       },
       drugsPoisonsHerbsDraughts: {
-        label: "Drugs, Herbs, Poisons, Draughts",
+        label: game.i18n.localize("WFRP4E.TrappingType.DrugsPoisonsHerbsDraughts"),
         items: [],
         show: false,
         dataType: "trapping"
       },
       misc: {
-        label: "Miscellaneous",
+        label: game.i18n.localize("WFRP4E.TrappingType.Misc"),
         items: [],
         show: true,
         dataType: "trapping"
@@ -1754,7 +1754,7 @@ class ActorWfrp4e extends Actor {
 
     // Money and ingredients are not in inventory object because they need more customization - note in actor-inventory.html that they do not exist in the main inventory loop
     const ingredients = {
-      label: "Ingredients",
+      label: game.i18n.localize("WFRP4E.TrappingType.Ingredient"),
       items: [],
       show: false,
       dataType: "trapping"
@@ -2119,8 +2119,8 @@ class ActorWfrp4e extends Actor {
     // Penalties box setup
     // If too much text, divide the penalties into groups
     let penaltiesOverflow = false;
-    penalties["Armour"].value += this.calculateArmorPenalties(armour);
-    if ((penalties["Armour"].value + penalties["Mutation"].value + penalties["Injury"].value + penalties["Criticals"].value).length > 50) // ~50 characters is when the text box overflows
+    penalties[game.i18n.localize("Armour")].value += this.calculateArmorPenalties(armour);
+    if ((penalties[game.i18n.localize("Armour")].value + penalties[game.i18n.localize("Mutation")].value + penalties[game.i18n.localize("Injury")].value + penalties[game.i18n.localize("Criticals")].value).length > 50) // ~50 characters is when the text box overflows
     {                                                                                                                                     // When that happens, break it up into categories 
       penaltiesOverflow = true;
       for (let penaltyType in penalties) 
@@ -2133,7 +2133,7 @@ class ActorWfrp4e extends Actor {
     }
 
     // Penalties flag is teh string that shows when the actor's turn in combat starts
-    let penaltiesFlag = penalties["Armour"].value + " " + penalties["Mutation"].value + " " + penalties["Injury"].value + " " + penalties["Criticals"].value + " " + this.data.data.status.penalties.value
+    let penaltiesFlag = penalties[game.i18n.localize("Armour")].value + " " + penalties[game.i18n.localize("Mutation")].value + " " + penalties[game.i18n.localize("Injury")].value + " " + penalties[game.i18n.localize("Criticals")].value + " " + this.data.data.status.penalties.value
     penaltiesFlag = penaltiesFlag.trim();
 
     // This is for the penalty string in flags, for combat turn message
@@ -2880,10 +2880,10 @@ class ActorWfrp4e extends Actor {
   static applyDamage(victim, opposeData, damageType = DAMAGE_TYPE.NORMAL)
   {
     if (!opposeData.damage)
-      return "<b>Error</b>: No damage values. Ensure the attacker is using a damage-causing item, like a weapon."
+      return `<b>Error</b>: ${game.i18n.localize("CHAT.DamageAppliedError")}`
     // If no damage value, don't attempt anything
     if (!opposeData.damage.value)
-      return "Cannot automate damage (likely due to Tiring)"
+      return game.i18n.localize("CHAT.DamageAppliedErrorTiring");
 
     // Get actor/tokens for those in the opposed test
     let actor = WFRP_Utility.getSpeaker(victim);
@@ -2896,7 +2896,7 @@ class ActorWfrp4e extends Actor {
     let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
 
     // Start message update string
-    let updateMsg = "<b>Damage Applied</b><span class = 'hide-option'>: @TOTAL";
+    let updateMsg = `<b>${game.i18n.localize("CHAT.DamageApplied")}</b><span class = 'hide-option'>: @TOTAL`;
     if (damageType != DAMAGE_TYPE.IGNORE_ALL)
       updateMsg += " ("
 
@@ -2974,7 +2974,7 @@ class ActorWfrp4e extends Actor {
       }
 
       if (shieldAP)
-        updateMsg += ` + ${shieldAP} Shield`
+        updateMsg += ` + ${shieldAP} ${game.i18n.localize("CHAT.DamageShield")}`
 
       if (applyTB)
         updateMsg += " + "
@@ -3013,10 +3013,10 @@ class ActorWfrp4e extends Actor {
       updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> Critical</a>`
 
     else if (impenetrable)
-      updateMsg += `<br>Impenetrable - Criticals Nullified`
+      updateMsg += `<br>Impenetrable - ${game.i18n.localize("CHAT.CriticalsNullified")}`
 
     if (hack)
-      updateMsg += `<br>1 AP Damaged on ${WFRP4E.locations[opposeData.hitloc.value]}`
+      updateMsg += `<br>${game.i18n.localize("CHAT.DamageAP")} ${WFRP4E.locations[opposeData.hitloc.value]}`
 
     if (newWounds <= 0)
       newWounds = 0; // Do not go below 0 wounds
@@ -3064,7 +3064,7 @@ class ActorWfrp4e extends Actor {
         skillList = WFRP4E.speciesSkills[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
         if (!skillList)
         {
-          throw "Could not add skills for species " + this.data.data.details.species.value;
+          throw game.i18n.localize("Error.SpeciesSkills") + " " + this.data.data.details.species.value;
         }
       }
     }
@@ -3121,7 +3121,7 @@ class ActorWfrp4e extends Actor {
         // user-entered species value does not work (which it probably will not)
         talentList = WFRP4E.speciesTalents[WFRP_Utility.findKey(this.data.data.details.species.value, WFRP4E.species)]
         if (!talentList)
-          throw "Could not add talents for species " + this.data.data.details.species.value;
+          throw game.i18n.localize("Error.SpeciesTalents") + " " + this.data.data.details.species.value;
       }
     }
     catch (error)
