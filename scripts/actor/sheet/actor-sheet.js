@@ -39,10 +39,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     this._setScrollPos();  // Set scroll positions
 
     // Add Tooltips
-    $(this._element).find(".close").attr("title", "Close");
-    $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
-    $(this._element).find(".configure-token").attr("title", "Configure Token");
-    $(this._element).find(".import").attr("title", "Import");
+    $(this._element).find(".close").attr("title", game.i18n.localize("SHEET.Close"));
+    $(this._element).find(".configure-sheet").attr("title", game.i18n.localize("SHEET.Configure"));
+    $(this._element).find(".configure-token").attr("title", game.i18n.localize("SHEET.Token"));
+    $(this._element).find(".import").attr("title", game.i18n.localize("SHEET.Import"));
   }
 
     /**
@@ -1031,7 +1031,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (dragItem.data._id == dropID) // Prevent placing a container within itself (we all know the cataclysmic effects that can cause)
         throw "";
       else if (dragItem.data.type == "container" && $(event.target).parents(".item").attr("last-container")) 
-          throw "Cannot add container past the 4th nested container"
+          throw game.i18n.localize("SHEET.NestedWarning")
 
       else if (dragItem.data.type == "container") 
       {
@@ -1040,7 +1040,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         if (JSON.parse(dragData).root == $(event.target).parents(".item").attr("root")) 
         {
           ui.notifications.error("Remove the container before changing its location");
-          throw "Remove the container before changing its location";
+          throw game.i18n.localize("SHEET.LocationWarning");
         }
       }
       dragItem.data.data.location.value = dropID; // Change location value of item to the id of the container it is in
@@ -1246,7 +1246,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         let career = this.actor.getEmbeddedEntity("OwnedItem", $(ev.target).attr("data-career-id"));
         if (!skill)
         {
-          ui.notifications.error("You don't have this skill")
+          ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
         this.actor.setupSkill(skill.data, career.data.status);
@@ -1474,6 +1474,6 @@ class ActorSheetWfrp4e extends ActorSheet {
 
 Actors.unregisterSheet("core", ActorSheet);
 
-Hooks.on("renderPopout", (sheet) => {
+Hooks.on("popout:renderSheet", (sheet) => {
   sheet.element.css({ width: "610px", height: "740px"})
 })

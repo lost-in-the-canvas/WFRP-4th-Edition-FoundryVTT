@@ -108,17 +108,17 @@ Hooks.once("init", () => {
   
     // Register initiative rule
     game.settings.register("wfrp4e", "initiativeRule", {
-      name: "Initiative Rules",
-      hint: "Configure which method is used to determine who acts first in combat.",
+      name: "SETTINGS.InitRule",
+      hint: "SETTINGS.InitHint",
       scope: "world",
       config: true,
       default: "default",
       type: String,
       choices: {
-        "default": "Default (Highest to Lowest Initative, Agility Tiebreaks)",
-        "sl": "Roll an Initiative test, higher SL goes first",
-        "d10Init": "Roll a d10 and add Initiative, higher goes first",
-        "d10InitAgi": "Roll a d10, add Initiative Bonus and Agility Bonus, higher goes first"
+        "default": "SETTINGS.InitDefault",
+        "sl": "SETTINGS.InitSL",
+        "d10Init": "SETTINGS.InitD10",
+        "d10InitAgi": "SETTINGS.D10Agi"
       },
       onChange: rule => _setWfrp4eInitiative(rule)
     });
@@ -157,8 +157,8 @@ Hooks.once("init", () => {
   
      // Register Advantage cap
      game.settings.register("wfrp4e", "capAdvantageIB", {
-       name: "Cap Advantage at IB",
-       hint: "Sets the max value of Advantage as the character's Initiative Bonus",
+       name: "SETTINGS.CapAdvIB",
+       hint: "SETTINGS.CapAdvIBHint",
        scope: "world",
        config: true,
        default: false,
@@ -167,8 +167,8 @@ Hooks.once("init", () => {
   
     // Register Fast SL rule
     game.settings.register("wfrp4e", "fastSL", {
-      name: "Fast SL",
-      hint: "Determine SL with the Fast SL optional rule as described on page 152",
+      name: "SETTINGS.FastSL",
+      hint: "SETTINGS.FastSLHint",
       scope: "world",
       config: true,
       default: false,
@@ -177,8 +177,8 @@ Hooks.once("init", () => {
   
     // Register Tests above 100% Rule
     game.settings.register("wfrp4e", "testAbove100", {
-      name: "Tests Above 100%",
-      hint: "Use optional rule Tests Above 100% as described on p 151. A successful Test gains +1 SL for each full 10% a tested Characteristic or Skill exceeds 100%",
+      name: "SETTINGS.TestsAbove100",
+      hint: "SETTINGS.TestsAbove100Hint",
       scope: "world",
       config: true,
       default: false,
@@ -187,8 +187,8 @@ Hooks.once("init", () => {
 
     // Register Criticals/Fumbles on all tests
     game.settings.register("wfrp4e", "criticalsFumblesOnAllTests", {
-      name: "Criticals and Fumbles on all Tests",
-      hint: "Rolling a double on any test results in an Astounding Success/Failure.",
+      name: "SETTINGS.CriticalsFumblesAllTests",
+      hint: "SETTINGS.CriticalsFumblesAllTestsHint",
       scope: "world",
       config: true,
       default: false,
@@ -198,8 +198,8 @@ Hooks.once("init", () => {
   
       // Register Extended Tests
       game.settings.register("wfrp4e", "extendedTests", {
-        name: "Extended Tests and 0 SL",
-        hint: "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
+        name: "SETTINGS.ExtendedTests",
+        hint: "SETTINGS.ExtendedTestsHint",
         scope: "world",
         config: true,
         default: false,
@@ -208,8 +208,9 @@ Hooks.once("init", () => {
   
       // Register Test auto-fill
       game.settings.register("wfrp4e", "testAutoFill", {
-        name: "Test Dialog Auto Populate",
-        hint: "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",      scope: "world",
+        name: "SETTINGS.TestDialogAutoPopulate",
+        hint: "SETTINGS.TestDialogAutoPopulateHint",
+        scope: "world",
         config: true,
         default: true,
         type: Boolean
@@ -217,8 +218,8 @@ Hooks.once("init", () => {
   
       // Register NPC Species Randomization
       game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
-        name: "Set Average NPC Characteristics",
-        hint: "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species",
+        name: "SETTINGS.NpcAverageChar",
+        hint: "SETTINGS.NpcAverageCharHint",
         scope: "world",
         config: true,
         default: true,
@@ -227,8 +228,8 @@ Hooks.once("init", () => {
   
       // Register Partial Channelling
       game.settings.register("wfrp4e", "partialChannelling", {
-        name: "Partial Channelling",
-        hint: "A common house rule that improves the flexibility of Channelling. Instead of requiring the SL to reach the spell's CN, you can instead cast at anytime with the CN reduced by the SL gained so far.",
+        name: "SETTINGS.PartialChannelling",
+        hint: "SETTINGS.PartialChannellingHint",
         scope: "world",
         config: true,
         default: false,
@@ -237,8 +238,8 @@ Hooks.once("init", () => {
 
       // Register Round Summary
       game.settings.register("wfrp4e", "displayRoundSummary", {
-        name: "Display Round Summary",
-        hint: "When a round ends, display all combatants with conditions.",
+        name: "SETTINGS.RoundSummary",
+        hint: "SETTINGS.RoundSummaryHint",
         scope: "world",
         config: true,
         default: true,
@@ -247,8 +248,8 @@ Hooks.once("init", () => {
   
       // Register Status on Turn Start
       game.settings.register("wfrp4e", "statusOnTurnStart", {
-        name: "Show Combatant Status on Turn Start",
-        hint: "When a Combatant starts their turn, their status is shown (Conditions and Modifiers). This status message is identical to the one shown from right clicking the combatant.",
+        name: "SETTINGS.StatusTurnStart",
+        hint: "SETTINGS.StatusTurnStartHint",
         scope: "world",
         config: true,
         default: true,
@@ -258,8 +259,8 @@ Hooks.once("init", () => {
   
       // Register Focus on Turn Start
       game.settings.register("wfrp4e", "focusOnTurnStart", {
-        name: "Focus on Turn Start",
-        hint: "When advancing the combat tracker, focus on the token that's going next.",
+        name: "SETTINGS.FocusTurnStart",
+        hint: "SETTINGS.FocusTurnStartHint",
         scope: "world",
         config: true,
         default: true,
@@ -268,8 +269,8 @@ Hooks.once("init", () => {
   
       // Register Hiding Test Data
       game.settings.register("wfrp4e", "hideTestData", {
-        name: "Hide Test Data",
-        hint: "GM test chat cards don't show sensitive NPC data to players.",
+        name: "SETTINGS.HideTestData",
+        hint: "SETTINGS.HideTestDataHint",
         scope: "world",
         config: true,
         default: true,
@@ -278,8 +279,8 @@ Hooks.once("init", () => {
 
       // Register Manual Chat Cards
       game.settings.register("wfrp4e", "manualChatCards", {
-        name: "Manual Chat Cards",
-        hint: "Show blank roll result to fill in if physical dice are used..",
+        name: "SETTINGS.ManualChatCards",
+        hint: "SETTINGS.ManualChatCardsHint",
         scope: "client",
         config: true,
         default: false,

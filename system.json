@@ -158,7 +158,13 @@
       "tag" : "trapping"
     }
   ],
-  "languages": ["en"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
   "gridDistance": 2,
   "gridUnits": "yd",
