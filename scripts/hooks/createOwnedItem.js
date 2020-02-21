@@ -24,7 +24,7 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
   }
   catch (error)
   {
-    console.error("Error applying wounds value: " + error) //continue as normal if exception
+    console.error(game.i18n.localize("Error.CriticalWound") + ": " + error) //continue as normal if exception
   }
 
     // If not a character and wearable item, set worn to true

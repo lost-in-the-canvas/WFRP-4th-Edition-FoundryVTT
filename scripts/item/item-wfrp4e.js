@@ -48,7 +48,7 @@ class ItemWfrp4e extends Item
   _moneyExpandData()
   {
     const data = duplicate(this.data.data);
-    data.properties = [`Value (in d): ${data.coinValue.value}`];
+    data.properties = [`${game.localize("SHEET.PenniesValue")}: ${data.coinValue.value}`];
     return data;
   }
 
@@ -76,12 +76,12 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     data.properties = [];
-    data.properties.push("<b>Contraction:</b> " + data.contraction.value);
-    data.properties.push("<b>Incubation:</b> " + data.incubation.value);
-    data.properties.push("<b>Duration:</b> " + data.duration.value);
+    data.properties.push(`<b>${game.i18n.localize("Contraction")}:</b> ${data.contraction.value}`);
+    data.properties.push(`<b>${game.i18n.localize("Incubation")}:</b> ${data.incubation.value}`);
+    data.properties.push(`<b>${game.i18n.localize("Duration")}:</b> ${data.duration.value}`);
     data.properties = data.properties.concat(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>"));
     if (data.permanent.value)
-      data.properties.push("<b>Permanent:</b> " + data.permanent.value);
+      data.properties.push(`<b>${game.i18n.localize("Permanent")}:</b> ${data.permanent.value}`);
     return data;
   }
 
@@ -106,14 +106,14 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     data.properties = [];
-    data.properties.push("<b>Class</b>: " + this.data.data.class.value);
-    data.properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
+    data.properties.push(`<b>${game.i18n.localize("Class")}</b>: ${this.data.data.class.value}`);
+    data.properties.push(`<b>${game.i18n.localize("Group")}</b>: ${this.data.data.careergroup.value}`);
     data.properties.push(WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-    data.properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
-    data.properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + i));
-    data.properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + i));
-    data.properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
-    data.properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => ` <a class = 'career-income' data-career-id=${this.data._id}> ${this.data.data.skills[i]} <i class="fas fa-coins"></i></a>`));
+    data.properties.push(`<b>${game.i18n.localize("Characteristics")}</b>: ${this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i])}`);
+    data.properties.push(`<b>${game.i18n.localize("Skills")}</b>: ${this.data.data.skills.map(i => i = " " + i)}`);
+    data.properties.push(`<b>${game.i18n.localize("Talents")}</b>: ${this.data.data.talents.map(i => i = " " + i)}`);
+    data.properties.push(`<b>${game.i18n.localize("Trappings")}</b>: ${this.data.data.trappings.map(i => i = " " + i)}`);
+    data.properties.push(`<b>${game.i18n.localize("Income")}</b>: ${this.data.data.incomeSkill.map(i => ` <a class = 'career-income' data-career-id=${this.data._id}> ${this.data.data.skills[i]} <i class="fas fa-coins"></i></a>`)}`);
     // When expansion data is called, a listener is added for 'career-income'
     return data;
   }
@@ -131,9 +131,9 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     data.properties = [];
-    data.properties.push(`<b>Wounds</b>: ${this.data.data.wounds.value}`)
+    data.properties.push(`<b>${game.i18n.localize("Wounds")}</b>: ${this.data.data.wounds.value}`)
     if (data.modifier.value)
-      data.properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+      data.properties.push(`<b>${game.i18n.localize("Modifier")}</b>: ${this.data.data.modifier.value}`)
     return data;
   }
 
@@ -144,13 +144,13 @@ class ItemWfrp4e extends Item
     let preparedSpell = this.actor.prepareSpellOrPrayer(duplicate(this.data));
     data.description = preparedSpell.data.description
     data.properties = [];
-    data.properties.push("Range: " + preparedSpell.range);
-    data.properties.push("Target: " + preparedSpell.target);
-    data.properties.push("Duration: " + preparedSpell.duration);
+    data.properties.push(`${game.i18n.localize("Range")}: ${preparedSpell.range}`);
+    data.properties.push(`${game.i18n.localize("Target")}: ${preparedSpell.target}`);
+    data.properties.push(`${game.i18n.localize("Duration")}: ${preparedSpell.duration}`);
     if (data.magicMissile.value)
-      data.properties.push("Magic Missile: +" + preparedSpell.damage);
+      data.properties.push(`${game.i18n.localize("Magic Missile")}: +${preparedSpell.damage}`);
     else if (preparedSpell.data.damage.value)
-      data.properties.push("Damage: +" + preparedSpell.damage);
+      data.properties.push(`${game.i18n.localize("Damage")}: +" + ${preparedSpell.damage}`);
 
     return data;
   }
@@ -161,11 +161,11 @@ class ItemWfrp4e extends Item
     const data = duplicate(this.data.data);
     let preparedPrayer = this.actor.prepareSpellOrPrayer(this.data);
     data.properties = [];
-    data.properties.push("Range: " + preparedPrayer.range);
-    data.properties.push("Target: " + preparedPrayer.target);
-    data.properties.push("Duration: " + preparedPrayer.duration);
+    data.properties.push(`${game.i18n.localize("Range")}: ${preparedPrayer.range}`);
+    data.properties.push(`${game.i18n.localize("Target")}: ${preparedPrayer.target}`);
+    data.properties.push(`${game.i18n.localize("Duration")}: ${preparedPrayer.duration}`);
     if (preparedPrayer.data.damage.value)
-      data.properties.push("Damage: " + preparedPrayer.data.damage.value);
+      data.properties.push(`${game.i18n.localize("Damage")}: +" + ${preparedSpell.damage}`);
     return data;
   }
 
@@ -178,25 +178,25 @@ class ItemWfrp4e extends Item
     if (data.weaponGroup.value)
       properties.push(WFRP4E.weaponGroups[data.weaponGroup.value]);
     if (data.range.value)
-      properties.push("Range: " + data.range.value);
+      properties.push(`${game.i18n.localize("Range")}: ${data.range.value}`);
     if (data.damage.meleeValue)
-      properties.push("Melee Damage: " + data.damage.meleeValue);
+      properties.push(`${game.i18n.localize("ITEM.MeleeDamage")}: ${data.damage.meleeValue}`);
     if (data.damage.rangedValue)
-      properties.push("Ranged Damage: " + data.damage.rangedValue);
+      properties.push(`${game.i18n.localize("ITEM.RangedDamage")}: ${data.damage.rangedValue}`);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
       properties.push(prop);
     if (data.twohanded.value)
-      properties.push("Two Handed");
+      properties.push(game.i18n.localize("ITEM.TwoHanded"));
     if (data.reach.value)
-      properties.push("Reach: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
+      properties.push(`${game.i18n.localize("Reach")}: ${WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]}`);
     if (data.weaponDamage)
-      properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
+      properties.push(`<b>${game.i18n.localize("ITEM.WeaponDamaged")} ${data.weaponDamage} points</b>`)
     if (data.APdamage)
-      properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
+      properties.push(`${game.i18n.localize("ITEM.ShieldDamaged")} ${data.APdamage} points`)
 
-    properties = properties.filter(p => p != "Special");
+    properties = properties.filter(p => p != game.i18n.localize("Special"));
     if (data.special.value)
-      properties.push("Special: " + data.special.value);
+      properties.push(`${game.i18n.localize("Special")}: ` + data.special.value);
 
     data.properties = properties.filter(p => !!p);
     return data;
@@ -224,16 +224,16 @@ class ItemWfrp4e extends Item
     properties.push(WFRP4E.ammunitionGroups[data.ammunitionType.value])
 
     if (data.range.value)
-      properties.push("Range: " + data.range.value);
+      properties.push(`${game.i18n.localize("Range")}: ${data.range.value}`);
 
     if (data.damage.value)
-      properties.push("Damage: " + data.damage.value);
+      properties.push(`${game.i18n.localize("Damage")}: ${data.damage.value}`);
 
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
       properties.push(prop);
-    properties = properties.filter(p => p != "Special");
+    properties = properties.filter(p => p != game.i18n.localize("Special"));
     if (data.special.value)
-      properties.push("Special: " + data.special.value);
+      properties.push(`${game.i18n.localize("Special")}: ` + data.special.value);
 
     data.properties = properties.filter(p => !!p);
     return data;
@@ -280,10 +280,10 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>Trapping Type</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
-      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+    `<b>${game.i18n.localize("ITEM.TrappingType")}</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
+    `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+    `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
+    `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
     return properties;
   }
@@ -293,7 +293,7 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = []
-    properties.push(data.advanced == "adv" ? "<b>Advanced</b>" : "<b>Basic</b>")
+    properties.push(data.advanced == "adv" ? `<b>${game.i18n.localize("Advanced")}</b>` : `<b>${game.i18n.localize("Basic")}</b>`)
     return properties;
   }
 
@@ -302,8 +302,8 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>Value (in pennies)</b>: ${data.coinValue.value}`,
-      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
+      `<b>${game.i18n.localize("ITEM.PenniesValue")}</b>: ${data.coinValue.value}`,
+      `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
     ]
     return properties;
   }
@@ -318,10 +318,10 @@ class ItemWfrp4e extends Item
   _mutationChatData()
   {
     let properties = [
-      `<b>Mutation Type</b>: ${WFRP4E.mutationTypes[this.data.data.mutationType.value]}`,
+      `<b>${game.i18n.localize("ITEM.MutationType")}</b>: ${WFRP4E.mutationTypes[this.data.data.mutationType.value]}`,
     ];
     if (this.data.data.modifier.value)
-      properties.push(`<b>Modifier</b>: ${this.data.data.modifier.value}`)
+      properties.push(`<b>${game.i18n.localize("Modifier")}</b>: ${this.data.data.modifier.value}`)
     return properties;
   }
 
@@ -330,12 +330,12 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push("<b>Contraction:</b> " + data.contraction.value);
-    properties.push("<b>Incubation:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.incubation.value}</a>`);
-    properties.push("<b>Duration:</b> " + `<a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.duration.value}</a>`);
-    properties.push("<b>Symptoms:</b> " + (data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>")).join(", "));
+    properties.push(`<b>${game.i18n.localize("Contraction")}:</b> data.contraction.value`);
+    properties.push(`<b>${game.i18n.localize("Incubation")}:</b> <a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.incubation.value}</a>`);
+    properties.push(`<b>${game.i18n.localize("Duration")}:</b> <a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.duration.value}</a>`);
+    properties.push(`<b>${game.i18n.localize("Symptoms")}:</b> ${(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>")).join(", ")}`);
     if (data.permanent.value)
-      properties.push("<b>Permanent:</b> " + data.permanent.value);
+      properties.push(`<b>${game.i18n.localize("Permanent")}:</b> ${data.permanent.value}`);
     return properties;
   }
 
@@ -344,9 +344,9 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push("<b>Max: </b> " + WFRP4E.talentMax[data.max.value]);
+    properties.push(`<b>${game.i18n.localize("Max")}: </b> ${WFRP4E.talentMax[data.max.value]}`);
     if (data.tests.value)
-      properties.push("<b>Tests: </b> " + data.tests.value);
+      properties.push(`<b>${game.i18n.localize("Tests")}: </b> ${data.tests.value}`);
     return properties;
   }
 
@@ -356,7 +356,7 @@ class ItemWfrp4e extends Item
     const data = duplicate(this.data.data);
     let properties = [];
     if (data.specification.value)
-      properties.push("<b>Specification: </b> " + data.specification.value);
+      properties.push(`<b>${game.i18n.localize("Specification")}: </b> ${data.specification.value}`);
     return properties;
   }
 
@@ -364,14 +364,14 @@ class ItemWfrp4e extends Item
   _careerChatData()
   {
     let properties = [];
-    properties.push("<b>Class</b>: " + this.data.data.class.value);
-    properties.push("<b>Group</b>: " + this.data.data.careergroup.value);
-    properties.push("<b>Status</b>: " + WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing);
-    properties.push("<b>Characteristics</b>: " + this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i]));
-    properties.push("<b>Skills</b>: " + this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>" + i + "</a>"));
-    properties.push("<b>Talents</b>: " + this.data.data.talents.map(i => i = " " + "<a class = 'talent-lookup'>" + i + "</a>"));
-    properties.push("<b>Trappings</b>: " + this.data.data.trappings.map(i => i = " " + i));
-    properties.push("<b>Income</b>: " + this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i]));
+    properties.push(`<b>${game.i18n.localize("Class")}</b>: ${this.data.data.class.value}`);
+    properties.push(`<b>${game.i18n.localize("Group")}</b>: ${this.data.data.careergroup.value}`);
+    properties.push(`<b>${game.i18n.localize("Status")}</b>: ${WFRP4E.statusTiers[this.data.data.status.tier] + " " + this.data.data.status.standing}`);
+    properties.push(`<b>${game.i18n.localize("Characteristics")}</b>: ${this.data.data.characteristics.map(i => i = " " + WFRP4E.characteristicsAbbrev[i])}`);
+    properties.push(`<b>${game.i18n.localize("Skills")}</b>: ${this.data.data.skills.map(i => i = " " + "<a class = 'skill-lookup'>" + i + "</a>")}`);
+    properties.push(`<b>${game.i18n.localize("Talents")}</b>: ${this.data.data.talents.map(i => i = " " + "<a class = 'talent-lookup'>" + i + "</a>")}`);
+    properties.push(`<b>${game.i18n.localize("Trappings")}</b>: ${this.data.data.trappings.map(i => i = " " + i)}`);
+    properties.push(`<b>${game.i18n.localize("Income")}</b>: ${this.data.data.incomeSkill.map(i => " " + this.data.data.skills[i])}`);
     return properties;
   }
 
@@ -380,9 +380,9 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push(`<b>Location</b>: ${data.location.value}`);
+    properties.push(`<b>${game.i18n.localize("Location")}</b>: ${data.location.value}`);
     if (data.penalty.value)
-      properties.push(`<b>Penalty</b>: ${data.penalty.value}`);
+      properties.push(`<b>${game.i18n.localize("Penalty")}</b>: ${data.penalty.value}`);
     return properties;
   }
 
@@ -391,10 +391,10 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push(`<b>Wounds</b>: ${data.wounds.value}`);
-    properties.push(`<b>Location</b>: ${data.location.value}`);
+    properties.push(`<b>${game.i18n.localize("Wounds")}</b>: ${data.wounds.value}`);
+    properties.push(`<b>${game.i18n.localize("Location")}</b>: ${data.location.value}`);
     if (data.modifier.value)
-      properties.push(`<b>Modifier</b>: ${data.modifier.value}`);
+      properties.push(`<b>${game.i18n.localize("Modifier")}</b>: ${data.modifier.value}`);
     return properties;
   }
 
@@ -404,15 +404,15 @@ class ItemWfrp4e extends Item
     const data = duplicate(this.data.data);
     let properties = [];
     if (WFRP4E.magicLores[data.lore.value])
-      properties.push("<b>Lore</b>: " + WFRP4E.magicLores[data.lore.value]);
+      properties.push(`<b>${game.i18n.localize("Lore")}</b>: ${WFRP4E.magicLores[data.lore.value]}`);
     else
-      properties.push("<b>Lore</b>: " + data.lore.value);
-    properties.push("<b>CN</b>: " + data.cn.value);
-    properties.push("<b>Range</b>: " + data.range.value);
-    properties.push("<b>Target</b>: " + data.target.value);
-    properties.push("<b>Duration</b>: " + data.duration.value);
+      properties.push(`<b>${game.i18n.localize("Lore")}</b>: ${data.lore.value}`);
+    properties.push(`<b>${game.i18n.localize("CN")}</b>: ${data.cn.value}`);
+    properties.push(`<b>${game.i18n.localize("Range")}</b>: ${data.range.value}`);
+    properties.push(`<b>${game.i18n.localize("Target")}</b>: ${data.target.value}`);
+    properties.push(`<b>${game.i18n.localize("Duration")}</b>: ${data.duration.value}`);
     if (data.damage.value)
-      properties.push("<b>Damage</b>: " + data.damage.value);
+      properties.push(`<b>${game.i18n.localize("Damage")}</b>: ${data.damage.value}`);
 
     return properties;
   }
@@ -422,11 +422,11 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push("<b>Range</b>: " + data.range.value);
-    properties.push("<b>Target</b>: " + data.target.value);
-    properties.push("<b>Duration</b>: " + data.duration.value);
+    properties.push(`<b>${game.i18n.localize("Range")}</b>: ${data.range.value}`);
+    properties.push(`<b>${game.i18n.localize("Target")}</b>: ${data.target.value}`);
+    properties.push(`<b>${game.i18n.localize("Duration")}</b>: ${data.duration.value}`);
     if (data.damage.value)
-      properties.push("Damage: " + data.damage.value);
+      properties.push(`<b>${game.i18n.localize("Damage")}</b>: ${data.damage.value}`);
     return properties;
   }
 
@@ -435,13 +435,13 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
+      `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
 
-    properties.push("<b>Wearable</b>: " + (data.wearable.value ? "Yes" : "No"));
-    properties.push("<b>Count toward owner's encumbrance?</b>: " + (data.countEnc.value ? "Yes" : "No"));
+    properties.push(`<b>${game.i18n.localize("Wearable")}</b>: ${(data.wearable.value ? game.i18n.localize("Yes") : game.i18n.localize("No"))}`);
+    properties.push(`<b>${game.i18n.localize("ITEM.CountOwnerEnc")}</b>: ${(data.countEnc.value ? game.i18n.localize("Yes") : game.i18n.localize("No"))}`);
     return properties;
   }
 
@@ -450,27 +450,27 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
+      `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
 
-    if (data.weaponGroup.value)
-      properties.push("<b>Weapon Group</b>: " + WFRP4E.weaponGroups[data.weaponGroup.value]);
+     if (data.weaponGroup.value)
+      properties.push(`<b>Group</b>: ${WFRP4E.weaponGroups[data.weaponGroup.value]}`);
     if (data.range.value)
-      properties.push("<b>Range</b>: " + data.range.value);
+      properties.push(`<b>${game.i18n.localize("Range")}</b>: ${data.range.value}`);
     if (data.damage.meleeValue)
-      properties.push("<b>Melee Damage</b>: " + data.damage.meleeValue);
+      properties.push(`<b>${game.i18n.localize("ITEM.MeleeDamage")}</b>: ${data.damage.meleeValue}`);
     if (data.damage.rangedValue)
-      properties.push("<b>Ranged Damage</b>: " + data.damage.rangedValue);
-    if (data.weaponDamage)
-      properties.push("<b>Weapon is damaged by " + data.weaponDamage + " points</b>")
-    if (data.APdamage)
-      properties.push("<b>Damaged</b> - AP Reduced by " + data.APdamage + " points")
+      properties.push(`<b>${game.i18n.localize("ITEM.RangedDamage")}</b>: ${data.damage.rangedValue}`);
     if (data.twohanded.value)
-      properties.push("<b>Two Handed</b>");
+      properties.push(`<b>${game.i18n.localize("ITEM.TwoHanded")}</b>`);
     if (data.reach.value)
-      properties.push("<b>Reach</b>: " + WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]);
+      properties.push(`<b>${game.i18n.localize("Reach")}</b>: ${WFRP4E.weaponReaches[data.reach.value] + " - " + WFRP4E.reachDescription[data.reach.value]}`);
+    if (data.weaponDamage)
+      properties.push(`<b>${game.i18n.localize("ITEM.WeaponDamaged")} ${data.weaponDamage} points</b>`)
+    if (data.APdamage)
+      properties.push(`${game.i18n.localize("ITEM.ShieldDamaged")} ${data.APdamage} points`)
 
     let weaponProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
 
@@ -479,16 +479,16 @@ class ItemWfrp4e extends Item
     weaponProperties.flaws = weaponProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
     if (weaponProperties.qualities.length)
-      properties.push("<b>Qualities</b>: " + weaponProperties.qualities.join(", "))
+      properties.push(`<b>${game.i18n.localize("Qualities")}</b>: ${weaponProperties.qualities.join(", ")}`)
 
 
     if (weaponProperties.flaws.length)
-      properties.push("<b>Flaws</b>: " + weaponProperties.flaws.join(", "))
+      properties.push(`<b>${game.i18n.localize("Flaws")}</b>: ${weaponProperties.flaws.join(", ")}`)
 
 
-    properties = properties.filter(p => p != "Special");
+    properties = properties.filter(p => p != game.i18n.localize("Special"));
     if (data.special.value)
-      properties.push("<b>Special</b>: " + data.special.value);
+      properties.push(`<b>${game.i18n.localize("Special")}</b>: ` + data.special.value);
 
     properties = properties.filter(p => !!p);
     return properties;
@@ -499,15 +499,15 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>Price</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
-      `<b>Encumbrance</b>: ${data.encumbrance.value}`,
-      `<b>Availability</b>: ${WFRP4E.availability[data.availability.value]}`
+      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
+      `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
 
     if (data.armorType.value)
-      properties.push("<b>Armour Type</b>: " + WFRP4E.armorTypes[data.armorType.value]);
+      properties.push(`<b>${game.i18n.localize("ITEM.ArmourType")}</b>: ${WFRP4E.armorTypes[data.armorType.value]}`);
     if (data.penalty.value)
-      properties.push("<b>Penalty</b>: " + data.penalty.value);
+      properties.push(`<b>${game.i18n.localize("Penalty")}</b>: ${data.penalty.value}`);
 
 
     for (let apVal in data.currentAP)
@@ -528,16 +528,16 @@ class ItemWfrp4e extends Item
     armourProperties.flaws = armourProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
     if (armourProperties.qualities.length)
-      properties.push("<b>Qualities</b>: " + armourProperties.qualities.join(", "))
+      properties.push(`<b>${game.i18n.localize("Qualities")}</b>: ${armourProperties.qualities.join(", ")}`)
 
 
     if (armourProperties.flaws.length)
-      properties.push("<b>Flaws</b>: " + armourProperties.flaws.join(", "))
+      properties.push(`<b>${game.i18n.localize("Flaws")}</b>: ${armourProperties.flaws.join(", ")}`)
 
 
-    properties = properties.filter(p => p != "Special");
+    properties = properties.filter(p => p != game.i18n.localize("Special"));
     if (data.special.value)
-      properties.push("<b>Special</b>: " + data.special.value);
+      properties.push(`<b>${game.i18n.localize("Special")}</b>: ` + data.special.value);
 
     properties = properties.filter(p => !!p);
     return properties;
@@ -548,13 +548,13 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push("<b>Ammunition Type:</b> " + WFRP4E.ammunitionGroups[data.ammunitionType.value])
+    properties.push(`<b>${game.i18n.localize("ITEM.AmmunitionType")}:</b> ${WFRP4E.ammunitionGroups[data.ammunitionType.value]}`)
 
     if (data.range.value)
-      properties.push("<b>Range</b>: " + data.range.value);
+      properties.push(`<b>${game.i18n.localize("Range")}</b>: ${data.range.value}`);
 
     if (data.damage.value)
-      properties.push("<b>Damage</b>: " + data.damage.value);
+      properties.push(`<b>${game.i18n.localize("Damage")}</b>: ${data.damage.value}`);
 
     let ammoProperties = WFRP_Utility._separateQualitiesFlaws(WFRP_Utility._prepareQualitiesFlaws(this.data));
 
@@ -562,16 +562,16 @@ class ItemWfrp4e extends Item
     ammoProperties.flaws = ammoProperties.flaws.map(i => i = "<a class ='item-property'>" + i + "</a>");
 
     if (ammoProperties.qualities.length)
-      properties.push("<b>Qualities</b>: " + ammoProperties.qualities.join(", "))
+      properties.push(`<b>${game.i18n.localize("Qualities")}</b>: ${ammoProperties.qualities.join(", ")}`)
 
 
     if (ammoProperties.flaws.length)
-      properties.push("<b>Flaws</b>: " + ammoProperties.flaws.join(", "))
+      properties.push(`<b>${game.i18n.localize("Flaws")}</b>: ${ammoProperties.flaws.join(", ")}`)
 
 
-    properties = properties.filter(p => p != "Special");
+    properties = properties.filter(p => p != game.i18n.localize("Special"));
     if (data.special.value)
-      properties.push("Special: " + data.special.value);
+      properties.push(`<b>${game.i18n.localize("Special")}</b>: ` + data.special.value);
 
     properties = properties.filter(p => !!p);
     return properties;
