@@ -1,10 +1,14 @@
 <div class = "browser">
   <div class = "item-filter save-scroll">
+      <h2>Item Categories</h2>
       {{#each filters.type as |value filter|}}
       <div>
         <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
       </div>
       {{/each}}
+      
+      <h2>Filter Options</h2>
+
       <div class= "name filter-top">
         Name
         <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
@@ -475,7 +479,7 @@
       </div>
   </div>
   <div class ="query-results">
-      <h2>Items</h2>
+      <h2>Item List</h2>
       <ol class = "item-list save-scroll">
         {{#each items as |item i|}}
         <li class = "browser-item" data-item-id = {{item._id}} data-filter-id = {{item.filterId}}>
