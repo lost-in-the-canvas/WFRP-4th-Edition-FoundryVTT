@@ -900,11 +900,11 @@
     margin: 0px 0px 0px 0px;
   }
   .sidebar-tab.sidebar-directory .directory-list header {
-    padding: 9px 3px 4px 3px;
-    border: 3px groove #564d3a;
-    box-shadow: 0 0 6px #000 inset;
-    line-height: normal;
-    background: #290a0ad9;
+    /* padding: 9px 3px 4px 3px; */
+    /* border: 3px groove #564d3a; */
+    /* box-shadow: 0 0 6px #000 inset; */
+    /* line-height: normal; */
+    /* background: #290a0ad9; */
     font-family: var(--actor-input-font-family);
     font-size: 16px;
     font-weight: var(--actor-input-font-weight);
