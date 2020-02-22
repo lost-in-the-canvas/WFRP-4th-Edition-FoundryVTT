@@ -900,11 +900,11 @@
     margin: 0px 0px 0px 0px;
   }
   .sidebar-tab.sidebar-directory .directory-list header {
-    padding: 9px 3px 4px 3px;
-    border: 3px groove #564d3a;
-    box-shadow: 0 0 6px #000 inset;
-    line-height: normal;
-    background: #290a0ad9;
+    /* padding: 9px 3px 4px 3px; */
+    /* border: 3px groove #564d3a; */
+    /* box-shadow: 0 0 6px #000 inset; */
+    /* line-height: normal; */
+    /* background: #290a0ad9; */
     font-family: var(--actor-input-font-family);
     font-size: 16px;
     font-weight: var(--actor-input-font-weight);
@@ -12464,7 +12464,8 @@
   font-family: CaslonPro;
   font-weight: 500;
   font-size: 14px;
-  padding-top: 2px;
+  padding-top: 3px;
+  height: 36px;
 }
 
 #navigation #scene-list .scene.nav-item {
@@ -12483,7 +12484,7 @@
 #navigation #scene-list .scene.nav-item.active {
   background: url(../ui/sidebar_button-background_red.png) repeat;
 }
-  #navigation #scene-list .scenenav-item li.scene-player {
+  #navigation #scene-list .scene li.scene-player {
     float: left;
     height: 15px;
     width: 15px;
@@ -15522,7 +15523,7 @@ top: 25px;
 
 #wfrp4e-browser .window-content 
 {
-  background: url(../ui/background.png);
+  background: url(../ui/frames/window-app-background-bookshelf.png);
   color: white;
 }
 
@@ -15542,37 +15543,72 @@ top: 25px;
   overflow: auto;
 }
 
-#wfrp4e-browser .query-results {
-
-}
-
 #wfrp4e-browser .item-list {
   list-style: none;
   line-height: 48px;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid #DDD;
+  border: none;
   box-shadow: none;
-  height: 95%;
-  overflow: auto
+  height: 100%;
+  overflow: auto;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  z-index: 1;
+  top: -30px;
+  position: relative;
 }
 
 #wfrp4e-browser .browser-item{
   display: flex;
+  margin: 5px 0px 5px 0px;
+  padding: 3px;
+  background: #bb8b4326;
+  box-shadow: inset 0px 0px 3px black;
 }
-
-#wfrp4e-browser .item-list .image {
-  background-size: 32px;
+#wfrp4e-browser .browser-item:nth-child(odd) {
+  background: #69573c47;
+}
+  #wfrp4e-browser .item-list .image {
+    background-size: 32px;
     background-repeat: no-repeat;
     min-height: 32px;
     max-height: 32px;
     min-width: 32px;
     max-width: 32px;
-}
+  }
+  #wfrp4e-browser .item-list a {
+    display: flex;
+    vertical-align: middle;
+  }
+  #wfrp4e-browser .item-list a div {
+    /* height: 32px; */
+    vertical-align: middle;
+    margin-left: 5px;
+    line-height: normal;
+    padding-top: 10px;
+    text-align: left;
+  }
 
 #wfrp4e-browser select,
-  #wfrp4e-browser input {
-  background: #CCC
+#wfrp4e-browser input {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+  height: auto;
+  border-radius: 0px;
 }
+  #wfrp4e-browser .filter-top select,
+  #wfrp4e-browser .filter-top input {
+    width: 100%;
+  }
+  #wfrp4e-browser .filter-top input[type="checkbox"] {
+    width: initial;
+  }
 #wfrp4e-browser {
   font-family: var( --actor-input-font-family);
   font-size : 18px;
@@ -15581,4 +15617,115 @@ top: 25px;
 
 #wfrp4e-browser .comparison-filter {
   display: flex;
+}
+
+#wfrp4e-browser .item-filter.save-scroll {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: center;
+  padding: 0px 6px 0px 0px;
+  margin: 8px 4px 8px 4px;
+  border: none;
+  background: none;
+}
+  #wfrp4e-browser .item-filter.save-scroll div {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: left;
+    padding: 4px 3px;
+    border: 1px solid #5d513e;
+    background: #080808;
+    margin-bottom: 4px;
+  }
+  #wfrp4e-browser .item-filter.save-scroll h2 {
+    margin: 0px 0px 3px 0px;
+    padding: 4px 3px 1px 3px;
+    font-family: var(--actor-input-font-family);
+    font-size: 16px;
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    border: 3px double #564d3a;
+    background: #290a0ad9;
+    text-align: center;
+  }
+  #wfrp4e-browser .item-filter.save-scroll h2:nth-of-type(2) {
+    margin-top: 5px;
+  }
+  #wfrp4e-browser .item-filter.save-scroll .filter-top {
+    background: #1f1f1fb5;
+  }
+  #wfrp4e-browser .item-filter.save-scroll div div {
+    padding: 0px;
+    border: none;
+    margin: 0px;
+  }
+  #wfrp4e-browser .item-filter.save-scroll div input[type="checkbox"] {
+    position: relative;
+    top: 3px;
+    margin-left: 6px;
+    transform: scale(1);
+    padding: 1px 3px;
+    margin: 0;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    border: 1px solid #736953a6;
+    border-left: none;
+    box-shadow: 0px 0px 10px inset black;
+    background: #352516;
+    height: auto;
+  }
+  #wfrp-browser .comparison-filter {
+    padding: 0px;
+    border: none;
+    margin: 0px;
+  }
+
+#wfrp4e-browser .query-results {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: center;
+  padding: 0px 0px 0px 6px;
+  margin: 40px 4px 11px 4px;
+  border: none;
+  background: none;
+}
+  #wfrp4e-browser .query-results h2 {
+    margin: 0px 0px 3px 0px;
+    padding: 4px 3px 1px 3px;
+    font-family: var(--actor-input-font-family);
+    font-size: 16px;
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    border: 3px double #564d3a;
+    background: #230808;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    top: -32px;
+  }
+
+#wfrp4e-browser .item-filter.save-scroll .filter-top div {
+  background: none;
+}
+
+#wfrp4e-browser .filter-top div .dynamic-filter.encumbrancce,
+#wfrp4e-browser .filter-top div .dynamic-filter.statusStanding,
+#wfrp4e-browser .filter-top div .dynamic-filter.carries,
+#wfrp4e-browser .filter-top div .dynamic-filter.wounds,
+#wfrp4e-browser .filter-top div .dynamic-filter.cn,
+#wfrp4e-browser .filter-top div .dynamic-filter.weaponRange {
+  border-left: none;
 }
