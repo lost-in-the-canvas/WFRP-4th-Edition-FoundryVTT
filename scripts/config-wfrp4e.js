@@ -689,12 +689,12 @@ WFRP4E.difficultyLabels = {
 }
 
 WFRP4E.locations = {
-	"head": "WFRP4E.Locations.Head",
-	"body": "WFRP4E.Locations.Body",
-	"rArm": "WFRP4E.Locations.rArm",
-	"lArm": "WFRP4E.Locations.lArm",
-	"rLeg": "WFRP4E.Locations.rLeg",
-	"lLeg": "WFRP4E.Locations.lLeg",
+	"head": "Head",
+	"body": "Body",
+	"rArm": "Right Arm",
+	"lArm": "Left Arm",
+	"rLeg": "Right Leg",
+	"lLeg": "Left Leg",
 }
 
 // Trapping Availability

@@ -11,7 +11,7 @@
       {{else}}
       <div style = "visibility : hidden" class="item-controls">
       {{/if}}
-        <a class="item-control item-create" title="Create Item" data-type="skill" data-skill-type="bsc">
+        <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="skill" data-skill-type="bsc">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -40,7 +40,7 @@
         <a class="skill-total">{{item.data.total.value}}</a>
 
         {{#if ../owner}}
-        <a class="item-controls item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-controls item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         {{/if}}
       </li>
 
@@ -60,7 +60,7 @@
       {{else}}
       <div style = "visibility : hidden" class="item-controls">
       {{/if}}
-        <a class="item-control item-create" title="Create Item" data-type="skill" data-skill-type="adv">
+        <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="skill" data-skill-type="adv">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -89,7 +89,7 @@
         <a class="skill-total">{{item.data.total.value}}</a>
 
         {{#if ../owner}}
-        <a class="item-controls item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-controls item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         {{/if}}          
       </li>
 
@@ -116,7 +116,7 @@
     {{else}}
     <div style = "visibility : hidden" class="item-controls">
     {{/if}}
-      <a id="add-button" class="item-control item-create" title="Create Item" data-type="career">
+      <a id="add-button" class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="career">
         <i class="fas fa-plus"></i>
       </a>
     </div>
@@ -139,10 +139,10 @@
 
         {{#if ../owner}}
         <div class="item-controls">
-          <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+          <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+          <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+          <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         </div>
         {{/if}}
 

@@ -18,7 +18,7 @@
     <!-- <div class="table-row"> -->
       <div class="row-type table-data">
         <div class="header-block">
-          Initial
+          {{localize "Initial"}}
         </div>
       </div>
       {{#each actor.data.characteristics as |ch c|}}
@@ -30,7 +30,7 @@
     <!-- <div class="table-row"> -->
       <div class="row-type table-data">
         <div class="header-block">
-          Advances
+          {{localize "Advances"}}
         </div>
       </div>
       {{#each actor.data.characteristics as |ch c|}}
@@ -42,7 +42,7 @@
     <!-- <div class="table-row bottom"> -->
       <div class="row-type table-data">
         <div class="header-block">
-          Current
+          {{localize "Current"}}
         </div>
       </div>
       {{#each actor.data.characteristics as |ch c|}}
@@ -59,7 +59,7 @@
         <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
       </div>
       <div class="move-name">
-        <h4 id="movement-label">Movement</h4>
+        <h4 id="movement-label">{{localize "Movement"}}</h4>
       </div>
     </div>
     <div class="move-section">
@@ -72,7 +72,7 @@
         {{/if}}
       </div>
       <div class="move-name">
-        <h4 id="walk-label">Walk</h4>
+        <h4 id="walk-label">{{localize "Walk"}}</h4>
       </div>
     </div>
     <div class="move-section">
@@ -85,15 +85,15 @@
         {{/if}}
       </div>
       <div class="move-name">
-        <h4 id="run-label">Run</h4>
+        <h4 id="run-label">{{localize "Run"}}</h4>
       </div>
     </div>
   </div>
 
   <div class="fate-resilience row-section">
     <div class="fate-resilience-section">
-      <span class="top label">Fortune</span>
-      <span class="bottom label">Fate</span>
+      <span class="top label">{{localize "Fortune"}}</span>
+      <span class="bottom label">{{localize "Fate"}}</span>
     </div>
     <div class="fate-resilience-section values">
       <div class="top value">
@@ -104,8 +104,8 @@
       </div>
     </div>
     <div class="fate-resilience-section">
-      <span class="top label">Resolve</span>
-      <span class="bottom label">Resilience</span>
+      <span class="top label">{{localize "Resolve"}}</span>
+      <span class="bottom label">{{localize "Resilience"}}</span>
     </div>
     <div class="fate-resilience-section values">
       <div class="top value">
@@ -119,7 +119,7 @@
 
   <div class="wounds row-section">
     <div class="wounds-section">
-      <span class="top label">Wounds</span>
+      <span class="top label">{{localize "Wounds"}}</span>
       <div class="wounds-value-box">
         <div id="value">
           <input class="wounds-value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
@@ -143,7 +143,7 @@
 <div class="main-row second">
   <div class="criticalWounds row-section">
     <div class="criticalWounds-section">
-      <span class="top label">Critical Wounds</span>
+      <span class="top label">{{localize "Critical Wounds"}}</span>
       <div class="criticalWounds-value-box">
         <div id="value">
           <input name="data.status.criticalWounds.value" type="text" value="{{actor.criticalCount}}" readonly>
@@ -165,7 +165,7 @@
 
   <div class="corruption row-section">
     <div class="corruption-section">
-      <span class="top label">Corruption</span>
+      <span class="top label">{{localize "Corruption"}}</span>
       <div class="corruption-value-box">
         <div id="value">
           <input name="data.status.corruption.value" type="text" value="{{data.status.corruption.value}}">
@@ -187,18 +187,18 @@
 
   <div class="experience row-section">
     <div class="experience-section">
-      <span class="top label">Experience</span>
+      <span class="top label">{{localize "Experience"}}</span>
     </div>
     <div class="experience-section">
-      <span class="bottom label">Current</span>
+      <span class="bottom label">{{localize "Current"}}</span>
       <div id="value">
         <input name="data.details.experience.current" type="text" value="{{data.details.experience.current}}" data-dtype = "Number"/>
       </div>
-      <span class="bottom label">Spent</span>
+      <span class="bottom label">{{localize "Spent"}}</span>
       <div id="value">
         <input name="data.details.experience.spent" type="text" value="{{data.details.experience.spent}}" data-dtype = "Number"/>
       </div>
-      <span class="bottom label">Total</span>
+      <span class="bottom label">{{localize "Total"}}</span>
       <div id="value">
         <input name="data.details.experience.total" type="text" value="{{data.details.experience.total}}" data-dtype = "Number"/>
       </div>
@@ -208,16 +208,16 @@
 
 <div class="career-list">
   <div class="inventory-header item">
-    <span id="career">Career</span>
-    <span id="current">Current</span>
-    <span id="complete">Complete</span>
-    <span id="level">Level</span>
+    <span id="career">{{localize "Career"}}</span>
+    <span id="current">{{localize "Current"}}</span>
+    <span id="complete">{{localize "Complete"}}</span>
+    <span id="level">{{localize "Level"}}</span>
     {{#if isGM}}
     <div class="item-controls">
     {{else}}
     <div style = "visibility : hidden" class="item-controls">
     {{/if}}
-      <a id="add-button" class="item-control item-create" title="Create Item" data-type="career">
+      <a id="add-button" class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="career">
         <i class="fas fa-plus"></i>
       </a>
     </div>
@@ -245,10 +245,10 @@
 
         {{#if ../owner}}
         <div class="item-controls">
-          <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+          <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+          <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+          <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         </div>
         {{/if}}
 

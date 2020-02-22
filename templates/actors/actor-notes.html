@@ -1,33 +1,33 @@
-<h2 class="note-section label">Biography</h2>
+<h2 class="note-section label">{{localize "Biography"}}</h2>
 <div class="note-section biography">
   {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
 </div>
 
 <div class="ambition-section">
-  <h4>Personal Ambitions</h4>
+  <h4>{{localize "Personal Ambitions"}}</h4>
   <div class="ambition first-row">
-    <a class="label-details">Short Term</a>
+    <a class="label-details">{{localize "Short Term"}}</a>
     <input class="input-details" name="data.details.personal-ambitions.short-term" type="text"
       value="{{data.details.personal-ambitions.short-term}}" />
   </div>
 
   <div class="ambition">
-    <a class="label-details">Long Term</a>
+    <a class="label-details">{{localize "Long Term"}}</a>
     <input class="input-details" name="data.details.personal-ambitions.long-term" type="text"
       value="{{data.details.personal-ambitions.long-term}}" />
   </div>
 </div>
 
 <div class="ambition-section">
-  <h4 id="party-ambition">Party Ambitions</h4>
+  <h4 id="party-ambition">{{localize "Party Ambitions"}}</h4>
   <div class="ambition first-row">
-    <a class="label-details">Short Term</a>
+    <a class="label-details">{{localize "Short Term"}}</a>
     <input class="input-details" name="data.details.party-ambitions.short-term" type="text"
       value="{{data.details.party-ambitions.short-term}}" />
   </div>
 
   <div class="ambition">
-    <a class="label-details">Long Term</a>
+    <a class="label-details">{{localize "Long Term"}}</a>
     <input class="input-details" name="data.details.party-ambitions.long-term" type="text"
       value="{{data.details.party-ambitions.long-term}}" />
   </div>
@@ -35,19 +35,19 @@
 
 
 <div class="motivation">
-  <div class="label-motivation">Motivation</div>
+  <div class="label-motivation">{{localize "Motivation"}}</div>
   <input class="input-details" name="data.details.motivation.value" type="text"
     value="{{data.details.motivation.value}}" />
 </div>
 
 <div class="inventory-header item psychology-header">
-  <div id="name">Psychology</div>
+  <div id="name">{{localize "Psychology"}}</div>
   {{#if isGM}}
   <div class="item-controls">
   {{else}}
   <div class="item-controls" style="visibility : hidden">
     {{/if}}
-    <a class="item-control item-create" title="Create Item" data-type="psychology"><i class="fas fa-plus"></i>
+    <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="psychology"><i class="fas fa-plus"></i>
     </a>
   </div>
 </div>
@@ -63,10 +63,10 @@
 
       {{#if ../owner}}
       <div class="item-controls">
-        <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+        <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+        <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+        <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
       {{/if}}
     </div>
@@ -75,13 +75,13 @@
 </ol>
 
 <div class="inventory-header item mutation-header">
-  <span id="name">Corruption & Mutation</span>
+  <span id="name">{{localize "Corruption"}} & {{localize "Mutation"}}</span>
   {{#if isGM}}
   <div class="item-controls">
   {{else}}
   <div class="item-controls" style="visibility : hidden">
     {{/if}}
-    <a class="item-control item-create" title="Create Item" data-type="mutation">
+    <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="mutation">
       <i class="fas fa-plus"></i>
     </a>
   </div>
@@ -99,10 +99,10 @@
 
       {{#if ../owner}}
       <div class="item-controls">
-        <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+        <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+        <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+        <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
       {{/if}}
     </div>
@@ -112,15 +112,15 @@
 
 {{#if isGM}}
 <div class="inventory-header item disease-header">
-  <div id="name">Disease</div>
-  <div id="incubation">Incubation</div>
-  <div id="duration">Duration</div>
+  <div id="name">{{localize "Disease"}}</div>
+  <div id="incubation">{{localize "Incubation"}}</div>
+  <div id="duration">{{localize "Duration"}}</div>
   {{#if isGM}}
   <div class="item-controls">
     {{else}}
     <div class="item-controls" style="visibility : hidden">
       {{/if}}
-      <a class="item-control item-create" title="Create Item" data-type="disease"><i class="fas fa-plus"></i>
+      <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="disease"><i class="fas fa-plus"></i>
       </a>
     </div>
 </div>
@@ -141,10 +141,10 @@
 
       {{#if ../owner}}
       <div class="item-controls">
-        <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-        <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+        <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+        <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+        <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
       {{/if}}
     </div>
@@ -152,7 +152,7 @@
   {{/each}}
 </ol>
 
-<h2 class="note-section label">GM Notes</h2>
+<h2 class="note-section label">{{localize "GM Notes"}}</h2>
 <div class="note-section gmnotes">
   {{editor content=data.details.gmnotes.value target="data.details.gmnotes.value" button=true owner=owner editable=editable}}
 </div>
