@@ -14,12 +14,14 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
     if (item.type == "critical")
     {
       let newWounds;
-      if (item.wounds.value.toLowerCase() == "death")
+      if (item.data.wounds.value.toLowerCase() == "death")
         newWounds = 0;
-      newWounds = actor.data.data.status.wounds.value - Number(item.wounds.value)
+      newWounds = actor.data.data.status.wounds.value - Number(item.data.wounds.value)
       if (newWounds < 0) newWounds = 0; 
 
       actor.update({"data.status.wounds.value" : newWounds});
+
+      ui.notifications.notify(`${item.data.wounds.value} ${game.i18n.localize("CHAT.CriticalWoundsApplied")} ${actor.name}`)
     }
   }
   catch (error)

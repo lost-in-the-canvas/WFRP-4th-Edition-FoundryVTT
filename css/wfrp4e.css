@@ -13583,9 +13583,7 @@ border-image-outset: 0px !important;
       background: #290a0ad9;
       text-align: center;
     }
-    .app.window-app.sheet.scene-sheet .form-group label {
-      max-width: 250px;
-    }
+  
     .app.window-app.sheet.scene-sheet .form-group:nth-of-type(14) label,
     .app.window-app.sheet.scene-sheet .form-group:nth-of-type(15) label,
     .app.window-app.sheet.scene-sheet .form-group:nth-of-type(16) label,

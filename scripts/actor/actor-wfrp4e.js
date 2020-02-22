@@ -379,14 +379,14 @@ class ActorWfrp4e extends Actor {
         ammo = duplicate(this.getEmbeddedEntity("OwnedItem", weapon.data.currentAmmo.value))
         if (!ammo || weapon.data.currentAmmo.value == 0 || ammo.data.quantity.value == 0)
         {
-          ui.notifications.error("No Ammo!")
+          ui.notifications.error(game.i18n.localize("Error.NoAmmo"))
           return
         }
       }
       else if (weapon.data.weaponGroup.value != "entangling" && weapon.data.quantity.value == 0)
       {
         // If this executes, it means it uses its own quantity for ammo (e.g. throwing), which it has none of
-        ui.notifications.error("No Ammo!")
+        ui.notifications.error(game.i18n.localize("Error.NoAmmo"))
         return;
       }
       else

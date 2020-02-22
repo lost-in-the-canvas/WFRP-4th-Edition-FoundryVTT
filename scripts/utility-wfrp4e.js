@@ -94,7 +94,7 @@ class WFRP_Utility
     if (!item.data.special.value)
       return qualities.concat(flaws).sort().filter(p => !!p);
     else
-      return qualities.concat(flaws).sort().concat("Special").filter(p => !!p);
+      return qualities.concat(flaws).sort().concat(game.i18n.localize("Special")).filter(p => !!p);
 
   }
 
@@ -724,19 +724,19 @@ class WFRP_Utility
 
     if (event.button == 0)
     {
-      if (event.target.text == "Critical Cast")
+      if (event.target.text == game.i18n.localize("ROLL.CritCast"))
       {
         html = WFRP_Tables.criticalCastMenu($(event.currentTarget).attr("data-table"));
       }
 
-      else if (event.target.text == "Total Power")
+      else if (event.target.text == game.i18n.localize("ROLL.TotalPower"))
         html = WFRP_Tables.restrictedCriticalCastMenu();
 
       // Not really a table but whatever
       else if ($(event.currentTarget).attr("data-table") == "misfire")
       {
         let damage = $(event.currentTarget).attr("data-damage")
-        html = "<b>Misfire</b>: Your weapon explodes! Take " + damage + " damage to your primary arm.";
+        html = `<b>${game.i18n.localize("Misfire")}</b>: ${game.i18n.localize("ROLL.MisfireText1")} ${damage} ${game.i18n.localize("ROLL.MisfireText2")}`;
       }
       else if (sin)
         html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
@@ -769,7 +769,7 @@ class WFRP_Utility
           {
             roll:
             {
-              label: "Roll",
+              label: game.i18n.loacize("Roll"),
               callback: (html) =>
               {
                 let tableModifier = html.find('[name="tableModifier"]').val();
@@ -866,7 +866,7 @@ class WFRP_Utility
     {
       item = actor ? actor.items.find(i => i.name === itemName && i.type == itemType) : null;
     }
-    if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item named ${itemName}`);
+    if (!item) return ui.notifications.warn(`${game.i18n.localize("Error.MacroItemMissing")} ${itemName}`);
 
     item = item.data;
 

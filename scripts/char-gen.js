@@ -33,7 +33,7 @@ class GeneratorWfrp4e
     if (chosenSpecies)
     {
       exp = 0;
-      roll = {roll: "Choose", value : chosenSpecies, name : WFRP4E.species[chosenSpecies], exp : 0}
+      roll = {roll: game.i18n.localize("Choose"), value : chosenSpecies, name : WFRP4E.species[chosenSpecies], exp : 0}
     }
     else
     {
@@ -172,7 +172,7 @@ class GeneratorWfrp4e
    */
   static async chooseCareer(species)
   {
-    let msgContent = "<h2>Chooses Your Career</h2>";
+    let msgContent = `<h2>${game.i18n.localize("CHAT.CareerChoose")}</h2>`;
     for (let r of WFRP_Tables.career.rows)
     {
       if (r.range[species].length)
