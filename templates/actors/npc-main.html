@@ -1,17 +1,17 @@
 <div class="skill-section" ondragstart="return false;" ondrop="return false;">
   <div id="basic-skills-list" class="skill-type">
-    <h3>Basic Skills</h3>
+    <h3>{{localize "Basic Skills"}}</h3>
     <div class="inventory-header item">
-      <div class="name">Name</div>
-      <div class="char">Char.</div>
-      <div class="adv">Adv.</div>
-      <div class="total">Total</div>
+      <div class="name">{{localize "Name"}}</div>
+      <div class="char">{{localize "SHEET.CharAbbrev"}}</div>
+      <div class="adv">{{localize "SHEET.AdvAbbrev"}}</div>
+      <div class="total">{{localize "Total"}}</div>
       {{#if isGM}}
       <div class="item-controls">
       {{else}}
       <div style = "visibility : hidden" class="item-controls">
       {{/if}}
-        <a class="item-control item-create" title="Create Item" data-type="skill" data-skill-type="bsc">
+        <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="skill" data-skill-type="bsc">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -40,7 +40,7 @@
         <a class="skill-total">{{item.data.total.value}}</a>
 
         {{#if ../owner}}
-        <a class="item-controls item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-controls item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         {{/if}}
       </li>
 
@@ -49,18 +49,18 @@
   </div>
 
   <div id="advanced-skills-list" class="skill-type">
-    <h3>Grouped & Advanced Skills</h3>
+    <h3>{{localize "Grouped & Advanced Skills"}}</h3>
     <div class="inventory-header item">
-      <div class="name">Name</div>
-      <div class="char">Char.</div>
-      <div class="adv">Adv.</div>
-      <div class="total">Total</div>
+      <div class="name">{{localize "Name"}}</div>
+      <div class="char">{{localize "SHEET.CharAbbrev"}}</div>
+      <div class="adv">{{localize "SHEET.AdvAbbrev"}}</div>
+      <div class="total">{{localize "Total"}}</div>
       {{#if isGM}}
       <div class="item-controls">
       {{else}}
       <div style = "visibility : hidden" class="item-controls">
       {{/if}}
-        <a class="item-control item-create" title="Create Item" data-type="skill" data-skill-type="adv">
+        <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="skill" data-skill-type="adv">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -89,7 +89,7 @@
         <a class="skill-total">{{item.data.total.value}}</a>
 
         {{#if ../owner}}
-        <a class="item-controls item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        <a class="item-controls item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         {{/if}}          
       </li>
 
@@ -108,15 +108,15 @@
 {{#if actor.careers}}  
 <div class="career-list">
   <div class="inventory-header item">
-    <span id="career">Career</span>
-    <span id="complete">Complete</span>
-    <span id="level">Level</span>
+    <span id="career">{{localize "Career"}}</span>
+    <span id="complete">{{localize "Complete"}}</span>
+    <span id="level">{{localize "Level"}}</span>
     {{#if isGM}}
     <div class="item-controls">
     {{else}}
     <div style = "visibility : hidden" class="item-controls">
     {{/if}}
-      <a id="add-button" class="item-control item-create" title="Create Item" data-type="career">
+      <a id="add-button" class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="career">
         <i class="fas fa-plus"></i>
       </a>
     </div>
@@ -139,10 +139,10 @@
 
         {{#if ../owner}}
         <div class="item-controls">
-          <a class="item-post" title="Post Item to chat"><i class="fas fa-comment"></i></a>
-          <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-          <a class="item-dropdown" title="Dropdown Item"><i class="fas fa-chevron-down"></i></a>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+          <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
+          <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
+          <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
+          <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
         </div>
         {{/if}}
 
@@ -160,7 +160,7 @@
 {{/if}}
  
 <div class="penalties">
-  <h3>Penalties</h3> 
+  <h3>{{localize "Penalties"}}</h3> 
   {{#if actor.penaltyOverflow}}
     {{#each actor.penalties as |penalty p|}}
     {{#if penalty.show}}

@@ -102,8 +102,8 @@ class OpposedWFRP
         opposeResult.winner = "attacker"
         differenceSL = attackerSL - defenderSL;
         // Update message
-        opposeResult.result =
-          `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
+        opposeResult.result =                                                               // A bit of a localization mess - "Attacker won against Defender by X SL"
+          `<b>${attacker.speaker.alias}</b> ${game.i18n.localize("CHAT.OpposedWonAgainst")} <b>${defender.speaker.alias}</b> ${game.i18n.localize("CHAT.By")} ${differenceSL} ${game.i18n.localize("SL")}`
         opposeResult.img = attacker.img;
         opposeResult.speakerAttack = attacker.speaker
         opposeResult.speakerDefend = defender.speaker
@@ -140,7 +140,7 @@ class OpposedWFRP
           }
 
           opposeResult.damage = {
-            description: `<b>Damage</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
+            description: `<b>${game.i18n.localize("Damage")}</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
             value: (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
           };
         }
@@ -148,21 +148,21 @@ class OpposedWFRP
         else if (opposeResult.attackerTestResult.weapon || opposeResult.attackerTestResult.trait)
         {
           opposeResult.damage = {
-            description: `<b>Damage</b>: ?`,
+            description: `<b>${game.i18n.localize("Damage")}</b>: ?`,
             value: null
           };
         }
         if (opposeResult.attackerTestResult.hitloc)
           opposeResult.hitloc = {
-            description: `<b>Hit Location</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
+            description: `<b>${game.i18n.localize("ROLL.HitLocation")}</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
             value: opposeResult.attackerTestResult.hitloc.result
           };
       }
       else // Defender won
       {
         opposeResult.winner = "defender"
-        differenceSL = defenderSL - attackerSL;
-        opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${attacker.speaker.alias}</b> by ${differenceSL} SL`
+        differenceSL = defenderSL - attackerSL;   // A bit of a localization mess - "Defender won against attacker by X SL"
+        opposeResult.result = `<b>${defender.speaker.alias}</b> ${game.i18n.localize("CHAT.OpposedWonAgainst")} <b>${attacker.speaker.alias}</b> ${game.i18n.localize("CHAT.By")} ${differenceSL} ${game.i18n.localize("SL")}`
         opposeResult.img = defender.img
       }
 
@@ -209,8 +209,8 @@ class OpposedWFRP
     }
     catch (err)
     {
+      ui.notifications.error(`${game.i18n.localize("Error.Opposed")}: ` + err)
       console.error("Could not complete opposed test: " + err)
-      ui.notifications.error("Could not complete opposed test: " + err)
       this.clearOpposed()
     }
   }
@@ -226,7 +226,7 @@ class OpposedWFRP
       {
         "opposedStartMessage": true
       },
-      content: `<div><b>${speaker.alias}<b> started an opposed test!<div>`
+      content: `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
     }).then(msg => this.startMessage = msg)
   }
 
@@ -321,13 +321,13 @@ class OpposedWFRP
         {
           let content =
             `<div class ="opposed-message">
-            <b>${attacker.name}</b> is targeting <b>${target.data.name}</b>
+            <b>${attacker.name}</b> ${game.i18n.localize("ROLL.Targeting")} <b>${target.data.name}</b>
           </div>
           <div class = "opposed-tokens">
           <div class = "attacker"><img src="${attacker.img}" width="50" height="50"/></div>
           <div class = "defender"><img src="${target.data.img}" width="50" height="50"/></div>
           </div>
-          <div class="unopposed-button" data-target="true" title="Unopposed"><a><i class="fas fa-arrow-down"></i></a></div>`
+          <div class="unopposed-button" data-target="true" title="${game.i18n.localize("Unopposed")}"><a><i class="fas fa-arrow-down"></i></a></div>`
 
           // Create the Opposed starting message
           let startMessage = await ChatMessage.create(

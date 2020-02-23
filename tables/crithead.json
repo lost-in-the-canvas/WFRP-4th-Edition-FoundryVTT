@@ -7,7 +7,7 @@
     "description": "A fine wound across the forehead and cheek. Gain 1 Bleeding Condition. Once the wound is healed, the impressive scar it leaves provides a bonus of +1 SL to appropriate social Tests. You can only gain this benefit once.",
     "range": [1, 10]
   }, {
-    "name": "Minor Cut",
+    "name": "Minor Head Cut",
     "wounds": "1",
     "description": "The strike opens your cheek and blood flies everywhere. Gain 1 Bleeding Condition.",
     "range": [11, 20]

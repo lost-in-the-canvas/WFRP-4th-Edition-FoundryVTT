@@ -2,7 +2,7 @@
   "name": "wfrp4e",
   "title": "Warhammer Fantasy Roleplay 4th Edition",
   "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Roleplay in the Foundry VTT environment.",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "author": "CatoThe1stElder, Moo Man",
   "scripts": [
     "./scripts/config-wfrp4e.js",
@@ -158,7 +158,13 @@
       "tag" : "trapping"
     }
   ],
-  "languages": ["en"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
   "initiative": "@characteristics.i.value + @characteristics.ag.value/100",
   "gridDistance": 2,
   "gridUnits": "yd",

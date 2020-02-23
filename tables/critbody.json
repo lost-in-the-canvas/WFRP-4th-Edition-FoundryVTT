@@ -47,7 +47,7 @@
     "description": "The hit cracks one or more ribs. Gain a Stunned Condition. Gain a Broken Bone (Minor) injury.",
     "range": [51, 55]
   }, {
-    "name": "Gaping Wound",
+    "name": "Gaping Chest Wound",
     "wounds": "3",
     "description": "Take 3 Bleeding Conditions. Until you receive Surgery, any Wounds you receive to the Body Hit Location will inflict an additional Bleeding Condition as the cut reopens.",
     "range": [56, 60]

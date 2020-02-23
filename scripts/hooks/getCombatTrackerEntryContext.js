@@ -1,3 +1,6 @@
+/**
+ * Add Status right click option for combat tracker combatants
+ */
 Hooks.on("getCombatTrackerEntryContext", (html, options) => {
     options.push(
     {

@@ -1,7 +1,7 @@
-<form class="channell-test">
+<form class="channel-test">
   {{> systems/wfrp4e/templates/chat/dialog-constant.html}}
   <div class="form-group custom-select">
-    <label>Channell Skill</label>
+    <label>{{localize "DIALOG.ChannelSKill"}}</label>
     <select name="skillSelected">
       {{#select defaultSelection}}
       {{#each channellSkills as |skill skillIndex|}}
@@ -12,7 +12,7 @@
   </div>
 
   <div class="form-group">
-    <label title="Include a roll on the hit location table">Malignant Influence 
+    <label title="{{localize 'DIALOG.MalignantInfTT'}}">{{localize "DIALOG.MalignantInf"}} 
       <input type="checkbox" name="malignantInfluence" data-dtype = "Boolean" {{checked malignantInfluence}}/>
     </label>
   </div>
@@ -22,20 +22,14 @@
   textContainer = document.querySelectorAll('.app.window-app.dialog');
   length = textContainer.length;
 
-  // console.log("textContainer");
-  // console.log(textContainer);
-  // console.log(textContainer[0].children[1].children[0].children[0].className);
-
   for (i = 0; i < length; i++) {
-    if (textContainer[i].children[1].children[0].children[0].className.includes("channell-test")) {
+    if (textContainer[i].children[1].children[0].children[0].className.includes("channel-test")) {
       new_red = textContainer[i].id;
-      // console.log("new_red");
-      // console.log(new_red);
-      if (document.getElementById(new_red).className.includes("channell-roll-dialog")) {
+      if (document.getElementById(new_red).className.includes("channel-roll-dialog")) {
         continue;
       } 
       else {
-        document.getElementById(new_red).className += " channell-roll-dialog";
+        document.getElementById(new_red).className += " channel-roll-dialog";
       }
     } else {}
   }

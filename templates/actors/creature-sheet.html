@@ -1,23 +1,23 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-  <span id="header-personal-details">Personal Details</span>
+  <span id="header-personal-details">{{localize "Personal Details"}}</span>
 
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname item">
-      <input class="input name" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-      <a class="label name name-gen">Name</a>
+      <input class="input name" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Name'}}" />
+      <a class="label name name-gen">{{localize "Name"}}</a>
     </h1>
 
     <div class="item">
       <input class="input species" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
-        placeholder="Species" />
-      <span class="label species">Species</span>
+      placeholder="{{localize 'Species'}}" />
+      <span class="label species">{{localize "Species"}}</span>
     </div>
 
     <div id="field-gender" class="item">
       <input class="input gender" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
-        placeholder="Gender" />
-      <span class="label gender">Gender</span>
+      placeholder="{{localize 'Gender'}}" />
+      <span class="label gender">{{localize "Gender"}}</span>
     </div>
   </header>
 
@@ -51,7 +51,7 @@
               <input name="data.details.move.value" type="text" value="{{data.details.move.value}}">
             </div>
             <div class="move-name">
-              <h4 id="movement-label">Movement</h4>
+              <h4 id="movement-label">{{localize "Movement"}}</h4>
             </div>
           </div>
           <div class="move-section">
@@ -64,7 +64,7 @@
               {{/if}}
             </div>
             <div class="move-name">
-              <h4 id="walk-label">Walk</h4>
+              <h4 id="walk-label">{{localize "Walk"}}</h4>
             </div>
           </div>
           <div class="move-section">
@@ -77,14 +77,14 @@
               {{/if}}
             </div>
             <div class="move-name">
-              <h4 id="run-label">Run</h4>
+              <h4 id="run-label">{{localize "Run"}}</h4>
             </div>
           </div>
         </div>
       
         <div class="wounds row-section">
           <div class="wounds-section">
-            <span class="top label">Wounds</span>
+            <span class="top label">{{localize "Wounds"}}</span>
             <div class="wounds-value-box">
               <div id="value">
                 <input class="wounds-value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">
@@ -108,7 +108,7 @@
           <a class="randomize" data-target="c">C</a>
           <a class="randomize" data-target="s">S</a>
           <a class="randomize" data-target="t">T</a>
-          <span class="randomize-label">Randomize Attributes</span>
+          <span class="randomize-label">{{localize "Randomize Attributes"}}</span>
         </div>
       </div>
       
@@ -118,17 +118,17 @@
   <section id="tab-sections">
     <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
       ondrop="return false;">
-      <a class="item active" data-tab="main">Main</a>
-      <a class="item" data-tab="skills">Skills</a>
-      <a class="item" data-tab="combat">Combat</a>
+      <a class="item active" data-tab="main">{{localize "Main"}}</a>
+      <a class="item" data-tab="skills">{{localize "Skills"}}</a>
+      <a class="item" data-tab="combat">{{localize "Combat"}}</a>
       {{#if actor.flags.hasSpells}}
-      <a class="item" data-tab="magic">Magic</a>
+      <a class="item" data-tab="magic">{{localize "Magic"}}</a>
       {{/if}}
       {{#if actor.flags.hasPrayers}}
-      <a class="item" data-tab="religion">Religion</a>
+      <a class="item" data-tab="religion">{{localize "Religion"}}</a>
       {{/if}}
-      <a class="item" data-tab="inventory">Trappings</a>
-      <a class="item" data-tab="notes">Notes</a>
+      <a class="item" data-tab="inventory">{{localize "Trappings"}}</a>
+      <a class="item" data-tab="notes">{{localize "Notes"}}</a>
     </nav>
     <div class="tab main save-scroll" data-tab="main" data-group="primary">
       {{> systems/wfrp4e/templates/actors/creature-main.html}}

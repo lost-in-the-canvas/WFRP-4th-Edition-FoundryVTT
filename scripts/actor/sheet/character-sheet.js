@@ -109,13 +109,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
         {
           new Dialog(
           {
-            title: "Add Career Skill",
-            content: '<p>Do you want to add this skill?</p>',
+            title: game.i18n.localize("SHEET.AddSkillTitle"),
+            content: `<p>${game.i18n.localize("SHEET.AddSkillPrompt")}</p>`,
             buttons:
             {
               yes:
               {
-                label: "Yes",
+                label: game.i18n.localize("Yes"),
                 callback: dlg =>
                 {
                   this.actor.createEmbeddedEntity("OwnedItem", skill.data);
@@ -123,7 +123,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
               },
               cancel:
               {
-                label: "Cancel",
+                label: game.i18n.localize("Cancel"),
                 callback: dlg =>
                 {
                   return
@@ -158,13 +158,13 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
         {
           new Dialog(
           {
-            title: "Add Career Talent",
-            content: '<p>Do you want to add this Talent? (Costs 100 Exp)</p>',
+            title: game.i18n.localize("SHEET.AddTalentTitle"),
+            content: `<p>${game.i18n.localize("SHEET.AddTalentPrompt")}</p>`,
             buttons:
             {
               yes:
               {
-                label: "Yes",
+                label: game.i18n.localize("Yes"),
                 callback: dlg =>
                 {
                   this.actor.createEmbeddedEntity("OwnedItem", talent.data);
@@ -176,12 +176,12 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
               },
               yesNoExp:
               {
-                label: "Free",
+                label: game.i18n.localize("Free"),
                 callback: dlg =>{ this.actor.createEmbeddedEntity("OwnedItem", talent.data); }
               },
               cancel:
               {
-                label: "Cancel",
+                label: game.i18n.localize("Cancel"),
                 callback: dlg =>{ return }
               },
             },
@@ -263,8 +263,8 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
 
           new Dialog(
             {
-              title: "Add Exp Back?",
-              content: `<p>Do you want to refund the experience? (${(preparedTalent.data.advances.value) * 100})</p>`,
+              title: game.i18n.localize("SHEET.RefundXPTitle"),
+              content: `<p>${game.i18n.localize("SHEET.RefundXPPrompt")} (${(preparedTalent.data.advances.value) * 100})</p>`,
               buttons:
               {
                 yes:

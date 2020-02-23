@@ -38,10 +38,10 @@ class ItemSheetWfrp4e extends ItemSheet
   async _render(force = false, options = {})
   {
     await super._render(force, options);
-    $(this._element).find(".close").attr("title", "Close");
-    $(this._element).find(".configure-sheet").attr("title", "Configure Sheet");
-    $(this._element).find(".post").attr("title", "Post to chat");
-    $(this._element).find(".import").attr("title", "Import");
+    $(this._element).find(".close").attr("title", game.i18n.localize("SHEET.Close"));
+    $(this._element).find(".configure-sheet").attr("title", game.i18n.localize("SHEET.Configure"));
+    $(this._element).find(".post").attr("title", game.i18n.localize("SHEET.Post"));
+    $(this._element).find(".import").attr("title", game.i18n.localize("SHEET.Import"));
   }
 
 
@@ -117,7 +117,7 @@ class ItemSheetWfrp4e extends ItemSheet
     else if (this.item.type == "career")
     {
       data['statusTiers'] = WFRP4E.statusTiers;
-      data['skills'] = data.data.skills.toString();
+      data['skills'] = data.data.skills.join(", ").toString();
       data['earningSkills'] = data.data.incomeSkill.map(function (item)
       {
         return data.data.skills[item];
@@ -262,7 +262,7 @@ class ItemSheetWfrp4e extends ItemSheet
               let earningSkills = [];
               for (let sk in list)
               {
-                let skillIndex = this.item.data.skills.indexOf(list[Number(sk)])
+                let skillIndex = this.item.data.data.skills.indexOf(list[Number(sk)])
 
                 if (skillIndex == -1)
                   continue;
@@ -310,8 +310,8 @@ class ItemSheetWfrp4e extends ItemSheet
 
       // Ask the user to confirm the change
       new Dialog({
-          title : "Changing Career Skill",
-          content: "<p>You are changing the specialization of a skill in your current career. Do you want to apply this change to the career as well?</p>",
+          title : game.localize.i18n("SHEET.CareerSkill"),
+          content: `<p>${game.localize.i18n("SHEET.CareerSkillPrompt")}</p>`,
           buttons: {
             yes: {
               label: "Yes",

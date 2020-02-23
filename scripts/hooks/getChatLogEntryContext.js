@@ -1,3 +1,6 @@
+/**
+ * Add right click option to damage chat cards to allow application of damage
+ */
 Hooks.on("getChatLogEntryContext", (html, options) => {
   let canApply = li => li.find(".opposed-card").length;
   options.push(

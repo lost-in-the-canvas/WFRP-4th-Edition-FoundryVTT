@@ -1,22 +1,22 @@
 <div>
-  <h2>Career Advancement</h2>
+  <h2>{{localize "CHARGEN.CareerAdvancement"}}</h2>
 </div>
 
-<span>Drag the career onto your character sheet and allocate 40 advances to the available skills. Also, add 1 Talent and allocate 5 advances across the marked characteristics. These advencements do not cost experience, so avoid clicking on the advancement buttons.</span>
+<span>{{localize "CHARGEN.CareerInstructions"</span>
 
-<div class = "exp-drag" data-exp={{exp}}><b><a >Exp: {{exp}}</a></b></div>
+<div class = "exp-drag" data-exp={{exp}}><b><a >{{localize "Exp"}}: {{exp}}</a></b></div>
 
-<div><b>Class Trappings:</b></div>
+<div><b>{{localize "CHARGEN.ClassTrappings"}}:</b></div>
 <div>{{trappings}}</div>
 
 {{#unless chosen}}
 {{#if reroll}}
 <span class = "attribute-career-buttons">
-  <a class = 'chargen-button careerReroll' data-button = 'chooseCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can instead choose your Career for no bonus XP'>Choose Career</a>
+  <a class = 'chargen-button careerReroll' data-button = 'chooseCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, you can instead choose your Career for no bonus XP'>{{localize "CHARGEN.ChooseCareer"}}</a>
 </span>
 {{else}}
 <span class = "attribute-career-buttons">
-  <a class = 'chargen-button careerReroll' data-button = 'rerollCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, this will reroll twice for only +25 XP'>Reroll Career</a>
+  <a class = 'chargen-button careerReroll' data-button = 'rerollCareer' data-species="{{speciesKey}}" title = 'If you do not like the result, this will reroll twice for only +25 XP'>{{localize "CHARGEN.RerollCareer"}}</a>
 </span>
 {{/if}}
 {{/unless}}

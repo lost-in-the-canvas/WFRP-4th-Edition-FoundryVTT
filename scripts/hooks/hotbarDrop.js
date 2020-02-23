@@ -1,5 +1,12 @@
+/**
+ * Create a macro when dropping an entity on the hotbar
+ * Item      - open roll dialog for item
+ * Actor     - open actor sheet
+ * Journal   - open journal sheet
+ */
 Hooks.on("hotbarDrop", async (bar, data, slot) => 
 {
+  // Create item macro if rollable item - weapon, spell, prayer, trait, or skill
   if (data.type == "Item")
   {
     if (data.data.type != "weapon" && data.data.type != "spell" && data.data.type != "prayer" && data.data.type != "trait" && data.data.type != "skill")
@@ -18,6 +25,7 @@ Hooks.on("hotbarDrop", async (bar, data, slot) =>
     }
     game.user.assignHotbarMacro(macro, slot);
   }
+  // Create a macro to open the actor sheet of the actor dropped on the hotbar
   else if (data.type == "Actor")
   {
     let actor = game.actors.get(data.id);
@@ -34,6 +42,7 @@ Hooks.on("hotbarDrop", async (bar, data, slot) =>
       game.user.assignHotbarMacro(macro, slot);
     }
   }
+  // Create a macro to open the journal sheet of the journal dropped on the hotbar
   else if (data.type == "JournalEntry")
   {
     let journal = game.journal.get(data.id);

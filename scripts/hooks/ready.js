@@ -1,7 +1,23 @@
+/**
+ * Ready hook loads tables, and override's foundry's entity link functions to provide extension to pseudo entities
+ */
 Hooks.on("ready", async () => {
+
+    // Localize strings in the WFRP4E object
+    for (let obj in WFRP4E)
+    {
+      for (let el in WFRP4E[obj])
+      {
+        if (typeof WFRP4E[obj][el] === "string")
+        {
+          WFRP4E[obj][el] = game.i18n.localize(WFRP4E[obj][el])
+        }
+      }
+    }
   
     let activeModules = game.settings.get("core", "moduleConfiguration");
    
+    // Load module tables if the module is active and if the module has tables
      for (let m in activeModules)
      {
        let module;
@@ -21,6 +37,7 @@ Hooks.on("ready", async () => {
                let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
    
                fetch(file).then(r=>r.json()).then(async records => {
+                // If extension of a table, add it to the columns
                 if(records.extend && WFRP_Tables[filename])
                 {
                   WFRP_Tables[filename].columns = WFRP_Tables[filename].columns.concat(records.columns)
@@ -29,7 +46,7 @@ Hooks.on("ready", async () => {
                       WFRP_Tables[filename].rows[row].range[c] = records.rows[row].range[c]
                    })
                 }
-                else
+                else // If not extension, load table as its filename
                   WFRP_Tables[filename] = records;
                })
              }
@@ -44,6 +61,7 @@ Hooks.on("ready", async () => {
        }
      }
 
+     // Load tables from world if it has a tables folder
      await FilePicker.browse("user", `worlds/${game.world.name}/tables`).then(resp => {
       try 
       {
@@ -57,9 +75,16 @@ Hooks.on("ready", async () => {
           let filename = file.substring(file.lastIndexOf("/")+1, file.indexOf(".json"));
 
           fetch(file).then(r=>r.json()).then(async records => {
-            if(records.extend)
-              WFRP_Tables.extensions.push(records);
-            else
+            // If extension of a table, add it to the columns
+            if(records.extend && WFRP_Tables[filename])
+            {
+              WFRP_Tables[filename].columns = WFRP_Tables[filename].columns.concat(records.columns)
+              WFRP_Tables[filename].rows.forEach((obj, row) => {
+                for (let c of records.columns)
+                  WFRP_Tables[filename].rows[row].range[c] = records.rows[row].range[c]
+              })
+            }
+            else // If not extension, load table as its filename
               WFRP_Tables[filename] = records;
           })
         }
@@ -74,7 +99,7 @@ Hooks.on("ready", async () => {
     }   
   })
 
-
+  // ***** FVTT functions with slight modification to include pseudo entities *****
 
   TextEditor._replaceContentLinks = (match, entityType, id, name) => {
 
@@ -126,84 +151,6 @@ Hooks.on("ready", async () => {
 
    return html.innerHTML;
  };
-
-    // i = 0;
-    // critname;
-    // while (i < WFRP_Tables.critleg.rows.length)
-    // {
-    //   let row = WFRP_Tables.critleg.rows[i];
-    //   if (critname != row.name)
-    //   {
-    //     critname = row.name;
-    //     let itemData = 
-    //     {
-    //       type : "critical",
-    //       name : row.name,
-    //       ["data.description.value"] : row.description,
-    //       ["data.wounds.value"] : row.wounds,
-    //       ["data.location.value"] : "Leg",
-    //       img: "systems/wfrp4e/icons/injuries/tornleg.png"
-    //     }
-    //     ItemWfrp4e.create(itemData)
-    //   }
-    //   i++
-    // }
-    
-    // let table = await RollTable.create({name: WFRP_Tables.wrath.name, formula : WFRP_Tables.wrath.die})
-    // let loc = 1
-    // while(loc <  WFRP_Tables.wrath.rows.length)
-    // {
-    //     let row = WFRP_Tables.wrath.rows[loc]
-    //     let startRange = loc;
-    //     let endRange = -1;
-    //     try {
-    //     while (WFRP_Tables.wrath.rows[loc+1].description == row.description)
-    //     {
-    //       loc++;
-    //     }
-    //     }
-    //     catch{}
-
-    //     endRange = loc;
-    //     console.log(startRange, endRange)
-    //     await table.createTableResult({range : [startRange, endRange], text: `<b>${row.name}</b>: ${row.description}`, type : 0, weight: 1})
-    //     loc++
-    // }
-
-      /* -------------------------------------------- */    
-
-
-         
-  // RollTables._displayChatResult = function(result, speaker) {
-
-  //   // Basic chat message data
-  //   const chatData = {
-  //     user: game.user._id,
-  //     type: CHAT_MESSAGE_TYPES.OTHER,
-  //     speaker: speaker
-  //   };
-
-  //   // Toggle default roll mode
-  //   let rollMode = game.settings.get("core", "rollMode");
-  //   if ( ["gmroll", "blindroll"].includes(rollMode) ) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
-  //   if ( rollMode === "blindroll" ) chatData["blind"] = true;
-
-  //   // Toggle the result format
-  //   let text = result.text;
-  //   if ( result.type === TABLE_RESULT_TYPES.ENTITY ) {
-  //     text = `@${result.collection}[${result.text}]`;
-  //   }
-
-  //   // Render the template
-  //   chatData["content"] = `
-  //   <div class="table-result" data-table-id="${this._id}" data-result-id="${result.id}">
-  //       <img class="result-image" src="${result.img || WFRP4E.RollTable.resultIcon}"/>
-  //       <p class="result-text">${text}</p>
-  //   </div>`;
-
-  //   // Create the chat message
-  //   return ChatMessage.create(chatData);
-  // }
 
 })
 

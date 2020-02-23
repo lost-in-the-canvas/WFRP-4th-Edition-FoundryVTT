@@ -2,17 +2,17 @@
   <h2>{{species}}</h2>
 </div>
 
-<span>Choose 6 skills and drag them to your character sheet if they are not already included. Put 5 advancements in 3 of them, and 3 advancements in the other 3. These do not cost experience so avoid clicking the advancement buttons.</span>
+<span>{{localize "CHARGEN.SpeciesInstructions"}}</span>
 
 <div class = gen-skills>
-  <h3>Skills</h3>
+  <h3>{{localize "Skills"}}</h3>
   {{#each speciesSkills as |skill key|}}
   <div><a class = "skill-drag"><i class="fas fa-suitcase"></i> {{skill}}</a></div>
   {{/each}}
 </div>
 
 <div class = gen-talents>
-<h3>Talents</h3>
+<h3>{{localize "Talents"}}</h3>
 {{#each speciesTalents as |talent key|}}
 <div><a class = "talent-drag"><i class="fas fa-suitcase"></i> {{talent}}</a></div>
 {{/each}}
@@ -28,4 +28,4 @@
 {{/each}}
 </div>
 
-<div><a class = "table-click" data-table="talents"><i class="fas fa-list"></i> You may reroll any duplicate Talent.</a></div>
+<div><a class = "table-click" data-table="talents"><i class="fas fa-list"></i>{{localize "CHARGEN.RerollInstructions"}}</a></div>

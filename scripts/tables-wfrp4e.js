@@ -158,7 +158,7 @@ class WFRP_Tables
     switch (table)
     {
       case "hitloc":
-        return `<b>${this[table].name}</b><br>` + result.description;
+        return `<b>${this[table].name}</b><br>` + game.i18n.localize(result.description);
       case "crithead":
       case "critbody":
       case "critarm":
@@ -221,11 +221,11 @@ class WFRP_Tables
           "</tr>" +
           "</table>"
         if (result.roll == 9)
-          tableHtml += "At your feet";
+          tableHtml += game.i18n.localize("CHAT.ScatterYou");
         else if (result.roll == 10)
-          tableHtml += "At their feet";
+          tableHtml += game.i18n.localize("CHAT.ScatterThem");
         else
-          tableHtml += "Note: Distance can be no more than half the distance between you and the target"
+          tableHtml += game.i18n.localize("CHAT.ScatterNote")
         tableHtml = tableHtml.replace(`position='${result.roll}'`, "class='selected-position'")
         if (result.dist)
           tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
@@ -301,26 +301,26 @@ class WFRP_Tables
   // When critical casting, there are few options available, one could be a critical wound on a location, so offer a clickable link.
   static criticalCastMenu(crittable)
   {
-    return "Choose from:<ul>" +
-      `<li><b>Critical Cast</b>: If the spell causes damage, it inflicts a <a class=table-click data-table=${crittable}><b><i class="fas fa-list"></i> Critical Wound</b></a></li>` +
-      "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>" +
-      "<li><b>Unstoppable Force</b>: If the spell is successfully cast, it cannot be dispelled.</li>" +
-      "</ul";
+    return `${game.i18n.localize("CHAT.ChooseFrom")}:<ul>
+      <li><b>${game.i18n.localize("ROLL.CritCast")}</b>: ${game.i18n.localize("CHAT.CritCast")} <a class=table-click data-table=${crittable}><b><i class="fas fa-list"></i>${game.i18n.localize("Critical Wound")}</b></a></li>
+      <li><b>${game.i18n.localize("ROLL.TotalPower")}</b>: ${game.i18n.localize("CHAT.TotalPower")}</li>
+      <li><b>${game.i18n.localize("ROLL.UnstoppableForce")}</b>: ${game.i18n.localize("CHAT.UnstoppableForce")}</li>
+      </ul`;
   }
 
 
   // Critical casting without reaching appropriate SL - forced to be Total power in order to get the spell off
   static restrictedCriticalCastMenu()
   {
-    return "Must Choose:<ul>" +
-      "<li><b>Total Power</b>: The spell is cast, no matter its CN and your rolled SL, but can be dispelled</li>" +
-      "</ul";
+    return `${game.i18n.localize("CHAT.MustChoose")}:<ul>
+      <li><b>${game.i18n.localize("ROLL.TotalPower")}</b>: ${game.i18n.localize("CHAT.TotalPower")}</li>
+      </ul`;
   }
 
   // Display all columns for a table so the user can click on them and roll them.
   static promptColumn(table, column)
   {
-    let prompt = `<h3>Select a column to roll on</h3>`
+    let prompt = `<h3>${game.i18n.localize("CHAT.ColumnPrompt")}</h3>`
 
     for (let c of this[table].columns)
       prompt += `<div><a class = "table-click" data-table="${table}" data-column = "${c}"><i class="fas fa-list"></i> ${c}</a></div>`

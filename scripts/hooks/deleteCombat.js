@@ -1,3 +1,6 @@
+/**
+ * Remove advantage from all combatants when combat ends
+ */
 Hooks.on("deleteCombat", async (combat) => {
     for (let turn of combat.turns)
     {
