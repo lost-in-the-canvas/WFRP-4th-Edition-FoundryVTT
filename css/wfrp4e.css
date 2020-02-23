@@ -2315,6 +2315,16 @@
         position: relative;
         left: 0px;
       }
+      .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea {
+        height: unset;
+      }
+      .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea textarea {
+        resize: none;
+        text-align: unset;
+      }
+      .app.window-app.sheet.item-sheet .tab .label-text.skills-textarea {
+        height: unset;
+      }
         .app.window-app.sheet.item-sheet .tab .input-text:focus {
           outline: none;
         }
@@ -15091,7 +15101,7 @@ font-style : normal;
 
       .app.window-app.sheet.journal-sheet .import {
         top: 8px;
-        right: 36px;
+        left: 36px;
       }
 
 

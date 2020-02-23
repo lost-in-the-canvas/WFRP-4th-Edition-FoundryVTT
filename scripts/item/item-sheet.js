@@ -117,7 +117,7 @@ class ItemSheetWfrp4e extends ItemSheet
     else if (this.item.type == "career")
     {
       data['statusTiers'] = WFRP4E.statusTiers;
-      data['skills'] = data.data.skills.toString();
+      data['skills'] = data.data.skills.join(", ").toString();
       data['earningSkills'] = data.data.incomeSkill.map(function (item)
       {
         return data.data.skills[item];
@@ -262,7 +262,7 @@ class ItemSheetWfrp4e extends ItemSheet
               let earningSkills = [];
               for (let sk in list)
               {
-                let skillIndex = this.item.data.skills.indexOf(list[Number(sk)])
+                let skillIndex = this.item.data.data.skills.indexOf(list[Number(sk)])
 
                 if (skillIndex == -1)
                   continue;
