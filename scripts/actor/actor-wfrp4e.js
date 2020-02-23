@@ -1866,14 +1866,14 @@ class ActorWfrp4e extends Actor {
         else if (i.type == "injury") 
         {
           injuries.push(i);
-          penalties["Injury"].value += i.data.penalty.value;
+          penalties[game.i18n.localize("Injury")].value += i.data.penalty.value;
         } 
 
         // *********** Criticals ***********
         else if (i.type == "critical") 
         {
           criticals.push(i);
-          penalties["Criticals"].value += i.data.modifier.value;
+          penalties[game.i18n.localize("Criticals")].value += i.data.modifier.value;
         } 
 
         // *********** Containers ***********
@@ -2012,7 +2012,7 @@ class ActorWfrp4e extends Actor {
         {
           mutations.push(i);
           if (i.data.modifiesSkills.value)
-            penalties["Mutation"].value += i.data.modifier.value;
+            penalties[game.i18n.localize("Mutation")].value += i.data.modifier.value;
         } 
 
         // *********** Money ***********   

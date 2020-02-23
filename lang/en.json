@@ -272,6 +272,7 @@
     "Roll Characteristics" : "Roll Characteristics",
     "Bonus Characteristic" : "Bonus Characteristic",
     "Weapon Group" : "Weapon Group",
+    "Type" : "Type",
     
     "CHARGEN.AttrInstructions1" : "Drag this card onto your sheet. You may rearrange the numbers at the cost of 25 XP. Or, if you wish to",
     "CHARGEN.AttrInstructions2" : "or allocate points, subtract 50 XP.",
