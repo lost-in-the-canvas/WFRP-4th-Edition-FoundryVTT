@@ -4,42 +4,42 @@
   <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
 
   <div class="item-details row1">
-    <label class="label-text">Quantity</label>
-    <div class="input-box" style="margin-right: 3px;">
-      <input class="input-text" style="border-radius: 0px;" type="text" name="data.quantity.value" value="{{data.quantity.value}}"
-        data-dtype="{{data.quantity.type}}" />
+      <label class="label-text">{{localize "Quantity"}}</label>
+      <div class="input-box" style="margin-right: 3px;">
+        <input class="input-text" style="border-radius: 0px;" type="text" name="data.quantity.value" value="{{data.quantity.value}}"
+          data-dtype="{{data.quantity.type}}" />
+      </div>
+      <label class="label-text" style="margin-left: 3px;">{{localize "Encumbrance"}}</label>
+      <div class="input-box">
+        <input class="input-text" style="border-radius: 0px;" type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}"
+          data-dtype="{{data.encumbrance.type}}" />
+      </div>
     </div>
-    <label class="label-text" style="margin-left: 3px;">Encumbrance</label>
-    <div class="input-box">
-      <input class="input-text" style="border-radius: 0px;" type="text" name="data.encumbrance.value" value="{{data.encumbrance.value}}"
-        data-dtype="{{data.encumbrance.type}}" />
+  
+    <div class="item-details row2">
+      <label class="label-text" style="flex-grow: 0; width: 69px;">{{localize "Category"}}</label>
+      <div class="input-box category" style="margin-right: 3px; flex-grow: 2; padding-top: 0px; text-align: center; min-width: 96px;">
+        {{localize "Weapon"}}
+      </div>
+  
+      <label class="label-text" style="margin-left: 3px;">{{localize "Price"}}</label>
+      <div style="margin-right: 0px;" class="input-box">
+        <input class="input-text" title="Gold Crowns" style="border-radius: 0px; color: #b18619;" type="text" name="data.price.gc" value="{{data.price.gc}}"
+          data-dtype="{{data.price.type}}" placeholder="GC" />
+      </div>
+      <div style="margin-right: 0px;" class="input-box">
+        <input class="input-text" title="Silver Shillings" style="border-radius: 0px; color: #7d7b7b;" type="text" name="data.price.ss" value="{{data.price.ss}}"
+          data-dtype="{{data.price.type}}" placeholder="SS" />
+      </div>
+      <div style="margin-right: 0px;" class="input-box">
+        <input class="input-text" title="Brass Pennies" style="border-radius: 0px; color: #a04b00;" type="text" name="data.price.bp" value="{{data.price.bp}}"
+          data-dtype="{{data.price.type}}" placeholder="BP" />
+      </div>    
     </div>
-  </div>
-
-  <div class="item-details row2">
-    <label class="label-text" style="flex-grow: 0; width: 69px;">Category</label>
-    <div class="input-box category" style="margin-right: 3px; flex-grow: 2; padding-top: 0px; text-align: center; min-width: 96px;">
-      Weapon
-    </div>
-
-    <label class="label-text" style="margin-left: 3px;">Price</label>
-    <div style="margin-right: 0px;" class="input-box">
-      <input class="input-text" title="Gold Crowns" style="border-radius: 0px; color: #b18619;" type="text" name="data.price.gc" value="{{data.price.gc}}"
-        data-dtype="{{data.price.type}}" placeholder="GC" />
-    </div>
-    <div style="margin-right: 0px;" class="input-box">
-      <input class="input-text" title="Silver Shillings" style="border-radius: 0px; color: #7d7b7b;" type="text" name="data.price.ss" value="{{data.price.ss}}"
-        data-dtype="{{data.price.type}}" placeholder="SS" />
-    </div>
-    <div style="margin-right: 0px;" class="input-box">
-      <input class="input-text" title="Brass Pennies" style="border-radius: 0px; color: #a04b00;" type="text" name="data.price.bp" value="{{data.price.bp}}"
-        data-dtype="{{data.price.type}}" placeholder="BP" />
-    </div>    
-  </div>
 
   <nav class="sheet-tabs tabs" data-tab-container="primary">
-    <a class="item active" data-tab="description">Description</a>
-    <a class="item" data-tab="details">Details</a>
+      <a class="item active" data-tab="description">{{localize "Description"}}</a>
+      <a class="item" data-tab="details">{{localize "Details"}}</a>
   </nav>
   <div class="sheet-tabs edges left" ></div>
   <div class="sheet-tabs edges right"></div>
@@ -48,7 +48,7 @@
 
   <div class="tab details" data-tab="details">
     <div class="form-group">
-      <label class="label-text">{{data.weaponGroup.label}}</label>
+      <label class="label-text">{{localize "Weapon Group"}}</label>
       <select name="data.weaponGroup.value" data-dtype="{{data.weaponGroup.type}}">
         {{#select data.weaponGroup.value}}
         <option value=""></option>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.availability.label}}</label>
+      <label class="label-text">{{localize "Availability"}}</label>
       <select name="data.availability.value" data-dtype={{data.availability.type}}>
         {{#select data.availability.value}}
         {{#each availability as |avail a|}}
@@ -71,7 +71,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">Melee {{data.damage.label}}</label>
+      <label class="label-text">{{localize "ITEM.MeleeDamage"}}</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.damage.meleeValue" value="{{data.damage.meleeValue}}"
           data-dtype="{{data.damage.type}}" />
@@ -79,7 +79,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">Ranged {{data.damage.label}}</label>
+      <label class="label-text">{{localize "ITEM.RangedDamage"}}</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.damage.rangedValue" value="{{data.damage.rangedValue}}"
           data-dtype="{{data.damage.type}}" />
@@ -88,7 +88,7 @@
 
 
     <div class="form-group">
-      <label class="label-text">{{data.reach.label}}</label>
+      <label class="label-text">{{localize "Reach"}}</label>
       <select name="data.reach.value" data-dtype="{{data.reach.type}}">
         {{#select data.reach.value}}
         <option value=""></option>
@@ -100,7 +100,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.range.label}}</label>
+      <label class="label-text">{{localize "Range"}}</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.range.value" value="{{data.range.value}}"
           data-dtype="{{data.range.type}}" />
@@ -108,7 +108,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.ammunitionGroup.label}}</label>
+      <label class="label-text">{{localize "ITEM.AmmunitionGroup"}}</label>
       <select name="data.ammunitionGroup.value" data-dtype="{{data.ammunitionGroup.type}}">
         {{#select data.ammunitionGroup.value}}
         <option value="none">None</option>
@@ -120,7 +120,7 @@
     </div>
 
     <div class="form-group">
-      <label class="label-text">{{data.twohanded.label}}</label>
+      <label class="label-text">{{localize "ITEM.TwoHanded"}}</label>
       {{#if data.twohanded.value}}
       <a class="item-checkbox" data-target="twohanded.value"><i class="far fa-check-circle"></i></a>
       {{else}}
@@ -129,7 +129,7 @@
     </div>
 
     <div class="form-group-stacked">
-      <label class="label-text">Qualities (comma-separated)</label>
+      <label class="label-text">{{localize "Qualities"}} (comma-separated)</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.qualities.value" value="{{data.qualities.value}}"
           data-dtype="{{data.properties.type}}" />
@@ -137,7 +137,7 @@
     </div>
 
     <div class="form-group-stacked">
-      <label class="label-text">Flaws (comma-separated)</label>
+      <label class="label-text">{{localize "Flaws"}} (comma-separated)</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.flaws.value" value="{{data.flaws.value}}"
           data-dtype="{{data.properties.type}}" />
@@ -145,7 +145,7 @@
     </div>
 
     <div class="form-group-stacked">
-      <label class="label-text">Special</label>
+      <label class="label-text">{{localize "Special"}}</label>
       <div class="input-box">
         <input class="input-text" type="text" name="data.special.value" value="{{data.special.value}}"
           data-dtype="{{data.special.type}}" />
