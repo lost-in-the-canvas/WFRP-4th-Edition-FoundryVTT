@@ -2,7 +2,7 @@
   {{> systems/wfrp4e/templates/chat/dialog-constant.html}}
 
   <div class="form-group custom-select">
-    <label>Skill</label>
+    <label>{{localize "Skill"}}</label>
     <select name="skillSelected">
         {{#select defaultSelection}}
         {{#each skillCharList as |skill index|}}
@@ -13,9 +13,9 @@
   </div>
 
   <div class="form-group">
-      <label title="Include a roll on the hit location table">Hit Location 
-          <input type="checkbox" name="hitLocation" data-dtype = "Boolean" {{checked hitLocation}}/>
-      </label>
+    <label title="{{localize 'DIALOG.HitLocation'}}">{{localize "ROLL.HitLocation"}} 
+      <input type="checkbox" name="hitLocation" data-dtype = "Boolean" {{checked hitLocation}}/>
+    </label>
   </div>
 
   <!--<a class="item-control edit-weapon" title="Modify weapon for this Test"><i class="fa fa-cog"></i>-->

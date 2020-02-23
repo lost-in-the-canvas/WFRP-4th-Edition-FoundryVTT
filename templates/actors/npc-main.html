@@ -1,11 +1,11 @@
 <div class="skill-section" ondragstart="return false;" ondrop="return false;">
   <div id="basic-skills-list" class="skill-type">
-    <h3>Basic Skills</h3>
+    <h3>{{localize "Basic Skills"}}</h3>
     <div class="inventory-header item">
-      <div class="name">Name</div>
-      <div class="char">Char.</div>
-      <div class="adv">Adv.</div>
-      <div class="total">Total</div>
+      <div class="name">{{localize "Name"}}</div>
+      <div class="char">{{localize "SHEET.CharAbbrev"}}</div>
+      <div class="adv">{{localize "SHEET.AdvAbbrev"}}</div>
+      <div class="total">{{localize "Total"}}</div>
       {{#if isGM}}
       <div class="item-controls">
       {{else}}
@@ -49,12 +49,12 @@
   </div>
 
   <div id="advanced-skills-list" class="skill-type">
-    <h3>Grouped & Advanced Skills</h3>
+    <h3>{{localize "Grouped & Advanced Skills"}}</h3>
     <div class="inventory-header item">
-      <div class="name">Name</div>
-      <div class="char">Char.</div>
-      <div class="adv">Adv.</div>
-      <div class="total">Total</div>
+      <div class="name">{{localize "Name"}}</div>
+      <div class="char">{{localize "SHEET.CharAbbrev"}}</div>
+      <div class="adv">{{localize "SHEET.AdvAbbrev"}}</div>
+      <div class="total">{{localize "Total"}}</div>
       {{#if isGM}}
       <div class="item-controls">
       {{else}}
@@ -108,9 +108,9 @@
 {{#if actor.careers}}  
 <div class="career-list">
   <div class="inventory-header item">
-    <span id="career">Career</span>
-    <span id="complete">Complete</span>
-    <span id="level">Level</span>
+    <span id="career">{{localize "Career"}}</span>
+    <span id="complete">{{localize "Complete"}}</span>
+    <span id="level">{{localize "Level"}}</span>
     {{#if isGM}}
     <div class="item-controls">
     {{else}}
@@ -160,7 +160,7 @@
 {{/if}}
  
 <div class="penalties">
-  <h3>Penalties</h3> 
+  <h3>{{localize "Penalties"}}</h3> 
   {{#if actor.penaltyOverflow}}
     {{#each actor.penalties as |penalty p|}}
     {{#if penalty.show}}
