@@ -320,6 +320,8 @@
     "CHAT.UnstoppableForce" : "If the spell is successfully cast, it cannot be dispelled.",
     "CHAT.ColumnPrompt" : "Select a column to roll on",
     "CHAT.CriticalWoundsApplied" : "Wounds applied to",
+    "CHAT.OpposedWonAgainst" : "won against",
+    "CHAT.By" : "by",
 
     "Error.SpeciesSkills" : "Could not add skills for species",
     "Error.SpeciesTalents" : "Could not add talents for species",

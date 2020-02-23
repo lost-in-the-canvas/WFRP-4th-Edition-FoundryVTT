@@ -102,8 +102,8 @@ class OpposedWFRP
         opposeResult.winner = "attacker"
         differenceSL = attackerSL - defenderSL;
         // Update message
-        opposeResult.result =
-          `<b>${attacker.speaker.alias}</b> won against <b>${defender.speaker.alias}</b> by ${differenceSL} SL`
+        opposeResult.result =                                                               // A bit of a localization mess - "Attacker won against Defender by X SL"
+          `<b>${attacker.speaker.alias}</b> ${game.i18n.localize("CHAT.OpposedWonAgainst")} <b>${defender.speaker.alias}</b> ${game.i18n.localize("CHAT.By")} ${differenceSL} ${game.i18n.localize("SL")}`
         opposeResult.img = attacker.img;
         opposeResult.speakerAttack = attacker.speaker
         opposeResult.speakerDefend = defender.speaker
@@ -161,8 +161,8 @@ class OpposedWFRP
       else // Defender won
       {
         opposeResult.winner = "defender"
-        differenceSL = defenderSL - attackerSL;
-        opposeResult.result = `<b>${defender.speaker.alias}</b> won against <b>${attacker.speaker.alias}</b> by ${differenceSL} SL`
+        differenceSL = defenderSL - attackerSL;   // A bit of a localization mess - "Defender won against attacker by X SL"
+        opposeResult.result = `<b>${defender.speaker.alias}</b> ${game.i18n.localize("CHAT.OpposedWonAgainst")} <b>${attacker.speaker.alias}</b> ${game.i18n.localize("CHAT.By")} ${differenceSL} ${game.i18n.localize("SL")}`
         opposeResult.img = defender.img
       }
 

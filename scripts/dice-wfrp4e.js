@@ -239,6 +239,7 @@ class DiceWFRP
         rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
 
       rollResults.hitloc.roll = eval(rollResults.hitloc.roll) // Cleaner number when editing chat card
+      rollResults.hitloc.description = game.i18n.localize(rollResults.hitloc.description)
     }
 
     // If hit location is being ussed, we can assume we should lookup critical hits

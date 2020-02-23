@@ -158,7 +158,7 @@ class WFRP_Tables
     switch (table)
     {
       case "hitloc":
-        return `<b>${this[table].name}</b><br>` + result.description;
+        return `<b>${this[table].name}</b><br>` + game.i18n.localize(result.description);
       case "crithead":
       case "critbody":
       case "critarm":
