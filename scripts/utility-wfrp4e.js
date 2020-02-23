@@ -769,7 +769,7 @@ class WFRP_Utility
           {
             roll:
             {
-              label: game.i18n.loacize("Roll"),
+              label: game.i18n.localize("Roll"),
               callback: (html) =>
               {
                 let tableModifier = html.find('[name="tableModifier"]').val();
