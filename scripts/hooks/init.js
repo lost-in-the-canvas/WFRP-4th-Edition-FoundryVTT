@@ -148,7 +148,7 @@ Hooks.once("init", () => {
       }
   
       let decimals = (initMethod == "default") ? 2 : 0;
-      CONFIG.initiative = {
+      CONFIG.Combat.initiative = {
         formula: formula,
         decimals: decimals
       }
