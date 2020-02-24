@@ -15583,6 +15583,14 @@ top: 25px;
     min-width: 32px;
     max-width: 32px;
   }
+  #wfrp4e-browser .item-list .icon {
+    background-size: 24px;
+    background-repeat: no-repeat;
+    min-height: 24px;
+    max-height: 24px;
+    min-width: 24px;
+    max-width: 24px;
+  }
   #wfrp4e-browser .item-list a {
     display: flex;
     vertical-align: middle;

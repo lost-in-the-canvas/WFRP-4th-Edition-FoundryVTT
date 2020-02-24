@@ -27,9 +27,10 @@ class BrowserWfrp4e extends Application
       attribute : {
         name : "",
         description: "",
+        worldItems : true,
       },
       dynamic : {
-        careergroup : {value : "", type : ["career"], show : false},
+        careergroup : {value : "", exactMatch : true, type : ["career"], show : false},
         class : {value : "", type : ["career"], show : false},
         level : {value : "", type : ["career"], show : false},
         statusTier : {value : "", type : ["career"], show : false},
@@ -104,11 +105,7 @@ class BrowserWfrp4e extends Application
     await super._render(force, options);
     this._setScrollPos(); // Save scroll positions
 
-    if (options.textInputFocused)
-    {
-      $(this._element).find(options.textInputFocused).focus();
-      $(this._element).find(options.textInputFocused)[0].selectionStart = $(this._element).find(options.textInputFocused)[0].value.length
-    }
+    this.applyFilter(this._element)
   }
 
 
@@ -140,55 +137,61 @@ class BrowserWfrp4e extends Application
     return data;
   }
 
+  addItems(itemList)
+  {
+    for (let item of itemList)
+    {
+      if (item.type == "career")
+      {
+        if (!this.careerGroups.includes(item.data.data.careergroup.value))
+          this.careerGroups.push(item.data.data.careergroup.value);
+        if (!this.careerClasses.includes(item.data.data.class.value))
+          this.careerClasses.push(item.data.data.class.value);
+      }
+      if (item.type == "prayer")
+      {
+        let godList = item.data.data.god.value.split(", ").map(i => {
+          return i.trim();
+        })
+        godList.forEach(god => {
+          if (!this.gods.includes(god))
+            this.gods.push(god);
+        })
+      }
+      if (item.type == "spell")
+      {
+        if (!this.lores.includes(item.data.data.lore.value))
+          this.lores.push(item.data.data.lore.value);
+      }
+      item.filterId = this.filterId;
+      this.filterId++;
+    }
+    this.lores = this.lores.filter(l => l).sort((a, b) => (a > b) ? 1 : -1);
+    this.lores = this.lores.map (p => {
+      if (WFRP4E.magicLores[p])
+        return WFRP4E.magicLores[p];
+      else
+        return p;
+    })
+    this.items = this.items.concat(itemList)
+  }
+
   async loadItems()
   {
     this.items = [];
-    let filterId = 0;
-
+    this.filterId = 0;
     for (let p of game.packs)
     {
       if (p.metadata.entity == "Item")
       {
         await p.getContent().then(content => {
-          for (let item of content)
-          {
-            if (item.type == "career")
-            {
-              if (!this.careerGroups.includes(item.data.data.careergroup.value))
-                this.careerGroups.push(item.data.data.careergroup.value);
-              if (!this.careerClasses.includes(item.data.data.class.value))
-                this.careerClasses.push(item.data.data.class.value);
-            }
-            if (item.type == "prayer")
-            {
-              let godList = item.data.data.god.value.split(", ").map(i => {
-                return i.trim();
-              })
-              godList.forEach(god => {
-                if (!this.gods.includes(god))
-                  this.gods.push(god);
-              })
-            }
-            if (item.type == "spell")
-            {
-              if (!this.lores.includes(item.data.data.lore.value))
-                this.lores.push(item.data.data.lore.value);
-            }
-            item.filterId = filterId;
-            filterId++;
-          }
-          this.lores = this.lores.filter(l => l).sort((a, b) => (a > b) ? 1 : -1);
-          this.lores = this.lores.map (p => {
-            if (WFRP4E.magicLores[p])
-              return WFRP4E.magicLores[p];
-            else
-              return p;
-          })
-          this.items = this.items.concat(content)
+          this.addItems(content)
         })
       }
     }
-    this.items = this.items.sort((a, b) => (a.name > b.name) ? 1 : -1);
+    this.items.forEach(i => i.data.compendium = true)
+    this.addItems(game.items.entities);
+    this.items = this.items.sort((a, b) => (a.data.name.toLowerCase() > b.data.name.toLowerCase()) ? 1 : -1);
     this.lores.push("None");
     this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
     this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
@@ -209,13 +212,12 @@ class BrowserWfrp4e extends Application
       }
     }
 
-
     if (noItemFilter)
       filteredItems = items;
 
     for (let filter in this.filters.attribute)
     {
-      if (this.filters.attribute[filter])
+      if (this.filters.attribute[filter] || filter == "worldItems")
       {
         switch(filter)
         {
@@ -224,6 +226,9 @@ class BrowserWfrp4e extends Application
             break;
           case "description" :
             filteredItems = filteredItems.filter(i => i.data.data.description.value && i.data.data.description.value.toLowerCase().includes(this.filters.attribute.description.toLowerCase()))
+            break;
+          case "worldItems" :
+            filteredItems = filteredItems.filter(i => this.filters.attribute[filter] || !!i.data.compendium)
             break;
         }
       }
@@ -409,10 +414,13 @@ class BrowserWfrp4e extends Application
     html.on("keyup", ".name-filter", ev => {
       this.filters.attribute.name = $(ev.currentTarget).val();
       this.applyFilter(html);
-
     })
     html.on("keyup", ".description-filter", ev => {
       this.filters.attribute.description = $(ev.currentTarget).val();
+      this.applyFilter(html);
+    })
+    html.on("click", ".world-filter", ev => {
+      this.filters.attribute.worldItems = $(ev.currentTarget).is(":checked");
       this.applyFilter(html);
     })
     html.on("keyup change", ".dynamic-filter", ev => {
