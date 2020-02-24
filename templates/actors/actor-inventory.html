@@ -40,9 +40,11 @@
   <span id="currency-weight" class="weight">{{localize "SHEET.EncAbbrev"}}.</span>
   {{#if owner}}
   <div class="item-controls">
+  {{else}}
+  <div class="item-controls" style = "visibility : hidden;">
+  {{/if}}
     <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="money"><i class="fas fa-plus"></i></a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list currency-list">
@@ -57,12 +59,14 @@
       <span class="weight">{{item.encumbrance}}</span>
       {{#if ../owner}}
       <div class="item-controls">
+      {{else}}
+      <div class="item-controls" style = "visibility : hidden;">
+      {{/if}}
         <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
         <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
-      {{/if}}
     </div>
   </li>
   {{/each}}
@@ -85,10 +89,12 @@
   <span class="weight">{{localize "SHEET.EncAbbrev"}}.</span>
   {{#if ../owner}}
   <div class="item-controls">
+  {{else}}
+  <div class="item-controls" style = "visibility : hidden;">
+  {{/if}}
     <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" item-section="{{sid}}" data-type="{{section.dataType}}"><i
         class="fas fa-plus"></i></a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list {{section.label}}">
@@ -117,12 +123,14 @@
       <span class="weight">{{item.encumbrance}}</span>
       {{#if ../../owner}}
       <div class="item-controls">
+      {{else}}
+      <div class="item-controls" style = "visibility : hidden;">
+      {{/if}}
         <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
         <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
-      {{/if}}
   </div>
   </li>
   {{/each}}
@@ -142,9 +150,11 @@
   <span class="weight">{{localize "SHEET.EncAbbrev"}}.</span>
   {{#if owner}}
   <div class="item-controls">
+  {{else}}
+  <div class="item-controls" style = "visibility : hidden;">
+  {{/if}}
     <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
   </div>
-  {{/if}}
 </div>
 
 <ol class="inventory-list Ingredients">
@@ -172,12 +182,14 @@
       <span class="weight">{{item.encumbrance}}</span>
       {{#if ../owner}}
       <div class="item-controls">
+      {{else}}
+      <div class="item-controls" style = "visibility : hidden;">
+      {{/if}}
         <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
         <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
-      {{/if}}
     </div>
   </li>
   {{/each}}
@@ -222,10 +234,12 @@
 
     {{#if ../owner}}
     <div class="item-controls">
+    {{else}}
+    <div class="item-controls" style = "visibility : hidden;">
+    {{/if}}
       <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
       <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
     </div>
-    {{/if}}
   </div>
   <ol class="inventory-list level-one">
     {{#each rootPack.carrying as |item i|}}
@@ -242,10 +256,12 @@
         <span class="weight">{{item.encumbrance}}</span>
         {{#if ../../owner}}
         <div class="item-controls">
+        {{else}}
+        <div class="item-controls" style = "visibility : hidden;">
+        {{/if}}
           <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
           <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
         </div>
-        {{/if}}
       </div>
     </li>
     {{/each}}
@@ -288,10 +304,12 @@
   
       {{#if ../../owner}}
       <div class="item-controls">
+      {{else}}
+      <div class="item-controls" style = "visibility : hidden;">
+      {{/if}}
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
       </div>
-      {{/if}}
     </li>
     {{#each pack.carrying as |item i|}}
     <li class="item level-two-item" data-item-id="{{item._id}}">
@@ -307,10 +325,12 @@
         <span class="weight">{{item.encumbrance}}</span>
         {{#if ../../../owner}}
         <div class="item-controls">
+        {{else}}
+        <div class="item-controls" style = "visibility : hidden;">
+        {{/if}}
           <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
           <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
         </div>
-        {{/if}}
       </div>
     </li>
     {{/each}}
@@ -353,9 +373,11 @@
     
         {{#if ../../../owner}}
         <div class="item-controls">
+        {{else}}
+        <div class="item-controls" style = "visibility : hidden;">
+        {{/if}}
           <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
           <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
-        {{/if}}
       </li>
       {{#each pack.carrying as |item i|}}
       <li class="item level-three-item" data-item-id="{{item._id}}">
@@ -371,10 +393,12 @@
           <span class="weight">{{item.encumbrance}}</span>
           {{#if ../../../../owner}}
           <div class="item-controls">
+          {{else}}
+          <div class="item-controls" style = "visibility : hidden;">
+          {{/if}}
             <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
             <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
           </div>
-          {{/if}}
         </div>
       </li>
       {{/each}}
@@ -417,9 +441,11 @@
       
           {{#if ../../../../owner}}
           <div class="item-controls">
+          {{else}}
+          <div class="item-controls" style = "visibility : hidden;">
+          {{/if}}
             <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
             <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
-          {{/if}}
         </li>
         {{#each pack.carrying as |item i|}}
         <li class="item level-four-item" data-item-id="{{item._id}}">
@@ -435,9 +461,11 @@
             <span class="weight">{{item.encumbrance}}</span>
             {{#if ../../../../../owner}}
             <div class="item-controls">
+            {{else}}
+            <div class="item-controls" style = "visibility : hidden;">
+            {{/if}}
               <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
               <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
-            {{/if}}
           </div>
         </li>
         {{/each}}
@@ -480,9 +508,11 @@
         
             {{#if ../../../../../owner}}
             <div class="item-controls">
+            {{else}}
+            <div class="item-controls" style = "visibility : hidden;">
+            {{/if}}
               <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
               <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
-            {{/if}}
           </li>
           {{#each pack.carrying as |item i|}}
           <li class="item level-five-item" data-item-id="{{item._id}}">
@@ -498,10 +528,12 @@
               <span class="weight">{{item.encumbrance}}</span>
               {{#if ../../../../../../owner}}
               <div class="item-controls">
+              {{else}}
+              <div class="item-controls" style = "visibility : hidden;">
+              {{/if}}
                 <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-remove" title="{{localize 'SHEET.RemoveItem'}}"><i class="fas fa-chevron-up"></i></a>
               </div>
-              {{/if}}
             </div>
           </li>
           {{/each}}
