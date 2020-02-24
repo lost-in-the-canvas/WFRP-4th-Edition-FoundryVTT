@@ -487,12 +487,12 @@
         {{#each items as |item i|}}
         <li class = "browser-item" data-item-id = {{item._id}} data-filter-id = {{item.filterId}}>
             <div class="image" style="background-image: url({{item.img}})"></div>
-            <a>
+            <a class = "name-icon">
               <div class = "item-name">{{item.name}}</div>
               {{#if item.compendium}}
               <div class="icon" style="background-image: url(systems/wfrp4e/ui/sidebar-button-compendium-active.png)"></div>
               {{else}}
-              <div class="icon" style="background-image: url(systems/wfrp4e/ui/sidebar-button-items-active.png)"></div>
+              <div class="icon" style="background-image: url(systems/wfrp4e/ui/sidebar-button-items.png)"></div>
               {{/if}}
 
             </a>

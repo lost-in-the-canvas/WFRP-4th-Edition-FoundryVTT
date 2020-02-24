@@ -182,7 +182,7 @@ class BrowserWfrp4e extends Application
     this.filterId = 0;
     for (let p of game.packs)
     {
-      if (p.metadata.entity == "Item")
+      if (p.metadata.entity == "Item" && (game.user.isGM || p.public))
       {
         await p.getContent().then(content => {
           this.addItems(content)
@@ -190,7 +190,7 @@ class BrowserWfrp4e extends Application
       }
     }
     this.items.forEach(i => i.data.compendium = true)
-    this.addItems(game.items.entities);
+    this.addItems(game.items.entities.filter(i => i.permission > 1));
     this.items = this.items.sort((a, b) => (a.data.name.toLowerCase() > b.data.name.toLowerCase()) ? 1 : -1);
     this.lores.push("None");
     this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
@@ -483,7 +483,7 @@ class BrowserWfrp4e extends Application
 }
 
 Hooks.on("renderCompendiumDirectory", (app, html, data) => {
-  if (game.user.isGM)
+  if (game.user.isGM || game.settings.get("wfrp4e", "playerBrowser"))
   {
     const button = $(`<button class="browser-btn">Browser</button>`);
     html.find(".directory-footer").append(button);
@@ -500,6 +500,6 @@ Hooks.on('init', () => {
 })
 
 Hooks.on('ready', () => {
-  if (game.user.isGM)
+  if (game.user.isGM || game.settings.get("wfrp4e", "playerBrowser"))
     game.wfrpbrowser.loadItems();
 })

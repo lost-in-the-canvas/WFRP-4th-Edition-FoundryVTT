@@ -286,6 +286,16 @@ Hooks.once("init", () => {
         default: false,
         type: Boolean
       });
+
+      game.settings.register("wfrp4e", "playerBrowser", {
+        name: "SETTINGS.PlayerBrowser",
+        hint: "SETTINGS.PlayerBrowserHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+   
   
   
     // Pre-load templates

@@ -15745,3 +15745,15 @@ top: 25px;
 #wfrp4e-browser .filter-top div .dynamic-filter.weaponRange {
   border-left: none;
 }
+
+#wfrp4e-browser .name-icon {
+  display: flex;
+    justify-content: space-between;
+    width: 85%;
+}
+
+#wfrp4e-browser .name-icon .icon{
+  margin-top: 3px;
+}
+
+
