@@ -118,7 +118,7 @@ Hooks.once("init", () => {
         "default": "SETTINGS.InitDefault",
         "sl": "SETTINGS.InitSL",
         "d10Init": "SETTINGS.InitD10",
-        "d10InitAgi": "SETTINGS.D10Agi"
+        "d10InitAgi": "SETTINGS.InitD10Agi"
       },
       onChange: rule => _setWfrp4eInitiative(rule)
     });
