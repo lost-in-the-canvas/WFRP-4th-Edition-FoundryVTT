@@ -152,6 +152,19 @@ Hooks.on("ready", async () => {
    return html.innerHTML;
  };
 
+
+ const NEEDS_MIGRATION_VERSION = 1.0;
+ let needMigration
+ try 
+ {
+  needMigration = game.settings.get("wfrp4e", "systemMigrationVersion") < NEEDS_MIGRATION_VERSION;
+ }
+ catch 
+ {
+  needMigration = true;
+ }
+ if ( needMigration && game.user.isGM ) 
+  Migration.migrateWorld();
 })
 
 

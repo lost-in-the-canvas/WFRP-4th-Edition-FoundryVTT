@@ -84,6 +84,8 @@ class ItemSheetWfrp4e extends ItemSheet
       data['availability'] = WFRP4E.availability;
       data['weaponReaches'] = WFRP4E.weaponReaches
       data['ammunitionGroups'] = WFRP4E.ammunitionGroups;
+      data['weaponTypes'] = WFRP4E.weaponTypes;
+      data.isMelee = WFRP4E.groupToType[this.item.data.data.weaponGroup.value] == "melee"
     }
     else if (this.item.type == "ammunition")
     {

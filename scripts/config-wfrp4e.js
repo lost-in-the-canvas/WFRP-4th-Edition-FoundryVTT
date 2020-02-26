@@ -470,24 +470,29 @@ WFRP4E.weaponGroups = {
 };
 
 // Given a group, what's the primary type, melee or ranged
-WFRP4E.defaultAttackType = {
-	"basic": "Melee",
-	"cavalry": "Melee",
-	"fencing": "Melee",
-	"brawling": "Melee",
-	"flail": "Melee",
-	"parry": "Melee",
-	"polearm": "Melee",
-	"twohanded": "Melee",
-	"blackpowder": "Ranged",
-	"bow": "Ranged",
-	"crossbow": "Ranged",
-	"entangling": "Ranged",
-	"engineering": "Ranged",
-	"explosives": "Ranged",
-	"sling": "Ranged",
-	"throwing": "Ranged",
+WFRP4E.groupToType = {
+	"basic": "melee",
+	"cavalry": "melee",
+	"fencing": "melee",
+	"brawling": "melee",
+	"flail": "melee",
+	"parry": "melee",
+	"polearm": "melee",
+	"twohanded": "melee",
+	"blackpowder": "ranged",
+	"bow": "ranged",
+	"crossbow": "ranged",
+	"entangling": "ranged",
+	"engineering": "ranged",
+	"explosives": "ranged",
+	"sling": "ranged",
+	"throwing": "ranged",
 };
+
+WFRP4E.weaponTypes = {
+	"melee" : "Melee",
+	"ranged" : "Ranged"
+}
 
 // Weapon Group Descriptions
 WFRP4E.weaponGroupDescriptions = {
