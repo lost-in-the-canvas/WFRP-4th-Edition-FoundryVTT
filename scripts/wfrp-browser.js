@@ -6,23 +6,23 @@ class BrowserWfrp4e extends Application
 
     this.filters = {
       type : {
-        "ammunition" : false,
-        "armour" : false,
-        "career" : false,
-        "container" : false,
-        "critical" : false,
-        "disease" : false,
-        "injury" : false,
-        "money" : false,
-        "mutation" : false,
-        "prayer" : false,
-        "psychology" : false,
-        "talent" : false,
-        "trapping" : false,
-        "skill" : false,
-        "spell" : false,
-        "trait" : false,
-        "weapon" : false
+        "ammunition" : {display: "Ammunition" , value: false},
+        "armour" : {display: "Armour" , value: false},
+        "career" : {display: "Career" , value: false},
+        "container" : {display: "Container" , value: false},
+        "critical" : {display: "Critical" , value: false},
+        "disease" : {display: "Disease" , value: false},
+        "injury" : {display: "Injury" , value: false},
+        "money" : {display: "Money" , value: false},
+        "mutation" : {display: "Mutation" , value: false},
+        "prayer" : {display: "Prayer" , value: false},
+        "psychology" : {display: "Psychology" , value: false},
+        "talent" : {display: "Talent" , value: false},
+        "trapping" : {display: "Trapping" , value: false},
+        "skill" : {display: "Skill" , value: false},
+        "spell" : {display: "Spell" , value: false},
+        "trait" : {display: "Trait" , value: false},
+        "weapon" : {display: "Weapon" , value: false}
       },
       attribute : {
         name : "",
@@ -205,7 +205,7 @@ class BrowserWfrp4e extends Application
     let filteredItems = [];
     for (let filter in this.filters.type)
     {
-      if (this.filters.type[filter])
+      if (this.filters.type[filter].value)
       {
         filteredItems = filteredItems.concat(items.filter(i => i.data.type == filter))
         noItemFilter = false;
@@ -365,7 +365,7 @@ class BrowserWfrp4e extends Application
       this.filters.dynamic[dynamicFilter].show = false;
       for (let typeFilter of this.filters.dynamic[dynamicFilter].type)
       {
-        if (this.filters.type[typeFilter])
+        if (this.filters.type[typeFilter].value)
           this.filters.dynamic[dynamicFilter].show = true;
       }
 
@@ -407,7 +407,7 @@ class BrowserWfrp4e extends Application
     })
 
     html.on("click", ".filter", ev => {
-      this.filters.type[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
+      this.filters.type[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
       this.applyFilter(html);
     })
 

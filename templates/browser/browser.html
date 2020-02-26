@@ -6,7 +6,7 @@
       <h2>Item Categories</h2>
       {{#each filters.type as |value filter|}}
       <div>
-        <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value}}/> {{filter}}
+        <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value.value}}/> {{localize value.display}}
       </div>
       {{/each}}
       
