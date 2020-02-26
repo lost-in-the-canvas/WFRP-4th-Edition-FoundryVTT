@@ -13482,6 +13482,7 @@ border-image-outset: 0px !important;
   .app.window-app .dialog-buttons button,
   .app.window-app .sheet-footer button,
   .app.window-app .form-group .file-picker,
+  .app.window-app button[type="button"],
   .app.window-app button[type="submit"],
   .app.window-app button[type="reset"]
    {
@@ -15077,6 +15078,8 @@ font-style : normal;
       }
 
       .app.window-app.sheet.item-sheet .import,
+      .app.window-app.sheet.roll-table-config .import,
+      .app.window-app.sheet.scene-sheet .import,
       .app.window-app.sheet.journal-sheet .import,
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.wfrp4e.actor .window-header .import {
@@ -15105,6 +15108,11 @@ font-style : normal;
         left: 36px;
       }
 
+      .app.window-app.sheet.roll-table-config .import,
+      .app.window-app.sheet.scene-sheet .import {
+        top: 8px;
+        right: 32px;
+      }
 
       .app.window-app.sheet.item-sheet .configure-sheet {
         background: url(../ui/buttons/button-configure-sheet.png);
@@ -15468,6 +15476,7 @@ input.card-edit {
     background: #352516;
 }
 
+.drawing-sheet textarea,
 .macro-sheet textarea[name="command"] {
   padding: 1px 3px;
   margin: 0;
@@ -15756,4 +15765,12 @@ top: 25px;
   margin-top: 3px;
 }
 
+.range-value {
+  color: #CCC
+}
+
+#calendar  { 
+  bottom: 122px !important;
+    left: 14px !important;
+}
 

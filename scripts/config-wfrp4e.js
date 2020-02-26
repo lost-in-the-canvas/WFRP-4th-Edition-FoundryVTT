@@ -43,6 +43,7 @@ CONFIG.statusEffects = ["systems/wfrp4e/icons/conditions/bleeding1.png",
 	"systems/wfrp4e/icons/conditions/surprised.png",
 	"systems/wfrp4e/icons/conditions/unconscious.png",
 	"systems/wfrp4e/icons/conditions/grappling.png",
+	"systems/wfrp4e/icons/defeated.png",
 ]
 
 CONFIG.controlIcons.defeated = "systems/wfrp4e/icons/defeated.png";
@@ -857,7 +858,8 @@ WFRP4E.conditions = {
 	"surprised": "Surprised",
 	"unconscious": "Unconscious",
 	"grappling": "Grappling",
-	"fear": "Fear"
+	"fear": "Fear",
+	"defeated": "Defeated"
 }
 
 
