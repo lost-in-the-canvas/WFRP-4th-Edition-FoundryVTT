@@ -48,11 +48,15 @@
 <div class="form-group custom-select" >
   <label>{{localize "DIALOG.RollMode"}}</label>
   <select name="rollMode">
-    {{#select rollMode}}
+    <!-- {{#select rollMode}}
     {{#each rollModes as |label mode|}}
     <option value="{{mode}}">{{localize label}}</option>
     {{/each}}
-    {{/select}}
+    {{/select}} -->
+    <option value="roll">Public Roll</option>
+    <option value="gmroll">Private GM Roll</option>
+    <option value="blindroll">Blind GM Roll</option>
+    <option value="selfrole">Self Role</option>
   </select>
 </div>
 
