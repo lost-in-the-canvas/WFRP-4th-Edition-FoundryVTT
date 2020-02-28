@@ -25,6 +25,16 @@ class Migration
           }
         })
       })
+
+      if (p.metadata.entity == "Actor")
+      {
+        p.getContent().then(async (actors) => {
+          actors.forEach(async (a) => {
+           p.updateEntity(await this.migrateActorData(a))
+          })
+        })
+      }
+
     }
     ui.notifications.notify("Migration to WFRP4E 1.0 Finished")
 
@@ -39,6 +49,7 @@ class Migration
     {
       await actor.updateEmbeddedEntity("OwnedItem", this.migrateItemData(i.data));
     }
+    return actor.data
   }
 
   static migrateItemData(itemData)

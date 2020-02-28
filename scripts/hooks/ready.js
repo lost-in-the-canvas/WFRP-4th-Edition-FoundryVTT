@@ -163,8 +163,26 @@ Hooks.on("ready", async () => {
  {
   needMigration = true;
  }
- if ( needMigration && game.user.isGM ) 
-  Migration.migrateWorld();
+ if (needMigration && game.user.isGM ) 
+ {
+  new Dialog({
+    title: "Migration",
+    content: `<p style="color:#CCC;">A migration process is recommended for version ${game.system.data.version}. Before you do so, <b>please backup your world folder</b>. You will be reprompted for migration upon reload.<br><br>
+    Migration Details:<br>
+    - Changes Weapon data structure. Weapon damage will have to be reentered if migration is skipped.<br>
+    - Upon migration, check to verify if any existing unlinked tokens in scenes have their appropriate weapon damage values<br><br><br></p>`,
+    buttons: {
+      migrate: {
+        label : "Begin Migration",
+        callback : html => Migration.migrateWorld()
+      },
+      skip : {
+        label : "Skip Migration",
+        callback: html => {}
+      }
+    }
+  }).render(true)
+ }
 })
 
 
