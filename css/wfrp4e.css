@@ -832,19 +832,22 @@
     background: none;
   }
   
-  .sidebar-tab .directory-header {
+  .sidebar-popout .directory-header,
+    .sidebar-tab .directory-header {
     height: 38px;
     line-height: 32px;
     text-align: center;
     margin: 0;
     border-bottom: 1px solid #444;
   }
-  .sidebar-tab .directory-header .header-search {
+  .sidebar-popout .directory-header .header-search,
+    .sidebar-tab .directory-header .header-search {
     flex: 1;
     justify-content: left;
     text-align: center;
   }
-    .sidebar-tab .directory-header .header-search input {
+    .sidebar-popout .directory-header .header-search input,
+      .sidebar-tab .directory-header .header-search input {
       line-height: 20px;
       width: calc(100% - 45px);
       margin: 3px;
@@ -860,13 +863,15 @@
       color: var(--actor-input-color);
       text-align: left;
     }
-    .sidebar-tab .directory-header .header-search input::placeholder {
+    .sidebar-popout .directory-header .header-search input::placeholder,
+      .sidebar-tab .directory-header .header-search input::placeholder {
       text-align: center;
       color: #000000b8;
       position: relative;
       top: 2px;
     }
-    .sidebar-tab .directory-header .header-search .fas.fa-search {
+    .sidebar-popout .directory-header .header-search .fas.fa-search,
+      .sidebar-tab .directory-header .header-search .fas.fa-search {
       width: 30px;
       height: 30px;
       position: relative;
@@ -875,7 +880,8 @@
       background: url(../ui/frames/search-field-icon.png);
       color: #ffffff00;
     }
-  .sidebar-tab .directory-header .header-control {
+  .sidebar-popout .directory-header .header-control,
+    .sidebar-tab .directory-header .header-control {
     display: block;
     flex: 0 0 24px;
     height: 32px;
@@ -883,6 +889,7 @@
     top: -1px;
     left: -6px;
   }
+    .sidebar-popout .directory-header .fas.fa-sort-amount-up,
     .sidebar-tab .directory-header .fas.fa-sort-amount-up {
       width: 30px;
       height: 30px;
@@ -895,11 +902,13 @@
       padding-top: 6px;
     }
 
-  .sidebar-tab.sidebar-directory .directory-list {
+  .sidebar-popout.sidebar-directory .directory-list,
+    .sidebar-tab.sidebar-directory .directory-list {
     height: calc(100% - 38px - 50px);
     margin: 0px 0px 0px 0px;
   }
-  .sidebar-tab.sidebar-directory .directory-list header {
+  .sidebar-popout.sidebar-directory .directory-list header,
+    .sidebar-tab.sidebar-directory .directory-list header {
     /* padding: 9px 3px 4px 3px; */
     /* border: 3px groove #564d3a; */
     /* box-shadow: 0 0 6px #000 inset; */
@@ -911,25 +920,34 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  .sidebar-tab.sidebar-directory .directory-list li {
+  .sidebar-popout.sidebar-directory .directory-list li,
+    .sidebar-tab.sidebar-directory .directory-list li {
     border-bottom: 2px groove #333;
     margin-right: 1px;
   }  
-  .sidebar-tab.sidebar-directory .directory-list .subdirectory li {
+  .sidebar-popout.sidebar-directory .directory-list .subdirectory li,
+    .sidebar-tab.sidebar-directory .directory-list .subdirectory li {
     border-bottom: 2px groove #333;
     margin-right: 0px;
   }  
-  .sidebar-tab.sidebar-directory .directory-list .subdirectory .directory-item  {
+  .sidebar-popout.sidebar-directory .directory-list .subdirectory .directory-item,
+    .sidebar-tab.sidebar-directory .directory-list .subdirectory .directory-item  {
     margin-left: 10px;
     /* background: grey; */
   }
 
+  .sidebar-popout {
+    width: 330px !important;
+  }
+  .sidebar-tab .directory-footer,
   #sidebar .directory-footer {
     margin: 7px 0px 0px 0px;
     border-top: none;
     min-height: 50px;
     max-height: 50px;
   }
+    .sidebar-tab .directory-footer button,
+    #macros .directory-footer button,
     #macros .directory-footer button,
     #sidebar .directory-footer button {
       margin: 0 2%;
@@ -1388,7 +1406,7 @@
     }
 
 /* ==================== (D) SIDEBAR (COMBAT TRACKER) ========== */
-  #sidebar #combat #combat-round {
+  #combat-popout #combat-round , #sidebar #combat #combat-round {
     flex: 0 0 64px;
     min-height: 73px;
     max-height: 73px;
@@ -1400,7 +1418,7 @@
     font-weight: 500;
     text-shadow: 0px 0px 1px #00000063;
   }
-    #sidebar #combat #combat-round .encounters h4 {
+    #combat-popout #combat-round .encounters h4 , #sidebar #combat #combat-round .encounters h4 {
       flex: 1;
       margin: 0;
       padding: 0px;
@@ -1413,7 +1431,7 @@
       font-size: 17px;
       font-weight: var(--actor-input-font-weight);
     }
-    #sidebar #combat #combat-round .encounters h3 {
+    #combat-popout #combat-round .encounters h3 , #sidebar #combat #combat-round .encounters h3 {
       flex: 1;
       margin: 0px 30px;
       padding: 0px;
@@ -1429,7 +1447,10 @@
       opacity: 1;
       text-shadow: 1px 1px 5px #000000;
     }
-    #sidebar #combat #combat-round .combat-cycle {
+    #combat-popout #combat-round .encounters h3 {
+      font-size: 19px;
+    }
+    #combat-popout #combat-round .combat-cycle , #sidebar #combat #combat-round .combat-cycle {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1440,7 +1461,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-previous-encounter.png);
     }
-    #sidebar #combat #combat-round a[title="Activate Next Encounter"] {
+    #combat-popout #combat-round a[title="Activate Next Encounter"] , #sidebar #combat #combat-round a[title="Activate Next Encounter"] {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1451,7 +1472,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-next-encounter.png);
     }
-    #sidebar #combat #combat-round .combat-control {
+    #combat-popout #combat-round .combat-control , #sidebar #combat #combat-round .combat-control {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1462,7 +1483,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-reset-initiative.png);
     }
-    #sidebar #combat #combat-round .combat-settings {
+    #combat-popout #combat-round .combat-settings , #sidebar #combat #combat-round .combat-settings {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1473,7 +1494,7 @@
       top: 0px;
       background: url(../ui/buttons/combat-button-tracker-settings.png);
     }
-    #sidebar #combat #combat-round a[title="Create Encounter"] {
+    #combat-popout #combat-round a[title="Create Encounter"] , #sidebar #combat #combat-round a[title="Create Encounter"] {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1484,7 +1505,7 @@
       top: 2px;
       background: url(../ui/buttons/combat-button-create-encounter.png);
     }
-    #sidebar #combat #combat-round a[title="Roll NPCs"] {
+    #combat-popout #combat-round a[title="Roll NPCs"] , #sidebar #combat #combat-round a[title="Roll NPCs"] {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1495,7 +1516,7 @@
       top: 2px;
       background: url(../ui/buttons/combat-button-roll-npcs.png);
     }
-    #sidebar #combat #combat-round a[title="Roll All"] {
+    #combat-popout #combat-round a[title="Roll All"] , #sidebar #combat #combat-round a[title="Roll All"] {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1506,7 +1527,7 @@
       top: 2px;
       background: url(../ui/buttons/combat-button-roll-all.png);
     }
-    #sidebar #combat #combat-round a[title="Delete Encounter"] {
+    #combat-popout #combat-round a[title="Delete Encounter"] , #sidebar #combat #combat-round a[title="Delete Encounter"] {
       padding: 0px;
       margin: 0px;
       width: 30px;
@@ -1518,12 +1539,12 @@
       background: url(../ui/buttons/combat-button-delete-encounter.png);
     }
     
-  #sidebar #combat #combat-tracker {
+  #combat-popout #combat-tracker , #sidebar #combat #combat-tracker {
     height: calc(100% - 73px - 50px);
     padding: 1px 0;
     color: #feffefd6;
   }
-  #sidebar #combat .directory-list .directory-item {
+  #combat-popout .directory-list .directory-item , #sidebar #combat .directory-list .directory-item {
     padding: 1px 3px;
     border: 3px groove #564d3a;
     box-shadow: 0 0 6px #000 inset;
@@ -1534,7 +1555,7 @@
     font-weight: var(--actor-input-font-weight);
     color: #dadada;
   }
-    #sidebar #combat li.combatant .roll {
+    #combat-popout li.combatant .roll , #sidebar #combat li.combatant .roll {
       display: block;
       width: 40px;
       height: 48px;
@@ -1543,10 +1564,10 @@
       margin: 0 0.5em;
       opacity: 1.0;
     }
-      #sidebar #combat li.combatant .roll:hover {
+      #combat-popout li.combatant .roll:hover , #sidebar #combat li.combatant .roll:hover {
         background-image: url(../ui/buttons/d10-highlight.png);
       }
-    #sidebar #combat li.combatant .token-initiative {
+    #combat-popout li.combatant .token-initiative , #sidebar #combat li.combatant .token-initiative {
       flex: 0 0 48px;
       min-width: 48px;
       text-align: center;
@@ -1559,13 +1580,13 @@
         font-weight: normal;
       }
 
-  #sidebar #combat #combat-controls {
+  #combat-popout #combat-controls , #sidebar #combat #combat-controls {
     margin: 7px 0px 0px 0px;
     border-top: none;
     min-height: 50px;
     max-height: 50px;
   }
-  #sidebar #combat #combat-controls a {
+  #combat-popout #combat-controls a , #sidebar #combat #combat-controls a {
     margin: 0 2%;
     padding: 2px 0px 0px 0px;
     height: 34px;
@@ -1582,17 +1603,17 @@
     font-weight: 500;
     text-shadow: 0px 0px 1px #00000063;
   }
-  #sidebar #combat #combat-controls a:hover {
+  #combat-popout #combat-controls a:hover , #sidebar #combat #combat-controls a:hover {
     box-shadow: 0 0 5px #ff9f00 !important;
   }
-  #sidebar #combat #combat-controls .combat-control i {
+  #combat-popout #combat-controls .combat-control i , #sidebar #combat #combat-controls .combat-control i {
     display: contents;
     color: #d0d0d0;
   }
-    #sidebar #combat #combat-controls a[title="End Combat"] {
+    #combat-popout #combat-controls a[title="End Combat"] , #sidebar #combat #combat-controls a[title="End Combat"] {
       padding: 0px 0px 0px 0px;
     }
-    #sidebar #combat #combat-controls a[title="Begin Combat"] {
+    #combat-popout #combat-controls a[title="Begin Combat"] , #sidebar #combat #combat-controls a[title="Begin Combat"] {
       padding: 0px 0px 0px 0px;
     }
 
@@ -1600,7 +1621,8 @@
   #sidebar #scenes .directory-list .directory-item {
     border: 3px groove #564d3a;
   }
-  #sidebar #scenes .directory-list .directory-item .entity-name a {
+   #scenes-popout .directory-list .directory-item .entity-name a,
+    #sidebar #scenes .directory-list .directory-item .entity-name a {
     background: #000000d4;
     border-radius: 2px;
     border: 3px double #564d3a;
@@ -1663,7 +1685,8 @@
     text-shadow: 1px 1px 2px black;
   }
 /* ==================== (I) SIDEBAR (PLAYLISTS) =============== */
-  #sidebar #playlists .directory-list {
+  #playlists-popout .directory-list,
+    #sidebar #playlists .directory-list {
     flex: 1;
     height: calc(100% - 50px);
     list-style: none;
@@ -1671,12 +1694,14 @@
     padding: 0;
     overflow-y: auto;
   }
-  #sidebar #playlists .directory-list li.playlist:first-of-type .playlist-header {
+  #playlists-popout .directory-list li.playlist:first-of-type .playlist-header,
+    #sidebar #playlists .directory-list li.playlist:first-of-type .playlist-header {
     flex: 0 0 100%;
     justify-content: space-between;
     text-decoration: none;
   }
-  #sidebar #playlists .directory-list .directory-item:first-of-type .playlist-header h4 {
+  #playlists-popout .directory-list .directory-item:first-of-type .playlist-header h4,
+    #sidebar #playlists .directory-list .directory-item:first-of-type .playlist-header h4 {
     flex: 1;
     margin: 0px;
     padding: 0px;
@@ -1693,6 +1718,7 @@
     opacity: 1;
     text-shadow: 1px 1px 5px #000000;
   }
+    #playlists-popout li.playlist:first-of-type .playlist-sounds,
     #sidebar #playlists li.playlist:first-of-type .playlist-sounds {
       flex: 0 0 100%;
       list-style: none;
@@ -1715,7 +1741,8 @@
       position: relative;
       top: -2px;
     }
-    #sidebar #playlists .global-volume::-webkit-slider-thumb {
+     #playlists-popout .global-volume::-webkit-slider-thumb,
+      #sidebar #playlists .global-volume::-webkit-slider-thumb {
       -webkit-appearance: none;
       border: 1px solid #7d5900;
       height: 11px;
@@ -1726,11 +1753,13 @@
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     }
-    #sidebar #playlists .global-volume::-webkit-slider-runnable-track {
+    #playlists-popout .global-volume::-webkit-slider-runnable-track,
+      #sidebar #playlists .global-volume::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
 
-  #sidebar #playlists li.playlist:not(:first-of-type) .playlist-header {
+  #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
+    #sidebar #playlists li.playlist:not(:first-of-type) .playlist-header {
     flex: 0 0 100%;
     justify-content: space-between;
     text-decoration: none;
@@ -1739,7 +1768,8 @@
     border: 3px double #564d3a;
     background: #290a0ad9;
   }
-  #sidebar #playlists .directory-list .directory-item .playlist-header h4 {
+   #playlists-popout .directory-list .directory-item .playlist-header h4,
+    #sidebar #playlists .directory-list .directory-item .playlist-header h4 {
     flex: 1;
     margin: 0px;
     padding: 0px;
@@ -1756,11 +1786,13 @@
     opacity: 1;
     text-shadow: 1px 1px 5px #000000;
   }
-    #sidebar #playlists li.playlist:not(:first-of-type) .playlist-header i {
+    #playlists-popout li.playlist:not(:first-of-type) .playlist-header i,
+      #sidebar #playlists li.playlist:not(:first-of-type) .playlist-header i {
       position: relative;
       top: 2px;
     }
-  #sidebar #playlists li.playlist:not(:first-of-type) li.sound {
+  #playlists-popout li.playlist:not(:first-of-type) li.sound,
+    #sidebar #playlists li.playlist:not(:first-of-type) li.sound {
     margin: 0px;
     padding: 4px 7px 4px 7px;
     border: 1px solid #564d3a;
@@ -1772,19 +1804,23 @@
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
   }
-    #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
+     #playlists-popout li.playlist:not(:first-of-type) li.sound i,
+      #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
       position: relative;
       top: 2px;
     }
-    #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-name {
+    #playlists-popout li.playlist:not(:first-of-type) li.sound .sound-name,
+     #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-name {
       margin: 0px 15px 0px 0px;
       max-width: none;
     }
-    #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume {
+    #playlists-popout li.playlist:not(:first-of-type) li.sound .sound-volume,
+      #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume {
       position: relative;
       top: -1px;
     }
-    #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-thumb {
+     #playlists-popout li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-thumb,
+      #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-thumb {
       -webkit-appearance: none;
       border: 1px solid #7d5900;
       height: 11px;
@@ -1795,13 +1831,15 @@
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     }
-    #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-runnable-track {
+     #playlists-popout li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-runnable-track,
+      #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #230da5 , #076d1c);
     }
 
 
 /* ==================== (J) SIDEBAR (COMPENDIUM) ============== */
-  #sidebar #compendium .directory-list {
+   #compendium-popout .directory-list,
+    #sidebar #compendium .directory-list {
     flex: 1;
     height: calc(100% - 50px);
     list-style: none;
@@ -1809,7 +1847,8 @@
     padding: 0;
     overflow-y: auto;
   }
-  #sidebar #compendium .directory-list .compendium-entity h3 {
+   #compendium-popout .directory-list .compendium-entity h3,
+    #sidebar #compendium .directory-list .compendium-entity h3 {
     padding: 9px 6px 4px 6px;
     margin: 0px 5px;
     border: 3px double #564d3a;
@@ -1822,7 +1861,8 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-  #sidebar #compendium .directory-list .compendium-list .compendium-pack {
+   #compendium-popout .directory-list .compendium-list .compendium-pack,
+    #sidebar #compendium .directory-list .compendium-list .compendium-pack {
     padding: 9px 6px 4px 6px;
     border: 3px groove #564d3a;
     box-shadow: 0 0 6px #000 inset;
@@ -1834,19 +1874,23 @@
     color: #dadada;
     text-shadow: 1px 1px 2px black;
   }
-    #sidebar #compendium .directory-list .compendium-list .compendium-pack a {
+     #compendium-popout .directory-list .compendium-list .compendium-pack a,
+      #sidebar #compendium .directory-list .compendium-list .compendium-pack a {
       position: relative;
       top: 0px;
     }
-    #sidebar #compendium .directory-list .compendium-list .compendium-pack .pack-title {
+    #compendium-popout .directory-list .compendium-list .compendium-pack .pack-title,
+      #sidebar #compendium .directory-list .compendium-list .compendium-pack .pack-title {
       margin: 0px;
     }
-    #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-footer {
+     #compendium-popout .directory-list .compendium-list .compendium-pack .pack-title,
+      #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-footer {
       /* display: none; */
       color: #978461;
       margin-left: 25px;
     }
-    #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-search input {
+     #compendium-popout .directory-list .compendium-list .compendium-pack .compendium-search input,
+      #sidebar #compendium .directory-list .compendium-list .compendium-pack .compendium-search input {
       color: white
     }
 
