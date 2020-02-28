@@ -1805,7 +1805,7 @@
     flex: 1;
     height: calc(100% - 50px);
     list-style: none;
-    margin: 0;
+    margin: 0px 5px 0px 0px;
     padding: 0;
     overflow-y: auto;
   }
@@ -5054,6 +5054,11 @@
   }
 
   /* ================== 1. WEAPONS ============================ */
+    .app.window-app.sheet.wfrp4e.actor .tab.combat.active .advantage input[name="data.status.advantage.value"] {
+      height: 22px;
+      text-align: center;
+      padding-top: 6px;
+    }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header,
     .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header {
       width: 100%;
@@ -5798,6 +5803,7 @@
               max-height: 32px;
               min-width: 32px;
               max-width: 32px;
+              margin-top: 2px;
             }
             .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .name {
               text-align: left;
@@ -7567,6 +7573,7 @@
           max-height: 32px;
           min-width: 32px;
           max-width: 32px;
+          margin: 3px 0px 0px 2px;
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.inventory-container.level-one .name {
           text-align: left;
@@ -7777,6 +7784,7 @@
           max-height: 32px;
           min-width: 32px;
           max-width: 32px;
+          margin: 3px 0px 0px 2px;
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.inventory-container.level-two .name {
           text-align: left;
@@ -7988,6 +7996,7 @@
           max-height: 32px;
           min-width: 32px;
           max-width: 32px;
+          margin: 3px 0px 0px 2px;
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.inventory-container.level-three .name {
           text-align: left;
@@ -8199,6 +8208,7 @@
           max-height: 32px;
           min-width: 32px;
           max-width: 32px;
+          margin: 3px 0px 0px 2px;
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.inventory-container.level-four .name {
           text-align: left;
@@ -8410,6 +8420,7 @@
           max-height: 32px;
           min-width: 32px;
           max-width: 32px;
+          margin: 3px 0px 0px 2px;
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.inventory-container.level-five .name {
           text-align: left;
@@ -8534,6 +8545,7 @@
             max-height: 32px;
             min-width: 32px;
             max-width: 32px;
+            margin: 3px 0px 0px 2px;
           }
           .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-five-item .content .name {
             text-align: left;
@@ -8721,10 +8733,10 @@
     }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .input-details {
       width: 393px;
-      height: 23px;
-      margin: 0px 0px 0px 0px;
-      padding: 2px 0px 0px 0px;
-      text-align: center;
+      height: 22px;
+      margin: 1px 0px 0px 0px;
+      padding: 3px 0px 0px 3px;
+      text-align: left;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -8732,7 +8744,6 @@
       position: relative;
       top: -29px;
       left: 98px;
-      /* background: aqua !important; */
     }
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .motivation {
@@ -8776,8 +8787,8 @@
       width: 393px;
       height: 23px;
       margin: 0px 0px 0px 0px;
-      padding: 2px 0px 0px 0px;
-      text-align: center;
+      padding: 3px 0px 0px 3px;
+      text-align: left;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -8785,7 +8796,6 @@
       position: relative;
       top: -30px;
       left: 98px;
-      /* background: aqua !important; */
     }
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.psychology-header {
@@ -13679,6 +13689,18 @@ border-image-outset: 0px !important;
       overflow: hidden;
       overflow-wrap: unset;
     }
+    #sheet-config .window-content .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: left;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
 
   /* ================== 8. SHOW ARTWORK ======================= */
     .app.window-app.image-popout .window-header .share-image {
@@ -13765,7 +13787,16 @@ border-image-outset: 0px !important;
     }
 
     #token-config .tab[data-tab="character"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
       text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     #token-config .tab[data-tab="character"] input[type="checkbox"] {
       transform: scale(1);
@@ -13777,7 +13808,16 @@ border-image-outset: 0px !important;
     }
 
     #token-config .tab[data-tab="image"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
       text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;    
     }
     #token-config .tab[data-tab="image"] button {
       margin: 0 3px 0px 3px !important;
@@ -13793,6 +13833,7 @@ border-image-outset: 0px !important;
       position: absolute;
       left: 329px;
       opacity: 0.75;
+      margin-top: 7px;
       box-shadow: 0px 0px 4px inset black;
     }
     #token-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
@@ -13825,7 +13866,16 @@ border-image-outset: 0px !important;
     }
 
     #token-config .tab[data-tab="position"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
       text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     #token-config .tab[data-tab="position"] input[type="text"] {
       text-align: center;
@@ -13835,12 +13885,22 @@ border-image-outset: 0px !important;
       position: absolute;
       top: 252px;
       left: 288px;
+      margin-top: 2px;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
     }
     
     #token-config .tab[data-tab="vision"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
       text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     #token-config .tab[data-tab="vision"] input[type="text"] {
       text-align: center;
@@ -13852,10 +13912,20 @@ border-image-outset: 0px !important;
       left: 278px;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
+      margin-top: 2px;
     }
 
     #token-config .tab[data-tab="resources"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
       text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
     }
     #token-config .tab[data-tab="resources"] .form-group label {
       max-width: 183px;
@@ -14207,6 +14277,8 @@ border-image-outset: 0px !important;
         box-shadow: 0px 0px 3px black inset;
         opacity: 0.9;
         background: none;
+        width: 100%;
+        margin: 0px;    
       }      
       .window-app.app.journal-sheet .window-content select[name="folder"] {
         background: none;
@@ -15729,3 +15801,30 @@ top: 25px;
 #wfrp4e-browser .filter-top div .dynamic-filter.weaponRange {
   border-left: none;
 }
+
+.scene-sheet .window-content .form-group.initial-position .form-fields label {
+  border-left: none;
+  margin-right: 0px;
+}
+
+.scene-sheet .window-content .form-group.initial-position .form-fields .capture-position {
+  flex: 1;
+  width: -webkit-fill-available;
+  margin: 0 3px 0px 3px !important;
+  border: 1px solid black;
+  border-image: url(../ui/footer-button.png) 10 repeat;
+  border-image-width: 4px;
+  border-image-outset: 0px;
+  box-shadow: none;
+  background: url(../ui/sidebar_button-background_red.png) repeat;
+  background-origin: padding-box;
+  font-family: var(--major-button-font-family);
+  font-size: var(--major-button-font-size);
+  font-weight: var(--major-button-font-weight);
+  color: var(--major-button-color);
+}
+  .scene-sheet .window-content .form-group.initial-position .form-fields .capture-position i {
+    font-weight: 600;
+    transform: scale(0.8);
+    color: #b9b9b9;
+  }
