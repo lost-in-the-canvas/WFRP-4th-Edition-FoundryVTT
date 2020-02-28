@@ -9,7 +9,7 @@
         </div>
     
         <div class="card-content hide-option display-toggle" >
-            <b>Roll</b>: 
+            <b>{{localize "Roll"}}</b>: 
             {{#if testData.extra.color_green}}
             <span class="critical-roll display-toggle">
             {{/if}}
@@ -21,21 +21,21 @@
         </div>
 
         <div class="card-content hide-option display-toggle"  style = "display: none;">
-            <b>Roll</b>: 
+            <b>{{localize "Roll"}}</b>: 
             <input class="card-edit" type="text" data-edit-type = "roll" value = "{{testData.roll}}">
             vs
             <input class="card-edit" type="text" data-edit-type = "target" value = "{{testData.target}}">
         </div>
         
         <div class="card-content display-toggle">
-           <b>SL</b>: {{testData.SL}} {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} Damage)</span>{{/if}}
+           <b>{{localize "SL"}}</b>: {{testData.SL}} {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} {{localize "Damage"}})</span>{{/if}}
         </div>
         <div class="card-content display-toggle " style = "display : none;">
-            <b>SL</b>: <input class="card-edit" type="text" data-edit-type = "SL" value = "{{testData.SL}}"> {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} Damage)</span>{{/if}}
+            <b>{{localize "SL"}}</b>: <input class="card-edit" type="text" data-edit-type = "SL" value = "{{testData.SL}}"> {{#if testData.damage}} <span class = "card-damage">({{{testData.damage}}} {{localize "Damage"}})</span>{{/if}}
          </div>
         
         <div class="card-content" roll-description = "{{description}}">
-            <b>Description</b>: {{testData.description}}
+            <b>{{localize "Description"}}</b>: {{testData.description}}
             {{#if testData.extra.critical}}
             - <a class ="table-click critical-roll" data-table = "crit{{testData.hitloc.result}}"><i class="fas fa-list"></i> {{testData.extra.critical}}</a>
             {{/if}}
@@ -71,14 +71,14 @@
     
         {{#if testData.hitloc}}
         <div class="card-content" roll-description = "{{description}}">
-            <b>Hit Location</b>: {{testData.hitloc.description}}
+            <b>{{localize "ROLL.HitLocation"}}</b>: {{testData.hitloc.description}}
             <input class="card-edit display-toggle" style = "display : none;" type="text" data-edit-type = "hitloc" value = "{{testData.hitloc.roll}}">
         </div>
         {{/if}}
 
         {{#if testData.other}}
         <div class="card-content">
-            <b>Other</b>: {{testData.other}}
+            <b>{{localize "Other"}}</b>: {{testData.other}}
         </div>
         {{/if}}
     

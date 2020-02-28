@@ -1,3 +1,6 @@
+/**
+ * Add right click option to actors to add all basic skills
+ */
 Hooks.on("getActorDirectoryEntryContext", async (html, options) => {
     options.push( 
     {

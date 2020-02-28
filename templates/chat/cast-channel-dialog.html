@@ -1,5 +1,5 @@
 <div class="cast-channel-dialog selection"> 
-  <label>Cast or Channell this spell?</label> 
+  <label>{{localize "DIALOG.CastChannel"}}</label> 
 </div>
 
 <script>
@@ -11,15 +11,15 @@
     // console.log(textContainer);
     // console.log(textContainer[i].children[0].children[0].textContent);
     
-    if (textContainer[i].children[0].children[0].textContent.includes("Cast or Channell")) {
+    if (textContainer[i].children[0].children[0].textContent.includes(game.i18n.localize("DIALOG.CastChannel"))) {
       new_red = textContainer[i].id;
       // console.log("new_red");
       // console.log(new_red);
-      if (document.getElementById(new_red).className.includes("cast-channell")) {
+      if (document.getElementById(new_red).className.includes("cast-channel")) {
         continue;
       } 
       else {
-        document.getElementById(new_red).className += " cast-channell";
+        document.getElementById(new_red).className += " cast-channel";
       }
     } else {}
   }

@@ -1,22 +1,35 @@
+/**
+ * Applies various logic depending on actor type and created items
+ * 
+ * Criticals - apply wound values
+ * 
+ * Armour, weapons, and wearables - automatically set to worn for non-characters
+ * Talents, traits - apply characteristic bonuses if appropriate.
+ * 
+ * This file also contains deleteOwnedItem, which undoes the talent/trait bonuses
+ */
 Hooks.on("createOwnedItem", (actor, id, item) => {
   try {
+    // If critical, subtract wounds value from actor's
     if (item.type == "critical")
     {
       let newWounds;
-      if (item.wounds.value.toLowerCase() == "death")
+      if (item.data.wounds.value.toLowerCase() == "death")
         newWounds = 0;
-      newWounds = actor.data.data.status.wounds.value - Number(item.wounds.value)
+      newWounds = actor.data.data.status.wounds.value - Number(item.data.wounds.value)
       if (newWounds < 0) newWounds = 0; 
 
       actor.update({"data.status.wounds.value" : newWounds});
+
+      ui.notifications.notify(`${item.data.wounds.value} ${game.i18n.localize("CHAT.CriticalWoundsApplied")} ${actor.name}`)
     }
   }
   catch (error)
   {
-    console.error("Error applying wounds value: " + error) //continue as normal if exception
+    console.error(game.i18n.localize("Error.CriticalWound") + ": " + error) //continue as normal if exception
   }
 
-
+    // If not a character and wearable item, set worn to true
     if (actor.data.type != "character")
     {
       if (item.type == "armour")
@@ -27,6 +40,7 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
         item.worn = true;
     }
 
+    // If talent - see if it's a characteristic increasing talent, if so, apply the bonus.
     if (item.type == "talent")
     {
       let charToIncrease = WFRP4E.talentBonuses[item.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
@@ -35,10 +49,11 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
         let newValue = actor.data.data.characteristics[charToIncrease].initial + 5;
         actor.update({[`data.characteristics.${charToIncrease}.initial`] : newValue})
       }
-    }  
+    }
+    // If trait, see if it gives a bonus, if so, apply that bonus.
     if (item.type == "trait")
     {
-      if (actor.data.data.excludedTraits.length && actor.data.data.excludedTraits.includes(item._id))
+      if (actor.data.data.excludedTraits && actor.data.data.excludedTraits.length && actor.data.data.excludedTraits.includes(item._id))
         return
       let bonuses = WFRP4E.traitBonuses[item.name.toLowerCase().trim()] // TODO: investigate why trim is needed here
       let data = duplicate(actor.data.data)
@@ -50,6 +65,7 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
     }  
 })
 
+// If deleting a talent or trait, if that talent or trait gives a bonus, remove that bonus.
 Hooks.on("deleteOwnedItem", (actor, id, item) => {
   if (item.type == "talent")
   {

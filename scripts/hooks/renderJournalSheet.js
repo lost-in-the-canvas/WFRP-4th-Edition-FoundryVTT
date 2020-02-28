@@ -1,3 +1,6 @@
+/**
+ * Adds tooltips to journal sheet buttons and adds listeners for pseudo entities
+ */
 Hooks.on("renderJournalSheet", (obj, html, data) => {
     $(html).find(".close").attr("title", "Close");
     $(html).find(".entry-image").attr("title", "Image");

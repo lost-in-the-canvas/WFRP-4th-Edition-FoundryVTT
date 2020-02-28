@@ -1,6 +1,9 @@
-
+/**
+ * Set default values for new actors' tokens
+ */
 Hooks.on("preCreateActor", (dir, actor) =>{
 
+  // Set wounds, advantage, and display name visibility
   mergeObject(actor,
     {"token.bar1" :{"attribute" : "status.wounds"},                 // Default Bar 1 to Wounds
     "token.bar2" :{"attribute" : "status.advantage"},               // Default Bar 2 to Advantage
@@ -9,6 +12,7 @@ Hooks.on("preCreateActor", (dir, actor) =>{
     "token.disposition" : CONST.TOKEN_DISPOSITIONS.NEUTRAL,         // Default disposition to neutral
     "token.name" : actor.name                                       // Set token name to actor name
   })
+
   // Set custom default token
   if (!actor.img)
     actor.img = "systems/wfrp4e/tokens/unknown.png"

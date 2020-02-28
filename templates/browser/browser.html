@@ -1,5 +1,8 @@
 <div class = "browser">
   <div class = "item-filter save-scroll">
+    <div>
+      <input class="world-filter" type="checkbox" data-filter="worldItems" {{checked filters.attribute.worldItems}}/> Include World Items?
+    </div>
       <h2>Item Categories</h2>
       {{#each filters.type as |value filter|}}
       <div>
@@ -484,8 +487,14 @@
         {{#each items as |item i|}}
         <li class = "browser-item" data-item-id = {{item._id}} data-filter-id = {{item.filterId}}>
             <div class="image" style="background-image: url({{item.img}})"></div>
-            <a>
+            <a class = "name-icon">
               <div class = "item-name">{{item.name}}</div>
+              {{#if item.compendium}}
+              <div class="icon" style="background-image: url(systems/wfrp4e/ui/sidebar-button-compendium-active.png)"></div>
+              {{else}}
+              <div class="icon" style="background-image: url(systems/wfrp4e/ui/sidebar-button-items.png)"></div>
+              {{/if}}
+
             </a>
         </li>
         {{/each}}

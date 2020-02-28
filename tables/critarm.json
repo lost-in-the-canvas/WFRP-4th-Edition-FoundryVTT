@@ -6,7 +6,7 @@
     "description": "Your arm is jarred in the attack. Drop whatever was held in that hand.",
     "range": [1, 10]
   }, {
-    "name": "Minor Cut",
+    "name": "Minor Arm Cut",
     "wounds": "1",
     "description": "Gain a Bleeding Condition as your upper arm is cut badly.",
     "range": [11, 20]
@@ -36,7 +36,7 @@
     "description": "Your arm is almost pulled from its socket. Drop whatever is held in the associated hand; the arm is useless for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> Rounds.",
     "range": [41, 45]
   }, {
-    "name": "Gaping Wound",
+    "name": "Gaping Arm Wound",
     "wounds": "3",
     "description": "The blow opens a deep, gaping wound. Gain 2 Bleeding Conditions. Until you receive Surgery to stitch up the cut, any associated Arm Damage you receive will also inflict 1 Bleeding Condition as the wound reopens.",
     "range": [46, 50]

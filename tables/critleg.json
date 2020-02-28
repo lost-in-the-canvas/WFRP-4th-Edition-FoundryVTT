@@ -12,7 +12,7 @@
     "description": "You go over your ankle, hurting it. Agility Tests suffer a -10 penalty for <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> rounds.",
     "range": [11, 20]
   }, {
-    "name": "Minor Cut",
+    "name": "Minor Leg Cut",
     "wounds": "1",
     "description": "Gain 1 Bleeding Condition.",
     "range": [21, 25]
