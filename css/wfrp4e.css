@@ -15774,3 +15774,16 @@ top: 25px;
     left: 14px !important;
 }
 
+.dd-import-text {
+    padding: 1px 3px;
+    margin: 0;
+    font-family: var(--actor-input-font-family);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    border: 1px solid #736953a6;
+    border-left: none;
+    border-radius: 0px;
+    box-shadow: 0px 0px 10px inset black;
+    background: #352516;
+    height: 300px;
+}
