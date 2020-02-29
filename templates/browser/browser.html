@@ -1,28 +1,28 @@
 <div class = "browser">
   <div class = "item-filter save-scroll">
     <div>
-      <input class="world-filter" type="checkbox" data-filter="worldItems" {{checked filters.attribute.worldItems}}/> Include World Items?
+      <input class="world-filter" type="checkbox" data-filter="worldItems" {{checked filters.attribute.worldItems}}/> {{localize "BROWSER.IncludeWorld"}}
     </div>
-      <h2>Item Categories</h2>
+      <h2>{{localize "BROWSER.ItemCategories"}}</h2>
       {{#each filters.type as |value filter|}}
       <div>
         <input class="filter" type="checkbox" data-filter="{{filter}}" {{checked value.value}}/> {{localize value.display}}
       </div>
       {{/each}}
       
-      <h2>Filter Options</h2>
+      <h2>{{localize "BROWSER.FilterOptions"}}</h2>
 
       <div class= "name filter-top">
-        Name
+       {{localize "Name"}}
         <input class="name-filter" type="text" data-filter="name" value="{{filters.attribute.name}}"/>
       </div>
       <div class="description filter-top">
-        Description
+        {{localize "Description"}}
         <input class="description-filter" type="text" data-filter="description" value="{{filters.attribute.description}}"/>
       </div>
 
       <div class = "encumbrance filter-top" style = "display: none;">
-        Encumbrance
+        {{localize "Encumbrance"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "encumbrance">
               <option value=""></option>
@@ -37,7 +37,7 @@
       </div>
 
       <div class = "availability filter-top" style = "display: none;">
-        Availability
+        {{localize "Availability"}}
         <div>
             <select class="dynamic-filter" data-filter = "availability">
               <option value=""></option>
@@ -51,7 +51,7 @@
       </div>
 
       <div class = "ammunitionType filter-top" style = "display: none;">
-        Ammunition Type
+        {{localize "ITEM.AmmunitionType"}}
         <div>
             <select class="dynamic-filter" data-filter = "ammunitionType">
               <option value=""></option>
@@ -64,19 +64,19 @@
         </div>
       </div>
       <div class = "modifiesDamage filter-top" style = "display: none;">
-        Modifies Damage
+        {{localize "BROWSER.ModifiesDamage"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "modifiesDamage" {{checked filters.dynamic.modifiesDamage.value}}></input>
         </div>
       </div>
       <div class = "modifiesRange filter-top" style = "display: none;">
-        Modifies Range
+        {{localize "BROWSER.ModifiesRange"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "modifiesRange" {{checked filters.dynamic.modifiesRange.value}}></input>
         </div>
       </div>
       <div class = "armorType filter-top" style = "display: none;">
-        Armour Type
+        {{localize "ITEM.ArmourType"}}
         <div>
             <select class="dynamic-filter" data-filter = "armorType">
               <option value=""></option>
@@ -89,26 +89,26 @@
         </div>
       </div>
       <div class = "qualitiesFlaws filter-top" style = "display: none;">
-        Qualities/Flaws (comma separated)
+        {{localize "Qualities"}}/{{localize "Flaws"}} (comma separated)
         <input class="csv-filter qualitiesFlaws" type="text" data-filter="qualitiesFlaws" value="{{filters.dynamic.qualitiesFlaws.value}}"/>
       </div>
       <div  class = "protects filter-top" style = "display: none;">
-      Protects          
+      {{localize "Protects"}}          
         <div>
-          Head <input class="protects-filter" type = "checkbox" data-filter = "head" {{checked filters.dynamic.protects.value.head}}></input>
+          {{localize "Head"}} <input class="protects-filter" type = "checkbox" data-filter = "head" {{checked filters.dynamic.protects.value.head}}></input>
         </div>          
         <div>
-          Body <input class="protects-filter" type = "checkbox" data-filter = "body" {{checked filters.dynamic.protects.value.body}}></input>
+          {{localize "Body"}} <input class="protects-filter" type = "checkbox" data-filter = "body" {{checked filters.dynamic.protects.value.body}}></input>
         </div>          
         <div>
-          Arms <input class="protects-filter" type = "checkbox" data-filter = "arms" {{checked filters.dynamic.protects.value.arms}}></input>
+          {{localize "Arms"}} <input class="protects-filter" type = "checkbox" data-filter = "arms" {{checked filters.dynamic.protects.value.arms}}></input>
         </div>     
         <div>
-          Legs <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
+          {{localize "Legs"}} <input class="protects-filter" type = "checkbox" data-filter = "legs" {{checked filters.dynamic.protects.value.legs}}></input>
         </div>
       </div>
       <div class = "carries filter-top" style = "display: none;">
-        Carries
+        {{localize "Carries"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "carries">
               <option value=""></option>
@@ -122,13 +122,13 @@
         </div>
       </div>
       <div class = "wearable filter-top" style = "display: none;">
-        Wearable
+        {{localize "Wearable"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "wearable" {{checked filters.dynamic.wearable.value}}></input>
         </div>
       </div>
       <div class = "location filter-top" style = "display: none;">
-        Location
+        {{localize "Location"}}
         <div>
             <select class="dynamic-filter" data-filter = "location">
               <option value=""></option>
@@ -141,7 +141,7 @@
         </div>
       </div>
       <div class = "wounds filter-top" style = "display: none;">
-        Wounds
+        {{localize "Wounds"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "wounds">
               <option value=""></option>
@@ -155,11 +155,11 @@
         </div>
       </div>
       <div class = "symptoms filter-top" style = "display: none;">
-        Symptoms
+        {{localize "Symptoms"}}
         <input class="csv-filter symptoms" type="text" data-filter="symptoms" value="{{filters.dynamic.symptoms.value}}"/>
       </div>
       <div class = "mutationType filter-top" style = "display: none;">
-        Mutation Type
+        {{localize "ITEM.MutationType"}}
         <div>
             <select class="dynamic-filter" data-filter = "mutationType">
               <option value=""></option>
@@ -172,7 +172,7 @@
         </div>
       </div>
       <div class = "careergroup filter-top" style = "display: none;">
-        Career Group
+        {{localize "Career Group"}}
         <div>
             <select class="dynamic-filter" data-filter = "careergroup">
               <option value=""></option>
@@ -185,7 +185,7 @@
         </div>
       </div>
       <div class = "class filter-top" style = "display: none;">
-        Career Class
+        {{localize "Career Class"}}
         <div>
             <select class="dynamic-filter" data-filter = "class">
               <option value=""></option>
@@ -198,7 +198,7 @@
         </div>
       </div>
       <div class = "level filter-top" style = "display: none;">
-        Career Tier
+        {{localize "Career Tier"}}
         <div>
             <select class="dynamic-filter" data-filter = "level">
               <option value=""></option>
@@ -211,7 +211,7 @@
         </div>
       </div>
       <div class = "statusTier filter-top" style = "display: none;">
-        Status Tier
+        {{localize "Status Tier"}}
         <div>
             <select class="dynamic-filter" data-filter = "statusTier">
               <option value=""></option>
@@ -224,7 +224,7 @@
         </div>
       </div>
       <div class = "statusStanding filter-top" style = "display: none;">
-        Status Standing
+        {{localize "Status Standing"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "statusStanding">
               <option value=""></option>
@@ -238,19 +238,19 @@
         </div>
       </div>
       <div  class = "characteristics filter-top" style = "display: none;" title = "Example Input: 'Ws, T, fel' (case insensitive)">
-        Characteristics (comma separated)
+        {{localize "Characteristics"}} (comma separated)
         <input class="csv-filter characteristics" type="text" data-filter="characteristics" value="{{filters.dynamic.characteristics.value}}"/>
       </div>
       <div class = "skills filter-top" style = "display: none;">
-        Skills (comma separated)
+        {{localize "Skills"}} (comma separated)
         <input class="csv-filter skills" type="text" data-filter="skills" value="{{filters.dynamic.skills.value}}"/>
       </div>
       <div class = "talents filter-top" style = "display: none;">
-        Talents (comma separated)
+        {{localize "Talents"}} (comma separated)
         <input class="csv-filter talents" type="text" data-filter="talents" value="{{filters.dynamic.talents.value}}"/>
       </div>
       <div class = "prayerType filter-top" style = "display: none;">
-        Prayer Type
+        {{localize "ITEM.PrayerType"}}
         <div>
             <select class="dynamic-filter" data-filter = "prayerType">
               <option value=""></option>
@@ -263,7 +263,7 @@
         </div>
       </div>
       <div class = "god filter-top" style = "display: none;">
-        God
+        {{localize "God"}}
         <div>
             <select class="dynamic-filter" data-filter = "god">
               <option value=""></option>
@@ -276,37 +276,37 @@
         </div>
       </div>
       <div class = "duration filter-top" style = "display: none;">
-        Duration
+        {{localize "Duration"}}
         <input class="dynamic-filter duration" type="text" data-filter="duration" value="{{filters.dynamic.duration.value}}"/>
       </div>
       <div class = "range filter-top" style = "display: none;">
-        Range
+        {{localize "Range"}}
         <input class="dynamic-filter range" type="text" data-filter="range" value="{{filters.dynamic.range.value}}"/>
       </div>
       <div class = "target filter-top" style = "display: none;">
-        Targets
+        {{localize "Targets"}}
         <input class="dynamic-filter target" type="text" data-filter="target" value="{{filters.dynamic.target.value}}"/>
       </div>
       <div class = "magicMissile filter-top" style = "display: none;">
-        Magic Missile
+        {{localize "Magic Missile"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "magicMissile" {{checked filters.dynamic.magicMissile.value}}></input>
         </div>
       </div>
       <div class = "aoe filter-top" style = "display: none;">
-        AoE
+        {{localize "AoE"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "aoe" {{checked filters.dynamic.aoe.value}}></input>
         </div>
       </div>
       <div class = "extendable filter-top" style = "display: none;">
-        Extendable Duration
+        {{localize "Extendable Duration"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "extendable" {{checked filters.dynamic.extendable.value}}></input>
         </div>
       </div>
       <div class = "max filter-top" style = "display: none;">
-        Talent Max
+        {{localize "ITEM.TalentMax"}}
         <div>
             <select class="dynamic-filter" data-filter = "max">
               <option value=""></option>
@@ -319,13 +319,13 @@
         </div>
       </div>
       <div class = "tests filter-top" style = "display: none;">
-        Talent Tests
+        {{localize "ITEM.TalentTests"}}
         <div>
             <input class="dynamic-filter tests" type="text" data-filter="tests" value="{{filters.dynamic.tests.value}}"/>
         </div>
       </div>
       <div class = "trappingType filter-top" style = "display: none;">
-        Trapping Type
+        {{localize "ITEM.TrappingType"}}
         <div>
             <select class="dynamic-filter" data-filter = "trappingType">
               <option value=""></option>
@@ -338,7 +338,7 @@
         </div>
       </div>
       <div class = "characteristic filter-top" style = "display: none;">
-        Characteristic
+        {{localize "Characteristic"}}
         <div>
             <select class="dynamic-filter" data-filter = "characteristic">
               <option value=""></option>
@@ -351,7 +351,7 @@
         </div>
       </div>
       <div class = "advanced filter-top" style = "display: none;">
-        Advanced/Basic
+        {{localize "Advanced"}}/{{localize "Basic"}}
         <div>
             <select class="dynamic-filter" data-filter = "advanced">
               <option value=""></option>
@@ -364,7 +364,7 @@
         </div>
       </div>
       <div class = "grouped filter-top" style = "display: none;">
-        Is Grouped
+        {{localize "ITEM.IsGrouped"}}
         <div>
             <select class="dynamic-filter" data-filter = "grouped">
               <option value=""></option>
@@ -377,7 +377,7 @@
         </div>
       </div>
       <div class = "lore filter-top" style = "display: none;">
-        Lore
+        {{localize "Lore"}}
         <div>
             <select class="dynamic-filter" data-filter = "lore">
               <option value=""></option>
@@ -390,7 +390,7 @@
         </div>
       </div>
       <div class = "cn filter-top" style = "display: none;">
-        CN
+        {{localize "CN"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "cn">
               <option value=""></option>
@@ -404,13 +404,13 @@
         </div>
       </div>
       <div class = "rollable filter-top" style = "display: none;">
-        Rollable
+        {{localize "Rollable"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "rollable" {{checked filters.dynamic.rollable.value}}></input>
         </div>
       </div>
       <div class = "weaponGroup filter-top" style = "display: none;">
-        Weapon Group
+        {{localize "Weapon Group"}}
         <div>
             <select class="dynamic-filter" data-filter = "weaponGroup">
               <option value=""></option>
@@ -423,7 +423,7 @@
         </div>
       </div>
       <div class = "ammunitionGroup filter-top" style = "display: none;">
-        Ammunition Group
+        {{localize "ITEM.AmmunitionGroup"}}
         <div>
             <select class="dynamic-filter" data-filter = "ammunitionGroup">
               <option value=""></option>
@@ -436,7 +436,7 @@
         </div>
       </div>
       <div class = "reach filter-top" style = "display: none;">
-        Reach
+        {{localize "Reach"}}
         <div>
             <select class="dynamic-filter" data-filter = "reach">
               <option value=""></option>
@@ -449,7 +449,7 @@
         </div>
       </div>
       <div class = "weaponRange filter-top" style = "display: none;">
-        Range
+        {{localize "Range"}}
         <div class = "comparison-filter">
             <select class="dynamic-filter-comparator" data-filter = "weaponRange">
               <option value=""></option>
@@ -463,26 +463,26 @@
         </div>
       </div>
       <div class = "melee filter-top" style = "display: none;">
-        Melee
+        {{localize "Melee"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "melee" {{checked filters.dynamic.melee.value}}></input>
         </div>
       </div>
       <div class = "ranged filter-top" style = "display: none;">
-        Ranged
+        {{localize "Ranged"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "ranged" {{checked filters.dynamic.ranged.value}}></input>
         </div>
       </div>
       <div class = "twohanded filter-top" style = "display: none;">
-        Is Two Handed
+        {{localize "ITEM.TwoHanded"}}
         <div>
             <input class="boolean-filter" type = "checkbox" data-filter = "twohanded" {{checked filters.dynamic.twohanded.value}}></input>
         </div>
       </div>
   </div>
   <div class ="query-results">
-      <h2>Item List</h2>
+      <h2>{{localize "BROWSER.ItemList"}}</h2>
       <ol class = "item-list save-scroll">
         {{#each items as |item i|}}
         <li class = "browser-item" data-item-id = {{item._id}} data-filter-id = {{item.filterId}}>
