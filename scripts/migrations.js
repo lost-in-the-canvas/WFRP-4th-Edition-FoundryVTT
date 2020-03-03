@@ -6,7 +6,7 @@ class Migration
     ui.notifications.notify("Beginning Migration to WFRP4E 1.0")
     for (let i of game.items.entities)
     {
-      await i.update(this.migrateItemData(i.data));
+      await i.update(this.migrateItemData(duplicate(i.data)));
     }
 
     for (let a of game.actors.entities)
