@@ -101,6 +101,7 @@ class BrowserWfrp4e extends Application
     const options = super.defaultOptions;
     options.id = "wfrp4e-browser";
     options.template = "systems/wfrp4e/templates/browser/browser.html"
+    options.classes.push("wfrp4e", "wfrp-browser");
     options.resizable = true;
     options.height = 900;
     options.width = 600;
@@ -109,12 +110,28 @@ class BrowserWfrp4e extends Application
     return options;
   }
 
+  _getHeaderButtons()
+  {
+    let buttons = super._getHeaderButtons();
+    // Add "Post to chat" button
+    if (game.user.isGM)
+    {
+      buttons.push(
+      {
+        class: "import",
+        icon: "fas fa-import",
+        onclick: async ev => this.importResults()
+      })
+    }
+    return buttons
+  }
+
   // Save scroll positions and apply current filter when rendering
   async _render(force = false, options = {}) {
+    await this.loadItems();
     this._saveScrollPos(); // Save scroll positions
     await super._render(force, options);
     this._setScrollPos(); // Save scroll positions
-
     this.applyFilter(this._element)
   }
 
@@ -390,6 +407,7 @@ class BrowserWfrp4e extends Application
       else
         $(element).hide();
     }
+    return filteredItems;
   }
 
   // Determines if dynamic filter options should be shown or not.
@@ -415,6 +433,30 @@ class BrowserWfrp4e extends Application
         $(filter).hide();
       }
     }
+  }
+
+  async importResults()
+  {
+    let filteredItems = this.applyFilter(this._element).filter(i => i.compendium);
+    new Dialog({
+      title : "Import Results",
+      content : `<p>Are you sure you want to import your query result?<br>(${filteredItems.length} items)`,
+      buttons : {
+        yes: 
+        {
+          label: "Yes",
+          callback: async html => {
+            for(let i of filteredItems)
+              await Item.create(i.data, {renderSheet : false});
+          }
+        },
+        cancel: 
+        {
+          label: "Cancel",
+          callback: html => {return}
+        }
+      }
+    }).render(true)
   }
 
 
@@ -534,9 +576,4 @@ Hooks.on("renderCompendiumDirectory", (app, html, data) => {
 Hooks.on('init', () => {
   if (!game.wfrpbrowser)
     game.wfrpbrowser = new BrowserWfrp4e();
-})
-
-Hooks.on('ready', () => {
-  if (game.user.isGM || game.settings.get("wfrp4e", "playerBrowser"))
-    game.wfrpbrowser.loadItems();
 })

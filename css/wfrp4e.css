@@ -15195,6 +15195,7 @@ font-style : normal;
         flex-grow: 2;
       }
 
+      .app.window-app.wfrp-browser .import,
       .app.window-app.sheet.item-sheet .import,
       .app.window-app.sheet.roll-table-config .import,
       .app.window-app.sheet.scene-sheet .import,
@@ -15214,7 +15215,11 @@ font-style : normal;
         overflow: hidden;
         /* background: var(--debug-background-color-blue); */
       }
-      
+      .app.window-app.wfrp-browser .import {
+      top: 8px;
+      right: 31px;
+      }
+
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.item-sheet .import{
         top: 19px;
