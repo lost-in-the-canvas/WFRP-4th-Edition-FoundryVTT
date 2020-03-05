@@ -324,10 +324,9 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.weapon-item-name').click(event => {
     event.preventDefault();
     let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
     let weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     if (weapon)
-      this.actor.setupWeapon(duplicate(weapon), {attackType : attackType});
+      this.actor.setupWeapon(duplicate(weapon));
   })
 
   // Unarmed attack button (fist in the combat tab)
@@ -338,7 +337,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     await pack.getIndex().then(index => weapons = index);
     let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed");
     let unarmed = await pack.getEntity(unarmedId.id);
-    this.actor.setupWeapon(unarmed.data, {attackType : "melee"})
+    this.actor.setupWeapon(unarmed.data)
     // Roll Fist Attack
   })
 
@@ -1384,14 +1383,9 @@ class ActorSheetWfrp4e extends ActorSheet {
         let difficulty = $(ev.currentTarget).attr("data-range")
   
         let itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-        let attackType = $(event.currentTarget).parents(".inventory-list").attr("data-weapon-type");
         let weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
         if (weapon)
-          this.actor.setupWeapon(duplicate(weapon),
-          {
-            attackType: attackType,
-            difficulty: difficulty
-          });
+          this.actor.setupWeapon(duplicate(weapon), {difficulty: difficulty});
       })
   
     }

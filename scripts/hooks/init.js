@@ -106,6 +106,14 @@ Hooks.once("init", () => {
     }
 
   
+    game.settings.register("wfrp4e", "systemMigrationVersion", {
+      name: "System Migration Version",
+      scope: "world",
+      config: false,
+      type: Number,
+      default: 0
+    });
+
     // Register initiative rule
     game.settings.register("wfrp4e", "initiativeRule", {
       name: "SETTINGS.InitRule",
@@ -118,7 +126,7 @@ Hooks.once("init", () => {
         "default": "SETTINGS.InitDefault",
         "sl": "SETTINGS.InitSL",
         "d10Init": "SETTINGS.InitD10",
-        "d10InitAgi": "SETTINGS.D10Agi"
+        "d10InitAgi": "SETTINGS.InitD10Agi"
       },
       onChange: rule => _setWfrp4eInitiative(rule)
     });

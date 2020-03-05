@@ -12,6 +12,7 @@
     "./scripts/opposed-wfrp4e.js",
     "./scripts/char-gen.js",
     "./scripts/name-gen.js",
+    "./scripts/migrations.js",
     "./scripts/wfrp-browser.js",
     "./scripts/actor/actor-wfrp4e.js",
     "./scripts/actor/sheet/actor-sheet.js",

@@ -393,8 +393,7 @@
       "damage": {
         "type": "String",
         "label": "Damage",
-        "meleeValue": "",
-        "rangedValue": ""
+        "value" : ""
       },
       "reach": {
         "type": "String",
@@ -423,7 +422,7 @@
       "weaponGroup": {
         "type": "String",
         "label": "Weapon Group",
-        "value": ""
+        "value": "basic"
       },
       "qualities": {
         "type": "String",

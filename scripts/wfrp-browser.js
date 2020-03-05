@@ -1,34 +1,42 @@
+/** Class for the WFRP4e Item Browser that collects all items in the world and compendia and
+ *  offers functionality to filter through them to search easily. By default, you can filter
+ *  through the name and description, as well as item type. If an item type is selected, more
+ *  filters are shown that only apply to those types (mostly). If you select Weapon - you can
+ *  then select which weapon group, reach, etc. 
+*/
 class BrowserWfrp4e extends Application
 {
   constructor(app)
   {
     super(app)
 
+    // Initializes filters to false
     this.filters = {
       type : {
-        "ammunition" : false,
-        "armour" : false,
-        "career" : false,
-        "container" : false,
-        "critical" : false,
-        "disease" : false,
-        "injury" : false,
-        "money" : false,
-        "mutation" : false,
-        "prayer" : false,
-        "psychology" : false,
-        "talent" : false,
-        "trapping" : false,
-        "skill" : false,
-        "spell" : false,
-        "trait" : false,
-        "weapon" : false
+        "ammunition" : {display: "Ammunition" , value: false},
+        "armour" : {display: "Armour" , value: false},
+        "career" : {display: "Career" , value: false},
+        "container" : {display: "Container" , value: false},
+        "critical" : {display: "Critical" , value: false},
+        "disease" : {display: "Disease" , value: false},
+        "injury" : {display: "Injury" , value: false},
+        "money" : {display: "Money" , value: false},
+        "mutation" : {display: "Mutation" , value: false},
+        "prayer" : {display: "Prayer" , value: false},
+        "psychology" : {display: "Psychology" , value: false},
+        "talent" : {display: "Talent" , value: false},
+        "trapping" : {display: "Trapping" , value: false},
+        "skill" : {display: "Skill" , value: false},
+        "spell" : {display: "Spell" , value: false},
+        "trait" : {display: "Trait" , value: false},
+        "weapon" : {display: "Weapon" , value: false}
       },
       attribute : {
         name : "",
         description: "",
         worldItems : true,
       },
+      // Various type specific filters that are shown based on type selected. 
       dynamic : {
         careergroup : {value : "", exactMatch : true, type : ["career"], show : false},
         class : {value : "", type : ["career"], show : false},
@@ -78,6 +86,7 @@ class BrowserWfrp4e extends Application
       }
     }
 
+    // Different values used to filter. As items are read, different aspects are accumulated, such as lores, which are then selectable to filter by.
     this.careerGroups = [];
     this.careerClasses = [];
     this.gods = [];
@@ -100,6 +109,7 @@ class BrowserWfrp4e extends Application
     return options;
   }
 
+  // Save scroll positions and apply current filter when rendering
   async _render(force = false, options = {}) {
     this._saveScrollPos(); // Save scroll positions
     await super._render(force, options);
@@ -109,6 +119,7 @@ class BrowserWfrp4e extends Application
   }
 
 
+  // Pass filter data to template
   getData() {
     let data = super.getData();
     data.filters = this.filters;
@@ -137,6 +148,41 @@ class BrowserWfrp4e extends Application
     return data;
   }
 
+
+  /**
+   * Goes through each compendium and if it is an Item compendium,
+   * loads the items with addItems(). Then it will add all the world
+   * items.
+   */
+  async loadItems()
+  {
+    this.items = [];
+    this.filterId = 0;
+    for (let p of game.packs)
+    {
+      if (p.metadata.entity == "Item" && (game.user.isGM || p.public))
+      {
+        await p.getContent().then(content => {
+          this.addItems(content)
+        })
+      }
+    }
+    this.items.forEach(i => i.data.compendium = true)
+    this.addItems(game.items.entities.filter(i => i.permission > 1));
+    this.items = this.items.sort((a, b) => (a.data.name.toLowerCase() > b.data.name.toLowerCase()) ? 1 : -1);
+    this.lores.push("None");
+    this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
+    this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
+  }
+
+  /**
+   * addItems is used when loading items upon startup, it looks at each item
+   * and determines if some values need to be recorded. For instance, we want 
+   * to know all the career groups of all the careers being loaded, or all the 
+   * lores of spells. This data is then made available to the user to filter by.
+   * 
+   * @param {Array} itemList List of items to be added
+   */
   addItems(itemList)
   {
     for (let item of itemList)
@@ -176,28 +222,16 @@ class BrowserWfrp4e extends Application
     this.items = this.items.concat(itemList)
   }
 
-  async loadItems()
-  {
-    this.items = [];
-    this.filterId = 0;
-    for (let p of game.packs)
-    {
-      if (p.metadata.entity == "Item" && (game.user.isGM || p.public))
-      {
-        await p.getContent().then(content => {
-          this.addItems(content)
-        })
-      }
-    }
-    this.items.forEach(i => i.data.compendium = true)
-    this.addItems(game.items.entities.filter(i => i.permission > 1));
-    this.items = this.items.sort((a, b) => (a.data.name.toLowerCase() > b.data.name.toLowerCase()) ? 1 : -1);
-    this.lores.push("None");
-    this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
-    this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
-  }
-
-
+  /**
+   * applyFilter is called each time the filter changes to correctly hide or show
+   * different items based on the filter. The most complicated part is the dynamic filters
+   * which is a giant case statement for each filter type. Each dynamic filter applied
+   * will filter out the items that don't meant the criteria, but does not filter 
+   * out items where the filter does not apply. i.e. changing damage does not affect
+   * careers if you have both weapons and careers showing.
+   * 
+   * @param {Object} html html of the item list
+   */
   applyFilter(html)
   {
     let items = this.items
@@ -205,7 +239,7 @@ class BrowserWfrp4e extends Application
     let filteredItems = [];
     for (let filter in this.filters.type)
     {
-      if (this.filters.type[filter])
+      if (this.filters.type[filter].value)
       {
         filteredItems = filteredItems.concat(items.filter(i => i.data.type == filter))
         noItemFilter = false;
@@ -299,10 +333,8 @@ class BrowserWfrp4e extends Application
             break;
 
           case "melee":
-            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.meleeValue))
-            break;
           case "ranged":
-            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.rangedValue))
+            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.value))
             break;
           case "weaponRange":
             filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range.value && !isNaN(i.data.data.range.value) && this.filters.dynamic[filter].relation && eval(`${i.data.data.range.value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))
@@ -347,6 +379,8 @@ class BrowserWfrp4e extends Application
       }
     }
 
+    // Each loaded item has a basic filterId number that is used to determine
+    // if the item should be shown or not.
     this.filterIds = filteredItems.map(i => i.filterId);
     let list = html.find(".browser-item")
     for (let element of list) 
@@ -358,6 +392,8 @@ class BrowserWfrp4e extends Application
     }
   }
 
+  // Determines if dynamic filter options should be shown or not.
+  // ie. Reach should only be shown if filtering by weapons.
   checkDynamicFilters(html)
   {
     for (let dynamicFilter in this.filters.dynamic)
@@ -365,7 +401,7 @@ class BrowserWfrp4e extends Application
       this.filters.dynamic[dynamicFilter].show = false;
       for (let typeFilter of this.filters.dynamic[dynamicFilter].type)
       {
-        if (this.filters.type[typeFilter])
+        if (this.filters.type[typeFilter].value)
           this.filters.dynamic[dynamicFilter].show = true;
       }
 
@@ -382,6 +418,7 @@ class BrowserWfrp4e extends Application
   }
 
 
+  // All the filter responses as well as dragging and dropping items.
   activateListeners(html)
   {
 
@@ -407,7 +444,7 @@ class BrowserWfrp4e extends Application
     })
 
     html.on("click", ".filter", ev => {
-      this.filters.type[$(ev.currentTarget).attr("data-filter")] = $(ev.currentTarget).is(":checked");
+      this.filters.type[$(ev.currentTarget).attr("data-filter")].value = $(ev.currentTarget).is(":checked");
       this.applyFilter(html);
     })
 

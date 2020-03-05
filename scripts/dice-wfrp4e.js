@@ -334,10 +334,7 @@ class DiceWFRP
     if (weapon.properties.qualities.includes("Damaging") && unitValue > Number(testResults.SL))
       damageToUse = unitValue; // If damaging, instead use the unit value if it's higher
 
-    if (testData.extra.attackType == "melee")
-      testResults.damage = eval(weapon.data.damage.meleeValue + damageToUse);
-    if (testData.extra.attackType == "ranged")
-      testResults.damage = eval(weapon.data.damage.rangedValue + damageToUse);
+    testResults.damage = eval(weapon.data.damage.value + damageToUse);
 
     // Add unit die value to damage if impact
     if (weapon.properties.qualities.includes("Impact"))
@@ -346,10 +343,7 @@ class DiceWFRP
     // If Tiring, instead provide both normal damage and increased damage as an option - clickable to select which damage is used
     if (weapon.properties.flaws.includes("Tiring") && (damageToUse != testResults.SL || weapon.properties.qualities.includes("Impact")))
     {
-      if (testData.extra.attackType == "melee")
-        testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.meleeValue + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>`;
-      if (testData.extra.attackType == "ranged")
-        testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.rangedValue + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>`;
+      testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.value + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>`;
     }
 
     return testResults;
