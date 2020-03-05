@@ -15951,3 +15951,7 @@ top: 25px;
     font-family: "Signika", sans-serif !important;
     box-shadow: inset 0px 0px 12px #6b3a0f87 !important;
   }
+
+  .tox .tox-toolbar__group {
+    width: 100%
+  }
