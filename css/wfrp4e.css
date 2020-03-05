@@ -15951,3 +15951,11 @@ top: 25px;
     font-family: "Signika", sans-serif !important;
     box-shadow: inset 0px 0px 12px #6b3a0f87 !important;
   }
+
+.editor-edit {
+  color: #564d3a;
+  /* display: block; */
+  border: 1px solid #564d3a;
+  background: none;
+  box-shadow: 0px 0px 2px inset #000000d1;
+}
