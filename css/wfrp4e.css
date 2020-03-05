@@ -15959,3 +15959,6 @@ top: 25px;
   background: none;
   box-shadow: 0px 0px 2px inset #000000d1;
 }
+  .tox .tox-toolbar__group {
+    width: 100%
+  }
