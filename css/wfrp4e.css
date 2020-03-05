@@ -13297,7 +13297,9 @@ border-image-outset: 0px !important;
   .window-app.dialog.channel-roll-dialog input[name="hitLocation"],
   .window-app.dialog.prayer-roll-dialog input[name="hitLocation"] {
     position: relative;
-    top: 2px;
+    top: 4px;
+    left: 2px;
+    transform: scale(1.0);
   }
   .window-app.dialog.characteristic-roll-dialog .dialog-buttons button,
   .window-app.dialog.skill-roll-dialog .dialog-buttons button,
