@@ -13544,7 +13544,7 @@ border-image-outset: 0px !important;
    {
     flex: 1;
     width: -webkit-fill-available;
-    margin: 0 3px 4px 3px !important;
+    margin: 0 3px 4px 3px;
 
     border: 1px solid black;
     border-image: url(../ui/footer-button.png) 10 repeat;
@@ -15195,6 +15195,7 @@ font-style : normal;
         flex-grow: 2;
       }
 
+      .app.window-app.wfrp-browser .import,
       .app.window-app.sheet.item-sheet .import,
       .app.window-app.sheet.roll-table-config .import,
       .app.window-app.sheet.scene-sheet .import,
@@ -15214,7 +15215,11 @@ font-style : normal;
         overflow: hidden;
         /* background: var(--debug-background-color-blue); */
       }
-      
+      .app.window-app.wfrp-browser .import {
+      top: 8px;
+      right: 31px;
+      }
+
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.item-sheet .import{
         top: 19px;
@@ -15931,3 +15936,27 @@ top: 25px;
     background: #352516;
     height: 300px;
 }
+
+.tox-toolbar-overlord {
+  background: none !important;
+}
+.tox-toolbar__primary {
+  background: none !important;
+}
+  .tox-tinymce .tox-toolbar__group button {
+    background: none !important;
+    border-image: none !important;
+    color: black !important;
+    width: auto !important;
+    opacity: 1;
+    font-size: 12px !important;
+    height: 26px !important;
+    margin: 2px 2px 2px 2px !important;
+    font-style: normal;
+    font-family: "Signika", sans-serif !important;
+    box-shadow: inset 0px 0px 12px #6b3a0f87 !important;
+  }
+
+  .tox .tox-toolbar__group {
+    width: 100%
+  }
