@@ -30,6 +30,7 @@
     "./scripts/hooks/getActorDirectoryEntryContext.js",
     "./scripts/hooks/getCombatTrackerEntryContext.js",
     "./scripts/hooks/getChatLogEntryContext.js",
+    "./scripts/hooks/getSceneControlButtons.js",
     "./scripts/hooks/init.js",
     "./scripts/hooks/ready.js",
     "./scripts/hooks/renderChatLog.js",
