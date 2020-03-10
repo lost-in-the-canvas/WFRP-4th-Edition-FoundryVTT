@@ -1232,11 +1232,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       {
         WFRP_Utility.postProperty(ev.target.text) 
       })
-      // Post a symptom
-      div.on("click", ".symptom-tag", ev =>
-      {
-        WFRP_Utility.postSymptom(ev.target.text)
-      })
   
       // Roll a career income skill
       div.on("click", ".career-income", ev =>
