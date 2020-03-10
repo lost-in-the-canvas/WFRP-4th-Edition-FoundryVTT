@@ -819,7 +819,7 @@ class DiceWFRP
     })
 
     // Respond to editing chat cards - take all inputs and call the same function used with the data filled out
-    html.on('focusout', '.card-edit', ev =>
+    html.on('change focusout', '.card-edit', ev =>
     {
       let button = $(ev.currentTarget),
         messageId = button.parents('.message').attr("data-message-id"),
