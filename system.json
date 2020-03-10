@@ -25,6 +25,7 @@
     "./scripts/hooks/chatMessage.js",
     "./scripts/hooks/createOwnedItem.js",
     "./scripts/hooks/preCreateActor.js",
+    "./scripts/hooks/preCreateOwnedItem.js",
     "./scripts/hooks/renderTokenHUD.js",
     "./scripts/hooks/deleteCombat.js",
     "./scripts/hooks/getActorDirectoryEntryContext.js",

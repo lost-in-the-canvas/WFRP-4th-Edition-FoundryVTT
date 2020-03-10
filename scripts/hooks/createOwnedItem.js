@@ -29,17 +29,6 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
     console.error(game.i18n.localize("Error.CriticalWound") + ": " + error) //continue as normal if exception
   }
 
-    // If not a character and wearable item, set worn to true
-    if (actor.data.type != "character")
-    {
-      if (item.type == "armour")
-        item.worn.value = true;
-      else if (item.type == "weapon")
-        item.equipped = true;
-      else if (item.type == "trapping" && item.trappingType.value == "clothingAccessories")
-        item.worn = true;
-    }
-
     // If talent - see if it's a characteristic increasing talent, if so, apply the bonus.
     if (item.type == "talent")
     {

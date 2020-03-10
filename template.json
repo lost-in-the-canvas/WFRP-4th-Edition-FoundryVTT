@@ -438,7 +438,8 @@
         "type": "String",
         "label": "Special",
         "value": ""
-      }
+      },
+      "equipped": false
     },
     "armour": {
       "templates": ["description", "quantity", "encumbrance", "price", "availability", "location"],      
@@ -557,6 +558,7 @@
         "label": "Trapping Type",
         "value": ""
       },
+      "worn": false,
       "spellIngredient": {
         "type": "String",
         "value": ""
@@ -809,24 +811,6 @@
         "type": "Number",
         "value": 1
       }
-    }
-  },
-  "critical" : {
-    "templates": ["description"],
-    "wounds" :{
-      "label" : "Wounds",
-      "value": "",
-      "type" : "String"
-    },
-    "modifier" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Test Modifier"
-    },
-    "location" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Location"
     }
   }
 }
