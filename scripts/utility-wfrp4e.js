@@ -886,4 +886,13 @@ class WFRP_Utility
     }
   }
 
+  static async toggleMorrslieb()
+  {
+    if (canvas.scene.getFlag("core", "darknessColor") == CONFIG.Canvas.darknessColor)
+      await canvas.scene.setFlag("core", "darknessColor", colorStringToHex("#006633"))
+    else
+      await canvas.scene.setFlag("core", "darknessColor", CONFIG.Canvas.darknessColor)        
+    canvas.draw()
+  }
+
 }

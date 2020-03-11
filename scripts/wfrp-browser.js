@@ -343,15 +343,15 @@ class BrowserWfrp4e extends Application
               filteredItems = filteredItems.filter(i => !i.data.data[filter] || (i.data.data[filter] && this.filters.dynamic[filter].value == (!!i.data.data[filter].value)))
             break;
           case "aoe" :
-              filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.target && this.filters.dynamic[filter].value == i.data.data.target.aoe))
+              filteredItems = filteredItems.filter(i => i.type != "spell" || (i.data.data.target && this.filters.dynamic[filter].value == i.data.data.target.aoe))
             break;
           case "extendable" :
-              filteredItems = filteredItems.filter(i => !i.type == "spell" || (i.data.data.duration && this.filters.dynamic[filter].value == i.data.data.duration.extendable))
+              filteredItems = filteredItems.filter(i => i.type != "spell" || (i.data.data.duration && this.filters.dynamic[filter].value == i.data.data.duration.extendable))
             break;
 
           case "melee":
-          case "ranged":
-            filteredItems = filteredItems.filter(i => !i.type == "weapon" || this.filters.dynamic[filter].value == !!(i.data.data.damage.value))
+            case "ranged":
+            filteredItems = filteredItems.filter(i => i.type != "weapon" || filter == WFRP4E.groupToType[i.data.data.weaponGroup.value])
             break;
           case "weaponRange":
             filteredItems = filteredItems.filter(i => !i.data.data.range || (i.data.data.range.value && !isNaN(i.data.data.range.value) && this.filters.dynamic[filter].relation && eval(`${i.data.data.range.value}${this.filters.dynamic[filter].relation}${this.filters.dynamic[filter].value}`)))

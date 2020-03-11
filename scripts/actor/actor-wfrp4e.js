@@ -924,7 +924,7 @@ class ActorWfrp4e extends Actor {
   setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
-    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + `${game.i18n.localize("Test")} - ` + trait.name;
+    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + ` ${game.i18n.localize("Test")} - ` + trait.name;
     let testData = {
       hitLocation : false,
       extra : { // Store this trait data for later use
