@@ -7,7 +7,7 @@ Hooks.on("getSceneControlButtons", (buttons) => {
       button: true,
       icon : "fas fa-circle",
       name: "morrslieb",
-      title: canvas.scene.data.flags.core.darknessColor != CONFIG.Canvas.darknessColor ? "Morrslieb Darkness Color - Currently On" : "Morrslieb Darkness Color - Currently Off",
+      title: canvas.scene.getFlag("core", "darknessColor") != CONFIG.Canvas.darknessColor ? "Morrslieb Darkness Color - Currently On" : "Morrslieb Darkness Color - Currently Off",
       onClick : WFRP_Utility.toggleMorrslieb
     })
   })

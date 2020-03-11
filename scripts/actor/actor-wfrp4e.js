@@ -3265,5 +3265,6 @@ Hooks.on("preUpdateActor", (data, updatedData) =>{
   if (data.data.token.img == "systems/wfrp4e/tokens/unknown.png" && updatedData.img)
   {
     updatedData["token.img"] = updatedData.img;
+    data.data.token.img = updatedData.img;
   }
 })
