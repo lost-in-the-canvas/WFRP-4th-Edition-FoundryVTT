@@ -15960,3 +15960,66 @@ top: 25px;
   .tox .tox-toolbar__group {
     width: 100%
   }
+
+  .fxmaster.directory-list {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    height: 345px !important
+  }
+
+  #effects-config .window-content {
+    color: #CCC;
+}
+
+#effects-config input[type="checkbox"] {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #cccccc;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 8px inset black;
+  background: #352516;
+  position: relative;
+  top: 2px;
+}
+
+#effects-config input {
+  padding: 1px 3px;
+    margin: 0;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    border: 1px solid #736953a6;
+    border-left: none;
+    box-shadow: 0px 0px 10px inset black;
+    background: #352516;
+}
+
+#effects-config input[type="range"]
+{
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+#effects-config .flex2::-webkit-slider-thumb {
+-webkit-appearance: none;
+border: 1px solid #7d5900;
+height: 11px;
+width: 11px;
+border-radius: 5px;
+background: #212121;
+cursor: pointer;
+margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
+}
+#effects-config .flex2::-webkit-slider-runnable-track {
+background-image: linear-gradient(to right, #820f0f , #82820d);
+}
+
+
