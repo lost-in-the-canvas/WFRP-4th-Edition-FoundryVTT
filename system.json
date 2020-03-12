@@ -21,6 +21,7 @@
     "./scripts/actor/sheet/npc-sheet.js",
     "./scripts/item/item-sheet.js",
     "./scripts/item/item-wfrp4e.js",
+    "./scripts/hooks/canvasReady.js",
     "./scripts/hooks/canvasInit.js",
     "./scripts/hooks/chatMessage.js",
     "./scripts/hooks/createOwnedItem.js",
@@ -39,7 +40,8 @@
     "./scripts/hooks/renderJournalSheet.js",
     "./scripts/hooks/updateCombat.js",
     "./scripts/hooks/createChatMessage.js",
-    "./scripts/hooks/hotbarDrop.js"
+    "./scripts/hooks/hotbarDrop.js",
+    "./libs/pixi-filters.js"
   ],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
@@ -176,6 +178,7 @@
   "secondaryTokenAttribute": "status.advantage",
   "minimumCoreVersion" : "0.4.4",
   "templateVersion":2,
+  "socket": true,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
   "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",
   "url" : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT"

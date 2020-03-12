@@ -333,4 +333,6 @@ Hooks.once("init", () => {
 
     // Load name construction from files
     NameGenWfrp._loadNames();
+    CONFIG.Morrslieb = new PIXI.filters.AdjustmentFilter({green: 0.7137, red: 0.302, blue: 0.2275})
+
   });
