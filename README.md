@@ -29,7 +29,9 @@ Version 1.0 marks, by our estimation, where the system is fully equipped with al
 Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725 if you have any questions or comments.
 
 [1.0 Release Video](https://youtu.be/HMjXCLDDfWE)- Goes through the new features between Beta and 1.0
+
 [Beta Release Video](https://www.youtube.com/watch?v=XMEJt5OB4Bc) - Goes through the NPC/Creature sheet, tables, items, as well as other features
+
 [Alpha Video](https://www.youtube.com/watch?v=-CthIoE9o2E) - Shows off the initial character sheet and some functionality.
 
 ## Modules
