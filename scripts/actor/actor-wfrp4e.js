@@ -1366,7 +1366,7 @@ class ActorWfrp4e extends Actor {
     preparedData.isToken = !!this.token;
 
     // If the max wounds has been changed since the last known value, update the value
-    if (preparedData.data.status.wounds.max != wounds)
+    if (preparedData.data.status.wounds.max != wounds && preparedData.flags.autoCalcWounds)
     {
       this.update({
         "data.status.wounds.max" : wounds,
@@ -2525,11 +2525,11 @@ class ActorWfrp4e extends Actor {
     try // Works for + and -
     {
       ammoDamage = eval(ammoDamage);
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage));
     }
     catch // if *X and /X
     {                                      // eval (5 + "*2") = eval(5*2) = 10
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage)); // Eval throws exception for "/2" for example. 
     }
     
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
