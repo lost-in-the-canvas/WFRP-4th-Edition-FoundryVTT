@@ -15965,14 +15965,26 @@ top: 25px;
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
-    height: 345px !important
   }
 
+
+  #effects-config.app.window-app {
+    height: 480px !important
+  }
+  #filter-config.app.window-app {
+    height: 175px !important
+  }
   #effects-config .window-content {
+  color: #CCC;
+}
+
+  #filter-config .window-content,
+    #effects-config .window-content {
     color: #CCC;
 }
 
-#effects-config input[type="checkbox"] {
+#filter-config input[type="checkbox"],
+  #effects-config input[type="checkbox"] {
   padding: 1px 3px;
   margin: 0;
   font-family: var(--actor-input-font-family);
@@ -15987,7 +15999,8 @@ top: 25px;
   top: 2px;
 }
 
-#effects-config input {
+#filter-config input,
+  #effects-config input {
   padding: 1px 3px;
     margin: 0;
     font-family: var(--actor-input-font-family);
@@ -16000,6 +16013,7 @@ top: 25px;
     background: #352516;
 }
 
+#filter-config input[type="range"],
 #effects-config input[type="range"]
 {
   border: none;
