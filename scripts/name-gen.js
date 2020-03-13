@@ -52,14 +52,159 @@ class NameGenWfrp
     // Female forenames
     fetch("systems/wfrp4e/names/female_human_forenames.txt").then(r => r.text()).then(async nameText =>
     {
-      this.femaleForenames = []
-      nameText.split("\n").forEach((nameGroup) => this.femaleForenames.push(nameGroup.split(",").map(function (item)
+      this.human_female_Forenames = []
+      nameText.split("\n").forEach((nameGroup) => this.human_female_Forenames.push(nameGroup.split(",").map(function (item)
       {
         return item.trim()
       })))
     })
-  }
 
+    // @@@@@@@@@@ DWARF @@@@@@@@@@@@@
+    // male forenames
+    fetch("systems/wfrp4e/names/male_dwarf_forenames.txt").then(r => r.text()).then(async nameText =>
+      {
+        this.dwarf_male_Forenames = []
+        nameText.split("\n").forEach((nameGroup) => this.dwarf_male_Forenames.push(nameGroup.split(",").map(function (item)
+        {
+          return item.trim()
+        })))
+      })
+
+    // Female forenames
+    fetch("systems/wfrp4e/names/female_dwarf_forenames.txt").then(r => r.text()).then(async nameText =>
+      {
+        this.dwarf_female_Forenames = []
+        nameText.split("\n").forEach((nameGroup) => this.dwarf_female_Forenames.push(nameGroup.split(",").map(function (item)
+        {
+          return item.trim()
+        })))
+      })
+
+    // @@@@@@@@@@ ELF @@@@@@@@@@@@@
+        // elf forenames
+        fetch("systems/wfrp4e/names/elf_forenames.txt").then(r => r.text()).then(async nameText =>
+          {
+            this.elf_Forenames = []
+            nameText.split("\n").forEach((nameGroup) => this.elf_Forenames.push(nameGroup.split(",").map(function (item)
+            {
+              return item.trim()
+            })))
+          })
+
+          fetch("systems/wfrp4e/names/elf_surnames.txt").then(r => r.text()).then(async nameText =>
+            {
+              this.elf_surnames = []
+              nameText.split("\n").forEach((nameGroup) => this.elf_surnames.push(nameGroup.split(",").map(function (item)
+              {
+                return item.trim()
+              })))
+            })
+        // elf start
+        fetch("systems/wfrp4e/names/elf_start.txt").then(r => r.text()).then(async nameText =>
+          {
+            this.elf_start = []
+            nameText.split("\n").forEach((nameGroup) => this.elf_start.push(nameGroup.split(",").map(function (item)
+            {
+              return item.trim()
+            })))
+          })
+      
+      // elf connector
+      fetch("systems/wfrp4e/names/elf_connectors.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.elf_connectors = []
+          nameText.split("\n").forEach((nameGroup) => this.elf_connectors.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+
+              // female elf element
+      fetch("systems/wfrp4e/names/male_elf_element.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.elf_male_element = []
+          nameText.split("\n").forEach((nameGroup) => this.elf_male_element.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+
+              // male elf element
+      fetch("systems/wfrp4e/names/female_elf_element.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.elf_female_element = []
+          nameText.split("\n").forEach((nameGroup) => this.elf_female_element.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+        // wood elf end
+      fetch("systems/wfrp4e/names/elf_wood_end.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.elf_wood_end = []
+          nameText.split("\n").forEach((nameGroup) => this.elf_wood_end.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+        // high elf end
+      fetch("systems/wfrp4e/names/elf_high_end.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.elf_high_end = []
+          nameText.split("\n").forEach((nameGroup) => this.elf_high_end.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+
+    // @@@@@@@@@@ Halfling @@@@@@@@@@@@@
+    // Halfling start
+    fetch("systems/wfrp4e/names/halfling_start.txt").then(r => r.text()).then(async nameText =>
+      {
+        this.halfling_start = []
+        nameText.split("\n").forEach((nameGroup) => this.halfling_start.push(nameGroup.split(",").map(function (item)
+        {
+          return item.trim()
+        })))
+      })
+
+    // Male ending
+    fetch("systems/wfrp4e/names/male_halfling_element.txt").then(r => r.text()).then(async nameText =>
+      {
+        this.male_halfling_element = []
+        nameText.split("\n").forEach((nameGroup) => this.male_halfling_element.push(nameGroup.split(",").map(function (item)
+        {
+          return item.trim()
+        })))
+      })
+          // Female ending
+    fetch("systems/wfrp4e/names/female_halfling_element.txt").then(r => r.text()).then(async nameText =>
+      {
+        this.female_halfling_element = []
+        nameText.split("\n").forEach((nameGroup) => this.female_halfling_element.push(nameGroup.split(",").map(function (item)
+        {
+          return item.trim()
+        })))
+      })
+      // Halfling surnames
+      fetch("systems/wfrp4e/names/halfling_surnames.txt").then(r => r.text()).then(async nameText =>
+        {
+          this.halfling_surnames = []
+          nameText.split("\n").forEach((nameGroup) => this.halfling_surnames.push(nameGroup.split(",").map(function (item)
+          {
+            return item.trim()
+          })))
+        })
+        // Halfling nicknames
+        fetch("systems/wfrp4e/names/halfling_nicknames.txt").then(r => r.text()).then(async nameText =>
+          {
+            this.halfling_nicknames = []
+            nameText.split("\n").forEach((nameGroup) => this.halfling_nicknames.push(nameGroup.split(",").map(function (item)
+            {
+              return item.trim()
+            })))
+          })
+    }
   /**
    * Generate a Forename + Surname
    * 
@@ -71,8 +216,6 @@ class NameGenWfrp
     {
       options.species = "human"
     }
-    if (options.species != "human")
-      return ""
     if (options.species)
       options.species = options.species.toLowerCase()
     if (options.gender)
@@ -92,18 +235,75 @@ class NameGenWfrp
   {
     species = species || "human"
     gender = gender || "male"
-    let names = this[`${gender}Forenames`];
-    let size = names.length
-    let roll = new Roll(`1d${size}-1`).roll().total
-    let nameGroup = names[roll]
 
-    let base = nameGroup[0]
-    let option;
-    roll = new Roll(`1d${nameGroup.length}-1`).roll().total
-    if (roll != 0)
-      option = nameGroup[roll].substr(1)
+    if (species == "human" || species == "dwarf")
+    {
+      let names = this[`${species}_${gender}_Forenames`];
+      let size = names.length
+      let roll = new Roll(`1d${size}-1`).roll().total
+      let nameGroup = names[roll]
 
-    return this.evaluateNamePartial(base) + (this.evaluateNamePartial(option || ""));
+      let base = nameGroup[0]
+      let option;
+      roll = new Roll(`1d${nameGroup.length}-1`).roll().total
+      if (roll != 0)
+        option = nameGroup[roll].substr(1)
+
+      return this.evaluateNamePartial(base) + (this.evaluateNamePartial(option || ""));
+    }
+    else if (species.includes("elf"))
+    {
+      let source = (new Roll("1d2").roll().total == 1 ? "forename" : "generate")
+      if (source == "forename")
+      {
+        let names = this[`elf_Forenames`];
+        let size = names.length
+        let roll = new Roll(`1d${size}-1`).roll().total
+        return names[roll][0];
+      }
+      else 
+      {
+        /**
+         * 110
+         * 010
+         * 101
+         * 001
+         */
+        let useConnector = false, useElement = false, useEnd = false;
+
+        switch(new Roll(`1d4`).roll().total)
+        {
+          case 1:
+            useConnector = true;
+            useElement = true;
+            break;
+          case 2:
+            useElement = true;
+            break;
+          case 3:
+            useConnector = true
+            useEnd = true;
+            break;
+          case 4:
+            useEnd = true;
+        }
+
+
+        let start = this.RollArray("elf_start");
+        
+        let connector = useConnector ?  this.RollArray("elf_connectors") : ""
+        let element = useElement ? this.RollArray(`elf_${gender}_element`) : ""
+
+        let elfType =  species.includes("h") ? "high" : "wood"
+        let end = useEnd ?  this.RollArray(`elf_${elfType}_end`) : "";
+        return start + connector + element + end;
+      }
+    }
+    else if (species == "halfling")
+    {
+      let nickname = new Roll("1d2").roll().total == 1 ? `(${this.RollArray("halfling_nicknames")})` : ""
+        return `${this.RollArray("halfling_start")}${this.RollArray(`${gender}_halfling_element`)} ${nickname}`
+    }
   }
 
 
@@ -115,31 +315,55 @@ class NameGenWfrp
    * 
    * @param {Object} options species, gender
    */
-  static generateSurname(options = {species: "human"})
+  static generateSurname(options = {species: "human", gender : "male"})
   {
-
-    if (new Roll("1d2").roll().total == 1) // Don't use prefix - suffix
+    if (options.species == "human")
     {
-      let size = this.surnames.length;
-      let roll = new Roll(`1d${size}-1`).roll().total
-      let nameGroup = this.surnames[roll]
+      if (new Roll("1d2").roll().total == 1) // Don't use prefix - suffix
+      {
+        let size = this.surnames.length;
+        let roll = new Roll(`1d${size}-1`).roll().total
+        let nameGroup = this.surnames[roll]
 
-      let base = nameGroup[0]
-      let option;
-      roll = new Roll(`1d${nameGroup.length}-1`).roll().total
-      if (roll != 0)
-        option = nameGroup[roll].substr(1)
+        let base = nameGroup[0]
+        let option;
+        roll = new Roll(`1d${nameGroup.length}-1`).roll().total
+        if (roll != 0)
+          option = nameGroup[roll].substr(1)
 
-      return this.evaluateNamePartial(base) + (this.evaluateNamePartial(option || ""));
+        return this.evaluateNamePartial(base) + (this.evaluateNamePartial(option || ""));
+      }
+      else // Use prefix and suffix surname
+      {
+        let prefixSize = this.surnamePrefixes.length;
+        let suffixSize = this.surnameSuffixes.length;
+        let prefixChoice = this.surnamePrefixes[new Roll(`1d${prefixSize}-1`).roll().total][0]
+        let suffixChoice = this.surnameSuffixes[new Roll(`1d${suffixSize}-1`).roll().total][0]
+
+        return this.evaluateNamePartial(prefixChoice) + this.evaluateNamePartial(suffixChoice)
+      }
+    } 
+    else if (options.species == "dwarf")
+    {
+      let base = this.generateForename({species: options.species, gender:  options.gender})
+      let suffix = "";
+      if (options.gender == "male")
+      {
+        suffix = (new Roll("1d2").roll().total == 1 ? "snev" : "sson")
+      }
+      else 
+      {
+        suffix = (new Roll("1d2").roll().total == 1 ? "sniz" : "sdottir")
+      }
+      return base+suffix;
     }
-    else // Use prefix and suffix surname
+    else if (options.species.includes("elf"))
     {
-      let prefixSize = this.surnamePrefixes.length;
-      let suffixSize = this.surnameSuffixes.length;
-      let prefixChoice = this.surnamePrefixes[new Roll(`1d${prefixSize}-1`).roll().total][0]
-      let suffixChoice = this.surnameSuffixes[new Roll(`1d${suffixSize}-1`).roll().total][0]
-
-      return this.evaluateNamePartial(prefixChoice) + this.evaluateNamePartial(suffixChoice)
+      return this.RollArray("elf_surnames")
+    }
+    else if (options.species == "halfling")
+    {
+      return this.RollArray("halfling_surnames")
     }
   }
 
@@ -182,5 +406,13 @@ class NameGenWfrp
     let choices = Array.from(choiceString.matchAll(/(\w+)[\/]*/g))
     let choice = new Roll(`1d${choices.length}-1`).roll().total;
     return choices[choice][1]
+  }
+
+  static RollArray(arrayName)
+  {
+    let elements = this[arrayName];
+    let size = elements.length
+    let roll = new Roll(`1d${size}-1`).roll().total
+    return elements[roll][0]
   }
 }

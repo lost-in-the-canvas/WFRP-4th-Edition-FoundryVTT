@@ -106,6 +106,14 @@ Hooks.once("init", () => {
     }
 
   
+    game.settings.register("wfrp4e", "systemMigrationVersion", {
+      name: "System Migration Version",
+      scope: "world",
+      config: false,
+      type: Number,
+      default: 0
+    });
+
     // Register initiative rule
     game.settings.register("wfrp4e", "initiativeRule", {
       name: "SETTINGS.InitRule",
@@ -286,6 +294,16 @@ Hooks.once("init", () => {
         default: false,
         type: Boolean
       });
+
+      game.settings.register("wfrp4e", "playerBrowser", {
+        name: "SETTINGS.PlayerBrowser",
+        hint: "SETTINGS.PlayerBrowserHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+   
   
   
     // Pre-load templates
@@ -315,4 +333,6 @@ Hooks.once("init", () => {
 
     // Load name construction from files
     NameGenWfrp._loadNames();
+    CONFIG.Morrslieb = new PIXI.filters.AdjustmentFilter({green: 0.7137, red: 0.302, blue: 0.2275})
+
   });

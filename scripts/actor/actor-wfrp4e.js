@@ -34,8 +34,7 @@ class ActorWfrp4e extends Actor {
     // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
     if (data.items)
     {
-      super.create(data, options);
-      return
+      return super.create(data, options);
     }
 
     // Initialize empty items
@@ -338,7 +337,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} weapon   The weapon Item being used.
    * @param {bool}   event    The event that called this Test, used to determine if attack is melee or ranged.
    */
-  setupWeapon(weapon, event) {
+  setupWeapon(weapon, event = {}) {
     let skillCharList = []; // This array is for the different options available to roll the test (Skills and characteristics)
     let slBonus = 0   // Used when wielding Defensive weapons
     let modifier = 0; // Used when atatcking with Accurate weapons
@@ -349,27 +348,20 @@ class ActorWfrp4e extends Actor {
     let wep = this.prepareWeaponCombat(duplicate(weapon));
     let ammo; // Ammo object, if needed
 
-    // Use default attack type based on weapon group if event is not available (macros)
-    if (!event)
-    {
-      event = {attackType : WFRP4E.defaultAttackType[weapon.data.weaponGroup.value].toLowerCase()}
-    }
-
     let testData = {
       target : 0,
       hitLocation : true,
       extra : { // Store this extra weapon/ammo data for later use
         weapon : wep,
         ammo : ammo,
-        attackType : event.attackType,
         size : this.data.data.details.size.value
       }
     };
 
-    if (event.attackType == "melee")
+    if (wep.attackType == "melee")
       skillCharList.push("Weapon Skill")
 
-    else if (event.attackType == "ranged")
+    else if (wep.attackType == "ranged")
     {
       // If Ranged, default to Ballistic Skill, but check to see if the actor has the specific skill for the weapon
       skillCharList.push("Ballistic Skill")
@@ -931,7 +923,7 @@ class ActorWfrp4e extends Actor {
   setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
-    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + `${game.i18n.localize("Test")} - ` + trait.name;
+    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + ` ${game.i18n.localize("Test")} - ` + trait.name;
     let testData = {
       hitLocation : false,
       extra : { // Store this trait data for later use
@@ -1374,7 +1366,7 @@ class ActorWfrp4e extends Actor {
     preparedData.isToken = !!this.token;
 
     // If the max wounds has been changed since the last known value, update the value
-    if (preparedData.data.status.wounds.max != wounds)
+    if (preparedData.data.status.wounds.max != wounds && preparedData.flags.autoCalcWounds)
     {
       this.update({
         "data.status.wounds.max" : wounds,
@@ -2329,6 +2321,7 @@ class ActorWfrp4e extends Actor {
     if (!skills) // If a skill list isn't provided, filter all items to find skills
       skills = actorData.items.filter(i => i.type == "skill");
 
+    weapon.attackType = WFRP4E.groupToType[weapon.data.weaponGroup.value]
     weapon.data.reach.value = WFRP4E.weaponReaches[weapon.data.reach.value];
     weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value];
 
@@ -2347,35 +2340,31 @@ class ActorWfrp4e extends Actor {
     weapon.data.range.value = this.calculateRangeOrDamage(weapon.data.range.value);
     
     // Melee Damage calculation
-    if (weapon.data.damage.meleeValue)
+    if (weapon.attackType == "melee")
     {
+      weapon["meleeWeaponType"] = true;
       // Turn melee damage formula into a numeric value (SB + 4 into a number)         Melee damage increase flag comes from Strike Mighty Blow talent
-      weapon.data.damage.meleeValue = this.calculateRangeOrDamage(weapon.data.damage.meleeValue) + (actorData.flags.meleeDamageIncrease || 0);
+      weapon.data.damage.value = this.calculateRangeOrDamage(weapon.data.damage.value) + (actorData.flags.meleeDamageIncrease || 0);
 
       // Very poor wording, but if the weapon has suffered damage (weaponDamage), subtract that amount from meleeValue (melee damage the weapon deals)
       if (weapon.data.weaponDamage)
-        weapon.data.damage.meleeValue -= weapon.data.weaponDamage
+        weapon.data.damage.value -= weapon.data.weaponDamage
       else 
         weapon.data["weaponDamage"] = 0;
     }
     // Ranged Damage calculation
-    if (weapon.data.damage.rangedValue)
+    else 
     {
+      weapon["rangedWeaponType"] = true;
+
       // Turn ranged damage formula into numeric value, same as melee                 Ranged damage increase flag comes from Accurate Shot
-      weapon.data.damage.rangedValue = this.calculateRangeOrDamage(weapon.data.damage.rangedValue) + (actorData.flags.rangedDamageIncrease || 0)
+      weapon.data.damage.value = this.calculateRangeOrDamage(weapon.data.damage.value) + (actorData.flags.rangedDamageIncrease || 0)
       // Very poor wording, but if the weapon has suffered damage (weaponDamage), subtract that amount from rangedValue (ranged damage the weapon deals)
       if (weapon.data.weaponDamage)
-        weapon.data.damage.rangedValue -= weapon.data.weaponDamage
+        weapon.data.damage.value -= weapon.data.weaponDamage
       else 
         weapon.data["weaponDamage"] = 0;
     }
-
-    // rangedWeaponType or meleeWeaponType determines which area the weapon is displayed. 
-    // If the weapon has melee damage values, it should be displayed in the melee weapon section, for example
-    if (Number(weapon.data.range.value) > 0)
-      weapon["rangedWeaponType"] = true;
-    if (weapon.data.reach.value)
-      weapon["meleeWeaponType"] = true;
 
     // If the weapon uses ammo...
     if (weapon.data.ammunitionGroup.value != "none") 
@@ -2536,11 +2525,11 @@ class ActorWfrp4e extends Actor {
     try // Works for + and -
     {
       ammoDamage = eval(ammoDamage);
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage));
     }
     catch // if *X and /X
     {                                      // eval (5 + "*2") = eval(5*2) = 10
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage)); // Eval throws exception for "/2" for example. 
     }
     
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
@@ -3275,5 +3264,6 @@ Hooks.on("preUpdateActor", (data, updatedData) =>{
   if (data.data.token.img == "systems/wfrp4e/tokens/unknown.png" && updatedData.img)
   {
     updatedData["token.img"] = updatedData.img;
+    data.data.token.img = updatedData.img;
   }
 })

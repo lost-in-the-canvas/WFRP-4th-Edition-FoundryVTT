@@ -1,4 +1,8 @@
-Hooks.on("canvasInit", async () => {
+Hooks.on("canvasInit", (canvas) => {
+  
+    canvas.background.filters = [];
+    canvas.tiles.filters = [];
+    canvas.tokens.filters = [];
     /**
      * Double every other diagonal movement
      */
@@ -15,8 +19,7 @@ Hooks.on("canvasInit", async () => {
       let nd10 = Math.floor(nDiagonal / 2);
       let spaces = (nd10 * 2) + (nDiagonal - nd10) + nStraight;
       return spaces * canvas.dimensions.distance;
-  
-  
+    
     }
   });
   

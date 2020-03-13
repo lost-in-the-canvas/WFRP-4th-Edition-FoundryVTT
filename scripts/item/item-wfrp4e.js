@@ -179,10 +179,8 @@ class ItemWfrp4e extends Item
       properties.push(WFRP4E.weaponGroups[data.weaponGroup.value]);
     if (data.range.value)
       properties.push(`${game.i18n.localize("Range")}: ${data.range.value}`);
-    if (data.damage.meleeValue)
-      properties.push(`${game.i18n.localize("ITEM.MeleeDamage")}: ${data.damage.meleeValue}`);
-    if (data.damage.rangedValue)
-      properties.push(`${game.i18n.localize("ITEM.RangedDamage")}: ${data.damage.rangedValue}`);
+    if (data.damage.value)
+      properties.push(`${game.i18n.localize("Damage")}: ${data.damage.value}`);
     for (let prop of WFRP_Utility._prepareQualitiesFlaws(this.data).map(i => i = "<a class ='item-property'>" + i + "</a>"))
       properties.push(prop);
     if (data.twohanded.value)
@@ -459,10 +457,8 @@ class ItemWfrp4e extends Item
       properties.push(`<b>Group</b>: ${WFRP4E.weaponGroups[data.weaponGroup.value]}`);
     if (data.range.value)
       properties.push(`<b>${game.i18n.localize("Range")}</b>: ${data.range.value}`);
-    if (data.damage.meleeValue)
-      properties.push(`<b>${game.i18n.localize("ITEM.MeleeDamage")}</b>: ${data.damage.meleeValue}`);
-    if (data.damage.rangedValue)
-      properties.push(`<b>${game.i18n.localize("ITEM.RangedDamage")}</b>: ${data.damage.rangedValue}`);
+    if (data.damage.value)
+      properties.push(`<b>${game.i18n.localize("Damage")}</b>: ${data.damage.value}`);
     if (data.twohanded.value)
       properties.push(`<b>${game.i18n.localize("ITEM.TwoHanded")}</b>`);
     if (data.reach.value)
