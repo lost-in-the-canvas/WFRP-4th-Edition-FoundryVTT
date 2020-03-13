@@ -42,8 +42,8 @@ class NameGenWfrp
     // Male forenames
     fetch("systems/wfrp4e/names/male_human_forenames.txt").then(r => r.text()).then(async nameText =>
     {
-      this.maleForenames = []
-      nameText.split("\n").forEach((nameGroup) => this.maleForenames.push(nameGroup.split(",").map(function (item)
+      this.human_male_Forenames = []
+      nameText.split("\n").forEach((nameGroup) => this.human_male_Forenames.push(nameGroup.split(",").map(function (item)
       {
         return item.trim()
       })))
