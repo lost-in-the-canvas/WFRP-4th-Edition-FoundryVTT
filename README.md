@@ -2,7 +2,7 @@
 
 Current Version: Beta 0.9.9
 
-Compatibility: Foundry VTT 0.4.5 (0.4.4 will work, but some functionality is broken) 
+Compatibility: Foundry VTT 0.4.7
 
 ![](https://i.imgur.com/esCwB7f.png)
 
