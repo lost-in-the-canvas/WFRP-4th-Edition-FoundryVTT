@@ -64,16 +64,16 @@ Hooks.on("chatMessage", (html, content, msg) => {
     // Character generation
     else if (command[0] == "/char")
     {
-      // Begin character generation, return false to not display user input of `/cond`
+      // Begin character generation, return false to not display user input of `/char`
       GeneratorWfrp4e.speciesStage()
       return false
     }
     // Name generation
     else if (command[0] == "/name")
     {
-      // Possible arguments - [1]: gender, [2]: species
-      let gender = (command[1] || "").toLowerCase()
-      let species = (command[2] || "").toLowerCase();
+      // Possible arguments - [2]: gender, [1]: species
+      let gender = (command[2] || "").toLowerCase()
+      let species = (command[1] || "").toLowerCase();
       // Call generator class to create name, create message, return false to not display user input of `/name`
       let name = NameGenWfrp.generateName({species, gender})
       ChatMessage.create(WFRP_Utility.chatDataSetup(name))

@@ -2,7 +2,7 @@
   "name": "wfrp4e",
   "title": "Warhammer Fantasy Roleplay 4th Edition",
   "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Roleplay in the Foundry VTT environment.",
-  "version": "0.9.9",
+  "version": "1.0.0",
   "author": "CatoThe1stElder, Moo Man",
   "scripts": [
     "./scripts/config-wfrp4e.js",
@@ -21,15 +21,18 @@
     "./scripts/actor/sheet/npc-sheet.js",
     "./scripts/item/item-sheet.js",
     "./scripts/item/item-wfrp4e.js",
+    "./scripts/hooks/canvasReady.js",
     "./scripts/hooks/canvasInit.js",
     "./scripts/hooks/chatMessage.js",
     "./scripts/hooks/createOwnedItem.js",
     "./scripts/hooks/preCreateActor.js",
+    "./scripts/hooks/preCreateOwnedItem.js",
     "./scripts/hooks/renderTokenHUD.js",
     "./scripts/hooks/deleteCombat.js",
     "./scripts/hooks/getActorDirectoryEntryContext.js",
     "./scripts/hooks/getCombatTrackerEntryContext.js",
     "./scripts/hooks/getChatLogEntryContext.js",
+    "./scripts/hooks/getSceneControlButtons.js",
     "./scripts/hooks/init.js",
     "./scripts/hooks/ready.js",
     "./scripts/hooks/renderChatLog.js",
@@ -37,7 +40,8 @@
     "./scripts/hooks/renderJournalSheet.js",
     "./scripts/hooks/updateCombat.js",
     "./scripts/hooks/createChatMessage.js",
-    "./scripts/hooks/hotbarDrop.js"
+    "./scripts/hooks/hotbarDrop.js",
+    "./libs/pixi-filters.js"
   ],
   "styles": ["./css/wfrp4e.css"],
   "packs": [
@@ -172,8 +176,9 @@
   "gridUnits": "yd",
   "primaryTokenAttribute": "status.wounds",
   "secondaryTokenAttribute": "status.advantage",
-  "minimumCoreVersion" : "0.4.7",
+  "minimumCoreVersion" : "0.5.1",
   "templateVersion":2,
+  "socket": true,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
   "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",
   "url" : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT"
