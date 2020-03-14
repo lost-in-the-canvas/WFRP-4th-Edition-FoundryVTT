@@ -1,8 +1,11 @@
 Hooks.on("canvasInit", (canvas) => {
   
-    canvas.background.filters = [];
-    canvas.tiles.filters = [];
-    canvas.tokens.filters = [];
+    if (!game.modules.find(m => m.id ==  "fxmaster" && m.active))
+    {
+      canvas.background.filters = [];
+      canvas.tiles.filters = [];
+      canvas.tokens.filters = [];
+    }
     /**
      * Double every other diagonal movement
      */
