@@ -717,6 +717,8 @@ class WFRP_Utility
   static handleTableClick(event)
   {
     // Sin from wrath of the gods if available
+    if (event.target.text)
+      event.target.text = event.target.text.trim();
     let sin = Number($(event.currentTarget).attr("data-sin"));
     let modifier = sin * 10 || 0;
     let html;
