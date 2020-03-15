@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.0.0
+Current Version: 1.0.1 - Adds compatibility with Morrslieb and FX Master
 
 Compatibility: Foundry VTT 0.5.1 
 
