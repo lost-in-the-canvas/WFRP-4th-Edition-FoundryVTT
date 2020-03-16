@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.0.2 - Adds compatibility with Morrslieb and FX Master, fixes Critical Cast button
+Current Version: 1.0.3 - Remove blank option for weapon group
 
 Compatibility: Foundry VTT 0.5.1 
 

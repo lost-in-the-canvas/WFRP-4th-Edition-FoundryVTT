@@ -2323,7 +2323,7 @@ class ActorWfrp4e extends Actor {
 
     weapon.attackType = WFRP4E.groupToType[weapon.data.weaponGroup.value]
     weapon.data.reach.value = WFRP4E.weaponReaches[weapon.data.reach.value];
-    weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value];
+    weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value] || "basic";
 
     // Attach the available skills to use to the weapon.
     weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase()))
