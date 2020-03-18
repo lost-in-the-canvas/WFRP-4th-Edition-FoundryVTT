@@ -182,16 +182,21 @@ class ActorWfrp4e extends Actor {
    * @param {String} characteristicId     The characteristic id (e.g. "ws") - id's can be found in config.js
    *
    */
-  setupCharacteristic(characteristicId) {
+  setupCharacteristic(characteristicId, options = {}) {
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " " + game.i18n.localize("Test");
+
     let testData = {
       target : char.value,
       hitLocation : false,
       extra : {
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
+
+    if (options.rest)
+      testData.extra.options["tb"] = char.bonus;
 
     // Default a WS or BS test to have hit location checked
     if (characteristicId == "ws" || characteristicId == "bs")
@@ -205,7 +210,8 @@ class ActorWfrp4e extends Actor {
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
-        advantage : this.data.data.status.advantage.value || 0
+        advantage : this.data.data.status.advantage.value || 0,
+        testDifficulty : options.rest ? "average" : "challenging"
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information

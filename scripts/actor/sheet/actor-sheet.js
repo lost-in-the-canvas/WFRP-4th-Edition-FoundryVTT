@@ -350,6 +350,28 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Roll Fist Attack
   })
 
+    // Dodge (Arrow in the combat tab)
+    html.find('.dodge-icon').click(async event => {
+      let skill = this.actor.items.find(s => s.data.name == "Dodge" && s.type == "skill")
+      this.actor.setupSkill(skill.data)
+    })
+
+    // Dodge (Arrow in the combat tab)
+    html.find('.improvised-icon').click(async event => {
+      event.preventDefault();
+      let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
+      let weapons;
+      await pack.getIndex().then(index => weapons = index);
+      let improvId = weapons.find(w => w.name.toLowerCase() == "improvised weapon");
+      let improv = await pack.getEntity(improvId.id);
+      this.actor.setupWeapon(improv.data)
+    })
+
+    // Dodge (Arrow in the combat tab)
+    html.find('.rest-icon').click(async event => {
+      this.actor.setupCharacteristic("t", {rest: true})
+    })
+
   // Roll a trait (right click to show dropdown description)
   html.find('.trait-roll').mousedown(event => {
     event.preventDefault();
