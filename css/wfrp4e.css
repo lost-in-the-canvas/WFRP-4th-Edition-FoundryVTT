@@ -5145,7 +5145,7 @@
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor .rest-icon,
-      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .combat-icon,
+      .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon {
         opacity: 0.8;
         position: relative;
@@ -5168,8 +5168,7 @@
         left: 5px;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
-    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .combat-icon > *,
-    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .combat-icon > *,
+    .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *{
           content: "\f6de";

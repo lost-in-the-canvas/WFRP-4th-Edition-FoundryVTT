@@ -353,7 +353,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Dodge (Arrow in the combat tab)
     html.find('.dodge-icon').click(async event => {
       let skill = this.actor.items.find(s => s.data.name == "Dodge" && s.type == "skill")
-      this.actor.setupSkill(skill.data)
+      if (skill)
+        this.actor.setupSkill(skill.data)
+      else 
+        this.actor.setupCharacteristic("ag");
     })
 
     // Dodge (Arrow in the combat tab)

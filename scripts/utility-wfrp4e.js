@@ -359,7 +359,7 @@ class WFRP_Utility
    */
   static _calculateAdvCost(currentAdvances, type)
   {
-    let index = Math.ceil((currentAdvances / 5) - 1);
+    let index = Math.floor(currentAdvances / 5);
     index = index < 0 ? 0 : index; // min 0
 
     if (index >= WFRP4E.xpCost[type].length)
