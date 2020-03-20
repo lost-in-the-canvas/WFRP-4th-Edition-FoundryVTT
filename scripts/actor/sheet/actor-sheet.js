@@ -370,7 +370,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       this.actor.setupWeapon(improv.data)
     })
 
-    // Dodge (Arrow in the combat tab)
+    // Stomp (Creature)
+    html.find('.stomp-icon').click(async event => {
+      event.preventDefault();
+      let pack = game.packs.find(p => p.collection == "wfrp4e.traits");
+      let traits;
+      await pack.getIndex().then(index => traits = index);
+      let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
+      let stomp = await pack.getEntity(stompId.id);
+      stomp.data.name = "Stomp"
+      stomp.data.data.specification.value = 0;
+      this.actor.setupTrait(stomp.data)
+    })
+
+    // Rest
     html.find('.rest-icon').click(async event => {
       this.actor.setupCharacteristic("t", {rest: true})
     })
@@ -457,6 +470,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Click on the AP total in the combat tab - damage AP by one, prioritizing Armour trait over Armour Items
   html.find(".armour-total").mousedown(ev => {
     let location = $(ev.currentTarget).closest(".column").find(".armour-box").attr("data-location")
+    if (!location) location = $(ev.currentTarget).closest(".column").attr("data-location");
     if (!location) return;
     let armourTrait = this.actor.items.find(i => (i.data.name.toLowerCase() == "armour" || i.data.name.toLowerCase() == "armor") && i.data.type == "trait")
     if (armourTrait)
