@@ -280,8 +280,7 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
-        advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : income ? "average" : "challenging" // Default to average if using income
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -463,7 +462,6 @@ class ActorWfrp4e extends Actor {
         successBonus : successBonus || 0,
         modifier : modifier || 0,
         defaultSelection : defaultSelection,
-        testDifficulty : event.difficulty,
         advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {

@@ -26,18 +26,25 @@ class DiceWFRP
   })
   {
     let rollMode = game.settings.get("core", "rollMode");
+    
+    // Determine whether an active combat is in progress to set default Difficulty for tests
+    var sceneStress;
+    if (game.combat != null)
+      sceneStress = game.combat.started ? "challenging" : "average"
+    else 
+      sceneStress = "average";
 
     // Merge input with generic properties constant between all tests
     mergeObject(testData,
     {
-      testDifficulty: "challenging",
+      testDifficulty: "average",
       testModifier: 0,
       slBonus: 0,
       successBonus: 0,
     });
     mergeObject(dialogOptions.data,
     {
-      testDifficulty: dialogOptions.data.testDifficulty || "challenging",
+      testDifficulty: dialogOptions.data.testDifficulty || sceneStress,
       difficultyLabels: WFRP4E.difficultyLabels,
       testModifier: (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
       slBonus: dialogOptions.data.slBonus || 0,
