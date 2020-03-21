@@ -723,7 +723,24 @@ class ActorWfrp4e extends Actor {
 
     // Find the spell lore, and use that to determine the default channelling selection
     let spellLore = spell.data.lore.value;
-    let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
+    let defaultSelection 
+    if (spell.data.wind && spell.data.wind.value)
+    {
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(spell.data.wind.value)))
+      if (defaultSelection == -1)
+      {
+        let customChannellSkill = this.items.find(i => i.name.toLowerCase().includes(spell.data.wind.value.toLowerCase()) && i.type == "skill");
+        if (customChannellSkill)
+        {
+          channellSkills.push(customChannellSkill)
+          defaultSelection =  channellSkills.length-1
+        }
+      }
+    }
+    else
+    {
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
+    }
 
     if (spellLore == "witchcraft")
       defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
