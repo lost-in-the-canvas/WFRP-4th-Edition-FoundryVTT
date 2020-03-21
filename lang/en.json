@@ -530,7 +530,8 @@
     "Wounds Healed" : "Wounds Healed",
     "ITEM.LoreEffectPlaceholder" : "Override default Lore Effect",
     "ITEM.ChannelOverride" : "Channel Override",
-    "ITEM.ChannelPlaceholder" : "Override default Channelling skill to use."
+    "ITEM.ChannelPlaceholder" : "Override default Channelling skill to use.",
+    "ITEM.DefaultDifficulty" : "Default Difficulty."
 
 
 }

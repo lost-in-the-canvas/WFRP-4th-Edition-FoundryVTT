@@ -969,7 +969,8 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : trait.data.rollable.rollCharacteristic,
-        advantage : this.data.data.status.advantage.value || 0
+        advantage : this.data.data.status.advantage.value || 0,
+        testDifficulty : trait.data.rollable.defaultDifficulty || "challenging"
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
