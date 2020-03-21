@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.0.3 - Remove blank option for weapon group
+Current Version: 1.0.4 - Tokenizer and Token Mold compatibility
 
 Compatibility: Foundry VTT 0.5.1 
 
