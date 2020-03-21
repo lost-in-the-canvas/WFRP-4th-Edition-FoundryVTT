@@ -1,2 +1,6 @@
-equipment ~ Brown Border/Brown Background
-
+careers ~ Red Border/Blue Background
+trappings ~ Green Border/Brown Background
+prayers ~ White Border
+skills ~ Yellow Border
+talents ~ Blue Border
+trats ~ Blue Border

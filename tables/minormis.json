@@ -6,7 +6,7 @@
     "range": [1, 5]
   }, {
     "name": "Soured Milk",
-    "description": "All milk within 1d100 yards goes sour instantly.",
+    "description": "All milk within @Roll[1d100] yards goes sour instantly.",
     "range": [6, 10]
   }, {
     "name": "Blight",
@@ -42,11 +42,11 @@
     "range": [46, 50]
   }, {
     "name": "Curse of Temperence",
-    "description": "All alcohol within 1d100 yards goes bad, tasting bitter and foul.",
+    "description": "All alcohol within @Roll[1d100] yards goes bad, tasting bitter and foul.",
     "range": [51, 55]
   }, {
     "name": "Souldrain",
-    "description": "Gain 1 Fatigued Condition, which remains for 1d10 hours.",
+    "description": "Gain 1 Fatigued Condition, which remains for @Roll[1d10] hours.",
     "range": [56, 60]
   }, {
     "name": "Driven to Distraction",
@@ -58,7 +58,7 @@
     "range": [66, 70]
   }, {
     "name": "Cloying Tongue",
-    "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for 1d10 Rounds.",
+    "description": "All Language Tests (including Casting Tests) suffer a -10 penalty for @Roll[1d10] Rounds.",
     "range": [71, 75]
   }, {
     "name": "The Horror!",
@@ -70,7 +70,7 @@
     "range": [81, 85]
   }, {
     "name": "Double Trouble",
-    "description": "The effect of the spell you cast occurs elsewhere within 1d10 miles. At the GM's discretion, where possible it should have consequences.",
+    "description": "The effect of the spell you cast occurs elsewhere within @Roll[1d10] miles. At the GM's discretion, where possible it should have consequences.",
     "range": [86, 90]
   }, {
     "name": "Multiplying Misfortune",

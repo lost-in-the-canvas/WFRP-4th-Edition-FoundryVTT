@@ -1,8 +1,8 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: Beta 0.9.9
+Current Version: 1.0.4 - Tokenizer and Token Mold compatibility
 
-Compatibility: Foundry VTT 0.4.7
+Compatibility: Foundry VTT 0.5.1 
 
 ![](https://i.imgur.com/esCwB7f.png)
 
@@ -24,11 +24,15 @@ Launch FVTT and create your new world, selecting the Warhammer system.
 
 ## Current State
 
-This beta release marks the system being entirely playable, with character, NPC, and creature sheets available. Enjoy! Feedback is very much welcome.
+Version 1.0 marks, by our estimation, where the system is fully equipped with all the necessary features as well as the bells and whistles that should provide a very smooth experience when playing Warhammer Fantasy 4th Edition.
 
-If you don't have Foundry, you can check out a video walkthrough of the character sheet [here](https://www.youtube.com/watch?v=-CthIoE9o2E). Additionally, check out the beta walkthrough video [here](https://www.youtube.com/watch?v=XMEJt5OB4Bc) which details much of the system's functionality.  
+Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725 if you have any questions or comments.
 
-If you have any questions, feel free to message us on Discord, Moo Man#7518 or CatoThe1stElder#9725
+[1.0 Release Video](https://youtu.be/HMjXCLDDfWE)- Goes through the new features between Beta and 1.0
+
+[Beta Release Video](https://www.youtube.com/watch?v=XMEJt5OB4Bc) - Goes through the NPC/Creature sheet, tables, items, as well as other features
+
+[Alpha Video](https://www.youtube.com/watch?v=-CthIoE9o2E) - Shows off the initial character sheet and some functionality.
 
 ## Modules
 

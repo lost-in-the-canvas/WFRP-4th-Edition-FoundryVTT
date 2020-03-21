@@ -393,8 +393,7 @@
       "damage": {
         "type": "String",
         "label": "Damage",
-        "meleeValue": "",
-        "rangedValue": ""
+        "value" : ""
       },
       "reach": {
         "type": "String",
@@ -423,7 +422,7 @@
       "weaponGroup": {
         "type": "String",
         "label": "Weapon Group",
-        "value": ""
+        "value": "basic"
       },
       "qualities": {
         "type": "String",
@@ -439,7 +438,8 @@
         "type": "String",
         "label": "Special",
         "value": ""
-      }
+      },
+      "equipped": false
     },
     "armour": {
       "templates": ["description", "quantity", "encumbrance", "price", "availability", "location"],      
@@ -558,6 +558,7 @@
         "label": "Trapping Type",
         "value": ""
       },
+      "worn": false,
       "spellIngredient": {
         "type": "String",
         "value": ""
@@ -810,24 +811,6 @@
         "type": "Number",
         "value": 1
       }
-    }
-  },
-  "critical" : {
-    "templates": ["description"],
-    "wounds" :{
-      "label" : "Wounds",
-      "value": "",
-      "type" : "String"
-    },
-    "modifier" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Test Modifier"
-    },
-    "location" : {
-      "value" : "",
-      "type" : "String",
-      "label" : "Location"
     }
   }
 }

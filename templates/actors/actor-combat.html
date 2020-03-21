@@ -23,7 +23,7 @@
         <a class="name weapon-item-name">{{item.name}}</a>
       </div>
       <a class="group weapon-group">{{item.data.weaponGroup.value}}</a>
-      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.meleeValue}}</a>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.value}}</a>
       <a class="reach weapon-reach">{{item.data.reach.value}}</a>
     </div>
     <div class="content">
@@ -91,7 +91,7 @@
         {{localize "None"}}
       </div>
       {{/if}}
-      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.rangedValue}}</a>
+      <a class="damage weapon-damage" title="Damage to Weapon: {{item.data.weaponDamage}}">+{{item.data.damage.value}}</a>
       <a class="range weapon-range">{{item.data.range.value}} yds</a>
     </div>
     <div class="content">
@@ -454,7 +454,11 @@
 <div class="inventory-header item injury-header">
   <a class="name">{{localize "Injury"}}</a>
   <a class="location">{{localize "Location"}}</a>
+  {{#if owner}}
   <div class="item-controls">
+    {{else}}
+    <div class="item-controls" style = "visibility : hidden;">
+    {{/if}}
     <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="injury"><i class="fas fa-plus"></i></a>
   </div>
 </div>
@@ -474,12 +478,14 @@
 
       {{#if ../owner}}
       <div class="item-controls">
+      {{else}}
+      <div class="item-controls" style = "visibility : hidden;">
+      {{/if}}
         <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
         <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
-      {{/if}}
   </li>
   {{/each}}
 </ol>
@@ -487,7 +493,11 @@
 <div class="inventory-header item critical-header">
   <a class="name">{{localize "Critical"}}</a>
   <a class="location">{{localize "Location"}}</a>
+  {{#if owner}}
   <div class="item-controls">
+    {{else}}
+    <div class="item-controls" style = "visibility : hidden;">
+    {{/if}}
     <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="critical"><i class="fas fa-plus"></i></a>
   </div>
 </div>
@@ -507,12 +517,14 @@
 
       {{#if ../owner}}
       <div class="item-controls">
+        {{else}}
+        <div class="item-controls" style = "visibility : hidden;">
+        {{/if}}
         <a class="item-post" title="{{localize 'SHEET.PostItem'}}"><i class="fas fa-comment"></i></a>
         <a class="item-control item-edit" title="{{localize 'SHEET.EditItem'}}"><i class="fas fa-edit"></i></a>
         <a class="item-dropdown" title="{{localize 'SHEET.Dropdown'}}"><i class="fas fa-chevron-down"></i></a>
         <a class="item-control item-delete" title="{{localize 'SHEET.DeleteItem'}}"><i class="fas fa-trash"></i></a>
       </div>
-      {{/if}}
   </li>
   {{/each}}
 </ol>
