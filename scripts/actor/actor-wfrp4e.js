@@ -271,6 +271,7 @@ class ActorWfrp4e extends Actor {
     }
 
     // Setup dialog data: title, template, buttons, prefilled data
+   
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
