@@ -26,30 +26,24 @@ class DiceWFRP
   })
   {
     let rollMode = game.settings.get("core", "rollMode");
-    
-    var defaultTestDifficulty;
-    defaultTestDifficulty = game.settings.get("wfrp4e", "testDefaultDifficulty")
 
-    var sceneStress;
-    // Check and set default test setting
-    if (defaultTestDifficulty == "average")
-      // Determine whether an active combat is in progress to set default Difficulty for tests
-      if (game.combat != null)
-        sceneStress = game.combat.started ? "challenging" : "average"
-      else 
-        sceneStress = "average";
-    else  
-      sceneStress = defaultTestDifficulty;
-        
+    var sceneStress = "challenging";
+    // Overrides default difficulty to Average depending on module setting and combat state
+    if (game.settings.get("wfrp4e", "testDefaultDifficulty") && (game.combat != null))
+      sceneStress = game.combat.started ? "challenging" : "average";
+    else if (game.settings.get("wfrp4e", "testDefaultDifficulty"))
+      sceneStress = "average";
+      
     // Merge input with generic properties constant between all tests
     mergeObject(testData,
     {
-      testDifficulty: defaultTestDifficulty,
+      testDifficulty: sceneStress,
       testModifier: 0,
       slBonus: 0,
       successBonus: 0,
     });
 
+    // Sets/overrides default test diffficulty to Average if Income test
     sceneStress = testData.income ? "average" : sceneStress;
 
     mergeObject(dialogOptions.data,

@@ -230,13 +230,8 @@ Hooks.once("init", () => {
         hint: "SETTINGS.TestDialogDefaultDifficultyHint",
         scope: "world",
         config: true,
-        default: "challenging",
-        type: String,
-        choices: {
-          "average" : "SETTINGS.TestDialogDefaultDifficultyAverage",
-          "challenging" : "SETTINGS.TestDialogDefaultDifficultyChallenging"
-        }
-        // type: Boolean
+        default: false,
+        type: Boolean
       });
   
       // Register NPC Species Randomization
