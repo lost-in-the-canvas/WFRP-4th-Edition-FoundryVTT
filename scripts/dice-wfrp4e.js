@@ -239,13 +239,16 @@ class DiceWFRP
     mergeObject(rollResults, testData.extra)
 
 
+    if (rollResults.options && rollResults.options.rest)
+    {
+      rollResults.woundsHealed = parseInt(SL) + rollResults.options.tb;
+      rollResults.other = `${rollResults.woundsHealed} ${game.i18n.localize("Wounds Healed")}`
+    }
+
     if (testData.hitLocation)
     {
       if (testData.hitloc)
-        rollResults.hitloc = WFRP_Tables.rollTable("hitloc",
-        {
-          lookup: testData.hitloc
-        });
+        rollResults.hitloc = WFRP_Tables.rollTable("hitloc",{lookup: testData.hitloc});
       else
         rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
 

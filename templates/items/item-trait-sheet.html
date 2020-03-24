@@ -54,6 +54,18 @@
         {{/select}}
       </select>
     </div>
+
+    
+    <div class="form-group">
+      <label class="label-text">{{localize "ITEM.DefaultDifficulty"}}</label>
+      <select name="data.rollable.defaultDifficulty" data-dtype="String">
+        {{#select data.rollable.defaultDifficulty}}
+        {{#each difficultyLabels as |difficultyLabel difficultyKey|}}
+        <option value="{{difficultyKey}}">{{difficultyLabel}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
     {{/if}}
 
     <div class="form-group">
@@ -63,6 +75,7 @@
           data-dtype="{{data.specification.type}}" />
       </div>
     </div>
+
   </div>
 </form>
 
