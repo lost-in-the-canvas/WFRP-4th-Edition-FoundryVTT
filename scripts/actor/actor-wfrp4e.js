@@ -34,8 +34,7 @@ class ActorWfrp4e extends Actor {
     // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
     if (data.items)
     {
-      super.create(data, options);
-      return
+      return super.create(data, options);
     }
 
     // Initialize empty items
@@ -924,7 +923,7 @@ class ActorWfrp4e extends Actor {
   setupTrait(trait) {
     if (!trait.data.rollable.value)
       return;
-    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + `${game.i18n.localize("Test")} - ` + trait.name;
+    let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + ` ${game.i18n.localize("Test")} - ` + trait.name;
     let testData = {
       hitLocation : false,
       extra : { // Store this trait data for later use
@@ -1367,7 +1366,7 @@ class ActorWfrp4e extends Actor {
     preparedData.isToken = !!this.token;
 
     // If the max wounds has been changed since the last known value, update the value
-    if (preparedData.data.status.wounds.max != wounds)
+    if (preparedData.data.status.wounds.max != wounds && preparedData.flags.autoCalcWounds)
     {
       this.update({
         "data.status.wounds.max" : wounds,
@@ -2526,11 +2525,11 @@ class ActorWfrp4e extends Actor {
     try // Works for + and -
     {
       ammoDamage = eval(ammoDamage);
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage));
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage));
     }
     catch // if *X and /X
     {                                      // eval (5 + "*2") = eval(5*2) = 10
-      weapon.data.damage.rangedValue = Math.floor(eval(weapon.data.damage.rangedValue + ammoDamage)); // Eval throws exception for "/2" for example. 
+      weapon.data.damage.value = Math.floor(eval(weapon.data.damage.value + ammoDamage)); // Eval throws exception for "/2" for example. 
     }
     
     // The following code finds qualities or flaws of the ammo that add to the weapon's qualities
@@ -3265,5 +3264,6 @@ Hooks.on("preUpdateActor", (data, updatedData) =>{
   if (data.data.token.img == "systems/wfrp4e/tokens/unknown.png" && updatedData.img)
   {
     updatedData["token.img"] = updatedData.img;
+    data.data.token.img = updatedData.img;
   }
 })

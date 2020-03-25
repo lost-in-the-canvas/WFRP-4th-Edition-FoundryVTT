@@ -8,19 +8,19 @@ Hooks.on("renderJournalSheet", (obj, html, data) => {
     $(html).find(".share-image").attr("title", "Show Image");
 
     // ---- Listen for custom entity links -----
-    html.on("click", ".chat-roll", ev => {
+    html.find(".chat-roll").click(ev => {
       WFRP_Utility.handleRollClick(ev)
     })
 
-    html.on("click", ".symptom-tag", ev => {
+    html.find(".symptom-tag").click(ev => {
       WFRP_Utility.handleSymptomClick(ev)
     })
 
-    html.on("click", ".condition-chat", ev => {
+    html.find(".condition-chat").click(ev => {
       WFRP_Utility.handleConditionClick(ev)
     })
 
-    html.on('mousedown', '.table-click', ev => {
+    html.find('.table-click').mousedown(ev => {
       WFRP_Utility.handleTableClick(ev)
     })
   })

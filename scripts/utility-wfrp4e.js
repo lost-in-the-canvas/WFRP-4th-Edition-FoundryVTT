@@ -886,4 +886,17 @@ class WFRP_Utility
     }
   }
 
+  static async toggleMorrslieb()
+  {
+    if (game.modules.find(m => m.id ==  "fxmaster" && m.active))
+    {
+      ui.notifications.notify("Morrslieb not available with FX-Master installed. Use the module's color filter")
+      return;
+    }
+    let morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
+    await canvas.scene.setFlag("wfrp4e", "morrslieb", !morrsliebActive)
+    game.socket.emit("system.wfrp4e", {})
+    canvas.draw();
+  }
+
 }

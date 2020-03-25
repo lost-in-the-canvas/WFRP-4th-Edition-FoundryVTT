@@ -15221,6 +15221,7 @@ font-style : normal;
         flex-grow: 2;
       }
 
+      .app.window-app.wfrp-browser .import,
       .app.window-app.sheet.item-sheet .import,
       .app.window-app.sheet.roll-table-config .import,
       .app.window-app.sheet.scene-sheet .import,
@@ -15240,7 +15241,11 @@ font-style : normal;
         overflow: hidden;
         /* background: var(--debug-background-color-blue); */
       }
-      
+      .app.window-app.wfrp-browser .import {
+      top: 8px;
+      right: 31px;
+      }
+
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.item-sheet .import{
         top: 19px;
@@ -16084,3 +16089,79 @@ our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
     font-size: 12px;
     color: #690469;
   }
+  .fxmaster.directory-list {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+  }
+
+
+  #effects-config.app.window-app {
+    height: 480px !important
+  }
+  #filter-config.app.window-app {
+    height: 175px !important
+  }
+  #effects-config .window-content {
+  color: #CCC;
+}
+
+  #filter-config .window-content,
+    #effects-config .window-content {
+    color: #CCC;
+}
+
+#filter-config input[type="checkbox"],
+  #effects-config input[type="checkbox"] {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #cccccc;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 8px inset black;
+  background: #352516;
+  position: relative;
+  top: 2px;
+}
+
+#filter-config input,
+  #effects-config input {
+  padding: 1px 3px;
+    margin: 0;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    border: 1px solid #736953a6;
+    border-left: none;
+    box-shadow: 0px 0px 10px inset black;
+    background: #352516;
+}
+
+#filter-config input[type="range"],
+#effects-config input[type="range"]
+{
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+#effects-config .flex2::-webkit-slider-thumb {
+-webkit-appearance: none;
+border: 1px solid #7d5900;
+height: 11px;
+width: 11px;
+border-radius: 5px;
+background: #212121;
+cursor: pointer;
+margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
+}
+#effects-config .flex2::-webkit-slider-runnable-track {
+background-image: linear-gradient(to right, #820f0f , #82820d);
+}
+
+

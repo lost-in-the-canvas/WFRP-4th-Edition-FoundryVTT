@@ -153,6 +153,12 @@ Hooks.on("ready", async () => {
  };
 
 
+
+ game.socket.on("system.wfrp4e", clicked => {
+   canvas.draw();
+ })
+
+
  const NEEDS_MIGRATION_VERSION = 1.0;
  let needMigration
  try 

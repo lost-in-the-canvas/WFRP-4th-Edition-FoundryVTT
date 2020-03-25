@@ -238,12 +238,17 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       if (!this.skillsToEdit)
         this.skillsToEdit = []
+
       let itemId = event.target.attributes["data-item-id"].value;
       let itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
       itemToEdit.data.advances.value = Number(event.target.value);
       this.skillsToEdit.push(itemToEdit);
 
-      await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+      for (let skill of this.skillsToEdit)
+      {
+        await this.actor.updateEmbeddedEntity("OwnedItem", skill)
+      }
+      //await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
 
       this.skillsToEdit = [];
     }
@@ -263,7 +268,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.skillUpdateFlag)
       return;
 
-    await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+    for (let skill of this.skillsToEdit)
+    {
+      await this.actor.updateEmbeddedEntity("OwnedItem", skill)
+    }
+    //await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
 
     this.skillsToEdit = [];
   });
@@ -1231,11 +1240,6 @@ class ActorSheetWfrp4e extends ActorSheet {
       div.on("click", ".item-property", ev =>
       {
         WFRP_Utility.postProperty(ev.target.text) 
-      })
-      // Post a symptom
-      div.on("click", ".symptom-tag", ev =>
-      {
-        WFRP_Utility.postSymptom(ev.target.text)
       })
   
       // Roll a career income skill

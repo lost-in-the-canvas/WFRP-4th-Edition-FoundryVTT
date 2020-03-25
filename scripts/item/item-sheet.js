@@ -293,7 +293,7 @@ class ItemSheetWfrp4e extends ItemSheet
 
     // If the user changes a grouped skill that is in their current career,
     // offer to propagate that change to the career as well.
-    html.on("focusout", ".item-name", ev => {
+    html.on("change", ".item-name", ev => {
       if (this.item.type != "skill" || !this.item.actor || this.item.data.data.grouped.value != "isSpec")
         return;
       // If no change
@@ -312,8 +312,8 @@ class ItemSheetWfrp4e extends ItemSheet
 
       // Ask the user to confirm the change
       new Dialog({
-          title : game.localize.i18n("SHEET.CareerSkill"),
-          content: `<p>${game.localize.i18n("SHEET.CareerSkillPrompt")}</p>`,
+          title : game.i18n.localize("SHEET.CareerSkill"),
+          content: `<p>${game.i18n.localize("SHEET.CareerSkillPrompt")}</p>`,
           buttons: {
             yes: {
               label: "Yes",
