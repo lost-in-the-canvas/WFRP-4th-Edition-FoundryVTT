@@ -121,6 +121,15 @@
     color: var(--actor-input-color);
     border-bottom: 2px groove #782e22;
   }
+    #tinymce h1 {
+      margin: 0 0 0.5rem;
+      padding: 0;
+      font-family: var( --actor-input-font-family);
+      font-size: 2em;
+      font-weight: normal;
+      color: var(--actor-input-color);
+      border-bottom: 2px groove #782e22;
+    }
   .app.window-app .editor .editor-content h2 {
     margin: 0 0 0.5rem;
     padding: 0;
@@ -173,6 +182,14 @@
   .app.window-app .editor .editor-content p {
     margin: 0.5em 0;
     padding: 0px;
+    font-size: 14px;
+    font-family: var( --actor-input-font-family);
+    color: var(--actor-input-color);
+    background: none;
+    border: none;
+    width: 100%;
+  }
+  .app.window-app .editor .editor-content ul li {
     font-size: 14px;
     font-family: var( --actor-input-font-family);
     color: var(--actor-input-color);
@@ -905,7 +922,8 @@
   .sidebar-popout.sidebar-directory .directory-list,
     .sidebar-tab.sidebar-directory .directory-list {
     height: calc(100% - 38px - 50px);
-    margin: 0px 0px 0px 0px;
+    margin: 0px 5px 0px 0px;
+    padding-right: 5px;
   }
   .sidebar-popout.sidebar-directory .directory-list header,
     .sidebar-tab.sidebar-directory .directory-list header {
@@ -7727,7 +7745,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -7932,6 +7950,8 @@
       width: 100%;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-two-item .content {
         width: 100%;
@@ -7939,7 +7959,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8144,6 +8164,8 @@
       width: 100%;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-three-item .content {
         width: 100%;
@@ -8151,7 +8173,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8356,6 +8378,8 @@
       width: 463px;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-four-item .content {
         width: 100%;
@@ -8363,7 +8387,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8568,6 +8592,8 @@
       width: 453px;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-five-item .content {
         width: 100%;
@@ -8575,7 +8601,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -15621,12 +15647,12 @@ button.capture-position {
 .talent-lookup,
 .skill-drag,
 .talent-drag {
-  background: #DDD;
   border-radius: 2px;
-  padding: 0 2px;
-  border: 1px solid #BBB;
+  border: 1px solid #b9935e99;
   white-space: nowrap;
   word-break: break-all;
+  padding: 4px 3px 0px 3px;
+  box-shadow: inset 0px 0px 4px #6d3b00b0;
 }
 
 .table-input {
@@ -15951,6 +15977,10 @@ top: 25px;
     font-family: "Signika", sans-serif !important;
     box-shadow: inset 0px 0px 12px #6b3a0f87 !important;
   }
+  .tox-tinymce .tox-toolbar__group button[title="Formats"] {
+    user-select: none;
+    flex: 50px !important;
+  }
 
 .editor-edit {
   color: #564d3a;
@@ -15958,7 +15988,99 @@ top: 25px;
   border: 1px solid #564d3a;
   background: none;
   box-shadow: 0px 0px 2px inset #000000d1;
+  margin: 0px;
+  padding: 3px 2px 0px 4px;
+  height: 27px;
 }
+  .editor-edit .fas.fa-edit {
+    font-size: 17px;
+    line-height: 17px;
+  }
   .tox .tox-toolbar__group {
     width: 100%
+  }
+
+
+a.item-control.item-delete {
+  position: relative;
+  left: -2px;
+  top: 1px;
+}
+a.item-dropdown {
+  position: relative;
+  left: -3px;
+  top: 1px;
+}
+
+.armour-box .armour-property .armour-quality.comma {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: var(--actor-input-color);
+  padding: 3px 0px 0px 0px;
+}
+.armour-box[data-location="head"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="body"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lArm"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rArm"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lLeg"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rLeg"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+
+
+
+.armour-box[data-location="head"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="body"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rArm"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lLeg"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rLeg"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+
+
+#chat-log .message.whisper {
+  padding: 4px 1px 4px 1px;
+  margin: 25px 16px 25px 21px;
+  border-image: url(../ui/frames/chat-message-border.png) 21 repeat;
+  border-image-width: 10px;
+  border-image-outset: 8px;
+  border-radius: 0px;
+  background: url(../ui/frames/parchment-texture.png) repeat;
+  box-shadow: none;
+  color: #000000;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  /* min-height: 80px; */
+  vertical-align: middle;
+}
+  #chat-log .message.whisper .message-header {
+    border: 3px double #4c005878;
+  }
+  #chat-log .message .message-header .flavor-text, #chat-log .message .message-header .whisper-to {
+    flex: 0 0 100%;
+    font-size: 12px;
+    color: #690469;
   }
