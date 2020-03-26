@@ -60,6 +60,7 @@
       <label class="label-text">{{localize "ITEM.DefaultDifficulty"}}</label>
       <select name="data.rollable.defaultDifficulty" data-dtype="String">
         {{#select data.rollable.defaultDifficulty}}
+        <option value=""></option>
         {{#each difficultyLabels as |difficultyLabel difficultyKey|}}
         <option value="{{difficultyKey}}">{{difficultyLabel}}</option>
         {{/each}}

@@ -211,7 +211,6 @@ class ActorWfrp4e extends Actor {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.rest ? "average" : "challenging"
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -235,6 +234,11 @@ class ActorWfrp4e extends Actor {
         roll(testData, cardOptions);
       }
     };
+
+    if (options.rest)
+    {
+      dialogOptions.data.testDifficulty = "average"
+    }
 
     // Call the universal cardOptions helper
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/characteristic-card.html", title)
@@ -320,7 +324,10 @@ class ActorWfrp4e extends Actor {
 
     // If Income, use the specialized income roll handler
     if (testData.income)
-      dialogOptions.rollOverride = this.constructor.incomeOverride;
+    {
+     dialogOptions.rollOverride = this.constructor.incomeOverride;
+     dialogOptions.data.testDifficulty = "average";
+    }
 
     // Call the universal cardOptions helper
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
@@ -968,7 +975,7 @@ class ActorWfrp4e extends Actor {
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : trait.data.rollable.rollCharacteristic,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : trait.data.rollable.defaultDifficulty || "challenging"
+        testDifficulty : trait.data.rollable.defaultDifficulty
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information

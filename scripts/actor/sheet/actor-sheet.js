@@ -243,12 +243,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       let itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
       itemToEdit.data.advances.value = Number(event.target.value);
       this.skillsToEdit.push(itemToEdit);
-
-      for (let skill of this.skillsToEdit)
-      {
-        await this.actor.updateEmbeddedEntity("OwnedItem", skill)
-      }
-      //await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+      
+      await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
 
       this.skillsToEdit = [];
     }
@@ -268,11 +264,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.skillUpdateFlag)
       return;
 
-    for (let skill of this.skillsToEdit)
-    {
-      await this.actor.updateEmbeddedEntity("OwnedItem", skill)
-    }
-    //await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+    await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
 
     this.skillsToEdit = [];
   });
