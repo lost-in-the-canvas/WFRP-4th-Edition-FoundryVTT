@@ -1,6 +1,6 @@
 Hooks.on("canvasInit", (canvas) => {
   
-    if (!game.modules.find(m => m.id ==  "fxmaster" && m.active))
+    if (!(game.modules.get("fxmaster") && game.modules.get("fxmaster").active))
     {
       canvas.background.filters = [];
       canvas.tiles.filters = [];

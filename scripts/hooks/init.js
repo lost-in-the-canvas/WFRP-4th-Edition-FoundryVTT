@@ -4,7 +4,7 @@
 Hooks.once("init", () => {
 
     // load tables from system folder
-    FilePicker.browse("user", "systems/wfrp4e/tables").then(resp => {
+    FilePicker.browse("data", "systems/wfrp4e/tables").then(resp => {
       try 
       {
       if (resp.error)

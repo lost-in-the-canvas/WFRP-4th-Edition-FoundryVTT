@@ -5210,6 +5210,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
         position: relative;
@@ -5227,6 +5228,25 @@
         width: fit-content;
         display: inline-block;
         /* background: bisque; */
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #group {
+        left : 70px;
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
+        left : 136px;
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #reach {
+        left : 183px;
+      }
+
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group {
+        left : 139px;
+      }
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #damage {
+        left : 206px;
+      }
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #reach {
+        left : 258px;
       }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list {
@@ -16081,4 +16101,8 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
 
 .token-mold nav >* {
   color: #CCC !important;
+}
+
+#permissions-config .hint {
+  color: #CCC
 }
