@@ -223,6 +223,16 @@ Hooks.once("init", () => {
         default: true,
         type: Boolean
       });
+
+      // Register default test difficulty
+      game.settings.register("wfrp4e", "testDefaultDifficulty", {
+        name: "SETTINGS.TestDialogDefaultDifficulty",
+        hint: "SETTINGS.TestDialogDefaultDifficultyHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
   
       // Register NPC Species Randomization
       game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {

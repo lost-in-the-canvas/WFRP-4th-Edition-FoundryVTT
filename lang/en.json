@@ -20,6 +20,8 @@
     "SETTINGS.ExtendedTestsHint" : "Rolling a +/- 0 on Extended Tests (currently only Channelling) results in a +1/-1 respectively (p155).",
     "SETTINGS.TestDialogAutoPopulate" : "Test Dialog Auto Populate",
     "SETTINGS.TestDialogAutoPopulateHint" : "This setting automatically fills out information in the dialog for Tests. Some examples include: Wielding Defensive weapons automatically fills 'SL Bonus' in roll dialogs for melee weapons. This only occurs if it is not the actor's turn. Also when wieldirg an Accurate or (Im)precise Weapon (on the actor's turn).",
+    "SETTINGS.TestDialogDefaultDifficulty" : "Default Non-Combat Test Difficulty",
+    "SETTINGS.TestDialogDefaultDifficultyHint" : "Sets default Test difficulty to Average if there is no Combat. Outside of combat, or if unchecked, default difficulty is Challenging. In any case, this can be overridden in the Roll Dialog.",
     "SETTINGS.NpcAverageChar" : "Set Average NPC Characteristics",
     "SETTINGS.NpcAverageCharHint" : "Entering a recognized species value for an NPC automatically sets their characteristics to the average value for the species.",
     "SETTINGS.PartialChannelling" : "Partial Channelling",
