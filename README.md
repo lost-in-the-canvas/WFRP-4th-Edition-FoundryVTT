@@ -1,8 +1,8 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.0.4 - Tokenizer and Token Mold compatibility
+Current Version: 1.1.0
 
-Compatibility: Foundry VTT 0.5.1 
+Compatibility: Foundry VTT 0.5.2
 
 ![](https://i.imgur.com/esCwB7f.png)
 

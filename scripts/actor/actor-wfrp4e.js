@@ -182,16 +182,21 @@ class ActorWfrp4e extends Actor {
    * @param {String} characteristicId     The characteristic id (e.g. "ws") - id's can be found in config.js
    *
    */
-  setupCharacteristic(characteristicId) {
+  setupCharacteristic(characteristicId, options = {}) {
     let char = this.data.data.characteristics[characteristicId];
     let title = char.label + " " + game.i18n.localize("Test");
+
     let testData = {
       target : char.value,
       hitLocation : false,
       extra : {
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
+
+    if (options.rest)
+      testData.extra.options["tb"] = char.bonus;
 
     // Default a WS or BS test to have hit location checked
     if (characteristicId == "ws" || characteristicId == "bs")
@@ -205,7 +210,7 @@ class ActorWfrp4e extends Actor {
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
-        advantage : this.data.data.status.advantage.value || 0
+        advantage : this.data.data.status.advantage.value || 0,
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -229,6 +234,11 @@ class ActorWfrp4e extends Actor {
         roll(testData, cardOptions);
       }
     };
+
+    if (options.rest)
+    {
+      dialogOptions.data.testDifficulty = "average"
+    }
 
     // Call the universal cardOptions helper
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/characteristic-card.html", title)
@@ -270,7 +280,7 @@ class ActorWfrp4e extends Actor {
       testData.hitLocation = true;
     }
 
-    // Setup dialog data: title, template, buttons, prefilled data
+    // Setup dialog data: title, template, buttons, prefilled data   
     let dialogOptions = {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
@@ -280,8 +290,7 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
-        advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : income ? "average" : "challenging" // Default to average if using income
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -315,7 +324,10 @@ class ActorWfrp4e extends Actor {
 
     // If Income, use the specialized income roll handler
     if (testData.income)
-      dialogOptions.rollOverride = this.constructor.incomeOverride;
+    {
+     dialogOptions.rollOverride = this.constructor.incomeOverride;
+     dialogOptions.data.testDifficulty = "average";
+    }
 
     // Call the universal cardOptions helper
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
@@ -463,7 +475,6 @@ class ActorWfrp4e extends Actor {
         successBonus : successBonus || 0,
         modifier : modifier || 0,
         defaultSelection : defaultSelection,
-        testDifficulty : event.difficulty,
         advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
@@ -717,7 +728,24 @@ class ActorWfrp4e extends Actor {
 
     // Find the spell lore, and use that to determine the default channelling selection
     let spellLore = spell.data.lore.value;
-    let defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
+    let defaultSelection 
+    if (spell.data.wind && spell.data.wind.value)
+    {
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(spell.data.wind.value)))
+      if (defaultSelection == -1)
+      {
+        let customChannellSkill = this.items.find(i => i.name.toLowerCase().includes(spell.data.wind.value.toLowerCase()) && i.type == "skill");
+        if (customChannellSkill)
+        {
+          channellSkills.push(customChannellSkill)
+          defaultSelection =  channellSkills.length-1
+        }
+      }
+    }
+    else
+    {
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(WFRP4E.magicWind[spellLore])));
+    }
 
     if (spellLore == "witchcraft")
       defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
@@ -946,7 +974,8 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : trait.data.rollable.rollCharacteristic,
-        advantage : this.data.data.status.advantage.value || 0
+        advantage : this.data.data.status.advantage.value || 0,
+        testDifficulty : trait.data.rollable.defaultDifficulty
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -1063,6 +1092,7 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
+    Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
         cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
@@ -1087,6 +1117,9 @@ class ActorWfrp4e extends Actor {
   {
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
+
+    Hooks.call("wfrp4e:rollIncomeTest", result)
+
 
     if (game.user.targets.size)
         cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
@@ -1171,6 +1204,9 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
+    Hooks.call("wfrp4e:rollWeaponTest", result)
+
+
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
@@ -1193,6 +1229,9 @@ class ActorWfrp4e extends Actor {
 
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
+
+    Hooks.call("wfrp4e:rollCastTest", result)
+
 
     // Update spell to reflect SL from channelling resetting to 0
     WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {_id: testData.extra.spell._id, 'data.cn.SL' : 0});
@@ -1220,6 +1259,8 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
+    Hooks.call("wfrp4e:rollChannelTest", result)
+
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
@@ -1242,6 +1283,8 @@ class ActorWfrp4e extends Actor {
 
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
+
+    Hooks.call("wfrp4e:rollPrayerTest", result)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1286,6 +1329,8 @@ class ActorWfrp4e extends Actor {
 
     if (testData.extra)
       mergeObject(result, testData.extra);
+
+    Hooks.call("wfrp4e:rollTraitTest", result)
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
