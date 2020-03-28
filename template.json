@@ -668,9 +668,6 @@
         "type": "Number",
         "label": "Ingredient",
         "value": 0
-      },
-      "wind" : {
-        "value": ""
       }
     },
     "prayer": {
@@ -799,8 +796,7 @@
         "label": "Rollable",
         "type": "Boolean",
         "rollCharacteristic": "",
-        "bonusCharacteristic": "",
-        "defaultDifficulty" : "challenging"
+        "bonusCharacteristic": ""
       },
       "specification": {
         "value": "",

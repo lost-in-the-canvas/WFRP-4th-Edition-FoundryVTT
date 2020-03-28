@@ -1,16 +1,5 @@
 <div class="creature-lists save-scroll">
-  <div class="creature-overview-label">{{localize "Creature Overview"}}
-    <a class="stomp-icon combat-icon" title = "Stomp">
-      <i class="fas fa-paw"></i>
-    </a>
-    <a class="dodge-icon combat-icon" title = "Dodge">
-      <i class="fas fa-reply"></i>
-    </a>
-    <a class="improvised-icon combat-icon" title = "Improvised Weapon">
-      <i class="fas fa-question"></i>
-    </a>
-  </div>
-
+  <div class="creature-overview-label">{{localize "Creature Overview"}}</div>
 
   <div class="creature-overview">
   {{#if actor.trainedSkills}}
@@ -107,8 +96,9 @@
   {{#if actor.weapons}}  
   <div class="inventory-header item melee-weapon-header">
     <div id="name">{{localize "SHEET.MeleeWeaponHeader"}}</div>
-
-
+    <a class="fist-icon">
+      <i class="fa fa-fist-raised"></i>
+    </a>
     <div id="group">{{localize "Group"}}</div>
     <div id="damage">{{localize "Damage"}}</div>
     <div id="reach">{{localize "Reach"}}</div>
@@ -220,7 +210,7 @@
 
   <div class="armour-section">
     <div class="row">
-      <div class="head column" data-location="head">
+      <div class="head column">
         <div class="armour-header">
           <span class="armour-label">{{localize "Head"}}</span>
           <a class="armour-total" title="{{localize 'SHEET.ArmourAP'}}">{{actor.AP.head.value}}</a>
@@ -229,7 +219,7 @@
         </div>
       </div>
 
-      <div class="body column" data-location="body">
+      <div class="body column">
         <div class="armour-header">
           <span class="armour-label">{{localize "Body"}}</span>
           <a class="armour-total" title="Armour AP">{{actor.AP.body.value}}</a>
@@ -238,16 +228,16 @@
         </div>
       </div>
 
-      <div class="larm column" data-location="lArm">
+      <div class="larm column">
         <div class="armour-header">
           <span class="armour-label">{{localize "Left Arm"}}</span>
-            <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
+          <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
             <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
             <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         </div>
       </div>
           
-      <div class="rarm column" data-location="rArm">
+      <div class="rarm column">
         <div class="armour-header">
           <span class="armour-label">{{localize "Right Arm"}}</span>
           <a class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</a>
@@ -256,7 +246,7 @@
         </div>
       </div>
 
-      <div class="lleg column" data-location="lLeg">
+      <div class="lleg column">
           <div class="armour-header">
             <span class="armour-label">{{localize "Left Leg"}}</span>
             <a class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</a>
@@ -265,7 +255,7 @@
           </div>
       </div>
 
-      <div class="rleg column" data-location="rLeg">
+      <div class="rleg column">
         <div class="armour-header rLeg">
           <span class="armour-label">{{localize "Right Leg"}}</span>
           <a class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</a>

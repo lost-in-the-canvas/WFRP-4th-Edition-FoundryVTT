@@ -153,7 +153,6 @@ class ItemSheetWfrp4e extends ItemSheet
     else if (this.item.type == "trait")
     {
       data['characteristics'] = WFRP4E.characteristics;
-      data['difficultyLabels'] = WFRP4E.difficultyLabels;
     }
 
     else if (this.item.type == "container")

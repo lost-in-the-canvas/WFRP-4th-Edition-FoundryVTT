@@ -1,6 +1,6 @@
 Hooks.on("canvasReady", (canvas) => {
 
-  if (game.modules.get("fxmaster") && game.modules.get("fxmaster").active)
+  if (!game.modules.find(m => m.id ==  "fxmaster" && m.active))
   {
     morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
     if (morrsliebActive)
