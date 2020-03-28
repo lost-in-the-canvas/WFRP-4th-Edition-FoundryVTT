@@ -927,7 +927,9 @@ class WFRP_Utility
       }
       else 
       {
-        game.socket.emit("system.wfrp4e", {})
+        game.socket.emit("system.wfrp4e", {
+          type : "morrslieb"
+        })
         canvas.draw();
       }
     }

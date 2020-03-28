@@ -347,17 +347,30 @@ class OpposedWFRP
               }
             }
           })
-          // Add oppose data flag to the target
-          target.actor.update(
-          {
-            "flags.oppose":
-            {
+
+        game.socket.emit("system.wfrp4e", {
+          type: "target",
+          payload: {
+            target: target.data._id,
+            scene: canvas.scene.id,
+            opposeFlag : {
               speaker: message.data.speaker,
               messageId: message.data._id,
               startMessageId: startMessage.data._id
             }
-          })
-          // Remove current targets
+          }
+        })
+          // // Add oppose data flag to the target
+          // target.actor.update(
+          // {
+          //   "flags.oppose":
+          //   {
+          //     speaker: message.data.speaker,
+          //     messageId: message.data._id,
+          //     startMessageId: startMessage.data._id
+          //   }
+          // })
+          // // Remove current targets
           target.setTarget(false);
         })
       }
