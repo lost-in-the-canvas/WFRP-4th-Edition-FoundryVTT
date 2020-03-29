@@ -619,7 +619,6 @@ class DiceWFRP
     let SL = testResults.SL;
     let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
-    testData.extra.sin = currentSin;
 
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
@@ -656,6 +655,7 @@ class DiceWFRP
       if (unitResult <= currentSin)
       {
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
+        testResults.extra.wrathModifier = currentSin * 10;
         currentSin--;
         if (currentSin < 0)
           currentSin = 0;

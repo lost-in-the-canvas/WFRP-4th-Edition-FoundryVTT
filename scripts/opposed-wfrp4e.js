@@ -272,6 +272,7 @@ class OpposedWFRP
    */
   static async handleOpposedTarget(message)
   {
+    if (!message) return;
     // Get actor/tokens and test results
     let actor = WFRP_Utility.getSpeaker(message.data.speaker)
     let testResult = message.data.flags.data.postData

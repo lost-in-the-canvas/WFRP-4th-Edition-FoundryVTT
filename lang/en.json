@@ -370,7 +370,7 @@
     "ROLL.MinorMis" : "Minor Miscast",
     "ROLL.MajorMis" : "Major Miscast",
     "ROLL.PrayRefused" : "Prayer Refused",
-    "Roll.PrayGranted" : "Prayer Granted",
+    "ROLL.PrayGranted" : "Prayer Granted",
     "ROLL.Wrath" : "Wrath of the Gods",
     "ROLL.CancelOppose" : "Opposed Test Canceled",
     "ROLL.HitLocation" : "Hit Location",
