@@ -238,11 +238,12 @@ class DiceWFRP
 
     mergeObject(rollResults, testData.extra)
 
+    rollResults.other = []; // Container for miscellaneous data that can be freely added onto
 
     if (rollResults.options && rollResults.options.rest)
     {
       rollResults.woundsHealed = parseInt(SL) + rollResults.options.tb;
-      rollResults.other = `${rollResults.woundsHealed} ${game.i18n.localize("Wounds Healed")}`
+      rollResults.other.push(`${rollResults.woundsHealed} ${game.i18n.localize("Wounds Healed")}`)
     }
 
     if (testData.hitLocation)
@@ -380,15 +381,16 @@ class DiceWFRP
     let miscastCounter = 0;
     testData.function = "rollCastTest"
 
+    let CNtoUse = spell.data.cn.value
     // Partial channelling - reduce CN by SL so far
     if (game.settings.get("wfrp4e", "partialChannelling"))
     {
-      spell.data.cn.value -= spell.data.cn.SL;
+      CNtoUse -=  spell.data.cn.SL;
     }
     // Normal Channelling - if SL has reached CN, CN is considered 0
     else if (spell.data.cn.SL >= spell.data.cn.value)
     {
-      spell.data.cn.value = 0;
+      CNtoUse = 0;
     }
 
     // If malignant influence AND roll has an 8 in the ones digit, miscast
@@ -401,7 +403,7 @@ class DiceWFRP
       miscastCounter++;
 
     // slOver is the amount of SL over the CN achieved
-    let slOver = (Number(testResults.SL) - spell.data.cn.value)
+    let slOver = (Number(testResults.SL) - CNtoUse)
 
     // Test itself was failed
     if (testResults.description.includes("Failure"))
@@ -696,6 +698,8 @@ class DiceWFRP
     {
       testData.roll = testData.SL = null;
     }
+
+    testData.other = testData.other.join("<br>")
 
     let chatData = {
       title: chatOptions.title,

@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.1.1
+Current Version: 1.1.3
 
 Compatibility: Foundry VTT 0.5.2
 
