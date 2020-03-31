@@ -272,6 +272,7 @@ class OpposedWFRP
    */
   static async handleOpposedTarget(message)
   {
+    if (!message) return;
     // Get actor/tokens and test results
     let actor = WFRP_Utility.getSpeaker(message.data.speaker)
     let testResult = message.data.flags.data.postData
@@ -347,6 +348,24 @@ class OpposedWFRP
               }
             }
           })
+
+        if (!game.user.isGM)
+        {
+          game.socket.emit("system.wfrp4e", {
+            type: "target",
+            payload: {
+              target: target.data._id,
+              scene: canvas.scene.id,
+              opposeFlag : {
+                speaker: message.data.speaker,
+                messageId: message.data._id,
+                startMessageId: startMessage.data._id
+              }
+            }
+          })
+        }
+        else
+        {
           // Add oppose data flag to the target
           target.actor.update(
           {
@@ -357,7 +376,8 @@ class OpposedWFRP
               startMessageId: startMessage.data._id
             }
           })
-          // Remove current targets
+        }
+       // Remove current targets
           target.setTarget(false);
         })
       }

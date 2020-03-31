@@ -716,11 +716,7 @@ class WFRP_Utility
    */
   static handleTableClick(event)
   {
-    // Sin from wrath of the gods if available
-    if (event.target.text)
-      event.target.text = event.target.text.trim();
-    let sin = Number($(event.currentTarget).attr("data-sin"));
-    let modifier = sin * 10 || 0;
+    let modifier = parseInt($(event.currentTarget).attr("data-modifier")) || 0;
     let html;
     let chatOptions = this.chatDataSetup("", game.settings.get("core", "rollMode"))
 
@@ -740,12 +736,6 @@ class WFRP_Utility
         let damage = $(event.currentTarget).attr("data-damage")
         html = `<b>${game.i18n.localize("Misfire")}</b>: ${game.i18n.localize("ROLL.MisfireText1")} ${damage} ${game.i18n.localize("ROLL.MisfireText2")}`;
       }
-      else if (sin)
-        html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
-        {
-          modifier: modifier,
-          maxSize: false
-        });
       else
         html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
         {
@@ -927,7 +917,9 @@ class WFRP_Utility
       }
       else 
       {
-        game.socket.emit("system.wfrp4e", {})
+        game.socket.emit("system.wfrp4e", {
+          type : "morrslieb"
+        })
         canvas.draw();
       }
     }

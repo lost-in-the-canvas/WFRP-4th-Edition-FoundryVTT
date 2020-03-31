@@ -1,8 +1,8 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.1.0
+Current Version: 1.1.3
 
-Compatibility: Foundry VTT 0.5.2
+Compatibility: Foundry VTT 0.5.3
 
 ![](https://i.imgur.com/esCwB7f.png)
 
@@ -41,3 +41,5 @@ Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725
 [Rough Nights & Hard Days](https://github.com/Jagusti/fvtt-wfrp4e-rnhd) - Spearheaded by @Jagusti, namely adds gnomes to character generation!
 
 [Enemy in Shadows](https://github.com/moo-man/EiS-FVTT) - A wealth of content, tables, talents, spells. Also the new Dhar spellcasting mechanics! Still a WIP.
+
+[Gerwin Waffenhalter’s Magnificent Weapons Gallery](https://github.com/DasSauerkraut/wfrp-gwmwg) - Adds new weapons and weapon traits from the Ratter Vol. 1 Issue 2.

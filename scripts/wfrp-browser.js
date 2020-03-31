@@ -177,7 +177,7 @@ class BrowserWfrp4e extends Application
     this.filterId = 0;
     for (let p of game.packs)
     {
-      if (p.metadata.entity == "Item" && (game.user.isGM || p.public))
+      if (p.metadata.entity == "Item" && (game.user.isGM || !p.private))
       {
         await p.getContent().then(content => {
           this.addItems(content)
