@@ -2,7 +2,7 @@
 
 Current Version: 1.1.3
 
-Compatibility: Foundry VTT 0.5.2
+Compatibility: Foundry VTT 0.5.3
 
 ![](https://i.imgur.com/esCwB7f.png)
 
