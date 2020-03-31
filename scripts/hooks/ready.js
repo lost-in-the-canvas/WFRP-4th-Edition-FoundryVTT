@@ -180,13 +180,17 @@ Hooks.on("ready", async () => {
  if (game.user.isGM)
  {
    permissions = game.settings.get("core", "permissions")
-
+  let change = false;
    for (let type in permissions)
    {
      if (type != "GAMEMASTER" && !permissions[type].includes("FILES_BROWSE"))
+     {
       permissions[type].push("FILES_BROWSE")
+      change = true;
+     }
    }
-   game.settings.set("core", "permissions", permissions)
+   if (change)
+    game.settings.set("core", "permissions", permissions)
  }
 
  const NEEDS_MIGRATION_VERSION = 1.0;
