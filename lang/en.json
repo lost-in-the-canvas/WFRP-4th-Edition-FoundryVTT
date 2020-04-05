@@ -570,12 +570,12 @@
     "CHARBonus.Fel": "Fellowship Bonus",
 
     "NAME.Armour" : "Armour",
-    "NAME.Hardy" : "Armour",
-    "NAME.Small" : "Armour",
-    "NAME.Mindless" : "Armour",
-    "NAME.Construct" : "Armour",
-    "NAME.Swarm" : "Armour",
-    "NAME.Size" : "Armour",
+    "NAME.Hardy" : "Hardy",
+    "NAME.Small" : "Small",
+    "NAME.Mindless" : "Mindless",
+    "NAME.Construct" : "Construct",
+    "NAME.Swarm" : "Swarm",
+    "NAME.Size" : "Size",
     "SPEC.Tiny" : "Tiny",
     "SPEC.Little" : "Little",
     "SPEC.Small" : "Small",
@@ -587,6 +587,10 @@
     "NAME.BP" : "Brass Penny",
     "NAME.SS" : "Silver Shilling",
     "NAME.GC" : "Gold Crown",
+
+    "NAME.BPPlural" : "Brass Pennies",
+    "NAME.SSPlural" : "Silver Shillings",
+    "NAME.GCPlural" : "Gold Crowns",
 
     "TIER.Gold" : "Gold",
     "TIER.Silver" : "Silver",
@@ -600,11 +604,18 @@
     "NAME.Ranged" : "Ranged",
     "NAME.Endurance" : "Endurance",
     "NAME.Dodge" : "Dodge",
+    "NAME.Stride" : "Stride",
     "NAME.Unarmed" : "Unarmed",
     "NAME.Stomp" : "Stomp",
     "NAME.Improvised" : "Improvised Weapon",
     "NAME.ID" : "Instinctive Diction",
     "NAME.AA" : "Aethyric Attunement",
+    "NAME.SMB" : "Strike Mighty Blow",
+    "NAME.AS" : "Accurate Shot",
+    "NAME.Robust" : "Robust",
+    "NAME.PS" : "Pure Soul",
+    "NAME.StrongBack" : "Strong Back",
+    "NAME.Sturdy" : "Sturdy",
 
     "SPEC.Basic" : "Basic",
     "SPEC.Cavalry" : "Cavalry",
@@ -667,6 +678,8 @@
 
     "ITEM.IsSpec" : "Is Specialization",
     "ITEM.NoSpec" : "No Specialization",
+
+    "Instant" : "Instant",
 
     "ClassTrappings.Academics": "Clothing, Dagger, Pouch, Sling Bag containing Writing Kit and 1d10 sheets of Parchment",
     "ClassTrappings.Burghers": "Cloak, Clothing, Dagger, Hat, Pouch, Sling Bag containing Lunch",

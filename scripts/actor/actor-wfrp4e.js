@@ -1143,16 +1143,16 @@ class ActorWfrp4e extends Actor {
       switch (testData.income.tier)
       {
         case "b":
-          result.incomeResult += " brass pennies."
+          result.incomeResult += ` ${game.i18n.localize("ITEM.BPPL").toLowerCase()}.`
           break;
         case "s":
-          result.incomeResult += " silver shillings."
+          result.incomeResult += ` ${game.i18n.localize("ITEM.SSPL").toLowerCase()}.`
           break;
         case "g":
             if (moneyEarned > 1)
-              result.incomeResult += " gold crowns."
+              result.incomeResult += ` ${game.i18n.localize("ITEM.GC").toLowerCase()}.`
             else
-              result.incomeResult += " gold crown"
+              result.incomeResult += ` ${game.i18n.localize("ITEM.GCPlural").toLowerCase()}.`
             break;
       }
     }
@@ -1163,16 +1163,16 @@ class ActorWfrp4e extends Actor {
       switch (testData.income.tier)
       {
         case "b":
-          result.incomeResult += " brass pennies."
+          result.incomeResult += ` ${game.i18n.localize("ITEM.BPPL").toLowerCase()}.`
           break;
         case "s":
-          result.incomeResult += " silver shillings."
+          result.incomeResult += ` ${game.i18n.localize("ITEM.SSPL").toLowerCase()}.`
           break;
         case "g":
             if (moneyEarned > 1)
-              result.incomeResult += " gold crowns."
+              result.incomeResult += ` ${game.i18n.localize("ITEM.GC").toLowerCase()}.`
             else
-              result.incomeResult += " gold crown"
+              result.incomeResult += ` ${game.i18n.localize("ITEM.GCPlural").toLowerCase()}.`
             break;
       }
     }
@@ -1384,16 +1384,16 @@ class ActorWfrp4e extends Actor {
 
     // Find size based on Traits/Talents
     let size;
-    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes("size"));
+    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("Size").toLowerCase()));
     if (trait)
       size = trait.data.specification.value;
     else
     {
-      size = preparedData.talents.find(x=>x.name.toLowerCase() == "small");
+      size = preparedData.talents.find(x=>x.name.toLowerCase() == game.i18n.localize("NAME.Small"));
       if (size)
         size = size.name;
       else 
-        size = "Average"
+        size = game.i18n.localize("SPEC.Average")
     }
     
     // If the size has been changed since the last known value, update the value
@@ -1444,7 +1444,7 @@ class ActorWfrp4e extends Actor {
     if (preparedData.flags.autoCalcRun)
     {
       // This is specifically for the Stride trait, see prepareData() for the other auto-calc movement values
-      if(preparedData.traits.find(t => t.name.toLowerCase() == "stride"))
+      if(preparedData.traits.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Stride").toLowerCase()))
         preparedData.data.details.move.run += preparedData.data.details.move.walk;
     }
 
@@ -1461,21 +1461,21 @@ class ActorWfrp4e extends Actor {
     // if there's any difference.
 
     // Strike Mighty Blow Talent
-    let smb = preparedData.talents.find(t => t.name.toLowerCase() == "strike mighty blow")
+    let smb = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.SMB"))
     if (smb && this.data.flags.meleeDamageIncrease != smb.data.advances.value)
       this.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
     else if (!smb && this.data.flags.meleeDamageIncrease)
       this.update({"flags.meleeDamageIncrease" : 0});
 
     // Accurate Shot Talent
-    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == "accurate shot")
+    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.AC"))
     if (accshot && this.data.flags.rangedDamageIncrease != accshot.data.advances.value)
       this.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
     else if (!accshot && this.data.flags.rangedDamageIncrease)
       this.update({"flags.rangedDamageIncrease" : 0});
 
     // Robust Talent
-    let robust = preparedData.talents.find(t => t.name.toLowerCase() == "robust")
+    let robust = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Robust"))
     if (robust && this.data.flags.robust != robust.data.advances.value)
       this.update({"flags.robust" : robust.data.advances.value});
     else if (!robust && this.data.flags.robust)
@@ -1510,7 +1510,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcCorruption)
     {
       actorData.data.status.corruption.max = tb + wpb;
-      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == "pure soul")
+      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == game.i18n.localize("NAME.PS"))
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
     }
@@ -2090,7 +2090,7 @@ class ActorWfrp4e extends Actor {
         // Process weapon taking into account actor data, skills, and ammo
         weapons.push(this.prepareWeaponCombat(wep, inventory.ammo, basicSkills.concat(advancedOrGroupedSkills)));
         // Add shield AP to AP object
-        let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes("shield"))
+        let shieldProperty = wep.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase()))
         if (shieldProperty) 
         {
           let shieldDamage = wep.data.APdamage || 0;
@@ -2098,7 +2098,7 @@ class ActorWfrp4e extends Actor {
           totalShieldDamage += shieldDamage;
         }
         // Keep a running total of defensive weapons equipped
-        if (wep.properties.qualities.find(q => q.toLowerCase().includes("defensive"))) 
+        if (wep.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Defensive").toLowerCase())) 
         {
           defensiveCounter++;
         }
@@ -2179,7 +2179,7 @@ class ActorWfrp4e extends Actor {
       this.update({"flags.modifier": penaltiesFlag})
 
     // Add armor trait to AP object
-    let armorTrait = traits.find(t => t.name.toLowerCase().includes("armour") || t.name.toLowerCase().includes("armor"))
+    let armorTrait = traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Armour").toLowerCase()))
     if (armorTrait && (!this.data.data.excludedTraits || !this.data.data.excludedTraits.includes(armorTrait._id))) 
     {
       for (let loc in AP) 
@@ -2203,8 +2203,8 @@ class ActorWfrp4e extends Actor {
     // Encumbrance is initially calculated in prepareItems() - this area augments it based on talents
     if (actorData.flags.autoCalcEnc)
     {
-      let strongBackTalent = talents.find(t => t.name.toLowerCase() == "strong back")
-      let sturdyTalent = talents.find(t => t.name.toLowerCase() == "sturdy")
+      let strongBackTalent = talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.StrongBack").toLowerCase())
+      let sturdyTalent = talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Sturdy").toLowerCase())
 
       if (strongBackTalent)
         actorData.data.status.encumbrance.max += strongBackTalent.data.advances.value;
@@ -2379,8 +2379,8 @@ class ActorWfrp4e extends Actor {
     weapon["properties"] = WFRP_Utility._prepareQualitiesFlaws(weapon, !!weapon.skillToUse);
 
     // Special flail rule - if no skill could be found, add the Dangerous property
-    if (weapon.data.weaponGroup.value == "Flail" && !weapon.skillToUse && !weapon.properties.includes("Dangerous"))
-      weapon.properties.push("Dangerous");
+    if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Flail") && !weapon.skillToUse && !weapon.properties.includes(game.i18n.localize("PROPERTY.Dangerous")))
+      weapon.properties.push(game.i18n.localize("PROPERTY.Dangerous"));
 
     // Turn range into a numeric value (important for ranges including SB, see the function for details)
     weapon.data.range.value = this.calculateRangeOrDamage(weapon.data.range.value);
@@ -2430,12 +2430,12 @@ class ActorWfrp4e extends Actor {
       this.prepareWeaponWithAmmo(weapon);
     }
     // If throwing or explosive weapon, its ammo is its own quantity
-    else if (weapon.data.weaponGroup.value == "Throwing" || weapon.data.weaponGroup.value == "Explosives")
+    else if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing") || weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Explosives"))
     {
       weapon.data.ammunitionGroup.value = "";
     }
     // If entangling, it has no ammo
-    else if (weapon.data.weaponGroup.value == "Entangling")
+    else if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Entangling"))
     {
       weapon.data.ammunitionGroup.value = "";
     }
@@ -2536,7 +2536,7 @@ class ActorWfrp4e extends Actor {
 
     // If ammo properties include a "special" value, rename the property as "Special Ammo" to not overlap
     // with the weapon's "Special" property
-    let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == "special"));
+    let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == game.i18n.localize("Special").toLowerCase()));
     if (specialPropInd != -1)
       ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " Ammo"
 
@@ -2625,8 +2625,8 @@ class ActorWfrp4e extends Actor {
   calculateWounds(actorData)
   {
     /// There's both a Hardy Trait and Hardy Talent (thanks C7) so find both.
-    let hardyTrait = actorData.traits.find(t => t.name.toLowerCase().includes("hardy"))
-    let hardyTalent = actorData.talents.find(t => t.name.toLowerCase().includes("hardy"))
+    let hardyTrait = actorData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Hardy").toLowerCase()))
+    let hardyTalent = actorData.talents.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Hardy").toLowerCase()))
 
     /// tbMultiplier is the additional amount of TB to add to Wounds. 0 if no Hardy
     let tbMultiplier = (hardyTrait ? 1 : 0)
@@ -2646,7 +2646,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcWounds)
     {
       // Construct trait means you use SB instead of WPB 
-      if (actorData.traits.find(t => t.name.toLowerCase().includes("construct")) || actorData.traits.find(t => t.name.toLowerCase().includes("mindless")))
+      if (actorData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Construct").toLowerCase()) || actorData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Mindless").toLowerCase()))))
         wpb = sb;
       switch (actorData.data.details.size.value) // Use the size to get the correct formula (size determined in prepare())
       {
@@ -2680,7 +2680,7 @@ class ActorWfrp4e extends Actor {
       }
     }
 
-    let swarmTrait = actorData.traits.find(t => t.name.toLowerCase().includes("swarm"))
+    let swarmTrait = actorData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Swarm").toLowerCase()))
     if (swarmTrait)
       wounds *= 5;
 
@@ -2742,7 +2742,7 @@ class ActorWfrp4e extends Actor {
     formula = formula.toLowerCase();
 
     // Do not process these special values
-    if (formula != "you" && formula != "special" && formula != "instant")
+    if (formula != game.i18n.localize("You").toLowerCase() && formula != game.i18n.localize("Special").toLowerCase() && formula != game.i18n.localize("Instant").toLowerCase())
     {
       // Iterate through characteristics
       for(let ch in actorData.data.characteristics)
