@@ -157,7 +157,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
     // Autoselect entire text 
-    $("input[type=text]").click(function() {
+    $("input[type=text]").focusin(function() {
       $(this).select();
     });
 
@@ -226,7 +226,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Similar to the handlers above, but for skills (and all actor types) 
   html.find('.skill-advances').keydown(async event => {
     // Wait to update if user tabbed to another skill
-    if (event.keyCode == 9)
+    if (event.keyCode == 9) // Tab
     {
       this.skillUpdateFlag = false;
     }
@@ -234,7 +234,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       this.skillUpdateFlag = true;
     }
-    if (event.keyCode == 13)
+    if (event.keyCode == 13) // Enter
     {
       if (!this.skillsToEdit)
         this.skillsToEdit = []
@@ -253,6 +253,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Records skill advance edits and updates the actor if the listener above sets the flag to true
   html.find('.skill-advances').focusout(async event => {
+    event.preventDefault()
     if (!this.skillsToEdit)
       this.skillsToEdit = []
     let itemId = event.target.attributes["data-item-id"].value;
@@ -269,9 +270,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     this.skillsToEdit = [];
   });
   // I don't remember why this was added ¯\_(ツ)_/¯ TODO: evaluate
-  html.find('.skill-advances').focusin(async event => {
-    event.target.focus();
-  });
+  // html.find('.skill-advances').focusin(async event => {
+  //   event.target.focus();
+  // });
 
   // Ammo selector in the combat tab - change the currentAmmo value of the item to the selected value
   html.find('.ammo-selector').change(async event => {

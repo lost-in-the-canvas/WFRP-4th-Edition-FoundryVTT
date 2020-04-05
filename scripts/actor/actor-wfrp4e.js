@@ -2098,7 +2098,7 @@ class ActorWfrp4e extends Actor {
           totalShieldDamage += shieldDamage;
         }
         // Keep a running total of defensive weapons equipped
-        if (wep.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Defensive").toLowerCase())) 
+        if (wep.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Defensive").toLowerCase()))) 
         {
           defensiveCounter++;
         }

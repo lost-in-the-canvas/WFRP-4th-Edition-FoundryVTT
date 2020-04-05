@@ -458,7 +458,7 @@ WFRP4E.weaponGroups = {
 	"flail": "SPEC.Flail",
 	"parry": "SPEC.Parry",
 	"polearm": "SPEC.Polearm",
-	"twohanded": "Two-SPEC.Handed",
+	"twohanded": "SPEC.TwoHanded",
 	"blackpowder": "SPEC.Blackpowder",
 	"bow": "SPEC.Bow",
 	"crossbow": "SPEC.Crossbow",
