@@ -75,7 +75,7 @@ class ActorWfrp4e extends Actor {
         content: `<p>${game.i18n.localize("ACTOR.BasicSkillsPrompt")}</p>`,
         buttons: {
           yes: {
-            label: "Yes",
+            label: game.i18n.localize("Yes"),
             callback: async dlg => {
               for (let sk of basicSkills) // Add basic skills
               {
@@ -90,7 +90,7 @@ class ActorWfrp4e extends Actor {
             }
           },
           no: {
-            label: "No",
+            label: game.i18n.localize("No"),
             callback: async dlg => {
               super.create(data, options); // Do not add new items, continue with the rest of the Actor creation process upstream
             }
@@ -261,11 +261,11 @@ class ActorWfrp4e extends Actor {
    * @param {Object} skill    The skill item being tested. Skill items contain the advancements and the base characteristic, see template.json for more information.
    * @param {bool}   income   Whether or not the skill is being tested to determine Income.
    */
-  setupSkill(skill, income = false) {
+  setupSkill(skill, options = {}) {
     let title = skill.name + " " + game.i18n.localize("Test");
     let testData = {
       hitLocation : false,
-      income : income,
+      income : options.income,
       extra : {
         size : this.data.data.details.size.value
       }
@@ -274,8 +274,8 @@ class ActorWfrp4e extends Actor {
     // Default a WS, BS, Melee, or Ranged to have hit location checked
     if (skill.data.characteristic.value == "ws" ||
         skill.data.characteristic.value == "bs" ||
-        skill.name.includes("Melee") ||
-        skill.name.includes("Ranged"))
+        skill.name.includes(game.i18n.localize("NAME.Melee")) ||
+        skill.name.includes(game.i18n.localize("NAME.Ranged")))
     {
       testData.hitLocation = true;
     }
@@ -290,7 +290,8 @@ class ActorWfrp4e extends Actor {
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
-        advantage : this.data.data.status.advantage.value || 0
+        advantage : this.data.data.status.advantage.value || 0,
+        testDifficulty : options.income ? "average" : "challenging" // Default to average if using income
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -428,11 +429,11 @@ class ActorWfrp4e extends Actor {
           else // If it is the actor's turn
           {
             // Prefill dialog according to qualities/flaws
-            if (wep.properties.qualities.includes("Accurate"))
+            if (wep.properties.qualities.includes(game.i18n.localize("PROPERTY.Accurate")))
               modifier += 10;
-            if (wep.properties.qualities.includes("Precise"))
+            if (wep.properties.qualities.includes(game.i18n.localize("PROPERTY.Precise")))
               successBonus += 1;
-            if (wep.properties.flaws.includes("Imprecise"))
+            if (wep.properties.flaws.includes(game.i18n.localize("PROPERTY.Imprecise")))
               slBonus -= 1;
           }
         }
@@ -445,11 +446,11 @@ class ActorWfrp4e extends Actor {
           else // If it is the actor's turn
           {
             // Prefill dialog according to qualities/flaws
-            if (wep.properties.qualities.includes("Accurate"))
+            if (wep.properties.qualities.includes(game.i18n.localize("PROPERTY.Accurate")))
               modifier += 10;
-            if (wep.properties.qualities.includes("Precise"))
+            if (wep.properties.qualities.includes(game.i18n.localize("PROPERTY.Precise")))
               successBonus += 1;
-            if (wep.properties.flaws.includes("Imprecise"))
+            if (wep.properties.flaws.includes(game.i18n.localize("PROPERTY.Imprecise")))
               slBonus -= 1;
           }
         }
@@ -488,11 +489,11 @@ class ActorWfrp4e extends Actor {
         let skillSelected =       skillCharList[Number(html.find('[name="skillSelected"]').val())];
 
         // Determine final target if a characteristic was selected
-        if (skillSelected == "Weapon Skill" || skillSelected == "Ballistic Skill")
+        if (skillSelected == game.i18n.localize("CHAR.WS") || skillSelected == game.i18n.localize("CHAR.BS"))
         {
-          if (skillSelected == "Weapon Skill")
+          if (skillSelected == game.i18n.localize("CHAR.WS"))
             testData.target = this.data.data.characteristics.ws.value
-          else if (skillSelected == "Ballistic Skill")
+          else if (skillSelected == game.i18n.localize("CHAR.BS"))
             testData.target = this.data.data.characteristics.bs.value
 
           testData.target += testData.testModifier + testData.testDifficulty;
@@ -524,7 +525,7 @@ class ActorWfrp4e extends Actor {
         roll(testData, cardOptions);
 
         // Reduce ammo if necessary
-        if (ammo && skillSelected != "Weapon Skill" && weapon.data.weaponGroup.value != "Entangling")
+        if (ammo && skillSelected != game.i18n.localize("CHAR.WS") && weapon.data.weaponGroup.value != game.i18n.localize("SPEC.Entangling"))
         {
           ammo.data.quantity.value--;
           this.updateEmbeddedEntity("OwnedItem", {_id: ammo._id, "data.quantity.value" : ammo.data.quantity.value });
@@ -599,16 +600,16 @@ class ActorWfrp4e extends Actor {
     let title = game.i18n.localize("CastingTest") + " - " + spell.name;
 
     // castSkill array holds the available skills/characteristics to cast with - Casting: Intelligence
-    let castSkills = [{key : "int", name : "Intelligence"}]
+    let castSkills = [{key : "int", name : game.i18n.localize("CHAR.Int")}]
 
     // if the actor has Language (Magick), add it to the array.
-    castSkills = castSkills.concat(this.items.filter(i => i.name.toLowerCase() == "language (magick)" && i.type == "skill"))
+    castSkills = castSkills.concat(this.items.filter(i => i.name.toLowerCase() == `${game.i18n.localize("Language")} (${game.i18n.localize("Magick")})`.toLowerCase() && i.type == "skill"))
 
     // Default to Language Magick if it exists
-    let defaultSelection = castSkills.findIndex(i => i.name.toLowerCase() == "language (magick)")
+    let defaultSelection = castSkills.findIndex(i => i.name.toLowerCase() == `${game.i18n.localize("Language")} (${game.i18n.localize("Magick")})`.toLowerCase())
 
     // Whether the actor has Instinctive Diction is important in the test rolling logic
-    let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "instinctive diction") > -1) // instinctive diction boolean
+    let instinctiveDiction = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == game.i18n.localize("NAME.ID").toLowerCase()) > -1) // instinctive diction boolean
 
     // Prepare the spell to have the complete data object, including damage values, range values, CN, etc.
     let preparedSpell = this.prepareSpellOrPrayer(spell);
@@ -721,10 +722,10 @@ class ActorWfrp4e extends Actor {
     let title = game.i18n.localize("ChannellingTest") +  " - " + spell.name;
 
     // channellSkills array holds the available skills/characteristics to  with - Channelling: Willpower
-    let channellSkills = [{key : "wp", name : "Willpower"}]
+    let channellSkills = [{key : "wp", name : game.i18n.localize("CHAR.WP")}]
 
     // if the actor has any channel skills, add them to the array.
-    channellSkills = channellSkills.concat(this.items.filter(i => i.name.toLowerCase().includes("channel") && i.type == "skill"))
+    channellSkills = channellSkills.concat(this.items.filter(i => i.name.toLowerCase().includes(game.i18n.localize("NAME.Channelling").toLowerCase()) && i.type == "skill"))
 
     // Find the spell lore, and use that to determine the default channelling selection
     let spellLore = spell.data.lore.value;
@@ -748,10 +749,10 @@ class ActorWfrp4e extends Actor {
     }
 
     if (spellLore == "witchcraft")
-      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes("Channelling")))
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
 
     // Whether the actor has Aethyric Attunement is important in the test rolling logic
-    let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == "aethyric attunement") > -1) // aethyric attunement boolean
+    let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == game.i18n.localize("NAME.AA").toLowerCase()) > -1) // aethyric attunement boolean
 
     let testData = {
       target : 0,
@@ -850,13 +851,13 @@ class ActorWfrp4e extends Actor {
     let title = game.i18n.localize("PrayerTest") + " - " + prayer.name;
 
     // ppraySkills array holds the available skills/characteristics to pray with - Prayers: Fellowship
-    let praySkills = [{key : "fel", name : "Fellowship"}]
+    let praySkills = [{key : "fel", name : game.i18n.localize("CHAR.Fel")}]
 
     // if the actor has the Pray skill, add it to the array.
-    praySkills = praySkills.concat(this.items.filter(i => i.name.toLowerCase() == "pray" && i.type == "skill"));
+    praySkills = praySkills.concat(this.items.filter(i => i.name.toLowerCase() == game.i18n.localize("NAME.Pray").toLowerCase() && i.type == "skill"));
 
     // Default to Pray skill if available
-    let defaultSelection = praySkills.findIndex(i => i.name.toLowerCase() == "pray")
+    let defaultSelection = praySkills.findIndex(i => i.name.toLowerCase() == game.i18n.localize("NAME.Pray").toLowerCase())
 
     // Prepare the prayer to have the complete data object, including damage values, range values, etc.
     let preparedPrayer = this.prepareSpellOrPrayer(prayer);
