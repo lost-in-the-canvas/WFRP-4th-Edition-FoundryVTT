@@ -885,9 +885,10 @@ class WFRP_Utility
     morrsliebActive = !morrsliebActive
     await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)
 
-    if (game.modules.find(m => m.id ==  "fxmaster" && m.active))
+    if (game.modules.get("fxmaster") && game.modules.get("fxmaster").active)
     {
       let filters = canvas.scene.getFlag('fxmaster', 'filters')
+      if (!filters) filters = {};
       if (morrsliebActive)
       {
         filters["morrslieb"] = {
