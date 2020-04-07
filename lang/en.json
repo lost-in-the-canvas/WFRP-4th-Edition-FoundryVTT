@@ -689,5 +689,10 @@
     "ClassTrappings.Rangers": "Cloak, Clothing, Dagger, Pouch, Backpack containing Tinderbox, Blanket, Rations (1 day)",
     "ClassTrappings.Riverfolk": "Cloak, Clothing, Dagger, Pouch, Sling Bag containing a Flask of Spirits ",
     "ClassTrappings.Rogues": "Clothing, Dagger, Pouch, Sling Bag containing 2 Candles, 1d10 Matches, a Hood or Mask",
-    "ClassTrappings.Warriors": "Clothing, Hand Weapon, Dagger, Pouch"
+    "ClassTrappings.Warriors": "Clothing, Hand Weapon, Dagger, Pouch",
+
+    "NAME.Stealth" : "Stealth",
+    "AP" : "AP",
+    "Scatter" : "Scatter"
+
 }

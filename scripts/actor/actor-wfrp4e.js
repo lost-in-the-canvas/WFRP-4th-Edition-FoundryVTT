@@ -2840,7 +2840,7 @@ class ActorWfrp4e extends Actor {
       if (wearingPlate)
         stealthPenaltyValue += -10;
       // Add the penalties together to reduce redundancy
-      armorPenaltiesString += (stealthPenaltyValue + " Stealth");
+      armorPenaltiesString += (stealthPenaltyValue + ` ${game.i18n.localize("NAME.Stealth")}`);
     }
     return armorPenaltiesString;
   }
@@ -2957,10 +2957,10 @@ class ActorWfrp4e extends Actor {
       {
         // Determine its qualities/flaws to be used for damage calculation
         weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        penetrating = weaponProperties.qualities.includes("Penetrating")
-        undamaging = weaponProperties.flaws.includes("Undamaging")
-        hack = weaponProperties.qualities.includes("Hack")
-        impale = weaponProperties.qualities.includes("Impale")
+        penetrating = weaponProperties.qualities.includes("PROPERTY.Penetrating")
+        undamaging = weaponProperties.flaws.includes("PROPERTY.Undamaging")
+        hack = weaponProperties.qualities.includes("PROPERTY.Hack")
+        impale = weaponProperties.qualities.includes("PROPERTY.Impale")
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
@@ -2996,16 +2996,16 @@ class ActorWfrp4e extends Actor {
 
       // show the AP usage in the updated message
       if (AP.ignored)
-        updateMsg += `${AP.used}/${AP.value} AP`
+        updateMsg += `${AP.used}/${AP.value} ${game.i18n.localize("AP")}`
       else
-        updateMsg += AP.used + " AP"
+        updateMsg += AP.used + ` ${game.i18n.localize("AP")}`
 
       // If using a shield, add that AP as well
       let shieldAP = 0;
       if (opposeData.defenderTestResult.weapon)
       {
-        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")))
-          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("Shield")).split(" ")[1])
+        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")))
+          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")).split(" ")[1])
       }
 
       if (shieldAP)
@@ -3045,10 +3045,10 @@ class ActorWfrp4e extends Actor {
 
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
-      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> Critical</a>`
+      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")}</a>`
 
     else if (impenetrable)
-      updateMsg += `<br>Impenetrable - ${game.i18n.localize("CHAT.CriticalsNullified")}`
+      updateMsg += `<br>${game.i18n.localize("PROPERTY.Impenetrable")} - ${game.i18n.localize("CHAT.CriticalsNullified")}`
 
     if (hack)
       updateMsg += `<br>${game.i18n.localize("CHAT.DamageAP")} ${WFRP4E.locations[opposeData.hitloc.value]}`
