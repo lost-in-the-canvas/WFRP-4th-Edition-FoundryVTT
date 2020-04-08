@@ -51,7 +51,6 @@
       <label class="label-text">{{localize "Weapon Group"}}</label>
       <select name="data.weaponGroup.value" data-dtype="{{data.weaponGroup.type}}">
         {{#select data.weaponGroup.value}}
-        <option value=""></option>
         {{#each weaponGroups as |name type|}}
         <option value="{{type}}">{{name}}</option>
         {{/each}}

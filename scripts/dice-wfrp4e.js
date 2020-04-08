@@ -27,17 +27,28 @@ class DiceWFRP
   {
     let rollMode = game.settings.get("core", "rollMode");
 
+    var sceneStress = "challenging";
+    // Overrides default difficulty to Average depending on module setting and combat state
+    if (game.settings.get("wfrp4e", "testDefaultDifficulty") && (game.combat != null))
+      sceneStress = game.combat.started ? "challenging" : "average";
+    else if (game.settings.get("wfrp4e", "testDefaultDifficulty"))
+      sceneStress = "average";
+      
     // Merge input with generic properties constant between all tests
     mergeObject(testData,
     {
-      testDifficulty: "challenging",
+      testDifficulty: sceneStress,
       testModifier: 0,
       slBonus: 0,
       successBonus: 0,
     });
+
+    // Sets/overrides default test diffficulty to Average if Income test
+    sceneStress = testData.income ? "average" : sceneStress;
+
     mergeObject(dialogOptions.data,
     {
-      testDifficulty: dialogOptions.data.testDifficulty || "challenging",
+      testDifficulty: dialogOptions.data.testDifficulty || sceneStress,
       difficultyLabels: WFRP4E.difficultyLabels,
       testModifier: (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
       slBonus: dialogOptions.data.slBonus || 0,
@@ -227,14 +238,18 @@ class DiceWFRP
 
     mergeObject(rollResults, testData.extra)
 
+    rollResults.other = []; // Container for miscellaneous data that can be freely added onto
+
+    if (rollResults.options && rollResults.options.rest)
+    {
+      rollResults.woundsHealed = parseInt(SL) + rollResults.options.tb;
+      rollResults.other.push(`${rollResults.woundsHealed} ${game.i18n.localize("Wounds Healed")}`)
+    }
 
     if (testData.hitLocation)
     {
       if (testData.hitloc)
-        rollResults.hitloc = WFRP_Tables.rollTable("hitloc",
-        {
-          lookup: testData.hitloc
-        });
+        rollResults.hitloc = WFRP_Tables.rollTable("hitloc",{lookup: testData.hitloc});
       else
         rollResults.hitloc = WFRP_Tables.rollTable("hitloc");
 
@@ -366,15 +381,16 @@ class DiceWFRP
     let miscastCounter = 0;
     testData.function = "rollCastTest"
 
+    let CNtoUse = spell.data.cn.value
     // Partial channelling - reduce CN by SL so far
     if (game.settings.get("wfrp4e", "partialChannelling"))
     {
-      spell.data.cn.value -= spell.data.cn.SL;
+      CNtoUse -=  spell.data.cn.SL;
     }
     // Normal Channelling - if SL has reached CN, CN is considered 0
     else if (spell.data.cn.SL >= spell.data.cn.value)
     {
-      spell.data.cn.value = 0;
+      CNtoUse = 0;
     }
 
     // If malignant influence AND roll has an 8 in the ones digit, miscast
@@ -387,7 +403,7 @@ class DiceWFRP
       miscastCounter++;
 
     // slOver is the amount of SL over the CN achieved
-    let slOver = (Number(testResults.SL) - spell.data.cn.value)
+    let slOver = (Number(testResults.SL) - CNtoUse)
 
     // Test itself was failed
     if (testResults.description.includes("Failure"))
@@ -605,7 +621,6 @@ class DiceWFRP
     let SL = testResults.SL;
     let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
-    testData.extra.sin = currentSin;
 
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
@@ -642,6 +657,7 @@ class DiceWFRP
       if (unitResult <= currentSin)
       {
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
+        testResults.extra.wrathModifier = currentSin * 10;
         currentSin--;
         if (currentSin < 0)
           currentSin = 0;
@@ -682,6 +698,8 @@ class DiceWFRP
     {
       testData.roll = testData.SL = null;
     }
+
+    testData.other = testData.other.join("<br>")
 
     let chatData = {
       title: chatOptions.title,

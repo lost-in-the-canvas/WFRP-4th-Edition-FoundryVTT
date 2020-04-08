@@ -5162,8 +5162,9 @@
         width: fit-content;
         display: inline-block;
       }
-    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .fist-icon,
-      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon {
+      .app.window-app.sheet.wfrp4e.actor .rest-icon,
+      .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon {
         opacity: 0.8;
         position: relative;
         left: -1px;
@@ -5171,7 +5172,6 @@
         min-width: 19px;
         min-height: 18px;
         display: inline-block;
-        flex: 0 0 30px;
         margin: 0px;
         padding: 0px 0px 0px 0px;
         border-radius: 10px;
@@ -5180,8 +5180,34 @@
         border-top: none;
         box-shadow: 0px 0px 6px #6b3a0f87 inset;
       }
-    .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised,
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .fist-icon .fa.fa-fist-raised {
+
+      .app.window-app.sheet.wfrp4e.creature-sheet .creature-overview-label .combat-icon
+      {
+        margin-left: 5px;
+        margin-top: 2px;
+      }
+
+      .app.window-app.sheet.wfrp4e.creature-sheet .creature-overview-label .combat-icon > *
+      {
+        top: 2px;
+        left: 1px;
+      }
+
+      .app.window-app.sheet.wfrp4e.creature-sheet .creature-overview-label .combat-icon .fa-question
+      {
+        top: 2px;
+        left: 3px;
+      }
+ 
+ 
+
+      .app.window-app.sheet.wfrp4e.actor .rest-icon{
+        left: 5px;
+      }
+      .app.window-app.sheet.wfrp4e.actor .fa-bed,
+    .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *,
+        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *{
           content: "\f6de";
           position: relative;
           top: 2px;
@@ -5189,6 +5215,10 @@
           opacity: 0.9;
           transform: scale(0.85);
         }
+      .app.window-app.sheet.wfrp4e.actor .fa-bed{
+        left: 0px;
+      }
+
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #group {
         position: relative;
@@ -5198,6 +5228,7 @@
         display: inline-block;
         /* background: bisque; */
       }
+
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
         position: relative;
@@ -5215,6 +5246,25 @@
         width: fit-content;
         display: inline-block;
         /* background: bisque; */
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #group {
+        left : 70px;
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #damage {
+        left : 136px;
+      }
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header #reach {
+        left : 183px;
+      }
+
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group {
+        left : 139px;
+      }
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #damage {
+        left : 206px;
+      }
+      .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #reach {
+        left : 258px;
       }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list {
@@ -13433,7 +13483,7 @@ border-image-outset: 0px !important;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 0px 7px 3px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
@@ -16164,4 +16214,23 @@ box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects 
 background-image: linear-gradient(to right, #820f0f , #82820d);
 }
 
+.window-app.vtta h1 {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family) !important;
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: none
+}
 
+.window-app.vtta h1 {
+  font-family: var(--actor-input-font-family) !important;
+}
+
+.token-mold nav >* {
+  color: #CCC !important;
+}
+
+#permissions-config .hint {
+  color: #CCC
+}

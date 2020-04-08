@@ -59,7 +59,7 @@
     "range": [66, 70]
   }, {
     "name": "Chaos Quake",
-    "description": "All creatures within <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a>0 yards must pass an Average (+0) Athletics Test or gain the Prone Condition.",
+    "description": "All creatures within <a class = 'chat-roll'><i class='fas fa-dice'></i> 1d10</a> yards must pass an Average (+0) Athletics Test or gain the Prone Condition.",
     "range": [71, 75]
   }, {
     "name": "Traitor's Heart",

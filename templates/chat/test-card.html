@@ -62,7 +62,7 @@
             - <a class ="table-click fumble-roll" data-table = "majormis"><i class="fas fa-list"></i> {{testData.extra.majormis}}</a>
             {{/if}}
             {{#if testData.extra.wrath}}
-            - <a class ="table-click fumble-roll" data-sin = "{{testData.sin}}"data-table = "wrath"><i class="fas fa-list"></i> {{testData.extra.wrath}}</a>
+            - <a class ="table-click fumble-roll" data-modifier="{{testData.extra.wrathModifier}}" data-table = "wrath"><i class="fas fa-list"></i> {{testData.extra.wrath}} (+{{testData.extra.wrathModifier}})</a>
             {{/if}}
             {{#if testData.extra.misfire}}
             - <a class ="table-click fumble-roll" data-damage="{{testData.extra.misfireDamage}}" data-table = "misfire"><i class="fas fa-list"></i> {{testData.extra.misfire}}</a>
@@ -78,7 +78,7 @@
 
         {{#if testData.other}}
         <div class="card-content">
-            <b>{{localize "Other"}}</b>: {{testData.other}}
+            <b>{{localize "Other"}}</b>: {{{testData.other}}}
         </div>
         {{/if}}
     

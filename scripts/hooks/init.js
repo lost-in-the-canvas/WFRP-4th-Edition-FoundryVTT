@@ -3,7 +3,7 @@
  */
 Hooks.once("init", () => {
     // load tables from system folder
-    FilePicker.browse("user", "systems/wfrp4e/tables").then(resp => {
+    FilePicker.browse("data", "systems/wfrp4e/tables").then(resp => {
       try 
       {
       if (resp.error)
@@ -220,6 +220,16 @@ Hooks.once("init", () => {
         scope: "world",
         config: true,
         default: true,
+        type: Boolean
+      });
+
+      // Register default test difficulty
+      game.settings.register("wfrp4e", "testDefaultDifficulty", {
+        name: "SETTINGS.TestDialogDefaultDifficulty",
+        hint: "SETTINGS.TestDialogDefaultDifficultyHint",
+        scope: "world",
+        config: true,
+        default: false,
         type: Boolean
       });
   

@@ -302,7 +302,7 @@ class WFRP_Tables
   static criticalCastMenu(crittable)
   {
     return `${game.i18n.localize("CHAT.ChooseFrom")}:<ul>
-      <li><b>${game.i18n.localize("ROLL.CritCast")}</b>: ${game.i18n.localize("CHAT.CritCast")} <a class=table-click data-table=${crittable}><b><i class="fas fa-list"></i>${game.i18n.localize("Critical Wound")}</b></a></li>
+      <li><b>${game.i18n.localize("ROLL.CritCast")}</b>: ${game.i18n.localize("CHAT.CritCast")} <a class=table-click data-table=${crittable}><i class="fas fa-list"></i> ${game.i18n.localize("Critical Wound")}</a></li>
       <li><b>${game.i18n.localize("ROLL.TotalPower")}</b>: ${game.i18n.localize("CHAT.TotalPower")}</li>
       <li><b>${game.i18n.localize("ROLL.UnstoppableForce")}</b>: ${game.i18n.localize("CHAT.UnstoppableForce")}</li>
       </ul`;

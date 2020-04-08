@@ -359,7 +359,7 @@ class WFRP_Utility
    */
   static _calculateAdvCost(currentAdvances, type)
   {
-    let index = Math.ceil((currentAdvances / 5) - 1);
+    let index = Math.floor(currentAdvances / 5);
     index = index < 0 ? 0 : index; // min 0
 
     if (index >= WFRP4E.xpCost[type].length)
@@ -716,9 +716,7 @@ class WFRP_Utility
    */
   static handleTableClick(event)
   {
-    // Sin from wrath of the gods if available
-    let sin = Number($(event.currentTarget).attr("data-sin"));
-    let modifier = sin * 10 || 0;
+    let modifier = parseInt($(event.currentTarget).attr("data-modifier")) || 0;
     let html;
     let chatOptions = this.chatDataSetup("", game.settings.get("core", "rollMode"))
 
@@ -738,12 +736,6 @@ class WFRP_Utility
         let damage = $(event.currentTarget).attr("data-damage")
         html = `<b>${game.i18n.localize("Misfire")}</b>: ${game.i18n.localize("ROLL.MisfireText1")} ${damage} ${game.i18n.localize("ROLL.MisfireText2")}`;
       }
-      else if (sin)
-        html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
-        {
-          modifier: modifier,
-          maxSize: false
-        });
       else
         html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
         {
@@ -888,15 +880,48 @@ class WFRP_Utility
 
   static async toggleMorrslieb()
   {
-    if (game.modules.find(m => m.id ==  "fxmaster" && m.active))
-    {
-      ui.notifications.notify("Morrslieb not available with FX-Master installed. Use the module's color filter")
-      return;
-    }
+    console.log("toggleMorrslieb()")
     let morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
-    await canvas.scene.setFlag("wfrp4e", "morrslieb", !morrsliebActive)
-    game.socket.emit("system.wfrp4e", {})
-    canvas.draw();
-  }
+    morrsliebActive = !morrsliebActive
+    await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)
 
-}
+    if (game.modules.get("fxmaster") && game.modules.get("fxmaster").active)
+    {
+      let filters = canvas.scene.getFlag('fxmaster', 'filters')
+      if (!filters) filters = {};
+      if (morrsliebActive)
+      {
+        filters["morrslieb"] = {
+          type: "color",
+          options: {
+            red: CONFIG.Morrslieb.red,
+            green: CONFIG.Morrslieb.green,
+            blue: CONFIG.Morrslieb.blue
+            }
+          }
+        }
+        else 
+        {
+          filters["morrslieb"] = {
+            type: "color",
+            options: {
+              red: 1,
+              green: 1,
+              blue: 1
+              }
+            }
+        }
+        canvas.scene.setFlag('fxmaster', 'filters', null).then(()=> {
+          canvas.scene.setFlag('fxmaster', 'filters', filters);
+        })
+
+      }
+      else 
+      {
+        game.socket.emit("system.wfrp4e", {
+          type : "morrslieb"
+        })
+        canvas.draw();
+      }
+    }
+  }
