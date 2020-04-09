@@ -22,7 +22,7 @@ class DiceWFRP
   {
     dialogOptions,
     testData,
-    cardOptions
+    cardOptions,
   })
   {
     let rollMode = game.settings.get("core", "rollMode");
@@ -70,24 +70,35 @@ class DiceWFRP
     dialogOptions.data.rollMode = rollMode;
     dialogOptions.data.rollModes = CONFIG.rollModes;
 
-    // Render Test Dialog
-    renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg =>
+    if (!testData.extra.options.bypass)
     {
-      new Dialog(
+      // Render Test Dialog
+      renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg =>
       {
-        title: dialogOptions.title,
-        content: dlg,
-        buttons:
+        new Dialog(
         {
-          rollButton:
+          title: dialogOptions.title,
+          content: dlg,
+          buttons:
           {
-            label: game.i18n.localize("Roll"),
-            callback: html => dialogOptions.callback(html, roll)
-          }
-        },
-        default: "rollButton"
-      }).render(true);
-    });
+            rollButton:
+            {
+              label: game.i18n.localize("Roll"),
+              callback: html => dialogOptions.callback(html, roll)
+            }
+          },
+          default: "rollButton"
+        }).render(true);
+      });
+    }
+    else 
+    {
+      testData.testModifier = testData.extra.options.testModifier || testData.testModifier
+      testData.target = testData.target + testData.testModifier;
+      testData.slBonus = testData.extra.options.slBonus || testData.slBonus
+      testData.successBonus = testData.extra.options.successBonus || testData.successBonus
+      roll(testData, cardOptions)
+    }
   }
 
 

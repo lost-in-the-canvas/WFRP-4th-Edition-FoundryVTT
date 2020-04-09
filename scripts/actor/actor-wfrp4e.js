@@ -267,7 +267,8 @@ class ActorWfrp4e extends Actor {
       hitLocation : false,
       income : options.income,
       extra : {
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
 
@@ -350,7 +351,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} weapon   The weapon Item being used.
    * @param {bool}   event    The event that called this Test, used to determine if attack is melee or ranged.
    */
-  setupWeapon(weapon, event = {}) {
+  setupWeapon(weapon, options = {}) {
     let skillCharList = []; // This array is for the different options available to roll the test (Skills and characteristics)
     let slBonus = 0   // Used when wielding Defensive weapons
     let modifier = 0; // Used when atatcking with Accurate weapons
@@ -367,7 +368,8 @@ class ActorWfrp4e extends Actor {
       extra : { // Store this extra weapon/ammo data for later use
         weapon : wep,
         ammo : ammo,
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
 
@@ -407,7 +409,13 @@ class ActorWfrp4e extends Actor {
         // If the actor has the appropriate skill, default to that.
         skillCharList.push(wep.skillToUse.name)
         defaultSelection = skillCharList.indexOf(wep.skillToUse.name)
+        testData.target = this.data.data.characteristics[wep.skillToUse.data.characteristic.value].value + wep.skillToUse.data.advances.value;
+
     }
+
+    // Bypass macro default values
+    if (!testData.target)
+      testData.target = wep.attackType == "melee" ? this.data.data.characteristics["ws"].value : this.data.data.characteristics["bs"].value
 
     // ***** Automatic Test Data Fill Options ******
 
@@ -556,7 +564,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} spell     The spell item clicked on, petty spells will automatically be Casted, without the option to channel.
    *
    */
-  spellDialog(spell) {
+  spellDialog(spell, options={}) {
     // Do not show the dialog for Petty spells, just cast it.
     if (spell.data.lore.value == "petty")
       this.setupCast(spell)
@@ -596,7 +604,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} spell    The spell Item being Casted. The spell item has information like CN, lore, and current ingredient ID
    *
    */
-  setupCast(spell) {
+  setupCast(spell, options = {}) {
     let title = game.i18n.localize("CastingTest") + " - " + spell.name;
 
     // castSkill array holds the available skills/characteristics to cast with - Casting: Intelligence
@@ -620,7 +628,8 @@ class ActorWfrp4e extends Actor {
         malignantInfluence : false,
         ingredient : false,
         ID : instinctiveDiction,
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
 
@@ -718,7 +727,7 @@ class ActorWfrp4e extends Actor {
    * This spell SL will then be updated accordingly.
    *
    */
-  setupChannell(spell) {
+  setupChannell(spell, options = {}){
     let title = game.i18n.localize("ChannellingTest") +  " - " + spell.name;
 
     // channellSkills array holds the available skills/characteristics to  with - Channelling: Willpower
@@ -761,7 +770,8 @@ class ActorWfrp4e extends Actor {
         malignantInfluence : false,
         ingredient : false,
         AA : aethyricAttunement,
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
 
@@ -847,7 +857,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} prayer    The prayer Item being used, compared to spells, not much information
    * from the prayer itself is needed.
    */
-  setupPrayer(prayer) {
+  setupPrayer(prayer, options = {}) {
     let title = game.i18n.localize("PrayerTest") + " - " + prayer.name;
 
     // ppraySkills array holds the available skills/characteristics to pray with - Prayers: Fellowship
@@ -864,10 +874,12 @@ class ActorWfrp4e extends Actor {
     let testData = { // Store this data to be used in the test logic
       target : 0,
       hitLocation : false,
+      target : defaultSelection != -1 ? this.data.data.characteristics[praySkills[defaultSelection].data.data.characteristic.value].value + praySkills[defaultSelection].data.data.advances.value : this.data.data.characteristics.fel.value,
       extra : {
         prayer : preparedPrayer,
         size : this.data.data.details.size.value,
-        sin: this.data.data.status.sin.value
+        sin: this.data.data.status.sin.value,
+        options : options
       }
     };
 
@@ -949,15 +961,17 @@ class ActorWfrp4e extends Actor {
    *
    * @param {Object} trait   The trait Item being used, containing which characteristic/bonus characteristic to use
    */
-  setupTrait(trait) {
+  setupTrait(trait, options={}) {
     if (!trait.data.rollable.value)
       return;
     let title =   WFRP4E.characteristics[trait.data.rollable.rollCharacteristic] + ` ${game.i18n.localize("Test")} - ` + trait.name;
     let testData = {
       hitLocation : false,
+      target : this.data.data.characteristics[trait.data.rollable.rollCharacteristic].value,
       extra : { // Store this trait data for later use
         trait : trait,
-        size : this.data.data.details.size.value
+        size : this.data.data.details.size.value,
+        options : options
       }
     };
 
