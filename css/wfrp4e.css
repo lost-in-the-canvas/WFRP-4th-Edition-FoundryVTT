@@ -850,12 +850,11 @@
   }
   
   .sidebar-popout .directory-header,
-    .sidebar-tab .directory-header {
-    height: 38px;
-    line-height: 32px;
-    text-align: center;
-    margin: 0;
-    border-bottom: 1px solid #444;
+  .sidebar-tab .directory-header {
+      line-height: 32px;
+      text-align: center;
+      margin: 0;
+      border-bottom: none;
   }
   .sidebar-popout .directory-header .header-search,
     .sidebar-tab .directory-header .header-search {
@@ -920,8 +919,8 @@
     }
 
   .sidebar-popout.sidebar-directory .directory-list,
-    .sidebar-tab.sidebar-directory .directory-list {
-    height: calc(100% - 38px - 50px);
+  .sidebar-tab.sidebar-directory .directory-list {
+    height: auto;
     margin: 0px 5px 0px 0px;
     padding-right: 5px;
   }
@@ -959,16 +958,14 @@
   }
   .sidebar-tab .directory-footer,
   #sidebar .directory-footer {
-    margin: 7px 0px 0px 0px;
+    margin: 7px 8px 0px 8px;
     border-top: none;
-    min-height: 50px;
-    max-height: 50px;
   }
     .sidebar-tab .directory-footer button,
     #macros .directory-footer button,
     #macros .directory-footer button,
     #sidebar .directory-footer button {
-      margin: 0 2%;
+      margin: 0px 5px 6px 5px !important;
       padding: 2px 0px 0px 0px;
       height: 34px;
       border: 1px solid black;
@@ -16815,3 +16812,37 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
     margin-left: 19px;
     font-size: 14px;
   }
+
+/* DungeonDraft Import STYLING */
+.app.window-app.dialog .form-group.import {
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+  margin: 4px 0;
+}
+.app.window-app.dialog .form-group.import .import-options {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: center;
+  padding: 4px 3px;
+  border: 1px solid #5d513e;
+  background: #080808;
+  width: 120px;
+}
+.app.window-app.dialog .form-group.import .file-picker {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+  height: auto;
+}
