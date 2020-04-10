@@ -842,7 +842,7 @@ class WFRP_Utility
    * @param {String} itemName name of item being rolled
    * @param {String} itemType type of item ("weapon", "spell", etc)
    */
-  static rollItemMacro(itemName, itemType)
+  static rollItemMacro(itemName, itemType, bypassData)
   {
     const speaker = ChatMessage.getSpeaker();
     let actor;
@@ -852,7 +852,7 @@ class WFRP_Utility
     // Not technically an item, used for convenience
     if (itemType == "characteristic")
     {
-      return actor.setupCharacteristic(itemName)
+      return actor.setupCharacteristic(itemName, bypassData)
     }
     else
     {
@@ -866,15 +866,15 @@ class WFRP_Utility
     switch (item.type)
     {
       case "weapon":
-        return actor.setupWeapon(item)
+        return actor.setupWeapon(item, bypassData)
       case "spell":
-        return actor.spellDialog(item)
+        return actor.spellDialog(item, bypassData)
       case "prayer":
-        return actor.setupPrayer(item)
+        return actor.setupPrayer(item, bypassData)
       case "trait":
-        return actor.setupTrait(item)
+        return actor.setupTrait(item, bypassData)
       case "skill":
-        return actor.setupSkill(item)
+        return actor.setupSkill(item, bypassData)
     }
   }
 

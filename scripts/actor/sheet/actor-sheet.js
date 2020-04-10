@@ -157,7 +157,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
     // Autoselect entire text 
-    $("input[type=text]").click(function() {
+    $("input[type=text]").focusin(function() {
       $(this).select();
     });
 
@@ -226,7 +226,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Similar to the handlers above, but for skills (and all actor types) 
   html.find('.skill-advances').keydown(async event => {
     // Wait to update if user tabbed to another skill
-    if (event.keyCode == 9)
+    if (event.keyCode == 9) // Tab
     {
       this.skillUpdateFlag = false;
     }
@@ -234,7 +234,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       this.skillUpdateFlag = true;
     }
-    if (event.keyCode == 13)
+    if (event.keyCode == 13) // Enter
     {
       if (!this.skillsToEdit)
         this.skillsToEdit = []
@@ -253,6 +253,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Records skill advance edits and updates the actor if the listener above sets the flag to true
   html.find('.skill-advances').focusout(async event => {
+    event.preventDefault()
     if (!this.skillsToEdit)
       this.skillsToEdit = []
     let itemId = event.target.attributes["data-item-id"].value;
@@ -269,9 +270,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     this.skillsToEdit = [];
   });
   // I don't remember why this was added ¯\_(ツ)_/¯ TODO: evaluate
-  html.find('.skill-advances').focusin(async event => {
-    event.target.focus();
-  });
+  // html.find('.skill-advances').focusin(async event => {
+  //   event.target.focus();
+  // });
 
   // Ammo selector in the combat tab - change the currentAmmo value of the item to the selected value
   html.find('.ammo-selector').change(async event => {
@@ -336,7 +337,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
     let weapons;
     await pack.getIndex().then(index => weapons = index);
-    let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed");
+    let unarmedId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Unarmed").toLowerCase());
     let unarmed = await pack.getEntity(unarmedId.id);
     this.actor.setupWeapon(unarmed.data)
     // Roll Fist Attack
@@ -344,7 +345,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
     // Dodge (Arrow in the combat tab)
     html.find('.dodge-icon').click(async event => {
-      let skill = this.actor.items.find(s => s.data.name == "Dodge" && s.type == "skill")
+      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Dodge") && s.type == "skill")
       if (skill)
         this.actor.setupSkill(skill.data)
       else 
@@ -370,14 +371,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       await pack.getIndex().then(index => traits = index);
       let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
       let stomp = await pack.getEntity(stompId.id);
-      stomp.data.name = "Stomp"
+      stomp.data.name = game.i18n.localize("NAME.Stomp")
       stomp.data.data.specification.value = 0;
       this.actor.setupTrait(stomp.data)
     })
 
     // Rest
     html.find('.rest-icon').click(async event => {
-      this.actor.setupCharacteristic("t", {rest: true})
+
+      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Enurance") && s.type == "skill")
+      if (skill)
+        this.actor.setupSkill(skill.data, {rest: true})
+      else 
+        this.actor.setupCharacteristic("t", {rest: true})
+       
     })
 
   // Roll a trait (right click to show dropdown description)
@@ -831,8 +838,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (ev.button == 2)
     {
       new Dialog({
-        title: "Duplicate Item",
-        content: '<p>Do you want to duplicate this item?</p>',
+        title: game.i18n.localize("SHEET.DupTitle"),
+        content: `<p>${game.i18n.localize("SHEET.DupPrompt")}</p>`,
         buttons: {
           yes: {
             label: "Yes",
@@ -1197,13 +1204,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       switch(type)
       {
         case 'b' : 
-        moneyItem = money.find(i => i.name == "Brass Penny");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.BP"));
         break;
         case 's' : 
-        moneyItem = money.find(i => i.name == "Silver Shilling");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.SS"));
         break;
         case 'g' : 
-        moneyItem = money.find(i => i.name == "Gold Crown");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.GC"));
         break;
       }
 
@@ -1215,9 +1222,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       // add halves
       if (halfS)
-         money.find(i => i.name == "Brass Penny").data.quantity.value += 6;
+         money.find(i => i.name == game.i18n.localize("NAME.BP")).data.quantity.value += 6;
       if (halfG)
-        money.find(i => i.name == "Silver Shilling").data.quantity.value += 10;
+        money.find(i => i.name == game.i18n.localize("NAME.SS")).data.quantity.value += 10;
 
       await this.actor.updateManyEmbeddedEntities("OwnedItem", money);
     }
@@ -1283,7 +1290,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        this.actor.setupSkill(skill.data, career.data.status);
+        this.actor.setupSkill(skill.data, {income : career.data.status});
       })
     }
     li.toggleClass("expanded");

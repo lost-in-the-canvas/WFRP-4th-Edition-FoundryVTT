@@ -3,9 +3,9 @@
     <!-- <div class="table-header table-row"> -->
       <div class="table-header"></div>
       {{#each actor.data.characteristics as |ch c|}}
-      <div title="{{ch.label}}" class="table-header">
+      <div title="{{localize ch.label}}" class="table-header">
         <div class="header-block">
-          {{ch.abrev}}
+          {{localize ch.abrev}}
           {{#if ch.career}}
           <a class="advancement-indicator" title="{{ch.cost}} Exp" data-target="{{c}}">+</a>
           {{else}}

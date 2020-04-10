@@ -3753,11 +3753,11 @@
       color: var(--actor-label-color);
       box-shadow: 0 0 10px #00000052 inset;
       text-align: center;
-      width: 56px;
+      min-width: 56px;
       border-top: 1px solid #736953a6;
       min-height: 29px;
       max-height: 29px;
-      padding-top: 5px;
+      padding: 5px;
     }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
       border-top: 1px solid #736953a6;

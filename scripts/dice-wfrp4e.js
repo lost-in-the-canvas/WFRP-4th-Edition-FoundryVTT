@@ -22,7 +22,7 @@ class DiceWFRP
   {
     dialogOptions,
     testData,
-    cardOptions
+    cardOptions,
   })
   {
     let rollMode = game.settings.get("core", "rollMode");
@@ -70,24 +70,35 @@ class DiceWFRP
     dialogOptions.data.rollMode = rollMode;
     dialogOptions.data.rollModes = CONFIG.rollModes;
 
-    // Render Test Dialog
-    renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg =>
+    if (!testData.extra.options.bypass)
     {
-      new Dialog(
+      // Render Test Dialog
+      renderTemplate(dialogOptions.template, dialogOptions.data).then(dlg =>
       {
-        title: dialogOptions.title,
-        content: dlg,
-        buttons:
+        new Dialog(
         {
-          rollButton:
+          title: dialogOptions.title,
+          content: dlg,
+          buttons:
           {
-            label: game.i18n.localize("Roll"),
-            callback: html => dialogOptions.callback(html, roll)
-          }
-        },
-        default: "rollButton"
-      }).render(true);
-    });
+            rollButton:
+            {
+              label: game.i18n.localize("Roll"),
+              callback: html => dialogOptions.callback(html, roll)
+            }
+          },
+          default: "rollButton"
+        }).render(true);
+      });
+    }
+    else 
+    {
+      testData.testModifier = testData.extra.options.testModifier || testData.testModifier
+      testData.target = testData.target + testData.testModifier;
+      testData.slBonus = testData.extra.options.slBonus || testData.slBonus
+      testData.successBonus = testData.extra.options.successBonus || testData.successBonus
+      roll(testData, cardOptions)
+    }
   }
 
 
@@ -309,20 +320,20 @@ class DiceWFRP
     if (testResults.description.includes(game.i18n.localize("Failure")))
     {
       // Dangerous weapons fumble on any failed tesst including a 9
-      if (testResults.roll % 11 == 0 || testResults.roll == 100 || (weapon.properties.flaws.includes("Dangerous") && testResults.roll.toString().includes("9")))
+      if (testResults.roll % 11 == 0 || testResults.roll == 100 || (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Dangerous")) && testResults.roll.toString().includes("9")))
       {
         testResults.extra.fumble = game.i18n.localize("Fumble")
         // Blackpowder/engineering/explosive weapons misfire on an even fumble
-        if ((weapon.data.weaponGroup.value == "Blackpowder" ||
-            weapon.data.weaponGroup.value == "Engineering" ||
-            weapon.data.weaponGroup.value == "Explosives") && testResults.roll % 2 == 0)
+        if ((weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder") ||
+            weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering") ||
+            weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Explosives")) && testResults.roll % 2 == 0)
         {
           testResults.extra.misfire = game.i18n.localize("Misfire")
-          testResults.extra.misfireDamage = eval(testResults.roll.toString().split('').pop() + weapon.data.damage.value)
+          testResults.extra.misfireDamage = eval(parseInt(testResults.roll.toString().split('').pop()) + weapon.data.damage.value)
         }
       }
-      if (weapon.data.weaponGroup.value == "Throwing")
-        testResults.extra.scatter = "Scatter";
+      if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
+        testResults.extra.scatter = game.i18n.localize("Scatter");
     }
     else
     {
@@ -330,7 +341,7 @@ class DiceWFRP
         testResults.extra.critical = game.i18n.localize("Critical")
 
       // Impale weapons crit on 10s numbers
-      if (weapon.properties.qualities.includes("Impale") && testResults.roll % 10 == 0)
+      if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Impale")) && testResults.roll % 10 == 0)
         testResults.extra.critical = game.i18n.localize("Critical")
     }
 
@@ -346,17 +357,17 @@ class DiceWFRP
     let unitValue = Number(testResults.roll.toString().split("").pop())
     unitValue = unitValue == 0 ? 10 : unitValue; // If unit value == 0, use 10
 
-    if (weapon.properties.qualities.includes("Damaging") && unitValue > Number(testResults.SL))
+    if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Damaging")) && unitValue > Number(testResults.SL))
       damageToUse = unitValue; // If damaging, instead use the unit value if it's higher
 
     testResults.damage = eval(weapon.data.damage.value + damageToUse);
 
     // Add unit die value to damage if impact
-    if (weapon.properties.qualities.includes("Impact"))
+    if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Impact")))
       testResults.damage += unitValue;
 
     // If Tiring, instead provide both normal damage and increased damage as an option - clickable to select which damage is used
-    if (weapon.properties.flaws.includes("Tiring") && (damageToUse != testResults.SL || weapon.properties.qualities.includes("Impact")))
+    if (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Tiring")) && (damageToUse != testResults.SL || weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Impact"))))
     {
       testResults.damage = `<a class = "damage-select">${eval(weapon.data.damage.value + testResults.SL)}</a> | <a class = "damage-select">${testResults.damage}</a>`;
     }
@@ -406,7 +417,7 @@ class DiceWFRP
     let slOver = (Number(testResults.SL) - CNtoUse)
 
     // Test itself was failed
-    if (testResults.description.includes("Failure"))
+    if (testResults.description.includes(game.i18n.localize("Failure")))
     {
       testResults.description = game.i18n.localize("ROLL.CastingFailed")
       // Miscast on fumble
