@@ -16846,3 +16846,11 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
   background: #352516;
   height: auto;
 }
+
+input[name="dd-import.importPath"] {
+  border: 1px solid #736953a6;
+}
+
+.placeable-hud .control-icon.active {
+  border: 2px solid #ff6400;
+}
