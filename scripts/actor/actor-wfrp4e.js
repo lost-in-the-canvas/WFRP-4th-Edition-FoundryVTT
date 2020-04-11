@@ -2386,7 +2386,7 @@ class ActorWfrp4e extends Actor {
     weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value] || "basic";
 
     // Attach the available skills to use to the weapon.
-    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase()))
+    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(`(${weapon.data.weaponGroup.value.toLowerCase()})`))
     
     // prepareQualitiesFlaws turns the comma separated qualities/flaws string into a string array
     // Does not include qualities if no skill could be found above
@@ -3312,6 +3312,15 @@ class ActorWfrp4e extends Actor {
         await this._advanceTalent(talent);
   
       this.update(updateObj);
+    }
+
+
+    _replaceData(formula) {
+      let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
+      return formula.replace(dataRgx, (match, term) => {
+        let value = getProperty(this.data, term);
+        return value ? String(value).trim() : "0";
+      });
     }
 }
 

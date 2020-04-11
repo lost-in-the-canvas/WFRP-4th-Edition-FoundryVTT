@@ -28,8 +28,8 @@
         <div class="characteristics-table" cellpadding="0">
           <!-- <div class="table-header"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <div title="{{ch.label}}" data-char="{{ch}}" class="table-header">
-              <a  class ="ch-roll" data-char="{{c}}">{{ch.abrev}}</a>
+            <div title="{{localize ch.label}}" data-char="{{ch}}" class="table-header">
+              <a  class ="ch-roll" data-char="{{c}}">{{localize ch.abrev}}</a>
             </div>
             {{/each}}
           <!-- </div> -->

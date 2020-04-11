@@ -626,7 +626,7 @@
     "SPEC.Parry" : "Parry",
     "SPEC.Polearm" : "Polearm",
     "SPEC.TwoHanded" : "Two-handed",
-    "SPEC.Blackpowder" : "Blacpowder",
+    "SPEC.Blackpowder" : "Blackpowder",
     "SPEC.Bow" : "Bow",
     "SPEC.Crossbow" : "Crossbow",
     "SPEC.Entangling" : "Entangling",
@@ -693,6 +693,8 @@
 
     "NAME.Stealth" : "Stealth",
     "AP" : "AP",
-    "Scatter" : "Scatter"
+    "Scatter" : "Scatter",
+    "yard" : "yard",
+    "yards" : "yards"
 
 }
