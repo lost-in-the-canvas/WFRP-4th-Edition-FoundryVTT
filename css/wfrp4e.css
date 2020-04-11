@@ -16854,3 +16854,15 @@ input[name="dd-import.importPath"] {
 .placeable-hud .control-icon.active {
   border: 2px solid #ff6400;
 }
+
+#chat-bubbles {
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+}
+  #chat-bubbles .chat-bubble {
+    border: 3px double black;
+    background: #ffffffb8;
+    box-shadow: 0px 0px 5px black inset;
+  }
+
