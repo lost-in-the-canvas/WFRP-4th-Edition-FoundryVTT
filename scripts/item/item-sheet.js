@@ -174,6 +174,7 @@ class ItemSheetWfrp4e extends ItemSheet
       data['mutationTypes'] = WFRP4E.mutationTypes;
     }
 
+    data.showBorder = data.item.img == "systems/wfrp4e/icons/blank.png" || !data.item.img
     data.isGM = game.user.isGM;
     return data;
   }
