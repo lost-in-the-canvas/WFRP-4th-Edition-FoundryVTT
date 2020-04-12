@@ -24,6 +24,13 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    options.tabs = [{navSelector: ".tabs", contentSelector: ".content", initial: "main"}]
+    options.width = 576;
+	  return options;
+  }
+
   /**
    * Overrides the default ActorSheet.render to add functionality.
    * 
@@ -140,13 +147,6 @@ class ActorSheetWfrp4e extends ActorSheet {
   {
     super.activateListeners(html);
 
-    // Activate tabs
-    new Tabs(html.find(".tabs"), {
-      initial: this.actor.data.flags["_sheetTab"],
-      callback: clicked => this.actor.data.flags["_sheetTab"] = clicked.attr("data-tab")
-    });
-  
-
     // Item summaries - displays a customized dropdown description
     html.find('.item-dropdown').click(event => this._onItemSummary(event));
 
@@ -244,7 +244,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       itemToEdit.data.advances.value = Number(event.target.value);
       this.skillsToEdit.push(itemToEdit);
       
-      await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+      await this.actor.updateEmbeddedEntity("OwnedItem", this.skillsToEdit);
 
       this.skillsToEdit = [];
     }
@@ -265,7 +265,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.skillUpdateFlag)
       return;
 
-    await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+    await this.actor.updateEmbeddedEntity("OwnedItem", this.skillsToEdit);
 
     this.skillsToEdit = [];
   });
@@ -338,7 +338,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     let weapons;
     await pack.getIndex().then(index => weapons = index);
     let unarmedId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Unarmed").toLowerCase());
-    let unarmed = await pack.getEntity(unarmedId.id);
+    let unarmed = await pack.getEntity(unarmedId._id);
     this.actor.setupWeapon(unarmed.data)
     // Roll Fist Attack
   })
@@ -359,7 +359,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let weapons;
       await pack.getIndex().then(index => weapons = index);
       let improvId = weapons.find(w => w.name.toLowerCase() == "improvised weapon");
-      let improv = await pack.getEntity(improvId.id);
+      let improv = await pack.getEntity(improvId._id);
       this.actor.setupWeapon(improv.data)
     })
 
@@ -370,7 +370,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let traits;
       await pack.getIndex().then(index => traits = index);
       let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
-      let stomp = await pack.getEntity(stompId.id);
+      let stomp = await pack.getEntity(stompId._id);
       stomp.data.name = game.i18n.localize("NAME.Stomp")
       stomp.data.data.specification.value = 0;
       this.actor.setupTrait(stomp.data)
@@ -1045,7 +1045,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       sheetTab : this.actor.data.flags["_sheetTab"],
-      actorId: this.actor.id,
+      actorId: this.actor._id,
       data: item,
       root : event.currentTarget.getAttribute("root")
     }));
@@ -1226,7 +1226,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       if (halfG)
         money.find(i => i.name == game.i18n.localize("NAME.SS")).data.quantity.value += 10;
 
-      await this.actor.updateManyEmbeddedEntities("OwnedItem", money);
+      await this.actor.updateEmbeddedEntity("OwnedItem", money);
     }
     else // If none of the above, just process whatever was dropped upstream
     {

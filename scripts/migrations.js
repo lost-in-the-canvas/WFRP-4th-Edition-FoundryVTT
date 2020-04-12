@@ -16,17 +16,17 @@ class Migration
 
     for (let p of game.packs)
     {
-      if (p.metadata.entity == "Item")
+      if (p.metadata.entity == "Item" && p.metadata.package == "world")
       p.getContent().then(async (items) => {
         items.forEach(async (i) =>  {
-          if(i.data.type == "weapon")
+          if(i.type == "weapon")
           {
             await p.updateEntity(this.migrateItemData(i.data));
           }
         })
       })
 
-      if (p.metadata.entity == "Actor")
+      if (p.metadata.entity == "Actor" && p.metadata.package == "world")
       {
         p.getContent().then(async (actors) => {
           actors.forEach(async (a) => {

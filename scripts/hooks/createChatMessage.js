@@ -2,10 +2,10 @@
  * This hook is only used to color code the winner/loser of an opposed test
  * When the result card shows up, take the start message and apply classes to it
  */
-Hooks.on("createChatMessage", (html, content, msg) => {
+Hooks.on("createChatMessage", (msg, options) => {
 
   // If message has the opposed class signifying an opposed result
-  if ($(content.content).find(".opposed-card").length && (game.user.isGM))
+  if ($(msg.data.content).find(".opposed-card").length && (game.user.isGM))
   {
     // Look in the flags for the winner and startMessage
     let winner = content.flags.opposeData.winner;

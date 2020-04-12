@@ -3,7 +3,7 @@
  * Equips equippable items for non-characters
  * 
  */
-Hooks.on("preCreateOwnedItem", (actor, id, item) => {
+Hooks.on("preCreateOwnedItem", (actor, item) => {
 
   // If not a character and wearable item, set worn to true
   if (actor.data.type != "character")

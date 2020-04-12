@@ -177,21 +177,16 @@ Hooks.on("ready", async () => {
   }
  })
 
- if (game.user.isGM)
- {
-   permissions = game.settings.get("core", "permissions")
-  let change = false;
-   for (let type in permissions)
-   {
-     if (type != "GAMEMASTER" && !permissions[type].includes("FILES_BROWSE"))
-     {
-      permissions[type].push("FILES_BROWSE")
-      change = true;
-     }
-   }
-   if (change)
-    game.settings.set("core", "permissions", permissions)
- }
+//  if (game.user.isGM)
+//  {
+//    permissions = duplicate(game.settings.get("core", "permissions"))
+//    let browsePermission = permissions.find(p => p._id == "FILES_BROWSE")
+//    for(let perm in browsePermission.roles)
+//    {
+//      browsePermission.roles[perm].value = true
+//    }
+//    game.settings.set("core", "permissions", permissions);
+//  }
 
  const NEEDS_MIGRATION_VERSION = 1.0;
  let needMigration

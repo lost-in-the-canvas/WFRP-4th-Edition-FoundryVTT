@@ -98,8 +98,7 @@
   </section>
   <!-- TABS -->
   <section id="tab-sections">
-    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;"
-      ondrop="return false;">
+    <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs"  ondragstart="return false;" ondrop="return false;">
       <a class="item active" data-tab="main">{{localize "Main"}}</a>
       <a class="item" data-tab="skills">{{localize "Skills"}}</a>
       <a class="item" data-tab="talents">{{localize "Talents"}}</a>
@@ -113,30 +112,33 @@
       <a class="item" data-tab="inventory">{{localize "Trappings"}}</a>
       <a class="item" data-tab="notes">{{localize "Notes"}}</a>
     </nav>
-    <div class="tab main save-scroll" data-tab="main" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-main.html}}
-    </div>
-    <div class="tab skills save-scroll" data-tab="skills" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-skills.html}}
-    </div>
-    <div class="tab talents save-scroll" data-tab="talents" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-talents.html}}
-    </div>
-    <div class="tab combat save-scroll" data-tab="combat" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-combat.html}}
-    </div>
-    <div class="tab magic save-scroll" data-tab="magic" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-magic.html}}
-    </div>
-    <div class="tab religion save-scroll" data-tab="religion" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-religion.html}}
-    </div>
-    <div class="tab inventory save-scroll" data-tab="inventory" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-inventory.html}}
-    </div>
-    <div class="tab notes save-scroll" data-tab="notes" data-group="primary">
-      {{> systems/wfrp4e/templates/actors/actor-notes.html}}
-    </div>
+
+      <section class="content">
+        <div class="tab main save-scroll" data-tab="main" >
+          {{> systems/wfrp4e/templates/actors/actor-main.html}}
+        </div>
+        <div class="tab skills save-scroll" data-tab="skills" >
+          {{> systems/wfrp4e/templates/actors/actor-skills.html}}
+        </div>
+        <div class="tab talents save-scroll" data-tab="talents" >
+          {{> systems/wfrp4e/templates/actors/actor-talents.html}}
+        </div>
+        <div class="tab combat save-scroll" data-tab="combat" >
+          {{> systems/wfrp4e/templates/actors/actor-combat.html}}
+        </div>
+        <div class="tab magic save-scroll" data-tab="magic" >
+          {{> systems/wfrp4e/templates/actors/actor-magic.html}}
+        </div>
+        <div class="tab religion save-scroll" data-tab="religion" >
+          {{> systems/wfrp4e/templates/actors/actor-religion.html}}
+        </div>
+        <div class="tab inventory save-scroll" data-tab="inventory" >
+          {{> systems/wfrp4e/templates/actors/actor-inventory.html}}
+        </div>
+        <div class="tab notes save-scroll" data-tab="notes" >
+          {{> systems/wfrp4e/templates/actors/actor-notes.html}}
+        </div>
+    </section>
   </section>
 </form>
 

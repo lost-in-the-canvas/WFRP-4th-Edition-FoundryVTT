@@ -202,7 +202,7 @@ class GeneratorWfrp4e
     // Find the tier 1 rank that corresponds with the career name
     for (let c of careers)
     {
-      if (c.data.data.careergroup.value == careerName && c.data.data.level.value == 1)
+      if (c.data.careergroup.value == careerName && c.data.level.value == 1)
         careerFound = c
       if (careerFound)
         break;
