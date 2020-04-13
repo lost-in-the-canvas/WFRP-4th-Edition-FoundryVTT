@@ -2142,7 +2142,7 @@ class ActorWfrp4e extends Actor {
     
     // If there were missing containers, reset the items that are orphaned
     if (containerMissing.length)
-      this.updateManyEmbeddedEntities("OwnedItem", containerMissing)
+      this.updateEmbeddedEntity("OwnedItem", containerMissing)
     
     for (var cont of containers.items) // For each container
     {
@@ -2386,7 +2386,7 @@ class ActorWfrp4e extends Actor {
     weapon.data.weaponGroup.value = WFRP4E.weaponGroups[weapon.data.weaponGroup.value] || "basic";
 
     // Attach the available skills to use to the weapon.
-    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(weapon.data.weaponGroup.value.toLowerCase()))
+    weapon.skillToUse = skills.find(x => x.name.toLowerCase().includes(`(${weapon.data.weaponGroup.value.toLowerCase()})`))
     
     // prepareQualitiesFlaws turns the comma separated qualities/flaws string into a string array
     // Does not include qualities if no skill could be found above
@@ -2552,7 +2552,7 @@ class ActorWfrp4e extends Actor {
     // with the weapon's "Special" property
     let specialPropInd =  ammoProperties.indexOf(ammoProperties.find(p => p && p.toLowerCase() == game.i18n.localize("Special").toLowerCase()));
     if (specialPropInd != -1)
-      ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " Ammo"
+      ammoProperties[specialPropInd] = ammoProperties[specialPropInd] + " " + game.i18n.localize("Ammo")
 
     let ammoRange = ammo.data.range.value || "0";
     let ammoDamage = ammo.data.damage.value || "0";
@@ -2911,7 +2911,7 @@ class ActorWfrp4e extends Actor {
     let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
 
     // Add those missing basic skills
-    this.createManyEmbeddedEntities("OwnedItem", skillsToAdd);
+    this.createEmbeddedEntities("OwnedItem", skillsToAdd);
   }
 
   /**
@@ -3312,6 +3312,15 @@ class ActorWfrp4e extends Actor {
         await this._advanceTalent(talent);
   
       this.update(updateObj);
+    }
+
+
+    _replaceData(formula) {
+      let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
+      return formula.replace(dataRgx, (match, term) => {
+        let value = getProperty(this.data, term);
+        return value ? String(value).trim() : "0";
+      });
     }
 }
 

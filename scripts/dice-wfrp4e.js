@@ -332,6 +332,9 @@ class DiceWFRP
           testResults.extra.misfireDamage = eval(parseInt(testResults.roll.toString().split('').pop()) + weapon.data.damage.value)
         }
       }
+      if (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Unreliable")))
+        testResults.SL--;
+
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
     }

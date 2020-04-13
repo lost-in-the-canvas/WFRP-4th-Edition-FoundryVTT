@@ -222,7 +222,7 @@ class WFRP_Utility
       if (searchResult)
       {
         let dbSkill;
-        await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
+        await pack.getEntity(searchResult._id).then(packSkill => dbSkill = packSkill);
         dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added instead of <Skill (Specialization)>
         return dbSkill;
       }
@@ -261,7 +261,7 @@ class WFRP_Utility
       if (searchResult)
       {
         let dbTalent;
-        await pack.getEntity(searchResult.id).then(packTalent => dbTalent = packTalent);
+        await pack.getEntity(searchResult._id).then(packTalent => dbTalent = packTalent);
         dbTalent.data.name = talentName; // This is important if a specialized talent wasn't found. Without it, <Talent ()> would be added instead of <Talent (Specialization)>
         return dbTalent;
       }
@@ -301,7 +301,7 @@ class WFRP_Utility
         await pack.getIndex().then(index => itemList = index);
         let searchResult = itemList.find(t => t.name == itemName)
         if (searchResult)
-          return await pack.getEntity(searchResult.id)
+          return await pack.getEntity(searchResult._id)
       }
     }
 
@@ -311,7 +311,7 @@ class WFRP_Utility
       await p.getIndex().then(index => itemList = index);
       let searchResult = itemList.find(t => t.name == itemName)
       if (searchResult)
-        return await p.getEntity(searchResult.id)
+        return await p.getEntity(searchResult._id)
     }
   }
 
@@ -475,7 +475,7 @@ class WFRP_Utility
     effectList = effectList.map(function (effect)
     {
       // Numeric condition = Bleeding 3
-      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+      let isNumeric = !isNaN(effect[effect.lastIndexOf(".") - 1])
       // Add numeric condition to existing condition if available, otherwise, add it
       if (isNumeric)
       {
@@ -649,7 +649,7 @@ class WFRP_Utility
     for (let sk of skills)
     {
       let skillItem = undefined;
-      await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      await pack.getEntity(sk._id).then(skill => skillItem = skill);
       if (skillItem.data.data.advanced.value == "bsc")
       {
         if (skillItem.data.data.grouped.value != "noSpec")
@@ -680,7 +680,7 @@ class WFRP_Utility
 
     for (let m of money)
     {
-      let moneyItem = await trappings.getEntity(m.id);
+      let moneyItem = await trappings.getEntity(m._id);
       moneyItems.push(moneyItem.data);
     }
     return moneyItems

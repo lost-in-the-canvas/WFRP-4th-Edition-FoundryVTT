@@ -32,7 +32,7 @@ class ItemWfrp4e extends Item
   {
     const data = this[`_${this.data.type}ExpandData`]();
     data.description.value = data.description.value || "";
-    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
     return data;
   }
 
@@ -48,7 +48,7 @@ class ItemWfrp4e extends Item
   _moneyExpandData()
   {
     const data = duplicate(this.data.data);
-    data.properties = [`${game.localize("SHEET.PenniesValue")}: ${data.coinValue.value}`];
+    data.properties = [`${game.i18n.localize("ITEM.PenniesValue")}: ${data.coinValue.value}`];
     return data;
   }
 

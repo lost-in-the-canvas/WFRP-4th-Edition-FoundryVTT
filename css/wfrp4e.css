@@ -1986,6 +1986,9 @@
 .app.window-app.sheet.item-sheet .window-title {
   display: none;
 }
+.app.window-app.sheet.item-sheet .content {
+  height: 100%
+}
 .app.window-app.sheet.item-sheet .close {
   color: #00e5ff00;
   text-align: center;
@@ -2226,6 +2229,10 @@
       margin-right: 6px;
       padding: 0px;
     }
+    .app.window-app.sheet.item-sheet img.no-image-border {
+      border: 1px dotted black;
+    }
+
     .app.window-app.sheet.item-sheet .item-details .label-text {
       font-family: CaslonAntique;
       font-weight: 700;
