@@ -1157,16 +1157,16 @@ class ActorWfrp4e extends Actor {
       switch (testData.income.tier)
       {
         case "b":
-          result.incomeResult += ` ${game.i18n.localize("ITEM.BPPL").toLowerCase()}.`
+          result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
           break;
         case "s":
-          result.incomeResult += ` ${game.i18n.localize("ITEM.SSPL").toLowerCase()}.`
+          result.incomeResult += ` ${game.i18n.localize("NAME.SSPlural").toLowerCase()}.`
           break;
         case "g":
             if (moneyEarned > 1)
-              result.incomeResult += ` ${game.i18n.localize("ITEM.GC").toLowerCase()}.`
+              result.incomeResult += ` ${game.i18n.localize("NAME.GC").toLowerCase()}.`
             else
-              result.incomeResult += ` ${game.i18n.localize("ITEM.GCPlural").toLowerCase()}.`
+              result.incomeResult += ` ${game.i18n.localize("NAME.GCPlural").toLowerCase()}.`
             break;
       }
     }
@@ -1177,16 +1177,16 @@ class ActorWfrp4e extends Actor {
       switch (testData.income.tier)
       {
         case "b":
-          result.incomeResult += ` ${game.i18n.localize("ITEM.BPPL").toLowerCase()}.`
+          result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
           break;
         case "s":
-          result.incomeResult += ` ${game.i18n.localize("ITEM.SSPL").toLowerCase()}.`
+          result.incomeResult += ` ${game.i18n.localize("NAME.SSPlural").toLowerCase()}.`
           break;
         case "g":
             if (moneyEarned > 1)
-              result.incomeResult += ` ${game.i18n.localize("ITEM.GC").toLowerCase()}.`
+              result.incomeResult += ` ${game.i18n.localize("NAME.GC").toLowerCase()}.`
             else
-              result.incomeResult += ` ${game.i18n.localize("ITEM.GCPlural").toLowerCase()}.`
+              result.incomeResult += ` ${game.i18n.localize("NAME.GCPlural").toLowerCase()}.`
             break;
       }
     }
@@ -2911,7 +2911,7 @@ class ActorWfrp4e extends Actor {
     let skillsToAdd = allBasicSkills.filter(s => !ownedBasicSkills.find(ownedSkill => ownedSkill.name == s.name))
 
     // Add those missing basic skills
-    this.createEmbeddedEntities("OwnedItem", skillsToAdd);
+    this.createEmbeddedEntity("OwnedItem", skillsToAdd);
   }
 
   /**
