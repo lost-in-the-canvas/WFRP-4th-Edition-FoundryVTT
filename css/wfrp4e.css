@@ -4576,28 +4576,28 @@
         position: relative;
         left: 0px;
         height: 18px;
-        width: fit-content;
+        width: 30px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .char {
         position: relative;
         left: 74px;
         height: 18px;
-        width: fit-content;
+        width: 27px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .adv {
         position: relative;
         left: 89px;
         height: 18px;
-        width: fit-content;
+        width: 22px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .total {
         position: relative;
         left: 90px;
         height: 18px;
-        width: fit-content;
+        width: 25px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .item-controls {
@@ -4605,7 +4605,7 @@
         top: -1px;
         left: 104px;
         height: fit-content;
-        width: fit-content;
+        width: 9px;
         display: inline-block;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -7196,8 +7196,8 @@
       /* background: #0000ff47; */
     }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -7215,16 +7215,16 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .name,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .name,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .name {
         position: relative;
         left: 0px;
         height: 18px;
         width: 243px;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .item-toggle,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .item-toggle {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .item-toggle,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .item-toggle {
         position: relative;
         left: 63px;
         height: 18px;
@@ -7232,8 +7232,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .quantity,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .quantity {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .quantity,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .quantity {
         position: relative;
         left: 82px;
         height: 18px;
@@ -7241,8 +7241,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .weight,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .weight {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .weight,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .weight {
         position: relative;
         left: 105px;
         height: 18px;
@@ -7250,8 +7250,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .item-controls,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .item-controls,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .item-controls {
         position: relative;
         top: -1px;
         left: 135px;
@@ -7265,7 +7265,7 @@
         padding: 0px;
       }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -7283,14 +7283,14 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .name {
         position: relative;
         left: 0px;
         height: 18px;
         width: 243px;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .item-toggle {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .item-toggle {
         position: relative;
         left: 55px;
         height: 18px;
@@ -7298,7 +7298,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .quantity {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .quantity {
         position: relative;
         left: 65px;
         height: 18px;
@@ -7306,7 +7306,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .weight {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .weight {
         position: relative;
         left: 88px;
         height: 18px;
@@ -7314,7 +7314,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .item-controls {
         position: relative;
         top: -1px;
         left: 118px;
@@ -7328,9 +7328,9 @@
         padding: 0px;
       }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
       overflow-y: hidden;
@@ -7347,9 +7347,9 @@
       margin: -5px 0px 0px 0px;
       padding: 0px;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content {
         width: 100%;
         text-align: center;
         overflow-x: hidden;
@@ -7365,17 +7365,17 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-name,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-name,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-name {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-name,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-name,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-name {
           display: flex;
           flex-direction: row;
           min-width: 290px;
           max-width: 290px;
         }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .image,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .image,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .image {
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .image,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .image,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .image {
             background-size: 32px;
             background-repeat: no-repeat;
             min-height: 32px;
@@ -7383,17 +7383,17 @@
             min-width: 32px;
             max-width: 32px;
           }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .name,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .name,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .name {
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .name,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .name,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .name {
             text-align: left;
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
           }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-toggle,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-toggle,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-toggle {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-toggle,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-toggle,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-toggle {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7405,9 +7405,9 @@
           left: 9px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .quantity,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .quantity,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .quantity {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .quantity,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .quantity,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .quantity {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7419,9 +7419,9 @@
           left: 11px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .weight,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .weight,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .weight {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .weight,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .weight,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .weight {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7433,9 +7433,9 @@
           left: 14px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-controls {
           padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
