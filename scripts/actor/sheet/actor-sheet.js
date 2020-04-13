@@ -358,7 +358,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
       let weapons;
       await pack.getIndex().then(index => weapons = index);
-      let improvId = weapons.find(w => w.name.toLowerCase() == "improvised weapon");
+      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised"));
       let improv = await pack.getEntity(improvId._id);
       this.actor.setupWeapon(improv.data)
     })
@@ -379,7 +379,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Rest
     html.find('.rest-icon').click(async event => {
 
-      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Enurance") && s.type == "skill")
+      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
       if (skill)
         this.actor.setupSkill(skill.data, {rest: true})
       else 
