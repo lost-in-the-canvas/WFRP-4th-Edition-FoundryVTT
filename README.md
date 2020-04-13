@@ -1,8 +1,8 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.1.4 - Fix Morrslieb effect
+Current Version: 1.2
 
-Compatibility: Foundry VTT 0.5.3
+Compatibility: Foundry VTT 0.5.4
 
 ![](https://i.imgur.com/esCwB7f.png)
 
