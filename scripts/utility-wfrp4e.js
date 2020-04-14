@@ -676,7 +676,7 @@ class WFRP_Utility
     let trappingsIndex = [];
     await trappings.getIndex().then(index => trappingsIndex = index);
 
-    let money = trappingsIndex.filter(t => t.name.toLowerCase() == "gold crown" || t.name.toLowerCase() == "silver shilling" || t.name.toLowerCase() == "brass penny")
+    let money = trappingsIndex.filter(t => t.name.toLowerCase() == game.i18n.localize("NAME.GC").toLowerCase() || t.name.toLowerCase() == game.i18n.localize("NAME.SS").toLowerCase() || t.name.toLowerCase() == game.i18n.localize("NAME.BP").toLowerCase())
 
     for (let m of money)
     {

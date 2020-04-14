@@ -12709,13 +12709,9 @@ border-image-outset: 0px !important;
 
   /* ================== 1. MANAGE MODULES ===================== */
     #module-management {
-      max-width: 600px;
-      max-height: 65vh;
     }
     #module-management .window-content {
       overflow: auto;
-      min-height: 437px !important;
-      max-height: 437px;
       background: url(../ui/frames/window-app-background-bookshelf.png);
     }
     #module-management .window-content .modules-list {
@@ -12823,10 +12819,12 @@ border-image-outset: 0px !important;
       #module-management .window-content button[name="submit"] {
         margin: 0 3px 10px 3px !important;
       }
-      #module-management .package >*,
-      #module-management .module-description {
+      #module-management .window-content .directory-list.package-list .package >*,
+      #module-management .window-content .directory-list.package-list .package-description,
+        #module-management .window-content .directory-list.package-list .package-title {
         color:#CCC
       }
+
 
   /* ================== 2. CONFIGURE SETTINGS ================= */
     #client-settings {
