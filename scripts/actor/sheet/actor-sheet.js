@@ -1384,11 +1384,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       let range = parseInt(event.target.text);
       expansionText =
-        `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
-          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
-          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
-          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
-          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
+        `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
+          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} ${game.i18n.localize("yds")} - ${Math.ceil(range / 2)} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
+          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} ${game.i18n.localize("yds")} - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
+          <a class="range-click" data-range="difficult">${(range + 1)} ${game.i18n.localize("yds")} - ${range * 2} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
+          <a class="range-click" data-range="vhard">${(range * 2 + 1)} ${game.i18n.localize("yds")} - ${range * 3} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
     }
     // Expand the weapon's group description
     else if (classes.hasClass("weapon-group"))
