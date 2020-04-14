@@ -4,6 +4,7 @@
  * /table - Roll on a table
  * /cond  - Lookup a condition
  * /name  - Generate a name
+ * /avail - Start an item availability test
  */
 Hooks.on("chatMessage", (html, content, msg) => {
     // Setup new message's visibility
@@ -66,7 +67,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
     {
       // Begin character generation, return false to not display user input of `/char`
       GeneratorWfrp4e.speciesStage()
-      return false
+      return false;
     }
     // Name generation
     else if (command[0] == "/name")
@@ -77,6 +78,26 @@ Hooks.on("chatMessage", (html, content, msg) => {
       // Call generator class to create name, create message, return false to not display user input of `/name`
       let name = NameGenWfrp.generateName({species, gender})
       ChatMessage.create(WFRP_Utility.chatDataSetup(name))
-      return false
+      return false;
+    }
+    // Availability test
+    else if (command[0] == "/avail")
+    {
+      let modifier = 0;
+      // Possible arguments - [1]: settlement size, [2]: item rarity [3*]: modifier 
+      //If first arg is a number, we use it as modifier
+
+      let settlement = (command[1] || "").toLowerCase();
+      let rarity = (command[2] || "").toLowerCase();
+      if(!isNaN(command[3]))
+      {
+        modifier = command[3];
+      }
+      
+      // Call generator class to start the test, create message, return false to not display user input of `/avail`
+      msg.content = MarketWfrp4e.testForAvailability({settlement, rarity, modifier});
+
+      ChatMessage.create(msg);
+      return false;
     }
   });

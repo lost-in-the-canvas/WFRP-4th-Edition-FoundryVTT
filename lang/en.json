@@ -454,6 +454,17 @@
     "WFRP4E.Availability.Rare" : "Rare",
     "WFRP4E.Availability.Exotic" : "Exotic",
 
+    "MARKET.Village" : "Village",
+    "MARKET.Town" : "Town",
+    "MARKET.City" : "City",
+    "MARKET.AvailabilityTest" : "Availability Test",
+    "MARKET.AvailWrongCommand": "Wrong parameters. Expected parameters: <br>Settlement size [Village,Town,City]<br>Rarity [Common,Scarce,Rare,Exotic]<br>(opt.) Roll modifier",
+    "MARKET.AvailCommandExample": "Example: /avail Village Rare 10",
+    "MARKET.SettlementSize" : "Settlement type:",
+    "MARKET.Rarity" : "Rarity:",
+    "MARKET.InStock": "In stock:",
+    "MARKET.QuantityAvailable": "Available quantity:",
+
     "WFRP4E.TrappingType.Weapon" : "Weapons",
     "WFRP4E.TrappingType.Armour" : "Armour",
     "WFRP4E.TrappingType.Money" : "Money",
@@ -712,5 +723,4 @@
     "yard" : "yard",
     "yards" : "yards",
     "Ammo" : "Ammo"
-
 }
