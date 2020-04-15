@@ -85,7 +85,6 @@ Hooks.on("chatMessage", (html, content, msg) => {
     {
       let modifier = 0;
       // Possible arguments - [1]: settlement size, [2]: item rarity [3*]: modifier 
-      //If first arg is a number, we use it as modifier
 
       let settlement = (command[1] || "").toLowerCase();
       let rarity = (command[2] || "").toLowerCase();
@@ -94,10 +93,16 @@ Hooks.on("chatMessage", (html, content, msg) => {
         modifier = command[3];
       }
       
-      // Call generator class to start the test, create message, return false to not display user input of `/avail`
-      msg.content = MarketWfrp4e.testForAvailability({settlement, rarity, modifier});
-
-      ChatMessage.create(msg);
+      // Call generator class to start the test, create message, send to chat, return false to not display user input of `/avail`
+      MarketWfrp4e.testForAvailability({settlement, rarity, modifier});
+      return false;
+    }
+    // Pay command
+    else if (command[0] == "/pay")
+    {
+      let param  = content.substring(4);
+      let actor = WFRP_Utility.getSpeaker(msg.data.speaker);
+      MarketWfrp4e.payCommand(param,actor);
       return false;
     }
   });

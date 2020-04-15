@@ -1016,6 +1016,12 @@ class ActorSheetWfrp4e extends ActorSheet {
     WFRP_Utility.handleTableClick(ev)
   })
 
+  // Consolidate common currencies
+  html.find('.dollar-icon').click(async event => {
+    event.preventDefault();
+    await MarketWfrp4e.consolidateMoney(this.actor);
+  })
+
   }
 
   /* --------------------------------------------------------------------------------------------------------- */

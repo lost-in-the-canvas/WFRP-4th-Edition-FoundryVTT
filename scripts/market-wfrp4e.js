@@ -4,6 +4,10 @@
  */
 class MarketWfrp4e 
 {
+    /**
+     * Roll a test for the availability and the stock quantity of an item based on the rulebook
+     * @param {Object} options 
+     */
     static testForAvailability(options)
     {
         let validSettlements = [
@@ -72,9 +76,13 @@ class MarketWfrp4e
           //Format the message before sending it back to chat
           msg += this.formatTestForChat(finalResult);
         }
-        return msg;
+        ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"roll",true));
     }
 
+    /**
+     * Format an availability test before sending it to chat
+     * @param {Object} result 
+     */
     static formatTestForChat(result)
     {
       return `
@@ -83,5 +91,116 @@ class MarketWfrp4e
         <b>${game.i18n.localize("MARKET.InStock")}</b> ${result.instock}<br>
         <b>${game.i18n.localize("MARKET.QuantityAvailable")}</b> ${result.quantity}
       `;
+    }
+
+    /**
+     * Send a whispered card menu to the player to start an availability test
+     * The card let him choose a settlement size
+     * @param {String} rarity 
+     */
+    static displaySettlementChoice(rarity)
+    {
+      let cardData = {rarity:WFRP4E.availability[rarity]};
+      renderTemplate("systems/wfrp4e/templates/chat/market-settlement.html", cardData).then(html => {
+        let chatData = WFRP_Utility.chatDataSetup(html,"selfroll");
+        ChatMessage.create(chatData);
+      });
+    }
+
+    /**
+     * Consolidate every money the player has in order to give him the fewer coins possible
+     * @param {ActorWfrp4e} actor 
+     */
+    static consolidateMoney(actor)
+    {
+      let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+      //We sort the money from the highest BP value to the lowest (so gc => ss => bp)
+      //This allow us to deal with custom money too and to not be dependent on the money name (translation errors could break the code otherwise)
+      money.sort((a,b)=>b.data.coinValue.value - a.data.coinValue.value);
+  
+      let brass = 0;
+      //First we calculate the BP value
+      for (let m of money)
+        brass += m.data.quantity.value * m.data.coinValue.value;
+      
+      //Then we consolidate the coins
+      for (let m of money)
+      {
+        //We don't know what players could create as a custom money and we dont want to divide by zero, ever. It would kill a kitten somewhere, probably.
+        if(m.data.coinValue.value <= 0)
+          break;
+        m.data.quantity.value = Math.trunc(brass / m.data.coinValue.value);
+        brass = brass % m.data.coinValue.value;
+      }
+  
+      return actor.updateEmbeddedEntity("OwnedItem", money);
+    }
+    /**
+     * Execute a /pay command and remove the money from the player inventory 
+     * @param {String} command 
+     * @param {ActorWfrp4e} actor
+     */
+    static payCommand(command)
+    {
+      //First we parse the command
+      let money = this.parsePayString(command);
+      let msg = `<h3><b>${game.i18n.localize("MARKET.PayCommand")}</b></h3>`;
+      //Wrong command
+      if(!money)
+      {
+        msg += `<p>${game.i18n.localize("MARKET.PayWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.PayCommandExample")}</i></p>`;
+      }
+      //Command is ok, let's try to pay
+      else
+      {
+        //We need to get the character items for gc, ss and bp. This is a "best effort" lookup method. If it fails, we stop the command to prevent any data loss.
+        let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+        
+      }
+    }
+
+    /**
+     * Parse a price string
+     * Like "8gc6bp" or "74ss 12gc", etc
+     * This method use localized abbreviations
+     * return an object with the moneys and quantity
+     * @param {String} string 
+     * @returns {Object}
+     */
+    static parsePayString(string)
+    {
+      //Regular expression to match any number followed by any abbreviation. Ignore whitespaces
+      const expression = /((\d+)\s?([a-zA-Z]+))/g;
+      let matches = [...string.matchAll(expression)];
+
+      let payRecap = {
+        gc: 0,
+        ss: 0,
+        bp: 0
+      };
+      let isValid = matches.length;
+      for(let match of matches)
+      {
+        //Check if we have a valid command. We should have 4 groups per match
+        if(match.length != 4)
+        {
+          isValid = false;
+          break;
+        }
+        //Should contains the abbreviated money (like "gc")
+        switch(match[3])
+        {
+          case game.i18n.localize("MARKET.Abbrev.GC"):
+            payRecap.gc += parseInt(match[2],10);
+            break;
+          case game.i18n.localize("MARKET.Abbrev.SS"):
+            payRecap.ss += parseInt(match[2],10);
+            break;
+          case game.i18n.localize("MARKET.Abbrev.BP"):
+            payRecap.bp += parseInt(match[2],10);
+            break;
+        }
+      }
+        return isValid ? payRecap:false;
     }
 }
