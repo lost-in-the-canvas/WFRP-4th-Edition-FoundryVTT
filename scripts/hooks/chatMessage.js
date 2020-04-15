@@ -5,6 +5,7 @@
  * /cond  - Lookup a condition
  * /name  - Generate a name
  * /avail - Start an item availability test
+ * /pay - Player: Remove money from character. GM: Start a payment request
  */
 Hooks.on("chatMessage", (html, content, msg) => {
     // Setup new message's visibility
@@ -100,7 +101,9 @@ Hooks.on("chatMessage", (html, content, msg) => {
     // Pay command
     else if (command[0] == "/pay")
     {
+      //The parameter is a string that will be exploded by a regular expression
       let param  = content.substring(5);
+      //If the user isnt a GM, he pays a price
       if(!game.user.isGM)
       {
         let actor = WFRP_Utility.getSpeaker(msg.speaker);
@@ -109,7 +112,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
         if(money)
           actor.updateEmbeddedEntity("OwnedItem", money);
       }
-      else
+      else //If hes a gm, it generate a "Pay" card
         MarketWfrp4e.generatePayCard(param);
       return false;
     }
