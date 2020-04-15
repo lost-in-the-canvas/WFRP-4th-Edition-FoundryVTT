@@ -160,6 +160,45 @@ Hooks.on("ready", async () => {
 };
 
 
+// Modify the initiative formula depending on whether the actor has ranks in the Combat Reflexes talent
+Combat.prototype._getInitiativeFormula = function(combatant) {
+  const actor = combatant.actor;
+  let initiativeFormula = CONFIG.Combat.initiative.formula || game.system.data.initiative;
+  let initiativeSetting = game.settings.get("wfrp4e", "initiativeRule")
+
+  if ( !actor ) return initiativeFormula;
+  let combatReflexes = 0;
+  for (let item of actor.items)
+  {
+    if (item.type == "talent" && item.data.name == game.i18n.localize("NAME.CombatReflexes"))
+      combatReflexes += item.data.data.advances.value;
+  }
+
+  if (!combatReflexes) return initiativeFormula
+
+  switch (initiativeSetting)
+  {
+    case "default":
+      initiativeFormula = initiativeFormula + `+ ${combatReflexes * 10}`;
+    break;
+
+    case "sl":
+    initiativeFormula = `(floor((@characteristics.i.value + ${combatReflexes * 10})/ 10) - floor(1d100/10))`
+    break;
+
+    case "d10Init":
+    initiativeFormula = initiativeFormula + `+ ${combatReflexes*10}`;
+    break;
+
+    case "d10InitAgi":
+    initiativeFormula = initiativeFormula + `+ ${combatReflexes}`;
+    break;
+  }
+
+  return initiativeFormula;
+};
+
+
 
 // Socket Responses - Morrslieb and opposed tests
  game.socket.on("system.wfrp4e", data => {
