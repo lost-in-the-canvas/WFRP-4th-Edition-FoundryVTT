@@ -712,6 +712,8 @@
     "yard" : "yard",
     "yards" : "yards",
     "Ammo" : "Ammo",
-    "yds" : "yds"
+    "yds" : "yds",
+
+    "NAME.CombatReflexes" : "Combat Reflexes"
 
 }
