@@ -11,6 +11,6 @@
     {{/each}}
     <span class="chat-card-button-area">
         <a class='chat-card-button market-button' data-button='rollAvailability' data-rarity="{{data.availability.value}}">{{localize "MARKET.RollForAvailability"}}</a>
-        <a class='chat-card-button market-button' data-button='payItem' data-gc="{{data.price.gc}}" data-ss="{{data.price.ss}}" data-bp="{{data.price.bp}}">{{localize "MARKET.PayForItem"}}</a>
+        <a class='chat-card-button market-button' data-button='payItem' data-pay="{{data.price.gc}}gc{{data.price.ss}}ss{{data.price.bp}}bp">{{localize "MARKET.PayForItem"}}</a>
     </span>
 </div>

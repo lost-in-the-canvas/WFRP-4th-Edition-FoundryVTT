@@ -100,9 +100,17 @@ Hooks.on("chatMessage", (html, content, msg) => {
     // Pay command
     else if (command[0] == "/pay")
     {
-      let param  = content.substring(4);
-      let actor = WFRP_Utility.getSpeaker(msg.data.speaker);
-      MarketWfrp4e.payCommand(param,actor);
+      let param  = content.substring(5);
+      if(!game.user.isGM)
+      {
+        let actor = WFRP_Utility.getSpeaker(msg.speaker);
+        let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+        money = MarketWfrp4e.payCommand(param,money);
+        if(money)
+          actor.updateEmbeddedEntity("OwnedItem", money);
+      }
+      else
+        MarketWfrp4e.generatePayCard(param);
       return false;
     }
   });

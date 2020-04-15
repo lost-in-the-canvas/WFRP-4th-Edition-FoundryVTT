@@ -98,7 +98,7 @@ class MarketWfrp4e
      * The card let him choose a settlement size
      * @param {String} rarity 
      */
-    static displaySettlementChoice(rarity)
+    static generateSettlementChoice(rarity)
     {
       let cardData = {rarity:WFRP4E.availability[rarity]};
       renderTemplate("systems/wfrp4e/templates/chat/market-settlement.html", cardData).then(html => {
@@ -109,11 +109,10 @@ class MarketWfrp4e
 
     /**
      * Consolidate every money the player has in order to give him the fewer coins possible
-     * @param {ActorWfrp4e} actor 
+     * @param {Array} money 
      */
-    static consolidateMoney(actor)
+    static consolidateMoney(money)
     {
-      let money = duplicate(actor.data.items.filter(i => i.type == "money"));
       //We sort the money from the highest BP value to the lowest (so gc => ss => bp)
       //This allow us to deal with custom money too and to not be dependent on the money name (translation errors could break the code otherwise)
       money.sort((a,b)=>b.data.coinValue.value - a.data.coinValue.value);
@@ -133,30 +132,126 @@ class MarketWfrp4e
         brass = brass % m.data.coinValue.value;
       }
   
-      return actor.updateEmbeddedEntity("OwnedItem", money);
+      return money;
     }
     /**
      * Execute a /pay command and remove the money from the player inventory 
      * @param {String} command 
-     * @param {ActorWfrp4e} actor
+     * @param {Array} moneyItemInventory
      */
-    static payCommand(command)
+    static payCommand(command, moneyItemInventory)
     {
       //First we parse the command
-      let money = this.parsePayString(command);
+      let moneyToPay = this.parsePayString(command);
       let msg = `<h3><b>${game.i18n.localize("MARKET.PayCommand")}</b></h3>`;
+      let errorOccured = false;
       //Wrong command
-      if(!money)
+      if(!moneyToPay)
       {
         msg += `<p>${game.i18n.localize("MARKET.PayWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.PayCommandExample")}</i></p>`;
+        errorOccured=true;
       }
       //Command is ok, let's try to pay
       else
       {
-        //We need to get the character items for gc, ss and bp. This is a "best effort" lookup method. If it fails, we stop the command to prevent any data loss.
-        let money = duplicate(actor.data.items.filter(i => i.type == "money"));
-        
+        //We need to get the character money items for gc, ss and bp. This is a "best effort" lookup method. If it fails, we stop the command to prevent any data loss.
+        let moneyTypeIndex = {
+          gc:false,
+          ss:false,
+          bp:false
+        }
+        //First we'll try to look at the localized name
+        for(let m = 0; m < moneyItemInventory.length; m++)
+        {
+          switch(moneyItemInventory[m].name)
+          {
+            case game.i18n.localize("NAME.GC"):
+              moneyTypeIndex.gc = m;
+              break;
+            case game.i18n.localize("NAME.SS"):
+              moneyTypeIndex.ss = m;
+              break;
+            case game.i18n.localize("NAME.BP"):
+              moneyTypeIndex.bp = m;
+              break;
+          }
+        }
+        //Then we'll try to look for the coin value equals to the gc/ss/bp coin value for any entry that wasn't found.
+        //This allows for a better chance at detecting the money items, as they are currently not properly identified by a unique id. Meaning if a translation module made a typo in the compendium
+        //or if a player/gm edit the name of the money items for any reasons, it would not be found by the first method
+        for(let m = 0; m < moneyItemInventory.length; m++)
+        {
+          switch(moneyItemInventory[m].data.coinValue.value)
+          {
+            case 240://gc
+              if(moneyTypeIndex.gc === false)
+                moneyTypeIndex.gc = m;
+              break;
+            case 12://ss
+              if(moneyTypeIndex.ss === false)
+                moneyTypeIndex.ss = m;
+              break;
+            case 1://bp
+              if(moneyTypeIndex.bp === false)
+                moneyTypeIndex.bp = m;
+              break;
+          }
+        }
+        //If one money is missing, we stop here before doing anything bad
+        if(Object.values(moneyTypeIndex).includes(false))
+        {
+          msg += `<p>${game.i18n.localize("MARKET.CantFindMoneyItems")}</p>`;
+          errorOccured=true;
+        }
+        else
+        {
+          //Now its time to check if the actor has enough money to pay
+          //We'll start by trying to pay without consolidating the money
+          if(moneyToPay.gc <= moneyItemInventory[moneyTypeIndex.gc].data.quantity.value &&
+            moneyToPay.ss <= moneyItemInventory[moneyTypeIndex.ss].data.quantity.value &&
+            moneyToPay.bp <= moneyItemInventory[moneyTypeIndex.bp].data.quantity.value)
+          {
+            //Great, we can just deduce the quantity for each money
+            moneyItemInventory[moneyTypeIndex.gc].data.quantity.value -= moneyToPay.gc;
+            moneyItemInventory[moneyTypeIndex.ss].data.quantity.value -= moneyToPay.ss;
+            moneyItemInventory[moneyTypeIndex.bp].data.quantity.value -= moneyToPay.bp;
+          }
+          else //We'll need to calculate the brass value on both the pay command and the actor inventory, and then consolidate
+          {
+            let totalBPAvailable = 0;
+            for (let m of moneyItemInventory)
+              totalBPAvailable += m.data.quantity.value * m.data.coinValue.value;
+
+            let totalBPPay = moneyToPay.gc*240+moneyToPay.ss*12+moneyToPay.bp;
+
+            //Does we have enough money in the end?
+            if(totalBPAvailable < totalBPPay)
+            {
+              //No
+              msg += `${game.i18n.localize("MARKET.NotEnoughMoney")}<br>
+              <b>${game.i18n.localize("MARKET.MoneyNeeded")}</b> ${totalBPPay} ${game.i18n.localize("NAME.BP")}<br>
+              <b>${game.i18n.localize("MARKET.MoneyAvailable")}</b> ${totalBPAvailable} ${game.i18n.localize("NAME.BP")}`;
+              errorOccured=true;
+            }
+            else //Yes!
+            {
+              totalBPAvailable -= totalBPPay;
+              moneyItemInventory[moneyTypeIndex.gc].data.quantity.value = 0;
+              moneyItemInventory[moneyTypeIndex.ss].data.quantity.value = 0;
+              moneyItemInventory[moneyTypeIndex.bp].data.quantity.value = totalBPAvailable;
+              
+              //Then we consolidate
+              moneyItemInventory = this.consolidateMoney(moneyItemInventory);
+            }
+          }
+        }
       }
+      if(errorOccured)
+        moneyItemInventory = false;
+      else
+        msg += game.i18n.format("MARKET.Paid",{number1:moneyToPay.gc,number2:moneyToPay.ss,number3:moneyToPay.bp});
+      ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"roll"));
+      return moneyItemInventory;
     }
 
     /**
@@ -188,19 +283,49 @@ class MarketWfrp4e
           break;
         }
         //Should contains the abbreviated money (like "gc")
-        switch(match[3])
+        switch(match[3].toLowerCase())
         {
-          case game.i18n.localize("MARKET.Abbrev.GC"):
+          case game.i18n.localize("MARKET.Abbrev.GC").toLowerCase():
             payRecap.gc += parseInt(match[2],10);
             break;
-          case game.i18n.localize("MARKET.Abbrev.SS"):
+          case game.i18n.localize("MARKET.Abbrev.SS").toLowerCase():
             payRecap.ss += parseInt(match[2],10);
             break;
-          case game.i18n.localize("MARKET.Abbrev.BP"):
+          case game.i18n.localize("MARKET.Abbrev.BP").toLowerCase():
             payRecap.bp += parseInt(match[2],10);
             break;
         }
       }
         return isValid ? payRecap:false;
+    }
+
+    /**
+     * Generate a card in the chat with a "Pay" button.
+     * GM Only
+     * @param {String} payRequest 
+     */
+    static generatePayCard(payRequest)
+    {
+      let parsedPayRequest = this.parsePayString(payRequest);
+      //If the /pay command has a syntax error, we display an error message to the gm
+      if(!parsedPayRequest)
+      {
+        let msg = `<h3><b>${game.i18n.localize("MARKET.PayCommand")}</b></h3>`;
+        msg += `<p>${game.i18n.localize("MARKET.PayWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.PayCommandExample")}</i></p>`;
+        ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"gmroll"));
+      }
+      else //generate a card with a summary and a pay button
+      {
+        let cardData = {
+          payRequest:payRequest,
+          QtGC:parsedPayRequest.gc,
+          QtSS:parsedPayRequest.ss,
+          QtBP:parsedPayRequest.bp
+        };
+        renderTemplate("systems/wfrp4e/templates/chat/market-pay.html", cardData).then(html => {
+          let chatData = WFRP_Utility.chatDataSetup(html,"roll");
+          ChatMessage.create(chatData);
+        });
+      }
     }
 }

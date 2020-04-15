@@ -1019,7 +1019,9 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Consolidate common currencies
   html.find('.dollar-icon').click(async event => {
     event.preventDefault();
-    await MarketWfrp4e.consolidateMoney(this.actor);
+    let money = duplicate(this.actor.data.items.filter(i => i.type == "money"));
+    money = MarketWfrp4e.consolidateMoney(money);
+    await this.actor.updateEmbeddedEntity("OwnedItem", money);
   })
 
   }

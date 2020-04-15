@@ -255,6 +255,8 @@ class ItemWfrp4e extends Item
     if (chatData.img.includes("/blank.png"))
       chatData.img = null;
 
+    chatData.isPlayer = !game.user.isGM;
+
     renderTemplate('systems/wfrp4e/templates/chat/post-item.html', chatData).then(html =>
     {
       let chatOptions = WFRP_Utility.chatDataSetup(html)

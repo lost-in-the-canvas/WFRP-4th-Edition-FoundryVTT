@@ -1030,10 +1030,17 @@ class DiceWFRP
       switch ($(event.currentTarget).attr("data-button"))
       {
         case "rollAvailability":
-          MarketWfrp4e.displaySettlementChoice($(event.currentTarget).attr("data-rarity"));
+          MarketWfrp4e.generateSettlementChoice($(event.currentTarget).attr("data-rarity"));
           break;
         case "payItem":
-          //todo
+          if(!game.user.isGM)
+          {
+            let actor = game.user.character;
+            let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"),money);
+            if(money)
+              actor.updateEmbeddedEntity("OwnedItem", money);
+          }
           break;
         case "rollAvailabilityTest":
           let options = {
