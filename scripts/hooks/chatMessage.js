@@ -4,6 +4,8 @@
  * /table - Roll on a table
  * /cond  - Lookup a condition
  * /name  - Generate a name
+ * /avail - Start an item availability test
+ * /pay - Player: Remove money from character. GM: Start a payment request
  */
 Hooks.on("chatMessage", (html, content, msg) => {
     // Setup new message's visibility
@@ -66,7 +68,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
     {
       // Begin character generation, return false to not display user input of `/char`
       GeneratorWfrp4e.speciesStage()
-      return false
+      return false;
     }
     // Name generation
     else if (command[0] == "/name")
@@ -77,6 +79,41 @@ Hooks.on("chatMessage", (html, content, msg) => {
       // Call generator class to create name, create message, return false to not display user input of `/name`
       let name = NameGenWfrp.generateName({species, gender})
       ChatMessage.create(WFRP_Utility.chatDataSetup(name))
-      return false
+      return false;
+    }
+    // Availability test
+    else if (command[0] == "/avail")
+    {
+      let modifier = 0;
+      // Possible arguments - [1]: settlement size, [2]: item rarity [3*]: modifier 
+
+      let settlement = (command[1] || "").toLowerCase();
+      let rarity = (command[2] || "").toLowerCase();
+      if(!isNaN(command[3]))
+      {
+        modifier = command[3];
+      }
+      
+      // Call generator class to start the test, create message, send to chat, return false to not display user input of `/avail`
+      MarketWfrp4e.testForAvailability({settlement, rarity, modifier});
+      return false;
+    }
+    // Pay command
+    else if (command[0] == "/pay")
+    {
+      //The parameter is a string that will be exploded by a regular expression
+      let param  = content.substring(5);
+      //If the user isnt a GM, he pays a price
+      if(!game.user.isGM)
+      {
+        let actor = WFRP_Utility.getSpeaker(msg.speaker);
+        let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+        money = MarketWfrp4e.payCommand(param,money);
+        if(money)
+          actor.updateEmbeddedEntity("OwnedItem", money);
+      }
+      else //If hes a gm, it generate a "Pay" card
+        MarketWfrp4e.generatePayCard(param);
+      return false;
     }
   });

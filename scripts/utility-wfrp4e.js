@@ -588,7 +588,7 @@ class WFRP_Utility
 
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatData.rollMode === "blindroll") chatData["blind"] = true;
-    else if (chatData.rollMode === "selfroll") chatData["whisper"] = game.user._id;
+    else if (chatData.rollMode === "selfroll") chatData["whisper"] = [game.user];
 
     return chatData;
   }
