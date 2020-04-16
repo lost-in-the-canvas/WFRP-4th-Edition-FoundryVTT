@@ -249,7 +249,10 @@ class MarketWfrp4e
       if(errorOccured)
         moneyItemInventory = false;
       else
+      {
         msg += game.i18n.format("MARKET.Paid",{number1:moneyToPay.gc,number2:moneyToPay.ss,number3:moneyToPay.bp});
+        msg += `<br><b>${game.i18n.localize("MARKET.PaidBy")}</b> ${game.user.character.name}`;
+      }
       ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"roll"));
       return moneyItemInventory;
     }
