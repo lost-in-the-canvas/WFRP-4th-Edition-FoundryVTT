@@ -773,7 +773,7 @@ class DiceWFRP
         {
           content: html,
           ["flags.data"]: chatOptions["flags.data"]
-        }, true).then(newMsg =>
+        }, {diff:true}).then(newMsg =>
         {
           ui.chat.updateMessage(newMsg);
         });
