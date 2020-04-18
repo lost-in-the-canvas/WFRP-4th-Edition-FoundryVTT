@@ -30,13 +30,15 @@ class ItemSheetWfrp4e extends ItemSheet
   {
     let buttons = super._getHeaderButtons();
     // Add "Post to chat" button
-    // We previously restricted this to GM and editable items only. If you ever find this comment because it broke something: eh, sorry!
-    buttons.push(
+    if (game.user.isGM && this.options.editable)
     {
-      class: "post",
-      icon: "fas fa-comment",
-      onclick: ev => new ItemWfrp4e(this.item.data).postItem()
-    })
+      buttons.push(
+      {
+        class: "post",
+        icon: "fas fa-comment",
+        onclick: ev => new ItemWfrp4e(this.item.data).postItem()
+      })
+    }
     return buttons
   }
 

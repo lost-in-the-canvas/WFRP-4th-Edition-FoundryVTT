@@ -3018,8 +3018,8 @@ class ActorWfrp4e extends Actor {
       let shieldAP = 0;
       if (opposeData.defenderTestResult.weapon)
       {
-        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())))
-          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())).split(" ")[1])
+        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")))
+          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")).split(" ")[1])
       }
 
       if (shieldAP)

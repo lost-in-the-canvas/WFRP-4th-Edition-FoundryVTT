@@ -723,7 +723,7 @@ class DiceWFRP
 
     if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
-    else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user];
+    else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user._id];
 
     // All the data need to recreate the test when chat card is edited
     chatOptions["flags.data"] = {
@@ -1021,37 +1021,6 @@ class DiceWFRP
       }
       ui.notifications.notify(game.i18n.localize("ROLL.CancelOppose"))
     })
-
-    // Click on botton related to the market/pay system
-    html.on("click", '.market-button', event =>
-    {
-      event.preventDefault();
-      // data-button tells us what button was clicked
-      switch ($(event.currentTarget).attr("data-button"))
-      {
-        case "rollAvailability":
-          MarketWfrp4e.generateSettlementChoice($(event.currentTarget).attr("data-rarity"));
-          break;
-        case "payItem":
-          if(!game.user.isGM)
-          {
-            let actor = game.user.character;
-            let money = duplicate(actor.data.items.filter(i => i.type == "money"));
-            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"),money);
-            if(money)
-              actor.updateEmbeddedEntity("OwnedItem", money);
-          }
-          break;
-        case "rollAvailabilityTest":
-          let options = {
-            settlement:$(event.currentTarget).attr("data-settlement").toLowerCase(),
-            rarity:$(event.currentTarget).attr("data-rarity").toLowerCase(),
-            modifier:0
-          };
-          MarketWfrp4e.testForAvailability(options);
-          break;
-      }
-    });
   }
 
   /**
