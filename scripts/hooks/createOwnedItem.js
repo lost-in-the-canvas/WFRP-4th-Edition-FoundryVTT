@@ -8,7 +8,7 @@
  * 
  * This file also contains deleteOwnedItem, which undoes the talent/trait bonuses
  */
-Hooks.on("createOwnedItem", (actor, id, item) => {
+Hooks.on("createOwnedItem", (actor, item) => {
   try {
     // If critical, subtract wounds value from actor's
     if (item.type == "critical")
@@ -55,7 +55,7 @@ Hooks.on("createOwnedItem", (actor, id, item) => {
 })
 
 // If deleting a talent or trait, if that talent or trait gives a bonus, remove that bonus.
-Hooks.on("deleteOwnedItem", (actor, id, item) => {
+Hooks.on("deleteOwnedItem", (actor, item) => {
   if (item.type == "talent")
   {
     let charToDecrease = WFRP4E.talentBonuses[item.name.toLowerCase().trim()] // TODO: investigate why trim is needed here

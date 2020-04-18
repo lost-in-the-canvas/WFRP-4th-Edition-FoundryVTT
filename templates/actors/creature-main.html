@@ -1,12 +1,12 @@
 <div class="creature-lists save-scroll">
   <div class="creature-overview-label">{{localize "Creature Overview"}}
-    <a class="stomp-icon combat-icon" title = "Stomp">
+    <a class="stomp-icon combat-icon" title = "{{localize NAME.Stomp}}">
       <i class="fas fa-paw"></i>
     </a>
-    <a class="dodge-icon combat-icon" title = "Dodge">
+    <a class="dodge-icon combat-icon" title = "{{localize 'NAME.Dodge'}}">
       <i class="fas fa-reply"></i>
     </a>
-    <a class="improvised-icon combat-icon" title = "Improvised Weapon">
+    <a class="improvised-icon combat-icon" title = "{{localize 'NAME.Improvised'}}">
       <i class="fas fa-question"></i>
     </a>
   </div>
@@ -185,7 +185,7 @@
         </div>
         {{/if}}
         <div class="damage weapon-damage">+{{item.data.damage.value}}</div>
-        <a class="range weapon-range">{{item.data.range.value}} yds</a>
+        <a class="range weapon-range">{{item.data.range.value}} {{localize "yds"}}</a>
       </div>
       <div class="content">
         <div class="weapon-property">

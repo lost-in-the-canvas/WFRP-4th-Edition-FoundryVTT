@@ -184,9 +184,9 @@ class BrowserWfrp4e extends Application
         })
       }
     }
-    this.items.forEach(i => i.data.compendium = true)
+    this.items.forEach(i => i.compendium = true)
     this.addItems(game.items.entities.filter(i => i.permission > 1));
-    this.items = this.items.sort((a, b) => (a.data.name.toLowerCase() > b.data.name.toLowerCase()) ? 1 : -1);
+    this.items = this.items.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1);
     this.lores.push("None");
     this.careerGroups.sort((a, b) => (a > b) ? 1 : -1);
     this.careerClasses.sort((a, b) => (a > b) ? 1 : -1);
@@ -258,7 +258,7 @@ class BrowserWfrp4e extends Application
     {
       if (this.filters.type[filter].value)
       {
-        filteredItems = filteredItems.concat(items.filter(i => i.data.type == filter))
+        filteredItems = filteredItems.concat(items.filter(i => i.type == filter))
         noItemFilter = false;
       }
     }
@@ -273,13 +273,13 @@ class BrowserWfrp4e extends Application
         switch(filter)
         {
           case "name" :
-            filteredItems = filteredItems.filter(i => i.data.name.toLowerCase().includes(this.filters.attribute.name.toLowerCase()))
+            filteredItems = filteredItems.filter(i => i.name.toLowerCase().includes(this.filters.attribute.name.toLowerCase()))
             break;
           case "description" :
             filteredItems = filteredItems.filter(i => i.data.data.description.value && i.data.data.description.value.toLowerCase().includes(this.filters.attribute.description.toLowerCase()))
             break;
           case "worldItems" :
-            filteredItems = filteredItems.filter(i => this.filters.attribute[filter] || !!i.data.compendium)
+            filteredItems = filteredItems.filter(i => this.filters.attribute[filter] || !!i.compendium)
             break;
         }
       }
@@ -305,7 +305,7 @@ class BrowserWfrp4e extends Application
               {
                 if (!i.data.data.qualities && !i.data.data.flaws)
                   return true;
-                let properties = WFRP_Utility._prepareQualitiesFlaws(i.data, true)
+                let properties = WFRP_Utility._prepareQualitiesFlaws(i, true)
                 if (!properties.length || (properties.length == 1 && properties[0] == "Special"))
                   return;
 
@@ -447,7 +447,7 @@ class BrowserWfrp4e extends Application
           label: "Yes",
           callback: async html => {
             for(let i of filteredItems)
-              await Item.create(i.data, {renderSheet : false});
+              await ItemWfrp4e.create(i.data, {renderSheet : false});
           }
         },
         cancel: 
@@ -470,10 +470,9 @@ class BrowserWfrp4e extends Application
       li.setAttribute("draggable", true);
       li.addEventListener("dragstart", event => {
         event.dataTransfer.setData("text/plain", JSON.stringify({
-          type: item.compendium.metadata.entity,
-          pack : `${item.compendium.metadata.package}.${item.compendium.metadata.name}`,
+          type: item.options.compendium.metadata.entity,
+          pack : `${item.options.compendium.metadata.package}.${item.options.compendium.metadata.name}`,
           id : item._id
-
         }))
 
       })

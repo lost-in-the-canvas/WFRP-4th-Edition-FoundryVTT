@@ -2,7 +2,6 @@
  * Init function loads tables, registers settings, and loads templates
  */
 Hooks.once("init", () => {
-
     // load tables from system folder
     FilePicker.browse("data", "systems/wfrp4e/tables").then(resp => {
       try 

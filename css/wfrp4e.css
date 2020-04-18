@@ -121,6 +121,15 @@
     color: var(--actor-input-color);
     border-bottom: 2px groove #782e22;
   }
+    #tinymce h1 {
+      margin: 0 0 0.5rem;
+      padding: 0;
+      font-family: var( --actor-input-font-family);
+      font-size: 2em;
+      font-weight: normal;
+      color: var(--actor-input-color);
+      border-bottom: 2px groove #782e22;
+    }
   .app.window-app .editor .editor-content h2 {
     margin: 0 0 0.5rem;
     padding: 0;
@@ -180,6 +189,14 @@
     border: none;
     width: 100%;
   }
+  .app.window-app .editor .editor-content ul li {
+    font-size: 14px;
+    font-family: var( --actor-input-font-family);
+    color: var(--actor-input-color);
+    background: none;
+    border: none;
+    width: 100%;
+  }
   .app.window-app .editor .editor-content blockquote {
     margin: 0.5em 0 0.5em 5px;
     padding: 0 0 0 10px;
@@ -205,7 +222,7 @@
     background: rgba(53, 0, 121, 0.05);
     border-top: 1px solid #666;
     border-bottom: 1px solid #666;
-  }
+  } 
 
   .app.sheet .editor-content {
     padding:5px;
@@ -833,12 +850,11 @@
   }
   
   .sidebar-popout .directory-header,
-    .sidebar-tab .directory-header {
-    height: 38px;
-    line-height: 32px;
-    text-align: center;
-    margin: 0;
-    border-bottom: 1px solid #444;
+  .sidebar-tab .directory-header {
+      line-height: 32px;
+      text-align: center;
+      margin: 0;
+      border-bottom: none;
   }
   .sidebar-popout .directory-header .header-search,
     .sidebar-tab .directory-header .header-search {
@@ -903,9 +919,10 @@
     }
 
   .sidebar-popout.sidebar-directory .directory-list,
-    .sidebar-tab.sidebar-directory .directory-list {
-    height: calc(100% - 38px - 50px);
-    margin: 0px 0px 0px 0px;
+  .sidebar-tab.sidebar-directory .directory-list {
+    height: auto;
+    margin: 0px 5px 0px 0px;
+    padding-right: 5px;
   }
   .sidebar-popout.sidebar-directory .directory-list header,
     .sidebar-tab.sidebar-directory .directory-list header {
@@ -941,16 +958,14 @@
   }
   .sidebar-tab .directory-footer,
   #sidebar .directory-footer {
-    margin: 7px 0px 0px 0px;
+    margin: 7px 8px 0px 8px;
     border-top: none;
-    min-height: 50px;
-    max-height: 50px;
   }
     .sidebar-tab .directory-footer button,
     #macros .directory-footer button,
     #macros .directory-footer button,
     #sidebar .directory-footer button {
-      margin: 0 2%;
+      margin: 0px 5px 6px 5px !important;
       padding: 2px 0px 0px 0px;
       height: 34px;
       border: 1px solid black;
@@ -1757,6 +1772,13 @@
       #sidebar #playlists .global-volume::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
+    #playlists li.playlist .playlist-sounds {
+      flex: 0 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: -webkit-fill-available;
+    }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
     #sidebar #playlists li.playlist:not(:first-of-type) .playlist-header {
@@ -1963,6 +1985,9 @@
 /******************************************************************/
 .app.window-app.sheet.item-sheet .window-title {
   display: none;
+}
+.app.window-app.sheet.item-sheet .content {
+  height: 100%
 }
 .app.window-app.sheet.item-sheet .close {
   color: #00e5ff00;
@@ -2179,12 +2204,12 @@
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 6px 0px 0px 0px;
+    margin: 6px 0px 0px 54px;
     justify-content: unset;
     padding: 0px;
-    padding-left: 54px;
+    padding-left: 0px;
     height: 25px;
-    width: 100%;
+    width: -webkit-fill-available;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -2204,6 +2229,10 @@
       margin-right: 6px;
       padding: 0px;
     }
+    .app.window-app.sheet.item-sheet img.no-image-border {
+      border: 1px dotted black;
+    }
+
     .app.window-app.sheet.item-sheet .item-details .label-text {
       font-family: CaslonAntique;
       font-weight: 700;
@@ -3753,11 +3782,11 @@
       color: var(--actor-label-color);
       box-shadow: 0 0 10px #00000052 inset;
       text-align: center;
-      width: 56px;
+      min-width: 56px;
       border-top: 1px solid #736953a6;
       min-height: 29px;
       max-height: 29px;
-      padding-top: 5px;
+      padding: 5px;
     }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
       border-top: 1px solid #736953a6;
@@ -4569,28 +4598,28 @@
         position: relative;
         left: 0px;
         height: 18px;
-        width: fit-content;
+        width: 30px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .char {
         position: relative;
         left: 74px;
         height: 18px;
-        width: fit-content;
+        width: 27px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .adv {
         position: relative;
         left: 89px;
         height: 18px;
-        width: fit-content;
+        width: 22px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .total {
         position: relative;
         left: 90px;
         height: 18px;
-        width: fit-content;
+        width: 25px;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .item-controls {
@@ -4598,7 +4627,7 @@
         top: -1px;
         left: 104px;
         height: fit-content;
-        width: fit-content;
+        width: 9px;
         display: inline-block;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -5185,6 +5214,7 @@
 
       .app.window-app.sheet.wfrp4e.actor .rest-icon{
         left: 5px;
+        border-radius: 10px;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
     .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
@@ -7189,8 +7219,8 @@
       /* background: #0000ff47; */
     }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -7208,16 +7238,16 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .name,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .name,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .name {
         position: relative;
         left: 0px;
         height: 18px;
         width: 243px;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .item-toggle,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .item-toggle {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .item-toggle,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .item-toggle {
         position: relative;
         left: 63px;
         height: 18px;
@@ -7225,8 +7255,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .quantity,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .quantity {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .quantity,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .quantity {
         position: relative;
         left: 82px;
         height: 18px;
@@ -7234,8 +7264,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .weight,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .weight {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .weight,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .weight {
         position: relative;
         left: 105px;
         height: 18px;
@@ -7243,8 +7273,8 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Armour .item-controls,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Clothing .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.armor .item-controls,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.clothingAccessories .item-controls {
         position: relative;
         top: -1px;
         left: 135px;
@@ -7258,7 +7288,7 @@
         padding: 0px;
       }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons {
       width: 100%;
       height: 20px;
       margin: 6px 0px 0px 0px;
@@ -7276,14 +7306,14 @@
       overflow-x: hidden;
       overflow-y: hidden;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .name {
         position: relative;
         left: 0px;
         height: 18px;
         width: 243px;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .item-toggle {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .item-toggle {
         position: relative;
         left: 55px;
         height: 18px;
@@ -7291,7 +7321,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .quantity {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .quantity {
         position: relative;
         left: 65px;
         height: 18px;
@@ -7299,7 +7329,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .weight {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .weight {
         position: relative;
         left: 88px;
         height: 18px;
@@ -7307,7 +7337,7 @@
         display: inline-block;
         /* background: beige; */
       }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Weapons .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.weapons .item-controls {
         position: relative;
         top: -1px;
         left: 118px;
@@ -7321,9 +7351,9 @@
         padding: 0px;
       }
 
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons,
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing {
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons,
+    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
       overflow-y: hidden;
@@ -7340,9 +7370,9 @@
       margin: -5px 0px 0px 0px;
       padding: 0px;
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content,
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content {
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content {
         width: 100%;
         text-align: center;
         overflow-x: hidden;
@@ -7358,17 +7388,17 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-name,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-name,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-name {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-name,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-name,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-name {
           display: flex;
           flex-direction: row;
           min-width: 290px;
           max-width: 290px;
         }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .image,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .image,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .image {
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .image,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .image,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .image {
             background-size: 32px;
             background-repeat: no-repeat;
             min-height: 32px;
@@ -7376,17 +7406,17 @@
             min-width: 32px;
             max-width: 32px;
           }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .name,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .name,
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .name {
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .name,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .name,
+          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .name {
             text-align: left;
             vertical-align: middle;
             padding: 11px 0px 0px 4px;
             overflow: hidden;
           }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-toggle,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-toggle,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-toggle {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-toggle,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-toggle,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-toggle {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7398,9 +7428,9 @@
           left: 9px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .quantity,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .quantity,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .quantity {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .quantity,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .quantity,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .quantity {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7412,9 +7442,9 @@
           left: 11px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .weight,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .weight,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .weight {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .weight,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .weight,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .weight {
           min-width: 30px;
           max-width: 30px;
           padding: 11px 0px 0px 0px;
@@ -7426,9 +7456,9 @@
           left: 14px;
           /* background: aqua; */
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Armour .item .content .item-controls,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Weapons .item .content .item-controls,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Clothing .item .content .item-controls {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-controls {
           padding: 5px 4px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
@@ -7777,7 +7807,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -7982,6 +8012,8 @@
       width: 100%;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-two-item .content {
         width: 100%;
@@ -7989,7 +8021,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8194,6 +8226,8 @@
       width: 100%;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-three-item .content {
         width: 100%;
@@ -8201,7 +8235,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8406,6 +8440,8 @@
       width: 463px;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-four-item .content {
         width: 100%;
@@ -8413,7 +8449,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -8618,6 +8654,8 @@
       width: 453px;
       margin: 0px 0px 0px 0px;
       padding: 0px;
+      position: relative;
+      top: -2px;
     }
       .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list .level-five-item .content {
         width: 100%;
@@ -8625,7 +8663,7 @@
         overflow-x: hidden;
         overflow-y: hidden;
         margin: 0px 0px;
-        padding: 0px 0px;
+        padding: 2px 2px;
         display: flex;
         flex-direction: row;
         font-family: var(--actor-input-font-family);
@@ -12671,13 +12709,9 @@ border-image-outset: 0px !important;
 
   /* ================== 1. MANAGE MODULES ===================== */
     #module-management {
-      max-width: 600px;
-      max-height: 65vh;
     }
     #module-management .window-content {
       overflow: auto;
-      min-height: 437px !important;
-      max-height: 437px;
       background: url(../ui/frames/window-app-background-bookshelf.png);
     }
     #module-management .window-content .modules-list {
@@ -12785,10 +12819,12 @@ border-image-outset: 0px !important;
       #module-management .window-content button[name="submit"] {
         margin: 0 3px 10px 3px !important;
       }
-      #module-management .package >*,
-      #module-management .module-description {
+      #module-management .window-content .directory-list.package-list .package >*,
+      #module-management .window-content .directory-list.package-list .package-description,
+        #module-management .window-content .directory-list.package-list .package-title {
         color:#CCC
       }
+
 
   /* ================== 2. CONFIGURE SETTINGS ================= */
     #client-settings {
@@ -12920,7 +12956,7 @@ border-image-outset: 0px !important;
       }
       #client-settings .window-content button {
         flex: 2;
-        margin: 0px 0px 0px 0px;
+        margin: 0px 4px 0px 4px;
         padding: 3px 0px 3px 0px;
         line-height: normal;
         border: 3px double #736953a6;
@@ -12928,7 +12964,7 @@ border-image-outset: 0px !important;
         border-radius: 0px;
         opacity: 0.9;
         text-align: center;
-        min-width: 93px;
+        min-width: 95px;
         color: #e2e2e2;
         font-family: CaslonAntique;
         font-weight: 500;
@@ -12940,6 +12976,21 @@ border-image-outset: 0px !important;
         background: url(../ui/sidebar_button-background_red.png) repeat;
         background-origin: padding-box;
       }
+        #client-settings .window-content button[name="permissions"] {
+          max-width: 68px;
+          min-width: 68px;
+          height: 28px;
+          padding: 0px 0px 0px 0px;
+          line-height: 23px;
+        }
+        #client-settings .window-content button[name="permissions"] label {
+          display: none;
+        }
+        #client-settings .window-content button[name="permissions"] i {
+          display: contents;
+          font-size: 16px;
+          color: #b9b9b9;
+        }
       #client-settings .window-content .far.fa-save {
         display: none;
       }
@@ -13609,6 +13660,58 @@ border-image-outset: 0px !important;
     font-weight: var(--major-button-font-weight);
     color: var(--major-button-color);
   }
+
+  .app.window-app.sheet.scene-sheet .grid-config {
+    max-width: 60px;
+    margin: 0 3px 0px 3px;
+  }
+    #grid-config .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+    #grid-config .fas.fa-sync {
+      display: none;
+    }
+    #grid-config .form-group .form-fields label {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      padding: 4px 3px;
+      border: 1px solid #5d513e;
+      border-left: none;
+      background: #080808;
+      margin-right: 0px;
+    }
+  .app.window-app.sheet.scene-sheet .fas.fa-ruler-combined { 
+    display: contents;
+    font-size: 16px;
+    color: #b9b9b9;
+  }
+
+  #wall-config .notes {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: center;
+    margin: 4px 0px 0px 0px;
+    padding: 4px 5px;
+    border: 1px solid #5d513e;
+    background: #1f1f1fb5;
+  }
+
   .app.window-app .dialog-buttons button i,
   .app.window-app .sheet-footer button i,
   .app.window-app .form-group .file-picker i,
@@ -13713,14 +13816,26 @@ border-image-outset: 0px !important;
       color: #7d7d7d;
     } 
     .app.window-app.sheet.scene-sheet .form-group .file-picker {
-      margin: 0 3px 0px 3px !important;
+      max-width: 60px;
+      margin: 0 3px 0px -2px !important;
       box-shadow: 0px 0px 5px black inset;
     } 
-      .app.window-app.sheet.scene-sheet .form-group .file-picker i {
+    #sound-config .form-group .file-picker {
+      margin: 0px 3px 0px 0px;
+    }
+      .app.window-app.sheet.scene-sheet .form-group .file-picker i,
+      #sound-config .form-group .file-picker i {
         display: contents;
         font-size: 16px;
         color: #b9b9b9;
       }
+      #sound-config .form-group input[type="checkbox"] {
+        position: relative;
+        top: 7px;
+        margin-left: 6px;
+        transform: scale(1);
+      }
+
     .app.window-app.sheet.scene-sheet .form-group input[type="color"] {
       padding: 1px 3px;
       height: 27px;
@@ -13734,10 +13849,49 @@ border-image-outset: 0px !important;
       transform: scale(1);
     }
 
+    .app.window-app.sheet.scene-sheet input[type="range"] + .range-value,
+    #drawing-config .range-value,
+    #sound-config .range-value,  
+    #light-config .range-value {
+      display: block;
+      flex: 0 1 48px;
+      margin-left: 10px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      line-height: normal;
+      text-align: center;
+      padding: 6px 3px 0px 3px;
+      border: 1px solid #5d513e;
+      background: #080808;
+    }
+
+    #drawing-config .notes,
+    #sound-config .notes,
+    #light-config .hint {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+
+    #drawing-config .flexcol,
+    #sound-config .flexcol {
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
 
     .app.window-app.sheet.scene-sheet button[type="submit"] {
       margin-top: 17px !important;
     }
+
+
 
   /* ================== 4. SCENE NOTES ======================== */
     .app.window-app.sheet.scene-notes .window-content {
@@ -13843,12 +13997,11 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     #token-config {
-      max-height: 335px;
-      min-height: 335px;
+      max-height: 390px;
+      min-height: 390px;
     }
     #token-config .window-content {
-      min-height: 370px;
-      max-height: 370px;
+      min-height: 424px;
     }
     #token-config .sheet-tabs {
       flex: 0 0 32px;
@@ -14077,14 +14230,29 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
+    #token-config .range-value {
+      display: block;
+      flex: 0 1 48px;
+      margin-left: 10px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      line-height: normal;
+      text-align: center;
+      padding: 6px 3px 0px 3px;
+      border: 1px solid #5d513e;
+      background: #080808;
+    }
+
   /* ================== 10. DRAWING CONFIG ==================== */
     #drawing-config {
-      min-height: 335px;
-      overflow-y: auto;
+      min-height: 393px;
+      overflow-y: hidden;
+      width: 480px !important;
     }
     #drawing-config .window-content {
-      min-height: 290px;
-      overflow-y: auto;
+      overflow-y: hidden;
+      overflow-x: hidden;
     }
     #drawing-config .sheet-tabs {
       flex: 0 0 32px;
@@ -14121,7 +14289,7 @@ border-image-outset: 0px !important;
       color: #7d7d7d;
     }
     #drawing-config .sheet-footer {
-      width: 446px;
+      width: 100%;
       height: 32px;
       bottom: 19px;
     }
@@ -14263,6 +14431,14 @@ border-image-outset: 0px !important;
       border-right: none;
       box-shadow: 0px 0px 10px inset black;
       background: #352516;  
+    }
+    #drawing-config .file-picker {
+      margin: 0px;
+    }
+    #drawing-config .file-picker .fas.fa-file-import.fa-fw {
+      display: contents;
+      font-size: 16px;
+      color: #b9b9b9;
     }
 
   /* ================== 11. JOUNRAL ENTRIES =================== */
@@ -14600,6 +14776,13 @@ border-image-outset: 0px !important;
     }
 
   /* ================== 15. PLAYER CONFIGURATION ============== */
+      #player-config .directory-list {
+        max-height: 250px;
+        overflow-y: auto;
+        list-style: none;
+        margin: 5px 0;
+        padding: 0;
+    }
     #player-config label {
       font-size: 14px;
       font-weight: normal;
@@ -14619,9 +14802,42 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
+    #player-config .directory-item {
+    margin-right: 5px;
+    }
+    #player-config button[type="submit"] {
+      margin-top: 0px;
+    }
 
 
-
+    .app.window-app.sheet.template-sheet .notes,
+    .app.window-app.sheet.tile-sheet .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+    #template-config {
+      min-width: 430px;
+      max-height: 452px;
+    }
+    .app.window-app.sheet.template-sheet .form-group .file-picker,
+    .app.window-app.sheet.tile-sheet .form-group .file-picker  {
+      margin: 0 3px 0px 0px !important;
+      box-shadow: 0px 0px 5px black inset;
+    }
+    .app.window-app.sheet.template-sheet .form-group .fas.fa-file-import.fa-fw,
+    .app.window-app.sheet.tile-sheet .form-group .fas.fa-file-import.fa-fw {
+      display: contents;
+      font-size: 16px;
+      color: #b9b9b9;
+    }
 
 
   
@@ -15495,25 +15711,26 @@ font-style : normal;
 }
 
 .chargen-button {
-	box-shadow:inset 0px 1px 0px 0px #a6827e;
-	background:linear-gradient(to bottom, #7d5d3b 5%, #634b30 100%);
-	background-color:#7d5d3b;
-	border-radius:3px;
-	border:1px solid #54381e;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
-  text-shadow:0px 1px 0px #4d3534;
+  box-shadow: inset 0px 1px 0px 0px #a6827e;
+  background: linear-gradient(to bottom, #21374afc 5%, #152833ab 100%);
+  background-color: #7d5d3b00;
+  border-radius: 3px;
+  border: 2px ridge #846109;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: CaslonPro;
+  font-size: 14px;
+  padding: 4px 12px 0px 12px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #4d3534;
   position: relative;
   left: 120px;
 }
 .attribute-career-buttons{
-  display:flex;
-  justify-content: space-evenly
+  justify-content: space-around;
+  display: flex;
+  width: 100%;
 }
 .attribute-career-buttons .chargen-button {
   left : 0px;
@@ -15525,8 +15742,8 @@ font-style : normal;
 }
 
 .chargen-button:hover {
-	background:linear-gradient(to bottom, #634b30 5%, #7d5d3b 100%);
-	background-color:#634b30;
+  background: linear-gradient(to bottom, #800000 5%, #3e0101 100%);
+  background-color: red;
 }
 .chargen-button:active {
 	position:relative;
@@ -15676,12 +15893,12 @@ button.capture-position {
 .talent-lookup,
 .skill-drag,
 .talent-drag {
-  background: #DDD;
   border-radius: 2px;
-  padding: 0 2px;
-  border: 1px solid #BBB;
+  border: 1px solid #b9935e99;
   white-space: nowrap;
   word-break: break-all;
+  padding: 4px 3px 0px 3px;
+  box-shadow: inset 0px 0px 4px #6d3b00b0;
 }
 
 .table-input {
@@ -15950,8 +16167,8 @@ top: 25px;
   color: var(--major-button-color);
 }
   .scene-sheet .window-content .form-group.initial-position .form-fields .capture-position i {
-    font-weight: 600;
-    transform: scale(0.8);
+    display: contents;
+    font-size: 16px;
     color: #b9b9b9;
   }
 #wfrp4e-browser .name-icon {
@@ -16006,11 +16223,132 @@ top: 25px;
     font-family: "Signika", sans-serif !important;
     box-shadow: inset 0px 0px 12px #6b3a0f87 !important;
   }
+  .tox-tinymce .tox-toolbar__group button[title="Formats"] {
+    user-select: none;
+    flex: 50px !important;
+  }
 
+.editor-edit {
+  color: #564d3a;
+  /* display: block; */
+  border: 1px solid #564d3a;
+  background: none;
+  box-shadow: 0px 0px 2px inset #000000d1;
+  margin: 0px;
+  padding: 3px 2px 0px 4px;
+  height: 27px;
+}
+  .editor-edit .fas.fa-edit {
+    font-size: 17px;
+    line-height: 17px;
+  }
   .tox .tox-toolbar__group {
     width: 100%
   }
 
+
+a.item-control.item-delete {
+  position: relative;
+  left: -2px;
+  top: 1px;
+}
+a.item-dropdown {
+  position: relative;
+  left: -3px;
+  top: 1px;
+}
+
+.armour-box .armour-property .armour-quality.comma {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: var(--actor-input-color);
+  padding: 3px 0px 0px 0px;
+}
+.armour-box[data-location="head"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="body"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lArm"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rArm"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lLeg"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rLeg"] .armour-property .armour-quality.comma:last-of-type {
+  display: none;
+}
+
+
+
+.armour-box[data-location="head"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="body"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rArm"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="lLeg"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+.armour-box[data-location="rLeg"] .armour-property .armour-flaw.comma:last-of-type {
+  display: none;
+}
+
+#chat-log .message.whisper {
+  padding: 4px 1px 4px 1px;
+  margin: 25px 16px 25px 21px;
+  border-image: url(../ui/frames/chat-message-border-private.png) 21 repeat;
+  border-image-width: 10px;
+  border-image-outset: 8px;
+  border-radius: 0px;
+  background: url(../ui/frames/parchment-texture.png) repeat;
+  box-shadow: none;
+  color: #000000;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  /* min-height: 80px; */
+  vertical-align: middle;
+}
+  #chat-log .message.whisper .message-header {
+    border: 3px double #00165878;
+  }
+#chat-log .message.whisper.blind {
+  padding: 4px 1px 4px 1px;
+  margin: 25px 16px 25px 21px;
+  border-image: url(../ui/frames/chat-message-border-blind.png) 21 repeat;
+  border-image-width: 10px;
+  border-image-outset: 8px;
+  border-radius: 0px;
+  background: url(../ui/frames/parchment-texture.png) repeat;
+  box-shadow: none;
+  color: #000000;
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+  /* min-height: 80px; */
+  vertical-align: middle;
+}
+  #chat-log .message.whisper.blind .message-header {
+    border: 3px double #57005878;
+  }
+
+  #chat-log .message .message-header .flavor-text, #chat-log .message .message-header .whisper-to {
+    flex: 0 0 100%;
+    font-size: 12px;
+    color: #690469;
+  }
   .fxmaster.directory-list {
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
@@ -16106,3 +16444,430 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
 #permissions-config .hint {
   color: #CCC
 }
+
+.filepicker .tabs {
+  color: #CCC;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+.app.window-app.filepicker .tabs .item {
+  margin: 3px 0px;
+  max-width: 49%;
+  padding: 4px 3px 1px 3px;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  border: 3px double #564d3a;
+  background: #0a1829d9;
+}
+.app.window-app.filepicker .tabs .item.active {
+  background: #290a0ad9;
+}
+  .app.window-app.filepicker .tabs .item .fas {
+    display: none;
+  }
+
+
+/******************************************************************/
+/*=================== PLAYER HUD =================================*/
+/******************************************************************/
+  #token-hud .attribute.bar2 input {
+    opacity: 1;
+    box-shadow: 0 0 8px #006764 inset;
+    border: 4px double #006d9c;
+    font-family: var(--actor-input-font-family);
+    font-size: 30px;
+    line-height: normal;
+    padding-top: 6px;
+  }
+  #token-hud .attribute.bar1 input {
+    opacity: 1;
+    box-shadow: 0 0 8px #436b08 inset;
+    border: 4px double #528a00;
+    font-family: var(--actor-input-font-family);
+    font-size: 30px;
+    line-height: normal;
+    padding-top: 6px;
+  }
+  .placeable-hud .control-icon {
+    background: #0000004f;
+    border: 2px ridge #583f08;
+    box-shadow: 0 0 23px #000000 inset;
+  }
+
+  .placeable-hud .control-icon i.fas {
+    position: relative;
+    top: 1px;
+    opacity: 0.8;
+  }
+
+  .placeable-hud .control-icon input[name="elevation"] {
+    opacity: 1;
+    box-shadow: 0 0 8px #675e00 inset;
+    border: 4px double #9c5f00;
+    font-family: var(--actor-input-font-family);
+    font-size: 30px;
+    line-height: normal;
+    padding-top: 6px;
+  }
+
+
+.window-app .window-resizable-handle {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  background: #4e3e3ed4;
+  padding: 2px;
+  border: 2px solid #d0c8c89c;
+  color: white;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px black inset;
+}
+
+.placeable-hud input[type="text"] {
+  opacity: 1;
+  box-shadow: 0 0 8px #b1b1b1 inset;
+  border: 4px double #a1a5a5;
+  font-family: var(--actor-input-font-family);
+  font-size: 30px;
+  line-height: normal;
+  padding-top: 6px;
+}
+
+#track-config {
+  z-index: 102;
+  width: fit-content;
+  min-width: 450px;
+  height: 233px;
+  left: 543px;
+  top: 208px;
+}
+#track-config .file-picker {
+  max-width: 60px;
+  margin: 0 2px 0px -1px !important;
+  box-shadow: 0px 0px 5px black inset;
+}
+  #track-config .file-picker .fas.fa-file-import.fa-fw {
+    display: contents;
+    font-size: 16px;
+    color: #b9b9b9;
+  }
+  #track-config .form-group input[type="checkbox"] {
+    position: relative;
+    top: 7px;
+    margin-left: 6px;
+    transform: scale(1);
+  }
+
+  #invitation-links .notes {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: left;
+    margin: 4px 0px 0px 0px;
+    padding: 4px 5px;
+    border: 1px solid #5d513e;
+    background: #1f1f1fb5;
+  }
+
+
+#permissions-config .window-content .notes {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: center;
+  margin: 4px 0px 0px 0px;
+  padding: 4px 5px;
+  border: 1px solid #5d513e;
+  background: #1f1f1fb5;
+}
+  #permissions-config .window-content .table-header label {
+    flex: 0;
+    margin: 0px 0px;
+    padding: 0px;
+    text-align: center;
+    line-height: normal;
+    font-family: var(--window-header-title-font-family);
+    font-size: var(--window-header-title-font-size);
+    font-weight: var(--window-header-title-font-weight);
+    color: #d6d6d6;
+    border: 3px double #5d513e;
+    background: #080808;
+    box-shadow: 0px 0px 10px inset black;
+    border-radius: 0px;
+    opacity: 1;
+    text-shadow: 1px 1px 5px #000000;
+    min-width: 100px;
+  }
+  #permissions-config .window-content .hint {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: center;
+    margin: 4px 0px 0px 0px;
+    padding: 4px 5px;
+    border: 1px solid #5d513e;
+    background: #1f1f1fb5;
+  }
+  #permissions-config input[type="checkbox"] {
+    flex: 1;
+    height: 14px;
+    margin: 3px 0 0;
+    position: relative;
+    top: 4px;
+    margin-left: 6px;
+    transform: scale(1);
+    box-shadow: 0px 0px 10px inset black;
+    max-width: 14px;
+  }
+  #permissions-configform .form-group .form-fields {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  #permissions-config ul.permissions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 400px;
+    overflow: hidden auto;
+    padding-right: 8px;
+  }
+  #permissions-config .fas.fa-sync {
+    display: none;
+  }
+  #permissions-config header.table-header {
+    background: none;
+    padding: 5px 5px 5px 4px;
+    border: 1px solid #191813;
+    text-align: center;
+    color: #f0f0e0;
+    font-weight: bold;
+    text-shadow: 1px 1px #000;
+    justify-content: space-between;
+  } 
+  #permissions-config header.table-header .index {
+    margin: 0px 0px 0px 0px;
+    min-width: 186px;
+  }
+  #permissions-config .permission.form-group .index {
+    flex: 0 0 186px;
+    text-align: center;
+    font-weight: normal;
+  }
+  #permissions-config form .form-group .form-fields {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+    #permissions-config .permission.form-group input:nth-of-type(1) {
+      position: relative;
+      left: -19px;
+    }
+    #permissions-config .permission.form-group input:nth-of-type(2) {
+      position: relative;
+      left: 1px;
+    }
+    #permissions-config .permission.form-group input:nth-of-type(3) {
+      position: relative;
+      left: 23px;
+    }
+    #permissions-config .permission.form-group input:nth-of-type(4) {
+      position: relative;
+      left: 46px;
+    }
+    #permissions-config li.permission {
+      padding: 5px;
+      border-bottom: 1px dotted #ffffff63;
+    }
+    
+#av-config .sheet-tabs {
+  flex: 0 0 32px;
+  border-bottom: none;
+  line-height: 32px;
+  justify-content: space-between;
+}
+#av-config .sheet-tabs .item {
+  margin: 3px 0px;
+  padding: 4px 3px 1px 3px;
+  max-width: 80px;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  border: 3px double #564d3a;
+  background: #0a1829d9;
+}
+  #av-config .sheet-tabs .item:hover {
+    box-shadow: 0 0 8px #ff9f00 !important;
+  }
+  #av-config .sheet-tabs .item.active {
+    background: #290a0ad9;
+  }
+  #av-config .sheet-tabs .item i {
+    display: none;
+  }
+  #av-config .tab select[name="mode"] {
+    border-left: 1px solid #736953a6;
+    border-top: none;
+    height: 27px;
+    padding: 1px 3px;
+  }
+  #av-config .tab select[name="voiceMode"] {
+    border-top: 1px solid #736953a6;
+  }
+  #av-config .tab select[name="serverType"] {
+    border-top: 1px solid #736953a6;
+  }
+  #av-config .tab select[name="turnType"] {
+    border-top: 1px solid #736953a6;
+  }
+  #av-config label {
+    font-weight: normal;
+    margin-bottom: 0;
+  }
+  #av-config .notes {
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: #d6d6d6;
+    line-height: normal;
+    text-align: left;
+    margin: 4px 0px 0px 0px;
+    padding: 4px 5px;
+    border: 1px solid #5d513e;
+    background: #1f1f1fb5;
+  }
+
+  #av-config .form-group select {
+    width: -webkit-fill-available;
+    border: 1px solid #736953a6;
+    border-top: none;
+    height: 27px;
+  }
+
+.notification.error {
+  box-shadow: 0px 0px 7px #ff000070 inset;
+}
+.notification::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 0.25em;
+}
+
+#module-management .window-content .notes {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: left;
+  margin: 4px 0px 0px 0px;
+  padding: 4px 5px;
+  border: 1px solid #5d513e;
+  background: #1f1f1fb5;
+}
+#module-management .window-content .directory-list.package-list {
+  padding: 0px 6px 0px 0px;
+  overflow-y: scroll;
+  height: 314px;
+}
+  #module-management .window-content .directory-list.package-list .package {
+    flex: 2;
+    line-height: 24px;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border-radius: 0px;
+    opacity: 0.9;
+    min-width: 93px;
+    color: #efefef;
+    padding: 6px;
+    margin: 8px 0px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 16px;
+  }
+  #module-management .window-content .directory-list.package-list input[type="checkbox"] {
+    position: relative;
+    top: 1px;
+    margin: 0px 0px 0px 0px;
+    transform: scale(1);
+    box-shadow: 0px 0px 7px black inset;
+  }
+  #module-management .window-content .directory-list.package-list .package-title {
+    margin: 0px 0px 0px 6px;
+    text-decoration: none;
+  }
+  #module-management .window-content .directory-list.package-list .module-description {
+    line-height: normal;
+    margin-left: 19px;
+    font-size: 14px;
+  }
+
+/* DungeonDraft Import STYLING */
+.app.window-app.dialog .form-group.import {
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+  margin: 4px 0;
+}
+.app.window-app.dialog .form-group.import .import-options {
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  line-height: normal;
+  text-align: center;
+  padding: 4px 3px;
+  border: 1px solid #5d513e;
+  background: #080808;
+  width: 120px;
+}
+.app.window-app.dialog .form-group.import .file-picker {
+  padding: 1px 3px;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  border-left: none;
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
+  height: auto;
+}
+
+input[name="dd-import.importPath"] {
+  border: 1px solid #736953a6;
+}
+
+.placeable-hud .control-icon.active {
+  border: 2px solid #ff6400;
+}
+
+#chat-bubbles {
+  font-family: CaslonPro;
+  font-size: 14px;
+  font-weight: 500;
+}
+  #chat-bubbles .chat-bubble {
+    border: 3px double black;
+    background: #ffffffb8;
+    box-shadow: 0px 0px 5px black inset;
+  }
+

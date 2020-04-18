@@ -24,6 +24,13 @@ class ActorSheetWfrp4e extends ActorSheet {
     return this.actor.data.type;
   }
 
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    options.tabs = [{navSelector: ".tabs", contentSelector: ".content", initial: "main"}]
+    options.width = 576;
+	  return options;
+  }
+
   /**
    * Overrides the default ActorSheet.render to add functionality.
    * 
@@ -140,13 +147,6 @@ class ActorSheetWfrp4e extends ActorSheet {
   {
     super.activateListeners(html);
 
-    // Activate tabs
-    new Tabs(html.find(".tabs"), {
-      initial: this.actor.data.flags["_sheetTab"],
-      callback: clicked => this.actor.data.flags["_sheetTab"] = clicked.attr("data-tab")
-    });
-  
-
     // Item summaries - displays a customized dropdown description
     html.find('.item-dropdown').click(event => this._onItemSummary(event));
 
@@ -157,7 +157,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     html.find('.weapon-range, .weapon-group, .weapon-reach').click(event => this._expandInfo(event));
 
     // Autoselect entire text 
-    $("input[type=text]").click(function() {
+    $("input[type=text]").focusin(function() {
       $(this).select();
     });
 
@@ -226,7 +226,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Similar to the handlers above, but for skills (and all actor types) 
   html.find('.skill-advances').keydown(async event => {
     // Wait to update if user tabbed to another skill
-    if (event.keyCode == 9)
+    if (event.keyCode == 9) // Tab
     {
       this.skillUpdateFlag = false;
     }
@@ -234,7 +234,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       this.skillUpdateFlag = true;
     }
-    if (event.keyCode == 13)
+    if (event.keyCode == 13) // Enter
     {
       if (!this.skillsToEdit)
         this.skillsToEdit = []
@@ -244,7 +244,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       itemToEdit.data.advances.value = Number(event.target.value);
       this.skillsToEdit.push(itemToEdit);
       
-      await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+      await this.actor.updateEmbeddedEntity("OwnedItem", this.skillsToEdit);
 
       this.skillsToEdit = [];
     }
@@ -253,6 +253,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   // Records skill advance edits and updates the actor if the listener above sets the flag to true
   html.find('.skill-advances').focusout(async event => {
+    event.preventDefault()
     if (!this.skillsToEdit)
       this.skillsToEdit = []
     let itemId = event.target.attributes["data-item-id"].value;
@@ -264,14 +265,14 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (!this.skillUpdateFlag)
       return;
 
-    await this.actor.updateManyEmbeddedEntities("OwnedItem", this.skillsToEdit);
+    await this.actor.updateEmbeddedEntity("OwnedItem", this.skillsToEdit);
 
     this.skillsToEdit = [];
   });
   // I don't remember why this was added ¯\_(ツ)_/¯ TODO: evaluate
-  html.find('.skill-advances').focusin(async event => {
-    event.target.focus();
-  });
+  // html.find('.skill-advances').focusin(async event => {
+  //   event.target.focus();
+  // });
 
   // Ammo selector in the combat tab - change the currentAmmo value of the item to the selected value
   html.find('.ammo-selector').change(async event => {
@@ -336,15 +337,15 @@ class ActorSheetWfrp4e extends ActorSheet {
     let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
     let weapons;
     await pack.getIndex().then(index => weapons = index);
-    let unarmedId = weapons.find(w => w.name.toLowerCase() == "unarmed");
-    let unarmed = await pack.getEntity(unarmedId.id);
+    let unarmedId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Unarmed").toLowerCase());
+    let unarmed = await pack.getEntity(unarmedId._id);
     this.actor.setupWeapon(unarmed.data)
     // Roll Fist Attack
   })
 
     // Dodge (Arrow in the combat tab)
     html.find('.dodge-icon').click(async event => {
-      let skill = this.actor.items.find(s => s.data.name == "Dodge" && s.type == "skill")
+      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Dodge") && s.type == "skill")
       if (skill)
         this.actor.setupSkill(skill.data)
       else 
@@ -357,8 +358,8 @@ class ActorSheetWfrp4e extends ActorSheet {
       let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
       let weapons;
       await pack.getIndex().then(index => weapons = index);
-      let improvId = weapons.find(w => w.name.toLowerCase() == "improvised weapon");
-      let improv = await pack.getEntity(improvId.id);
+      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised"));
+      let improv = await pack.getEntity(improvId._id);
       this.actor.setupWeapon(improv.data)
     })
 
@@ -369,15 +370,21 @@ class ActorSheetWfrp4e extends ActorSheet {
       let traits;
       await pack.getIndex().then(index => traits = index);
       let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
-      let stomp = await pack.getEntity(stompId.id);
-      stomp.data.name = "Stomp"
+      let stomp = await pack.getEntity(stompId._id);
+      stomp.data.name = game.i18n.localize("NAME.Stomp")
       stomp.data.data.specification.value = 0;
       this.actor.setupTrait(stomp.data)
     })
 
     // Rest
     html.find('.rest-icon').click(async event => {
-      this.actor.setupCharacteristic("t", {rest: true})
+
+      let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
+      if (skill)
+        this.actor.setupSkill(skill.data, {rest: true})
+      else 
+        this.actor.setupCharacteristic("t", {rest: true})
+       
     })
 
   // Roll a trait (right click to show dropdown description)
@@ -831,8 +838,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     if (ev.button == 2)
     {
       new Dialog({
-        title: "Duplicate Item",
-        content: '<p>Do you want to duplicate this item?</p>',
+        title: game.i18n.localize("SHEET.DupTitle"),
+        content: `<p>${game.i18n.localize("SHEET.DupPrompt")}</p>`,
         buttons: {
           yes: {
             label: "Yes",
@@ -1038,7 +1045,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       event.dataTransfer.setData("text/plain", JSON.stringify({
       type: "Item",
       sheetTab : this.actor.data.flags["_sheetTab"],
-      actorId: this.actor.id,
+      actorId: this.actor._id,
       data: item,
       root : event.currentTarget.getAttribute("root")
     }));
@@ -1197,13 +1204,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       switch(type)
       {
         case 'b' : 
-        moneyItem = money.find(i => i.name == "Brass Penny");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.BP"));
         break;
         case 's' : 
-        moneyItem = money.find(i => i.name == "Silver Shilling");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.SS"));
         break;
         case 'g' : 
-        moneyItem = money.find(i => i.name == "Gold Crown");
+        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.GC"));
         break;
       }
 
@@ -1215,11 +1222,11 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       // add halves
       if (halfS)
-         money.find(i => i.name == "Brass Penny").data.quantity.value += 6;
+         money.find(i => i.name == game.i18n.localize("NAME.BP")).data.quantity.value += 6;
       if (halfG)
-        money.find(i => i.name == "Silver Shilling").data.quantity.value += 10;
+        money.find(i => i.name == game.i18n.localize("NAME.SS")).data.quantity.value += 10;
 
-      await this.actor.updateManyEmbeddedEntities("OwnedItem", money);
+      await this.actor.updateEmbeddedEntity("OwnedItem", money);
     }
     else // If none of the above, just process whatever was dropped upstream
     {
@@ -1283,7 +1290,7 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        this.actor.setupSkill(skill.data, career.data.status);
+        this.actor.setupSkill(skill.data, {income : career.data.status});
       })
     }
     li.toggleClass("expanded");
@@ -1377,11 +1384,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       let range = parseInt(event.target.text);
       expansionText =
-        `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} yds: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
-          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} yds - ${Math.ceil(range / 2)} yds: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
-          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} yds - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
-          <a class="range-click" data-range="difficult">${(range + 1)} yds - ${range * 2} yds: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
-          <a class="range-click" data-range="vhard">${(range * 2 + 1)} yds - ${range * 3} yds: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
+        `<a class="range-click" data-range="easy">0 yd - ${Math.ceil(range / 10)} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Point Blank"]}</a><br>
+          <a class="range-click" data-range="average">${(Math.ceil(range / 10) + 1)} ${game.i18n.localize("yds")} - ${Math.ceil(range / 2)} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Short Range"]}</a><br>
+          <a class="range-click" data-range="challenging">${(Math.ceil(range / 2) + 1)} ${game.i18n.localize("yds")} - ${range} yds: ${WFRP4E.rangeModifiers["Normal"]}</a><br>
+          <a class="range-click" data-range="difficult">${(range + 1)} ${game.i18n.localize("yds")} - ${range * 2} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Long Range"]}</a><br>
+          <a class="range-click" data-range="vhard">${(range * 2 + 1)} ${game.i18n.localize("yds")} - ${range * 3} ${game.i18n.localize("yds")}: ${WFRP4E.rangeModifiers["Extreme"]}</a><br>`;
     }
     // Expand the weapon's group description
     else if (classes.hasClass("weapon-group"))

@@ -173,7 +173,7 @@ class OpposedWFRP
         renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html =>
         {
           let chatOptions = {
-            user: game.user.id,
+            user: game.user._id,
             content: html,
             "flags.opposeData": opposeResult,
             "flags.startMessageId": options.startMessageId,
@@ -187,7 +187,7 @@ class OpposedWFRP
         renderTemplate("systems/wfrp4e/templates/chat/opposed-result.html", opposeResult).then(html =>
         {
           let chatOptions = {
-            user: game.user.id,
+            user: game.user._id,
             content: html,
             "flags.opposeData": opposeResult
           }
@@ -220,7 +220,7 @@ class OpposedWFRP
   {
     ChatMessage.create(
     {
-      user: game.user.id,
+      user: game.user._id,
       hideData: true,
       flags:
       {
@@ -235,7 +235,7 @@ class OpposedWFRP
   {
     let opposeMessage = game.messages.get(msgId)
     let newCard = {
-      user: game.user.id,
+      user: game.user._id,
       hideData: true,
       content: $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
     }
@@ -355,7 +355,7 @@ class OpposedWFRP
             type: "target",
             payload: {
               target: target.data._id,
-              scene: canvas.scene.id,
+              scene: canvas.scene._id,
               opposeFlag : {
                 speaker: message.data.speaker,
                 messageId: message.data._id,

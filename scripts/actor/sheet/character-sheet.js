@@ -87,7 +87,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
       {
         let updateCareers = duplicate(this.actor.data.items.filter(c => c.type == "career" && c._id != item._id))
         updateCareers.map(x => x.data.current.value = false)
-        await this.actor.updateManyEmbeddedEntities("OwnedItem", updateCareers)
+        await this.actor.updateEmbeddedEntity("OwnedItem", updateCareers)
       }
       this.actor.updateEmbeddedEntity("OwnedItem", item);
     });
