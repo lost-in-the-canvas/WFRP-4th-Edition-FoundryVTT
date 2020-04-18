@@ -184,7 +184,7 @@ class ActorWfrp4e extends Actor {
    */
   setupCharacteristic(characteristicId, options = {}) {
     let char = this.data.data.characteristics[characteristicId];
-    let title = char.label + " " + game.i18n.localize("Test");
+    let title = game.i18n.localize(char.label) + " " + game.i18n.localize("Test");
 
     let testData = {
       target : char.value,
@@ -2804,7 +2804,7 @@ class ActorWfrp4e extends Actor {
     for(let ch in actorData.data.characteristics)
     { 
       // If formula includes characteristic name
-      while (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      while (formula.includes(game.i18n.localize(actorData.data.characteristics[ch].label).toLowerCase()))
       {
         // Determine if it's looking for the bonus or the value
         if (formula.includes('bonus'))
