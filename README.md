@@ -1,6 +1,6 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
-Current Version: 1.2.0
+Current Version: 1.2.1 - Fix Armour qualities/flaws not being translated, shields not reducing AP, chat cards not being editable
 
 Compatibility: Foundry VTT 0.5.4
 
