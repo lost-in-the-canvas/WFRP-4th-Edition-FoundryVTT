@@ -1438,18 +1438,11 @@ class ActorWfrp4e extends Actor {
       // Different update process based on if token or not.
       if (this.isToken && this.token.data.height != tokenSize) // Actor checking if its prototype token is correct
       {
-        this.token.update(this.token.scene._id, 
-          {
-          "height" : tokenSize,
-          "width" : tokenSize
-          })
+        this.token.update({"height" : tokenSize,"width" : tokenSize})
       }
       else if (preparedData.token.height != tokenSize) // Token checking whether its size is correct
       {
-        this.update({
-        "token.height" : tokenSize,
-        "token.width" : tokenSize
-        })
+        this.update({"token.height" : tokenSize,"token.width" : tokenSize})
       }
     }
     catch { }
