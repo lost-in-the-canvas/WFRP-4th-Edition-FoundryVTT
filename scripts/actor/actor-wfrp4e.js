@@ -266,6 +266,7 @@ class ActorWfrp4e extends Actor {
     let testData = {
       hitLocation : false,
       income : options.income,
+      target: this.data.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value,
       extra : {
         size : this.data.data.details.size.value,
         options : options
