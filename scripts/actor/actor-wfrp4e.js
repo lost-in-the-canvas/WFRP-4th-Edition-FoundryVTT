@@ -1398,7 +1398,7 @@ class ActorWfrp4e extends Actor {
 
     // Find size based on Traits/Talents
     let size;
-    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("Size").toLowerCase()));
+    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Size").toLowerCase()));
     if (trait)
       size = trait.data.specification.value;
     else
