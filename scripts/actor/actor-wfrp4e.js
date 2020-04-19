@@ -2964,10 +2964,10 @@ class ActorWfrp4e extends Actor {
       {
         // Determine its qualities/flaws to be used for damage calculation
         weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        penetrating = weaponProperties.qualities.includes("PROPERTY.Penetrating")
-        undamaging = weaponProperties.flaws.includes("PROPERTY.Undamaging")
-        hack = weaponProperties.qualities.includes("PROPERTY.Hack")
-        impale = weaponProperties.qualities.includes("PROPERTY.Impale")
+        penetrating = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Penetrating"))
+        undamaging = weaponProperties.flaws.includes(game.i18n.localize("PROPERTY.Undamaging"))
+        hack = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Hack"))
+        impale = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Impale"))
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
