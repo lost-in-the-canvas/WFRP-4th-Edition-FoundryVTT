@@ -3387,17 +3387,17 @@
     background: none;
     overflow-y: hidden;
     border: none;
-    margin: 3px 26px 65px 8px;
     padding: 0px 0px 0px 0px;
+    margin: 3px 26px 0px 8px;
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
+    margin: 45px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin: 45px 35px;
     padding: 0px;
     /* box-shadow: var(--debug-box-shadow-red); */
   }
