@@ -1398,7 +1398,7 @@ class ActorWfrp4e extends Actor {
 
     // Find size based on Traits/Talents
     let size;
-    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("Size").toLowerCase()));
+    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Size").toLowerCase()));
     if (trait)
       size = trait.data.specification.value;
     else
@@ -1414,7 +1414,7 @@ class ActorWfrp4e extends Actor {
     for (let s in WFRP4E.actorSizes)
     {
       // Inverse lookup - Size value to key (Average -> "avg")
-      if (WFRP4E.actorSizes[s] == size && preparedData.data.details.size.value != s)
+      if (game.i18n.localize("SPEC."+WFRP4E.actorSizes[s]) == size && preparedData.data.details.size.value != s)
       {
         this.update({"data.details.size.value" : s})
       }
