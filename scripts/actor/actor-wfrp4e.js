@@ -1404,7 +1404,7 @@ class ActorWfrp4e extends Actor {
       size = trait.data.specification.value;
     else
     {
-      size = preparedData.talents.find(x=>x.name.toLowerCase() == game.i18n.localize("NAME.Small"));
+      size = preparedData.talents.find(x=>x.name.toLowerCase() == game.i18n.localize("NAME.Small").toLowerCase());
       if (size)
         size = size.name;
       else 

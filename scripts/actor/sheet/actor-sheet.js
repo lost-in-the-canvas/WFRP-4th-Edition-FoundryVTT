@@ -358,7 +358,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
       let weapons;
       await pack.getIndex().then(index => weapons = index);
-      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised"));
+      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised").toLowerCase());
       let improv = await pack.getEntity(improvId._id);
       this.actor.setupWeapon(improv.data)
     })
