@@ -1414,7 +1414,7 @@ class ActorWfrp4e extends Actor {
     for (let s in WFRP4E.actorSizes)
     {
       // Inverse lookup - Size value to key (Average -> "avg")
-      if (game.i18n.localize("SPEC."+WFRP4E.actorSizes[s]) == size && preparedData.data.details.size.value != s)
+      if (WFRP4E.actorSizes[s] == size && preparedData.data.details.size.value != s)
       {
         this.update({"data.details.size.value" : s})
       }
