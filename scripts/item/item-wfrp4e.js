@@ -251,6 +251,9 @@ class ItemWfrp4e extends Item
     let chatData = duplicate(this.data);
     chatData["properties"] = properties
 
+    //Check if the posted item should have availability/pay buttons
+    chatData.hasPrice = "price" in chatData.data;
+
     // Don't post any image for the item (which would leave a large gap) if the default image is used
     if (chatData.img.includes("/blank.png"))
       chatData.img = null;

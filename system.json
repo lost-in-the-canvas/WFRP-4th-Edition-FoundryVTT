@@ -9,6 +9,7 @@
     "./scripts/dice-wfrp4e.js",
     "./scripts/tables-wfrp4e.js",
     "./scripts/utility-wfrp4e.js",
+    "./scripts/market-wfrp4e.js",
     "./scripts/opposed-wfrp4e.js",
     "./scripts/char-gen.js",
     "./scripts/name-gen.js",
@@ -181,6 +182,6 @@
   "templateVersion":2,
   "socket": true,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
-  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",
+  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/0.5.4.zip",
   "url" : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT"
 }
