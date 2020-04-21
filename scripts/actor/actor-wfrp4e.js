@@ -293,7 +293,7 @@ class ActorWfrp4e extends Actor {
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income ? "average" : "challenging" // Default to average if using income
+        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
