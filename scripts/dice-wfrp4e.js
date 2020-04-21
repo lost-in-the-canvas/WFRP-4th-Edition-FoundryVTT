@@ -253,7 +253,7 @@ class DiceWFRP
 
     if (rollResults.options && rollResults.options.rest)
     {
-      rollResults.woundsHealed = parseInt(SL) + rollResults.options.tb;
+      rollResults.woundsHealed = Math.max(Math.trunc(SL) + rollResults.options.tb,0);
       rollResults.other.push(`${rollResults.woundsHealed} ${game.i18n.localize("Wounds Healed")}`)
     }
 

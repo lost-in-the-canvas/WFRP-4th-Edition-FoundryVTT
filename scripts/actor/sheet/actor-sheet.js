@@ -381,7 +381,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
       if (skill)
-        this.actor.setupSkill(skill.data, {rest: true})
+        this.actor.setupSkill(skill.data, {rest: true, tb: this.actor.data.data.characteristics.t.bonus})
       else 
         this.actor.setupCharacteristic("t", {rest: true})
        
