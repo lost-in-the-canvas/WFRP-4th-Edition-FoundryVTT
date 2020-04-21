@@ -1488,10 +1488,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createEmbeddedEntity("OwnedItem", data,
-    {
-      renderSheet: true
-    });
+    this.actor.createEmbeddedEntity("OwnedItem", data);
   }
   
   /**
