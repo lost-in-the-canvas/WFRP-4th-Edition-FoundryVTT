@@ -15717,8 +15717,13 @@ font-style : normal;
 }
 
 .tiles-browser .directory {
-  overflow-y: auto;
-  overflow-x: hidden !important ;
+  overflow: hidden !important;
+  color: #CCC;
+}
+
+.tiles-browser .tabs > *,
+.tiles-browser button {
+  color: #CCC;
 }
 
 .chargen-button {
