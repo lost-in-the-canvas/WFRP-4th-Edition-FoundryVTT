@@ -6,77 +6,66 @@ class MarketWfrp4e
 {
     /**
      * Roll a test for the availability and the stock quantity of an item based on the rulebook
-     * @param {Object} options 
+     * Takes as a parameter an object with localized settlement type, localized rarity and a modifier for the roll
+     * @param {Object} options settlement, rarity, modifier 
      */
-    static testForAvailability(options)
+    static testForAvailability({settlement, rarity, modifier})
     {
-        let validSettlements = [
-          game.i18n.localize("MARKET.Village").toLowerCase(),
-          game.i18n.localize("MARKET.Town").toLowerCase(),
-          game.i18n.localize("MARKET.City").toLowerCase()
-        ];
-        let validRarity = [
-          game.i18n.localize("WFRP4E.Availability.Common").toLowerCase(),
-          game.i18n.localize("WFRP4E.Availability.Scarce").toLowerCase(),
-          game.i18n.localize("WFRP4E.Availability.Rare").toLowerCase(),
-          game.i18n.localize("WFRP4E.Availability.Exotic").toLowerCase()
-        ];
+      //This method read the table WFRP4E.availabilityTable defined in the config file
 
-        let msg = `<h3><b>${game.i18n.localize("MARKET.AvailabilityTest")}</b></h3>`;
+      //First we get the different settlements size
+      let validSettlements = Object.getOwnPropertyNames(WFRP4E.availabilityTable);
+      let validSettlementsLocalized = {};
+      let validRarityLocalized = {};
 
-        //If at least one of the args isnt specified or if the specified options are not valid, we give informations on the correct syntax
-        if(!options.settlement || !options.rarity || !validSettlements.includes(options.settlement) || !validRarity.includes(options.rarity))
+      //For each settlements we found in the config, we try to translate them and we build a correlation table
+      validSettlements.forEach(function(index){
+        validSettlementsLocalized[game.i18n.localize(index).toLowerCase()] = index;
+      });
+
+      //If we found a valid settlement size, we now do the same thing for the rarity datas
+      if(settlement && validSettlementsLocalized.hasOwnProperty(settlement))
+      {
+        let validRarity = Object.getOwnPropertyNames(WFRP4E.availabilityTable[validSettlementsLocalized[settlement]]);
+        validRarity.forEach(function(index){
+          validRarityLocalized[game.i18n.localize(index).toLowerCase()] = index;
+        });
+      }
+
+      let msg = `<h3><b>${game.i18n.localize("MARKET.AvailabilityTest")}</b></h3>`;
+
+      //If at least one of the args isnt specified or if the specified options are not valid, we give informations on the correct syntax
+      if(!settlement || !rarity || !validSettlementsLocalized.hasOwnProperty(settlement) || !validRarityLocalized.hasOwnProperty(rarity))
+      {
+        msg += `<p>${game.i18n.localize("MARKET.AvailWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.AvailCommandExample")}</i></p>`;
+      }
+      //Everything is ok, lets roll for availability
+      else
+      {
+        let roll = new Roll("1d100 - @modifier",{modifier:modifier}).roll();
+        //we retrieve the correct line
+        let availabilityLookup = WFRP4E.availabilityTable[validSettlementsLocalized[settlement]][validRarityLocalized[rarity]];
+        let isAvailable = availabilityLookup.test > 0 && roll.total <= availabilityLookup.test;
+
+        let finalResult = {
+          settlement:settlement.charAt(0).toUpperCase() + settlement.slice(1),
+          rarity:rarity.charAt(0).toUpperCase() + rarity.slice(1),
+          instock: isAvailable ? game.i18n.localize("Yes"):game.i18n.localize("No"),
+          quantity: isAvailable ? availabilityLookup.stock:0,
+          roll:roll.total
+        };
+
+        //We roll the stock if we detect a valid roll value
+        if(availabilityLookup.stock.includes("d"))
         {
-          msg += `<p>${game.i18n.localize("MARKET.AvailWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.AvailCommandExample")}</i></p>`;
+          let stockRoll = new Roll(availabilityLookup.stock).roll();
+          finalResult.quantity = stockRoll.total;
         }
-        //Everything is ok, lets roll for availability
-        else
-        {
-          let roll = new Roll("1d100 - @modifier",{modifier:options.modifier}).roll();
-          //We define a two-dimensional map with the availability and stock table from the rulebook (p290)
-          let availabilityTable = new Map([
-            [validSettlements[0], new Map([
-              [validRarity[0], {test:100, stock:'2'}],
-              [validRarity[1], {test:30, stock:'1'}],
-              [validRarity[2], {test:15, stock:'1'}],
-              [validRarity[3], {test:0, stock:'0'}]
-            ])],
-            [validSettlements[1], new Map([
-              [validRarity[0], {test:100, stock:'2d10'}],
-              [validRarity[1], {test:60, stock:'1d10'}],
-              [validRarity[2], {test:30, stock:'1d5'}],
-              [validRarity[3], {test:0, stock:'0'}]
-            ])],
-            [validSettlements[2], new Map([
-              [validRarity[0], {test:100, stock:'∞'}],
-              [validRarity[1], {test:90, stock:'∞'}],
-              [validRarity[2], {test:45, stock:'∞'}],
-              [validRarity[3], {test:0, stock:'0'}]
-            ])]
-          ]);
 
-          //And we retrieve the correct line
-          let availabilityLookup = availabilityTable.get(options.settlement).get(options.rarity);
-          let isAvailable = options.rarity != validRarity[3] && roll.total <= availabilityLookup.test;
-
-          let finalResult = {
-            settlement:options.settlement.charAt(0).toUpperCase() + options.settlement.slice(1),
-            rarity:options.rarity.charAt(0).toUpperCase() + options.rarity.slice(1),
-            instock: isAvailable ? game.i18n.localize("Yes"):game.i18n.localize("No"),
-            quantity: isAvailable ? availabilityLookup.stock:0
-          };
-
-          //We roll the stock for towns
-          if(options.settlement == validSettlements[1] && options.rarity != validRarity[3])
-          {
-            let stockRoll = new Roll(availabilityLookup.stock).roll();
-            finalResult.quantity = stockRoll.total;
-          }
-
-          //Format the message before sending it back to chat
-          msg += this.formatTestForChat(finalResult);
-        }
-        ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"roll",true));
+        //Format the message before sending it back to chat
+        msg += this.formatTestForChat(finalResult);
+      }
+      ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"roll",true));
     }
 
     /**
@@ -89,7 +78,8 @@ class MarketWfrp4e
         <b>${game.i18n.localize("MARKET.SettlementSize")}</b> ${result.settlement}<br>
         <b>${game.i18n.localize("MARKET.Rarity")}</b> ${result.rarity}<br><br>
         <b>${game.i18n.localize("MARKET.InStock")}</b> ${result.instock}<br>
-        <b>${game.i18n.localize("MARKET.QuantityAvailable")}</b> ${result.quantity}
+        <b>${game.i18n.localize("MARKET.QuantityAvailable")}</b> ${result.quantity}<br>
+        <b>${game.i18n.localize("Roll")}:</b> ${result.roll}
       `;
     }
 
