@@ -555,33 +555,33 @@ class DiceWFRP
     else // Successs - add SL to spell for further use
     {
       testResults.description = game.i18n.localize("ROLL.ChannelSuccess")
-
+    
       // Optional Rule: If SL in extended test is -/+0, counts as -/+1
       if (Number(SL) == 0 && game.settings.get("wfrp4e", "extendedTests"))
         SL = 1;
-
+    
       // Critical Channel - miscast and set SL gained to CN
       if (testResults.roll % 11 == 0)
       {
         testResults.extra.color_green = true;
-        spell.data.cn.SL = spell.data.cn.value;
+        SL = spell.data.cn.value;
         testResults.extra.criticalchannell = game.i18n.localize("ROLL.CritChannel")
         if (!testData.extra.AA)
           miscastCounter++;
       }
     }
-
+    
     // Add SL to CN and update actor
-    spell.data.cn.SL += Number(SL);
-    if (spell.data.cn.SL > spell.data.cn.value)
-      spell.data.cn.SL = spell.data.cn.value;
-    else if (spell.data.cn.SL < 0)
-      spell.data.cn.SL = 0;
-
+    SL = spell.data.cn.SL + Number(SL);
+    if (SL > spell.data.cn.value)
+      SL = spell.data.cn.value;
+    else if ( SL < 0)
+      SL = 0;
+    
     actor.updateEmbeddedEntity("OwnedItem",
     {
       _id: spell._id,
-      'data.cn.SL': spell.data.cn.SL
+      'data.cn.SL': SL
     });
 
     // Use the number of miscasts to determine what miscast it becomes (null<miscast> is from ingredients)
