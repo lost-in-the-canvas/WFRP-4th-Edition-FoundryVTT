@@ -184,7 +184,7 @@ class ActorWfrp4e extends Actor {
    */
   setupCharacteristic(characteristicId, options = {}) {
     let char = this.data.data.characteristics[characteristicId];
-    let title = char.label + " " + game.i18n.localize("Test");
+    let title = game.i18n.localize(char.label) + " " + game.i18n.localize("Test");
 
     let testData = {
       target : char.value,
@@ -266,6 +266,7 @@ class ActorWfrp4e extends Actor {
     let testData = {
       hitLocation : false,
       income : options.income,
+      target: this.data.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value,
       extra : {
         size : this.data.data.details.size.value,
         options : options
@@ -292,7 +293,7 @@ class ActorWfrp4e extends Actor {
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income ? "average" : "challenging" // Default to average if using income
+        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -1398,12 +1399,12 @@ class ActorWfrp4e extends Actor {
 
     // Find size based on Traits/Talents
     let size;
-    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("Size").toLowerCase()));
+    let trait = preparedData.traits.find(t => t.name.toLowerCase().includes(game.i18n.localize("NAME.Size").toLowerCase()));
     if (trait)
       size = trait.data.specification.value;
     else
     {
-      size = preparedData.talents.find(x=>x.name.toLowerCase() == game.i18n.localize("NAME.Small"));
+      size = preparedData.talents.find(x=>x.name.toLowerCase() == game.i18n.localize("NAME.Small").toLowerCase());
       if (size)
         size = size.name;
       else 
@@ -1438,18 +1439,11 @@ class ActorWfrp4e extends Actor {
       // Different update process based on if token or not.
       if (this.isToken && this.token.data.height != tokenSize) // Actor checking if its prototype token is correct
       {
-        this.token.update(this.token.scene._id, 
-          {
-          "height" : tokenSize,
-          "width" : tokenSize
-          })
+        this.token.update({"height" : tokenSize,"width" : tokenSize})
       }
       else if (preparedData.token.height != tokenSize) // Token checking whether its size is correct
       {
-        this.update({
-        "token.height" : tokenSize,
-        "token.width" : tokenSize
-        })
+        this.update({"token.height" : tokenSize,"token.width" : tokenSize})
       }
     }
     catch { }
@@ -2804,7 +2798,7 @@ class ActorWfrp4e extends Actor {
     for(let ch in actorData.data.characteristics)
     { 
       // If formula includes characteristic name
-      while (formula.includes(actorData.data.characteristics[ch].label.toLowerCase()))
+      while (formula.includes(game.i18n.localize(actorData.data.characteristics[ch].label).toLowerCase()))
       {
         // Determine if it's looking for the bonus or the value
         if (formula.includes('bonus'))
@@ -2971,10 +2965,10 @@ class ActorWfrp4e extends Actor {
       {
         // Determine its qualities/flaws to be used for damage calculation
         weaponProperties = opposeData.attackerTestResult.weapon.properties;
-        penetrating = weaponProperties.qualities.includes("PROPERTY.Penetrating")
-        undamaging = weaponProperties.flaws.includes("PROPERTY.Undamaging")
-        hack = weaponProperties.qualities.includes("PROPERTY.Hack")
-        impale = weaponProperties.qualities.includes("PROPERTY.Impale")
+        penetrating = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Penetrating"))
+        undamaging = weaponProperties.flaws.includes(game.i18n.localize("PROPERTY.Undamaging"))
+        hack = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Hack"))
+        impale = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Impale"))
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
@@ -3018,8 +3012,8 @@ class ActorWfrp4e extends Actor {
       let shieldAP = 0;
       if (opposeData.defenderTestResult.weapon)
       {
-        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")))
-          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.includes("PROPERTY.Shield")).split(" ")[1])
+        if (opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())))
+          shieldAP = Number(opposeData.defenderTestResult.weapon.properties.qualities.find(q => q.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())).split(" ")[1]);
       }
 
       if (shieldAP)

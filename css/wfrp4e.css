@@ -1825,6 +1825,7 @@
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
+    width: 360px
   }
      #playlists-popout li.playlist:not(:first-of-type) li.sound i,
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {

@@ -715,6 +715,11 @@
     "PROPERTY.Lightweight": "Lightweight",
     "PROPERTY.Practical": "Practical",
 
+    "PROPERTY.Flexible" : "Flexible",
+    "PROPERTY.Impenetrable" : "Impenetrable",
+    "PROPERTY.Partial" : "Partial",
+    "PROPERTY.Weakpoints" : "Weakpoints",
+
     "WFRP4E.BPandEng" : "Blackpowder and Engineering",
     "WFRP4E.Bow" : "Bow",
     "WFRP4E.Crossbow" : "Crossbow",

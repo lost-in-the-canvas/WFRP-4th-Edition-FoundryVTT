@@ -358,7 +358,7 @@ class ActorSheetWfrp4e extends ActorSheet {
       let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
       let weapons;
       await pack.getIndex().then(index => weapons = index);
-      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised"));
+      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised").toLowerCase());
       let improv = await pack.getEntity(improvId._id);
       this.actor.setupWeapon(improv.data)
     })
@@ -381,7 +381,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
       if (skill)
-        this.actor.setupSkill(skill.data, {rest: true})
+        this.actor.setupSkill(skill.data, {rest: true, tb: this.actor.data.data.characteristics.t.bonus})
       else 
         this.actor.setupCharacteristic("t", {rest: true})
        
@@ -1496,10 +1496,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createEmbeddedEntity("OwnedItem", data,
-    {
-      renderSheet: true
-    });
+    this.actor.createEmbeddedEntity("OwnedItem", data);
   }
   
   /**

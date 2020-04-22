@@ -216,16 +216,13 @@ Combat.prototype._getInitiativeFormula = function(combatant) {
   }
  })
 
-//  if (game.user.isGM)
-//  {
-//    permissions = duplicate(game.settings.get("core", "permissions"))
-//    let browsePermission = permissions.find(p => p._id == "FILES_BROWSE")
-//    for(let perm in browsePermission.roles)
-//    {
-//      browsePermission.roles[perm].value = true
-//    }
-//    game.settings.set("core", "permissions", permissions);
-//  }
+ if (game.user.isGM)
+ {
+   let permissions = duplicate(game.permissions)
+   if (permissions["FILES_BROWSE"].length < 4)
+   permissions["FILES_BROWSE"] = [1, 2, 3, 4]
+   game.settings.set("core", "permissions", permissions);
+ }
 
  const NEEDS_MIGRATION_VERSION = 1.0;
  let needMigration
@@ -260,14 +257,10 @@ Combat.prototype._getInitiativeFormula = function(combatant) {
 })
 
 Hooks.on("closePermissionConfig", () => {
-  permissions = game.settings.get("core", "permissions")
-  for (let type in permissions)
+  if (game.permissions["FILES_BROWSE"].length < 4)
   {
-    if (type != "GAMEMASTER" && !permissions[type].includes("FILES_BROWSE"))
-    {
-      ui.notifications.warn("WARNING: WFRP4E currently requires users to have \"Browse File Explorer\" Permission")
+      ui.notifications.warn("WARNING: WFRP4E currently requires users to have \"Browse File Explorer\" Permission", {permanent: true})
       return
-    }
   }
 })
 

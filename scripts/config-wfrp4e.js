@@ -744,15 +744,14 @@ WFRP4E.trappingCategories = {
 
 // Creature Sizes
 WFRP4E.actorSizes = {
-	"tiny": "Tiny",
-	"ltl": "Little",
-	"sml": "Small",
-	"avg": "Average",
-	"lrg": "Large",
-	"enor": "Enormous",
-	"mnst": "Monstrous"
+    "tiny": "SPEC.Tiny",
+    "ltl": "SPEC.Little",
+    "sml": "SPEC.Small",
+    "avg": "SPEC.Average",
+    "lrg": "SPEC.Large",
+    "enor": "SPEC.Enormous",
+    "mnst": "SPEC.Monstrous"
 };
-
 WFRP4E.actorSizeNums = {
 	"tiny": 0,
 	"ltl": 1,
