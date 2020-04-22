@@ -3270,52 +3270,86 @@ class ActorWfrp4e extends Actor {
     }
   }
 
-    /**
-     * Advance NPC based on given career
-     * 
-     * A specialized function used by NPC type Actors that triggers when you click on a 
-     * career to be "complete". This takes all the career data and uses it (and the helpers
-     * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
-     * correct amount to be considered complete), advances all characteristics similarly, and 
-     * adds all talents.
-     * 
-     * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
-     * However, I find deleting the ones you don't want to be much easier than trying to pick and 
-     * choose the ones you do want.
-     *
-     * @param {Object} careerData     Career type Item to be used for advancement.
-     * 
-     * TODO Refactor for embedded entity along with the helper functions
-     */
-    async _advanceNPC(careerData) 
+  /**
+   * Advance NPC based on given career
+   * 
+   * A specialized function used by NPC type Actors that triggers when you click on a 
+   * career to be "complete". This takes all the career data and uses it (and the helpers
+   * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
+   * correct amount to be considered complete), advances all characteristics similarly, and 
+   * adds all talents.
+   * 
+   * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
+   * However, I find deleting the ones you don't want to be much easier than trying to pick and 
+   * choose the ones you do want.
+   *
+   * @param {Object} careerData     Career type Item to be used for advancement.
+   * 
+   * TODO Refactor for embedded entity along with the helper functions
+   */
+  async _advanceNPC(careerData) 
+  {
+    let updateObj = {};
+    let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
+
+    // Update all necessary characteristics to the advancesNeeded
+    for (let advChar of careerData.characteristics)
+      if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+        updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+
+    // Advance all skills in the career
+    for (let skill of careerData.skills)
+      await this._advanceSkill(skill, advancesNeeded);
+
+    // Add all talents in the career
+    for (let talent of careerData.talents)
+      await this._advanceTalent(talent);
+
+    this.update(updateObj);
+  }
+
+
+  _replaceData(formula) {
+    let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
+    return formula.replace(dataRgx, (match, term) => {
+      let value = getProperty(this.data, term);
+      return value ? String(value).trim() : "0";
+    });
+  }
+
+  /**
+   * Use a fortune point from the actor to reroll or add sl to a roll
+   * @param {String} message 
+   * @param {String} type (reroll, addSL)
+   */
+  useFortuneOnRoll(message, type)
+  {
+    if(this.data.data.status.fortune.value > 0)
     {
-      let updateObj = {};
-      let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
-  
-      // Update all necessary characteristics to the advancesNeeded
-      for (let advChar of careerData.characteristics)
-        if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
-          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-  
-      // Advance all skills in the career
-      for (let skill of careerData.skills)
-        await this._advanceSkill(skill, advancesNeeded);
-  
-      // Add all talents in the career
-      for (let talent of careerData.talents)
-        await this._advanceTalent(talent);
-  
-      this.update(updateObj);
+      if(type=="reroll")
+        this.reroll(message);
+      else //addSL
+        dosomething();
+      this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
+  }
 
-
-    _replaceData(formula) {
-      let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
-      return formula.replace(dataRgx, (match, term) => {
-        let value = getProperty(this.data, term);
-        return value ? String(value).trim() : "0";
-      });
-    }
+  reroll(message)
+  {
+    //recreate the cardOptions object
+    let cardOptions = {
+      flags: {img:message.data.flags.img},
+      rollMode:message.data.flags.data.rollMode,
+      sound:message.data.sound,
+      speaker:message.data.speaker,
+      template:message.data.flags.data.template,
+      title:message.data.flags.data.title,
+      user:message.data.user,
+      fortuneUsed:true
+    };
+    //Call the correct function (default or override) with the same args
+    ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
+  }
 }
 
 // Assign the actor class to the CONFIG

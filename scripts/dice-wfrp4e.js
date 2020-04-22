@@ -718,7 +718,7 @@ class DiceWFRP
     let chatData = {
       title: chatOptions.title,
       testData: testData,
-      hideData: game.user.isGM,
+      hideData: game.user.isGM
     }
 
     if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
@@ -732,7 +732,8 @@ class DiceWFRP
       template: chatOptions.template,
       rollMode: chatOptions.rollMode,
       title: chatOptions.title,
-      hideData: chatData.hideData
+      hideData: chatData.hideData,
+      fortuneUsed: chatOptions.fortuneUsed
     };
 
     if (!rerenderMessage)

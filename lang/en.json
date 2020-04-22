@@ -719,6 +719,8 @@
     "Ammo" : "Ammo",
     "yds" : "yds",
 
-    "NAME.CombatReflexes" : "Combat Reflexes"
-
+    "NAME.CombatReflexes" : "Combat Reflexes",
+    "FORTUNE.Use" : "Fortune point used",
+    "FORTUNE.UsageRerollText" : "{{character}} used a Fortune point to reroll a failed test.",
+    "FORTUNE.PointsRemaining" : "Fortune points remaining:"
 }
