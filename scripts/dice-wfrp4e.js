@@ -733,7 +733,7 @@ class DiceWFRP
       rollMode: chatOptions.rollMode,
       title: chatOptions.title,
       hideData: chatData.hideData,
-      fortuneUsed: chatOptions.fortuneUsed
+      fortuneUsedReroll: chatOptions.fortuneUsedReroll
     };
 
     if (!rerenderMessage)

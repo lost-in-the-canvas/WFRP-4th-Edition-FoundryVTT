@@ -721,6 +721,9 @@
 
     "NAME.CombatReflexes" : "Combat Reflexes",
     "FORTUNE.Use" : "Fortune point used",
-    "FORTUNE.UsageRerollText" : "{{character}} used a Fortune point to reroll a failed test.",
-    "FORTUNE.PointsRemaining" : "Fortune points remaining:"
+    "FORTUNE.UsageRerollText" : "{character} used a Fortune point to reroll a failed test.",
+    "FORTUNE.PointsRemaining" : "Fortune points remaining:",
+    "FORTUNE.UsageAddSLText" : "{character} used a Fortune point to add +1 SL. The test has been updated.",
+    "DARKDEAL.Use" : "Taking a Dark Deal",
+    "DARKDEAL.UsageText" : "{character} took a Dark Deal and was granted a Reroll for +1 Corruption."
 }

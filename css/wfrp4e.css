@@ -15849,6 +15849,10 @@ input.card-edit {
   height: 0px;
   margin-bottom:15px
 }
+
+.message-content h3 .center{
+  text-align: center;
+}
 #hotbar {
   left: 238px;
 }

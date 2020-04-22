@@ -1521,6 +1521,7 @@ class ActorWfrp4e extends Actor {
       let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == game.i18n.localize("NAME.PS"))
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
+      this.update({"data.status.corruption.max": actorData.data.status.corruption.max});
     }
 
 
@@ -3319,24 +3320,62 @@ class ActorWfrp4e extends Actor {
 
   /**
    * Use a fortune point from the actor to reroll or add sl to a roll
-   * @param {String} message 
+   * @param {Object} message 
    * @param {String} type (reroll, addSL)
    */
   useFortuneOnRoll(message, type)
   {
     if(this.data.data.status.fortune.value > 0)
     {
+      let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
+      //First we send a message to the chat
       if(type=="reroll")
-        this.reroll(message);
+        html += `${game.i18n.format("FORTUNE.UsageRerollText",{character:'<b>'+this.name+'</b>'})}<br>`;
+      else
+        html += `${game.i18n.format("FORTUNE.UsageAddSLText",{character:'<b>'+this.name+'</b>'})}<br>`;
+
+      html += `<b>${game.i18n.localize("FORTUNE.PointsRemaining")} </b>${this.data.data.status.fortune.value-1}`;
+      ChatMessage.create(WFRP_Utility.chatDataSetup(html));
+
+      //Then we do the actual fortune action
+      if(type=="reroll")
+      {
+        this.reroll(message,{fortuneUsedReroll:true});
+      }
       else //addSL
+      {
         dosomething();
+      }
       this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
   }
 
-  reroll(message)
+  /**
+   * Take a Dark Deal to reroll for +1 Corruption
+   * @param {Object} message 
+   */
+  useDarkDeal(message)
   {
-    //recreate the cardOptions object
+    let html = `<h3 class="center"><b>${game.i18n.localize("DARKDEAL.Use")}</b></h3>`;
+    html += `${game.i18n.format("DARKDEAL.UsageText",{character:'<b>'+this.name+'</b>'})}<br>`;
+    let corruption = Math.trunc(this.data.data.status.corruption.value)+1;
+    html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
+    ChatMessage.create(WFRP_Utility.chatDataSetup(html));
+    this.update({"data.status.corruption.value" : corruption});
+    this.reroll(message);
+  }
+
+  /**
+   * This helper can be used to reroll a test card
+   * It uses the informations of the roll located in the message entry
+   * from game.messages
+   * @param {Object} message 
+   * @param {Object} options Optionnal parameters for the cardOptions
+   */
+  reroll(message,options = {})
+  {
+    //recreate the initial (virgin) cardOptions object
+    //add a flag for reroll limit
     let cardOptions = {
       flags: {img:message.data.flags.img},
       rollMode:message.data.flags.data.rollMode,
@@ -3344,9 +3383,9 @@ class ActorWfrp4e extends Actor {
       speaker:message.data.speaker,
       template:message.data.flags.data.template,
       title:message.data.flags.data.title,
-      user:message.data.user,
-      fortuneUsed:true
+      user:message.data.user
     };
+    message = mergeObject(message,options);
     //Call the correct function (default or override) with the same args
     ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }

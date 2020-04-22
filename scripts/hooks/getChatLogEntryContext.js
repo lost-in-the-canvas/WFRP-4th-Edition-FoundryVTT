@@ -4,7 +4,24 @@
  */
 Hooks.on("getChatLogEntryContext", (html, options) => {
   let canApply = li => li.find(".opposed-card").length;
-  let canApplyFortune = function(li){
+  let canApplyFortuneReroll = function(li){
+    //Condition to have the fortune contextual options:
+    //Have a selected character
+    //Have fortune point
+    //Own the roll
+    //Once per roll (or at least, not on a reroll card)
+    //Test must be failed TODO
+    let result = false;
+    if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
+    {
+      let testcard = li.find(".test-data");
+      let message = game.messages.get(li.attr("data-message-id"));
+      if(testcard.length && message.user.data.character == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
+        result = true;
+    }
+     return result;
+  };
+  let canApplyFortuneAddSL = function(li){
     //Condition to have the fortune contextual options:
     //Have a selected character
     //Have fortune point
@@ -15,7 +32,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       let testcard = li.find(".test-data");
       let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.user.data.character == game.user.character._id && !message.data.flags.data.fortuneUsed)
+      if(testcard.length && message.user.data.character == game.user.character._id && !message.data.flags.data.fortuneUsedRerollSL)
         result = true;
     }
      return result;
@@ -81,7 +98,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       name: "Use a Fortune point to reroll",
       icon: '<i class="fas fa-dice"></i>',
-      condition: canApplyFortune,   
+      condition: canApplyFortuneReroll,   
       callback: li =>  {
         let message = game.messages.get(li.attr("data-message-id"));
         game.user.character.useFortuneOnRoll(message,"reroll");
@@ -90,7 +107,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       name: "Use a Fortune point to add +1 SL",
       icon: '<i class="fas fa-plus-square"></i>',
-      condition: canApplyFortune,   
+      condition: canApplyFortuneAddSL,   
       callback: li =>  {
         let cardData = game.messages.get(li.attr("data-message-id")).data.flags.opposeData
         let defenderSpeaker = game.messages.get(li.attr("data-message-id")).data.flags.opposeData.speakerDefend;
@@ -103,10 +120,8 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       icon: '<i class="fas fa-pen-nib"></i>',
       condition: canApplyDarkDeals,   
       callback: li =>  {
-        let cardData = game.messages.get(li.attr("data-message-id")).data.flags.opposeData
-        let defenderSpeaker = game.messages.get(li.attr("data-message-id")).data.flags.opposeData.speakerDefend;
-        let updateMsg = ActorWfrp4e.applyDamage(defenderSpeaker, cardData, DAMAGE_TYPE.IGNORE_ALL)
-        OpposedWFRP.updateOpposedMessage(updateMsg, li.attr("data-message-id") );
+        let message = game.messages.get(li.attr("data-message-id"));
+        game.user.character.useDarkDeal(message);
       }
     })
   })
