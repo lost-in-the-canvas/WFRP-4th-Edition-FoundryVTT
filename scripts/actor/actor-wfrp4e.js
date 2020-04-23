@@ -3327,6 +3327,7 @@ class ActorWfrp4e extends Actor {
   {
     if(this.data.data.status.fortune.value > 0)
     {
+      let data = message.data.flags.data;
       let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
       //First we send a message to the chat
       if(type=="reroll")
@@ -3337,14 +3338,23 @@ class ActorWfrp4e extends Actor {
       html += `<b>${game.i18n.localize("FORTUNE.PointsRemaining")} </b>${this.data.data.status.fortune.value-1}`;
       ChatMessage.create(WFRP_Utility.chatDataSetup(html));
 
+      let cardOptions = this.preparePostRollAction(message);
       //Then we do the actual fortune action
       if(type=="reroll")
       {
-        this.reroll(message,{fortuneUsedReroll:true});
+        cardOptions.fortuneUsedReroll = true;
+        ActorWfrp4e[postData.postFunction](data.preData,cardOptions);
       }
       else //addSL
       {
-        dosomething();
+        let newTestData = data.preData;
+        newTestData.SL = Math.trunc(data.postData.SL) + 1;
+        newTestData.slBonus = 0;
+        newTestData.successBonus = 0;
+        newTestData.roll =  Math.trunc(data.postData.roll);
+
+        cardOptions.fortuneUsedAddSL = true;
+        ActorWfrp4e[data.postData.postFunction](newTestData,cardOptions,message);
       }
       this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
@@ -3366,13 +3376,13 @@ class ActorWfrp4e extends Actor {
   }
 
   /**
-   * This helper can be used to reroll a test card
+   * This helper can be used to prepare cardOptions to reroll/edit a test card
    * It uses the informations of the roll located in the message entry
    * from game.messages
    * @param {Object} message 
-   * @param {Object} options Optionnal parameters for the cardOptions
+   * @returns {Object} cardOptions
    */
-  reroll(message,options = {})
+  preparePostRollAction(message)
   {
     //recreate the initial (virgin) cardOptions object
     //add a flag for reroll limit
@@ -3385,9 +3395,7 @@ class ActorWfrp4e extends Actor {
       title:message.data.flags.data.title,
       user:message.data.user
     };
-    message = mergeObject(message,options);
-    //Call the correct function (default or override) with the same args
-    ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
+    return cardOptions;
   }
 }
 

@@ -16,7 +16,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       let testcard = li.find(".test-data");
       let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.user.data.character == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
+      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
         result = true;
     }
      return result;
@@ -32,7 +32,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       let testcard = li.find(".test-data");
       let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.user.data.character == game.user.character._id && !message.data.flags.data.fortuneUsedRerollSL)
+      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedRerollSL)
         result = true;
     }
      return result;
@@ -109,10 +109,8 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       icon: '<i class="fas fa-plus-square"></i>',
       condition: canApplyFortuneAddSL,   
       callback: li =>  {
-        let cardData = game.messages.get(li.attr("data-message-id")).data.flags.opposeData
-        let defenderSpeaker = game.messages.get(li.attr("data-message-id")).data.flags.opposeData.speakerDefend;
-        let updateMsg = ActorWfrp4e.applyDamage(defenderSpeaker, cardData, DAMAGE_TYPE.IGNORE_ALL)
-        OpposedWFRP.updateOpposedMessage(updateMsg, li.attr("data-message-id") );
+        let message = game.messages.get(li.attr("data-message-id"));
+        game.user.character.useFortuneOnRoll(message,"addSL");
       }
     },
     {
