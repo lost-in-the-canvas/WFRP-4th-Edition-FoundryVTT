@@ -51,7 +51,8 @@ class ActorWfrp4e extends Actor {
       autoCalcEnc :  true
     }
     let basicSkills = await WFRP_Utility.allBasicSkills();
-    let moneyItems = await WFRP_Utility.allMoneyItems();
+    let moneyItems = await WFRP_Utility.allMoneyItems()
+    moneyItems = moneyItems.sort((a, b) => (a.data.coinValue.value > b.data.coinValue.value) ? -1 : 1);
 
     // If character, automatically add basic skills and money items
     if (data.type == "character")

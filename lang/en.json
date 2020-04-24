@@ -747,6 +747,9 @@
     "Ammo" : "Ammo",
     "yds" : "yds",
 
-    "NAME.CombatReflexes" : "Combat Reflexes"
+    "NAME.CombatReflexes" : "Combat Reflexes",
+
+    "OPPOSED.DefenderWins" : "<b>{defender}</b> won against <b>{attacker}</b> by {SL} SL",
+    "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL"
 
 }
