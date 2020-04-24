@@ -381,7 +381,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
       if (skill)
-        this.actor.setupSkill(skill.data, {rest: true})
+        this.actor.setupSkill(skill.data, {rest: true, tb: this.actor.data.data.characteristics.t.bonus})
       else 
         this.actor.setupCharacteristic("t", {rest: true})
        
@@ -1016,6 +1016,14 @@ class ActorSheetWfrp4e extends ActorSheet {
     WFRP_Utility.handleTableClick(ev)
   })
 
+  // Consolidate common currencies
+  html.find('.dollar-icon').click(async event => {
+    event.preventDefault();
+    let money = duplicate(this.actor.data.items.filter(i => i.type == "money"));
+    money = MarketWfrp4e.consolidateMoney(money);
+    await this.actor.updateEmbeddedEntity("OwnedItem", money);
+  })
+
   }
 
   /* --------------------------------------------------------------------------------------------------------- */
@@ -1488,10 +1496,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createEmbeddedEntity("OwnedItem", data,
-    {
-      renderSheet: true
-    });
+    this.actor.createEmbeddedEntity("OwnedItem", data);
   }
   
   /**

@@ -51,7 +51,8 @@ class ActorWfrp4e extends Actor {
       autoCalcEnc :  true
     }
     let basicSkills = await WFRP_Utility.allBasicSkills();
-    let moneyItems = await WFRP_Utility.allMoneyItems();
+    let moneyItems = await WFRP_Utility.allMoneyItems()
+    moneyItems = moneyItems.sort((a, b) => (a.data.coinValue.value > b.data.coinValue.value) ? -1 : 1);
 
     // If character, automatically add basic skills and money items
     if (data.type == "character")
@@ -293,7 +294,7 @@ class ActorWfrp4e extends Actor {
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income ? "average" : "challenging" // Default to average if using income
+        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information

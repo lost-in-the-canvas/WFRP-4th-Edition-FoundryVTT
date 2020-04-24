@@ -1825,6 +1825,7 @@
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
+    width: 360px
   }
      #playlists-popout li.playlist:not(:first-of-type) li.sound i,
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
@@ -3387,17 +3388,17 @@
     background: none;
     overflow-y: hidden;
     border: none;
-    margin: 3px 26px 65px 8px;
     padding: 0px 0px 0px 0px;
+    margin: 3px 26px 0px 8px;
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
+    margin: 45px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin: 45px 35px;
     padding: 0px;
     /* box-shadow: var(--debug-box-shadow-red); */
   }
@@ -5175,6 +5176,7 @@
       }
       .app.window-app.sheet.wfrp4e.actor .rest-icon,
       .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon,
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .currency-header .combat-icon,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon {
         opacity: 0.8;
         position: relative;
@@ -5217,16 +5219,26 @@
         border-radius: 10px;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
-    .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
+      .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *,
-        .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *{
-          content: "\f6de";
-          position: relative;
-          top: 2px;
-          left: 3px;
-          opacity: 0.9;
-          transform: scale(0.85);
-        }
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .currency-header .combat-icon > *,
+      .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.melee-weapon-header .combat-icon > *{
+        content: "\f6de";
+        position: relative;
+        top: 2px;
+        left: 3px;
+        opacity: 0.9;
+        transform: scale(0.85);
+      }
+
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .currency-header .combat-icon > *{
+        content: "\f6de";
+        position: relative;
+        top: 2px;
+        left: 2px;
+        opacity: 0.9;
+        transform: scale(0.85);
+      }
       .app.window-app.sheet.wfrp4e.actor .fa-bed{
         left: 0px;
       }
@@ -15706,8 +15718,13 @@ font-style : normal;
 }
 
 .tiles-browser .directory {
-  overflow-y: auto;
-  overflow-x: hidden !important ;
+  overflow: hidden !important;
+  color: #CCC;
+}
+
+.tiles-browser .tabs > *,
+.tiles-browser button {
+  color: #CCC;
 }
 
 .chargen-button {
@@ -16875,3 +16892,33 @@ input[name="dd-import.importPath"] {
     box-shadow: 0px 0px 5px black inset;
   }
 
+.chat-card-button-area {
+  display:flex;
+  justify-content: center;
+}
+.chat-card-button {
+  box-shadow: inset 0px 1px 0px 0px #a6827e;
+  background: linear-gradient(to bottom, #21374afc 5%, #152833ab 100%);
+  background-color: #7d5d3b00;
+  border-radius: 3px;
+  border: 2px ridge #846109;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: CaslonPro;
+  font-size: 14px;
+  padding: 4px 12px 0px 12px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #4d3534;
+  position: relative;
+  margin:5px;
+}
+
+.chat-card-button:hover {
+  background: linear-gradient(to bottom, #800000 5%, #3e0101 100%);
+  background-color: red;
+}
+.chat-card-button:active {
+  position:relative;
+  top:1px;
+}
