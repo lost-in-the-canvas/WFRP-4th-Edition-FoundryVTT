@@ -12,7 +12,14 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
   // Hide chat card edit buttons from non-gms
   if (!game.user.isGM)
   {
-    html.find(".chat-buttons").remove();
+    html.find(".chat-button-gm").remove();
+    //hide tooltip contextuamneu if not their roll
+    if(msg.message.user != game.userId)
+      html.find(".chat-button-player").remove();
+  }
+  else
+  {
+    html.find(".chat-button-player").remove();
   }
 
   // Do not display "Blind" chat cards to non-gm

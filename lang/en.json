@@ -347,6 +347,9 @@
     "CHAT.CriticalWoundsApplied" : "Wounds applied to",
     "CHAT.OpposedWonAgainst" : "won against",
     "CHAT.By" : "by",
+    "CHAT.ContextualMenu" : "A contextual menu could be available on this card (right click)",
+    "CHAT.EditTest" : "Edit Test",
+    "CHAT.OpposedTest" : "Opposed Test",
 
     "Error.SpeciesSkills" : "Could not add skills for species",
     "Error.SpeciesTalents" : "Could not add talents for species",

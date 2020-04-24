@@ -15598,9 +15598,9 @@ font-style : normal;
 
 .chat-buttons {
   position: relative;
-  left: 280px;
-  width: 40px;
-  height: 0px;
+  width: auto;
+  height: auto;
+  float: right;
 }
 
 .card-edit {
