@@ -1112,7 +1112,10 @@ class ActorWfrp4e extends Actor {
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`;
+        cardOptions.isOpposedTest = true
+    }
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1139,7 +1142,10 @@ class ActorWfrp4e extends Actor {
 
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let dieAmount = WFRP4E.earningValues[testData.income.tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
     dieAmount = Number(dieAmount) * testData.income.standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
@@ -1216,7 +1222,10 @@ class ActorWfrp4e extends Actor {
   static async weaponOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
@@ -1242,7 +1251,10 @@ class ActorWfrp4e extends Actor {
   static async castOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
@@ -1271,7 +1283,10 @@ class ActorWfrp4e extends Actor {
   static async channellOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
@@ -1296,7 +1311,10 @@ class ActorWfrp4e extends Actor {
   static async prayerOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
@@ -1321,7 +1339,10 @@ class ActorWfrp4e extends Actor {
   static async traitOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
@@ -3344,7 +3365,12 @@ class ActorWfrp4e extends Actor {
       if(type=="reroll")
       {
         cardOptions.fortuneUsedReroll = true;
-        ActorWfrp4e[postData.postFunction](data.preData,cardOptions);
+        ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
+        //We also set fortuneUsedAddSL to force the player to use it on the new roll
+        message.update({
+          "flags.data.fortuneUsedReroll" : true,
+          "flags.data.fortuneUsedAddSL" : true
+        });
       }
       else //addSL
       {
@@ -3353,9 +3379,13 @@ class ActorWfrp4e extends Actor {
         newTestData.slBonus = 0;
         newTestData.successBonus = 0;
         newTestData.roll =  Math.trunc(data.postData.roll);
+        newTestData.hitloc = data.preData.hitloc;
 
         cardOptions.fortuneUsedAddSL = true;
         ActorWfrp4e[data.postData.postFunction](newTestData,cardOptions,message);
+        message.update({
+          "flags.data.fortuneUsedAddSL" : true
+        });
       }
       this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
@@ -3373,7 +3403,10 @@ class ActorWfrp4e extends Actor {
     html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
     ChatMessage.create(WFRP_Utility.chatDataSetup(html));
     this.update({"data.status.corruption.value" : corruption});
-    this.reroll(message);
+    let cardOptions = this.preparePostRollAction(message);
+    cardOptions.fortuneUsedReroll = message.data.flags.data.fortuneUsedReroll;
+    cardOptions.fortuneUsedAddSL = message.data.flags.data.fortuneUsedAddSL;
+    ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }
 
   /**
@@ -3387,15 +3420,22 @@ class ActorWfrp4e extends Actor {
   {
     //recreate the initial (virgin) cardOptions object
     //add a flag for reroll limit
+    let data = message.data.flags.data;
     let cardOptions = {
       flags: {img:message.data.flags.img},
-      rollMode:message.data.flags.data.rollMode,
+      rollMode:data.rollMode,
       sound:message.data.sound,
       speaker:message.data.speaker,
-      template:message.data.flags.data.template,
-      title:message.data.flags.data.title,
+      template:data.template,
+      title:data.title,
       user:message.data.user
     };
+    if(data.attackerMessage)
+      cardOptions.attackerMessage = data.attackerMessage;
+    if(data.defenderMessage)
+      cardOptions.defenderMessage = data.defenderMessage;
+    if(data.unopposedStartMessage)
+      cardOptions.unopposedStartMessage = data.unopposedStartMessage;
     return cardOptions;
   }
 }

@@ -10,16 +10,39 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     //Have fortune point
     //Own the roll
     //Once per roll (or at least, not on a reroll card)
-    //Test must be failed TODO
+    //Test must be failed 
+    //If opposed, test must be over
     let result = false;
     if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
     {
       let testcard = li.find(".test-data");
       let message = game.messages.get(li.attr("data-message-id"));
       if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
-        result = true;
+      {
+        //If the test was unopposed and failed
+        if(!message.data.flags.data.isOpposedTest && message.data.flags.data.postData.roll > message.data.flags.data.postData.target)
+          result = true;
+        else if(message.data.flags.data.defenderMessage) //If the player was the attacker
+        {
+          let defenderMessage = game.messages.get(message.data.flags.data.defenderMessage);
+          let attackerSL = Math.trunc(message.data.flags.data.postData.SL);
+          let defenderSL = Math.trunc(defenderMessage.data.flags.data.postData.SL);
+          //If the attacker lost
+          if(attackerSL < defenderSL || (attackerSL == defenderSL && message.data.flags.data.postData.target <= defenderMessage.data.flags.data.postData.target))
+            result = true;
+        }
+        else if(message.data.flags.data.attackerMessage) //If the player was the defender
+        {
+          let attackerMessage = game.messages.get(message.data.flags.data.attackerMessage);
+          let attackerSL = Math.trunc(attackerMessage.data.flags.data.postData.SL);
+          let defenderSL = Math.trunc(message.data.flags.data.postData.SL);
+          //If the attacker won
+          if(attackerSL > defenderSL || (attackerSL == defenderSL && attackerMessage.data.flags.data.postData.target > message.data.flags.data.postData.target))
+            result = true;
+        }
+      }
     }
-     return result;
+    return result;
   };
   let canApplyFortuneAddSL = function(li){
     //Condition to have the fortune contextual options:
@@ -32,8 +55,9 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     {
       let testcard = li.find(".test-data");
       let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedRerollSL)
-        result = true;
+      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedAddSL)
+        if(!message.data.flags.data.isOpposedTest || message.data.flags.data.defenderMessage)
+          result = true;
     }
      return result;
   };
@@ -45,8 +69,10 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
     if(game.user.character)
     {
       let testcard = li.find(".test-data");
-      if(testcard.length && game.messages.get(li.attr("data-message-id")).user.data.character == game.user.character._id)
-        result = true;
+      let message = game.messages.get(li.attr("data-message-id"));
+      if(testcard.length && message.user.data.character == game.user.character._id)
+        if(!message.data.flags.data.isOpposedTest || message.data.flags.data.defenderMessage)
+          result = true;
     }
      return result;
   };

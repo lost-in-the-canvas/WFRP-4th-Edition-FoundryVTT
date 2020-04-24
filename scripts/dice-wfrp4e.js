@@ -733,7 +733,12 @@ class DiceWFRP
       rollMode: chatOptions.rollMode,
       title: chatOptions.title,
       hideData: chatData.hideData,
-      fortuneUsedReroll: chatOptions.fortuneUsedReroll
+      fortuneUsedReroll: chatOptions.fortuneUsedReroll,
+      fortuneUsedAddSL: chatOptions.fortuneUsedAddSL,
+      isOpposedTest: chatOptions.isOpposedTest,
+      attackerMessage: chatOptions.attackerMessage,
+      defenderMessage: chatOptions.defenderMessage,
+      unopposedStartMessage: chatOptions.unopposedStartMessage
     };
 
     if (!rerenderMessage)
@@ -777,6 +782,7 @@ class DiceWFRP
         }).then(newMsg =>
         {
           ui.chat.updateMessage(newMsg);
+          return newMsg;
         });
       });
     }
@@ -968,8 +974,9 @@ class DiceWFRP
     html.on("click", '.unopposed-button', event =>
     {
       event.preventDefault()
-      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id")
-      OpposedWFRP.resolveUnopposed(messageId)
+      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id");
+
+      OpposedWFRP.resolveUnopposed(game.messages.get(messageId));
     })
 
     // Used to select damage dealt (there's 2 numbers if Tiring + impact/damaging)
@@ -1017,8 +1024,11 @@ class DiceWFRP
       }
       if (manual)
       {
-        if (message.data.flags.opposeData)
-          OpposedWFRP.clearOpposed();
+        game.messages.get(OpposedWFRP.attacker.messageId).update(
+        {
+          "flags.data.isOpposedTest": false
+        });
+        OpposedWFRP.clearOpposed();
       }
       ui.notifications.notify(game.i18n.localize("ROLL.CancelOppose"))
     })
