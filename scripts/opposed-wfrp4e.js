@@ -328,10 +328,8 @@ class OpposedWFRP
           img: actor.data.msg
         };
         //Edit the attacker message to give it a ref to the defender message (used for rerolling)
-        attackMessage.update(
-        {
-          "flags.data.defenderMessage": message.data._id
-        });
+        //Have to do it locally for permission issues
+        attackMessage.data.flags.data.defenderMessage = message.data._id;
         //Edit the defender message to give it a ref to the attacker message (used for rerolling)
         message.update(
         {
@@ -351,14 +349,25 @@ class OpposedWFRP
       }
 
       /* -------------- IF TARGETING SOMEONE -------------- */
-      else if (game.user.targets.size) // if user using the actor has targets
+      else if (game.user.targets.size && !message.data.flags.data.defenderMessage && !message.data.flags.data.attackerMessage) // if user using the actor has targets and its not a rerolled opposed test
       {
         // Ranged weapon opposed tests automatically lose no matter what if the test itself fails
         if (testResult.weapon && testResult.weapon.rangedWeaponType && testResult.roll > testResult.target)
         {
-          ChatMessage.create({speaker: message.data.speaker, content: "<b>Test Failed</b>: Automatically lose opposed tests"})
+          ChatMessage.create({speaker: message.data.speaker, content: game.i18n.localize("OPPOSED.FailedRanged")})
+          message.data.flags.data.originalTargets = new Set(game.user.targets);
+          
+          message.update(
+          {
+            "flags.data.isOpposedTest": false
+          });
+          //Update in local temp message to reroll a ranged failed attack with same targets
+          //Won't work after a reload but its good enough and bypass foundry depth limit in update
+          game.messages.set(message.data._id, message);
+
+          //Note 2020-04-25: this method is bugged and will raise an exception so keep it at the end
           game.user.updateTokenTargets([]);
-          return
+          return;
         }
 
         let attacker;
@@ -471,6 +480,16 @@ class OpposedWFRP
       //It's an unopposed test reroll
       else if(message.data.flags.data.unopposedStartMessage)
       {
+        // Ranged weapon opposed tests automatically lose no matter what if the test itself fails
+        if (testResult.weapon && testResult.weapon.rangedWeaponType && testResult.roll > testResult.target)
+        {
+          ChatMessage.create({speaker: message.data.speaker, content: game.i18n.localize("OPPOSED.FailedRanged")});
+          message.update(
+          {
+            "flags.data.isOpposedTest": false
+          });
+          return;
+        }
         //We retrieve the original startMessage and change it (locally only because of permissions) to start a new unopposed result
         let startMessage = game.messages.get(message.data.flags.data.unopposedStartMessage);
         startMessage.data.flags.unopposeData.attackMessageId = message.data._id;
@@ -478,8 +497,9 @@ class OpposedWFRP
         this.resolveUnopposed(startMessage);
       }
     }
-    catch
+    catch(e)
     {
+      console.log(e);
       await actor.update({"-=flags.oppose": null}) // If something went wrong, remove incoming opposed tests
     }
   }

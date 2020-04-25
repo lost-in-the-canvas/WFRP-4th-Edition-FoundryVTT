@@ -3365,6 +3365,13 @@ class ActorWfrp4e extends Actor {
       if(type=="reroll")
       {
         cardOptions.fortuneUsedReroll = true;
+        //It was an unopposed targeted test who failed
+        if(data.originalTargets && data.originalTargets.size>0)
+        {
+          game.user.targets = data.originalTargets;
+          //Foundry has a circular reference to the user in its targets set so we do it too
+          game.user.targets.user = game.user;
+        }
         ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
         //We also set fortuneUsedAddSL to force the player to use it on the new roll
         message.update({
@@ -3427,7 +3434,7 @@ class ActorWfrp4e extends Actor {
       sound:message.data.sound,
       speaker:message.data.speaker,
       template:data.template,
-      title:data.title,
+      title:data.title.replace(` - ${game.i18n.localize("Opposed")}`,""),
       user:message.data.user
     };
     if(data.attackerMessage)
