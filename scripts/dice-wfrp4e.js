@@ -738,7 +738,8 @@ class DiceWFRP
       isOpposedTest: chatOptions.isOpposedTest,
       attackerMessage: chatOptions.attackerMessage,
       defenderMessage: chatOptions.defenderMessage,
-      unopposedStartMessage: chatOptions.unopposedStartMessage
+      unopposedStartMessage: chatOptions.unopposedStartMessage,
+      startMessagesList: chatOptions.startMessagesList
     };
 
     if (!rerenderMessage)

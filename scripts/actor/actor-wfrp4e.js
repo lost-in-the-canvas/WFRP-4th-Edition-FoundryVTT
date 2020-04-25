@@ -3372,6 +3372,11 @@ class ActorWfrp4e extends Actor {
           //Foundry has a circular reference to the user in its targets set so we do it too
           game.user.targets.user = game.user;
         }
+        //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+        if(!data.defenderMessage && data.startMessagesList)
+        {
+          cardOptions.startMessagesList = data.startMessagesList;
+        }
         ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
         //We also set fortuneUsedAddSL to force the player to use it on the new roll
         message.update({
@@ -3387,6 +3392,11 @@ class ActorWfrp4e extends Actor {
         newTestData.successBonus = 0;
         newTestData.roll =  Math.trunc(data.postData.roll);
         newTestData.hitloc = data.preData.hitloc;
+
+        //We deselect the token, 
+        //2020-04-25 : Currently the foundry function is bugged so we do it ourself
+        //game.user.updateTokenTargets([]);
+        game.user.targets.forEach(t => t.setTarget(false, {user: game.user, releaseOthers: false, groupSelection: true}));
 
         cardOptions.fortuneUsedAddSL = true;
         ActorWfrp4e[data.postData.postFunction](newTestData,cardOptions,message);
@@ -3411,8 +3421,21 @@ class ActorWfrp4e extends Actor {
     ChatMessage.create(WFRP_Utility.chatDataSetup(html));
     this.update({"data.status.corruption.value" : corruption});
     let cardOptions = this.preparePostRollAction(message);
-    cardOptions.fortuneUsedReroll = message.data.flags.data.fortuneUsedReroll;
-    cardOptions.fortuneUsedAddSL = message.data.flags.data.fortuneUsedAddSL;
+    let data = message.data.flags.data;
+    cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
+    cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    //It was an unopposed targeted test who failed
+    if(data.originalTargets && data.originalTargets.size>0)
+    {
+      game.user.targets = data.originalTargets;
+      //Foundry has a circular reference to the user in its targets set so we do it too
+      game.user.targets.user = game.user;
+    }
+    //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+    if(!data.defenderMessage && data.startMessagesList)
+    {
+      cardOptions.startMessagesList = data.startMessagesList;
+    }
     ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }
 

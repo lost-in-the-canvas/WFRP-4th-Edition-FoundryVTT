@@ -296,7 +296,7 @@ class OpposedWFRP
    *    flag
    * 2. Starting an opposed test: If the user using the actor has a target, start an opposed Test: create the message then
    *    insert oppose data into the target's flags.oppose object.
-   * 3. Reroll: We look at the type of reroll (opposed or unopposed) then we retrieve the original targets and we evaluate the test
+   * 3. Reroll: We look at the type of reroll (opposed or unopposed), if it as ended or not,  then if it has ended, we retrieve the original targets and we evaluate the test
    * 4. Neither: If no data in the actor's oppose flags, and no targets, skip everything and return.
    * 
    *
@@ -328,8 +328,17 @@ class OpposedWFRP
           img: actor.data.msg
         };
         //Edit the attacker message to give it a ref to the defender message (used for rerolling)
-        //Have to do it locally for permission issues
-        attackMessage.data.flags.data.defenderMessage = message.data._id;
+        //Have to do it locally if player for permission issues
+        if(!game.user.isGM)
+        {
+          attackMessage.data.flags.data.defenderMessage = message.data._id;
+        }
+        else
+        {
+          attackMessage.update({
+            "flags.data.defenderMessage": message.data._id
+          });
+        }
         //Edit the defender message to give it a ref to the attacker message (used for rerolling)
         message.update(
         {
@@ -379,6 +388,7 @@ class OpposedWFRP
           attacker = actor.data.token
 
         // For each target, create a message, and insert oppose data in the targets' flags
+        let startMessagesList = [];
         game.user.targets.forEach(async target =>
         {
           let content =
@@ -438,11 +448,14 @@ class OpposedWFRP
             }
           })
         }
+        startMessagesList.push(startMessage.data._id);
        // Remove current targets
         })
+        //Give the roll a list of every startMessages linked to this roll
+        message.data.flags.data.startMessagesList = startMessagesList;
         game.user.updateTokenTargets([]);
       }
-      //It's an opposed reroll
+      //It's an opposed reroll of an ended test
       else if(message.data.flags.data.defenderMessage || message.data.flags.data.attackerMessage)
       {
         //The attacker rerolled
@@ -495,6 +508,31 @@ class OpposedWFRP
         startMessage.data.flags.unopposeData.attackMessageId = message.data._id;
         startMessage.data.flags.reroll = true;
         this.resolveUnopposed(startMessage);
+      }
+      //It's a reroll of an ongoing opposed test
+      else if(message.data.flags.data.startMessagesList)
+      {
+        for(let startMessageId of message.data.flags.data.startMessagesList)
+        {
+          let startMessage = game.messages.get(startMessageId);
+          let data = startMessage.data.flags.unopposeData;
+          //Update the targeted actors to let them know of the new startMessage and attack message
+          game.socket.emit("system.wfrp4e", {
+            type: "target",
+            payload: {
+              target: data.targetSpeaker.token,
+              scene: canvas.scene._id,
+              opposeFlag : {
+                speaker: message.data.speaker,
+                messageId: message.data._id,
+                startMessageId: startMessage.data._id
+              }
+            }
+          })
+          startMessage.update({
+            "flags.unopposeData.attackMessageId" : message.data._id
+          });
+        }
       }
     }
     catch(e)

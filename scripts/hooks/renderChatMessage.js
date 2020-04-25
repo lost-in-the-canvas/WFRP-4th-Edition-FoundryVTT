@@ -13,6 +13,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
   if (!game.user.isGM)
   {
     html.find(".chat-button-gm").remove();
+    html.find(".unopposed-button").remove();
     //hide tooltip contextuamneu if not their roll
     if(msg.message.user != game.userId)
       html.find(".chat-button-player").remove();
