@@ -353,6 +353,14 @@ class OpposedWFRP
       /* -------------- IF TARGETING SOMEONE -------------- */
       else if (game.user.targets.size) // if user using the actor has targets
       {
+        // Ranged weapon opposed tests automatically lose no matter what if the test itself fails
+        if (testResult.weapon && testResult.weapon.rangedWeaponType && testResult.roll > testResult.target)
+        {
+          ChatMessage.create({speaker: message.data.speaker, content: "<b>Test Failed</b>: Automatically lose opposed tests"})
+          game.user.updateTokenTargets([]);
+          return
+        }
+
         let attacker;
         // If token data was found in the message speaker (see setupCardOptions)
         if (message.data.speaker.token)
@@ -422,8 +430,8 @@ class OpposedWFRP
           })
         }
        // Remove current targets
-          target.setTarget(false);
         })
+        game.user.updateTokenTargets([]);
       }
       //It's an opposed reroll
       else if(message.data.flags.data.defenderMessage || message.data.flags.data.attackerMessage)

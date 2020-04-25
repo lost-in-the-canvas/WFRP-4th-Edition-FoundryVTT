@@ -759,6 +759,7 @@
     "DARKDEAL.UsageText" : "{character} took a Dark Deal and was granted a Reroll for +1 Corruption.",
 
     "OPPOSED.DefenderWins" : "<b>{defender}</b> won against <b>{attacker}</b> by {SL} SL",
-    "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL"
+    "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL",
+    "ROLL.Misfire" : "<b>Misfire:</b> Your weapon explodes! Take {damage} damage to your primary arm."
 
 }
