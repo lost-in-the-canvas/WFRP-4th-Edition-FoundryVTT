@@ -1,10 +1,9 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
+![](https://i.imgur.com/esCwB7f.png)
 Current Version: 1.2.5
 
 Compatibility: Foundry VTT 0.5.4
-
-![](https://i.imgur.com/esCwB7f.png)
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
