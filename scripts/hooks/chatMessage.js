@@ -132,7 +132,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
         let link = game.i18n.format("CHAT.CommandLine.Help.Link", {link : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/wiki"})
 
         renderTemplate("systems/wfrp4e/templates/chat/chat-help-command.html", {commands: commandElements, link : link}).then(html => {
-            let chatData = WFRP_Utility.chatDataSetup(html);
+            let chatData = WFRP_Utility.chatDataSetup(html, "selfroll");
             ChatMessage.create(chatData);
         });
         return false;
