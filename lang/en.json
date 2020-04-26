@@ -87,7 +87,7 @@
     "SHEET.CharAbbrev": "Char.",
     "SHEET.AdvAbbrev": "Adv.",
     "SHEET.BonusChar": "Bonus of selected characteristic is added to Rating",
-    
+
 
     "ACTOR.BasicSkillsTitle" : "Add Basic Skills",
     "ACTOR.BasicSkillsPrompt": "Add Basic Skills?",
@@ -292,7 +292,7 @@
     "Prayer" : "Prayer",
     "Trait" : "Trait",
     "Protects" : "Protects",
-    
+
     "BROWSER.ItemCategories" : "Item Categories",
     "BROWSER.IncludeWorld" : "Include World Items?",
     "BROWSER.FilterOptions" : "Filter Options",
@@ -352,6 +352,35 @@
     "CHAT.ContextualMenu" : "A contextual menu could be available on this card (right click)",
     "CHAT.EditTest" : "Edit Test",
     "CHAT.OpposedTest" : "Opposed Test",
+    "CHAT.CommandLine.Help.Commands" : "Tables,Conditions,CharacterGeneration,NameGeneration,AvailabilityTest,Pay",
+    "CHAT.CommandLine.Help.Label.Command" : "Command",
+    "CHAT.CommandLine.Help.Label.Example": "Example",
+    "CHAT.CommandLine.Help.Label.Note": "Note",
+    "CHAT.CommandLine.Help.Tables.Title" : "Tables",
+    "CHAT.CommandLine.Help.Tables.Usage.Command" : "/table <table-name> <column> <modifier>",
+    "CHAT.CommandLine.Help.Tables.Usage.Example" : "<br>/table critarm +20<br>/table career human",
+    "CHAT.CommandLine.Help.Tables.Usage.Note" : "/table <anything-unrecognized> will pull up the table help menu",
+    "CHAT.CommandLine.Help.Conditions.Title" : "Conditions",
+    "CHAT.CommandLine.Help.Conditions.Usage.Command" : "/cond <condition-name>",
+    "CHAT.CommandLine.Help.Conditions.Usage.Example" : "<br>/cond ablaze<br>/cond unconsc",
+    "CHAT.CommandLine.Help.Conditions.Usage.Note" : "will match the closest spelling condition and display it (eg. /cond abl == /cond ablaze)",
+    "CHAT.CommandLine.Help.CharacterGeneration.Title" : "Character Generation",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Command" : "/char",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Example" : "/char",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Note" : "Begins character generation",
+    "CHAT.CommandLine.Help.NameGeneration.Title" : "Name Generation",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Command" : "/name",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Example" : "<br>/name dwarf<br>/name helf male<br>/name welf female",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Note" : "Generates a name in chat (Also accessible by clicking the <Name> label on a an NPC or creature sheet)",
+    "CHAT.CommandLine.Help.AvailabilityTest.Title" : "Availability Test",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Command" : "/avail",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Example" : "<br>/avail town common<br>/avail city exotic",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Note" : "rolls an availability test to determine the availability and the stock of an item.",
+    "CHAT.CommandLine.Help.Pay.Title" : "Pay",
+    "CHAT.CommandLine.Help.Pay.Usage.Command" : "/pay",
+    "CHAT.CommandLine.Help.Pay.Usage.Example" : "<br>/pay 3gc2bp<br>/pay 10bp450ss",
+    "CHAT.CommandLine.Help.Pay.Usage.Note" : "If this command is sent by the GM, it will create instead a chat card where players are offered to pay for the amount entered by the GM.",
+    "CHAT.CommandLine.Help.Link" : "See the <a href={link}>Wiki</a> for more information on the features in this system",
 
     "Error.SpeciesSkills" : "Could not add skills for species",
     "Error.SpeciesTalents" : "Could not add talents for species",
@@ -593,7 +622,7 @@
 	"CHAR.Int": "Intelligence",
 	"CHAR.WP": "Willpower",
     "CHAR.Fel": "Fellowship",
-    
+
     "CHARAbbrev.WS": "WS",
 	"CHARAbbrev.BS": "BS",
 	"CHARAbbrev.S": "S",
@@ -604,7 +633,7 @@
 	"CHARAbbrev.Int": "Int",
 	"CHARAbbrev.WP": "WP",
     "CHARAbbrev.Fel": "Fel",
-    
+
 
     "CHARBonus.WS": "Weapon Skill Bonus",
 	"CHARBonus.BS": "Ballistic Skill Bonus",

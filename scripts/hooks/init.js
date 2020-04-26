@@ -343,6 +343,7 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/actors/creature-main.html",
       "systems/wfrp4e/templates/chat/dialog-constant.html",
       "systems/wfrp4e/templates/chat/test-card.html",
+      "systems/wfrp4e/templates/chat/chat-command-display-info.html",
       "systems/wfrp4e/templates/items/item-header.html",
       "systems/wfrp4e/templates/items/item-description.html",
     ]);
