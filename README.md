@@ -1,7 +1,7 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.2.5` 
+**[Current Version]**: `1.3.0` 
 
 **[Compatibility]**: `FoundryVTT 0.5.4+`
 
@@ -39,3 +39,6 @@ Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725
 - [Enemy in Shadows](https://github.com/moo-man/EiS-FVTT) - A wealth of content, tables, talents, spells. Also the new Dhar spellcasting mechanics! Still a WIP.
 
 - [Gerwin Waffenhalter’s Magnificent Weapons Gallery](https://github.com/DasSauerkraut/wfrp-gwmwg) - Adds new weapons and weapon traits from the Ratter Vol. 1 Issue 2.
+
+- [The GM Tool Kit](https://github.com/Jagusti/fvtt-wfrp4e-gmtoolkit) - Extends to the Token HUD for more information and adds useful macros!
+
