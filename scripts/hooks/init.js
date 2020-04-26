@@ -304,7 +304,14 @@ Hooks.once("init", () => {
         type: Boolean
       });
    
-  
+      game.settings.register("wfrp4e", "dangerousCrits", {
+        name: "SETTINGS.DangerousCrits",
+        hint: "SETTINGS.DangerousCritsHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
   
     // Pre-load templates
     loadTemplates([
