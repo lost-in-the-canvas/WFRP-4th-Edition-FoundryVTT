@@ -99,7 +99,7 @@ class OpposedWFRP
     //Edit the attacker message to give it a ref to the defender message (used for rerolling)
     game.messages.get(this.attacker.messageId).update(
     {
-      "flags.data.defenderMessage": message.data._id
+      "flags.data.defenderMessage": [message.data._id]
     });
     //Edit the defender message to give it a ref to the attacker message (used for rerolling)
     message.update(
@@ -329,14 +329,13 @@ class OpposedWFRP
         };
         //Edit the attacker message to give it a ref to the defender message (used for rerolling)
         //Have to do it locally if player for permission issues
-        if(!game.user.isGM)
-        {
-          attackMessage.data.flags.data.defenderMessage = message.data._id;
-        }
-        else
+        let listOfDefenders = attackMessage.data.flags.data.defenderMessage ? Array.from(attackMessage.data.flags.data.defenderMessage) : [];
+        listOfDefenders.push(message.data._id);
+
+        if(game.user.isGM)
         {
           attackMessage.update({
-            "flags.data.defenderMessage": message.data._id
+            "flags.data.defenderMessage": listOfDefenders
           });
         }
         //Edit the defender message to give it a ref to the attacker message (used for rerolling)
@@ -462,17 +461,21 @@ class OpposedWFRP
         let attacker,defender;
         if(message.data.flags.data.defenderMessage)
         {
-          attacker = {
-            speaker: message.data.speaker,
-            testResult: message.data.flags.data.postData,
-            img: WFRP_Utility.getSpeaker(message.data.speaker).data.img
-          };
-          let defenderMessage = game.messages.get(message.data.flags.data.defenderMessage);
-          defender = {
-            speaker: defenderMessage.data.speaker,
-            testResult: defenderMessage.data.flags.data.postData,
-            img: WFRP_Utility.getSpeaker(defenderMessage.data.speaker).data.img
-          };
+          for(let msg of message.data.flags.data.defenderMessage)
+          {
+            attacker = {
+              speaker: message.data.speaker,
+              testResult: message.data.flags.data.postData,
+              img: WFRP_Utility.getSpeaker(message.data.speaker).data.img
+            };
+            let defenderMessage = game.messages.get(msg);
+            defender = {
+              speaker: defenderMessage.data.speaker,
+              testResult: defenderMessage.data.flags.data.postData,
+              img: WFRP_Utility.getSpeaker(defenderMessage.data.speaker).data.img
+            };
+            this.evaluateOpposedTest(attacker, defender);
+          }
         }
         else //The defender rerolled
         {
@@ -487,8 +490,8 @@ class OpposedWFRP
             testResult: attackerMessage.data.flags.data.postData,
             img: WFRP_Utility.getSpeaker(attackerMessage.data.speaker).data.img
           };
+          this.evaluateOpposedTest(attacker, defender);
         }
-        this.evaluateOpposedTest(attacker, defender);
       }
       //It's an unopposed test reroll
       else if(message.data.flags.data.unopposedStartMessage)
