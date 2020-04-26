@@ -362,7 +362,7 @@
     "CHAT.CommandLine.Help.Tables.Usage.Note" : "/table <anything-unrecognized> will pull up the table help menu",
     "CHAT.CommandLine.Help.Conditions.Title" : "Conditions",
     "CHAT.CommandLine.Help.Conditions.Usage.Command" : "/cond <condition-name>",
-    "CHAT.CommandLine.Help.Conditions.Usage.Example" : "<br>/cond ablaze<br>/table unconsc",
+    "CHAT.CommandLine.Help.Conditions.Usage.Example" : "<br>/cond ablaze<br>/cond unconsc",
     "CHAT.CommandLine.Help.Conditions.Usage.Note" : "will match the closest spelling condition and display it (eg. /cond abl == /cond ablaze)",
     "CHAT.CommandLine.Help.CharacterGeneration.Title" : "Character Generation",
     "CHAT.CommandLine.Help.CharacterGeneration.Usage.Command" : "/char",
