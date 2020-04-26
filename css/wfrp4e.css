@@ -16918,3 +16918,8 @@ input[name="dd-import.importPath"] {
   position:relative;
   top:1px;
 }
+
+
+#mass-combat.mass-combat .window-content {
+  background: url(../ui/background.png) repeat;
+}
