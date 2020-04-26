@@ -181,6 +181,6 @@
   "templateVersion":2,
   "socket": true,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
-  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",
+  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/1.2.5.zip",
   "url" : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT"
 }
