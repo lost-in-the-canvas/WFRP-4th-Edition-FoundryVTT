@@ -38,6 +38,8 @@
     "SETTINGS.ManualChatCardsHint" : "Show blank roll result to fill in if physical dice are used.",
     "SETTINGS.PlayerBrowser" : "Player access to browser",
     "SETTINGS.PlayerBrowserHint" : "Allow players to access the Item browser.",
+    "SETTINGS.DangerousCrits" : "Dangerous Crits",
+    "SETTINGS.DangerousCritsHint" : "If an actor is reduced to below 0 wounds, if the number of negative wounds is greater than the actor's TB, the crit roll is made with +10 for each negative wound greater than the actor's TB.",
 
     "SHEET.Close" : "Close",
     "SHEET.Configure" : "Configure Sheet",
@@ -85,7 +87,7 @@
     "SHEET.CharAbbrev": "Char.",
     "SHEET.AdvAbbrev": "Adv.",
     "SHEET.BonusChar": "Bonus of selected characteristic is added to Rating",
-    
+
 
     "ACTOR.BasicSkillsTitle" : "Add Basic Skills",
     "ACTOR.BasicSkillsPrompt": "Add Basic Skills?",
@@ -290,7 +292,7 @@
     "Prayer" : "Prayer",
     "Trait" : "Trait",
     "Protects" : "Protects",
-    
+
     "BROWSER.ItemCategories" : "Item Categories",
     "BROWSER.IncludeWorld" : "Include World Items?",
     "BROWSER.FilterOptions" : "Filter Options",
@@ -347,6 +349,38 @@
     "CHAT.CriticalWoundsApplied" : "Wounds applied to",
     "CHAT.OpposedWonAgainst" : "won against",
     "CHAT.By" : "by",
+    "CHAT.ContextualMenu" : "A contextual menu could be available on this card (right click)",
+    "CHAT.EditTest" : "Edit Test",
+    "CHAT.OpposedTest" : "Opposed Test",
+    "CHAT.CommandLine.Help.Commands" : "Tables,Conditions,CharacterGeneration,NameGeneration,AvailabilityTest,Pay",
+    "CHAT.CommandLine.Help.Label.Command" : "Command",
+    "CHAT.CommandLine.Help.Label.Example": "Example",
+    "CHAT.CommandLine.Help.Label.Note": "Note",
+    "CHAT.CommandLine.Help.Tables.Title" : "Tables",
+    "CHAT.CommandLine.Help.Tables.Usage.Command" : "/table <table-name> <column> <modifier>",
+    "CHAT.CommandLine.Help.Tables.Usage.Example" : "<br>/table critarm +20<br>/table career human",
+    "CHAT.CommandLine.Help.Tables.Usage.Note" : "/table <anything-unrecognized> will pull up the table help menu",
+    "CHAT.CommandLine.Help.Conditions.Title" : "Conditions",
+    "CHAT.CommandLine.Help.Conditions.Usage.Command" : "/cond <condition-name>",
+    "CHAT.CommandLine.Help.Conditions.Usage.Example" : "<br>/cond ablaze<br>/cond unconsc",
+    "CHAT.CommandLine.Help.Conditions.Usage.Note" : "will match the closest spelling condition and display it (eg. /cond abl == /cond ablaze)",
+    "CHAT.CommandLine.Help.CharacterGeneration.Title" : "Character Generation",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Command" : "/char",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Example" : "/char",
+    "CHAT.CommandLine.Help.CharacterGeneration.Usage.Note" : "Begins character generation",
+    "CHAT.CommandLine.Help.NameGeneration.Title" : "Name Generation",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Command" : "/name",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Example" : "<br>/name dwarf<br>/name helf male<br>/name welf female",
+    "CHAT.CommandLine.Help.NameGeneration.Usage.Note" : "Generates a name in chat (Also accessible by clicking the <Name> label on a an NPC or creature sheet)",
+    "CHAT.CommandLine.Help.AvailabilityTest.Title" : "Availability Test",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Command" : "/avail",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Example" : "<br>/avail town common<br>/avail city exotic",
+    "CHAT.CommandLine.Help.AvailabilityTest.Usage.Note" : "rolls an availability test to determine the availability and the stock of an item.",
+    "CHAT.CommandLine.Help.Pay.Title" : "Pay",
+    "CHAT.CommandLine.Help.Pay.Usage.Command" : "/pay",
+    "CHAT.CommandLine.Help.Pay.Usage.Example" : "<br>/pay 3gc2bp<br>/pay 10bp450ss",
+    "CHAT.CommandLine.Help.Pay.Usage.Note" : "If this command is sent by the GM, it will create instead a chat card where players are offered to pay for the amount entered by the GM.",
+    "CHAT.CommandLine.Help.Link" : "See the <a href={link}>Wiki</a> for more information on the features in this system",
 
     "Error.SpeciesSkills" : "Could not add skills for species",
     "Error.SpeciesTalents" : "Could not add talents for species",
@@ -454,6 +488,34 @@
     "WFRP4E.Availability.Rare" : "Rare",
     "WFRP4E.Availability.Exotic" : "Exotic",
 
+    "MARKET.Village" : "Village",
+    "MARKET.Town" : "Town",
+    "MARKET.City" : "City",
+    "MARKET.AvailabilityTest" : "Availability Test",
+    "MARKET.AvailWrongCommand": "Wrong parameters. Expected parameters: <br>Settlement size [Village,Town,City]<br>Rarity [Common,Scarce,Rare,Exotic]<br>(opt.) Roll modifier",
+    "MARKET.AvailCommandExample": "Example: /avail Village Rare 10",
+    "MARKET.SettlementSize" : "Settlement type:",
+    "MARKET.Rarity" : "Rarity:",
+    "MARKET.InStock": "In stock:",
+    "MARKET.QuantityAvailable": "Available quantity:",
+    "MARKET.RollForAvailability" : "Roll for availability",
+    "MARKET.SelectSettlementSize" : "Select the settlement size:",
+    "MARKET.PayForItem" : "Pay",
+    "MARKET.Exchange" : "Consolidate (Fewest coins)",
+    "MARKET.Abbrev.GC" : "GC",
+    "MARKET.Abbrev.SS" : "SS",
+    "MARKET.Abbrev.BP" : "BP",
+    "MARKET.PayCommand" : "Payment response",
+    "MARKET.PayRequest" : "Payment request",
+    "MARKET.PaidBy" : "Paid by:",
+    "MARKET.PayWrongCommand" : "Wrong syntax. Please format your command like in the following examples:",
+    "MARKET.PayCommandExample" : "/pay 3gc2bp<br>/pay 450bp<br>/pay 2ss12bp4gc",
+    "MARKET.CantFindMoneyItems" : "Error. Can't find the money items (GC/BP/SS) in the character inventory.",
+    "MARKET.NotEnoughMoney" : "This character does not have enough money to pay for this.<br>",
+    "MARKET.MoneyNeeded" : "Money needed:",
+    "MARKET.MoneyAvailable": "Money available:",
+    "MARKET.Paid": "<b>Payment complete:</b> {number1} GC {number2} SS {number3} BP",
+
     "WFRP4E.TrappingType.Weapon" : "Weapons",
     "WFRP4E.TrappingType.Armour" : "Armour",
     "WFRP4E.TrappingType.Money" : "Money",
@@ -560,7 +622,7 @@
 	"CHAR.Int": "Intelligence",
 	"CHAR.WP": "Willpower",
     "CHAR.Fel": "Fellowship",
-    
+
     "CHARAbbrev.WS": "WS",
 	"CHARAbbrev.BS": "BS",
 	"CHARAbbrev.S": "S",
@@ -571,7 +633,7 @@
 	"CHARAbbrev.Int": "Int",
 	"CHARAbbrev.WP": "WP",
     "CHARAbbrev.Fel": "Fel",
-    
+
 
     "CHARBonus.WS": "Weapon Skill Bonus",
 	"CHARBonus.BS": "Ballistic Skill Bonus",
@@ -719,6 +781,16 @@
     "Ammo" : "Ammo",
     "yds" : "yds",
 
-    "NAME.CombatReflexes" : "Combat Reflexes"
+    "NAME.CombatReflexes" : "Combat Reflexes",
+    "FORTUNE.Use" : "Fortune point used",
+    "FORTUNE.UsageRerollText" : "{character} used a Fortune point to reroll a failed test.",
+    "FORTUNE.PointsRemaining" : "Fortune points remaining:",
+    "FORTUNE.UsageAddSLText" : "{character} used a Fortune point to add +1 SL. The test has been updated.",
+    "DARKDEAL.Use" : "Taking a Dark Deal",
+    "DARKDEAL.UsageText" : "{character} took a Dark Deal and was granted a Reroll for +1 Corruption.",
 
+    "OPPOSED.DefenderWins" : "<b>{defender}</b> won against <b>{attacker}</b> by {SL} SL",
+    "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL",
+    "ROLL.Misfire" : "<b>Misfire:</b> Your weapon explodes! Take {damage} damage to your primary arm.",
+    "OPPOSED.FailedRanged" : "<b>Test Failed</b>: Automatically lose opposed tests"
 }

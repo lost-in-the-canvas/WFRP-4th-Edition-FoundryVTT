@@ -718,12 +718,12 @@ class DiceWFRP
     let chatData = {
       title: chatOptions.title,
       testData: testData,
-      hideData: game.user.isGM,
+      hideData: game.user.isGM
     }
 
     if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
-    else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user._id];
+    else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user];
 
     // All the data need to recreate the test when chat card is edited
     chatOptions["flags.data"] = {
@@ -732,7 +732,14 @@ class DiceWFRP
       template: chatOptions.template,
       rollMode: chatOptions.rollMode,
       title: chatOptions.title,
-      hideData: chatData.hideData
+      hideData: chatData.hideData,
+      fortuneUsedReroll: chatOptions.fortuneUsedReroll,
+      fortuneUsedAddSL: chatOptions.fortuneUsedAddSL,
+      isOpposedTest: chatOptions.isOpposedTest,
+      attackerMessage: chatOptions.attackerMessage,
+      defenderMessage: chatOptions.defenderMessage,
+      unopposedStartMessage: chatOptions.unopposedStartMessage,
+      startMessagesList: chatOptions.startMessagesList
     };
 
     if (!rerenderMessage)
@@ -776,6 +783,7 @@ class DiceWFRP
         }).then(newMsg =>
         {
           ui.chat.updateMessage(newMsg);
+          return newMsg;
         });
       });
     }
@@ -967,8 +975,9 @@ class DiceWFRP
     html.on("click", '.unopposed-button', event =>
     {
       event.preventDefault()
-      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id")
-      OpposedWFRP.resolveUnopposed(messageId)
+      let messageId = $(event.currentTarget).parents('.message').attr("data-message-id");
+
+      OpposedWFRP.resolveUnopposed(game.messages.get(messageId));
     })
 
     // Used to select damage dealt (there's 2 numbers if Tiring + impact/damaging)
@@ -1016,11 +1025,45 @@ class DiceWFRP
       }
       if (manual)
       {
-        if (message.data.flags.opposeData)
-          OpposedWFRP.clearOpposed();
+        game.messages.get(OpposedWFRP.attacker.messageId).update(
+        {
+          "flags.data.isOpposedTest": false
+        });
+        OpposedWFRP.clearOpposed();
       }
       ui.notifications.notify(game.i18n.localize("ROLL.CancelOppose"))
     })
+
+    // Click on botton related to the market/pay system
+    html.on("click", '.market-button', event =>
+    {
+      event.preventDefault();
+      // data-button tells us what button was clicked
+      switch ($(event.currentTarget).attr("data-button"))
+      {
+        case "rollAvailability":
+          MarketWfrp4e.generateSettlementChoice($(event.currentTarget).attr("data-rarity"));
+          break;
+        case "payItem":
+          if(!game.user.isGM)
+          {
+            let actor = game.user.character;
+            let money = duplicate(actor.data.items.filter(i => i.type == "money"));
+            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"),money);
+            if(money)
+              actor.updateEmbeddedEntity("OwnedItem", money);
+          }
+          break;
+        case "rollAvailabilityTest":
+          let options = {
+            settlement:$(event.currentTarget).attr("data-settlement").toLowerCase(),
+            rarity:$(event.currentTarget).attr("data-rarity").toLowerCase(),
+            modifier:0
+          };
+          MarketWfrp4e.testForAvailability(options);
+          break;
+      }
+    });
   }
 
   /**

@@ -1018,3 +1018,61 @@ const PSEUDO_ENTITIES = [
 	"Symptom",
 	"Roll"
 ]
+
+WFRP4E.availabilityTable = {
+	"MARKET.Village" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '2'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 30,
+			stock: '1'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 15,
+			stock: '1'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	},
+	"MARKET.Town" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '2d10'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 60,
+			stock: '1d10'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 30,
+			stock: '1d5'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	},
+	"MARKET.City" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 90,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 45,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	}
+}
+

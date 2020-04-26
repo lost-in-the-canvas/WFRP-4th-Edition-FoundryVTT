@@ -560,13 +560,13 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Damage a shield item by clicking on the shield AP amount in the combat tab
   html.find(".shield-total").mousedown(ev => {
     let weapons = this.actor.prepareItems().weapons
-    let shields = weapons.filter(w => w.properties.qualities.find(p => p.includes("Shield")))
+    let shields = weapons.filter(w => w.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())))
     let shieldDamaged = false;
     // If for some reason using multiple shields...damage the first one available 
     for (let s of shields)
     {
       let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
-      let shieldQualityValue = s.properties.qualities.find(p => p.includes("Shield")).split(" ")[1];
+      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield"))).split(" ")[1];
       
       if (!shield.data.APdamage)
         shield.data.APdamage = 0;
@@ -1014,6 +1014,14 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   html.on('mousedown', '.table-click', ev => {
     WFRP_Utility.handleTableClick(ev)
+  })
+
+  // Consolidate common currencies
+  html.find('.dollar-icon').click(async event => {
+    event.preventDefault();
+    let money = duplicate(this.actor.data.items.filter(i => i.type == "money"));
+    money = MarketWfrp4e.consolidateMoney(money);
+    await this.actor.updateEmbeddedEntity("OwnedItem", money);
   })
 
   }
