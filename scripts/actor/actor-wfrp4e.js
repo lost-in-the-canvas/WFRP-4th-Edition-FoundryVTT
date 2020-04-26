@@ -3053,15 +3053,18 @@ class ActorWfrp4e extends Actor {
     newWounds -= totalWoundLoss
 
     // If damage taken reduces wounds to 0, show Critical
-    if (newWounds < 0 && !impenetrable)
+    if (newWounds <= 0 && !impenetrable)
     {
-      if (Math.abs(newWounds) < actor.data.data.characteristics.t.bonus )
+      if(game.settings.get("wfrp4e", "dangerousCrits") && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
+      {
+        let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * 10;
+        updateMsg += `<br><a class ="table-click critical-roll" data-modifier=${critModifier} data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} +${critModifier}</a>`
+      }
+      else if (Math.abs(newWounds) < actor.data.data.characteristics.t.bonus )
         updateMsg += `<br><a class ="table-click critical-roll" data-modifier="-20" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} (-20)</a>`
-      else
+      else 
         updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")}</a>`
-
     }
-
     else if (impenetrable)
       updateMsg += `<br>${game.i18n.localize("PROPERTY.Impenetrable")} - ${game.i18n.localize("CHAT.CriticalsNullified")}`
 
