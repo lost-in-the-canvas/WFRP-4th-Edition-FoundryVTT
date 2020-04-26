@@ -1112,7 +1112,10 @@ class ActorWfrp4e extends Actor {
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`;
+        cardOptions.isOpposedTest = true
+    }
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1139,7 +1142,10 @@ class ActorWfrp4e extends Actor {
 
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let dieAmount = WFRP4E.earningValues[testData.income.tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
     dieAmount = Number(dieAmount) * testData.income.standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
@@ -1216,7 +1222,10 @@ class ActorWfrp4e extends Actor {
   static async weaponOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
@@ -1242,7 +1251,10 @@ class ActorWfrp4e extends Actor {
   static async castOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
@@ -1271,7 +1283,10 @@ class ActorWfrp4e extends Actor {
   static async channellOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
@@ -1296,7 +1311,10 @@ class ActorWfrp4e extends Actor {
   static async prayerOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
@@ -1321,7 +1339,10 @@ class ActorWfrp4e extends Actor {
   static async traitOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
@@ -1522,6 +1543,7 @@ class ActorWfrp4e extends Actor {
       let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == game.i18n.localize("NAME.PS"))
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
+      this.update({"data.status.corruption.max": actorData.data.status.corruption.max});
     }
 
 
@@ -3280,52 +3302,181 @@ class ActorWfrp4e extends Actor {
     }
   }
 
-    /**
-     * Advance NPC based on given career
-     * 
-     * A specialized function used by NPC type Actors that triggers when you click on a 
-     * career to be "complete". This takes all the career data and uses it (and the helpers
-     * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
-     * correct amount to be considered complete), advances all characteristics similarly, and 
-     * adds all talents.
-     * 
-     * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
-     * However, I find deleting the ones you don't want to be much easier than trying to pick and 
-     * choose the ones you do want.
-     *
-     * @param {Object} careerData     Career type Item to be used for advancement.
-     * 
-     * TODO Refactor for embedded entity along with the helper functions
-     */
-    async _advanceNPC(careerData) 
+  /**
+   * Advance NPC based on given career
+   * 
+   * A specialized function used by NPC type Actors that triggers when you click on a 
+   * career to be "complete". This takes all the career data and uses it (and the helpers
+   * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
+   * correct amount to be considered complete), advances all characteristics similarly, and 
+   * adds all talents.
+   * 
+   * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
+   * However, I find deleting the ones you don't want to be much easier than trying to pick and 
+   * choose the ones you do want.
+   *
+   * @param {Object} careerData     Career type Item to be used for advancement.
+   * 
+   * TODO Refactor for embedded entity along with the helper functions
+   */
+  async _advanceNPC(careerData) 
+  {
+    let updateObj = {};
+    let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
+
+    // Update all necessary characteristics to the advancesNeeded
+    for (let advChar of careerData.characteristics)
+      if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+        updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+
+    // Advance all skills in the career
+    for (let skill of careerData.skills)
+      await this._advanceSkill(skill, advancesNeeded);
+
+    // Add all talents in the career
+    for (let talent of careerData.talents)
+      await this._advanceTalent(talent);
+
+    this.update(updateObj);
+  }
+
+
+  _replaceData(formula) {
+    let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
+    return formula.replace(dataRgx, (match, term) => {
+      let value = getProperty(this.data, term);
+      return value ? String(value).trim() : "0";
+    });
+  }
+
+  /**
+   * Use a fortune point from the actor to reroll or add sl to a roll
+   * @param {Object} message 
+   * @param {String} type (reroll, addSL)
+   */
+  useFortuneOnRoll(message, type)
+  {
+    if(this.data.data.status.fortune.value > 0)
     {
-      let updateObj = {};
-      let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
-  
-      // Update all necessary characteristics to the advancesNeeded
-      for (let advChar of careerData.characteristics)
-        if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
-          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-  
-      // Advance all skills in the career
-      for (let skill of careerData.skills)
-        await this._advanceSkill(skill, advancesNeeded);
-  
-      // Add all talents in the career
-      for (let talent of careerData.talents)
-        await this._advanceTalent(talent);
-  
-      this.update(updateObj);
-    }
+      let data = message.data.flags.data;
+      let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
+      //First we send a message to the chat
+      if(type=="reroll")
+        html += `${game.i18n.format("FORTUNE.UsageRerollText",{character:'<b>'+this.name+'</b>'})}<br>`;
+      else
+        html += `${game.i18n.format("FORTUNE.UsageAddSLText",{character:'<b>'+this.name+'</b>'})}<br>`;
 
+      html += `<b>${game.i18n.localize("FORTUNE.PointsRemaining")} </b>${this.data.data.status.fortune.value-1}`;
+      ChatMessage.create(WFRP_Utility.chatDataSetup(html));
 
-    _replaceData(formula) {
-      let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
-      return formula.replace(dataRgx, (match, term) => {
-        let value = getProperty(this.data, term);
-        return value ? String(value).trim() : "0";
-      });
+      let cardOptions = this.preparePostRollAction(message);
+      //Then we do the actual fortune action
+      if(type=="reroll")
+      {
+        cardOptions.fortuneUsedReroll = true;
+        //It was an unopposed targeted test who failed
+        if(data.originalTargets && data.originalTargets.size>0)
+        {
+          game.user.targets = data.originalTargets;
+          //Foundry has a circular reference to the user in its targets set so we do it too
+          game.user.targets.user = game.user;
+        }
+        //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+        if(!data.defenderMessage && data.startMessagesList)
+        {
+          cardOptions.startMessagesList = data.startMessagesList;
+        }
+        ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
+        //We also set fortuneUsedAddSL to force the player to use it on the new roll
+        message.update({
+          "flags.data.fortuneUsedReroll" : true,
+          "flags.data.fortuneUsedAddSL" : true
+        });
+      }
+      else //addSL
+      {
+        let newTestData = data.preData;
+        newTestData.SL = Math.trunc(data.postData.SL) + 1;
+        newTestData.slBonus = 0;
+        newTestData.successBonus = 0;
+        newTestData.roll =  Math.trunc(data.postData.roll);
+        newTestData.hitloc = data.preData.hitloc;
+
+        //We deselect the token, 
+        //2020-04-25 : Currently the foundry function is bugged so we do it ourself
+        //game.user.updateTokenTargets([]);
+        game.user.targets.forEach(t => t.setTarget(false, {user: game.user, releaseOthers: false, groupSelection: true}));
+
+        cardOptions.fortuneUsedAddSL = true;
+        ActorWfrp4e[data.postData.postFunction](newTestData,cardOptions,message);
+        message.update({
+          "flags.data.fortuneUsedAddSL" : true
+        });
+      }
+      this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
+  }
+
+  /**
+   * Take a Dark Deal to reroll for +1 Corruption
+   * @param {Object} message 
+   */
+  useDarkDeal(message)
+  {
+    let html = `<h3 class="center"><b>${game.i18n.localize("DARKDEAL.Use")}</b></h3>`;
+    html += `${game.i18n.format("DARKDEAL.UsageText",{character:'<b>'+this.name+'</b>'})}<br>`;
+    let corruption = Math.trunc(this.data.data.status.corruption.value)+1;
+    html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
+    ChatMessage.create(WFRP_Utility.chatDataSetup(html));
+    this.update({"data.status.corruption.value" : corruption});
+    let cardOptions = this.preparePostRollAction(message);
+    let data = message.data.flags.data;
+    cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
+    cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    //It was an unopposed targeted test who failed
+    if(data.originalTargets && data.originalTargets.size>0)
+    {
+      game.user.targets = data.originalTargets;
+      //Foundry has a circular reference to the user in its targets set so we do it too
+      game.user.targets.user = game.user;
+    }
+    //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+    if(!data.defenderMessage && data.startMessagesList)
+    {
+      cardOptions.startMessagesList = data.startMessagesList;
+    }
+    ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
+  }
+
+  /**
+   * This helper can be used to prepare cardOptions to reroll/edit a test card
+   * It uses the informations of the roll located in the message entry
+   * from game.messages
+   * @param {Object} message 
+   * @returns {Object} cardOptions
+   */
+  preparePostRollAction(message)
+  {
+    //recreate the initial (virgin) cardOptions object
+    //add a flag for reroll limit
+    let data = message.data.flags.data;
+    let cardOptions = {
+      flags: {img:message.data.flags.img},
+      rollMode:data.rollMode,
+      sound:message.data.sound,
+      speaker:message.data.speaker,
+      template:data.template,
+      title:data.title.replace(` - ${game.i18n.localize("Opposed")}`,""),
+      user:message.data.user
+    };
+    if(data.attackerMessage)
+      cardOptions.attackerMessage = data.attackerMessage;
+    if(data.defenderMessage)
+      cardOptions.defenderMessage = data.defenderMessage;
+    if(data.unopposedStartMessage)
+      cardOptions.unopposedStartMessage = data.unopposedStartMessage;
+    return cardOptions;
+  }
 }
 
 // Assign the actor class to the CONFIG

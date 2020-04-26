@@ -349,6 +349,9 @@
     "CHAT.CriticalWoundsApplied" : "Wounds applied to",
     "CHAT.OpposedWonAgainst" : "won against",
     "CHAT.By" : "by",
+    "CHAT.ContextualMenu" : "A contextual menu could be available on this card (right click)",
+    "CHAT.EditTest" : "Edit Test",
+    "CHAT.OpposedTest" : "Opposed Test",
 
     "Error.SpeciesSkills" : "Could not add skills for species",
     "Error.SpeciesTalents" : "Could not add talents for species",
@@ -750,9 +753,15 @@
     "yds" : "yds",
 
     "NAME.CombatReflexes" : "Combat Reflexes",
+    "FORTUNE.Use" : "Fortune point used",
+    "FORTUNE.UsageRerollText" : "{character} used a Fortune point to reroll a failed test.",
+    "FORTUNE.PointsRemaining" : "Fortune points remaining:",
+    "FORTUNE.UsageAddSLText" : "{character} used a Fortune point to add +1 SL. The test has been updated.",
+    "DARKDEAL.Use" : "Taking a Dark Deal",
+    "DARKDEAL.UsageText" : "{character} took a Dark Deal and was granted a Reroll for +1 Corruption.",
 
     "OPPOSED.DefenderWins" : "<b>{defender}</b> won against <b>{attacker}</b> by {SL} SL",
     "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL",
-    "ROLL.Misfire" : "<b>Misfire:</b> Your weapon explodes! Take {damage} damage to your primary arm."
-
+    "ROLL.Misfire" : "<b>Misfire:</b> Your weapon explodes! Take {damage} damage to your primary arm.",
+    "OPPOSED.FailedRanged" : "<b>Test Failed</b>: Automatically lose opposed tests"
 }
