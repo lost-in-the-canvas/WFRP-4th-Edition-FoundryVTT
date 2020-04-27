@@ -1,7 +1,7 @@
 # Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.3.0` 
+**[Current Version]**: `1.3.1` 
 
 **[Compatibility]**: `FoundryVTT 0.5.4+`
 
