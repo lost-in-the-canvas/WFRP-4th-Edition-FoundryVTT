@@ -792,5 +792,13 @@
     "OPPOSED.DefenderWins" : "<b>{defender}</b> won against <b>{attacker}</b> by {SL} SL",
     "OPPOSED.AttackerWins" : "<b>{attacker}</b> won against <b>{defender}</b> by {SL} SL",
     "ROLL.Misfire" : "<b>Misfire:</b> Your weapon explodes! Take {damage} damage to your primary arm.",
-    "OPPOSED.FailedRanged" : "<b>Test Failed</b>: Automatically lose opposed tests"
+    "OPPOSED.FailedRanged" : "<b>Test Failed</b>: Automatically lose opposed tests",
+
+    "CHATOPT.ApplyDamage": "Apply damage",
+    "CHATOPT.ApplyDamageNoAP": "Apply Damage (Ignore AP)",
+    "CHATOPT.ApplyDamageNoTB": "Apply Damage (Ignore TB)",
+    "CHATOPT.ApplyDamageNoTBAP": "Apply Damage (Ignore TB and AP)",
+    "CHATOPT.UseFortuneReroll":"Use a Fortune point to reroll", 
+    "CHATOPT.UseFortuneSL":"Use a Fortune point to add +1 SL", 
+    "CHATOPT.DarkDeal": "Take a Dark Deal to reroll (+1 Corruption)"
 }
