@@ -588,7 +588,7 @@ class WFRP_Utility
 
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatData.rollMode === "blindroll") chatData["blind"] = true;
-    else if (chatData.rollMode === "selfroll") chatData["whisper"] = game.user._id;
+    else if (chatData.rollMode === "selfroll") chatData["whisper"] = [game.user];
 
     return chatData;
   }
@@ -734,7 +734,7 @@ class WFRP_Utility
       else if ($(event.currentTarget).attr("data-table") == "misfire")
       {
         let damage = $(event.currentTarget).attr("data-damage")
-        html = `<b>${game.i18n.localize("Misfire")}</b>: ${game.i18n.localize("ROLL.MisfireText1")} ${damage} ${game.i18n.localize("ROLL.MisfireText2")}`;
+        html = game.i18n.format("ROLL.Misfire", {damage : damage});
       }
       else
         html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
