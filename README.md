@@ -1,4 +1,4 @@
-# Warhamer Fantasy Role-Play 4th Ed. (FoundryVTT)
+# Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
 **[Current Version]**: `1.3.1` 

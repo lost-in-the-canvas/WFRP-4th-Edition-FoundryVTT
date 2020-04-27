@@ -289,7 +289,9 @@ class MarketWfrp4e
             break;
         }
       }
-        return isValid ? payRecap:false;
+      if(isValid && (payRecap.gc + payRecap.ss + payRecap.bp == 0))
+        isValid = false;
+      return isValid ? payRecap:false;
     }
 
     /**
@@ -303,7 +305,7 @@ class MarketWfrp4e
       //If the /pay command has a syntax error, we display an error message to the gm
       if(!parsedPayRequest)
       {
-        let msg = `<h3><b>${game.i18n.localize("MARKET.PayCommand")}</b></h3>`;
+        let msg = `<h3><b>${game.i18n.localize("MARKET.PayRequest")}</b></h3>`;
         msg += `<p>${game.i18n.localize("MARKET.PayWrongCommand")}</p><p><i>${game.i18n.localize("MARKET.PayCommandExample")}</i></p>`;
         ChatMessage.create(WFRP_Utility.chatDataSetup(msg,"gmroll"));
       }
