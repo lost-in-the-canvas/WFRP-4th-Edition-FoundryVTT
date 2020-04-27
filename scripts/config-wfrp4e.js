@@ -1016,7 +1016,8 @@ const PSEUDO_ENTITIES = [
 	"Table",
 	"Condition",
 	"Symptom",
-	"Roll"
+	"Roll",
+	"Pay"
 ]
 
 WFRP4E.availabilityTable = {

@@ -706,6 +706,8 @@ class WFRP_Utility
         return `<a class = "symptom-tag" data-symptom="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
       case "Condition":
         return `<a class = "condition-chat" data-cond="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
+      case "Pay":
+        return `<a class = "pay-link" data-pay="${id}"><i class="fas fa-coins"></i> ${name ? name : id}</a>`
     }
   }
 
@@ -833,6 +835,19 @@ class WFRP_Utility
       user: game.user._id,
       rollMode
     })
+  }
+
+
+    /**
+   * Handle a payment entity link
+   * 
+   * @param {Object} event clicke event
+   */
+  static handlePayClick(event)
+  {
+    let payString = $(event.currentTarget).attr("data-pay")
+    if (game.user.isGM)
+      MarketWfrp4e.generatePayCard(payString);
   }
 
   /**

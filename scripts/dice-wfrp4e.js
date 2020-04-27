@@ -858,6 +858,10 @@ class DiceWFRP
       WFRP_Utility.handleTableClick(ev)
     })
 
+    html.on('mousedown', '.pay-link', ev => {
+      WFRP_Utility.handlePayClick(ev)
+    })
+
     // Respond to editing chat cards - take all inputs and call the same function used with the data filled out
     html.on('change focusout', '.card-edit', ev =>
     {

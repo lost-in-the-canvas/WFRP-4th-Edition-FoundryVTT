@@ -1015,6 +1015,9 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.on('mousedown', '.table-click', ev => {
     WFRP_Utility.handleTableClick(ev)
   })
+  html.on('mousedown', '.pay-link', ev => {
+    WFRP_Utility.handlePayClick(ev)
+  })
 
   // Consolidate common currencies
   html.find('.dollar-icon').click(async event => {
