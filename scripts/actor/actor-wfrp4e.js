@@ -484,6 +484,7 @@ class ActorWfrp4e extends Actor {
         skillCharList : skillCharList,
         slBonus : slBonus || 0,
         successBonus : successBonus || 0,
+        testDifficulty: options.difficulty,
         modifier : modifier || 0,
         defaultSelection : defaultSelection,
         advantage : this.data.data.status.advantage.value || 0
