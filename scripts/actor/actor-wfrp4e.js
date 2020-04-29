@@ -3080,7 +3080,8 @@ class ActorWfrp4e extends Actor {
     {
       if(game.settings.get("wfrp4e", "dangerousCrits") && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
       {
-        let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * 10;
+        let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
+        let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * critAmnt;
         updateMsg += `<br><a class ="table-click critical-roll" data-modifier=${critModifier} data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} +${critModifier}</a>`
       }
       else if (Math.abs(newWounds) < actor.data.data.characteristics.t.bonus )
