@@ -2,9 +2,8 @@
  * Init function loads tables, registers settings, and loads templates
  */
 Hooks.once("init", () => {
-
     // load tables from system folder
-    FilePicker.browse("user", "systems/wfrp4e/tables").then(resp => {
+    FilePicker.browse("data", "systems/wfrp4e/tables").then(resp => {
       try 
       {
       if (resp.error)
@@ -223,6 +222,16 @@ Hooks.once("init", () => {
         default: true,
         type: Boolean
       });
+
+      // Register default test difficulty
+      game.settings.register("wfrp4e", "testDefaultDifficulty", {
+        name: "SETTINGS.TestDialogDefaultDifficulty",
+        hint: "SETTINGS.TestDialogDefaultDifficultyHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
   
       // Register NPC Species Randomization
       game.settings.register("wfrp4e", "npcSpeciesCharacteristics", {
@@ -304,7 +313,14 @@ Hooks.once("init", () => {
         type: Boolean
       });
    
-  
+      game.settings.register("wfrp4e", "dangerousCrits", {
+        name: "SETTINGS.DangerousCrits",
+        hint: "SETTINGS.DangerousCritsHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
   
     // Pre-load templates
     loadTemplates([
@@ -327,6 +343,7 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/actors/creature-main.html",
       "systems/wfrp4e/templates/chat/dialog-constant.html",
       "systems/wfrp4e/templates/chat/test-card.html",
+      "systems/wfrp4e/templates/chat/chat-command-display-info.html",
       "systems/wfrp4e/templates/items/item-header.html",
       "systems/wfrp4e/templates/items/item-description.html",
     ]);

@@ -3,9 +3,9 @@
     <!-- <div class="table-header table-row"> -->
       <div class="table-header"></div>
       {{#each actor.data.characteristics as |ch c|}}
-      <div title="{{ch.label}}" class="table-header">
+      <div title="{{localize ch.label}}" class="table-header">
         <div class="header-block">
-          {{ch.abrev}}
+          {{localize ch.abrev}}
           {{#if ch.career}}
           <a class="advancement-indicator" title="{{ch.cost}} Exp" data-target="{{c}}">+</a>
           {{else}}
@@ -65,7 +65,7 @@
     <div class="move-section">
       <div class="move-value">
         {{#if actor.flags.autoCalcWalk}}
-        <a class="auto-calc-toggle" toggle-type="walk">{{actor.data.details.move.walk}} yds</a>
+        <a class="auto-calc-toggle" toggle-type="walk">{{actor.data.details.move.walk}} {{localize "yds"}}</a>
         {{else}}
         <input class="auto-calc-toggle" toggle-type="walk" name="data.details.move.walk" type="text"
           value="{{data.details.move.walk}}" data-dtype="String">
@@ -78,7 +78,7 @@
     <div class="move-section">
       <div class="move-value">
         {{#if actor.flags.autoCalcRun}}
-        <a class="auto-calc-toggle" toggle-type="run">{{actor.data.details.move.run}} yds</a>
+        <a class="auto-calc-toggle" toggle-type="run">{{actor.data.details.move.run}} {{localize "yds"}}</a>
         {{else}}
         <input class="auto-calc-toggle" toggle-type="run" name="data.details.move.run" type="text"
           value="{{data.details.move.run}}" data-dtype="String">

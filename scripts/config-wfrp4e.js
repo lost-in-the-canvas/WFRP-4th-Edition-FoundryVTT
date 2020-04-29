@@ -371,50 +371,50 @@ WFRP4E.speciesHeight = {
 }
 
 WFRP4E.classTrappings = {
-	"Academics": "Clothing, Dagger, Pouch, Sling Bag containing Writing Kit and 1d10 sheets of Parchment",
-	"Burghers": "Cloak, Clothing, Dagger, Hat, Pouch, Sling Bag containing Lunch",
-	"Courtiers": "Fine Clothing, Dagger, Pouch containing Tweezers, Ear Pick, and a Comb",
-	"Peasants": "Cloak, Clothing, Dagger, Pouch, Sling Bag containing Rations (1 day)",
-	"Rangers": "Cloak, Clothing, Dagger, Pouch, Backpack containing Tinderbox, Blanket, Rations (1 day)",
-	"Riverfolk": "Cloak, Clothing, Dagger, Pouch, Sling Bag containing a Flask of Spirits ",
-	"Rogues": "Clothing, Dagger, Pouch, Sling Bag containing 2 Candles, 1d10 Matches, a Hood or Mask",
-	"Warriors": "Clothing, Hand Weapon, Dagger, Pouch",
+	"Academics": "ClassTrappings.Academics",
+	"Burghers": "ClassTrappings.Burghers",
+	"Courtiers": "ClassTrappings.Courtiers",
+	"Peasants": "ClassTrappings.Peasants",
+	"Rangers": "ClassTrappings.Rangers",
+	"Riverfolk": "ClassTrappings.Riverfolk",
+	"Rogues": "ClassTrappings.Rogues",
+	"Warriors": "ClassTrappings.Warriors",
 }
 
 
 // Status Tiers
 WFRP4E.statusTiers = {
-	"g": "Gold",
-	"s": "Silver",
-	"b": "Brass"
+	"g": "TIER.Gold",
+	"s": "TIER.Silver",
+	"b": "TIER.Brass"
 };
 
 // Characteristic Names
 WFRP4E.characteristics = {
-	"ws": "Weapon Skill",
-	"bs": "Ballistic Skill",
-	"s": "Strength",
-	"t": "Toughness",
-	"i": "Initiative",
-	"ag": "Agility",
-	"dex": "Dexterity",
-	"int": "Intelligence",
-	"wp": "Willpower",
-	"fel": "Fellowship"
+	"ws": "CHAR.WS",
+	"bs": "CHAR.BS",
+	"s": "CHAR.S",
+	"t": "CHAR.T",
+	"i": "CHAR.I",
+	"ag": "CHAR.Ag",
+	"dex": "CHAR.Dex",
+	"int": "CHAR.Int",
+	"wp": "CHAR.WP",
+	"fel": "CHAR.Fel"
 };
 
 // Characteristic Abbreviations
 WFRP4E.characteristicsAbbrev = {
-	"ws": "WS",
-	"bs": "BS",
-	"s": "S",
-	"t": "T",
-	"i": "I",
-	"ag": "Ag",
-	"dex": "Dex",
-	"int": "Int",
-	"wp": "WP",
-	"fel": "Fel"
+	"ws": "CHARAbbrev.WS",
+	"bs": "CHARAbbrev.BS",
+	"s": "CHARAbbrev.S",
+	"t": "CHARAbbrev.T",
+	"i": "CHARAbbrev.I",
+	"ag": "CHARAbbrev.Ag",
+	"dex": "CHARAbbrev.Dex",
+	"int": "CHARAbbrev.Int",
+	"wp": "CHARAbbrev.WP",
+	"fel": "CHARAbbrev.Fel"
 };
 
 WFRP4E.skillTypes = {
@@ -428,45 +428,45 @@ WFRP4E.xpCost = {
 }
 
 WFRP4E.skillGroup = {
-	"isSpec": "Is Specialization",
-	"noSpec": "Not Specialization"
+	"isSpec": "ITEM.IsSpec",
+	"noSpec": "ITEM.NoSpec"
 };
 
 WFRP4E.talentMax = {
 	"1": "1",
 	"2": "2",
 	"none": "None",
-	"ws": " Weapon Skill Bonus",
-	"bs": "Ballistic Skill Bonus",
-	"s": "Strength Bonus",
-	"t": "Toughness Bonus",
-	"i": "Initiative Bonus",
-	"ag": "Agility Bonus",
-	"dex": "Dexterity Bonus",
-	"int": "Intelligence Bonus",
-	"wp": "Willpower Bonus",
-	"fel": "Fellowship Bonus"
+	"ws": "CHARBonus.WS",
+	"bs": "CHARBonus.BS",
+	"s": "CHARBonus.S",
+	"t": "CHARBonus.T",
+	"i": "CHARBonus.I",
+	"ag": "CHABonus.Ag",
+	"dex": "CHARBonus.Dex",
+	"int": "CHARBonus.Int",
+	"wp": "CHARBonus.WP",
+	"fel": "CHARBonus.Fel"
 }
 
 
 // Weapon Groups
 WFRP4E.weaponGroups = {
-	"basic": "Basic",
-	"cavalry": "Cavalry",
-	"fencing": "Fencing",
-	"brawling": "Brawling",
-	"flail": "Flail",
-	"parry": "Parry",
-	"polearm": "Polearm",
-	"twohanded": "Two-Handed",
-	"blackpowder": "Blackpowder",
-	"bow": "Bow",
-	"crossbow": "Crossbow",
-	"entangling": "Entangling",
-	"engineering": "Engineering",
-	"explosives": "Explosives",
-	"sling": "Sling",
-	"throwing": "Throwing",
+	"basic": "SPEC.Basic",
+	"cavalry": "SPEC.Cavalry",
+	"fencing": "SPEC.Fencing",
+	"brawling": "SPEC.Brawling",
+	"flail": "SPEC.Flail",
+	"parry": "SPEC.Parry",
+	"polearm": "SPEC.Polearm",
+	"twohanded": "SPEC.TwoHanded",
+	"blackpowder": "SPEC.Blackpowder",
+	"bow": "SPEC.Bow",
+	"crossbow": "SPEC.Crossbow",
+	"entangling": "SPEC.Entangling",
+	"engineering": "SPEC.Engineering",
+	"explosives": "SPEC.Explosives",
+	"sling": "SPEC.Sling",
+	"throwing": "SPEC.Throwing",
 };
 
 // Given a group, what's the primary type, melee or ranged
@@ -538,60 +538,60 @@ WFRP4E.reachDescription = {
 
 // Ammo Groups
 WFRP4E.ammunitionGroups = {
-	"BPandEng": "Blackpowder and Engineering",
-	"bow": "Bow",
-	"crossbow": "Crossbow",
-	"sling": "Sling",
+	"BPandEng": "WFRP4E.BPandEng",
+	"bow": "WFRP4E.Bow",
+	"crossbow": "WFRP4E.Crossbow",
+	"sling": "WFRP4E.Sling",
 };
 
 // Item Qualities
 WFRP4E.itemQualities = {
-	"durable": "Durable",
-	"fine": "Fine",
-	"lightweight": "Lightweight",
-	"practical": "Practical",
+	"durable": "PROPERTY.Durable",
+	"fine": "PROPERTY.Fine",
+	"lightweight": "PROPERTY.Lightweight",
+	"practical": "PROPERTY.Practical",
 };
 
 // Item Flaws
 WFRP4E.itemFlaws = {
-	"ugly": "Ugly",
-	"shoddy": "Shoddy",
-	"unreliable": "Unreliable",
-	"bulky": "Bulky",
+	"ugly": "PROPERTY.Ugly",
+	"shoddy": "PROPERTY.Shoddy",
+	"unreliable": "PROPERTY.Unreliable",
+	"bulky": "PROPERTY.Bulky",
 }
 
 
 // Weapon Qualities
 WFRP4E.weaponQualities = {
-	"accurate": "Accurate",
-	"blackpowder": "Blackpowder",
-	"blast": "Blast",
-	"damaging": "Damaging",
-	"defensive": "Defensive",
-	"entangle": "Entangle",
-	"fast": "Fast",
-	"hack": "Hack",
-	"impact": "Impact",
-	"impale": "Impale",
-	"penetrating": "Penetrating",
-	"pistol": "Pistol",
-	"precise": "Precise",
-	"pummel": "Pummel",
-	"repeater": "Repeater",
-	"shield": "Shield",
-	"trapblade": "Trap Blade",
-	"unbreakable": "Unbreakable",
-	"wrap": "Wrap"
+	"accurate": "PROPERTY.Accurate",
+	"blackpowder": "PROPERTY.Blackpowder",
+	"blast": "PROPERTY.Blast",
+	"damaging": "PROPERTY.Damaging",
+	"defensive": "PROPERTY.Defensive",
+	"entangle": "PROPERTY.Entangle",
+	"fast": "PROPERTY.Fast",
+	"hack": "PROPERTY.Hack",
+	"impact": "PROPERTY.Impact",
+	"impale": "PROPERTY.Impale",
+	"penetrating": "PROPERTY.Penetrating",
+	"pistol": "PROPERTY.Pistol",
+	"precise": "PROPERTY.Precise",
+	"pummel": "PROPERTY.Pummel",
+	"repeater": "PROPERTY.Repeater",
+	"shield": "PROPERTY.Shield",
+	"trapblade": "PROPERTY.TrapBlade",
+	"unbreakable": "PROPERTY.Unbreakable",
+	"wrap": "PROPERTY.Wrap"
 };
 
 // Weapon Flaws
 WFRP4E.weaponFlaws = {
-	"dangerous": "Dangerous",
-	"imprecise": "Imprecise",
-	"reload": "Reload",
-	"slow": "Slow",
-	"tiring": "Tiring",
-	"undamaging": "Undamaging"
+	"dangerous": "PROPERTY.Dangerous",
+	"imprecise": "PROPERTY.Imprecise",
+	"reload": "PROPERTY.Reload",
+	"slow": "PROPERTY.Slow",
+	"tiring": "PROPERTY.Tiring",
+	"undamaging": "PROPERTY.Undamaging"
 };
 
 
@@ -744,15 +744,14 @@ WFRP4E.trappingCategories = {
 
 // Creature Sizes
 WFRP4E.actorSizes = {
-	"tiny": "Tiny",
-	"ltl": "Little",
-	"sml": "Small",
-	"avg": "Average",
-	"lrg": "Large",
-	"enor": "Enormous",
-	"mnst": "Monstrous"
+    "tiny": "SPEC.Tiny",
+    "ltl": "SPEC.Little",
+    "sml": "SPEC.Small",
+    "avg": "SPEC.Average",
+    "lrg": "SPEC.Large",
+    "enor": "SPEC.Enormous",
+    "mnst": "SPEC.Monstrous"
 };
-
 WFRP4E.actorSizeNums = {
 	"tiny": 0,
 	"ltl": 1,
@@ -1017,5 +1016,64 @@ const PSEUDO_ENTITIES = [
 	"Table",
 	"Condition",
 	"Symptom",
-	"Roll"
+	"Roll",
+	"Pay"
 ]
+
+WFRP4E.availabilityTable = {
+	"MARKET.Village" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '2'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 30,
+			stock: '1'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 15,
+			stock: '1'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	},
+	"MARKET.Town" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '2d10'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 60,
+			stock: '1d10'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 30,
+			stock: '1d5'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	},
+	"MARKET.City" : {
+		"WFRP4E.Availability.Common" : {
+			test: 100,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Scarce" : {
+			test: 90,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Rare" : {
+			test: 45,
+			stock: '∞'
+		},
+		"WFRP4E.Availability.Exotic" : {
+			test: 0,
+			stock: '0'
+		}
+	}
+}
+

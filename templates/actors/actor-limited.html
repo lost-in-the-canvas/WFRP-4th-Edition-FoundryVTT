@@ -4,21 +4,9 @@
 
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname item">
-      <input class="input name" style="box-shadow: none !important;" name="name" type="text" value="{{actor.name}}" placeholder="Character Name" />
-      <span class="label name">Name</span>
+      <input class="input name" style="box-shadow: none !important;" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'Character Name'}}" />
+      <span class="label name">{{localize "Name"}}</span>
     </h1>
-
-    <div class="item">
-      <input class="input species" style="box-shadow: none !important;" name="data.details.species.value" type="text" value="{{data.details.species.value}}"
-        placeholder="Species" />
-      <span class="label species">Species</span>
-    </div>
-
-    <div id="field-gender" class="item">
-      <input class="input gender" style="box-shadow: none !important;" name="data.details.gender.value" type="text" value="{{data.details.gender.value}}"
-        placeholder="Gender" />
-      <span class="label gender">Gender</span>
-    </div>
   </header>
 
   <section class="general" ondragstart="return false;" ondrop="return false;">
@@ -28,8 +16,8 @@
         <div class="characteristics-table" cellpadding="0">
           <!-- <div class="table-header"> -->
             {{#each actor.data.characteristics as |ch c|}}
-            <div title="{{ch.label}}" data-char="{{ch}}" class="table-header">
-              <a data-char="{{c}}">{{ch.abrev}}</a>
+            <div title="{{localize ch.label}}" data-char="{{ch}}" class="table-header">
+              <a  class ="ch-roll" data-char="{{c}}">{{localize ch.abrev}}</a>
             </div>
             {{/each}}
           <!-- </div> -->
@@ -46,15 +34,17 @@
   </section>
 
     
-      <section id="tab-sections">
-        <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;" ondrop="return false;">
-          <a class="item active" data-tab="notes">Notes</a>
-        </nav>
-    <div class="tab notes save-scroll" data-tab="notes" data-group="primary">
-      <div class="limited-note-section biography">
-        {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+  <section id="tab-sections">
+      <nav id="wfrp4e-primarytabs" class="sheet-tabs tabs" data-group="primary" ondragstart="return false;" ondrop="return false;">
+        <a class="item active" data-tab="notes">{{localize "Notes"}}</a>
+      </nav>
+      <section class="content">
+      <div class="tab notes save-scroll" data-tab="notes">
+        <div class="limited-note-section biography">
+          {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        </div>
       </div>
-    </div>
+    </section>
   </section>
   
 </form>

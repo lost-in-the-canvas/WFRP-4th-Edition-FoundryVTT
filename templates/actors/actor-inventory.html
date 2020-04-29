@@ -35,7 +35,12 @@
 
 <!-- EQUIPMENT -->
 <div id="currency-header" class="inventory-header item currency-header">
-  <span id="currency-name" class="name">{{localize "WFRP4E.TrappingType.Money"}} ({{localize "Total"}}: {{actor.money.total}}d) 1 GC : 20 SS : 240 BP</span>
+  <span id="currency-name" class="name">
+    {{localize "WFRP4E.TrappingType.Money"}} ({{localize "Total"}}: {{actor.money.total}}d) 1 {{localize "MARKET.Abbrev.GC"}} : 20 {{localize "MARKET.Abbrev.SS"}} : 240 {{localize "MARKET.Abbrev.BP"}}
+    <a class="dollar-icon combat-icon" title="{{localize 'MARKET.Exchange'}}">
+      <i class="fas fa-coins"></i>
+    </a>
+  </span>
   <a id="currency-quantity" class="quantity aggregate" data-type="money">{{localize "SHEET.QtyAbbrev"}}.</a>
   <span id="currency-weight" class="weight">{{localize "SHEET.EncAbbrev"}}.</span>
   {{#if owner}}
@@ -74,7 +79,7 @@
 
 {{#each actor.inventory as |section sid|}}
 {{#if section.show}}
-<div class="inventory-header item {{section.label}}">
+<div class="inventory-header item {{@key}}">
   {{#if section.toggle}}
   <span class="name">{{section.label}}</span>
   {{else}}
@@ -97,7 +102,7 @@
   </div>
 </div>
 
-<ol class="inventory-list {{section.label}}">
+<ol class="inventory-list {{@key}}">
   {{#each section.items as |item i|}}
   <li class="item" data-item-id="{{item._id}}">
   <div class="content">

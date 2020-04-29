@@ -1,10 +1,11 @@
  
         <div class = "chat-buttons">
-            <a class = "edit-toggle" title ="Edit Test"><i class="fas fa-edit"></i></a>
-            <a class = "opposed-toggle" title="Opposed Test"><i class="fas fa-exchange-alt"></i></a>
+            <a class= "chat-button-player" title ='{{localize "CHAT.ContextualMenu"}}'><i class="fas fa-lightbulb"></i></a>
+            <a class = "edit-toggle chat-button-gm" title ='{{localize "CHAT.EditTest"}}'><i class="fas fa-edit"></i></a>
+            <a class = "opposed-toggle chat-button-gm" title='{{localize "CHAT.OpposedTest"}}'><i class="fas fa-exchange-alt"></i></a>
         </div>
 
-        <div class="card-content test-data" data-actor-id="{{actorId}}" data-loc = "{{testData.hitloc.roll}}" data-SL = "{{testData.SL}}" data-roll = "{{testData.roll}}" data-target = "{{testData.target}}" >
+        <div class="card-content test-data" data-actor-id="{{actorId}}" data-loc = "{{testData.hitloc.roll}}" data-SL = "{{testData.SL}}" data-roll = "{{testData.roll}}" data-target = "{{testData.target}}">
             <b>{{title}}</b>
         </div>
     
@@ -37,7 +38,7 @@
         <div class="card-content" roll-description = "{{description}}">
             <b>{{localize "Description"}}</b>: {{testData.description}}
             {{#if testData.extra.critical}}
-            - <a class ="table-click critical-roll" data-table = "crit{{testData.hitloc.result}}"><i class="fas fa-list"></i> {{testData.extra.critical}}</a>
+            - <a class ="table-click critical-roll" data-modifier="{{testData.extra.critModifier}}"data-table = "crit{{testData.hitloc.result}}"><i class="fas fa-list"></i> {{testData.extra.critical}}</a>
             {{/if}}
             {{#if testData.extra.criticalchannell}}
             - <span class ="critical-roll"> {{testData.extra.criticalchannell}}</span>
@@ -62,7 +63,7 @@
             - <a class ="table-click fumble-roll" data-table = "majormis"><i class="fas fa-list"></i> {{testData.extra.majormis}}</a>
             {{/if}}
             {{#if testData.extra.wrath}}
-            - <a class ="table-click fumble-roll" data-sin = "{{testData.sin}}"data-table = "wrath"><i class="fas fa-list"></i> {{testData.extra.wrath}}</a>
+            - <a class ="table-click fumble-roll" data-modifier="{{testData.extra.wrathModifier}}" data-table = "wrath"><i class="fas fa-list"></i> {{testData.extra.wrath}} (+{{testData.extra.wrathModifier}})</a>
             {{/if}}
             {{#if testData.extra.misfire}}
             - <a class ="table-click fumble-roll" data-damage="{{testData.extra.misfireDamage}}" data-table = "misfire"><i class="fas fa-list"></i> {{testData.extra.misfire}}</a>
@@ -78,7 +79,7 @@
 
         {{#if testData.other}}
         <div class="card-content">
-            <b>{{localize "Other"}}</b>: {{testData.other}}
+            <b>{{localize "Other"}}</b>: {{{testData.other}}}
         </div>
         {{/if}}
     

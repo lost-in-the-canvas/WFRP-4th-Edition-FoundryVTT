@@ -1,11 +1,63 @@
 /**
  * Add right click option to damage chat cards to allow application of damage
+ * Add right click option to use fortune point on own rolls
  */
 Hooks.on("getChatLogEntryContext", (html, options) => {
-  let canApply = li => li.find(".opposed-card").length;
+  let canApply = li => li.find(".opposed-card").length && game.user.isGM;
+  let canApplyFortuneReroll = function(li){
+    //Condition to have the fortune contextual options:
+    //Have a selected character
+    //Have fortune point
+    //Own the roll
+    //Once per roll (or at least, not on a reroll card)
+    //Test must be failed 
+    let result = false;
+    if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
+    {
+      let testcard = li.find(".test-data");
+      let message = game.messages.get(li.attr("data-message-id"));
+      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
+      {
+        //If the test was failed
+        if(message.data.flags.data.postData.roll > message.data.flags.data.postData.target)
+          result = true;
+      }
+    }
+    return result;
+  };
+  let canApplyFortuneAddSL = function(li){
+    //Condition to have the fortune contextual options:
+    //Have a selected character
+    //Have fortune point
+    //Own the roll
+    //Once per roll (or at least, not on a reroll card)
+    let result = false;
+    if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
+    {
+      let testcard = li.find(".test-data");
+      let message = game.messages.get(li.attr("data-message-id"));
+      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedAddSL)
+          result = true;
+    }
+     return result;
+  };
+  let canApplyDarkDeals = function(li){
+    //Condition to have the darkdeak contextual options:
+    //Have a selected character
+    //Own the roll
+    let result = false;
+    if(game.user.character)
+    {
+      let testcard = li.find(".test-data");
+      let message = game.messages.get(li.attr("data-message-id"));
+      if(testcard.length && message.user.data.character == game.user.character._id)
+        result = true;
+    }
+     return result;
+  };
   options.push(
     {
-      name: "Apply Damage",
+      name: game.i18n.localize("CHATOPT.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',   
       condition: canApply,   
       callback: li => {
@@ -16,7 +68,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore AP)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoAP"),
       icon: '<i class="fas fa-user-shield"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -27,7 +79,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore TB)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoTB"),
       icon: '<i class="fas fa-fist-raised"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -38,7 +90,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore TB and AP)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoTBAP"),
       icon: '<i class="fas fa-skull-crossbones"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -46,6 +98,33 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
         let defenderSpeaker = game.messages.get(li.attr("data-message-id")).data.flags.opposeData.speakerDefend;
         let updateMsg = ActorWfrp4e.applyDamage(defenderSpeaker, cardData, DAMAGE_TYPE.IGNORE_ALL)
         OpposedWFRP.updateOpposedMessage(updateMsg, li.attr("data-message-id") );
+      }
+    },
+    {
+      name: game.i18n.localize("CHATOPT.UseFortuneReroll"),
+      icon: '<i class="fas fa-dice"></i>',
+      condition: canApplyFortuneReroll,   
+      callback: li =>  {
+        let message = game.messages.get(li.attr("data-message-id"));
+        game.user.character.useFortuneOnRoll(message,"reroll");
+      }
+    },
+    {
+      name: game.i18n.localize("CHATOPT.UseFortuneSL"),
+      icon: '<i class="fas fa-plus-square"></i>',
+      condition: canApplyFortuneAddSL,   
+      callback: li =>  {
+        let message = game.messages.get(li.attr("data-message-id"));
+        game.user.character.useFortuneOnRoll(message,"addSL");
+      }
+    },
+    {
+      name: game.i18n.localize("CHATOPT.DarkDeal"),
+      icon: '<i class="fas fa-pen-nib"></i>',
+      condition: canApplyDarkDeals,   
+      callback: li =>  {
+        let message = game.messages.get(li.attr("data-message-id"));
+        game.user.character.useDarkDeal(message);
       }
     })
   })
