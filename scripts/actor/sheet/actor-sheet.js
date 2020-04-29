@@ -1352,7 +1352,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     else // Otherwise, just lookup the key for the property and use that to lookup the description
     {
-      propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+      propertyKey = WFRP_Utility.findKey(WFRP_Utility.parsePropertyName(property), properties)
     }
   
     let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
