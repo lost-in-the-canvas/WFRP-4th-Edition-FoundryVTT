@@ -15,6 +15,14 @@ class ItemSheetWfrp4e extends ItemSheet
     this.mce = null;
   }
 
+
+  static get defaultOptions() {
+    const options = super.defaultOptions;
+    options.tabs = [{navSelector: ".tabs", contentSelector: ".content", initial: "description"}]
+	  return options;
+  }
+
+
   /**
    * Override header buttons to add custom ones.
    */
@@ -22,15 +30,13 @@ class ItemSheetWfrp4e extends ItemSheet
   {
     let buttons = super._getHeaderButtons();
     // Add "Post to chat" button
-    if (game.user.isGM && this.options.editable)
+    // We previously restricted this to GM and editable items only. If you ever find this comment because it broke something: eh, sorry!
+    buttons.push(
     {
-      buttons.push(
-      {
-        class: "post",
-        icon: "fas fa-comment",
-        onclick: ev => this.item.postItem()
-      })
-    }
+      class: "post",
+      icon: "fas fa-comment",
+      onclick: ev => new ItemWfrp4e(this.item.data).postItem()
+    })
     return buttons
   }
 
@@ -153,6 +159,7 @@ class ItemSheetWfrp4e extends ItemSheet
     else if (this.item.type == "trait")
     {
       data['characteristics'] = WFRP4E.characteristics;
+      data['difficultyLabels'] = WFRP4E.difficultyLabels;
     }
 
     else if (this.item.type == "container")
@@ -165,6 +172,7 @@ class ItemSheetWfrp4e extends ItemSheet
       data['mutationTypes'] = WFRP4E.mutationTypes;
     }
 
+    data.showBorder = data.item.img == "systems/wfrp4e/icons/blank.png" || !data.item.img
     data.isGM = game.user.isGM;
     return data;
   }
@@ -178,13 +186,6 @@ class ItemSheetWfrp4e extends ItemSheet
   activateListeners(html)
   {
     super.activateListeners(html);
-
-    // Activate tabs
-    new Tabs(html.find(".tabs"),
-    {
-      initial: this.item.data.flags["_sheetTab"],
-      callback: clicked => this.item.data.flags["_sheetTab"] = clicked.attr("data-tab")
-    });
 
     // Checkbox changes
     html.find('input[type="checkbox"]').change(event => this._onSubmit(event));

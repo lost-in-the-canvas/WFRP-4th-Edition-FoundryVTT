@@ -32,7 +32,7 @@ class ItemWfrp4e extends Item
   {
     const data = this[`_${this.data.type}ExpandData`]();
     data.description.value = data.description.value || "";
-    data.description.value = enrichHTML(data.description.value, htmlOptions);
+    data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
     return data;
   }
 
@@ -48,7 +48,7 @@ class ItemWfrp4e extends Item
   _moneyExpandData()
   {
     const data = duplicate(this.data.data);
-    data.properties = [`${game.localize("SHEET.PenniesValue")}: ${data.coinValue.value}`];
+    data.properties = [`${game.i18n.localize("ITEM.PenniesValue")}: ${data.coinValue.value}`];
     return data;
   }
 
@@ -250,6 +250,18 @@ class ItemWfrp4e extends Item
     const properties = this[`_${this.data.type}ChatData`]();
     let chatData = duplicate(this.data);
     chatData["properties"] = properties
+
+    //Check if the posted item should have availability/pay buttons
+    chatData.hasPrice = "price" in chatData.data;
+    if(chatData.hasPrice)
+    {
+      if(isNaN(chatData.data.price.gc))
+        chatData.data.price.gc = 0;
+      if(isNaN(chatData.data.price.ss))
+        chatData.data.price.ss = 0;
+      if(isNaN(chatData.data.price.bp))
+        chatData.data.price.bp = 0;
+    }
 
     // Don't post any image for the item (which would leave a large gap) if the default image is used
     if (chatData.img.includes("/blank.png"))

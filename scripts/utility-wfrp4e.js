@@ -222,7 +222,7 @@ class WFRP_Utility
       if (searchResult)
       {
         let dbSkill;
-        await pack.getEntity(searchResult.id).then(packSkill => dbSkill = packSkill);
+        await pack.getEntity(searchResult._id).then(packSkill => dbSkill = packSkill);
         dbSkill.data.name = skillName; // This is important if a specialized skill wasn't found. Without it, <Skill ()> would be added instead of <Skill (Specialization)>
         return dbSkill;
       }
@@ -261,7 +261,7 @@ class WFRP_Utility
       if (searchResult)
       {
         let dbTalent;
-        await pack.getEntity(searchResult.id).then(packTalent => dbTalent = packTalent);
+        await pack.getEntity(searchResult._id).then(packTalent => dbTalent = packTalent);
         dbTalent.data.name = talentName; // This is important if a specialized talent wasn't found. Without it, <Talent ()> would be added instead of <Talent (Specialization)>
         return dbTalent;
       }
@@ -301,7 +301,7 @@ class WFRP_Utility
         await pack.getIndex().then(index => itemList = index);
         let searchResult = itemList.find(t => t.name == itemName)
         if (searchResult)
-          return await pack.getEntity(searchResult.id)
+          return await pack.getEntity(searchResult._id)
       }
     }
 
@@ -311,7 +311,7 @@ class WFRP_Utility
       await p.getIndex().then(index => itemList = index);
       let searchResult = itemList.find(t => t.name == itemName)
       if (searchResult)
-        return await p.getEntity(searchResult.id)
+        return await p.getEntity(searchResult._id)
     }
   }
 
@@ -359,7 +359,7 @@ class WFRP_Utility
    */
   static _calculateAdvCost(currentAdvances, type)
   {
-    let index = Math.ceil((currentAdvances / 5) - 1);
+    let index = Math.floor(currentAdvances / 5);
     index = index < 0 ? 0 : index; // min 0
 
     if (index >= WFRP4E.xpCost[type].length)
@@ -475,7 +475,7 @@ class WFRP_Utility
     effectList = effectList.map(function (effect)
     {
       // Numeric condition = Bleeding 3
-      let isNumeric = !isNaN(effect[effect.indexOf(".") - 1])
+      let isNumeric = !isNaN(effect[effect.lastIndexOf(".") - 1])
       // Add numeric condition to existing condition if available, otherwise, add it
       if (isNumeric)
       {
@@ -588,7 +588,7 @@ class WFRP_Utility
 
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatData.rollMode === "blindroll") chatData["blind"] = true;
-    else if (chatData.rollMode === "selfroll") chatData["whisper"] = game.user._id;
+    else if (chatData.rollMode === "selfroll") chatData["whisper"] = [game.user];
 
     return chatData;
   }
@@ -649,7 +649,7 @@ class WFRP_Utility
     for (let sk of skills)
     {
       let skillItem = undefined;
-      await pack.getEntity(sk.id).then(skill => skillItem = skill);
+      await pack.getEntity(sk._id).then(skill => skillItem = skill);
       if (skillItem.data.data.advanced.value == "bsc")
       {
         if (skillItem.data.data.grouped.value != "noSpec")
@@ -676,11 +676,11 @@ class WFRP_Utility
     let trappingsIndex = [];
     await trappings.getIndex().then(index => trappingsIndex = index);
 
-    let money = trappingsIndex.filter(t => t.name.toLowerCase() == "gold crown" || t.name.toLowerCase() == "silver shilling" || t.name.toLowerCase() == "brass penny")
+    let money = trappingsIndex.filter(t => t.name.toLowerCase() == game.i18n.localize("NAME.GC").toLowerCase() || t.name.toLowerCase() == game.i18n.localize("NAME.SS").toLowerCase() || t.name.toLowerCase() == game.i18n.localize("NAME.BP").toLowerCase())
 
     for (let m of money)
     {
-      let moneyItem = await trappings.getEntity(m.id);
+      let moneyItem = await trappings.getEntity(m._id);
       moneyItems.push(moneyItem.data);
     }
     return moneyItems
@@ -716,36 +716,26 @@ class WFRP_Utility
    */
   static handleTableClick(event)
   {
-    // Sin from wrath of the gods if available
-    if (event.target.text)
-      event.target.text = event.target.text.trim();
-    let sin = Number($(event.currentTarget).attr("data-sin"));
-    let modifier = sin * 10 || 0;
+    let modifier = parseInt($(event.currentTarget).attr("data-modifier")) || 0;
     let html;
     let chatOptions = this.chatDataSetup("", game.settings.get("core", "rollMode"))
 
     if (event.button == 0)
     {
-      if (event.target.text == game.i18n.localize("ROLL.CritCast"))
+      if (event.target.text.trim() == game.i18n.localize("ROLL.CritCast"))
       {
         html = WFRP_Tables.criticalCastMenu($(event.currentTarget).attr("data-table"));
       }
 
-      else if (event.target.text == game.i18n.localize("ROLL.TotalPower"))
+      else if (event.target.text.trim() == game.i18n.localize("ROLL.TotalPower"))
         html = WFRP_Tables.restrictedCriticalCastMenu();
 
       // Not really a table but whatever
       else if ($(event.currentTarget).attr("data-table") == "misfire")
       {
         let damage = $(event.currentTarget).attr("data-damage")
-        html = `<b>${game.i18n.localize("Misfire")}</b>: ${game.i18n.localize("ROLL.MisfireText1")} ${damage} ${game.i18n.localize("ROLL.MisfireText2")}`;
+        html = game.i18n.format("ROLL.Misfire", {damage : damage});
       }
-      else if (sin)
-        html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
-        {
-          modifier: modifier,
-          maxSize: false
-        });
       else
         html = WFRP_Tables.formatChatRoll($(event.currentTarget).attr("data-table"),
         {
@@ -852,7 +842,7 @@ class WFRP_Utility
    * @param {String} itemName name of item being rolled
    * @param {String} itemType type of item ("weapon", "spell", etc)
    */
-  static rollItemMacro(itemName, itemType)
+  static rollItemMacro(itemName, itemType, bypassData)
   {
     const speaker = ChatMessage.getSpeaker();
     let actor;
@@ -862,7 +852,7 @@ class WFRP_Utility
     // Not technically an item, used for convenience
     if (itemType == "characteristic")
     {
-      return actor.setupCharacteristic(itemName)
+      return actor.setupCharacteristic(itemName, bypassData)
     }
     else
     {
@@ -876,15 +866,15 @@ class WFRP_Utility
     switch (item.type)
     {
       case "weapon":
-        return actor.setupWeapon(item)
+        return actor.setupWeapon(item, bypassData)
       case "spell":
-        return actor.spellDialog(item)
+        return actor.spellDialog(item, bypassData)
       case "prayer":
-        return actor.setupPrayer(item)
+        return actor.setupPrayer(item, bypassData)
       case "trait":
-        return actor.setupTrait(item)
+        return actor.setupTrait(item, bypassData)
       case "skill":
-        return actor.setupSkill(item)
+        return actor.setupSkill(item, bypassData)
     }
   }
 
@@ -895,9 +885,10 @@ class WFRP_Utility
     morrsliebActive = !morrsliebActive
     await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)
 
-    if (game.modules.find(m => m.id ==  "fxmaster" && m.active))
+    if (game.modules.get("fxmaster") && game.modules.get("fxmaster").active)
     {
       let filters = canvas.scene.getFlag('fxmaster', 'filters')
+      if (!filters) filters = {};
       if (morrsliebActive)
       {
         filters["morrslieb"] = {
@@ -927,7 +918,9 @@ class WFRP_Utility
       }
       else 
       {
-        game.socket.emit("system.wfrp4e", {})
+        game.socket.emit("system.wfrp4e", {
+          type : "morrslieb"
+        })
         canvas.draw();
       }
     }

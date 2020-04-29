@@ -228,7 +228,7 @@ class WFRP_Tables
           tableHtml += game.i18n.localize("CHAT.ScatterNote")
         tableHtml = tableHtml.replace(`position='${result.roll}'`, "class='selected-position'")
         if (result.dist)
-          tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} yards`)
+          tableHtml = tableHtml.replace("'selected-position'>", `'selected-position'> ${result.dist} ${game.i18n.localize("yards")}`)
 
         return tableHtml;
 

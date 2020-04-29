@@ -1,7 +1,7 @@
 <form class="wfrp4e item-sheet {{cssClass}}" autocomplete="off">
   {{> systems/wfrp4e/templates/items/item-header.html}}
 
-  <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+    <img src="{{item.img}}" {{#if showBorder}}class="no-image-border"{{/if}} data-edit="img"   />
 
   <div class="item-details row2">
     <label class="label-text" style="flex-grow: 0; width: 69px;">{{localize "Category"}}</label>
@@ -16,6 +16,8 @@
     </nav>
   <div class="sheet-tabs edges left"></div>
   <div class="sheet-tabs edges right"></div>
+
+  <section class="content">
 
   {{> systems/wfrp4e/templates/items/item-description.html}}
 
@@ -54,6 +56,19 @@
         {{/select}}
       </select>
     </div>
+
+    
+    <div class="form-group">
+      <label class="label-text">{{localize "ITEM.DefaultDifficulty"}}</label>
+      <select name="data.rollable.defaultDifficulty" data-dtype="String">
+        {{#select data.rollable.defaultDifficulty}}
+        <option value=""></option>
+        {{#each difficultyLabels as |difficultyLabel difficultyKey|}}
+        <option value="{{difficultyKey}}">{{difficultyLabel}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
     {{/if}}
 
     <div class="form-group">
@@ -63,7 +78,9 @@
           data-dtype="{{data.specification.type}}" />
       </div>
     </div>
+
   </div>
+  </section>
 </form>
 
 <script>
