@@ -253,10 +253,7 @@ class OpposedWFRP
     {
       user: game.user._id,
       hideData: true,
-      flags:
-      {
-        "opposedStartMessage": true
-      },
+      flags:{"opposedStartMessage": true},
       content: `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
     }).then(msg => this.startMessage = msg)
   }

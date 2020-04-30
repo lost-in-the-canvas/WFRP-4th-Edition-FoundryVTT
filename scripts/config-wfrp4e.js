@@ -849,21 +849,21 @@ WFRP4E.encumbrancePenalties = {
 }
 
 WFRP4E.conditions = {
-	"ablaze": "Ablaze",
-	"bleeding": "Bleeding",
-	"blinded": "Blinded",
-	"broken": "Broken",
-	"deafened": "Deafened",
-	"entangled": "Entangled",
-	"fatigued": "Fatigued",
-	"poisoned": "Poisoned",
-	"prone": "Prone",
-	"stunned": "Stunned",
-	"surprised": "Surprised",
-	"unconscious": "Unconscious",
-	"grappling": "Grappling",
-	"fear": "Fear",
-	"defeated": "Defeated"
+	"ablaze": "WFRP4E.ConditionName.Ablaze",
+	"bleeding": "WFRP4E.ConditionName.Bleeding",
+	"blinded": "WFRP4E.ConditionName.Blinded",
+	"broken": "WFRP4E.ConditionName.Broken",
+	"deafened": "WFRP4E.ConditionName.Deafened",
+	"entangled": "WFRP4E.ConditionName.Entangled",
+	"fatigued": "WFRP4E.ConditionName.Fatigued",
+	"poisoned": "WFRP4E.ConditionName.Poisoned",
+	"prone": "WFRP4E.ConditionName.Prone",
+	"stunned": "WFRP4E.ConditionName.Stunned",
+	"surprised": "WFRP4E.ConditionName.Surprised",
+	"unconscious": "WFRP4E.ConditionName.Unconscious",
+	"grappling": "WFRP4E.ConditionName.Grappling",
+	"fear": "WFRP4E.ConditionName.Fear",
+	"defeated": "WFRP4E.ConditionName.Defeated"
 }
 
 

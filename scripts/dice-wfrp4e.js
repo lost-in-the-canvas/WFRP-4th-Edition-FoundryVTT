@@ -334,6 +334,8 @@ class DiceWFRP
       }
       if (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Unreliable")))
         testResults.SL--;
+      if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Practical")))
+        testResults.SL++;
 
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
