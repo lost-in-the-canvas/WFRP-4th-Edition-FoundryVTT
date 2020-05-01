@@ -334,6 +334,8 @@ class DiceWFRP
       }
       if (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Unreliable")))
         testResults.SL--;
+      if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Practical")))
+        testResults.SL++;
 
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
@@ -856,6 +858,10 @@ class DiceWFRP
     html.on('mousedown', '.table-click', ev =>
     {
       WFRP_Utility.handleTableClick(ev)
+    })
+
+    html.on('mousedown', '.pay-link', ev => {
+      WFRP_Utility.handlePayClick(ev)
     })
 
     // Respond to editing chat cards - take all inputs and call the same function used with the data filled out
