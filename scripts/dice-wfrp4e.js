@@ -1048,8 +1048,19 @@ class DiceWFRP
           if(!game.user.isGM)
           {
             let actor = game.user.character;
-            let money = duplicate(actor.data.items.filter(i => i.type == "money"));
-            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"),money);
+            let money = duplicate(actor.data.items.filter(i => i.type === "money"));
+            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"), money);
+            if(money)
+              actor.updateEmbeddedEntity("OwnedItem", money);
+          }
+          break;
+        case "creditItem":
+          if(!game.user.isGM)
+          {
+            let actor = game.user.character;
+            let money = duplicate(actor.data.items.filter(i => i.type === "money"));
+            let dataExchange=$(event.currentTarget).attr("data-amount");
+            money = MarketWfrp4e.creditCommand(dataExchange, money);
             if(money)
               actor.updateEmbeddedEntity("OwnedItem", money);
           }
