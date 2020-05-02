@@ -761,7 +761,7 @@ class ActorWfrp4e extends Actor {
     }
 
     if (spellLore == "witchcraft")
-      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.toLowerCase().includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
 
     // Whether the actor has Aethyric Attunement is important in the test rolling logic
     let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == game.i18n.localize("NAME.AA").toLowerCase()) > -1) // aethyric attunement boolean
