@@ -954,3 +954,14 @@ class WFRP_Utility
       }
     }
   }
+
+
+  Hooks.on("renderFilePicker", (app, html, data) => {
+    if (data.target.includes("systems") || data.target.includes("modules"))
+    {
+      html.find("input[name='upload']").css("display" , "none")
+      label = html.find(".upload-file label")
+      label.text("Upload Disabled");
+      label.attr("title", "Upload disabled while in system directory. DO NOT put your assets within any system or module folder.");
+    }
+  })  

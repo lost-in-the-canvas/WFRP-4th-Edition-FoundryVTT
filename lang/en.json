@@ -578,6 +578,7 @@
     "WFRP4E.ConditionName.Unconscious" : "Unconscious",
     "WFRP4E.ConditionName.Grappling" : "Grappling",
     "WFRP4E.ConditionName.Fear" : "Fear",
+    "WFRP4E.ConditionName.Defeated" : "Defeated",
 
     "WFRP4E.SymptomDescriptions.Blight" :  "You are seriously ill and perhaps close to Morr’s Portal as deadly poisons ﬂood your body.\n\nPass a <b>Very Easy (+40) Endurance</b> daily (normally when you sleep) or die, passing away, perhaps in your sleep, perhaps lost in a fever, perhaps in agony. If Blight is marked as (Moderate), this Test is <b>Easy (+30)</b>; if marked as (Severe), this Test is <b>Average (+20)</b>.",
     "WFRP4E.SymptomDescriptions.Buboes" :  "You have huge swellings of the lymph nodes, possibly in the groin, neck or armpits. These are enormously painful and may bleed or seep pus. They are disgusting, smelly, and some would argue a sure sign of the Lord of Pestilence’s favor, believing they hide tiny, growing Daemons. Common practice is to lance these terrible expressions of taint to remove whatever nestles within, though doing so often results in Festering Wounds.\n\nSuffer a penalty of –10 to all physical Tests, and to all Fellowship Tests if the buboes can be seen (or smelled!).",
