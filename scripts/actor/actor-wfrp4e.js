@@ -1105,7 +1105,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} rerenderMessage  The message to be updated (used if editing the chat card)
    */
   static async  defaultRoll(testData, cardOptions, rerenderMessage = null) {
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "defaultRoll";
     if (testData.extra)
       mergeObject(result, testData.extra);
@@ -1136,7 +1136,7 @@ class ActorWfrp4e extends Actor {
    */
   static async incomeOverride(testData, cardOptions, rerenderMessage = null)
   {
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
 
     Hooks.call("wfrp4e:rollIncomeTest", result)
@@ -1228,7 +1228,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollWeaponTest(testData);
+    let result = await DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
     Hooks.call("wfrp4e:rollWeaponTest", result)
@@ -1257,7 +1257,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollCastTest(testData);
+    let result = await DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
 
     Hooks.call("wfrp4e:rollCastTest", result)
@@ -1289,7 +1289,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
+    let result = await DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
     Hooks.call("wfrp4e:rollChannelTest", result)
@@ -1317,7 +1317,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
+    let result = await DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
 
     Hooks.call("wfrp4e:rollPrayerTest", result)
@@ -1345,7 +1345,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
     try
     {
