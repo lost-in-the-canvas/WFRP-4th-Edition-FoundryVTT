@@ -291,7 +291,7 @@ class ItemWfrp4e extends Item
     const data = duplicate(this.data.data);
     let properties = [
     `<b>${game.i18n.localize("ITEM.TrappingType")}</b>: ${WFRP4E.trappingCategories[data.trappingType.value]}`,
-    `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+    `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} ${game.i18n.localize("MARKET.Abbrev.GC")}, ${data.price.ss} ${game.i18n.localize("MARKET.Abbrev.SS")}, ${data.price.bp} ${game.i18n.localize("MARKET.Abbrev.BP")}`,
     `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
     `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
@@ -460,7 +460,7 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} ${game.i18n.localize("MARKET.Abbrev.GC")}, ${data.price.ss} ${game.i18n.localize("MARKET.Abbrev.SS")}, ${data.price.bp} ${game.i18n.localize("MARKET.Abbrev.BP")}`,
       `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
       `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
@@ -507,7 +507,7 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [
-      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} GC, ${data.price.ss} SS, ${data.price.bp} BP`,
+      `<b>${game.i18n.localize("Price")}</b>: ${data.price.gc} ${game.i18n.localize("MARKET.Abbrev.GC")}, ${data.price.ss} ${game.i18n.localize("MARKET.Abbrev.SS")}, ${data.price.bp} ${game.i18n.localize("MARKET.Abbrev.BP")}`,
       `<b>${game.i18n.localize("Encumbrance")}</b>: ${data.encumbrance.value}`,
       `<b>${game.i18n.localize("Availability")}</b>: ${WFRP4E.availability[data.availability.value]}`
     ]
