@@ -99,10 +99,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
     // Grayed-out skill click - prompt to add the skill
     html.find(".untrained-skill").mousedown(async ev =>
     {
-
-      let skill = game.items.entities.filter(i => i.type == "skill" && i.name == event.target.text)[0];
-      if (!skill)
-        skill = await WFRP_Utility.findSkill(event.target.text);
+      let skill = await WFRP_Utility.findSkill(event.target.text);
 
       // Right click - show sheet
       if (ev.button == 2)
@@ -150,9 +147,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
     // Grayed-out talent click - prompt to add the talent
     html.find(".untrained-talent").mousedown(async ev =>
     {
-      let talent = game.items.entities.filter(i => i.type == "talent" && i.name == event.target.text)[0];
-      if (!talent)
-        talent = await WFRP_Utility.findTalent(event.target.text);
+      let talent = await WFRP_Utility.findTalent(event.target.text);
 
       // Right click - show sheet
       if (ev.button == 2)
