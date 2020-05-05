@@ -1302,7 +1302,13 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        this.actor.setupSkill(skill.data, {income : career.data.status});
+        console.log(career)
+        if (!career.data.current.value)
+        {
+          ui.notifications.error(game.i18n.localize("SHEET.NonCurrentCareer"))
+          return;
+        }
+        this.actor.setupSkill(skill.data, {income : this.actor.data.data.details.status});
       })
     }
     li.toggleClass("expanded");
