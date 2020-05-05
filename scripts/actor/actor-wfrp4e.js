@@ -1165,8 +1165,8 @@ class ActorWfrp4e extends Actor {
     if (result.description.includes("Success"))
     {
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
-      {
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
+      { 
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
           break;
@@ -1185,7 +1185,7 @@ class ActorWfrp4e extends Actor {
     {
       moneyEarned /= 2;
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
       {
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
@@ -1206,7 +1206,7 @@ class ActorWfrp4e extends Actor {
       result.incomeResult = game.i18n.localize("INCOME.Failure")
       moneyEarned = 0;
     }
-    result.moneyEarned = moneyEarned + testData.income.tier;
+    result.moneyEarned = moneyEarned + WFRP_Utility.findKey(status[0], WFRP4E.statusTiers);
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })

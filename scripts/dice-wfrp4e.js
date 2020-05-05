@@ -717,7 +717,7 @@ class DiceWFRP
     if (game.settings.get("wfrp4e", "manualChatCards") && !rerenderMessage)
       testData.roll = testData.SL = null;
 
-    if (game.modules.get("dice-so-nice").active)
+    if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
       chatOptions.sound = undefined;
 
     testData.other = testData.other.join("<br>")
