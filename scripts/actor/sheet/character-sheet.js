@@ -60,17 +60,20 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
       // "Current" is the toggle that actually means something, so needs more processing
       if (type == "current")
       {
-        // Assign characteristics to be available or not based on the current career
         let availableCharacteristics = item.data.characteristics
         let characteristics = this.actor.data.data.characteristics;
+
+        // If current was toggled on
         if (item.data.current.value)
         {
+          // Assign characteristics to be available or not based on the current career
           for (let char in characteristics)
           {
             characteristics[char].career = false;
             if (availableCharacteristics.includes(char))
               characteristics[char].career = true;
           }
+          this.actor.update({"data.details.status.value" : WFRP4E.statusTiers[item.data.status.tier] + " " + item.data.status.standing})
         }
         else
         {
@@ -78,6 +81,7 @@ class ActorSheetWfrp4eCharacter extends ActorSheetWfrp4e
           {
             characteristics[char].career = false;
           }
+          this.actor.update({"data.details.status.value" : ""})
         }
         this.actor.update({"data.characteristics": characteristics})
       }

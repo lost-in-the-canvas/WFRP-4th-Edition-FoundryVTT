@@ -1564,7 +1564,9 @@ class ActorWfrp4e extends Actor {
         actorData.currentClass = career.data.class.value;
         actorData.currentCareer = career.name;
         actorData.currentCareerGroup = career.data.careergroup.value;
-        actorData.status = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
+
+        if (!actorData.data.details.status.value) // backwards compatible with moving this to the career change handler
+          actorData.data.details.status.value = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
 
         // Setup advancement indicators for characteristics
         let availableCharacteristics = career.data.characteristics

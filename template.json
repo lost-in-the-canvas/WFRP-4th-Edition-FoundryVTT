@@ -229,6 +229,7 @@
         },
         "status": {
           "type": "String",
+          "value" : "",
           "standing": "",
           "tier": 0
         },
