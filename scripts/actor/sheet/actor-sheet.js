@@ -1302,7 +1302,6 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        console.log(career)
         if (!career.data.current.value)
         {
           ui.notifications.error(game.i18n.localize("SHEET.NonCurrentCareer"))
