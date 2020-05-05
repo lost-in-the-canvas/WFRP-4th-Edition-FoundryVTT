@@ -212,6 +212,8 @@ class OpposedWFRP
         opposeResult.img = defender.img
       }
 
+      Hooks.call("wfrp4e:opposedTestResult", opposeResult)
+
       // If targeting, Create a new result message
       if (options.target)
       {
