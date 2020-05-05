@@ -1149,17 +1149,9 @@ class ActorWfrp4e extends Actor {
     }
 
     let status = testData.income.value.split(' ')
-    let tier = ''
-    let standing = status[1]
-    if(status[0] == "Silver")
-        tier = "s";
-    else if(status[0] == "Gold")
-        tier = "g";
-    else
-        tier = "b"
 
-    let dieAmount = WFRP4E.earningValues[tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
-    dieAmount = Number(dieAmount) * standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
+    let dieAmount = WFRP4E.earningValues[WFRP_Utility.findKey(status[0], WFRP4E.statusTiers)][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
+    dieAmount = Number(dieAmount) * status[1];     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
     let moneyEarned;
     if (testData.income.tier != "g") // Don't roll for gold, just use standing value
     {
