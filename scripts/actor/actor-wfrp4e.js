@@ -761,7 +761,7 @@ class ActorWfrp4e extends Actor {
     }
 
     if (spellLore == "witchcraft")
-      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.toLowerCase().includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
 
     // Whether the actor has Aethyric Attunement is important in the test rolling logic
     let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == game.i18n.localize("NAME.AA").toLowerCase()) > -1) // aethyric attunement boolean
@@ -1105,7 +1105,7 @@ class ActorWfrp4e extends Actor {
    * @param {Object} rerenderMessage  The message to be updated (used if editing the chat card)
    */
   static async  defaultRoll(testData, cardOptions, rerenderMessage = null) {
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "defaultRoll";
     if (testData.extra)
       mergeObject(result, testData.extra);
@@ -1136,7 +1136,7 @@ class ActorWfrp4e extends Actor {
    */
   static async incomeOverride(testData, cardOptions, rerenderMessage = null)
   {
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
 
     Hooks.call("wfrp4e:rollIncomeTest", result)
@@ -1228,7 +1228,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollWeaponTest(testData);
+    let result = await DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
     Hooks.call("wfrp4e:rollWeaponTest", result)
@@ -1257,7 +1257,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollCastTest(testData);
+    let result = await DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
 
     Hooks.call("wfrp4e:rollCastTest", result)
@@ -1289,7 +1289,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
+    let result = await DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
     Hooks.call("wfrp4e:rollChannelTest", result)
@@ -1317,7 +1317,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
+    let result = await DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
 
     Hooks.call("wfrp4e:rollPrayerTest", result)
@@ -1345,7 +1345,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let result = DiceWFRP.rollTest(testData);
+    let result = await DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
     try
     {
@@ -1564,7 +1564,9 @@ class ActorWfrp4e extends Actor {
         actorData.currentClass = career.data.class.value;
         actorData.currentCareer = career.name;
         actorData.currentCareerGroup = career.data.careergroup.value;
-        actorData.status = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
+
+        if (!actorData.data.details.status.value) // backwards compatible with moving this to the career change handler
+          actorData.data.details.status.value = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
 
         // Setup advancement indicators for characteristics
         let availableCharacteristics = career.data.characteristics
@@ -3078,10 +3080,11 @@ class ActorWfrp4e extends Actor {
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
     {
-      if(game.settings.get("wfrp4e", "dangerousCrits") && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
+      let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
+      if(game.settings.get("wfrp4e", "dangerousCrits") && critAmnt && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
       {
-        let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * 10;
-        updateMsg += `<br><a class ="table-click critical-roll" data-modifier=${critModifier} data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} +${critModifier}</a>`
+          let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * critAmnt;
+          updateMsg += `<br><a class ="table-click critical-roll" data-modifier=${critModifier} data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} +${critModifier}</a>`
       }
       else if (Math.abs(newWounds) < actor.data.data.characteristics.t.bonus )
         updateMsg += `<br><a class ="table-click critical-roll" data-modifier="-20" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} (-20)</a>`

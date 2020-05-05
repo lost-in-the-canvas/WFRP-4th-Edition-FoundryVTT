@@ -209,6 +209,10 @@ class WFRP_Utility
    */
   static async findSkill(skillName)
   {
+    // First try world items
+    let worldItem = game.items.entities.filter(i => i.type == "skill" && i.name == skillName)[0];
+    if (worldItem) return worldItem
+
     let skillList = [];
     let packs = game.packs.filter(p => p.metadata.tag == "skill")
     for (let pack of packs)
@@ -227,7 +231,7 @@ class WFRP_Utility
         return dbSkill;
       }
     }
-    throw "Could not find skill (or specialization of) " + skillName + " in compendum"
+    throw "Could not find skill (or specialization of) " + skillName + " in compendum or world"
 
   }
 
@@ -248,6 +252,10 @@ class WFRP_Utility
    */
   static async findTalent(talentName)
   {
+    // First try world items
+    let worldItem = game.items.entities.filter(i => i.type == "talent" && i.name == talentName)[0];
+    if (worldItem) return worldItem
+
     let talentList = [];
     let packs = game.packs.filter(p => p.metadata.tag == "talent")
     for (let pack of packs)
@@ -266,7 +274,7 @@ class WFRP_Utility
         return dbTalent;
       }
     }
-    throw "Could not find talent (or specialization of) " + talentName + " in compendium"
+    throw "Could not find talent (or specialization of) " + talentName + " in compendium or world"
   }
 
 
@@ -954,3 +962,14 @@ class WFRP_Utility
       }
     }
   }
+
+
+  Hooks.on("renderFilePicker", (app, html, data) => {
+    if (data.target.includes("systems") || data.target.includes("modules"))
+    {
+      html.find("input[name='upload']").css("display" , "none")
+      label = html.find(".upload-file label")
+      label.text("Upload Disabled");
+      label.attr("title", "Upload disabled while in system directory. DO NOT put your assets within any system or module folder.");
+    }
+  })  

@@ -805,6 +805,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Clicking the 'Qty.' label in an inventory section - aggregates all items with the same name
   html.find(".aggregate").click(async ev => {
     let itemType = $(ev.currentTarget).attr("data-type")
+    if (itemType == "ingredient") itemType = "trapping"
     let items = duplicate(this.actor.data.items.filter(x => x.type == itemType))
     
     for (let i of items)
@@ -1470,12 +1471,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       });
     }
   
-    // Conditional for creating Trappings from the Trapping tab - sets to the correct trapping type
-    if (event.currentTarget.attributes["data-type"].value == "trapping")
+    if (data.type == "trapping")
       data = mergeObject(data,
       {
         "data.trappingType.value": event.currentTarget.attributes["item-section"].value
       })
+
+    if (data.type == "ingredient")
+    {
+      data = mergeObject(data,
+      {
+        "data.trappingType.value": "ingredient"
+      })
+      data.type = "trapping"
+    }
   
     // Conditional for creating spells/prayers from their tabs, create the item with the correct type
     else if (data.type == "spell" || data.type == "prayer")
@@ -1501,6 +1510,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createEmbeddedEntity("OwnedItem", data);
   }
+  
+
+  
   
   /**
    * Duplicates an owned item given its id.

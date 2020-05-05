@@ -110,7 +110,7 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: target number, SL bonus, success bonus, etc
    */
-  static rollTest(testData)
+  static async rollTest(testData)
   {
     let roll;
     testData.function = "rollTest"
@@ -121,6 +121,10 @@ class DiceWFRP
       }
     else
       roll = new Roll("1d100").roll(); // Use input roll if exists, otherwise, roll randomly (used for editing a test result)
+    if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
+    {
+      await game.dice3d.showForRoll(roll);
+    }
 
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
@@ -309,10 +313,10 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: weapon, target number, SL bonus, success bonus, etc
    */
-  static rollWeaponTest(testData)
+  static async rollWeaponTest(testData)
   {
 
-    let testResults = this.rollTest(testData);
+    let testResults = await this.rollTest(testData);
     let weapon = testResults.weapon;
 
     testData.function = "rollWeaponTest"
@@ -334,6 +338,8 @@ class DiceWFRP
       }
       if (weapon.properties.flaws.includes(game.i18n.localize("PROPERTY.Unreliable")))
         testResults.SL--;
+      if (weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Practical")))
+        testResults.SL++;
 
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
@@ -387,10 +393,10 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static rollCastTest(testData)
+  static async rollCastTest(testData)
   {
     let spell = testData.extra.spell;
-    let testResults = this.rollTest(testData);
+    let testResults = await this.rollTest(testData);
 
     let miscastCounter = 0;
     testData.function = "rollCastTest"
@@ -518,12 +524,12 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static rollChannellTest(testData, actor)
+  static async rollChannellTest(testData, actor)
   {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
 
-    let testResults = this.rollTest(testData);
+    let testResults = await this.rollTest(testData);
     testData.function = "rollChannellTest"
 
     let SL = testResults.SL;
@@ -625,11 +631,11 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: prayer, target number, SL bonus, success bonus, etc
    */
-  static rollPrayTest(testData, actor)
+  static async rollPrayTest(testData, actor)
   {
     let prayer = testData.extra.prayer;
 
-    let testResults = this.rollTest(testData);
+    let testResults = await this.rollTest(testData);
     testData.function = "rollPrayTest"
 
     let SL = testResults.SL;
@@ -704,14 +710,15 @@ class DiceWFRP
    * @param {Object} testData - Test results, values to display, etc.
    * @param {Object} rerenderMessage - Message object to be updated, instead of rendering a new message
    */
-  static renderRollCard(chatOptions, testData, rerenderMessage)
+  static async renderRollCard(chatOptions, testData, rerenderMessage)
   {
 
     // Blank if manual chat cards
     if (game.settings.get("wfrp4e", "manualChatCards") && !rerenderMessage)
-    {
       testData.roll = testData.SL = null;
-    }
+
+    if (game.modules.get("dice-so-nice").active)
+      chatOptions.sound = undefined;
 
     testData.other = testData.other.join("<br>")
 
@@ -794,7 +801,7 @@ class DiceWFRP
    * Activate event listeners using the chat log html.
    * @param html {HTML}  Chat log html
    */
-  static chatListeners(html)
+  static async chatListeners(html)
   {
     // item lookup tag looks for an item based on the location attribute (compendium), then posts that item to chat.
     html.on("click", ".item-lookup", async ev =>
@@ -1052,8 +1059,19 @@ class DiceWFRP
           if(!game.user.isGM)
           {
             let actor = game.user.character;
-            let money = duplicate(actor.data.items.filter(i => i.type == "money"));
-            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"),money);
+            let money = duplicate(actor.data.items.filter(i => i.type === "money"));
+            money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"), money);
+            if(money)
+              actor.updateEmbeddedEntity("OwnedItem", money);
+          }
+          break;
+        case "creditItem":
+          if(!game.user.isGM)
+          {
+            let actor = game.user.character;
+            let money = duplicate(actor.data.items.filter(i => i.type === "money"));
+            let dataExchange=$(event.currentTarget).attr("data-amount");
+            money = MarketWfrp4e.creditCommand(dataExchange, money);
             if(money)
               actor.updateEmbeddedEntity("OwnedItem", money);
           }
