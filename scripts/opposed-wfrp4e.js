@@ -126,6 +126,10 @@ class OpposedWFRP
       let attackerSL = parseInt(attacker.testResult.SL);
       let defenderSL = parseInt(defender.testResult.SL);
       let differenceSL = 0;
+      opposeResult.speakerAttack = attacker.speaker
+      opposeResult.speakerDefend = defender.speaker
+      opposeResult.attackerTestResult = duplicate(attacker.testResult);
+      opposeResult.defenderTestResult = duplicate(defender.testResult);
 
       // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
       // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
@@ -136,10 +140,6 @@ class OpposedWFRP
         // Update message
         opposeResult.result = game.i18n.format("OPPOSED.AttackerWins", {attacker: attacker.speaker.alias, defender: defender.speaker.alias, SL : differenceSL})
         opposeResult.img = attacker.img;
-        opposeResult.speakerAttack = attacker.speaker
-        opposeResult.speakerDefend = defender.speaker
-        opposeResult.attackerTestResult = duplicate(attacker.testResult);
-        opposeResult.defenderTestResult = duplicate(defender.testResult);
 
         // If Damage is a numerical value
         if (!isNaN(opposeResult.attackerTestResult.damage))
