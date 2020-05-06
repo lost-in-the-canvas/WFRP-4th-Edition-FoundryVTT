@@ -1148,10 +1148,12 @@ class ActorWfrp4e extends Actor {
       cardOptions.isOpposedTest = true
     }
 
-    let dieAmount = WFRP4E.earningValues[testData.income.tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
-    dieAmount = Number(dieAmount) * testData.income.standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
+    let status = testData.income.value.split(' ')
+
+    let dieAmount = WFRP4E.earningValues[WFRP_Utility.findKey(status[0], WFRP4E.statusTiers)][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
+    dieAmount = Number(dieAmount) * status[1];     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
     let moneyEarned;
-    if (testData.income.tier != "g") // Don't roll for gold, just use standing value
+    if (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers) != "g") // Don't roll for gold, just use standing value
     {
       dieAmount = dieAmount + "d10";
       moneyEarned = new Roll(dieAmount).roll().total;
@@ -1163,8 +1165,8 @@ class ActorWfrp4e extends Actor {
     if (result.description.includes("Success"))
     {
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
-      {
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
+      { 
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
           break;
@@ -1183,7 +1185,7 @@ class ActorWfrp4e extends Actor {
     {
       moneyEarned /= 2;
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
       {
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
@@ -1204,7 +1206,7 @@ class ActorWfrp4e extends Actor {
       result.incomeResult = game.i18n.localize("INCOME.Failure")
       moneyEarned = 0;
     }
-    result.moneyEarned = moneyEarned + testData.income.tier;
+    result.moneyEarned = moneyEarned + WFRP_Utility.findKey(status[0], WFRP4E.statusTiers);
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
