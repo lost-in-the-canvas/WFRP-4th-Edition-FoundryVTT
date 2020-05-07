@@ -961,7 +961,83 @@ class WFRP_Utility
         canvas.draw();
       }
     }
+
+  static async PlayContextAudio(item, context)
+  {
+    let type = item.type
+    let files
+    await FilePicker.browse("user", `systems/wfrp4e/sounds/${type}`).then(resp => {
+      files = resp.files
+    })
+
+    let globalSound = false;
+
+    let group;
+    if(context.type == "hit")
+      group = "hit"
+    else 
+    {
+      switch(type)
+      {
+      case "weapon":
+        group = item.data.weaponGroup.value
+        if(group == "bow" || group == "crossbow")
+          group = "weapon_bow"
+        else if(group == "fencing" || group == "parry" || group == "twohanded")
+          group = "weapon_sword"
+        else
+          group = "weapon-"
+        break;
+      case "armour":
+        group = item.data.armorType.value
+        group = group.includes("Leather") ? "leather" : group;
+        break;
+      case "trapping":
+        group = item.data.trappingType.value.includes("clothing") ? "cloth" : "item"
+        break;
+      case "spell":
+        group = "spell"
+        break;
+      }
+    }
+
+    files = files.filter(f => f.includes(group))
+    if(context.type == "equip")
+    {
+      if (context.equip || group.includes("weapon") || group == "item")
+      {
+        files = files.filter(f => f.includes("-equip"))
+      }
+      else
+      {
+        files = files.filter(f => f.includes("deequip"))
+      }
+    }
+
+    if(context.type == "spell")
+    {
+      if(context.equip == "memorize")
+        files = files.filter(f => f.includes("memorize"))
+      else if(context.equip == "cast")
+        files = files.filter(f => f.includes("-cast"))
+      else
+      files = files.filter(f => f.includes("miscast"))
+    }
+
+    if(context.type == "hit")
+    {
+      if(context.equip == "crit")
+        files = files.filter(f => f.includes("crit"))
+      else
+        files = files.filter(f => f.includes("normal"))
+    }
+
+    console.log(files)
+    let file = files[new Roll(`1d${files.length}-1`).roll().total]
+    console.log(file)
+    AudioHelper.play({src : file}, globalSound)
   }
+}
 
 
   Hooks.on("renderFilePicker", (app, html, data) => {

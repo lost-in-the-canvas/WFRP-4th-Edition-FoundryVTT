@@ -332,6 +332,7 @@ class DiceWFRP
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering") ||
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Explosives")) && testResults.roll % 2 == 0)
         {
+          WFRP_Utility.PlayContextAudio(weapon, {"type": "gun", "equip": "misfire"})
           testResults.extra.misfire = game.i18n.localize("Misfire")
           testResults.extra.misfireDamage = eval(parseInt(testResults.roll.toString().split('').pop()) + weapon.data.damage.value)
         }
@@ -355,7 +356,10 @@ class DiceWFRP
     }
 
     if (testResults.extra.critical)
+    {
       testResults.extra.color_green = true;
+      WFRP_Utility.PlayContextAudio(weapon, {"type": "hit", "equip": "crit"})
+    }
     if (testResults.extra.fumble)
       testResults.extra.color_red = true;
 
@@ -446,6 +450,7 @@ class DiceWFRP
         testResults.extra.color_green = true;
         testResults.description = game.i18n.localize("ROLL.CastingSuccess")
         testResults.extra.critical = game.i18n.localize("ROLL.TotalPower")
+        WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "cast"})
 
         if (!testData.extra.ID)
           miscastCounter++;
@@ -457,6 +462,8 @@ class DiceWFRP
       testResults.description = game.i18n.localize("ROLL.CastingSuccess")
       let overcasts = Math.floor(slOver / 2);
       testResults.overcasts = overcasts;
+      
+      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "cast"})
 
       if (testResults.roll % 11 == 0)
       {
@@ -476,19 +483,27 @@ class DiceWFRP
         if (testData.extra.ingredient)
           testResults.extra.nullminormis = game.i18n.localize("ROLL.MinorMis")
         else
+        {
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
+          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
+        }
         break;
       case 2:
         if (testData.extra.ingredient)
         {
           testResults.extra.nullmajormis = game.i18n.localize("ROLL.MajorMis")
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
+          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
         }
         else
+        {
+          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
           testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
+        }
         break;
       case 3:
         testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
+        WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
         break;
     }
 
