@@ -106,11 +106,11 @@ class DiceWFRP
    * Provides the basic evaluation of a test.
    * 
    * This function, when given the necessary data (target number, SL bonus, etc.) provides the
-   * basic test evaluation - rolling the test, determining SL, success, description, critical/fumble if needed.
+   * basic test evaluation - rolling the test (if not already given), determining SL, success, description, critical/fumble if needed.
    * 
-   * @param {Object} testData  Test info: target number, SL bonus, success bonus, etc
+   * @param {Object} testData  Test info: target number, SL bonus, success bonus, (opt) roll, etc
    */
-  static async rollTest(testData)
+  static rollTest(testData)
   {
     let roll;
     testData.function = "rollTest"
@@ -121,10 +121,6 @@ class DiceWFRP
       }
     else
       roll = new Roll("1d100").roll(); // Use input roll if exists, otherwise, roll randomly (used for editing a test result)
-    if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
-    {
-      await game.dice3d.showForRoll(roll);
-    }
 
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
@@ -313,10 +309,10 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: weapon, target number, SL bonus, success bonus, etc
    */
-  static async rollWeaponTest(testData)
+  static rollWeaponTest(testData)
   {
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     let weapon = testResults.weapon;
 
     testData.function = "rollWeaponTest"
@@ -393,10 +389,10 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static async rollCastTest(testData)
+  static rollCastTest(testData)
   {
     let spell = testData.extra.spell;
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
 
     let miscastCounter = 0;
     testData.function = "rollCastTest"
@@ -524,12 +520,12 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static async rollChannellTest(testData, actor)
+  static rollChannellTest(testData, actor)
   {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     testData.function = "rollChannellTest"
 
     let SL = testResults.SL;
@@ -631,11 +627,11 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: prayer, target number, SL bonus, success bonus, etc
    */
-  static async rollPrayTest(testData, actor)
+  static rollPrayTest(testData, actor)
   {
     let prayer = testData.extra.prayer;
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     testData.function = "rollPrayTest"
 
     let SL = testResults.SL;
@@ -1105,6 +1101,54 @@ class DiceWFRP
         elem.style.display = ""
       else
         elem.style.display = "none"
+    }
+  }
+
+  /**
+   * Start a dice roll
+   * Used by the rollTest method and its overrides
+   * @param {Object} testData
+   */
+  static async rollDices(testData, cardOptions)
+  {
+    if(!testData.roll)
+    {
+      let roll = new Roll("1d100").roll();
+      await DiceWFRP.showDiceSoNice(roll,cardOptions.rollMode);
+      testData.roll = roll.total;
+    }
+    return testData;
+  }
+
+  /**
+   * Add support for the Dice So Nice module
+   * @param {Object} roll 
+   * @param {String} rollMode 
+   */
+  static async showDiceSoNice(roll,rollMode)
+  {
+    if(game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
+    {
+      let whisper = [];
+      let blind = false;
+      switch(rollMode)
+      {
+        case "blindroll": //GM only
+          blind = true;
+        case "gmroll": //GM + rolling player
+          let gmList = game.users.filter(user => user.isGM);
+          let gmIDList = [];
+          gmList.forEach(gm => gmIDList.push(gm.data._id));
+          whisper = gmIDList;
+          break;
+        case "roll": //everybody
+          let userList = game.users.filter(user => user.active);
+          let userIDList = [];
+          userList.forEach(user => userIDList.push(user.data._id));
+          whisper = userIDList;
+          break;
+      }
+      await game.dice3d.showForRoll(roll,whisper,blind);
     }
   }
 }
