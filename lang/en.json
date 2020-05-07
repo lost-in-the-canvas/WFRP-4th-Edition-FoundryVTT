@@ -53,6 +53,7 @@
     "SHEET.NestedWarning" : "Cannot add container past the 4th nested container.",
     "SHEET.LocationWarning" : "Remove the container before changing its location",
     "SHEET.SkillMissingWarning" : "You don't have this skill",
+    "SHEET.NonCurrentCareer" : "This is not your current career.",
     "SHEET.AddSkillTitle" : "Add Career Skill",
     "SHEET.AddSkillPrompt" : "Do you want to add this skill?",
     "SHEET.AddTalentTitle" : "Add Career Talent",
