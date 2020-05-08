@@ -280,6 +280,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+    WFRP_Utility.PlayContextAudio(itemToEdit, {"type": "ammo", "equip": "normal"})
   });
 
 

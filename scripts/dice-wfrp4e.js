@@ -33,7 +33,7 @@ class DiceWFRP
       sceneStress = game.combat.started ? "challenging" : "average";
     else if (game.settings.get("wfrp4e", "testDefaultDifficulty"))
       sceneStress = "average";
-      
+
     // Merge input with generic properties constant between all tests
     mergeObject(testData,
     {
@@ -54,11 +54,19 @@ class DiceWFRP
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });
-    mergeObject(cardOptions,
-    {
-      user: game.user._id,
-      sound: CONFIG.sounds.dice
-    })
+
+    if(cardOptions.title.includes('Alcohol') || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"){
+      mergeObject(cardOptions,
+        {
+          user: game.user._id,
+        })
+    } else {
+      mergeObject(cardOptions,
+        {
+          user: game.user._id,
+          sound: CONFIG.sounds.dice
+        })
+    }
 
     var roll;
     // If dialogOptions has a rollOverride, use it (spells, weapons, prayers)
@@ -140,10 +148,11 @@ class DiceWFRP
     // SLBonus is always applied, but doesn't change a failure to a success or vice versa
     // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
     // Additionally, the auto-success/failure range can complicate things even more.
-
     // ********** Failure **********
     if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
     {
+      if(testData.extra.skill && testData.extra.skill.name == "Consume Alcohol")
+        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "fail"})
       description = game.i18n.localize("Failure")
       if (roll.total >= 96 && SL > -1)
         SL = -1;
@@ -184,6 +193,8 @@ class DiceWFRP
     // ********** Success **********
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
+      if(testData.extra.skill && testData.extra.skill.name == "Consume Alcohol")
+        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "success"})
       description = game.i18n.localize("Success")
       if (game.settings.get("wfrp4e", "fastSL"))
       {
@@ -321,6 +332,8 @@ class DiceWFRP
 
     testData.function = "rollWeaponTest"
 
+    WFRP_Utility.PlayContextAudio(weapon, {"type": "weapon", "equip": "fire"})
+
     if (testResults.description.includes(game.i18n.localize("Failure")))
     {
       // Dangerous weapons fumble on any failed tesst including a 9
@@ -332,7 +345,7 @@ class DiceWFRP
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering") ||
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Explosives")) && testResults.roll % 2 == 0)
         {
-          WFRP_Utility.PlayContextAudio(weapon, {"type": "gun", "equip": "misfire"})
+          WFRP_Utility.PlayContextAudio(weapon, {"type": "weapon", "equip": "misfire"})
           testResults.extra.misfire = game.i18n.localize("Misfire")
           testResults.extra.misfireDamage = eval(parseInt(testResults.roll.toString().split('').pop()) + weapon.data.damage.value)
         }
@@ -674,6 +687,8 @@ class DiceWFRP
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
         currentSin--;
 
+        WFRP_Utility.PlayContextAudio(prayer, {"type": "prayer", "equip": "miscast"})
+
         if (currentSin < 0)
           currentSin = 0;
 
@@ -684,6 +699,7 @@ class DiceWFRP
     else
     {
       testResults.description = game.i18n.localize("ROLL.PrayGranted")
+      WFRP_Utility.PlayContextAudio(prayer, {"type": "prayer", "equip": "cast"})
 
       // Wrath of the gads activates if ones digit is equal or less than current sin      
       let unitResult = Number(testResults.roll.toString().split('').pop())
@@ -1077,7 +1093,10 @@ class DiceWFRP
             let money = duplicate(actor.data.items.filter(i => i.type === "money"));
             money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"), money);
             if(money)
+            {
+              WFRP_Utility.PlayContextAudio(money, {"type": "money", "equip": "lose"})
               actor.updateEmbeddedEntity("OwnedItem", money);
+            }
           }
           break;
         case "creditItem":
@@ -1088,7 +1107,10 @@ class DiceWFRP
             let dataExchange=$(event.currentTarget).attr("data-amount");
             money = MarketWfrp4e.creditCommand(dataExchange, money);
             if(money)
+            {
+              WFRP_Utility.PlayContextAudio(money, {"type": "money", "equip": "gain"})
               actor.updateEmbeddedEntity("OwnedItem", money);
+            }
           }
           break;
         case "rollAvailabilityTest":
