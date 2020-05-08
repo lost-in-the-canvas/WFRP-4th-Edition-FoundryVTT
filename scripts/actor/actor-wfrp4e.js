@@ -270,7 +270,8 @@ class ActorWfrp4e extends Actor {
       target: this.data.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value,
       extra : {
         size : this.data.data.details.size.value,
-        options : options
+        options : options,
+        skill: skill
       }
     };
 
@@ -3081,9 +3082,13 @@ class ActorWfrp4e extends Actor {
 
     newWounds -= totalWoundLoss
 
+    if(totalWoundLoss > 0)
+      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "normal"})
+
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
     {
+      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
       let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
       if(game.settings.get("wfrp4e", "dangerousCrits") && critAmnt && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
       {

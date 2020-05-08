@@ -118,6 +118,8 @@
     "ITEM.TalentTests" : "Talent Tests",
     "ITEM.IsGrouped" : "Is Grouped",
 
+    "SKILL.ConsumeAlcohol" : "Consume Alcohol",
+
     "Basic" : "Basic",
     "Advanced" : "Advanced",
     "Qualities" : "Qualities",

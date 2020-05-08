@@ -280,6 +280,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+    WFRP_Utility.PlayContextAudio(itemToEdit, {"type": "ammo", "equip": "normal"})
   });
 
 
@@ -601,6 +602,8 @@ class ActorSheetWfrp4e extends ActorSheet {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
+
+    WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "memorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
@@ -759,12 +762,24 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-toggle').click(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    let context;
     if (item.type == "armour")
+    {
       item.data.worn.value = !item.data.worn.value;
+      context = item.data.worn.value
+    }
     else if (item.type == "weapon")
+    {
       item.data.equipped = !item.data.equipped;
+      context = item.data.equipped
+    }
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+    {
       item.data.worn = !item.data.worn;
+      context = item.data.worn
+    }
+    
+    WFRP_Utility.PlayContextAudio(item, {"type": "equip", "equip": context})    
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
