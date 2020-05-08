@@ -1496,21 +1496,21 @@ class ActorWfrp4e extends Actor {
     // if there's any difference.
 
     // Strike Mighty Blow Talent
-    let smb = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.SMB"))
+    let smb = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.SMB").toLowerCase())
     if (smb && this.data.flags.meleeDamageIncrease != smb.data.advances.value)
       this.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
     else if (!smb && this.data.flags.meleeDamageIncrease)
       this.update({"flags.meleeDamageIncrease" : 0});
 
     // Accurate Shot Talent
-    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.AC"))
+    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.AS").toLowerCase())
     if (accshot && this.data.flags.rangedDamageIncrease != accshot.data.advances.value)
       this.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
     else if (!accshot && this.data.flags.rangedDamageIncrease)
       this.update({"flags.rangedDamageIncrease" : 0});
 
     // Robust Talent
-    let robust = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Robust"))
+    let robust = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Robust").toLowerCase())
     if (robust && this.data.flags.robust != robust.data.advances.value)
       this.update({"flags.robust" : robust.data.advances.value});
     else if (!robust && this.data.flags.robust)
