@@ -54,8 +54,8 @@ class DiceWFRP
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });
-
-    if(cardOptions.title.includes('Alcohol') || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"){
+    //Suppresses roll sound if the test has it's own sound associated
+    if(cardOptions.title == game.i18n.localize('Consume Alcohol') || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"){
       mergeObject(cardOptions,
         {
           user: game.user._id,
@@ -151,7 +151,7 @@ class DiceWFRP
     // ********** Failure **********
     if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
     {
-      if(testData.extra.skill && testData.extra.skill.name == "Consume Alcohol")
+      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("ConsumeAlcohol"))
         WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "fail"})
       description = game.i18n.localize("Failure")
       if (roll.total >= 96 && SL > -1)
@@ -193,7 +193,7 @@ class DiceWFRP
     // ********** Success **********
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
-      if(testData.extra.skill && testData.extra.skill.name == "Consume Alcohol")
+      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("Consume Alcohol"))
         WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "success"})
       description = game.i18n.localize("Success")
       if (game.settings.get("wfrp4e", "fastSL"))
