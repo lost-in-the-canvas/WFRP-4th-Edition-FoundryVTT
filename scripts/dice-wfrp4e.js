@@ -54,13 +54,17 @@ class DiceWFRP
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });
+    // TODO: Refactor to replace cardOptoins.sound with the sound effect instead of just suppressing
     //Suppresses roll sound if the test has it's own sound associated
-    if(cardOptions.title == game.i18n.localize('Consume Alcohol') || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"){
+    if(game.settings.get("wfrp4e", "soundEffects") && (cardOptions.title.includes(game.i18n.localize('NAME.ConsumeAlcohol')) || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"))
+    {
       mergeObject(cardOptions,
         {
           user: game.user._id,
         })
-    } else {
+    } 
+    else 
+    {
       mergeObject(cardOptions,
         {
           user: game.user._id,
@@ -147,7 +151,7 @@ class DiceWFRP
     // ********** Failure **********
     if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
     {
-      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("ConsumeAlcohol"))
+      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("NAME.ConsumeAlcohol"))
         WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "fail"})
       description = game.i18n.localize("Failure")
       if (roll.total >= 96 && SL > -1)

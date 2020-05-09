@@ -42,6 +42,8 @@
     "SETTINGS.DangerousCritsHint" : "If an actor is reduced to below 0 wounds, if the number of negative wounds is greater than the actor's TB, the crit roll is made with a modifier equal to the Dangerous Crit Modifier for each negative wound greater than the actor's TB.",
     "SETTINGS.DangerousCritsMod" : "Dangerous Crit Modifier",
     "SETTINGS.DangerousCritsModHint" : "The amount to modify the crit roll by.",
+    "SETTINGS.SoundEffects" : "Sound Effects",
+    "SETTINGS.SoundEffectsHint" : "Adds sound effects to various contextual actions.",
 
 
     "SHEET.Close" : "Close",

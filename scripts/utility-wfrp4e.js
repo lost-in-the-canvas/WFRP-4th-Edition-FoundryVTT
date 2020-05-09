@@ -964,6 +964,9 @@ class WFRP_Utility
 
   static async PlayContextAudio(item, context)
   {
+    if (!game.settings.get("wfrp4e", "soundEffects"))
+      return
+      
     let type = item.type
     let files
     await FilePicker.browse("user", `systems/wfrp4e/sounds/${type}`).then(resp => {
