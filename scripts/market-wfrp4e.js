@@ -397,8 +397,7 @@ class MarketWfrp4e {
          * @returns {int} number of active players
          */
         function getNbOfActivePlayers() {
-            let activePlayers = game.users.players.filter(player => player.data.active);
-            return activePlayers.length;
+            return game.users.players.filter(p => p.data.active).length;
         }
 
         /**
@@ -426,7 +425,7 @@ class MarketWfrp4e {
             let gc = game.i18n.localize("MARKET.Abbrev.GC")
             let ss = game.i18n.localize("MARKET.Abbrev.SS")
             let bp = game.i18n.localize("MARKET.Abbrev.BP")
-            return `${amount.gc}${gc}${amount.ss}${ss}${amount.bp}${bp}`
+            return `${amount.gc}${gc} ${amount.ss}${ss} ${amount.bp}${bp}`
         }
 
         //If the /credit command has a syntax error, we display an error message to the gm
@@ -440,13 +439,22 @@ class MarketWfrp4e {
             let nbActivePlayers = getNbOfActivePlayers();
 
             let message
-            if (option===WFRP4E.creditOptions.SPLIT) {
+            if (nbActivePlayers == 0)
+            {
+                message = game.i18n.localize("MARKET.NoPlayers")
+                ChatMessage.create({content: message})
+                return
+            }   
+            else if (option===WFRP4E.creditOptions.SPLIT) 
+            {
                 amount = splitAmountBetweenAllPlayers(parsedPayRequest, nbActivePlayers);
                 message =  game.i18n.format("MARKET.RequestMessageForSplitCredit", {
                     activePlayerNumber: nbActivePlayers,
                     initialAmount: amountToString(parsedPayRequest),
                 });
-            } else {
+            }
+            else
+            {
                 amount = parsedPayRequest;
                 message = game.i18n.format("MARKET.RequestMessageForEachCredit", {
                     activePlayerNumber: nbActivePlayers,

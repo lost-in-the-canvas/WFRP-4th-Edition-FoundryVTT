@@ -532,8 +532,9 @@
     "MARKET.MoneyAvailable": "Money available:",
     "MARKET.Paid": "<b>Payment complete:</b> {number1} GC {number2} SS {number3} BP",
     "MARKET.Credit": "<b>Credit complete:</b> {number1} GC {number2} SS {number3} BP",
-    "MARKET.RequestMessageForSplitCredit": "The amount of money {initialAmount} will be share among the players ({activePlayerNumber}) for a result of :",
-    "MARKET.RequestMessageForEachCredit": "The amount of money {initialAmount} will be given to all the players ({activePlayerNumber}) for a result of :",
+    "MARKET.RequestMessageForSplitCredit": "The amount of money {initialAmount} will be shared among the {activePlayerNumber} players for a result of :",
+    "MARKET.RequestMessageForEachCredit": "The amount of money {initialAmount} will be given to each of the {activePlayerNumber} players for a result of :",
+    "MARKET.NoPlayers": "No active players in the game session.",
 
     "WFRP4E.TrappingType.Weapon" : "Weapons",
     "WFRP4E.TrappingType.Armour" : "Armour",
