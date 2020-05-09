@@ -603,7 +603,10 @@ class ActorSheetWfrp4e extends ActorSheet {
     const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
 
-    WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "memorize"})
+    if (spell.data.memorized.value)
+      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "memorize"})
+    else
+      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "unmemorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 

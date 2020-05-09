@@ -1058,7 +1058,9 @@ class WFRP_Utility
     if(context.type == "spell")
     {
       if(context.equip == "memorize")
-        files = files.filter(f => f.includes("memorize"))
+        files = files.filter(f => f.includes("-memorize"))
+      else if(context.equip == "unmemorize")
+        files = files.filter(f => f.includes("unmemorize"))
       else if(context.equip == "cast")
       {
         files = files.filter(f => f.includes("-cast"))
