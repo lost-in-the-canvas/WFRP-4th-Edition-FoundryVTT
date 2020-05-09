@@ -126,6 +126,10 @@ class OpposedWFRP
       let attackerSL = parseInt(attacker.testResult.SL);
       let defenderSL = parseInt(defender.testResult.SL);
       let differenceSL = 0;
+      opposeResult.speakerAttack = attacker.speaker
+      opposeResult.speakerDefend = defender.speaker
+      opposeResult.attackerTestResult = duplicate(attacker.testResult);
+      opposeResult.defenderTestResult = duplicate(defender.testResult);
 
       // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
       // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
@@ -136,10 +140,6 @@ class OpposedWFRP
         // Update message
         opposeResult.result = game.i18n.format("OPPOSED.AttackerWins", {attacker: attacker.speaker.alias, defender: defender.speaker.alias, SL : differenceSL})
         opposeResult.img = attacker.img;
-        opposeResult.speakerAttack = attacker.speaker
-        opposeResult.speakerDefend = defender.speaker
-        opposeResult.attackerTestResult = duplicate(attacker.testResult);
-        opposeResult.defenderTestResult = duplicate(defender.testResult);
 
         // If Damage is a numerical value
         if (!isNaN(opposeResult.attackerTestResult.damage))
@@ -149,27 +149,42 @@ class OpposedWFRP
           let sizeDiff = WFRP4E.actorSizeNums[opposeResult.attackerTestResult.size] - WFRP4E.actorSizeNums[opposeResult.defenderTestResult.size]
           damageMultiplier = sizeDiff >= 2 ? sizeDiff : 1
 
-          // If the attacker is using a Trait0 to do damage, calculate damaging and impact if necessary
+          let addDamaging = false;
+          let addImpact = false;
           if (opposeResult.attackerTestResult.trait)
           {
             if (sizeDiff >= 1)
-            {
-              let SL = Number(opposeResult.attackerTestResult.SL)
-              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-              if (unitValue == 0)
-                unitValue = 10;
-              let damageToAdd = unitValue - SL
-              if (damageToAdd > 0)
-                opposeResult.attackerTestResult.damage += damageToAdd
-
-            }
+              addDamaging = true;
             if (sizeDiff >= 2)
-            {
-              let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-              opposeResult.attackerTestResult.damage += unitValue
-            }
+              addImpact = true;
+          }
+          if (opposeResult.attackerTestResult.weapon)
+          {
+            if (sizeDiff >= 1 && !opposeResult.attackerTestResult.weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Damaging")))
+              addDamaging = true;
+            if (sizeDiff >= 2 && !opposeResult.attackerTestResult.weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Impact")))
+              addImpact = true;
           }
 
+          if (addDamaging)
+          {
+            let SL = Number(opposeResult.attackerTestResult.SL)
+            let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+            if (unitValue == 0)
+              unitValue = 10;
+            let damageToAdd = unitValue - SL
+            if (damageToAdd > 0)
+              opposeResult.attackerTestResult.damage += damageToAdd
+
+          }
+          if (addImpact)
+          {
+            let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
+            if (unitValue == 0)
+              unitValue = 10;
+            opposeResult.attackerTestResult.damage += unitValue
+          }
+ 
           opposeResult.damage = {
             description: `<b>${game.i18n.localize("Damage")}</b>: ${(opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier}`,
             value: (opposeResult.attackerTestResult.damage - defenderSL) * damageMultiplier
@@ -191,11 +206,18 @@ class OpposedWFRP
       }
       else // Defender won
       {
+        if(opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Bow") 
+        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Crossbow")
+        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder")
+        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering"))
+          WFRP_Utility.PlayContextAudio(opposeResult.attackerTestResult.weapon, {"type": "weapon", "equip": "miss"})
         opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL; 
         opposeResult.result = game.i18n.format("OPPOSED.DefenderWins", {defender: defender.speaker.alias, attacker : attacker.speaker.alias, SL : differenceSL})
         opposeResult.img = defender.img
       }
+
+      Hooks.call("wfrp4e:opposedTestResult", opposeResult)
 
       // If targeting, Create a new result message
       if (options.target)
@@ -253,10 +275,7 @@ class OpposedWFRP
     {
       user: game.user._id,
       hideData: true,
-      flags:
-      {
-        "opposedStartMessage": true
-      },
+      flags:{"opposedStartMessage": true},
       content: `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
     }).then(msg => this.startMessage = msg)
   }

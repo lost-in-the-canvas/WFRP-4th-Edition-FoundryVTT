@@ -57,7 +57,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
   };
   options.push(
     {
-      name: "Apply Damage",
+      name: game.i18n.localize("CHATOPT.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',   
       condition: canApply,   
       callback: li => {
@@ -68,7 +68,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore AP)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoAP"),
       icon: '<i class="fas fa-user-shield"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -79,7 +79,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore TB)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoTB"),
       icon: '<i class="fas fa-fist-raised"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -90,7 +90,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Apply Damage (Ignore TB and AP)",
+      name: game.i18n.localize("CHATOPT.ApplyDamageNoTBAP"),
       icon: '<i class="fas fa-skull-crossbones"></i>',
       condition: canApply,   
       callback: li =>  {
@@ -101,7 +101,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Use a Fortune point to reroll",
+      name: game.i18n.localize("CHATOPT.UseFortuneReroll"),
       icon: '<i class="fas fa-dice"></i>',
       condition: canApplyFortuneReroll,   
       callback: li =>  {
@@ -110,7 +110,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Use a Fortune point to add +1 SL",
+      name: game.i18n.localize("CHATOPT.UseFortuneSL"),
       icon: '<i class="fas fa-plus-square"></i>',
       condition: canApplyFortuneAddSL,   
       callback: li =>  {
@@ -119,7 +119,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       }
     },
     {
-      name: "Take a Dark Deal to reroll (+1 Corruption)",
+      name: game.i18n.localize("CHATOPT.DarkDeal"),
       icon: '<i class="fas fa-pen-nib"></i>',
       condition: canApplyDarkDeals,   
       callback: li =>  {
