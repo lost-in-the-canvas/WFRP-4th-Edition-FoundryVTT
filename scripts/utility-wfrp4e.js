@@ -1089,9 +1089,9 @@ class WFRP_Utility
     if(type == "skill")
     {
       if(context.type == "consumeAlcohol")
-      {
         files = files.filter(f => f.includes(`consumeAlcohol-${context.equip == "fail" ? 'fail' : 'success'}`))
-      }
+      if(context.type == "stealth")    
+        files = files.filter(f => f.includes(`stealth-${context.equip == "fail" ? 'fail' : 'success'}`))
     }
 
     let file = files[new Roll(`1d${files.length}-1`).roll().total]

@@ -118,8 +118,6 @@
     "ITEM.TalentTests" : "Talent Tests",
     "ITEM.IsGrouped" : "Is Grouped",
 
-    "SKILL.ConsumeAlcohol" : "Consume Alcohol",
-
     "Basic" : "Basic",
     "Advanced" : "Advanced",
     "Qualities" : "Qualities",
@@ -714,6 +712,9 @@
     "NAME.PS" : "Pure Soul",
     "NAME.StrongBack" : "Strong Back",
     "NAME.Sturdy" : "Sturdy",
+    "NAME.ConsumeAlcohol" : "Consume Alcohol",
+    "NAME.Stealth" : "Stealth",
+
 
     "SPEC.Basic" : "Basic",
     "SPEC.Cavalry" : "Cavalry",
@@ -793,7 +794,6 @@
     "ClassTrappings.Rogues": "Clothing, Dagger, Pouch, Sling Bag containing 2 Candles, 1d10 Matches, a Hood or Mask",
     "ClassTrappings.Warriors": "Clothing, Hand Weapon, Dagger, Pouch",
 
-    "NAME.Stealth" : "Stealth",
     "AP" : "AP",
     "Scatter" : "Scatter",
     "yard" : "yard",

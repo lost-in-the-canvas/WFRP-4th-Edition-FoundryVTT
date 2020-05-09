@@ -189,8 +189,11 @@ class DiceWFRP
     // ********** Success **********
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
-      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("Consume Alcohol"))
+      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("NAME.ConsumeAlcohol"))
         WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "success"})
+      if(testData.extra.skill && testData.extra.skill.name.includes(game.i18n.localize("NAME.Stealth")))
+        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "stealth", "equip": "success"})
+
       description = game.i18n.localize("Success")
       if (game.settings.get("wfrp4e", "fastSL"))
       {
@@ -681,12 +684,13 @@ class DiceWFRP
           testResults.extra.color_red = true;
 
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
+        testResults.extra.wrathModifier = Number(currentSin) * 10;
         currentSin--;
+        if (currentSin < 0)
+          currentSin = 0;
 
         WFRP_Utility.PlayContextAudio(prayer, {"type": "prayer", "equip": "miscast"})
 
-        if (currentSin < 0)
-          currentSin = 0;
 
         actor.update({"data.status.sin.value": currentSin});
       }
@@ -704,7 +708,7 @@ class DiceWFRP
       if (unitResult <= currentSin)
       {
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
-        testResults.extra.wrathModifier = currentSin * 10;
+        testResults.extra.wrathModifier = Number(currentSin) * 10;
         currentSin--;
         if (currentSin < 0)
           currentSin = 0;
