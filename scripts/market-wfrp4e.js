@@ -447,7 +447,7 @@ class MarketWfrp4e {
                 ChatMessage.create({content: message});
                 return
             }
-            else if (option===WFRP4E.creditOptions.SPLIT) 
+            else if (option.toLowerCase() ===WFRP4E.creditOptions.SPLIT.toLowerCase() ) 
             {
                 amount = splitAmountBetweenAllPlayers(parsedPayRequest, nbActivePlayers);
                 message =  game.i18n.format("MARKET.RequestMessageForSplitCredit", {
@@ -455,7 +455,7 @@ class MarketWfrp4e {
                     initialAmount: amountToString(parsedPayRequest)
                 });
             }
-            else if ( option===WFRP4E.creditOptions.EACH )  
+            else if ( option.toLowerCase() === WFRP4E.creditOptions.EACH.toLowerCase() )  
             {
               amount = parsedPayRequest;
               console.log("Amount sent : ", amount.gc, amount.ss, amount.bp);
