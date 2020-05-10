@@ -69,19 +69,8 @@ Hooks.on("chatMessage", (html, content, msg) => {
      * @returns {WFRP4E.creditOptions} an option
      */
     function getOption(optionInCommandLine) {
-        let option;
-
-        if (typeof optionInCommandLine !== "undefined" && optionInCommandLine) {
-            let maybeAnOption = WFRP4E.creditOptions[optionInCommandLine.toUpperCase()];
-            if (typeof maybeAnOption !== "undefined") {
-                option = maybeAnOption;
-            } else {
-                option = WFRP4E.creditOptions.SPLIT;
-            }
-        }
-        return option;
-    }
-
+      return (typeof optionInCommandLine == "undefined") ? WFRP4E.creditOptions.SPLIT : optionInCommandLine;
+    }    
 
 // Roll on a table
     if (command === "/table") {

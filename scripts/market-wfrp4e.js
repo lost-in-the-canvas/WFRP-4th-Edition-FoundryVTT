@@ -378,16 +378,14 @@ class MarketWfrp4e {
          * @param {int} amount
          * @returns {Object} an amount {amount.gc,amount.ss,amount.bp}
          */
-        function makeSomeChange(amount) {
-            let gc, ss, bp;
-            if (amount >= 240) {
+        function makeSomeChange(amount, bpRemainder) {
+            let gc=0, ss=0, bp=0;
+            if (amount >= 0) {
                 gc = Math.floor(amount / 240)
                 amount = amount % 240
-            }
-            if (amount >= 20) {
                 ss = Math.floor(amount / 20)
                 bp = amount % 20
-                bp = bp + (bp % 4 === 0 ? 0 : 1) //add 1 bp to solve remainder issue and not to spoil poor players ;)
+                bp = bp + ((bpRemainder > 0) ? 1 : 0);
             }
             return {gc: gc, ss: ss, bp: bp};
         }
@@ -399,7 +397,7 @@ class MarketWfrp4e {
         function getNbOfActivePlayers() {
             return game.users.players.filter(p => p.data.active).length;
         }
-
+        
         /**
          *
          * @param initialAmount {Object} {initialAmount.gc,initialAmount.ss,initialAmount.bp}
@@ -409,10 +407,11 @@ class MarketWfrp4e {
         function splitAmountBetweenAllPlayers(initialAmount, nbOfPlayers) {
             // convert initialAmount in bp
             let bpAmount = initialAmount.gc * 240 + initialAmount.ss * 20 + initialAmount.bp;
-            // divide bpAmount by nb of players
+            // divide bpAmount by nb of players and get the true remainder
+            let bpRemainder = bpAmount % nbOfPlayers;
             bpAmount = Math.floor(bpAmount / nbOfPlayers);
             // rebuild an amount of gc/ss/bp from bpAmount
-            let amount = makeSomeChange(bpAmount);
+            let amount = makeSomeChange(bpAmount, bpRemainder);
             return amount;
         }
 
@@ -428,6 +427,7 @@ class MarketWfrp4e {
             return `${amount.gc}${gc} ${amount.ss}${ss} ${amount.bp}${bp}`
         }
 
+
         //If the /credit command has a syntax error, we display an error message to the gm
         if (!parsedPayRequest) {
             let msg = `<h3><b>${game.i18n.localize("MARKET.CreditRequest")}</b></h3>`;
@@ -437,31 +437,52 @@ class MarketWfrp4e {
         {
             let amount
             let nbActivePlayers = getNbOfActivePlayers();
-
+            let forceWhisper
+            
+            console.log("This is my option", option);
             let message
             if (nbActivePlayers == 0)
             {
-                message = game.i18n.localize("MARKET.NoPlayers")
-                ChatMessage.create({content: message})
+                message = game.i18n.localize("MARKET.NoPlayers");
+                ChatMessage.create({content: message});
                 return
-            }   
+            }
             else if (option===WFRP4E.creditOptions.SPLIT) 
             {
                 amount = splitAmountBetweenAllPlayers(parsedPayRequest, nbActivePlayers);
                 message =  game.i18n.format("MARKET.RequestMessageForSplitCredit", {
                     activePlayerNumber: nbActivePlayers,
-                    initialAmount: amountToString(parsedPayRequest),
+                    initialAmount: amountToString(parsedPayRequest)
                 });
+            }
+            else if ( option===WFRP4E.creditOptions.EACH )  
+            {
+              amount = parsedPayRequest;
+              console.log("Amount sent : ", amount.gc, amount.ss, amount.bp);
+              message = game.i18n.format("MARKET.RequestMessageForEachCredit", {
+                  activePlayerNumber: nbActivePlayers,
+                  initialAmount: amountToString(parsedPayRequest)
+              });              
             }
             else
             {
-                amount = parsedPayRequest;
-                message = game.i18n.format("MARKET.RequestMessageForEachCredit", {
-                    activePlayerNumber: nbActivePlayers,
-                    initialAmount: amountToString(parsedPayRequest),
-                });
+              amount = parsedPayRequest;
+              let pname = option.trim().toLowerCase();
+              let player = game.users.players.filter(p => p.data.name.toLowerCase() == pname );
+              if ( player[0] ) { // Player found !
+                forceWhisper = player[0].data.name;
+                message = game.i18n.format("MARKET.CreditToUser", {
+                    userName: player[0].data.name,
+                    initialAmount: amountToString(parsedPayRequest)
+                });              
+                console.log("We have a player TEST :", option, player, player[0].data.name);
+              } else {
+                message = game.i18n.localize("MARKET.NoMatchingPlayer");
+                ChatMessage.create({content: message});
+                return
+              }              
             }
-
+            console.log("Amount sent 2: ", amount.gc, amount.ss, amount.bp);   
             let cardData = {
                 digestMessage: message,
                 amount: amountToString(amount),
@@ -470,7 +491,7 @@ class MarketWfrp4e {
                 QtBP: amount.bp
             };
             renderTemplate("systems/wfrp4e/templates/chat/market-credit.html", cardData).then(html => {
-                let chatData = WFRP_Utility.chatDataSetup(html, "roll");
+                let chatData = WFRP_Utility.chatDataSetup(html, "roll", false, forceWhisper);
                 ChatMessage.create(chatData);
             });
         }
