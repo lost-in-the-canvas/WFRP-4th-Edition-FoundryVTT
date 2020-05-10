@@ -535,6 +535,7 @@
     "MARKET.RequestMessageForSplitCredit": "The amount of money {initialAmount} will be shared among the {activePlayerNumber} players for a result of:",
     "MARKET.RequestMessageForEachCredit": "The amount of total amount of money {initialAmount} will be given to each of the {activePlayerNumber} players for a result of:",
     "MARKET.NoPlayers": "No active players in the game session.",
+    "MARKET.NoMatchingPlayer": "No matching player name found.",    
     "MARKET.CreditToUser": "The amount of money {initialAmount} is sent to user {userName}.",
 
     "WFRP4E.TrappingType.Weapon" : "Weapons",
