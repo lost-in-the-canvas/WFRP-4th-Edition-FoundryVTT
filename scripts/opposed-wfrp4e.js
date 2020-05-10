@@ -206,7 +206,7 @@ class OpposedWFRP
       }
       else // Defender won
       {
-        if (typeof opposeResult.attackerTestResult.weapon !== "undefined"
+        if (opposeResult.attackerTestResult.weapon
             && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Bow")
             || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Crossbow")
             || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder")

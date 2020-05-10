@@ -1,9 +1,9 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.4.0` 
+**[Current Version]**: `1.4.1` 
 
-**[Compatibility]**: `FoundryVTT 0.5.4+`
+**[Compatibility]**: `FoundryVTT 0.5.4 - 0.5.5`
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
