@@ -17,5 +17,7 @@ Hooks.on("updateCombat", (combat) => {
         canvas.tokens.get(turn.token._id).control();
         canvas.tokens.cycleTokens(1, true);  
       }
+
+      WFRP_Utility.PlayContextAudio({type: 'round'}, {"type": "round", "equip": "change"})
     }
   })

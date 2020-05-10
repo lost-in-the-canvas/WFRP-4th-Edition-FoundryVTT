@@ -2391,11 +2391,12 @@
         left: 0px;
       }
       .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea {
-        height: unset;
+        height: 100%;
       }
       .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea textarea {
         resize: none;
-        text-align: unset;
+        height: 100%;
+        text-align: unset
       }
       .app.window-app.sheet.item-sheet .tab .label-text.skills-textarea {
         height: unset;
@@ -2579,6 +2580,11 @@
       border: none;
       color: black;
     }
+    .app.window-app.sheet.item-sheet.career-sheet .skills{
+      height: 100%      
+    }
+
+
 
 /* ==================== (C) DISEASES ========================== */
   .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs {
@@ -3298,6 +3304,8 @@
     border: 1px dotted #463a3a;
     box-shadow: none;
     }
+
+
       
 /* ==================== (L) SIDEBAR CHAT FORM ================= */
 
@@ -16110,6 +16118,7 @@ button.capture-position {
 .skill-lookup,
 .talent-lookup,
 .skill-drag,
+.pay-link,
 .talent-drag {
   border-radius: 2px;
   border: 1px solid #b9935e99;

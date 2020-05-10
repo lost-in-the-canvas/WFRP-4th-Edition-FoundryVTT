@@ -355,6 +355,10 @@ class ItemSheetWfrp4e extends ItemSheet
       WFRP_Utility.handleTableClick(ev)
     })
 
+    html.on('mousedown', '.pay-link', ev => {
+      WFRP_Utility.handlePayClick(ev)
+    })
+
   }
 }
 

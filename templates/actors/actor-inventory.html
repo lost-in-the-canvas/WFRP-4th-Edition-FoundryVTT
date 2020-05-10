@@ -150,7 +150,7 @@
 
   <span id="spell-label" class="spell item-toggle">{{localize "Spell"}}</span>
 
-  <span class="quantity aggregate" data-type="ingredient">{{localize "SHEET.QtyAbbrev"}}.</span>
+  <a class="quantity aggregate" data-type="ingredient">{{localize "SHEET.QtyAbbrev"}}.</a>
   
   <span class="weight">{{localize "SHEET.EncAbbrev"}}.</span>
   {{#if owner}}
@@ -158,7 +158,7 @@
   {{else}}
   <div class="item-controls" style = "visibility : hidden;">
   {{/if}}
-    <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
+    <a class="item-control item-create" title="{{localize 'SHEET.CreateItem'}}" data-type="ingredient"><i class="fas fa-plus"></i></a>
   </div>
 </div>
 
