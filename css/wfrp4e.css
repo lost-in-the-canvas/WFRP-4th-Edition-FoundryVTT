@@ -14758,7 +14758,9 @@ border-image-outset: 0px !important;
     .app.window-app.filepicker .form-group.current-dir input {
       border-left: 1px solid #736953a6;
     }
-    .app.window-app.filepicker .file-directory {
+
+      .app.window-app.filepicker .folders-list,
+        .app.window-app.filepicker .files-list {
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 3px ridge #5d513e;
       border-radius: 0px;
