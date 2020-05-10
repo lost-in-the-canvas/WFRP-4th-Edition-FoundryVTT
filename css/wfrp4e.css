@@ -3331,69 +3331,86 @@
     flex: 0 0 61px;
     line-height: 30px;
     border-bottom: none;
-    background: none;
+    /* background: #00ffff33; */
     margin: 0px 20px 0px 0px;
     padding: 27px 13px 7px 13px;
     border: none;
     z-index: 11;
-    background: none;
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-direction: row;
   }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .window-title {
       display: block;
       padding: 0px;
       margin: 0px 0px 0px 0px;
-      background: url(../ui/frames/actor-sheet-character.png) no-repeat;
+      background: url(../ui/frames/actor-sheet-character-header.png) no-repeat;
       /* background: red; */
       border: none;
       color: #ff000000;
-      background-position-x: -72px;
+      background-position-x: center;
       background-position-y: 0px;
       height: 51px;
-      width: 456px;
-      position: relative;
-      top: -14px;
-      left: 1px;
+      width: 100%;
+      position: absolute;
+      left: -9px;
+      top: 1px;
+      /* right: 0px; */
+      z-index: 0;
+      /* left: 0px; */
+      flex-basis: 100%;
+      opacity: 3.5;
+      order: 3;
+      flex: 1;
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .configure-sheet {
+    .app.window-app.sheet.wfrp4e.actor .window-header .configure-sheet {
       color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-configure-sheet.png);
+      text-align: left;
+      background: url(../ui/buttons/button-configure-sheet.png) no-repeat;
       height: 30px;
       width: 30px;
-      position: absolute;
-      top: 25px;
-      left: 10px;
+      /* position: absolute; */
+      /* top: 25px; */
+      /* left: 10px; */
       margin: 0px;
       padding: 0px;
       overflow: hidden;
+      order: 4;
+      /* flex: 1; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .configure-token {
+    .app.window-app.sheet.wfrp4e.actor .window-header .configure-token {
       color: #00e5ff00;
       text-align: center;
       background: url(../ui/buttons/button-configure-token.png);
       height: 30px;
       width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 56px;
+      /* position: absolute; */
+      /* top: 25px; */
+      /* right: 56px; */
       margin: 0px;
       padding: 0px;
       overflow: hidden;
       /* background: var(--debug-background-color-red); */
+      order: 5;
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .close {
+    .app.window-app.sheet.wfrp4e.actor .window-header .close {
       color: #00e5ff00;
       text-align: center;
       background: url(../ui/buttons/button-close.png);
       height: 30px;
       width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 27px;
+      /* position: absolute; */
+      /* top: 11px; */
+      /* right: 27px; */
       margin: 0px;
       padding: 0px;
       overflow: hidden;
       /* background: var(--debug-background-color-blue); */
+      position: relative;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      order: 6;
     }
 
 /* ==================== (C) WINDOW BODY ======================= */
@@ -3730,17 +3747,12 @@
     }
 
 /* ==================== (E) TAB SELECTIONS ==================== */
-  .app.window-app.sheet.wfrp4e.actor.character-sheet #tab-sections {
+  .app.window-app.sheet.wfrp4e.actor #tab-sections {
     width: inherit;
     height: calc(100% - 180px);
     padding: 0px;
     margin: 0px;
     /* background: var(--debug-background-color-green); */
-  }
-  .app.window-app.sheet.wfrp4e.actor.character-sheet #tab-sections .content {
-    height: calc(100% - 30px);
-    margin-top: 0px;
-    /* background: #ff000030; */
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet #tab-sections .content .tab.main.save-scroll.active {
     display: block;
@@ -4615,7 +4627,7 @@
           margin-left: 0px;
         }
 /* ==================== (G) SKILLS TAB ======================== */
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active {
+  .app.window-app.sheet.wfrp4e.actor .tab.skills.active {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -4623,21 +4635,21 @@
   }
 
   /* ================== 1. SKILLS LIST ======================== */
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section {
+    .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section {
       display:flex;
       height: calc(100% - 30px);
       width: 100%;
       margin: 0px 0px 0px 0px;
       /* background: #0000ff17; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type {
+    .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type {
       display:flex;
       flex-direction: column;
       height: 100%;
       width: 100%;
       /* background: red; */
     }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section #basic-skills-list {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section #basic-skills-list {
         margin-right: 3px;
         /* height: calc(100% - 0px); */
       }
@@ -4662,7 +4674,7 @@
       background: none;
     }
 
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header {
+    .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header {
       width: 100%;
       height: 20px;
       margin: 0px;
@@ -4678,7 +4690,7 @@
       display: inline-flex;
       flex-grow: 0;
     }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .name {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header .name {
         /* position: relative; */
         /* left: 0px; */
         height: 18px;
@@ -4686,7 +4698,7 @@
         /* background: red; */
         flex: 1;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .char {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header .char {
         height: 18px;
         min-width: 56px;
         display: inline-flex;
@@ -4694,7 +4706,7 @@
         text-align: center;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .adv {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header .adv {
         /* position: relative; */
         /* left: 89px; */
         height: 18px;
@@ -4703,7 +4715,7 @@
         text-align: center;
         display: inline-block;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .total {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header .total {
         /* position: relative; */
         /* left: 90px; */
         text-align: center;
@@ -4712,7 +4724,7 @@
         display: inline-block;
         /* background: #80008059; */
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-header .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-header .item-controls {
         /* position: relative; */
         /* top: -1px; */
         /* left: 104px; */
@@ -4728,7 +4740,7 @@
         text-align: center;
       }
 
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .skill-type .inventory-list {
+    .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .skill-type .inventory-list {
       margin: 0px;
       padding: 0px;
       height: 100%;
@@ -4758,7 +4770,7 @@
       color: var(--actor-input-color);
       /* background: var(--debug-background-color-green); */
     }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .skill-name {
         display: flex;
         flex-direction: row;
         min-width: 100px;
@@ -4766,7 +4778,7 @@
         margin: 1px 0px 0px 0px;
         /* background: blue; */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .skill-name .name {
           display: flex;
           flex-direction: row;
           flex: 1 0 0;
@@ -4779,7 +4791,7 @@
           flex-grow: 0;
           /* background: #6c0080; */
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .row-label {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .row-label {
         min-width: 26px;
         max-width: 26px;
         margin: 1px 0px 0px 0px;
@@ -4792,7 +4804,7 @@
         /* background: blue; */
         border: none;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .row-value {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .row-value {
         min-width: 30px;
         max-width: 30px;
         margin: 1px 0px 0px 0px;
@@ -4805,7 +4817,7 @@
         /* background: green; */
         border: none;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances {
         min-width: 30px;
         max-width: 30px;
         margin: 0px;
@@ -4816,7 +4828,7 @@
         font-weight: var(--actor-input-font-weight);
         color: var(--actor-input-color);
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances input {
+        .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances input {
           width: 100%;
           height: 17px;
           margin: 0px;
@@ -4828,7 +4840,7 @@
           color: var(--actor-input-color);
           /* background: gold; */
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-total {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .skill-total {
         min-width: 30px;
         max-width: 30px;
         margin: 1px 0px 0px 0px;
@@ -4856,7 +4868,7 @@
       }
 
   /* ================== 2. PENALTIES ========================== */
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties {
+    .app.window-app.sheet.wfrp4e.actor .tab.skills.active .penalties {
       height: 24px;
       min-height: 24px;
       max-height: 24px;
@@ -4888,7 +4900,7 @@
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties .penalties {
         width: fit-content;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties > div {
+      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties > .penalty {
         width: fit-content;
         flex-shrink: 0;
         margin: 4px 0px 0px 0px;
@@ -4902,7 +4914,7 @@
         font-weight: var(--actor-input-font-weight);
         color: var(--actor-input-color);
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties .custom-penalty {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .penalties .custom-penalty {
         width: inherit;
         /* background: bisque; */
         display: inline-flex;
@@ -4913,9 +4925,9 @@
         white-space: nowrap;
         overflow: hidden;
         margin: 0px 0px 0px 0px;
-        padding: 0px;
+        padding: 0px 0px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .penalties .custom-penalty .penalties-input {
+      .app.window-app.sheet.wfrp4e.actor .tab.skills.active .penalties .custom-penalty .penalties-input {
         min-width: 20px;
         padding: 3px 3px 0px 3px;
         margin: 0;
@@ -4930,6 +4942,8 @@
         flex-direction: row;
         flex-grow: 2;
         height: 22px;
+        position: relative;
+        top: 0px;
         /* background: red; */
       }
 
@@ -5306,8 +5320,7 @@
 
       .app.window-app.sheet.wfrp4e.creature-sheet .creature-overview-label .combat-icon
       {
-        margin-left: 5px;
-        margin-top: 2px;
+        margin: 0px 3px 0px 0px;
       }
 
       .app.window-app.sheet.wfrp4e.creature-sheet .creature-overview-label .combat-icon > *
@@ -5774,8 +5787,8 @@
           }
         .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .no-ammo,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .no-ammo {
-          min-width: 90px;
-          max-width: 90px;
+          min-width: 110px;
+          max-width: 110px;
           padding: 11px 0px 0px 0px;
           text-align: center;
           flex-grow: 0;
@@ -5986,7 +5999,7 @@
           border-bottom-left-radius: 3px;
           border-bottom-right-radius: 9px;
           display: inline-block;
-          box-shadow: 0 0 10px #a92a97d6 inset;
+          box-shadow: 0 0 10px #4d8239e8 inset;
           border: 1px solid #7369538a;
           text-align: center;
           padding: 3px 0px 0px 0px;
@@ -9560,18 +9573,21 @@
 /*************************************************************/
 
 /* ==================== (A) WINDOW FRAMEWORK ================== */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet {
-    background: url(../ui/frames/actor-sheet-npc.png) no-repeat;
+  .app.window-app.sheet.wfrp4e.actor {
+    background: none;
     box-shadow: none;
     margin: 0px;
+    padding: 0px;
     max-height: none !important;
+    min-width: 616px;
+    min-height: 740px;
   }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-resizable-handle {
     /* display: none !important; */
   }
 
 /* ==================== (B) WINDOW HEADER ===================== */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header {
+  .app.window-app.sheet.wfrp4e.actor .window-header {
     flex: 0 0 61px;
     line-height: 30px;
     border-bottom: none;
@@ -9579,74 +9595,67 @@
     margin: 0px 20px 0px 0px;
     padding: 27px 13px 7px 13px;
     border: none;
+    z-index: 11;
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-direction: row;
   }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .window-title {
-      display: none !important;
+    .app.window-app.sheet.wfrp4e.actor .window-header .window-title {
+      display: block;
       padding: 0px;
-      margin: 0px;
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .configure-sheet {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-configure-sheet.png);
-      height: 30px;
-      width: 30px;
+      margin: 0px 0px 0px 0px;
+      background: url(../ui/frames/actor-sheet-npc-header.png) no-repeat;
+      /* background: red; */
+      border: none;
+      color: #ff000000;
+      background-position-x: center;
+      background-position-y: 0px;
+      height: 51px;
+      width: 100%;
       position: absolute;
-      top: 25px;
-      left: 10px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
+      left: -9px;
+      top: 1px;
+      /* right: 0px; */
+      z-index: 0;
+      /* left: 0px; */
+      flex-basis: 100%;
+      opacity: 3.5;
+      order: 3;
+      flex: 1;
     }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .configure-token {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-configure-token.png);
-      height: 30px;
-      width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 56px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
-      /* background: var(--debug-background-color-red); */
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-header .close {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-close.png);
-      height: 30px;
-      width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 27px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
-      /* background: var(--debug-background-color-blue); */
-    }
+    
 
 /* ==================== (C) WINDOW BODY ======================= */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content {
+  .app.window-app.sheet.wfrp4e.actor .window-content {
     font-size: 13px;
     overflow-y: hidden;
     box-shadow: none;
     background: none;
     overflow-y: hidden;
-    border: none;
-    margin: 3px 26px 65px 8px;
+    border: 1px solid;
+    border-image: url(../ui/frames/actor-sheet-npc-window-content.png) 4 repeat;
+    border-image-slice: 106 fill;
+    border-image-width: 106;
+    border-image-outset: 63px 25px 11px 7px;
     padding: 0px 0px 0px 0px;
+    margin: 3px 26px 0px 8px;
   }
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content form {
+  .app.window-app.sheet.wfrp4e.actor .window-content form {
+    margin: 44px 34px 0px 34px;
+    margin-bottom: 53px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin: 45px 35px;
     padding: 0px;
+    border: 1px solid;
+    border-image: url(../ui/frames/actor-sheet-character-form.png) 4 repeat;
+    border-image-slice: 250 fill;
+    border-image-width: 250;
+    border-image-outset: 44px 34px 0px 34px;
+    /* background: red; */
     /* box-shadow: var(--debug-box-shadow-red); */
   }
 
@@ -9658,17 +9667,25 @@
 
 /* ==================== (D) PERSONAL DETAILS ================== */
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content form #header-personal-details {
-    position: absolute;
-    top: 74px;
-    left: 247px;
-    width: 97px;
-    height: 16px;
+    position: relative;
+    top: -6px;
+    height: 24px;
     font-family: var(--tab-header-font-family);
     font-size: var(--tab-header-font-size);
     font-weight: var(--tab-header-font-weight);
-    color: var(--tab-header-color);
+    color: var(--tab-header-color-active);
     text-align: center;
+    border: 1px solid;
+    border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
+    border-image-width: 4px 7px 4px 7px;
+    border-image-outset: 0px;
+    padding: 3px 10px 0px 10px;
+    background: url(../ui/frames/actor-sheet-character-form.png);
+    background-position-x: center;
+    background-position-y: -16px;
     /* background: var(--debug-background-color-green); */
+    display: inline-block;
+    box-shadow: 0px 0px 8px #00000061 inset;
   }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content form .sheet-header {
     height: 34px;
@@ -9692,7 +9709,7 @@
 
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content form .sheet-header .charname.item {
     height: inherit;
-    width: 275px;
+    min-width: 275px;
     border-bottom: none;
     margin: 0px 15px 0px 0px;
     padding: 0px;
@@ -9811,7 +9828,7 @@
     }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .window-content form .sheet-header #field-gender {
     margin: 0px;
-    width: 63px;
+    /* width: 63px; */
   }
 
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general {
@@ -9848,16 +9865,16 @@
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     height: 49px;
-    width: 403px;
-    max-width: 400px
+    /* width: 403px; */
+    /* max-width: 400px; */
   }
   .limited .general .characteristics .characteristics-table,
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table {
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     height: 49px;
-    width: 403px;
-    max-width: 506px;
+    /* width: 403px; */
+    /* max-width: 506px; */
     display: grid;
     grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     grid-gap: 0px;
@@ -9927,13 +9944,13 @@
     display: flex;
     height: 47px;
     margin: 4px 0px 0px 0px;
-    width: 403px;
+    /* width: 403px; */
     /* background: var(--debug-background-color-blue); */
   }
 
   .app.window-app.sheet.wfrp4e.actor.npc-sheet  .main-row .movement.row-section {
     display: flex;
-    width: 51px;
+    width: 58px;
     margin: 0px 0px 0px 0px;
     border: 1px solid #736953a6;
     flex-grow: 1;
@@ -10245,15 +10262,17 @@
 
 /* ==================== (E) TAB SELECTIONS ==================== */
   .app.window-app.sheet.wfrp4e.actor.npc-sheet #tab-sections {
-    height: 384px;
     width: inherit;
+    height: calc(100% - 180px);
+    padding: 0px;
+    margin: 0px;
   }
   .app.window-app.sheet.wfrp4e.actor.npc-sheet #wfrp4e-primarytabs {
     font-family: var(--tab-header-font-family);
     font-size: var(--tab-header-font-size);
     font-weight: var(--tab-header-font-weight);
     color: var(--tab-header-color);
-    width: 504px;
+    /* width: 504px; */
     margin: 0px 0px 0px 1px;
     height: 24px;
     padding: 0px;
@@ -10275,7 +10294,7 @@
       font-family: var(--tab-header-font-family);
       font-size: var(--tab-header-font-size);
       font-weight: var(--tab-header-font-weight);
-      color: var(--tab-header-color);
+      color: #273444;
       /* background: url(../ui/ActorSheet-TabBorder.png); */
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .sheet-tabs > .item.active {
@@ -10309,24 +10328,18 @@
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active {
     display: flex;
     flex-direction: column;
-    height: 358px;
-    width: 100%;
-    margin: 0px;
-    padding: 0px 0px 0px 0px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    /* background: blue; */
+    height: 100%;
+    margin-top: 6px;
+    /* background: var(--debug-background-color-green); */
   }
 
   /* ================== 1. SKILLS LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section {
       display: flex;
-      flex-direction: row;
-      flex-shrink: 1;
-      margin: 6px 0px 0px 0px;
-      /* background: red; */
-      min-height: 200px;
-      flex-grow: 1;
+      height: calc(100% - 30px);
+      width: 100%;
+      margin: 0px 0px 0px 0px;
+      /* background: #0000ff17; */
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type {
       display:flex;
@@ -10336,10 +10349,12 @@
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section #basic-skills-list {
         margin-right: 3px;
         height: 100%;
+        width: 100%;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section #advanced-skills-list {
         margin-left: 3px;
         height: 100%;
+        width: 100%;
       }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type > h3 {
       border: 1px solid #736953a6;
@@ -10363,7 +10378,7 @@
       width: 100%;
       height: 20px;
       margin: 0px;
-      padding: 0px 6px;
+      padding: 0px 12px 0px 6px;
       border: 1px solid #736953a6;
       font-family: var(--actor-label-font-family);
       font-size: var(--actor-label-font-size);
@@ -10372,55 +10387,63 @@
       background: none;
       box-shadow: 0 0 10px #6b3a0f87 inset;
       text-align: left;
-      display: inline-block;
+      display: inline-flex;
       flex-grow: 0;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .name {
-        position: relative;
-        left: 0px;
+        position: relative; */
+        /* left: 0px; */
         height: 18px;
-        width: fit-content;
-        display: inline-block;
+        display: inline-flex;
+        /* background: red; */
+        flex: 1;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .char {
-        position: relative;
-        left: 74px;
         height: 18px;
-        width: fit-content;
+        min-width: 56px;
+        display: inline-flex;
+        /* background: purple; */
+        text-align: center;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .adv {
-        position: relative;
-        left: 89px;
+        /* position: relative; */
+        /* left: 89px; */
         height: 18px;
-        width: fit-content;
+        width: 30px;
+        /* background: gold; */
+        text-align: center;
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .total {
-        position: relative;
-        left: 90px;
+        /* position: relative; */
+        /* left: 90px; */
+        text-align: center;
         height: 18px;
-        width: fit-content;
+        width: 30px;
         display: inline-block;
+        /* background: #80008059; */
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .item-controls {
-        position: relative;
-        top: -1px;
-        left: 104px;
-        height: fit-content;
-        width: fit-content;
+        /* position: relative; */
+        /* top: -1px; */
+        /* left: 104px; */
+        /* height: fit-content; */
+        width: 20px;
         display: inline-block;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: var(--actor-label-color);
         margin: 0px;
-        padding: 0px;
+        padding: 4px 0px 0px 0px;
+        /* background: #a52a2a47; */
+        text-align: center;
       }
 
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-list {
       margin: 0px;
       padding: 0px;
-      width: 250px;
+      /* width: 250px; */
       height: 100%;
       box-shadow: 0px 0px 1px inset black;
       overflow-y: scroll;
@@ -10453,7 +10476,7 @@
         display: flex;
         flex-direction: row;
         min-width: 100px;
-        max-width: 100px;
+        flex: 1;
         margin: 1px 0px 0px 0px;
         /* background: blue; */
       }
@@ -10725,6 +10748,7 @@
       display: flex;
       flex-direction: row;
       /* background: green; */
+      /* width: 100%; */
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties > h3 {
       font-family: var(--actor-label-font-family);
@@ -10772,6 +10796,7 @@
         white-space: nowrap;
         overflow: hidden;
         margin: 0px 0px 0px 0px;
+        padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .penalties .custom-penalty .penalties-input {
         min-width: 20px;
@@ -10783,10 +10808,12 @@
         text-align: inherit;
         line-height: inherit;
         color: #111;
-        width: inherit;
+        width: 100%;
+        height: 22px;
         display: inline-flex;
         flex-direction: row;
         flex-grow: 2;
+        /* background: aqua; */
       }
 
 /* ==================== (I) MAGIC TAB ========================= */
@@ -11122,92 +11149,60 @@
 
 /* ==================== (A) WINDOW FRAMEWORK ================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet {
-    background: url(../ui/frames/actor-sheet-creature.png) no-repeat;
-    box-shadow: none;
-    margin: 0px;
-    max-height: none !important;
+    /* background: url(../ui/frames/actor-sheet-creature.png) no-repeat; */
+    /* box-shadow: none; */
+    /* margin: 0px; */
+    /* max-height: none !important; */
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-resizable-handle {
     /* display: none !important; */
   }
 
 /* ==================== (B) WINDOW HEADER ===================== */
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header {
-    flex: 0 0 61px;
-    line-height: 30px;
-    border-bottom: none;
-    background: none;
-    margin: 0px 20px 0px 0px;
-    padding: 27px 13px 7px 13px;
-    border: none;
-  }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .window-title {
-      display: none !important;
+      display: block;
       padding: 0px;
-      margin: 0px;
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .configure-sheet {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-configure-sheet.png);
-      height: 30px;
-      width: 30px;
+      margin: 0px 0px 0px 0px;
+      background: url(../ui/frames/actor-sheet-creature-header.png) no-repeat;
+      /* background: red; */
+      border: none;
+      color: #ff000000;
+      background-position-x: center;
+      background-position-y: 0px;
+      height: 51px;
+      width: 100%;
       position: absolute;
-      top: 25px;
-      left: 10px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .configure-token {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-configure-token.png);
-      height: 30px;
-      width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 56px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
-      /* background: var(--debug-background-color-red); */
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-header .close {
-      color: #00e5ff00;
-      text-align: center;
-      background: url(../ui/buttons/button-close.png);
-      height: 30px;
-      width: 30px;
-      position: absolute;
-      top: 25px;
-      right: 27px;
-      margin: 0px;
-      padding: 0px;
-      overflow: hidden;
-      /* background: var(--debug-background-color-blue); */
+      left: -9px;
+      top: 1px;
+      /* right: 0px; */
+      z-index: 0;
+      /* left: 0px; */
+      flex-basis: 100%;
+      opacity: 3.5;
+      order: 3;
+      flex: 1;
     }
 
 /* ==================== (C) WINDOW BODY ======================= */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content {
-    font-size: 13px;
-    overflow-y: hidden;
-    box-shadow: none;
-    background: none;
-    overflow-y: hidden;
-    border: none;
-    margin: 3px 26px 65px 8px;
-    padding: 0px 0px 0px 0px;
+    /* font-size: 13px; */
+    /* overflow-y: hidden; */
+    /* box-shadow: none; */
+    /* background: none; */
+    /* overflow-y: hidden; */
+    /* border: none; */
+    /* margin: 3px 26px 65px 8px; */
+    /* padding: 0px 0px 0px 0px; */
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form {
-    display: inline-block;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: normal;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    margin: 45px 35px;
-    padding: 0px;
+    /* display: inline-block; */
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-content: normal; */
+    /* overflow-y: hidden; */
+    /* overflow-x: hidden; */
+    /* margin: 45px 35px; */
+    /* padding: 0px; */
     /* box-shadow: var(--debug-box-shadow-red); */
   }
 
@@ -11219,17 +11214,25 @@
 
 /* ==================== (D) PERSONAL DETAILS ================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form #header-personal-details {
-    position: absolute;
-    top: 74px;
-    left: 247px;
-    width: 97px;
-    height: 16px;
+    position: relative;
+    top: -6px;
+    height: 24px;
     font-family: var(--tab-header-font-family);
     font-size: var(--tab-header-font-size);
     font-weight: var(--tab-header-font-weight);
-    color: var(--tab-header-color);
+    color: var(--tab-header-color-active);
     text-align: center;
+    border: 1px solid;
+    border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
+    border-image-width: 4px 7px 4px 7px;
+    border-image-outset: 0px;
+    padding: 3px 10px 0px 10px;
+    background: url(../ui/frames/actor-sheet-character-form.png);
+    background-position-x: center;
+    background-position-y: -16px;
     /* background: var(--debug-background-color-green); */
+    display: inline-block;
+    box-shadow: 0px 0px 8px #00000061 inset;
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form .sheet-header {
     height: 34px;
@@ -11253,7 +11256,7 @@
 
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form .sheet-header .charname.item {
     height: inherit;
-    width: 275px;
+    min-width: 275px;
     border-bottom: none;
     margin: 0px 15px 0px 0px;
     padding: 0px;
@@ -11372,7 +11375,7 @@
     }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form .sheet-header #field-gender {
     margin: 0px;
-    width: 63px;
+    /* width: 63px; */
   }
 
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general {
@@ -11408,15 +11411,15 @@
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     height: 49px;
-    width: 403px;
-    max-width: 400px
+    width: 100%;
+    /* max-width: 400px; */
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table {
     margin: 1px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     height: 49px;
-    width: 403px;
-    max-width: 506px;
+    width: 100%;
+    /* max-width: 506px; */
     display: grid;
     grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     grid-gap: 0px;
@@ -11481,7 +11484,7 @@
     display: flex;
     height: 47px;
     margin: 4px 0px 0px 0px;
-    width: 403px;
+    /* width: 403px; */
     /* background: var(--debug-background-color-blue); */
   }
 
@@ -11497,7 +11500,7 @@
     display: flex;
     flex-direction: column;
     height: inherit;
-    width: inherit;
+    width: 80px;
     margin: 0px 0px 0px 0px;
     border-right: 1px solid #736953a6;
     flex-grow: 1;
@@ -11799,18 +11802,18 @@
 
 /* ==================== (E) TAB SELECTIONS ==================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet #tab-sections {
-    height: 384px;
+    /* height: 384px; */
     width: inherit;
   }
   .app.window-app.sheet.wfrp4e.actor.creature-sheet #wfrp4e-primarytabs {
-    font-family: var(--tab-header-font-family);
-    font-size: var(--tab-header-font-size);
-    font-weight: var(--tab-header-font-weight);
-    color: var(--tab-header-color);
-    width: 504px;
-    margin: 0px 0px 0px 1px;
-    height: 24px;
-    padding: 0px;
+    /* font-family: var(--tab-header-font-family); */
+    /* font-size: var(--tab-header-font-size); */
+    /* font-weight: var(--tab-header-font-weight); */
+    /* color: var(--tab-header-color); */
+    /* width: 504px; */
+    /* margin: 0px 0px 0px 1px; */
+    /* height: 24px; */
+    /* padding: 0px; */
     /* background: url(../ui/ActorSheet-TabBackground.png); */
   }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .sheet-tabs > .item {
@@ -11861,49 +11864,48 @@
 
 /* ==================== (F) MAIN TAB ========================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active {
-    overflow-y: scroll;
-    overscroll-behavior-y: auto;
-    overflow-x: hidden;
-    height: 284px;
     margin: 6px 0px 0px 0px;
     padding: 0px 3px 0px 0px;
-    width: 506px;
+    flex: 1;
+    flex-direction: column;
+    display: block;
+    height: calc(100% - 77px);
+    overflow-x: hidden;
+    overflow-y: scroll;
     /* background: antiquewhite; */
   }
 
   /* ================== 1. CREATURE LIST ====================== */
     .wfrp4e.actor.creature-sheet .creature-lists {
-      overflow-y: scroll;
-      overscroll-behavior-y: auto;
-      overflow-x: hidden;
-      height: 278px;
-      margin-top: 6px;
+      height: 100%;
       padding-bottom: 0px;
-      width: 506px;
       /* background: antiquewhite; */
     }
     .wfrp4e.actor.creature-sheet .creature-overview-label {
-      font-family: CaslonAntique;
-      font-size: 16px;
-      font-weight: 700;
-      color: #464331c4;
-      text-align: left;
+      width: 100%;
+      height: 20px;
+      margin: 0px;
+      padding: 0px 2px 0px 6px;
       border: 1px solid #736953a6;
-      margin: 0px 0px 0px 0px;
-      padding: 1px 0px 0px 0px;
-      height: 21px;
+      font-family: var(--actor-label-font-family);
+      font-size: var(--actor-label-font-size);
+      font-weight: var(--actor-label-font-weight);
+      color: var(--actor-label-color);
+      background: none;
       box-shadow: 0 0 10px #6b3a0f87 inset;
-      display: flex;
-      flex-direction: row;
-      padding-left: 4px;
-      border-radius: 0px;
-      width: 493px;
+      text-align: left;
+      display: inline-flex;
+      flex-grow: 0;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
     .wfrp4e.actor.creature-sheet .creature-overview {
       border-left: 1px solid #736953a6;
       border-right: 1px solid #736953a6;
-      width: 493px;
+      /* width: 493px; */
       box-shadow: 0px 0px 1px inset black;
+      margin: 0px;
+      overflow: hidden;
     }
     .wfrp4e.actor.creature-sheet .creature-overview > div:last-child {
       border-bottom: 1px solid #736953a6;
@@ -11948,7 +11950,7 @@
         flex-direction: column;
         /* border: 1px solid #736953a6; */
         /* border-bottom: none; */
-        width: 491px;
+        width: 100%;
         font-family: CaslonPro;
         font-size: 14px;
         font-weight: 500;
@@ -11961,7 +11963,7 @@
         flex-direction: column;
         /* border: 1px solid #736953a6; */
         /* border-bottom: none; */
-        width: 491px;
+        width: 100%;
         font-family: CaslonPro;
         font-size: 14px;
         font-weight: 500;
@@ -12015,15 +12017,15 @@
       height: 24px;
       min-height: 24px;
       max-height: 24px;
-      width: 506px;
+      width: calc(100% - 106px);
       border: 1px solid #736953a6;
       margin: 6px 0px 0px 0px;
       padding: 0px;
       display: flex;
       flex-direction: row;
       position: absolute;
-      top: 600px;
-      /* background: green; */
+      bottom: 96px;
+      /* background: #00800059; */
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties > h3 {
       font-family: var(--actor-label-font-family);
@@ -12061,6 +12063,7 @@
         color: var(--actor-input-color);
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties .custom-penalty {
+        width: inherit;
         /* background: bisque; */
         display: inline-flex;
         flex-direction: row;
@@ -12070,6 +12073,7 @@
         white-space: nowrap;
         overflow: hidden;
         margin: 0px 0px 0px 0px;
+        padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .penalties .custom-penalty .penalties-input {
         min-width: 20px;
@@ -12081,10 +12085,12 @@
         text-align: inherit;
         line-height: inherit;
         color: #111;
-        width: inherit;
+        width: 100%;
+        height: 22px;
         display: inline-flex;
         flex-direction: row;
         flex-grow: 2;
+        /* background: aqua; */
       }
 
   /* ================== 3. ARMOUR HEADERS ===================== */
@@ -12092,15 +12098,17 @@
       text-align: center;
       margin: 0px 0px 0px 0px;
       padding: 0px;
-      width: 506px;
-      height: fit-content;
+      width: calc(100% - 106px);
+      height: 41px;
       background-position-x: 176px;
       background-position-y: center;
       background-size: contain;
-      display: flex;
-      flex-direction: column;
+      display: inline-flex;
+      flex-direction: row;
       position: absolute;
-      top: 556px;
+      bottom: 126px;
+      /* background: #00ffff70; */
+      justify-content: space-between;
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .row {
       text-align: center;
@@ -12108,28 +12116,33 @@
       padding: 0px;
       width: 100%;
       height: fit-content;
-      background: none;
-      display: flex;
+      display: inline-flex;
       flex-direction: row;
       justify-content: space-between;
+      position: absolute;
+      top: 17px;
+      z-index: 3;
+      background: blue;
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .head.column,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .larm.column,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .lleg.column {
-        width: 79px;
+        width: 80px;
         margin: 0px 0px 0px 0px;
         /* background: aqua; */
+        height: 41px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .body.column,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .rarm.column,
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .rleg.column {
-        width: 79px;
+        width: 80px;
         margin: 0px 0px 0px 0px;
+        height: 41px;
         /* background: aqua; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .column .armour-header {
         width: 100%;
-        height: 38px;
+        height: inherit;
         margin: 0px 0px 0px 0px;
         padding: 0px 0px;
         border: 1px solid #736953a6;
@@ -12147,9 +12160,9 @@
       }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.main.active .armour-section .column .armour-header .armour-label {
           width: 100%;
-          height: 20px;
+          /* height: 20px; */
           position: relative;
-          top: -1px;
+          top: 0px;
           display: inline-block;
           text-align: center;
           margin-top: 0px;
@@ -12165,11 +12178,11 @@
           top: -1px;
           border-radius: 10px;
           display: inline-block;
-          box-shadow: 0 0 10px #6b3a0f87 inset;
+          box-shadow: 0 0 10px #964803d6 inset;
           border: 1px solid #7369538a;
           text-align: center;
           padding: 2px 0px 0px 0px;
-          margin: 0px;
+          margin: 0px 0px;
           height: 19px;
           width: 22px;
         }
@@ -12183,7 +12196,7 @@
           border-bottom-left-radius: 10px;
           border-bottom-right-radius: 10px;
           display: inline-block;
-          box-shadow: 0 0 10px #3c3b3b87 inset;
+          box-shadow: 0 0 10px #716f6dd6 inset;
           border: 1px solid #7369538a;
           text-align: center;
           padding: 2px 0px 0px 0px;
@@ -12198,17 +12211,18 @@
           color: #000000c7;
           position: relative;
           top: -1px;
+          left: 2px;
           border-top-left-radius: 9px;
           border-top-right-radius: 3px;
           border-bottom-left-radius: 3px;
           border-bottom-right-radius: 9px;
           display: inline-block;
-          box-shadow: 0 0 10px #4a324987 inset;
+          box-shadow: 0 0 10px #4d8239e8 inset;
           border: 1px solid #7369538a;
           text-align: center;
-          padding: 2px 0px 0px 0px;
-          margin: 0px;
-          height: 19px;
+          padding: 3px 0px 0px 0px;
+          margin: 0px 0px;
+          height: 20px;
           width: 22px;
         }
 
@@ -12535,7 +12549,7 @@
 /* ==================== (K) NOTES TAB ========================= */  
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active {
     display: inline-block;
-    height: 352px;
+    /* height: 352px; */
     width: 100%;
     margin: 6px 0px 0px 0px;
     padding: 0px 3px 0px 0px;
@@ -15343,21 +15357,21 @@ font-style : normal;
 
   /* ==================== (G) ALTERNATIVE CREATURE SHEET SKILLS TAB ======================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active {
-    display: flex;
-    flex-direction: column;
-    height: 358px;
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* height: 358px; */
+    /* width: 100%; */
+    /* margin: 0px; */
+    /* padding: 0px; */
+    /* overflow: hidden; */
     /* background: blue; */
   }
 
   /* ================== 1. SKILLS LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section {
-      display:flex;
-      flex-direction: row;
-      margin: 6px 0px 0px 0px;
+      /* display:flex; */
+      /* flex-direction: row; */
+      /* margin: 6px 0px 0px 0px; */
       /* background: red; */
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type {
@@ -15390,77 +15404,77 @@ font-style : normal;
     }
 
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header {
-      width: 100%;
-      height: 20px;
-      margin: 0px;
-      padding: 0px 6px;
-      border: 1px solid #736953a6;
-      font-family: var(--actor-label-font-family);
-      font-size: var(--actor-label-font-size);
-      font-weight: var(--actor-label-font-weight);
-      color: var(--actor-label-color);
-      background: none;
-      box-shadow: 0 0 10px #6b3a0f87 inset;
-      text-align: left;
-      display: inline-block;
-      flex-grow: 0;
+      /* width: 100%; */
+      /* height: 20px; */
+      /* margin: 0px; */
+      /* padding: 0px 6px; */
+      /* border: 1px solid #736953a6; */
+      /* font-family: var(--actor-label-font-family); */
+      /* font-size: var(--actor-label-font-size); */
+      /* font-weight: var(--actor-label-font-weight); */
+      /* color: var(--actor-label-color); */
+      /* background: none; */
+      /* box-shadow: 0 0 10px #6b3a0f87 inset; */
+      /* text-align: left; */
+      /* display: inline-block; */
+      /* flex-grow: 0; */
     }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header .name {
-        position: relative;
-        left: 0px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
+        /* position: relative; */
+        /* left: 0px; */
+        /* height: 18px; */
+        /* width: fit-content; */
+        /* display: inline-block; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header .char {
-        position: relative;
-        left: 74px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
+        /* position: relative; */
+        /* left: 74px; */
+        /* height: 18px; */
+        /* width: fit-content; */
+        /* display: inline-block; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header .adv {
-        position: relative;
-        left: 89px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
+        /* position: relative; */
+        /* left: 89px; */
+        /* height: 18px; */
+        /* width: fit-content; */
+        /* display: inline-block; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header .total {
-        position: relative;
-        left: 90px;
-        height: 18px;
-        width: fit-content;
+        /* position: relative; */
+        /* left: 90px; */
+        /* height: 18px; */
+        /* width: fit-content; */
         display: inline-block;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-header .item-controls {
-        position: relative;
-        top: -1px;
-        left: 104px;
-        height: fit-content;
-        width: fit-content;
-        display: inline-block;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: var(--actor-label-color);
-        margin: 0px;
-        padding: 0px;
+        /* position: relative; */
+        /* top: -1px; */
+        /* left: 104px; */
+        /* height: fit-content; */
+        /* width: fit-content; */
+        /* display: inline-block; */
+        /* font-family: "Font Awesome 5 Free"; */
+        /* font-size: 10px; */
+        /* color: var(--actor-label-color); */
+        /* margin: 0px; */
+        /* padding: 0px; */
       }
 
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .skill-type .inventory-list {
-      margin: 0px;
-      padding: 0px;
-      width: 250px;
-      height: 278px;
-      box-shadow: 0px 0px 1px inset black;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      border: 1px solid #736953a6;
-      border-top: none;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
+      /* margin: 0px; */
+      /* padding: 0px; */
+      /* width: 250px; */
+      /* height: 278px; */
+      /* box-shadow: 0px 0px 1px inset black; */
+      /* overflow-y: scroll; */
+      /* overflow-x: hidden; */
+      /* border: 1px solid #736953a6; */
+      /* border-top: none; */
+      /* font-family: var(--actor-input-font-family); */
+      /* font-size: var(--actor-input-font-size); */
+      /* font-weight: var(--actor-input-font-weight); */
+      /* color: var(--actor-input-color); */
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section  .inventory-list .item {
       width: 100%;
@@ -15483,15 +15497,15 @@ font-style : normal;
         display: flex;
         flex-direction: row;
         min-width: 100px;
-        max-width: 100px;
+        /* max-width: 100px; */
         margin: 1px 0px 0px 0px;
         /* background: blue; */
       }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .name {
-          display: flex;
-          flex-direction: row;
-          flex: 1 0 0;
-          text-align: left;
+          /* display: flex; */
+          /* flex-direction: row; */
+          /* flex: 1 0 0; */
+          /* text-align: left; */
           /* background: red; */
         }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .advancement-indicator {
@@ -15501,65 +15515,65 @@ font-style : normal;
           /* background: green; */
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .row-label {
-        min-width: 26px;
-        max-width: 26px;
-        margin: 1px 0px 0px 0px;
-        padding: 0px;
-        text-align: center;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        background: none;
-        border: none;
+        /* min-width: 26px; */
+        /* max-width: 26px; */
+        /* margin: 1px 0px 0px 0px; */
+        /* padding: 0px; */
+        /* text-align: center; */
+        /* font-family: var(--actor-input-font-family); */
+        /* font-size: var(--actor-input-font-size); */
+        /* font-weight: var(--actor-input-font-weight); */
+        /* color: var(--actor-input-color); */
+        /* background: none; */
+        /* border: none; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .row-value {
-        min-width: 30px;
-        max-width: 30px;
-        margin: 1px 0px 0px 0px;
-        padding: 0px;
-        text-align: center;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        background: none;
-        border: none;
+        /* min-width: 30px; */
+        /* max-width: 30px; */
+        /* margin: 1px 0px 0px 0px; */
+        /* padding: 0px; */
+        /* text-align: center; */
+        /* font-family: var(--actor-input-font-family); */
+        /* font-size: var(--actor-input-font-size); */
+        /* font-weight: var(--actor-input-font-weight); */
+        /* color: var(--actor-input-color); */
+        /* background: none; */
+        /* border: none; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances {
         min-width: 30px;
-        max-width: 30px;
-        margin: 0px;
-        padding: 0px;
-        text-align: center;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
+        /* max-width: 30px; */
+        /* margin: 0px; */
+        /* padding: 0px; */
+        /* text-align: center; */
+        /* font-family: var(--actor-input-font-family); */
+        /* font-size: var(--actor-input-font-size); */
+        /* font-weight: var(--actor-input-font-weight); */
+        /* color: var(--actor-input-color); */
       }
         .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .input-field.skill-advances input {
-          width: 100%;
-          height: 17px;
-          margin: 0px;
-          padding: 2px 0px 0px 0px;
-          text-align: center;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
+          /* width: 100%; */
+          /* height: 17px; */
+          /* margin: 0px; */
+          /* padding: 2px 0px 0px 0px; */
+          /* text-align: center; */
+          /* font-family: var(--actor-input-font-family); */
+          /* font-size: var(--actor-input-font-size); */
+          /* font-weight: var(--actor-input-font-weight); */
+          /* color: var(--actor-input-color); */
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .skill-total {
-        min-width: 30px;
-        max-width: 30px;
-        margin: 1px 0px 0px 0px;
-        padding: 0px;
-        text-align: center;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        color: #672323;
-        text-shadow: 1px 0px 1px #6e6e716e;
+        /* min-width: 30px; */
+        /* max-width: 30px; */
+        /* margin: 1px 0px 0px 0px; */
+        /* padding: 0px; */
+        /* text-align: center; */
+        /* font-family: var(--actor-input-font-family); */
+        /* font-size: var(--actor-input-font-size); */
+        /* font-weight: var(--actor-input-font-weight); */
+        /* color: var(--actor-input-color); */
+        /* color: #672323; */
+        /* text-shadow: 1px 0px 1px #6e6e716e; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
         padding: 2px 2px 0px 0px;
@@ -15631,6 +15645,7 @@ font-style : normal;
         white-space: nowrap;
         overflow: hidden;
         margin: 0px 0px 0px 0px;
+        padding: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .penalties .custom-penalty .penalties-input {
         min-width: 20px;
@@ -16115,18 +16130,14 @@ button.capture-position {
   background: url(../ui/buttons/popout.png);
   height: 30px;
   width: 30px;
-  position: absolute;
-  top: 8px;
-  right: 5px;
+  /* position: absolute; */
+  /* top: 8px; */
+  /* right: 5px; */
   overflow: hidden;
+  order: 1;
+  margin: 0px;
 }
 
-.app.window-app.character-sheet .popout,
-  .app.window-app.npc-sheet .popout,
-    .app.window-app.creature-sheet .popout{
-left: 30px;
-top: 25px;
-}
 
 .app.window-app.journal-sheet .popout {
   left: 26px;
@@ -16567,13 +16578,15 @@ our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
 
 
   #effects-config.app.window-app {
-    height: 480px !important
+    height: 484px !important;
   }
   #filter-config.app.window-app {
     height: 175px !important
   }
   #effects-config .window-content {
   color: #CCC;
+  overflow: hidden;
+  padding-right: 7px;
 }
 
   #filter-config .window-content,
@@ -16594,21 +16607,22 @@ our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
   box-shadow: 0px 0px 8px inset black;
   background: #352516;
   position: relative;
-  top: 2px;
+  top: 1px;
+  transform: scale(1);
 }
 
 #filter-config input,
   #effects-config input {
   padding: 1px 3px;
-    margin: 0;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: #d6d6d6;
-    border: 1px solid #736953a6;
-    border-left: none;
-    box-shadow: 0px 0px 10px inset black;
-    background: #352516;
+  margin: 0;
+  font-family: var(--actor-input-font-family);
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+  color: #d6d6d6;
+  border: 1px solid #736953a6;
+  /* border-left: none; */
+  box-shadow: 0px 0px 10px inset black;
+  background: #352516;
 }
 
 #filter-config input[type="range"],
@@ -17145,4 +17159,40 @@ a.entity-link, a.inline-roll {
     line-height: normal;
     padding-top: 10px;
     text-align: left;
+}
+.app.window-app.sheet.wfrp4e.actor .window-header .open-gm-note {
+    color: #00c2d800;
+    text-align: center;
+    background: url(../ui/buttons/popout.png);
+    height: 30px;
+    width: 30px;
+    /* position: absolute; */
+    /* top: 8px; */
+    /* right: 5px; */
+    overflow: hidden;
+    order: 1;
+    margin: 0px;
+}
+
+.window-app .window-header a {
+  z-index: 3;
+}
+.app.window-app.sheet.wfrp4e.actor .window-content form .header.personal {
+  position: absolute;
+  top: 77px;
+  width: calc(100% - 106px);
+  height: 30px;
+  align-items: center;
+  display: inline-flex;
+  flex-direction: column;
+  /* background: #ff000045; */
+}
+
+.app.window-app.sheet.wfrp4e.actor .window-content .editable .content  {
+  height: calc(100% - 30px);
+  /* background: #ff000047; */
+}
+
+.fxmaster .config.collapsible .flexrow strong {
+  font-weight: normal;
 }
