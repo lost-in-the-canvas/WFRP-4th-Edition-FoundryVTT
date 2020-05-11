@@ -3344,7 +3344,7 @@
     border-bottom: none;
     /* background: #00ffff33; */
     margin: 0px 20px 0px 0px;
-    padding: 27px 13px 7px 13px;
+    padding: 27px 3px 7px 3px;
     border: none;
     z-index: 11;
     display: inline-flex;
@@ -9672,7 +9672,7 @@
     border-bottom: none;
     background: none;
     margin: 0px 20px 0px 0px;
-    padding: 27px 13px 7px 13px;
+    padding: 27px 3px 7px 3px;
     border: none;
     z-index: 11;
     display: inline-flex;
@@ -13183,6 +13183,12 @@ border-image-outset: 0px !important;
     text-align: center;
     justify-content: center;
   }
+    .app.window-app .window-header .close {
+      position: absolute;
+      top: 9px;
+      left: auto;
+      right: 6px;
+    }
     .app.window-app .window-header .window-title {
       flex-grow: 0;
       flex-basis: auto;
@@ -13197,7 +13203,7 @@ border-image-outset: 0px !important;
       z-index: 4;
       height: 27px;
       margin: 0px;
-      padding: 0px 59px 0px 60px;
+      padding: 0px 60px 0px 60px;
       overflow: hidden;
       border: 1px solid blue;
       border-radius: 0px;
@@ -15234,7 +15240,9 @@ font-style : normal;
         border-top: none;
         border-bottom: none;
       }
-
+      .compendium .directory-list .directory-item:nth-child(odd) {
+          background: #69573c47;
+      }
 
       #client-settings .sheet-tabs {
         flex: 0 0 32px;
@@ -16090,10 +16098,12 @@ our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
 
 
   #effects-config.app.window-app {
-    height: 484px !important;
+    min-height: 484px !important;
+    min-width: 410px;
   }
   #filter-config.app.window-app {
-    height: 175px !important
+    min-height: 175px !important;
+    min-width: 400px;
   }
   #effects-config .window-content {
   color: #CCC;
@@ -16312,7 +16322,13 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
     background: #1f1f1fb5;
   }
 
-
+#permissions-config .window-header .close {
+  position: absolute;
+  top: 9px;
+  left: auto;
+  right: 6px;
+  /* background: var(--debug-background-color-blue); */
+}
 #permissions-config .window-content .notes {
   font-family: var(--actor-input-font-family);
   font-size: var(--actor-input-font-size);
@@ -16428,7 +16444,15 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
       padding: 5px;
       border-bottom: 1px dotted #ffffff63;
     }
-    
+   
+
+#av-config .window-header .close {
+  position: absolute;
+  top: 9px;
+  left: auto;
+  right: 6px;
+  /* background: var(--debug-background-color-blue); */
+}  
 #av-config .sheet-tabs {
   flex: 0 0 32px;
   border-bottom: none;
@@ -16438,7 +16462,7 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
 #av-config .sheet-tabs .item {
   margin: 3px 0px;
   padding: 4px 3px 1px 3px;
-  max-width: 80px;
+  max-width: 140px;
   font-family: var(--actor-input-font-family);
   font-size: var(--actor-input-font-size);
   font-weight: var(--actor-input-font-weight);
@@ -16706,10 +16730,65 @@ a.entity-link, a.inline-roll {
   /* background: #ff000047; */
 }
 
+
+/* FX MASTER STYLING */
 .fxmaster .config.collapsible .flexrow strong {
   font-weight: normal;
 }
 
+#specials-config {
+  max-height: fit-content;
+  min-height: fit-content;
+  height: fit-content !important;
+}
+#specials-config .window-header .close {
+  position: absolute;
+  top: 9px;
+  left: auto;
+  right: 7px;
+}
+#specials-config .window-content {
+  max-height: fit-content;
+  min-height: fit-content;
+  padding: 7px 7px;
+}
+  #specials-config .window-content .directory-header {
+    display: none;
+  }
+  #specials-config .window-content .directory-list {
+    max-height: fit-content;
+    padding: 0px;
+    margin: 0px;
+  }
+    #specials-config .window-content .directory-list .directory-item {
+       /*     display: flex; */
+       margin: 5px 0px 5px 0px;
+       padding: 3px;
+       background: #bb8b4326;
+       box-shadow: inset 0px 0px 3px black;
+       border: none;
+    }
+     #specials-config .window-content .directory-list .directory-item img {
+      border-radius: 30px;
+      box-shadow: 0px 0px 10px black;
+    }
+    #specials-config .window-content .directory-list .directory-item:nth-child(odd) {
+      background: #69573c47;
+    }
+  #specials-config .window-content .directory-footer {
+    display: none;
+  }
+
+/* ======================= */
+
+
+
 #module-management hr {
   visibility: hidden;
+}
+
+.app.window-app.actor .window-header .close {
+  position: relative;
+  top: 0px;
+  right: 0px;
 }
