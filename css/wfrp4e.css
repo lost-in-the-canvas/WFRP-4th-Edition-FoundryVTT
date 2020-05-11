@@ -2500,8 +2500,9 @@
   .app.window-app.sheet.item-sheet .tab.active {
     display: flex;
     flex-flow: column;
-    height: calc(100% - 129px);
+    height: calc(100% - 135px);
     overflow-y: scroll;
+    margin-top: 6px;
   }      
   .app.window-app.sheet.item-sheet .tab.description.active {
     display: flex;
@@ -2516,7 +2517,8 @@
       flex-grow: 1;
       display: flex;
       padding: 3px;
-      margin-top: 6px;
+      margin-top: 0px;
+      margin-bottom: 7px;
     }
 
 /* ==================== (B) CAREERS =========================== */
@@ -9041,8 +9043,8 @@
   }
 
   .app.window-app.item-sheet .note-section.label {
-    height: 45px;
-    margin: 5px 0px -7px 0px;
+    min-height: 18px;
+    margin: 0px 0px 0px 0px;
   }
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .note-section.label:last-of-type {
