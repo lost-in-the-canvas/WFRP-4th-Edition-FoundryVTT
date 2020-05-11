@@ -1992,17 +1992,16 @@
   height: 100%
 }
 .app.window-app.sheet.item-sheet .close {
-  color: #00e5ff00;
-  text-align: center;
-  background: url(../ui/buttons/button-close.png);
-  height: 30px;
-  width: 30px;
-  position: absolute;
-  top: 19px;
-  right: 32px;
-  margin: 0px;
-  padding: 0px;
-  overflow: hidden;
+  /* color: #00e5ff00; */
+  /* text-align: center; */
+  /* background: url(../ui/buttons/button-close.png); */
+  /* height: 30px; */
+  /* width: 30px; */
+  /* position: absolute; */
+  /* top: 19px; */
+  /* margin: 0px; */
+  /* padding: 0px; */
+  /* overflow: hidden; */
   /* background: var(--debug-background-color-blue); */
 }
 
@@ -2012,9 +2011,8 @@
   background: url(../ui/buttons/button-post.png);
   height: 30px;
   width: 30px;
-  position: absolute;
-  top: 19px;
-  right: 90px;
+  /* position: absolute; */
+  /* top: 19px; */
   margin: 0px;
   padding: 0px;
   overflow: hidden;
@@ -2115,10 +2113,14 @@
 
   .app.window-app.sheet.item-sheet .window-header {
     flex: 0 0 30px;
-    padding: 0 8px;
+    padding: 0 24px;
     line-height: 30px;
     border-bottom: none;
     border: none;
+    position: relative;
+    top: 18px;
+    justify-content: right;
+    justify-content: flex-end;
   }
 
   .app.window-app.sheet.item-sheet .window-content {
@@ -2352,6 +2354,7 @@
       flex-flow: column;
       height: calc(100% - 129px);
       overflow-y: scroll;
+      margin-top: 6px;
     }
     .app.window-app.sheet.item-sheet .tab .label-text {
       font-family: CaslonAntique;
@@ -2374,7 +2377,7 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        margin: 6px 5px 0px 0px;
+        margin: 0px 5px 6px 0px;
       }
       .app.window-app.sheet.item-sheet .tab .input-box {
         height: 25px;
@@ -2487,7 +2490,7 @@
           left: 0px;
         }
           .app.window-app.sheet.item-sheet .tab.details.active .input-box:last-of-type {
-            margin-bottom: 3px;
+            /* margin-bottom: 3px; */
           }
         .app.window-app.sheet.item-sheet .tab .form-group-stacked .input-text {
           text-align: left;
@@ -2557,7 +2560,7 @@
     padding-top: 10px;
   }
   .app.window-app.sheet.item-sheet.career-sheet #characteristics-table {
-    height: 25px;
+    height: 100%;
     border: 1px solid #736953a6;
     border-left: none;
     font-family: CaslonPro;
@@ -3371,7 +3374,7 @@
       order: 3;
       flex: 1;
     }
-    .app.window-app.sheet.wfrp4e.actor .window-header .configure-sheet {
+    .app.window-app .window-header .configure-sheet {
       color: #00e5ff00;
       text-align: left;
       background: url(../ui/buttons/button-configure-sheet.png) no-repeat;
@@ -3386,7 +3389,7 @@
       order: 4;
       /* flex: 1; */
     }
-    .app.window-app.sheet.wfrp4e.actor .window-header .configure-token {
+    .app.window-app .window-header .configure-token {
       color: #00e5ff00;
       text-align: center;
       background: url(../ui/buttons/button-configure-token.png);
@@ -3401,7 +3404,7 @@
       /* background: var(--debug-background-color-red); */
       order: 5;
     }
-    .app.window-app.sheet.wfrp4e.actor .window-header .close {
+    .app.window-app .window-header .close {
       color: #00e5ff00;
       text-align: center;
       background: url(../ui/buttons/button-close.png);
@@ -3920,6 +3923,13 @@
       text-align: center;
       width: 100%;
       height: 29px;
+      color: #672323;
+      text-shadow: 1px 0px 1px #6e6e716e;
+      box-shadow: 0px 0px 4px inset #5a2d00;
+      /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+      /* margin: 4px 4px; */
+      /* padding: 5px 5px 0px 5px; */
+      /* border-radius: 5px; */
     }
 
   /* ================== 2. FIRST ROW ========================== */
@@ -4791,12 +4801,22 @@
           flex-direction: row;
           flex: 1 0 0;
           text-align: left;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          /* margin: 4px 4px; */
+          padding: 1px 5px 0px 5px;
+          border-radius: 5px;
+          position: relative;
+          top: -2px;
           /* background: red; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .advancement-indicator {
           display: flex;
           flex-direction: row;
           flex-grow: 0;
+          margin: 0px 2px;
           /* background: #6c0080; */
         }
       .app.window-app.sheet.wfrp4e.actor .tab.skills.active .skill-section .inventory-list .item .row-label {
@@ -4861,6 +4881,16 @@
         color: #672323;
         text-shadow: 1px 0px 1px #6e6e716e;
         /* background: #80008057; */
+        color: #672323;
+        text-shadow: 1px 0px 1px #6e6e716e;
+        box-shadow: 0px 0px 5px inset #5a2d00;
+        /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+        /* margin: 4px 4px; */
+        padding: 2px 5px 0px 5px;
+        height: 17px;
+        border-radius: 5px;
+        position: relative;
+        top: -2px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
         padding: 2px 0px 0px 0px;
@@ -4952,6 +4982,10 @@
         height: 22px;
         position: relative;
         top: 0px;
+        font-family: var(--actor-input-font-family);
+        font-size: var(--actor-input-font-size);
+        font-weight: var(--actor-input-font-weight);
+        color: var(--actor-input-color);
         /* background: red; */
       }
 
@@ -5501,6 +5535,11 @@
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
+            box-shadow: 0px 0px 5px inset #5a2d00;
+            /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+            margin: 4px 4px;
+            padding: 5px 5px 0px 5px;
+            border-radius: 5px;
           }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.melee-weapon-list .item .content .group,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.melee-weapon-list .item .content .group {
@@ -5751,10 +5790,14 @@
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .name {
             text-align: left;
             vertical-align: middle;
-            padding: 11px 0px 0px 4px;
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
+            box-shadow: 0px 0px 5px inset #5a2d00;
+            /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+            margin: 4px 4px;
+            padding: 5px 5px 0px 5px;
+            border-radius: 5px;
           }
         .app.window-app.sheet.wfrp4e.creature-sheet .inventory-list.ranged-weapon-list .item .content .group,
         .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.ranged-weapon-list .item .content .group {
@@ -6092,8 +6135,8 @@
               vertical-align: middle;
               padding: 11px 0px 0px 4px;
               overflow: hidden;
-              color: #672323;
-              text-shadow: 1px 0px 1px #6e6e716e;
+              /* color: #672323; */
+              /* text-shadow: 1px 0px 1px #6e6e716e; */
             }
           .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-list.armour-list .item .content .ap-value {
               min-width: 30px;
@@ -6310,7 +6353,7 @@
       }
 
 /* ==================== (J) MAGIC TAB ========================= */   
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active {
+  .app.window-app.sheet.wfrp4e.actor .tab.magic.active {
     /* display: block; */
     height: 100%;
     width: 100%;
@@ -6321,7 +6364,7 @@
     /* background: blue; */
   }
 
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.petty-header {
+  .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.petty-header {
     width: 100%;
     height: 20px;
     margin: 0px;
@@ -6339,7 +6382,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
   }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.petty-header .name {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.petty-header .name {
       position: relative;
       left: 0px;
       height: 18px;
@@ -6348,7 +6391,7 @@
       /* background: red; */
       flex: 1;
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.petty-header .item-controls {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.petty-header .item-controls {
       font-family: "Font Awesome 5 Free";
       font-size: 10px;
       color: var(--actor-label-color);
@@ -6361,7 +6404,7 @@
       text-align: center;
     }
 
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list {
+  .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list {
     overscroll-behavior-x: unset;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -6378,7 +6421,7 @@
     margin: 0px 0px 0px 0px;
     padding: 0px;
   }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item {
       width: 100%;
       text-align: left;
       overflow-x: hidden;
@@ -6395,7 +6438,7 @@
       justify-content: space-between;
       /* background: var(--debug-background-color-green); */
     }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content {
         width: 100%;
         text-align: center;
         overflow-x: hidden;
@@ -6411,7 +6454,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-name {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content .item-name {
         display: flex;
         flex-direction: row;
         min-width: 180px;
@@ -6420,7 +6463,7 @@
         flex-grow: 1;
         /* background: red; */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .image {
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content .image {
           background-size: 32px;
           background-repeat: no-repeat;
           min-height: 32px;
@@ -6428,15 +6471,22 @@
           min-width: 32px;
           max-width: 32px;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content .name {
           text-align: left;
           vertical-align: middle;
           padding: 11px 0px 0px 4px;
           overflow: hidden;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          margin: 4px 4px;
+          padding: 5px 5px 0px 5px;
+          border-radius: 5px;
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -6449,7 +6499,7 @@
         margin-left: 0px;
       }
 
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header {
+  .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header {
     width: 100%;
     height: 20px;
     margin: 6px 0px 0px 0px;
@@ -6467,7 +6517,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
   }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .name {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .name {
       position: relative;
       left: 0px;
       height: 18px;
@@ -6476,35 +6526,35 @@
       /* background: red; */
       flex: 1;
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .ingredients {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .ingredients {
       height: 18px;
       width: 130px;
       display: inline-block;
       text-align: center;
       /* background: aqua; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .casting-number {
       height: 18px;
       width: 30px;
       display: inline-block;
       text-align: center;
       /* background: #33ff00; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .success-lvl {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .success-lvl {
       height: 18px;
       width: 30px;
       display: inline-block;
       text-align: center;
       /* background: #ff8100; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .memorized {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .memorized {
       height: 18px;
       width: 30px;
       display: inline-block;
       text-align: center;
       /* background: cyan; */
     }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-header.lore-header .item-controls {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-header.lore-header .item-controls {
       font-family: "Font Awesome 5 Free";
       font-size: 10px;
       color: var(--actor-label-color);
@@ -6517,7 +6567,7 @@
       text-align: center;
     }
 
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list {
+  .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list {
     overscroll-behavior-x: unset;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -6534,7 +6584,7 @@
     margin: 0px 0px 0px 0px;
     padding: 0px;
   }
-    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item {
+    .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item {
       width: 100%;
       text-align: left;
       overflow-x: hidden;
@@ -6551,7 +6601,7 @@
       justify-content: space-between;
       /* background: var(--debug-background-color-green); */
     }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content {
         width: 100%;
         text-align: center;
         overflow-x: hidden;
@@ -6567,7 +6617,7 @@
         justify-content: space-between;
         /* background: var(--debug-background-color-green); */
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-name {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .item-name {
         display: flex;
         flex-direction: row;
         min-width: 180px;
@@ -6576,7 +6626,7 @@
         flex-grow: 1;
         /* background: red; */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .image {
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .image {
           background-size: 32px;
           background-repeat: no-repeat;
           min-height: 32px;
@@ -6584,15 +6634,22 @@
           min-width: 32px;
           max-width: 32px;
         }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .name {
           text-align: left;
           vertical-align: middle;
           padding: 11px 0px 0px 4px;
           overflow: hidden;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          margin: 4px 4px;
+          padding: 5px 5px 0px 5px;
+          border-radius: 5px;
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
         min-width: 130px;
         max-width: 130px;
         padding: 7px 0px 0px 5px;
@@ -6602,7 +6659,7 @@
         flex-basis: 0;
         /* background: aqua; */
       }
-        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
           background: none;
           border: 1px solid #737373;
           border-radius: 2px;
@@ -6616,7 +6673,7 @@
           width: 100%;
           text-overflow: ellipsis;
         }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
         min-width: 30px;
         max-width: 30px;
         padding: 11px 0px 0px 0px;
@@ -6625,10 +6682,10 @@
         flex-shrink: 0;
         flex-basis: 0;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .memorized-toggle {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .memorized-toggle {
         padding: 10px 0px 0px 0px;
       }
-      .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -6859,6 +6916,13 @@
           overflow: hidden;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          margin: 4px 4px;
+          padding: 5px 5px 0px 5px;
+          border-radius: 5px;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.blessing-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
@@ -6987,6 +7051,13 @@
           overflow: hidden;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          margin: 4px 4px;
+          padding: 5px 5px 0px 5px;
+          border-radius: 5px;
         }
       .app.window-app.sheet.wfrp4e.actor .tab.religion.active .inventory-list.miracle-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
@@ -9898,8 +9969,15 @@
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
     width: 100%;
-    border-bottom: none;  
+    border-bottom: none;
     border-right: 1px solid #736953a6;
+    color: #672323;
+    text-shadow: 1px 0px 1px #6e6e716e;
+    box-shadow: 0px 0px 3px inset #5a2d00;
+    /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+    /* margin: 4px 4px; */
+    padding: 1px 0px 0px 0px;
+    /* border-radius: 5px; */
   }  
   .limited .general .characteristics .characteristics-table .table-header:nth-of-type(10),
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
@@ -10344,7 +10422,7 @@
   /* ================== 1. SKILLS LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section {
       display: flex;
-      height: calc(100% - 30px);
+      min-height: 50%;
       width: 100%;
       margin: 0px 0px 0px 0px;
       /* background: #0000ff17; */
@@ -10493,6 +10571,15 @@
           flex-direction: row;
           flex: 1 0 0;
           text-align: left;
+          color: #672323;
+          text-shadow: 1px 0px 1px #6e6e716e;
+          box-shadow: 0px 0px 5px inset #5a2d00;
+          /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+          /* margin: 4px 4px; */
+          padding: 1px 5px 0px 5px;
+          border-radius: 5px;
+          position: relative;
+          top: -2px;
           /* background: red; */
         }
         .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .inventory-list .item .skill-name .advancement-indicator {
@@ -10559,6 +10646,19 @@
         font-size: var(--actor-input-font-size);
         font-weight: var(--actor-input-font-weight);
         color: var(--actor-input-color);
+        color: #672323;
+        text-shadow: 1px 0px 1px #6e6e716e;
+        /* background: #80008057; */
+        color: #672323;
+        text-shadow: 1px 0px 1px #6e6e716e;
+        box-shadow: 0px 0px 5px inset #5a2d00;
+        /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+        /* margin: 4px 4px; */
+        padding: 2px 5px 0px 5px;
+        height: 17px;
+        border-radius: 5px;
+        position: relative;
+        top: -2px;
       }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .inventory-list .item .item-controls {
         padding: 2px 2px 0px 0px;
@@ -10574,14 +10674,15 @@
 
   /* ================== 2. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list {
-      width: 100%;
-      height: 300px;
-      margin: 6px 0px 0px 0px;
       padding: 0px;
       text-align: center;
       overflow: hidden;
-      display: flex;
       flex-direction: column;
+      flex-grow: 1;
+      display: flex;
+      min-height: fit-content;
+      width: 100%;
+      margin: 6px 0px 0px 0px;
       /* background: var(--debug-background-color-green); */
     }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .career-list .inventory-header {
@@ -10655,6 +10756,7 @@
       margin: 0px;
       padding: 0px;
       flex-grow: 1;
+      height: 100%;
       border: 1px solid #736953a6;
       border-top: none;
       /* background: var(--debug-background-color-green); */
@@ -10825,324 +10927,7 @@
       }
 
 /* ==================== (I) MAGIC TAB ========================= */
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active {
-    display: block;
-    height: 352px;
-    width: 100%;
-    margin: 6px 0px 0px 0px;
-    padding: 0px 3px 0px 0px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    /* background: blue; */
-  }
 
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.petty-header {
-    width: 100%;
-    height: 20px;
-    margin: 0px;
-    padding: 0px 6px;
-    border: 1px solid #736953a6;
-    font-family: var(--actor-label-font-family);
-    font-size: var(--actor-label-font-size);
-    font-weight: var(--actor-label-font-weight);
-    color: var(--actor-label-color);
-    background: none;
-    box-shadow: 0 0 10px #6b3a0f87 inset;
-    text-align: left;
-    display: inline-block;
-    flex-grow: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.petty-header .name {
-      position: relative;
-      left: 0px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.petty-header .item-controls {
-      position: relative;
-      top: -1px;
-      left: 412px;
-      height: fit-content;
-      width: fit-content;
-      display: inline-block;
-      font-family: "Font Awesome 5 Free";
-      font-size: 10px;
-      color: var(--actor-label-color);
-      margin: 0px;
-      padding: 0px;
-    }
-
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list {
-    overscroll-behavior-x: unset;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border: 1px solid #736953a6;
-    border-top: none;
-    list-style: none;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    height: fit-content;
-    width: 100%;
-    margin: -5px 0px 0px 0px;
-    padding: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item {
-      width: 100%;
-      text-align: left;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      margin: 0px 0px;
-      padding: 2px 2px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      justify-content: space-between;
-      /* background: var(--debug-background-color-green); */
-    }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 0px 0px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-name {
-        display: flex;
-        flex-direction: row;
-        min-width: 180px;
-        max-width: 180px;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .image {
-          background-size: 32px;
-          background-repeat: no-repeat;
-          min-height: 32px;
-          max-height: 32px;
-          min-width: 32px;
-          max-width: 32px;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .name {
-          text-align: left;
-          vertical-align: middle;
-          padding: 11px 0px 0px 4px;
-          overflow: hidden;
-        }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 5px 4px 0px 0px;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: #504f48a6;
-        text-align: right;
-        min-width: 30px;
-        max-width: 30px;
-        flex-grow: 0;
-      }
-
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header {
-    width: 100%;
-    height: 20px;
-    margin: 6px 0px 0px 0px;
-    padding: 0px 6px;
-    border: 1px solid #736953a6;
-    font-family: var(--actor-label-font-family);
-    font-size: var(--actor-label-font-size);
-    font-weight: var(--actor-label-font-weight);
-    color: var(--actor-label-color);
-    background: none;
-    box-shadow: 0 0 10px #6b3a0f87 inset;
-    text-align: left;
-    display: inline-block;
-    flex-grow: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .name {
-      position: relative;
-      left: 0px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .ingredients {
-      position: relative;
-      left: 166px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
-      position: relative;
-      left: 214px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .success-lvl {
-      position: relative;
-      left: 231px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .memorized {
-      position: relative;
-      left: 252px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-header.lore-header .item-controls {
-      position: relative;
-      top: -1px;
-      left: 293px;
-      height: fit-content;
-      width: fit-content;
-      display: inline-block;
-      font-family: "Font Awesome 5 Free";
-      font-size: 10px;
-      color: var(--actor-label-color);
-      margin: 0px;
-      padding: 0px;
-    }
-
-  .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list {
-    overscroll-behavior-x: unset;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border: 1px solid #736953a6;
-    border-top: none;
-    list-style: none;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    height: fit-content;
-    width: 100%;
-    margin: -5px 0px 0px 0px;
-    padding: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item {
-      width: 100%;
-      text-align: left;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      margin: 0px 0px;
-      padding: 2px 2px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      justify-content: space-between;
-      /* background: var(--debug-background-color-green); */
-    }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 0px 0px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-name {
-        display: flex;
-        flex-direction: row;
-        min-width: 180px;
-        max-width: 180px;
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .image {
-          background-size: 32px;
-          background-repeat: no-repeat;
-          min-height: 32px;
-          max-height: 32px;
-          min-width: 32px;
-          max-width: 32px;
-        }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .name {
-          text-align: left;
-          vertical-align: middle;
-          padding: 11px 0px 0px 4px;
-          overflow: hidden;
-        }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
-        min-width: 130px;
-        max-width: 130px;
-        padding: 7px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-        .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
-          background: none;
-          border: 1px solid #737373;
-          border-radius: 2px;
-          padding: 0px;
-          margin: 0px;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          height: 19px;
-          width: 100%;
-          text-overflow: ellipsis;
-        }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
-        min-width: 30px;
-        max-width: 30px;
-        padding: 11px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .memorized-toggle {
-        padding: 10px 0px 0px 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 5px 4px 0px 0px;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: #504f48a6;
-        text-align: right;
-        min-width: 30px;
-        max-width: 30px;
-        flex-grow: 0;
-      }
 
 /*************************************************************/
 /*************************************************************/
@@ -11443,8 +11228,15 @@
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
     width: 100%;
-    border-bottom: none;  
+    border-bottom: none;
     border-right: 1px solid #736953a6;
+    color: #672323;
+    text-shadow: 1px 0px 1px #6e6e716e;
+    box-shadow: 0px 0px 3px inset #5a2d00;
+    /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
+    /* margin: 4px 4px; */
+    padding: 1px 0px 0px 0px;
+    /* border-radius: 5px; */
   }  
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-header:nth-of-type(10)  {
     border-right: none;
@@ -11840,7 +11632,7 @@
       font-family: var(--tab-header-font-family);
       font-size: var(--tab-header-font-size);
       font-weight: var(--tab-header-font-weight);
-      color: var(--tab-header-color);
+      color: #273444;
       /* background: url(../ui/ActorSheet-TabBorder.png); */
     }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .sheet-tabs > .item.active {
@@ -12235,324 +12027,8 @@
         }
 
 /* ==================== (H) MAGIC TAB ========================= */   
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active {
-    display: block;
-    height: 352px;
-    width: 100%;
-    margin: 6px 0px 0px 0px;
-    padding: 0px 3px 0px 0px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    /* background: blue; */
-  }
 
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.petty-header {
-    width: 100%;
-    height: 20px;
-    margin: 0px;
-    padding: 0px 6px;
-    border: 1px solid #736953a6;
-    font-family: var(--actor-label-font-family);
-    font-size: var(--actor-label-font-size);
-    font-weight: var(--actor-label-font-weight);
-    color: var(--actor-label-color);
-    background: none;
-    box-shadow: 0 0 10px #6b3a0f87 inset;
-    text-align: left;
-    display: inline-block;
-    flex-grow: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.petty-header .name {
-      position: relative;
-      left: 0px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.petty-header .item-controls {
-      position: relative;
-      top: -1px;
-      left: 412px;
-      height: fit-content;
-      width: fit-content;
-      display: inline-block;
-      font-family: "Font Awesome 5 Free";
-      font-size: 10px;
-      color: var(--actor-label-color);
-      margin: 0px;
-      padding: 0px;
-    }
-
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list {
-    overscroll-behavior-x: unset;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border: 1px solid #736953a6;
-    border-top: none;
-    list-style: none;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    height: fit-content;
-    width: 100%;
-    margin: -5px 0px 0px 0px;
-    padding: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item {
-      width: 100%;
-      text-align: left;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      margin: 0px 0px;
-      padding: 2px 2px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      justify-content: space-between;
-      /* background: var(--debug-background-color-green); */
-    }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 0px 0px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-name {
-        display: flex;
-        flex-direction: row;
-        min-width: 180px;
-        max-width: 180px;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .image {
-          background-size: 32px;
-          background-repeat: no-repeat;
-          min-height: 32px;
-          max-height: 32px;
-          min-width: 32px;
-          max-width: 32px;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .name {
-          text-align: left;
-          vertical-align: middle;
-          padding: 11px 0px 0px 4px;
-          overflow: hidden;
-        }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.petty-list .item .content .item-controls {
-        padding: 5px 4px 0px 0px;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: #504f48a6;
-        text-align: right;
-        min-width: 30px;
-        max-width: 30px;
-        flex-grow: 0;
-      }
-
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header {
-    width: 100%;
-    height: 20px;
-    margin: 6px 0px 0px 0px;
-    padding: 0px 6px;
-    border: 1px solid #736953a6;
-    font-family: var(--actor-label-font-family);
-    font-size: var(--actor-label-font-size);
-    font-weight: var(--actor-label-font-weight);
-    color: var(--actor-label-color);
-    background: none;
-    box-shadow: 0 0 10px #6b3a0f87 inset;
-    text-align: left;
-    display: inline-block;
-    flex-grow: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .name {
-      position: relative;
-      left: 0px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .ingredients {
-      position: relative;
-      left: 166px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .casting-number {
-      position: relative;
-      left: 214px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .success-lvl {
-      position: relative;
-      left: 231px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .memorized {
-      position: relative;
-      left: 252px;
-      height: 18px;
-      width: fit-content;
-      display: inline-block;
-      /* background: beige; */
-    }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-header.lore-header .item-controls {
-      position: relative;
-      top: -1px;
-      left: 293px;
-      height: fit-content;
-      width: fit-content;
-      display: inline-block;
-      font-family: "Font Awesome 5 Free";
-      font-size: 10px;
-      color: var(--actor-label-color);
-      margin: 0px;
-      padding: 0px;
-    }
-
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list {
-    overscroll-behavior-x: unset;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border: 1px solid #736953a6;
-    border-top: none;
-    list-style: none;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    height: fit-content;
-    width: 100%;
-    margin: -5px 0px 0px 0px;
-    padding: 0px;
-  }
-    .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item {
-      width: 100%;
-      text-align: left;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      margin: 0px 0px;
-      padding: 2px 2px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      justify-content: space-between;
-      /* background: var(--debug-background-color-green); */
-    }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 0px 0px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-name {
-        display: flex;
-        flex-direction: row;
-        min-width: 180px;
-        max-width: 180px;
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .image {
-          background-size: 32px;
-          background-repeat: no-repeat;
-          min-height: 32px;
-          max-height: 32px;
-          min-width: 32px;
-          max-width: 32px;
-        }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .name {
-          text-align: left;
-          vertical-align: middle;
-          padding: 11px 0px 0px 4px;
-          overflow: hidden;
-        }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
-        min-width: 130px;
-        max-width: 130px;
-        padding: 7px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
-          background: none;
-          border: 1px solid #737373;
-          border-radius: 2px;
-          padding: 0px;
-          margin: 0px;
-          font-family: var(--actor-input-font-family);
-          font-size: var(--actor-input-font-size);
-          font-weight: var(--actor-input-font-weight);
-          color: var(--actor-input-color);
-          height: 19px;
-          width: 100%;
-          text-overflow: ellipsis;
-        }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .spell-attr {
-        min-width: 30px;
-        max-width: 30px;
-        padding: 11px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .memorized-toggle {
-        padding: 10px 0px 0px 0px;
-      }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.magic.active .inventory-list.lore-list .item .content .item-controls {
-        padding: 5px 4px 0px 0px;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: #504f48a6;
-        text-align: right;
-        min-width: 30px;
-        max-width: 30px;
-        flex-grow: 0;
-      }
+ 
 
 /* ==================== (K) NOTES TAB ========================= */  
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active {
@@ -12698,7 +12174,9 @@
         display: flex;
         flex-direction: row;
         min-width: 180px;
-        max-width: 180px;
+        flex: 1;
+        /* background: var(--debug-background-color-red); */
+        /* max-width: 180px; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-name.excluded-trait {
         opacity: 0.5;
@@ -12718,14 +12196,16 @@
           overflow: hidden;
         }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
-        padding: 5px 4px 0px 0px;
+        padding: 5px 0px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
         color: #504f48a6;
-        text-align: right;
+        text-align: center;
         min-width: 30px;
         max-width: 30px;
         flex-grow: 0;
+        /* background: #0066ff; */
+        margin-left: 0px;
       }      
 /*************************************************************/
 /*************************************************************/
@@ -12918,6 +12398,22 @@ border-image-outset: 0px !important;
   /* ================== 1. MANAGE MODULES ===================== */
     #module-management {
     }
+    #module-management .window-header {
+       justify-content: flex-end;
+       padding: 0px 8px;
+    }
+      #module-management .window-header .window-title {
+        /* width: 100%; */
+        position: absolute;
+        left: calc(44% - 81px);
+        top: 8px;
+        text-align: center;
+        justify-content: center;
+      }
+      #module-management .window-header .close {
+        position: relative;
+        top: 2px;
+      }
     #module-management .window-content {
       overflow: auto;
       background: url(../ui/frames/window-app-background-bookshelf.png);
@@ -13051,23 +12547,16 @@ border-image-outset: 0px !important;
     border: none;
     min-height: 152px;
     background: none;
+    justify-content: flex-end;
+    position: relative;
+    /* top: 38px; */
     }
       #client-settings .window-header h4 {
         display: none;
       }
       #client-settings .window-header .close {
-        color: #00e5ff00;
-        text-align: center;
-        background: url(../ui/buttons/button-close.png);
-        height: 30px;
-        width: 30px;
-        position: absolute;
-        top: 97px;
-        right: 24px;
-        margin: 0px;
-        padding: 0px;
-        overflow: hidden;
-        /* background: var(--debug-background-color-blue); */
+        position: relative;
+        top: 38px;
       }
     #client-settings .window-content {
     margin: 0px 70px 57px 70px;
@@ -13079,10 +12568,10 @@ border-image-outset: 0px !important;
     }
       #client-settings .window-content form {
         padding: 6px;
-        margin: 0px 8px 0px 0px;
+        margin: 0px 0px 0px 0px;
         border: none;
         background: none;
-        box-shadow: inset 0px 0px 4px black;
+        /* box-shadow: inset 0px 0px 4px black; */
         overflow-y: unset;
       }
       #client-settings section.content {
@@ -13114,10 +12603,18 @@ border-image-outset: 0px !important;
         font-weight: 500;
         font-size: 16px;
       }
+      #client-settings .form-group input {
+        border-left: 1px solid #736953a6;
+      }
+      #client-settings .form-group input[type="checkbox"] {
+      top: 0px;
+      margin-top: 8px;
+      margin-right: 5px;
+      }
       #client-settings .window-content form .form-group > label {
         flex: 2;
         line-height: normal;
-        padding: 5px 0px 0px 0px;
+        padding: 6px 0px 0px 0px;
         font-size: 16px;
         color: #e2e2e2;
         border: none;
@@ -13184,6 +12681,18 @@ border-image-outset: 0px !important;
         background: url(../ui/sidebar_button-background_red.png) repeat;
         background-origin: padding-box;
       }
+          #client-settings .window-content button i {
+            border: none;
+            background: none;
+            position: relative;
+            top: 2px;
+          }
+          #client-settings .window-content button label {
+            border: none;
+            background: none;
+            position: relative;
+            top: 2px;
+          }
         #client-settings .window-content button[name="permissions"] {
           max-width: 68px;
           min-width: 68px;
@@ -13688,7 +13197,7 @@ border-image-outset: 0px !important;
       z-index: 4;
       height: 27px;
       margin: 0px;
-      padding: 0px 60px;
+      padding: 0px 59px 0px 60px;
       overflow: hidden;
       border: 1px solid blue;
       border-radius: 0px;
@@ -13698,18 +13207,9 @@ border-image-outset: 0px !important;
       border-image-outset: 9px 0px 9px 0px;
       -webkit-font-smoothing: subpixel-antialiased;
       background: none;
-    }
-    .app.window-app .window-header .close {
-      color: #00c2d800;
-      text-align: center;
-      background: url(../ui/buttons/button-close.png);
-      height: 30px;
-      width: 30px;
       position: absolute;
-      top: 8px;
-      right: 5px;
-      overflow: hidden;
     }
+
   .app.window-app .window-content {
     /* background: url(../ui/frames/window-app-background-generic.png); */
     background: url(../ui/frames/window-app-background-bookshelf.png);
@@ -14702,7 +14202,7 @@ border-image-outset: 0px !important;
         width: 30px;
         position: absolute;
         top: 8px;
-        right: 57px;
+        right: 33px;
         overflow: hidden;
       }
       .window-app.app.journal-sheet .window-header .entry-image {
@@ -14713,7 +14213,7 @@ border-image-outset: 0px !important;
         width: 30px;
         position: absolute;
         top: 8px;
-        right: 31px;
+        right: 7px;
         overflow: hidden;
       }
 
@@ -14939,10 +14439,14 @@ border-image-outset: 0px !important;
       border-image-outset: 0px;
       box-shadow: none;
       background: url(../ui/sidebar_button-background_red.png) repeat;
+      margin-bottom: 0px;
     }
       .app.window-app.filepicker .form-group .back i {
         color: #dadadadb;
-        transform: scaleX(-1);
+        /* transform: scaleX(-1); */
+        display: contents;
+        font-size: 16px;
+        color: #b9b9b9;
       }
     .app.window-app.filepicker .form-group.current-dir input {
       border-left: 1px solid #736953a6;
@@ -15678,17 +15182,17 @@ font-style : normal;
       .app.window-app.sheet.journal-sheet .import,
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.wfrp4e.actor .window-header .import {
-        color: #00e5ff00;
-        text-align: center;
-        background: url(../ui/buttons/button-import.png);
-        height: 30px;
-        width: 30px;
-        position: absolute;
-        top: 25px;
-        right: 56px;
-        margin: 0px;
-        padding: 0px;
-        overflow: hidden;
+        /* color: #00e5ff00; */
+        /* text-align: center; */
+        /* background: url(../ui/buttons/button-import.png); */
+        /* height: 30px; */
+        /* width: 30px; */
+        /* position: absolute; */
+        /* top: 25px; */
+        /* right: 56px; */
+        /* margin: 0px; */
+        /* padding: 0px; */
+        /* overflow: hidden; */
         /* background: var(--debug-background-color-blue); */
       }
       .app.window-app.wfrp-browser .import {
@@ -15699,7 +15203,6 @@ font-style : normal;
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.item-sheet .import{
         top: 19px;
-        right: 59px;
       }
 
       .app.window-app.sheet.journal-sheet .import {
@@ -17017,6 +16520,7 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
   padding: 0px 6px 0px 0px;
   overflow-y: scroll;
   height: 314px;
+  margin-bottom: 6px;
 }
   #module-management .window-content .directory-list.package-list .package {
     flex: 2;
@@ -17029,7 +16533,7 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
     min-width: 93px;
     color: #efefef;
     padding: 6px;
-    margin: 8px 0px;
+    margin: 0px 0px 8px 0px;
     font-family: CaslonPro;
     font-weight: 500;
     font-size: 16px;
@@ -17169,7 +16673,7 @@ a.entity-link, a.inline-roll {
     padding-top: 10px;
     text-align: left;
 }
-.app.window-app.sheet.wfrp4e.actor .window-header .open-gm-note {
+.app.window-app.sheet .window-header .open-gm-note {
     color: #00c2d800;
     text-align: center;
     background: url(../ui/buttons/popout.png);
@@ -17204,4 +16708,8 @@ a.entity-link, a.inline-roll {
 
 .fxmaster .config.collapsible .flexrow strong {
   font-weight: normal;
+}
+
+#module-management hr {
+  visibility: hidden;
 }
