@@ -51,7 +51,8 @@ class ActorWfrp4e extends Actor {
       autoCalcEnc :  true
     }
     let basicSkills = await WFRP_Utility.allBasicSkills();
-    let moneyItems = await WFRP_Utility.allMoneyItems();
+    let moneyItems = await WFRP_Utility.allMoneyItems()
+    moneyItems = moneyItems.sort((a, b) => (a.data.coinValue.value > b.data.coinValue.value) ? -1 : 1);
 
     // If character, automatically add basic skills and money items
     if (data.type == "character")
@@ -269,7 +270,8 @@ class ActorWfrp4e extends Actor {
       target: this.data.data.characteristics[skill.data.characteristic.value].value + skill.data.advances.value,
       extra : {
         size : this.data.data.details.size.value,
-        options : options
+        options : options,
+        skill: skill
       }
     };
 
@@ -293,7 +295,7 @@ class ActorWfrp4e extends Actor {
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
         advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income ? "average" : "challenging" // Default to average if using income
+        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -483,6 +485,7 @@ class ActorWfrp4e extends Actor {
         skillCharList : skillCharList,
         slBonus : slBonus || 0,
         successBonus : successBonus || 0,
+        testDifficulty: options.difficulty,
         modifier : modifier || 0,
         defaultSelection : defaultSelection,
         advantage : this.data.data.status.advantage.value || 0
@@ -759,7 +762,7 @@ class ActorWfrp4e extends Actor {
     }
 
     if (spellLore == "witchcraft")
-      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
+      defaultSelection = channellSkills.indexOf(channellSkills.find(x => x.name.toLowerCase().includes(game.i18n.localize("NAME.Channelling").toLowerCase())))
 
     // Whether the actor has Aethyric Attunement is important in the test rolling logic
     let aethyricAttunement = (this.data.flags.talentTests.findIndex(x=>x.talentName.toLowerCase() == game.i18n.localize("NAME.AA").toLowerCase()) > -1) // aethyric attunement boolean
@@ -1103,7 +1106,9 @@ class ActorWfrp4e extends Actor {
    * @param {Object} rerenderMessage  The message to be updated (used if editing the chat card)
    */
   static async  defaultRoll(testData, cardOptions, rerenderMessage = null) {
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
+    
     result.postFunction = "defaultRoll";
     if (testData.extra)
       mergeObject(result, testData.extra);
@@ -1111,7 +1116,10 @@ class ActorWfrp4e extends Actor {
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`;
+        cardOptions.isOpposedTest = true
+    }
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1131,6 +1139,7 @@ class ActorWfrp4e extends Actor {
    */
   static async incomeOverride(testData, cardOptions, rerenderMessage = null)
   {
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
 
@@ -1138,12 +1147,17 @@ class ActorWfrp4e extends Actor {
 
 
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
 
-    let dieAmount = WFRP4E.earningValues[testData.income.tier][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
-    dieAmount = Number(dieAmount) * testData.income.standing;     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
+    let status = testData.income.value.split(' ')
+
+    let dieAmount = WFRP4E.earningValues[WFRP_Utility.findKey(status[0], WFRP4E.statusTiers)][0] // b, s, or g maps to 2d10, 1d10, or 1 respectively (takes the first letter)
+    dieAmount = Number(dieAmount) * status[1];     // Multilpy that first letter by your standing (Brass 4 = 8d10 pennies)
     let moneyEarned;
-    if (testData.income.tier != "g") // Don't roll for gold, just use standing value
+    if (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers) != "g") // Don't roll for gold, just use standing value
     {
       dieAmount = dieAmount + "d10";
       moneyEarned = new Roll(dieAmount).roll().total;
@@ -1155,8 +1169,8 @@ class ActorWfrp4e extends Actor {
     if (result.description.includes("Success"))
     {
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
-      {
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
+      { 
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
           break;
@@ -1175,7 +1189,7 @@ class ActorWfrp4e extends Actor {
     {
       moneyEarned /= 2;
       result.incomeResult = game.i18n.localize("INCOME.YouEarn") + " " + moneyEarned;
-      switch (testData.income.tier)
+      switch (WFRP_Utility.findKey(status[0], WFRP4E.statusTiers))
       {
         case "b":
           result.incomeResult += ` ${game.i18n.localize("NAME.BPPlural").toLowerCase()}.`
@@ -1196,7 +1210,7 @@ class ActorWfrp4e extends Actor {
       result.incomeResult = game.i18n.localize("INCOME.Failure")
       moneyEarned = 0;
     }
-    result.moneyEarned = moneyEarned + testData.income.tier;
+    result.moneyEarned = moneyEarned + WFRP_Utility.findKey(status[0], WFRP4E.statusTiers);
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
@@ -1215,8 +1229,11 @@ class ActorWfrp4e extends Actor {
   static async weaponOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
-
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
@@ -1241,8 +1258,11 @@ class ActorWfrp4e extends Actor {
   static async castOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
-
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
 
@@ -1270,8 +1290,11 @@ class ActorWfrp4e extends Actor {
   static async channellOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
-
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
@@ -1295,8 +1318,11 @@ class ActorWfrp4e extends Actor {
   static async prayerOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
-
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
 
@@ -1320,8 +1346,11 @@ class ActorWfrp4e extends Actor {
   static async traitOverride(testData, cardOptions, rerenderMessage = null)
   {
     if (game.user.targets.size)
-        cardOptions.title += ` - ${game.i18n.localize("Opposed")}`
-
+    {
+      cardOptions.title += ` - ${game.i18n.localize("Opposed")}`,
+      cardOptions.isOpposedTest = true
+    }
+    testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "traitOverride";
     try
@@ -1469,21 +1498,21 @@ class ActorWfrp4e extends Actor {
     // if there's any difference.
 
     // Strike Mighty Blow Talent
-    let smb = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.SMB"))
+    let smb = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.SMB").toLowerCase())
     if (smb && this.data.flags.meleeDamageIncrease != smb.data.advances.value)
       this.update({"flags.meleeDamageIncrease" : smb.data.advances.value});
     else if (!smb && this.data.flags.meleeDamageIncrease)
       this.update({"flags.meleeDamageIncrease" : 0});
 
     // Accurate Shot Talent
-    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.AC"))
+    let accshot = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.AS").toLowerCase())
     if (accshot && this.data.flags.rangedDamageIncrease != accshot.data.advances.value)
       this.update({"flags.rangedDamageIncrease" : accshot.data.advances.value});
     else if (!accshot && this.data.flags.rangedDamageIncrease)
       this.update({"flags.rangedDamageIncrease" : 0});
 
     // Robust Talent
-    let robust = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Robust"))
+    let robust = preparedData.talents.find(t => t.name.toLowerCase() == game.i18n.localize("NAME.Robust").toLowerCase())
     if (robust && this.data.flags.robust != robust.data.advances.value)
       this.update({"flags.robust" : robust.data.advances.value});
     else if (!robust && this.data.flags.robust)
@@ -1521,6 +1550,7 @@ class ActorWfrp4e extends Actor {
       let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == game.i18n.localize("NAME.PS"))
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
+      this.update({"data.status.corruption.max": actorData.data.status.corruption.max});
     }
 
 
@@ -1540,7 +1570,9 @@ class ActorWfrp4e extends Actor {
         actorData.currentClass = career.data.class.value;
         actorData.currentCareer = career.name;
         actorData.currentCareerGroup = career.data.careergroup.value;
-        actorData.status = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
+
+        if (!actorData.data.details.status.value) // backwards compatible with moving this to the career change handler
+          actorData.data.details.status.value = WFRP4E.statusTiers[career.data.status.tier] + " " + career.data.status.standing;
 
         // Setup advancement indicators for characteristics
         let availableCharacteristics = career.data.characteristics
@@ -3051,10 +3083,24 @@ class ActorWfrp4e extends Actor {
 
     newWounds -= totalWoundLoss
 
+    if(totalWoundLoss > 0)
+      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "normal"})
+
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
-      updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")}</a>`
-
+    {
+      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
+      let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
+      if(game.settings.get("wfrp4e", "dangerousCrits") && critAmnt && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
+      {
+          let critModifier = (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) * critAmnt;
+          updateMsg += `<br><a class ="table-click critical-roll" data-modifier=${critModifier} data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} +${critModifier}</a>`
+      }
+      else if (Math.abs(newWounds) < actor.data.data.characteristics.t.bonus )
+        updateMsg += `<br><a class ="table-click critical-roll" data-modifier="-20" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")} (-20)</a>`
+      else 
+        updateMsg += `<br><a class ="table-click critical-roll" data-table = "crit${opposeData.hitloc.value}" ><i class='fas fa-list'></i> ${game.i18n.localize("Critical")}</a>`
+    }
     else if (impenetrable)
       updateMsg += `<br>${game.i18n.localize("PROPERTY.Impenetrable")} - ${game.i18n.localize("CHAT.CriticalsNullified")}`
 
@@ -3270,52 +3316,181 @@ class ActorWfrp4e extends Actor {
     }
   }
 
-    /**
-     * Advance NPC based on given career
-     * 
-     * A specialized function used by NPC type Actors that triggers when you click on a 
-     * career to be "complete". This takes all the career data and uses it (and the helpers
-     * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
-     * correct amount to be considered complete), advances all characteristics similarly, and 
-     * adds all talents.
-     * 
-     * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
-     * However, I find deleting the ones you don't want to be much easier than trying to pick and 
-     * choose the ones you do want.
-     *
-     * @param {Object} careerData     Career type Item to be used for advancement.
-     * 
-     * TODO Refactor for embedded entity along with the helper functions
-     */
-    async _advanceNPC(careerData) 
+  /**
+   * Advance NPC based on given career
+   * 
+   * A specialized function used by NPC type Actors that triggers when you click on a 
+   * career to be "complete". This takes all the career data and uses it (and the helpers
+   * defined above) to advance the actor accordingly. It adds all skills (advanced to the 
+   * correct amount to be considered complete), advances all characteristics similarly, and 
+   * adds all talents.
+   * 
+   * Note: This adds *all* skills and talents, which is not necessary to be considered complete.
+   * However, I find deleting the ones you don't want to be much easier than trying to pick and 
+   * choose the ones you do want.
+   *
+   * @param {Object} careerData     Career type Item to be used for advancement.
+   * 
+   * TODO Refactor for embedded entity along with the helper functions
+   */
+  async _advanceNPC(careerData) 
+  {
+    let updateObj = {};
+    let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
+
+    // Update all necessary characteristics to the advancesNeeded
+    for (let advChar of careerData.characteristics)
+      if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
+        updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
+
+    // Advance all skills in the career
+    for (let skill of careerData.skills)
+      await this._advanceSkill(skill, advancesNeeded);
+
+    // Add all talents in the career
+    for (let talent of careerData.talents)
+      await this._advanceTalent(talent);
+
+    this.update(updateObj);
+  }
+
+
+  _replaceData(formula) {
+    let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
+    return formula.replace(dataRgx, (match, term) => {
+      let value = getProperty(this.data, term);
+      return value ? String(value).trim() : "0";
+    });
+  }
+
+  /**
+   * Use a fortune point from the actor to reroll or add sl to a roll
+   * @param {Object} message 
+   * @param {String} type (reroll, addSL)
+   */
+  useFortuneOnRoll(message, type)
+  {
+    if(this.data.data.status.fortune.value > 0)
     {
-      let updateObj = {};
-      let advancesNeeded = careerData.level.value * 5; // Tier 1 needs 5, 2 needs 10, 3 needs 15, 4 needs 20 in all characteristics and skills
-  
-      // Update all necessary characteristics to the advancesNeeded
-      for (let advChar of careerData.characteristics)
-        if (this.data.data.characteristics[advChar].advances < 5 * careerData.level.value)
-          updateObj[`data.characteristics.${advChar}.advances`] = 5 * careerData.level.value;
-  
-      // Advance all skills in the career
-      for (let skill of careerData.skills)
-        await this._advanceSkill(skill, advancesNeeded);
-  
-      // Add all talents in the career
-      for (let talent of careerData.talents)
-        await this._advanceTalent(talent);
-  
-      this.update(updateObj);
-    }
+      let data = message.data.flags.data;
+      let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
+      //First we send a message to the chat
+      if(type=="reroll")
+        html += `${game.i18n.format("FORTUNE.UsageRerollText",{character:'<b>'+this.name+'</b>'})}<br>`;
+      else
+        html += `${game.i18n.format("FORTUNE.UsageAddSLText",{character:'<b>'+this.name+'</b>'})}<br>`;
 
+      html += `<b>${game.i18n.localize("FORTUNE.PointsRemaining")} </b>${this.data.data.status.fortune.value-1}`;
+      ChatMessage.create(WFRP_Utility.chatDataSetup(html));
 
-    _replaceData(formula) {
-      let dataRgx = new RegExp(/@([a-z.0-9]+)/gi);
-      return formula.replace(dataRgx, (match, term) => {
-        let value = getProperty(this.data, term);
-        return value ? String(value).trim() : "0";
-      });
+      let cardOptions = this.preparePostRollAction(message);
+      //Then we do the actual fortune action
+      if(type=="reroll")
+      {
+        cardOptions.fortuneUsedReroll = true;
+        //It was an unopposed targeted test who failed
+        if(data.originalTargets && data.originalTargets.size>0)
+        {
+          game.user.targets = data.originalTargets;
+          //Foundry has a circular reference to the user in its targets set so we do it too
+          game.user.targets.user = game.user;
+        }
+        //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+        if(!data.defenderMessage && data.startMessagesList)
+        {
+          cardOptions.startMessagesList = data.startMessagesList;
+        }
+        ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
+        //We also set fortuneUsedAddSL to force the player to use it on the new roll
+        message.update({
+          "flags.data.fortuneUsedReroll" : true,
+          "flags.data.fortuneUsedAddSL" : true
+        });
+      }
+      else //addSL
+      {
+        let newTestData = data.preData;
+        newTestData.SL = Math.trunc(data.postData.SL) + 1;
+        newTestData.slBonus = 0;
+        newTestData.successBonus = 0;
+        newTestData.roll =  Math.trunc(data.postData.roll);
+        newTestData.hitloc = data.preData.hitloc;
+
+        //We deselect the token, 
+        //2020-04-25 : Currently the foundry function is bugged so we do it ourself
+        //game.user.updateTokenTargets([]);
+        game.user.targets.forEach(t => t.setTarget(false, {user: game.user, releaseOthers: false, groupSelection: true}));
+
+        cardOptions.fortuneUsedAddSL = true;
+        ActorWfrp4e[data.postData.postFunction](newTestData,cardOptions,message);
+        message.update({
+          "flags.data.fortuneUsedAddSL" : true
+        });
+      }
+      this.update({"data.status.fortune.value" : this.data.data.status.fortune.value-1});
     }
+  }
+
+  /**
+   * Take a Dark Deal to reroll for +1 Corruption
+   * @param {Object} message 
+   */
+  useDarkDeal(message)
+  {
+    let html = `<h3 class="center"><b>${game.i18n.localize("DARKDEAL.Use")}</b></h3>`;
+    html += `${game.i18n.format("DARKDEAL.UsageText",{character:'<b>'+this.name+'</b>'})}<br>`;
+    let corruption = Math.trunc(this.data.data.status.corruption.value)+1;
+    html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
+    ChatMessage.create(WFRP_Utility.chatDataSetup(html));
+    this.update({"data.status.corruption.value" : corruption});
+    let cardOptions = this.preparePostRollAction(message);
+    let data = message.data.flags.data;
+    cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
+    cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    //It was an unopposed targeted test who failed
+    if(data.originalTargets && data.originalTargets.size>0)
+    {
+      game.user.targets = data.originalTargets;
+      //Foundry has a circular reference to the user in its targets set so we do it too
+      game.user.targets.user = game.user;
+    }
+    //It it is an ongoing opposed test, we transfer the list of the startMessages to update them
+    if(!data.defenderMessage && data.startMessagesList)
+    {
+      cardOptions.startMessagesList = data.startMessagesList;
+    }
+    ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
+  }
+
+  /**
+   * This helper can be used to prepare cardOptions to reroll/edit a test card
+   * It uses the informations of the roll located in the message entry
+   * from game.messages
+   * @param {Object} message 
+   * @returns {Object} cardOptions
+   */
+  preparePostRollAction(message)
+  {
+    //recreate the initial (virgin) cardOptions object
+    //add a flag for reroll limit
+    let data = message.data.flags.data;
+    let cardOptions = {
+      flags: {img:message.data.flags.img},
+      rollMode:data.rollMode,
+      sound:message.data.sound,
+      speaker:message.data.speaker,
+      template:data.template,
+      title:data.title.replace(` - ${game.i18n.localize("Opposed")}`,""),
+      user:message.data.user
+    };
+    if(data.attackerMessage)
+      cardOptions.attackerMessage = data.attackerMessage;
+    if(data.defenderMessage)
+      cardOptions.defenderMessage = data.defenderMessage;
+    if(data.unopposedStartMessage)
+      cardOptions.unopposedStartMessage = data.unopposedStartMessage;
+    return cardOptions;
+  }
 }
 
 // Assign the actor class to the CONFIG

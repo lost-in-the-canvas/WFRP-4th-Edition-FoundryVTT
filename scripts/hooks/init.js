@@ -312,8 +312,34 @@ Hooks.once("init", () => {
         default: false,
         type: Boolean
       });
+
+      // Register Advantage cap
+      game.settings.register("wfrp4e", "soundEffects", {
+        name: "SETTINGS.SoundEffects",
+        hint: "SETTINGS.SoundEffectsHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
    
-  
+      game.settings.register("wfrp4e", "dangerousCrits", {
+        name: "SETTINGS.DangerousCrits",
+        hint: "SETTINGS.DangerousCritsHint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+
+      game.settings.register("wfrp4e", "dangerousCritsMod", {
+        name: "SETTINGS.DangerousCritsMod",
+        hint: "SETTINGS.DangerousCritsModHint",
+        scope: "world",
+        config: true,
+        default: 10,
+        type: Number
+      });
   
     // Pre-load templates
     loadTemplates([
@@ -336,6 +362,7 @@ Hooks.once("init", () => {
       "systems/wfrp4e/templates/actors/creature-main.html",
       "systems/wfrp4e/templates/chat/dialog-constant.html",
       "systems/wfrp4e/templates/chat/test-card.html",
+      "systems/wfrp4e/templates/chat/chat-command-display-info.html",
       "systems/wfrp4e/templates/items/item-header.html",
       "systems/wfrp4e/templates/items/item-description.html",
     ]);

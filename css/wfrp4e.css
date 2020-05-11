@@ -1825,6 +1825,7 @@
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
+    width: 360px
   }
      #playlists-popout li.playlist:not(:first-of-type) li.sound i,
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
@@ -2389,11 +2390,12 @@
         left: 0px;
       }
       .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea {
-        height: unset;
+        height: 100%;
       }
       .app.window-app.sheet.item-sheet .tab .input-box.skills-textarea textarea {
         resize: none;
-        text-align: unset;
+        height: 100%;
+        text-align: unset
       }
       .app.window-app.sheet.item-sheet .tab .label-text.skills-textarea {
         height: unset;
@@ -2577,6 +2579,11 @@
       border: none;
       color: black;
     }
+    .app.window-app.sheet.item-sheet.career-sheet .skills{
+      height: 100%      
+    }
+
+
 
 /* ==================== (C) DISEASES ========================== */
   .app.window-app.sheet.item-sheet.disease-sheet .sheet-tabs {
@@ -3296,6 +3303,8 @@
     border: 1px dotted #463a3a;
     box-shadow: none;
     }
+
+
       
 /* ==================== (L) SIDEBAR CHAT FORM ================= */
 
@@ -3387,17 +3396,17 @@
     background: none;
     overflow-y: hidden;
     border: none;
-    margin: 3px 26px 65px 8px;
     padding: 0px 0px 0px 0px;
+    margin: 3px 26px 0px 8px;
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
+    margin: 45px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    margin: 45px 35px;
     padding: 0px;
     /* box-shadow: var(--debug-box-shadow-red); */
   }
@@ -15597,9 +15606,9 @@ font-style : normal;
 
 .chat-buttons {
   position: relative;
-  left: 280px;
-  width: 40px;
-  height: 0px;
+  width: auto;
+  height: auto;
+  float: right;
 }
 
 .card-edit {
@@ -15717,8 +15726,13 @@ font-style : normal;
 }
 
 .tiles-browser .directory {
-  overflow-y: auto;
-  overflow-x: hidden !important ;
+  overflow: hidden !important;
+  color: #CCC;
+}
+
+.tiles-browser .tabs > *,
+.tiles-browser button {
+  color: #CCC;
 }
 
 .chargen-button {
@@ -15860,6 +15874,10 @@ input.card-edit {
   height: 0px;
   margin-bottom:15px
 }
+
+.message-content h3 .center{
+  text-align: center;
+}
 #hotbar {
   left: 238px;
 }
@@ -15903,6 +15921,7 @@ button.capture-position {
 .skill-lookup,
 .talent-lookup,
 .skill-drag,
+.pay-link,
 .talent-drag {
   border-radius: 2px;
   border: 1px solid #b9935e99;
@@ -16911,4 +16930,9 @@ input[name="dd-import.importPath"] {
 .chat-card-button:active {
   position:relative;
   top:1px;
+}
+
+
+#mass-combat.mass-combat .window-content {
+  background: url(../ui/background.png) repeat;
 }

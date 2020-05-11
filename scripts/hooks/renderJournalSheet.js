@@ -23,5 +23,9 @@ Hooks.on("renderJournalSheet", (obj, html, data) => {
     html.find('.table-click').mousedown(ev => {
       WFRP_Utility.handleTableClick(ev)
     })
+
+    html.find('.pay-link').mousedown(ev => {
+      WFRP_Utility.handlePayClick(ev)
+    })
   })
   

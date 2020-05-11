@@ -280,6 +280,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+    WFRP_Utility.PlayContextAudio(itemToEdit, {"type": "ammo", "equip": "normal"})
   });
 
 
@@ -381,7 +382,7 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       let skill = this.actor.items.find(s => s.data.name == game.i18n.localize("NAME.Endurance") && s.type == "skill")
       if (skill)
-        this.actor.setupSkill(skill.data, {rest: true})
+        this.actor.setupSkill(skill.data, {rest: true, tb: this.actor.data.data.characteristics.t.bonus})
       else 
         this.actor.setupCharacteristic("t", {rest: true})
        
@@ -560,13 +561,13 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Damage a shield item by clicking on the shield AP amount in the combat tab
   html.find(".shield-total").mousedown(ev => {
     let weapons = this.actor.prepareItems().weapons
-    let shields = weapons.filter(w => w.properties.qualities.find(p => p.includes("Shield")))
+    let shields = weapons.filter(w => w.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())))
     let shieldDamaged = false;
     // If for some reason using multiple shields...damage the first one available 
     for (let s of shields)
     {
       let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
-      let shieldQualityValue = s.properties.qualities.find(p => p.includes("Shield")).split(" ")[1];
+      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield"))).split(" ")[1];
       
       if (!shield.data.APdamage)
         shield.data.APdamage = 0;
@@ -601,6 +602,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
+
+    if (spell.data.memorized.value)
+      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "memorize"})
+    else
+      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "unmemorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
@@ -759,12 +765,24 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-toggle').click(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    let context;
     if (item.type == "armour")
+    {
       item.data.worn.value = !item.data.worn.value;
+      context = item.data.worn.value
+    }
     else if (item.type == "weapon")
+    {
       item.data.equipped = !item.data.equipped;
+      context = item.data.equipped
+    }
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+    {
       item.data.worn = !item.data.worn;
+      context = item.data.worn
+    }
+    
+    WFRP_Utility.PlayContextAudio(item, {"type": "equip", "equip": context})    
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
@@ -805,6 +823,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Clicking the 'Qty.' label in an inventory section - aggregates all items with the same name
   html.find(".aggregate").click(async ev => {
     let itemType = $(ev.currentTarget).attr("data-type")
+    if (itemType == "ingredient") itemType = "trapping"
     let items = duplicate(this.actor.data.items.filter(x => x.type == itemType))
     
     for (let i of items)
@@ -1014,6 +1033,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   html.on('mousedown', '.table-click', ev => {
     WFRP_Utility.handleTableClick(ev)
+  })
+  html.on('mousedown', '.pay-link', ev => {
+    WFRP_Utility.handlePayClick(ev)
   })
 
   // Consolidate common currencies
@@ -1298,7 +1320,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        this.actor.setupSkill(skill.data, {income : career.data.status});
+        if (!career.data.current.value)
+        {
+          ui.notifications.error(game.i18n.localize("SHEET.NonCurrentCareer"))
+          return;
+        }
+        this.actor.setupSkill(skill.data, {income : this.actor.data.data.details.status});
       })
     }
     li.toggleClass("expanded");
@@ -1349,7 +1376,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     else // Otherwise, just lookup the key for the property and use that to lookup the description
     {
-      propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+      propertyKey = WFRP_Utility.findKey(WFRP_Utility.parsePropertyName(property), properties)
     }
   
     let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
@@ -1467,12 +1494,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       });
     }
   
-    // Conditional for creating Trappings from the Trapping tab - sets to the correct trapping type
-    if (event.currentTarget.attributes["data-type"].value == "trapping")
+    if (data.type == "trapping")
       data = mergeObject(data,
       {
         "data.trappingType.value": event.currentTarget.attributes["item-section"].value
       })
+
+    if (data.type == "ingredient")
+    {
+      data = mergeObject(data,
+      {
+        "data.trappingType.value": "ingredient"
+      })
+      data.type = "trapping"
+    }
   
     // Conditional for creating spells/prayers from their tabs, create the item with the correct type
     else if (data.type == "spell" || data.type == "prayer")
@@ -1496,11 +1531,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     data["img"] = "systems/wfrp4e/icons/blank.png";
     data["name"] = `New ${data.type.capitalize()}`;
-    this.actor.createEmbeddedEntity("OwnedItem", data,
-    {
-      renderSheet: true
-    });
+    this.actor.createEmbeddedEntity("OwnedItem", data);
   }
+  
+
+  
   
   /**
    * Duplicates an owned item given its id.
