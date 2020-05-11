@@ -206,10 +206,11 @@ class OpposedWFRP
       }
       else // Defender won
       {
-        if(opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Bow") 
-        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Crossbow")
-        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder")
-        || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering"))
+        if (opposeResult.attackerTestResult.weapon
+            && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Bow")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Crossbow")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering")))
           WFRP_Utility.PlayContextAudio(opposeResult.attackerTestResult.weapon, {"type": "weapon", "equip": "miss"})
         opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL; 
