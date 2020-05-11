@@ -1,6 +1,15 @@
+buildings ~ Total War: Warhammer II Mod "Building Progression Icons II"
 careers ~ Red Border/Blue Background
-trappings ~ Green Border/Brown Background
-prayers ~ White Border
+conditions ~ Cartoonish
+diseases ~ Battle Brothers Style
+equipment ~ Green Border/Brown Background
+injuries ~ Battle Brothers Style
+mutations ~ Chaos Symbol
+psychologies ~ Darkest Dungeons
 skills ~ Yellow Border
+spells ~ Purple Border
+tables ~ Depends on Tables
 talents ~ Blue Border
-trats ~ Blue Border
+praits ~ Blue Border
+Prayers ~ White Border
+
