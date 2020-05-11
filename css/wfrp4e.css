@@ -1997,8 +1997,9 @@
   /* background: url(../ui/buttons/button-close.png); */
   /* height: 30px; */
   /* width: 30px; */
-  /* position: absolute; */
-  /* top: 19px; */
+  position: relative;
+  top: 0px;
+  right: auto;
   /* margin: 0px; */
   /* padding: 0px; */
   /* overflow: hidden; */
@@ -13281,6 +13282,12 @@ border-image-outset: 0px !important;
         padding-top: 5px;
         text-align: center;
       }
+      .app.window-app .form-group input[type="checkbox"] {
+        position: relative;
+        top: 7px;
+        transform: scale(1);
+        min-width: 30px;
+      }
 
       .app.window-app .form-group input {
         padding: 1px 3px;
@@ -13978,7 +13985,7 @@ border-image-outset: 0px !important;
     #drawing-config .sheet-tabs .item {
       margin: 3px 0px;
       padding: 4px 3px 1px 3px;
-      max-width: 80px;
+      max-width: 100px;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14208,7 +14215,7 @@ border-image-outset: 0px !important;
         width: 30px;
         position: absolute;
         top: 8px;
-        right: 33px;
+        right: 61px;
         overflow: hidden;
       }
       .window-app.app.journal-sheet .window-header .entry-image {
@@ -14219,7 +14226,7 @@ border-image-outset: 0px !important;
         width: 30px;
         position: absolute;
         top: 8px;
-        right: 7px;
+        right: 33px;
         overflow: hidden;
       }
 
