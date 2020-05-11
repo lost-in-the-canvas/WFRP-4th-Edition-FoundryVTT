@@ -43,8 +43,8 @@ class DiceWFRP
       successBonus: 0,
     });
 
-    // Sets/overrides default test diffficulty to Average if Income test
-    sceneStress = testData.income ? "average" : sceneStress;
+    // Sets/overrides default test diffficulty to Average if Income or Rest & Recover test
+    sceneStress = testData.income || testData.extra.options.rest ? "average" : sceneStress;
 
     mergeObject(dialogOptions.data,
     {

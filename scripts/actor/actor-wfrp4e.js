@@ -289,13 +289,14 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
       // Prefilled dialog data
+      // Note: testDifficulty overrides for (eg, income and rest) skill tests are handled in dice-wfrp4e.js (prepareTest)
+
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
-        advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
