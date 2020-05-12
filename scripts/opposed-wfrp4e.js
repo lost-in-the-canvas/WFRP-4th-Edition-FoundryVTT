@@ -221,8 +221,6 @@ class OpposedWFRP
       }
 
       Hooks.call("wfrp4e:opposedTestResult", opposeResult)
-/*      let rollMode = game.settings.get("core", "rollMode");
-      console.log(`Evaluate - Roll Mode selected : ${rollMode}`);*/
 
       // If targeting, Create a new result message
       if (options.target)
@@ -280,19 +278,11 @@ class OpposedWFRP
   // Opposed starting message - manual opposed
   static createOpposedStartMessage(speaker, rollMode)
   {
-    console.log(`Create - Roll Mode selected : ${rollMode}`);
+    let content = `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
+    let chatOptions = WFRP_Utility.chatDataSetup(content, rollMode);
 
-    let chatOptions = {
-      user: game.user._id,
-      hideData: true,
-      rollMode: rollMode,
-      flags:{"opposedStartMessage": true},
-      content: `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
-    }
-
-    if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
-    if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
-    else if (chatOptions.rollMode === "selfroll") chatOptions["whisper"] = [game.user];
+    chatOptions["hideData"] = true;
+    chatOptions["flags"] = {"opposedStartMessage": true};
 
     ChatMessage.create(chatOptions).then(msg => this.startMessage = msg)
   }
