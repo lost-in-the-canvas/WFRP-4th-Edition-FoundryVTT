@@ -14016,20 +14016,20 @@ border-image-outset: 0px !important;
     }
 
   /* ================== 9. TOKEN CONFIG ======================= */
-    #token-config {
+    .token-sheet {
       max-height: 390px;
       min-height: 390px;
     }
-    #token-config .window-content {
+    .token-sheet .window-content {
       min-height: 424px;
     }
-    #token-config .sheet-tabs {
+    .token-sheet .sheet-tabs {
       flex: 0 0 32px;
       border-bottom: none;
       line-height: 32px;
       justify-content: space-between;
     }
-    #token-config .sheet-tabs .item {
+    .token-sheet .sheet-tabs .item {
       margin: 3px 0px;
       padding: 4px 3px 1px 3px;
       max-width: 80px;
@@ -14041,30 +14041,30 @@ border-image-outset: 0px !important;
       border: 3px double #564d3a;
       background: #0a1829d9;
     }
-      #token-config .sheet-tabs .item:hover {
+      .token-sheet .sheet-tabs .item:hover {
         box-shadow: 0 0 8px #ff9f00 !important;
       }
-      #token-config .sheet-tabs .item.active {
+      .token-sheet .sheet-tabs .item.active {
         background: #290a0ad9;
       }
-      #token-config .sheet-tabs .item i {
+      .token-sheet .sheet-tabs .item i {
         display: none;
       }
-    #token-config .tab {
+    .token-sheet .tab {
       max-height: fit-content;
     }
-    #token-config .form-group label span {
+    .token-sheet .form-group label span {
       font-size: 14px;
       color: #7d7d7d;
     }
-    #token-config .sheet-footer {
+    .token-sheet .sheet-footer {
         width: 446px;
         height: 32px;
         position: absolute;
         bottom: -57px;
     }
 
-    #token-config .tab[data-tab="character"] .notes {
+    .token-sheet .tab[data-tab="character"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14076,7 +14076,7 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
-    #token-config .tab[data-tab="character"] input[type="checkbox"] {
+    .token-sheet .tab[data-tab="character"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
       top: 223px;
@@ -14085,7 +14085,7 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 4px inset black;
     }
 
-    #token-config .tab[data-tab="image"] .notes {
+    .token-sheet .tab[data-tab="image"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14097,16 +14097,16 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;    
     }
-    #token-config .tab[data-tab="image"] button {
+    .token-sheet .tab[data-tab="image"] button {
       margin: 0 3px 0px 3px !important;
       box-shadow: 0px 0px 5px black inset;
     }
-      #token-config .tab[data-tab="image"] button i {
+      .token-sheet .tab[data-tab="image"] button i {
         display: contents;
         font-size: 16px;
         color: #b9b9b9;
       }
-    #token-config .tab[data-tab="image"] input[type="checkbox"] {
+    .token-sheet .tab[data-tab="image"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
       left: 329px;
@@ -14114,7 +14114,7 @@ border-image-outset: 0px !important;
       margin-top: 7px;
       box-shadow: 0px 0px 4px inset black;
     }
-    #token-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
+    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       border: 1px solid #7d5900;
       height: 11px;
@@ -14125,10 +14125,10 @@ border-image-outset: 0px !important;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     } 
-    #token-config .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
+    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
-    #token-config .tab[data-tab="image"] .form-group .scale-value {
+    .token-sheet .tab[data-tab="image"] .form-group .scale-value {
       padding: 6px 3px 1px 3px;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
@@ -14139,11 +14139,11 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 10px inset black;
       background: #352516;
     }
-    #token-config .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
+    .token-sheet .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
       text-align: center;
     }
 
-    #token-config .tab[data-tab="position"] .notes {
+    .token-sheet .tab[data-tab="position"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14155,10 +14155,10 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
-    #token-config .tab[data-tab="position"] input[type="text"] {
+    .token-sheet .tab[data-tab="position"] input[type="text"] {
       text-align: center;
     }
-    #token-config .tab[data-tab="position"] input[type="checkbox"] {
+    .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
       top: 252px;
@@ -14168,7 +14168,7 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 4px inset black;
     }
     
-    #token-config .tab[data-tab="vision"] .notes {
+    .token-sheet .tab[data-tab="vision"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14180,10 +14180,10 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
-    #token-config .tab[data-tab="vision"] input[type="text"] {
+    .token-sheet .tab[data-tab="vision"] input[type="text"] {
       text-align: center;
     }
-    #token-config .tab[data-tab="vision"] input[type="checkbox"] {
+    .token-sheet .tab[data-tab="vision"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
       top: 128px;
@@ -14193,7 +14193,7 @@ border-image-outset: 0px !important;
       margin-top: 2px;
     }
 
-    #token-config .tab[data-tab="resources"] .notes {
+    .token-sheet .tab[data-tab="resources"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -14205,11 +14205,11 @@ border-image-outset: 0px !important;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
     }
-    #token-config .tab[data-tab="resources"] .form-group label {
+    .token-sheet .tab[data-tab="resources"] .form-group label {
       max-width: 183px;
       min-width: 183px;
     }
-    #token-config .tab[data-tab="resources"] .form-group .bar1-value {
+    .token-sheet .tab[data-tab="resources"] .form-group .bar1-value {
       padding: 1px 3px;
       margin: 0;
       font-family: var(--actor-input-font-family);
@@ -14222,7 +14222,7 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 10px inset black;
       background: #352516;
     }
-    #token-config .tab[data-tab="resources"] .form-group .bar2-value {
+    .token-sheet .tab[data-tab="resources"] .form-group .bar2-value {
       padding: 1px 3px;
       margin: 0;
       font-family: var(--actor-input-font-family);
@@ -14235,7 +14235,7 @@ border-image-outset: 0px !important;
       box-shadow: 0px 0px 10px inset black;
       background: #352516;
     }
-    #token-config .tab[data-tab="resources"] .form-group .sep {
+    .token-sheet .tab[data-tab="resources"] .form-group .sep {
       font-family: var(--actor-input-font-family);
       font-size: 17px;
       font-weight: var(--actor-input-font-weight);
@@ -14250,7 +14250,7 @@ border-image-outset: 0px !important;
       background: #352516;  
     }
 
-    #token-config .range-value {
+    .token-sheet .range-value {
       display: block;
       flex: 0 1 48px;
       margin-left: 10px;
