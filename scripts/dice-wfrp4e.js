@@ -43,8 +43,8 @@ class DiceWFRP
       successBonus: 0,
     });
 
-    // Sets/overrides default test difficulty to Average if Income or Rest & Recover test
-    sceneStress = testData.income || testData.extra.options.rest ? "average" : sceneStress;
+    // Sets/overrides default test difficulty (eg, with Income or Rest & Recover tests), based on dialogOptions.data.testDifficulty passed through from skillSetup
+    sceneStress = dialogOptions.data.testDifficulty || sceneStress; 
 
     mergeObject(dialogOptions.data,
     {
