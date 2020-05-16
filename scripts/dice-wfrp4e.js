@@ -415,8 +415,8 @@ class DiceWFRP
    */
   static rollCastTest(testData)
   {
-    let spell = testData.extra.spell;
     let testResults = this.rollTest(testData);
+    let spell = testResults.spell;
 
     let miscastCounter = 0;
     testData.function = "rollCastTest"
@@ -478,6 +478,7 @@ class DiceWFRP
       testResults.description = game.i18n.localize("ROLL.CastingSuccess")
       let overcasts = Math.floor(slOver / 2);
       testResults.overcasts = overcasts;
+      spell.overcasts.available = overcasts;
       
       WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "cast"})
 
@@ -748,6 +749,7 @@ class DiceWFRP
   static async renderRollCard(chatOptions, testData, rerenderMessage)
   {
 
+    console.log(testData);
     // Blank if manual chat cards
     if (game.settings.get("wfrp4e", "manualChatCards") && !rerenderMessage)
       testData.roll = testData.SL = null;
@@ -1008,6 +1010,52 @@ class DiceWFRP
       }
     });
 
+        // Respond to overcast button clicks
+        html.on("mousedown", '.overcast-button', event =>
+        {
+          event.preventDefault();
+          let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+          let spell = duplicate(msg.data.flags.data.postData.spell);
+          console.log(spell);
+          let overcastData = spell.overcasts
+          console.log($(msg.data.content).find(".overcast-options"))
+          let overcastChoice = $(event.currentTarget).attr("data-overcast")
+
+          if (!overcastData.available)
+            return
+
+          overcastData.available = msg.data.flags.data.postData.overcasts
+
+          // data-button tells us what button was clicked
+          switch (overcastChoice)
+          {
+            case "range":
+                overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+              break
+            case "target":
+              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+              break
+            case "duration":
+              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+              break
+          }
+          overcastData[overcastChoice].count++
+          let sum = 0;
+          for (let overcastType in overcastData)
+            if (overcastData[overcastType].count)
+              sum += overcastData[overcastType].count
+
+          overcastData.available -= sum;
+
+          let cardContent =  $(event.currentTarget).parents('.message-content')
+
+          cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+          
+          cardContent.find(`.overcast-value.${overcastChoice}`).text(overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+          msg.update({content : cardContent.html()})
+          msg.update({"flags.data.postData.spell" : spell})
+        });
+
     // Character generation - select specific career
     html.on("click", '.career-select', event =>
     {
@@ -1148,6 +1196,34 @@ class DiceWFRP
         elem.style.display = "none"
     }
   }
+
+
+  // /**
+  //  * Extracts the necessary data from a message to send it back to renderRollCard for rerendering
+  //  */
+  // static getMessageData(messageId)
+  // {
+  //   let message = game.messages.get(messageId)
+  //   let msgdata = message.data.flags.data
+  //   let testData = msgdata.preData;
+  //   let chatOptions = {
+  //     template: msgdata.template,
+  //     rollMode: msgdata.rollMode,
+  //     title: msgdata.title,
+  //     speaker: message.data.speaker,
+  //     user: message.user.data._id
+  //   }
+
+  //   if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+  //   if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
+
+  //   let data = {
+  //     testData,
+  //     chatOptions,
+  //     message
+  //   }
+  //   return data
+  // }
 
   /**
    * Start a dice roll

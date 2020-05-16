@@ -15735,6 +15735,7 @@ font-style : normal;
   color: #CCC;
 }
 
+.overcast-button,
 .chargen-button {
   box-shadow: inset 0px 1px 0px 0px #a6827e;
   background: linear-gradient(to bottom, #21374afc 5%, #152833ab 100%);
@@ -15749,8 +15750,9 @@ font-style : normal;
   padding: 4px 12px 0px 12px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #4d3534;
-  position: relative;
-  left: 120px;
+  /* position: relative; */
+  /* left: 120px; */
+  text-align: center;
 }
 .attribute-career-buttons{
   justify-content: space-around;
@@ -15766,14 +15768,33 @@ font-style : normal;
   margin-top : 10px;
 }
 
+.overcast-button:hover,
 .chargen-button:hover {
   background: linear-gradient(to bottom, #800000 5%, #3e0101 100%);
   background-color: red;
 }
+.overcast-button:active,
 .chargen-button:active {
 	position:relative;
 	top:1px;
 }
+
+.overcast-options {
+  display: flex;
+}
+
+.overcast-section {
+  flex: 0.35;
+  margin-right: 25px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.overcast-section > a {
+  margin-top:5px
+}
+
 
 .species-select {
   font-weight: 1000;

@@ -2114,8 +2114,8 @@ class ActorWfrp4e extends Actor {
       {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
-        ui.notifications.error("Deleting " + i.name);
-        this.deleteEmbeddedEntity("OwnedItem", i._id);
+       // ui.notifications.error("Deleting " + i.name);
+       // this.deleteEmbeddedEntity("OwnedItem", i._id);
       }
     } // END ITEM SORTING
 
@@ -2743,6 +2743,57 @@ class ActorWfrp4e extends Actor {
     item['target'] =    this.calculateSpellAttributes(item.data.target.value, item.data.target.aoe);
     item['duration'] =  this.calculateSpellAttributes(item.data.duration.value);
     item['range'] =     this.calculateSpellAttributes(item.data.range.value);
+
+    item.overcasts = {
+      available : 0,
+      range : undefined,
+      duration : undefined,
+      target : undefined,
+    }
+
+    if (parseInt(item.target))
+    {
+      item.overcasts.target = {
+        label : "Target",
+        count : 0,
+        AoE: false,
+        initial : parseInt(item.target),
+        current : parseInt(item.target),
+        unit : ""
+      }
+    }
+    else if (item.target.includes("AoE"))
+    {
+      let aoeValue = item.target.substring(item.target.indexOf("(") + 1, item.target.length - 1)
+      item.overcasts.target = {
+        label : "AoE",
+        count : 0,
+        AoE: true,
+        initial : parseInt(aoeValue),
+        current : parseInt(aoeValue),
+        unit : aoeValue.split(" ")[1]
+      }
+    }
+    if (parseInt(item.duration))
+    {
+      item.overcasts.duration = {
+        label : "Duration",
+        count : 0,
+        initial : parseInt(item.duration),
+        current : parseInt(item.duration),
+        unit : item.duration.split(" ")[1]
+      }
+    }
+    if (parseInt(item.range))
+    {
+      item.overcasts.range = {
+        label : "Range",
+        count : 0,
+        initial : parseInt(item.range),
+        current : parseInt(item.range),
+        unit : item.range.split(" ")[1]
+      }
+    }
 
     // Add the + to the duration if it's extendable
     if (item.data.duration.extendable)
