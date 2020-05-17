@@ -42,7 +42,8 @@
     "./scripts/hooks/updateCombat.js",
     "./scripts/hooks/createChatMessage.js",
     "./scripts/hooks/hotbarDrop.js",
-    "./libs/pixi-filters.js"
+    "./libs/pixi-filters.js",
+    "./pixi/aoe.js"
   ],
   "styles": ["./css/wfrp4e.css"],
   "packs": [

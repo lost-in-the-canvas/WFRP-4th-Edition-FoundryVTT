@@ -361,8 +361,14 @@ class DiceWFRP
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
     }
-    else
+    else // if success
     {
+      if (weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast"))))
+      {
+        let property = weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast")))
+        testResults.other.push(`<a class='aoe-template'>${property[property.length-1]} yard Blast</a>`)
+      }
+
       if (testResults.roll % 11 == 0)
         testResults.extra.critical = game.i18n.localize("Critical")
 
@@ -1010,50 +1016,56 @@ class DiceWFRP
       }
     });
 
-        // Respond to overcast button clicks
-        html.on("mousedown", '.overcast-button', event =>
+      // Respond to overcast button clicks
+      html.on("mousedown", '.overcast-button', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        let spell = duplicate(msg.data.flags.data.postData.spell);
+        console.log(spell);
+        let overcastData = spell.overcasts
+        console.log($(msg.data.content).find(".overcast-options"))
+        let overcastChoice = $(event.currentTarget).attr("data-overcast")
+
+        if (!overcastData.available)
+          return
+
+        overcastData.available = msg.data.flags.data.postData.overcasts
+
+        // data-button tells us what button was clicked
+        switch (overcastChoice)
         {
-          event.preventDefault();
-          let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
-          let spell = duplicate(msg.data.flags.data.postData.spell);
-          console.log(spell);
-          let overcastData = spell.overcasts
-          console.log($(msg.data.content).find(".overcast-options"))
-          let overcastChoice = $(event.currentTarget).attr("data-overcast")
-
-          if (!overcastData.available)
-            return
-
-          overcastData.available = msg.data.flags.data.postData.overcasts
-
-          // data-button tells us what button was clicked
-          switch (overcastChoice)
-          {
-            case "range":
-                overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-              break
-            case "target":
+          case "range":
               overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-              break
-            case "duration":
-              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-              break
-          }
-          overcastData[overcastChoice].count++
-          let sum = 0;
-          for (let overcastType in overcastData)
-            if (overcastData[overcastType].count)
-              sum += overcastData[overcastType].count
+            break
+          case "target":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "duration":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+        }
+        overcastData[overcastChoice].count++
+        let sum = 0;
+        for (let overcastType in overcastData)
+          if (overcastData[overcastType].count)
+            sum += overcastData[overcastType].count
 
-          overcastData.available -= sum;
+        overcastData.available -= sum;
 
-          let cardContent =  $(event.currentTarget).parents('.message-content')
+        let cardContent =  $(event.currentTarget).parents('.message-content')
 
-          cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
-          
-          cardContent.find(`.overcast-value.${overcastChoice}`).text(overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
-          msg.update({content : cardContent.html()})
-          msg.update({"flags.data.postData.spell" : spell})
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        
+        cardContent.find(`.overcast-value.${overcastChoice}`).text(overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.spell" : spell})
+      });
+
+        // Respond to overcast button clicks
+        html.on("mousedown", '.aoe-template', event =>
+        {
+          AOETemplate.fromString(event.target.text).drawPreview(event);
         });
 
     // Character generation - select specific career
