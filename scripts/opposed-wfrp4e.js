@@ -40,7 +40,7 @@ class OpposedWFRP
     else // If no opposed roll in progress, click was for the attacker
     {
       this.opposedInProgress = true;
-      this.attackerClicked(data.postData, message);
+      this.attackerClicked(data.postData, message, data.rollMode);
     }
   }
 
@@ -67,8 +67,9 @@ class OpposedWFRP
    * 
    * @param {Object} testResult Test result values
    * @param {Object} message message for update, actor, token, etc. for the attacker
+   * @param {String} rollMode the type of roll mode used for the card
    */
-  static attackerClicked(testResult, message)
+  static attackerClicked(testResult, message, rollMode)
   {
     // Store attacker in object member
     this.attacker = {
@@ -80,12 +81,12 @@ class OpposedWFRP
     {
       "flags.data.isOpposedTest": true
     });
-    this.createOpposedStartMessage(message.data.speaker);
+    this.createOpposedStartMessage(message.data.speaker, rollMode);
   }
 
   /**
    * Defender responds to an opposed test - evaluate result
-   * 
+   *
    * @param {Object} testResult Test result values
    * @param {Object} message message for update, actor, token, etc. for the defender
    */
@@ -133,7 +134,7 @@ class OpposedWFRP
 
       // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
       // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
-      if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))
+      if (attackerSL > defenderSL || (attackerSL === defenderSL && attacker.testResult.target > defender.testResult.target))
       {
         opposeResult.winner = "attacker"
         differenceSL = attackerSL - defenderSL;
@@ -170,7 +171,7 @@ class OpposedWFRP
           {
             let SL = Number(opposeResult.attackerTestResult.SL)
             let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-            if (unitValue == 0)
+            if (unitValue === 0)
               unitValue = 10;
             let damageToAdd = unitValue - SL
             if (damageToAdd > 0)
@@ -180,7 +181,7 @@ class OpposedWFRP
           if (addImpact)
           {
             let unitValue = Number(opposeResult.attackerTestResult.roll.toString().split("").pop())
-            if (unitValue == 0)
+            if (unitValue === 0)
               unitValue = 10;
             opposeResult.attackerTestResult.damage += unitValue
           }
@@ -207,10 +208,10 @@ class OpposedWFRP
       else // Defender won
       {
         if (opposeResult.attackerTestResult.weapon
-            && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Bow")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Crossbow")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Blackpowder")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering")))
+            && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Bow")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Crossbow")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Blackpowder")
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Engineering")))
           WFRP_Utility.PlayContextAudio(opposeResult.attackerTestResult.weapon, {"type": "weapon", "equip": "miss"})
         opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL; 
@@ -231,6 +232,8 @@ class OpposedWFRP
             content: html,
             "flags.opposeData": opposeResult,
             "flags.startMessageId": options.startMessageId,
+            whisper: options.whisper,
+            blind: options.blind,
           }
           ChatMessage.create(chatOptions)
         })
@@ -243,6 +246,8 @@ class OpposedWFRP
           let chatOptions = {
             user: game.user._id,
             content: html,
+            blind: options.blind,
+            whisper: options.whisper,
             "flags.opposeData": opposeResult
           }
           try
@@ -270,23 +275,26 @@ class OpposedWFRP
   }
 
   // Opposed starting message - manual opposed
-  static createOpposedStartMessage(speaker)
+  static createOpposedStartMessage(speaker, rollMode)
   {
-    ChatMessage.create(
-    {
-      user: game.user._id,
-      hideData: true,
-      flags:{"opposedStartMessage": true},
-      content: `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
-    }).then(msg => this.startMessage = msg)
+    let content = `<div><b>${speaker.alias}<b> ${game.i18n.localize("ROLL.OpposedStart")}<div>`
+    let chatOptions = WFRP_Utility.chatDataSetup(content, rollMode);
+
+    chatOptions["hideData"] = true;
+    chatOptions["flags"] = {"opposedStartMessage": true};
+
+    ChatMessage.create(chatOptions).then(msg => this.startMessage = msg)
   }
 
-  // Update starting mesasge with result - manual opposed
+  // Update starting message with result - manual opposed
   static updateOpposedMessage(damageConfirmation, msgId)
   {
-    let opposeMessage = game.messages.get(msgId)
+    let opposeMessage = game.messages.get(msgId);
+    let rollMode=opposeMessage.data.rollMode;
+
     let newCard = {
       user: game.user._id,
+      rollMode: rollMode,
       hideData: true,
       content: $(opposeMessage.data.content).append(`<div>${damageConfirmation}</div>`).html()
     }
@@ -367,7 +375,9 @@ class OpposedWFRP
         await OpposedWFRP.evaluateOpposedTest(attacker, defender,
         {
           target: true,
-          startMessageId: actor.data.flags.oppose.startMessageId
+          startMessageId: actor.data.flags.oppose.startMessageId,
+          whisper: message.data.whisper,
+          blind: message.data.blind,
         })
         await actor.update(
         {
@@ -494,7 +504,7 @@ class OpposedWFRP
               testResult: defenderMessage.data.flags.data.postData,
               img: WFRP_Utility.getSpeaker(defenderMessage.data.speaker).data.img
             };
-            this.evaluateOpposedTest(attacker, defender);
+            this.evaluateOpposedTest(attacker, defender, {blind: message.data.blind, whisper: message.data.whisper});
           }
         }
         else //The defender rerolled
@@ -510,7 +520,7 @@ class OpposedWFRP
             testResult: attackerMessage.data.flags.data.postData,
             img: WFRP_Utility.getSpeaker(attackerMessage.data.speaker).data.img
           };
-          this.evaluateOpposedTest(attacker, defender);
+          this.evaluateOpposedTest(attacker, defender, {blind: message.data.blind, whisper: message.data.whisper});
         }
       }
       //It's an unopposed test reroll
@@ -570,7 +580,7 @@ class OpposedWFRP
    * stored in the the opposed start message. We can compare this with dummy values of 0 for the defender
    * to simulate an unopposed test. This allows us to calculate damage values for ranged weapons and the like.
    * 
-   * @param {Object} message message of opposed start message
+   * @param {Object} startMessage message of opposed start message
    */
   static async resolveUnopposed(startMessage)
   {
