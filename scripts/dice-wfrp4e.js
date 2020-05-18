@@ -366,7 +366,7 @@ class DiceWFRP
       if (weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast"))))
       {
         let property = weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast")))
-        testResults.other.push(`<a class='aoe-template'>${property[property.length-1]} yard Blast</a>`)
+        testResults.other.push(`<a class='aoe-template'><i class="fas fa-ruler-combined"></i>${property[property.length-1]} yard Blast</a>`)
       }
 
       if (testResults.roll % 11 == 0)
@@ -1021,13 +1021,17 @@ class DiceWFRP
       {
         event.preventDefault();
         let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
         let spell = duplicate(msg.data.flags.data.postData.spell);
-        console.log(spell);
         let overcastData = spell.overcasts
-        console.log($(msg.data.content).find(".overcast-options"))
         let overcastChoice = $(event.currentTarget).attr("data-overcast")
 
-        if (!overcastData.available)
+        if (!overcastData.available && event.button == 0)
+          return
+
+        if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
           return
 
         overcastData.available = msg.data.flags.data.postData.overcasts
@@ -1057,16 +1061,50 @@ class DiceWFRP
 
         cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
         
-        cardContent.find(`.overcast-value.${overcastChoice}`).text(overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        if (overcastData[overcastChoice].AoE)
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        else
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = (overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+
         msg.update({content : cardContent.html()})
         msg.update({"flags.data.postData.spell" : spell})
       });
 
-        // Respond to overcast button clicks
-        html.on("mousedown", '.aoe-template', event =>
+      // Button to reset the overcasts
+      html.on("mousedown", '.overcast-reset', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let spell = duplicate(msg.data.flags.data.postData.spell);
+        let overcastData = spell.overcasts
+        for (let overcastType in overcastData)
         {
-          AOETemplate.fromString(event.target.text).drawPreview(event);
-        });
+          if (overcastData[overcastType].count)
+          {
+            overcastData[overcastType].count = 0
+            overcastData[overcastType].current = overcastData[overcastType].initial
+            if (overcastData[overcastType].AoE)
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+            else
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = (overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+          }
+       
+        }
+        overcastData.available = msg.data.flags.data.postData.overcasts;
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.spell" : spell})
+      });
+
+    // Respond to template button clicks
+    html.on("mousedown", '.aoe-template', event =>
+    {
+      AOETemplate.fromString(event.target.text).drawPreview(event);
+    });
 
     // Character generation - select specific career
     html.on("click", '.career-select', event =>

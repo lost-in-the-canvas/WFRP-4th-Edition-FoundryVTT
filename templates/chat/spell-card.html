@@ -2,17 +2,16 @@
 
     {{> systems/wfrp4e/templates/chat/test-card.html}}
 
-
     {{#if testData.overcasts}}
         <div class="card-content">
-        <span class="overcast-count">{{testData.spell.overcasts.available}}/{{testData.overcasts}}</span> {{localize "Overcasts"}}
+        <span class="overcast-count">{{testData.spell.overcasts.available}}/{{testData.overcasts}}</span> {{localize "Overcasts"}} <a class="overcast-reset" title="{{localize 'CHAT.OvercastReset'}}"><i class="fas fa-undo"></i></a>
 
         <div class="overcast-options">
             {{#if testData.spell.overcasts.target}}
             <div class="overcast-section">
                 <a class='overcast-button' data-overcast="target">{{testData.spell.overcasts.target.label}}</a>
                 {{#if testData.spell.overcasts.target.AoE}}
-                <a class="overcast-value aoe-template target">{{testData.spell.overcasts.target.current}} {{testData.spell.overcasts.target.unit}}</a>
+                <a class="overcast-value aoe-template target"><i class="fas fa-ruler-combined"></i> {{testData.spell.overcasts.target.current}} {{testData.spell.overcasts.target.unit}}</a>
                 {{else}}
                 <a class="overcast-value target">{{testData.spell.overcasts.target.current}} </a>
                 {{/if}}
@@ -34,10 +33,4 @@
             {{/if}}
         </div>
     {{/if}}
-
-   <!-- {{#if opposed}}
-    <div class ="card-buttons">
-        <button class="oppose-button">Oppose</button>
-    </div>
-    {{/if}}-->
 </div>

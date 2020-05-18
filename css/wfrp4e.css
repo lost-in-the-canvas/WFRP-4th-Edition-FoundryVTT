@@ -15756,6 +15756,11 @@ font-style : normal;
   /* left: 120px; */
   text-align: center;
 }
+
+.overcast-value {
+  padding: 4px 3px 0px 3px;
+}
+
 .attribute-career-buttons{
   justify-content: space-around;
   display: flex;
