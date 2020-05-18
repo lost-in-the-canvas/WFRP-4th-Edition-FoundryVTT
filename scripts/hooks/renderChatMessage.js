@@ -25,7 +25,10 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 
   // Do not display "Blind" chat cards to non-gm
   if (html.hasClass("blind") && !game.user.isGM)
+  {
+    html.find(".message-header").remove(); // Remove header so Foundry does not attempt to update its timestamp
     html.html("").css("display", "none");
+  }
 
   // Add drag and drop functonality to posted items
   let postedItem = html.find(".post-item")[0]
