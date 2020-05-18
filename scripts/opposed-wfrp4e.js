@@ -30,7 +30,7 @@ class OpposedWFRP
     {
       // If the startMessage still exists, proceed with the opposed test. Otherwise, start a new opposed test
       if (game.messages.get(this.startMessage._id)) 
-        this.defenderClicked(data.postData, message, data.rollMode);
+        this.defenderClicked(data.postData, message);
       else
       {
         this.clearOpposed();
@@ -89,9 +89,8 @@ class OpposedWFRP
    *
    * @param {Object} testResult Test result values
    * @param {Object} message message for update, actor, token, etc. for the defender
-   * @param {String} rollMode the type of roll mode used for the card
    */
-  static defenderClicked(testResult, message, rollMode)
+  static defenderClicked(testResult, message)
   {
     // Store defender in object member
     this.defender = {
@@ -292,7 +291,6 @@ class OpposedWFRP
   {
     let opposeMessage = game.messages.get(msgId);
     let rollMode=opposeMessage.data.rollMode;
-    console.log(`Update - Roll Mode selected : ${rollMode}`);
 
     let newCard = {
       user: game.user._id,
