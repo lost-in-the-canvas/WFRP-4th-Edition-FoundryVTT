@@ -1116,6 +1116,7 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
+    WFRP_Audio.FindContext(result)
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
@@ -3321,7 +3322,7 @@ class ActorWfrp4e extends Actor {
   async _advanceSkill(skillName, advances)
   {
     // Look through items and determine if the actor has the skill
-    let existingSkill = this.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
+    let existingSkill = duplicate(this.data.items.find(i => i.name.trim() == skillName && i.type == "skill"))
     // If so, simply update the skill with the new advancement value. 
     if (existingSkill)
     {
