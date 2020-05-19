@@ -389,14 +389,6 @@ class MarketWfrp4e {
             }
             return {gc: gc, ss: ss, bp: bp};
         }
-
-        /**
-         * Get number of active players in the game
-         * @returns {int} number of active players
-         */
-        function getNbOfActivePlayers() {
-            return game.users.players.filter(p => p.data.active).length;
-        }
         
         /**
          *
@@ -436,7 +428,7 @@ class MarketWfrp4e {
         } else //generate a card with a summary and a receive button
         {
             let amount
-            let nbActivePlayers = getNbOfActivePlayers();
+            let nbActivePlayers = game.users.players.filter(p => p.data.active).length;            
             let forceWhisper
             
             console.log("This is my option", option);
