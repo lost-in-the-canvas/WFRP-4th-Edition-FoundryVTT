@@ -289,13 +289,13 @@ class ActorWfrp4e extends Actor {
       title: title,
       template : "/systems/wfrp4e/templates/chat/skill-dialog.html",
       // Prefilled dialog data
+
       data : {
         hitLocation : testData.hitLocation,
         talents : this.data.flags.talentTests,
         characteristicList : WFRP4E.characteristics,
         characteristicToUse : skill.data.characteristic.value,
-        advantage : this.data.data.status.advantage.value || 0,
-        testDifficulty : options.income || options.rest ? "average" : "challenging" // Default to average if using income or rest & recover
+        advantage : this.data.data.status.advantage.value || 0
       },
       callback : (html, roll) => {
         // When dialog confirmed, fill testData dialog information
@@ -327,12 +327,15 @@ class ActorWfrp4e extends Actor {
       }
     };
 
-    // If Income, use the specialized income roll handler
+    // If Income, use the specialized income roll handler and set testDifficulty to average
     if (testData.income)
     {
      dialogOptions.rollOverride = this.constructor.incomeOverride;
      dialogOptions.data.testDifficulty = "average";
     }
+
+    // If Rest & Recover, set testDifficulty to average
+    if (options.rest) {dialogOptions.data.testDifficulty = "average";}
 
     // Call the universal cardOptions helper
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
@@ -357,7 +360,7 @@ class ActorWfrp4e extends Actor {
   setupWeapon(weapon, options = {}) {
     let skillCharList = []; // This array is for the different options available to roll the test (Skills and characteristics)
     let slBonus = 0   // Used when wielding Defensive weapons
-    let modifier = 0; // Used when atatcking with Accurate weapons
+    let modifier = 0; // Used when attacking with Accurate weapons
     let successBonus = 0;
     let title = game.i18n.localize("WeaponTest") + " - " + weapon.name;
 
@@ -1547,7 +1550,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcCorruption)
     {
       actorData.data.status.corruption.max = tb + wpb;
-      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == game.i18n.localize("NAME.PS"))
+      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase == (game.i18n.localize("NAME.PS")).toLowerCase)
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
       this.update({"data.status.corruption.max": actorData.data.status.corruption.max});
@@ -2114,8 +2117,8 @@ class ActorWfrp4e extends Actor {
       {
         console.error("Something went wrong with preparing item " + i.name + ": " + error)
         ui.notifications.error("Something went wrong with preparing item " + i.name + ": " + error)
-        ui.notifications.error("Deleting " + i.name);
-        this.deleteEmbeddedEntity("OwnedItem", i._id);
+       // ui.notifications.error("Deleting " + i.name);
+       // this.deleteEmbeddedEntity("OwnedItem", i._id);
       }
     } // END ITEM SORTING
 
@@ -2743,6 +2746,57 @@ class ActorWfrp4e extends Actor {
     item['target'] =    this.calculateSpellAttributes(item.data.target.value, item.data.target.aoe);
     item['duration'] =  this.calculateSpellAttributes(item.data.duration.value);
     item['range'] =     this.calculateSpellAttributes(item.data.range.value);
+
+    item.overcasts = {
+      available : 0,
+      range : undefined,
+      duration : undefined,
+      target : undefined,
+    }
+
+    if (parseInt(item.target))
+    {
+      item.overcasts.target = {
+        label : "Target",
+        count : 0,
+        AoE: false,
+        initial : parseInt(item.target),
+        current : parseInt(item.target),
+        unit : ""
+      }
+    }
+    else if (item.target.includes("AoE"))
+    {
+      let aoeValue = item.target.substring(item.target.indexOf("(") + 1, item.target.length - 1)
+      item.overcasts.target = {
+        label : "AoE",
+        count : 0,
+        AoE: true,
+        initial : parseInt(aoeValue),
+        current : parseInt(aoeValue),
+        unit : aoeValue.split(" ")[1]
+      }
+    }
+    if (parseInt(item.duration))
+    {
+      item.overcasts.duration = {
+        label : "Duration",
+        count : 0,
+        initial : parseInt(item.duration),
+        current : parseInt(item.duration),
+        unit : item.duration.split(" ")[1]
+      }
+    }
+    if (parseInt(item.range))
+    {
+      item.overcasts.range = {
+        label : "Range",
+        count : 0,
+        initial : parseInt(item.range),
+        current : parseInt(item.range),
+        unit : item.range.split(" ")[1]
+      }
+    }
 
     // Add the + to the duration if it's extendable
     if (item.data.duration.extendable)

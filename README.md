@@ -1,9 +1,9 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.4.2` 
+**[Current Version]**: `1.4.3` 
 
-**[Compatibility]**: `FoundryVTT 0.5.4 - 0.5.5`
+**[Compatibility]**: `FoundryVTT 0.5.6+`
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
@@ -41,4 +41,6 @@ Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725
 - [Gerwin Waffenhalter’s Magnificent Weapons Gallery](https://github.com/DasSauerkraut/wfrp-gwmwg) - Adds new weapons and weapon traits from the Ratter Vol. 1 Issue 2.
 
 - [The GM Tool Kit](https://github.com/Jagusti/fvtt-wfrp4e-gmtoolkit) - Extends to the Token HUD for more information and adds useful macros!
+
+- [WFRP Tweaks](https://github.com/DasSauerkraut/wfrp-tweaks) - A small-ish module with optional automation as well as macro support for spells, prayers, and weapons.
 
