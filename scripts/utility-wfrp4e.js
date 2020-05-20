@@ -630,6 +630,7 @@ class WFRP_Utility
    */
   static matchClosest(object, query)
   {
+    query = query.toLowerCase();
     let keys = Object.keys(object)
     let match = [];
     for (let key of keys)
