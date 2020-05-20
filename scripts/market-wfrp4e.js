@@ -428,7 +428,7 @@ class MarketWfrp4e {
         } else //generate a card with a summary and a receive button
         {
             let amount
-            let nbActivePlayers = game.users.players.filter(p => p.data.active).length;            
+            let nbActivePlayers = Array.from(game.users).filter(u => u.data.role != 4 && u.active).length;
             let forceWhisper
             
             console.log("This is my option", option);
