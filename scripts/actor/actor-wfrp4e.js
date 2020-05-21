@@ -1116,7 +1116,8 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
-    WFRP_Audio.FindContext(result)
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
@@ -1214,6 +1215,8 @@ class ActorWfrp4e extends Actor {
       result.incomeResult = game.i18n.localize("INCOME.Failure")
       moneyEarned = 0;
     }
+    // let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    // cardOptions.sound = contextAudio.file || cardOptions.sound
     result.moneyEarned = moneyEarned + WFRP_Utility.findKey(status[0], WFRP4E.statusTiers);
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
@@ -1241,6 +1244,8 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollWeaponTest", result)
 
 
@@ -1270,6 +1275,8 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
 
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollCastTest", result)
 
 
@@ -1302,6 +1309,8 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollChannelTest", result)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1330,6 +1339,8 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
 
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollPrayerTest", result)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1379,6 +1390,8 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
+    let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
+    cardOptions.sound = contextAudio.file || cardOptions.sound
     Hooks.call("wfrp4e:rollTraitTest", result)
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -3080,7 +3093,6 @@ class ActorWfrp4e extends Actor {
         if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
         {
           impenetrable = true;
-          break;
         }
       }
 
@@ -3139,12 +3151,12 @@ class ActorWfrp4e extends Actor {
     newWounds -= totalWoundLoss
 
     if(totalWoundLoss > 0)
-      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "normal"})
+      WFRP_Audio.PlayContextAudio({item : opposeData.attackerTestResult.weapon, action : "hit", outcome: "normal"})
 
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
     {
-      WFRP_Utility.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
+      WFRP_Audio.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
       let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
       if(game.settings.get("wfrp4e", "dangerousCrits") && critAmnt && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
       {

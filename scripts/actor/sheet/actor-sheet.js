@@ -280,7 +280,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
-    WFRP_Utility.PlayContextAudio(itemToEdit, {"type": "ammo", "equip": "normal"})
+    WFRP_Audio.PlayContextAudio({item : itemToEdit, action : "load"}) // 'load' is unused
   });
 
 
@@ -604,9 +604,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     spell.data.memorized.value = !spell.data.memorized.value;
 
     if (spell.data.memorized.value)
-      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "memorize"})
+      WFRP_Audio.PlayContextAudio({item : spell, action: "memorize"})
     else
-      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "unmemorize"})
+      WFRP_Audio.PlayContextAudio({item : spell, action: "unmemorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
@@ -765,24 +765,24 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-toggle').click(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
-    let context;
+    let equippedState;
     if (item.type == "armour")
     {
       item.data.worn.value = !item.data.worn.value;
-      context = item.data.worn.value
+      equippedState = item.data.worn.value
     }
     else if (item.type == "weapon")
     {
       item.data.equipped = !item.data.equipped;
-      context = item.data.equipped
+      equippedState = item.data.equipped
     }
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
     {
       item.data.worn = !item.data.worn;
-      context = item.data.worn
+      equippedState = item.data.worn
     }
     
-    WFRP_Utility.PlayContextAudio(item, {"type": "equip", "equip": context})    
+    WFRP_Audio.PlayContextAudio({item : item, action : "equip", outcome : equippedState})    
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
