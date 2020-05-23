@@ -1174,7 +1174,7 @@ class DiceWFRP
   {
     if(game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
     {
-      let whisper = [];
+      let whisper = null;
       let blind = false;
       switch(rollMode)
       {
