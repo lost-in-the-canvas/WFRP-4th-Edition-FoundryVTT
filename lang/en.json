@@ -299,6 +299,7 @@
     "Trait" : "Trait",
     "Protects" : "Protects",
     "AllowXPSpending" : "Force Advancement Indicator",
+    "TooltipAllowXPSpending" : "Show the Advancement Indicator regardless of career, which will allow you to automate spending experience.",
 
     "BROWSER.ItemCategories" : "Item Categories",
     "BROWSER.IncludeWorld" : "Include World Items?",

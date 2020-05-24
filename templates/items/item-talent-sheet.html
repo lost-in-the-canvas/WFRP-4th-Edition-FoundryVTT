@@ -42,9 +42,9 @@
       </div>
     </div>
     {{#if isOwned}}
-    <div class="form-group">
+    <div class="form-group" title='{{localize "TooltipAllowXPSpending"}}'>
       <label class="label-text">{{localize "AllowXPSpending"}}</label>
-      {{#if flags.forceAdvIndicator}}
+      {{#if item.flags.forceAdvIndicator}}
       <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-check-circle"></i></a>
       {{else}}
       <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-circle"></i></a>
