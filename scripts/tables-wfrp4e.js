@@ -164,6 +164,7 @@ class WFRP_Tables
       case "critarm":
       case "critleg":
       case "crit":
+        WFRP_Audio.PlayContextAudio({item : {type:"hit"}, action : "hit", outcome : "crit"})
         return `<b>${this[table].name}</b><br><a class = "item-lookup" data-type = "critical"><b>${result.name}</b></a><br>(${result.roll})`
 
       case "minormis":

@@ -18,6 +18,6 @@ Hooks.on("updateCombat", (combat) => {
         canvas.tokens.cycleTokens(1, true);  
       }
 
-      WFRP_Utility.PlayContextAudio({type: 'round'}, {"type": "round", "equip": "change"})
+      WFRP_Audio.PlayContextAudio({item : {type: 'round'}, action: "change"})
     }
   })
