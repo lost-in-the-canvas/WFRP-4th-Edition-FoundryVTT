@@ -9087,7 +9087,7 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section > h4 {
     width: 100%;
     height: 24px;
-    margin: 6px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 2px 0px 0px 0px;
     border: 1px solid #736953a6;
     font-family: var(--actor-label-font-family);
@@ -9124,12 +9124,12 @@
       overflow-x: hidden;
       overflow-y: hidden;
       position: relative;
-      top: -4px;
+      top: 0px;
     }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .label-details {
       width: 20%;
       height: 23px;
-      margin: -2px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
       padding: 3px 0px 0px 0px;
       font-family: var(--actor-label-font-family);
       font-size: var(--actor-label-font-size);
@@ -9150,10 +9150,10 @@
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .input-details {
       height: 23px;
       text-align: center;
-      padding-top: 6px;
+      padding-top: 0px;
       position: relative;
       /* background: red; */
-      top: -2px;
+      /* top: -2px; */
     }
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .motivation {
@@ -9234,11 +9234,11 @@
       font-size: 10px;
       color: var(--actor-label-color);
       margin: 0px;
-      padding: 4px 0px 0px 0px;
+      padding: 1px 0px 0px 0px;
       min-width: 30px;
       max-width: 30px;
       flex-grow: 0;
-      /* background: #00a1ff; */
+      /* background: red; */
       text-align: center;
     } 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list {
@@ -9379,11 +9379,11 @@
       font-size: 10px;
       color: var(--actor-label-color);
       margin: 0px;
-      padding: 4px 0px 0px 0px;
+      padding: 1px 0px 0px 0px;
       min-width: 30px;
       max-width: 30px;
       flex-grow: 0;
-      /* background: #00a1ff; */
+      /* background: red; */
       text-align: center;
     }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list {
@@ -9538,16 +9538,16 @@
       text-align: center;
     }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.disease-header .item-controls {
-      font-family: "Font Awesome 5 Free";
-      font-size: 10px;
-      color: var(--actor-label-color);
-      margin: 0px;
-      padding: 4px 0px 0px 0px;
-      min-width: 30px;
-      max-width: 30px;
-      flex-grow: 0;
-      /* background: #00a1ff; */
-      text-align: center;
+        font-family: "Font Awesome 5 Free";
+        font-size: 10px;
+        color: var(--actor-label-color);
+        margin: 0px;
+        padding: 1px 0px 0px 0px;
+        min-width: 30px;
+        max-width: 30px;
+        flex-grow: 0;
+        /* background: red; */
+        text-align: center;
     }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.disease-list {
     overscroll-behavior-x: unset;
@@ -10482,7 +10482,7 @@
       flex-grow: 0;
     }
       .app.window-app.sheet.wfrp4e.actor.npc-sheet .tab.main.active .skill-section .skill-type .inventory-header .name {
-        position: relative; */
+        position: relative; 
         /* left: 0px; */
         height: 18px;
         display: inline-flex;
@@ -13228,7 +13228,7 @@ border-image-outset: 0px !important;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: 0px 7px 3px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
@@ -14449,7 +14449,15 @@ border-image-outset: 0px !important;
     }
 
   /* ================== 13. FILE PICKER ======================= */
-    .app.window-app.filepicker .form-group .back {
+    .app.window-app.filepicker {
+      /* max-height: 70%; */
+    }
+    .app.window-app .filepicker-body.list.public .filepicker-body {
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .app.window-app.filepicker .form-group button {
       border: 1px solid black;
       border-image: url(../ui/footer-button.png) 10 repeat;
       border-image-width: 4px;
@@ -14458,24 +14466,47 @@ border-image-outset: 0px !important;
       background: url(../ui/sidebar_button-background_red.png) repeat;
       margin-bottom: 0px;
     }
-      .app.window-app.filepicker .form-group .back i {
+      .app.window-app.filepicker .form-group button i {
         color: #dadadadb;
         /* transform: scaleX(-1); */
         display: contents;
         font-size: 16px;
         color: #b9b9b9;
       }
+    .app.window-app.filepicker .form-fields.display-modes a {
+      border: 1px solid black;
+      border-image: url(../ui/footer-button.png) 10 repeat;
+      border-image-width: 4px;
+      border-image-outset: 0px;
+      box-shadow: none;
+      background: url(../ui/sidebar_button-background_red.png) repeat;
+      margin-bottom: 0px;
+      padding-top: 2px;
+    }
+      .app.window-app.filepicker .form-fields.display-modes a i {
+        color: #dadadadb;
+        /* transform: scaleX(-1); */
+        display: contents;
+        font-size: 14px;
+        color: #b9b9b9;
+        /* position: relative; */
+        /* top: 9px; */
+      }
     .app.window-app.filepicker .form-group.current-dir input {
       border-left: 1px solid #736953a6;
     }
-
-      .app.window-app.filepicker .folders-list,
-        .app.window-app.filepicker .files-list {
+    .app.window-app.filepicker .filepicker-body .directory.files-list.details-list,
+    .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 3px ridge #5d513e;
       border-radius: 0px;
       box-shadow: 0px 0px 33px black inset;
+      max-height: none;
     }
+      .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
+        min-height: fit-content;
+        max-height: 50%;
+      }
     .app.window-app.filepicker .form-group label {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
