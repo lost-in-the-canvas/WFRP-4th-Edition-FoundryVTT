@@ -4809,10 +4809,10 @@
           box-shadow: 0px 0px 5px inset #5a2d00;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           /* margin: 4px 4px; */
-          padding: 1px 5px 0px 5px;
+          padding: 2px 5px 0px 5px;
           border-radius: 5px;
           position: relative;
-          top: -2px;
+          top: 0px;
           /* background: red; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .advancement-indicator {
@@ -4826,7 +4826,7 @@
         min-width: 26px;
         max-width: 26px;
         margin: 1px 0px 0px 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4839,7 +4839,7 @@
         min-width: 30px;
         max-width: 30px;
         margin: 1px 0px 0px 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4852,7 +4852,7 @@
         min-width: 30px;
         max-width: 30px;
         margin: 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4893,7 +4893,7 @@
         height: 17px;
         border-radius: 5px;
         position: relative;
-        top: -2px;
+        top: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
         padding: 2px 0px 0px 0px;
