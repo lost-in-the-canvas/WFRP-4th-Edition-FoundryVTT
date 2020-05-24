@@ -99,6 +99,7 @@ class DiceWFRP
       testData.target = testData.target + testData.testModifier;
       testData.slBonus = testData.extra.options.slBonus || testData.slBonus
       testData.successBonus = testData.extra.options.successBonus || testData.successBonus
+      cardOptions.rollMode = testData.extra.options.rollMode || rollMode      
       roll(testData, cardOptions)
     }
   }

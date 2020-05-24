@@ -631,15 +631,17 @@ class WFRP_Utility
    */
   static matchClosest(object, query)
   {
+    query = query.toLowerCase();
     let keys = Object.keys(object)
     let match = [];
     for (let key of keys)
     {
       let percentage = 0;
       let matchCounter = 0;
-      for (let i = 0; i < key.length; i++)
+      let myword = object[key].toLowerCase();
+      for (let i = 0; i < myword.length; i++)
       {
-        if (key[i] == query[i])
+        if ( myword[i] == query[i])
         {
           matchCounter++;
         }
