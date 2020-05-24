@@ -193,6 +193,8 @@ class WFRP_Audio
               files = files.filter(f => f.includes("-fire"))
             else if(file != "weapon_bomb")
               files = files.filter(f => f.includes("-swing"))
+            else 
+              files = files.filter(f => f.includes("-throw"))
           }
           else if (context.action == "load")
             files = files.filter(f => f.includes("-load"))

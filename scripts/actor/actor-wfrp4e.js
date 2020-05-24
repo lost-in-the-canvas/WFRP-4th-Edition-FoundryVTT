@@ -540,7 +540,7 @@ class ActorWfrp4e extends Actor {
         roll(testData, cardOptions);
 
         // Reduce ammo if necessary
-        if (ammo && skillSelected != game.i18n.localize("CHAR.WS") && weapon.data.weaponGroup.value != game.i18n.localize("SPEC.Entangling"))
+        if (ammo && skillSelected != game.i18n.localize("CHAR.WS") && weapon.data.weaponGroup.value != game.i18n.localize("SPEC.Entangling").toLowerCase())
         {
           ammo.data.quantity.value--;
           this.updateEmbeddedEntity("OwnedItem", {_id: ammo._id, "data.quantity.value" : ammo.data.quantity.value });
