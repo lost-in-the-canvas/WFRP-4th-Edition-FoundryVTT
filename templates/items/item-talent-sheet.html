@@ -41,6 +41,16 @@
         <input class="input-text" name="data.tests.value" data-dtype="{{data.tests.type}}" value="{{data.tests.value}}" />
       </div>
     </div>
+    {{#if isOwned}}
+    <div class="form-group">
+      <label class="label-text">{{localize "AllowXPSpending"}}</label>
+      {{#if flags.forceAdvIndicator}}
+      <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-check-circle"></i></a>
+      {{else}}
+      <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-circle"></i></a>
+      {{/if}}
+    </div>
+    {{/if}}
   </div>
   </section>
 </form>

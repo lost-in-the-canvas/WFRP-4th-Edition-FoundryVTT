@@ -298,6 +298,7 @@
     "Prayer" : "Prayer",
     "Trait" : "Trait",
     "Protects" : "Protects",
+    "AllowXPSpending" : "Force Advancement Indicator",
 
     "BROWSER.ItemCategories" : "Item Categories",
     "BROWSER.IncludeWorld" : "Include World Items?",

@@ -1636,6 +1636,16 @@ class ActorWfrp4e extends Actor {
       for (let char in actorData.data.characteristics)
         actorData.data.characteristics[char].career = false;
     }
+
+    //Add advancement indicators
+    actorData.basicSkills.forEach(skill => skill.career = skill.flags.forceAdvIndicator ? true:skill.career);
+    actorData.advancedOrGroupedSkills.forEach(skill => skill.career = skill.flags.forceAdvIndicator ? true:skill.career);
+    let that = this;
+    actorData.talents.forEach(function(talent){
+      if(!talent.career)
+        that.data.flags.careerTalents.push(talent);
+      talent.career = talent.flags.forceAdvIndicator ? true:talent.career;
+    });
     // Add arrays to prepared actotr datas
     actorData.untrainedSkills = untrainedSkills;
     actorData.untrainedTalents = untrainedTalents;
