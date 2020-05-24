@@ -70,7 +70,7 @@ class DiceWFRP
       roll = ActorWfrp4e.defaultRoll;
 
     dialogOptions.data.rollMode = rollMode;
-    dialogOptions.data.rollModes = CONFIG.rollModes;
+    dialogOptions.data.rollModes = CONFIG.Dice.rollModes;
 
     if (!testData.extra.options.bypass)
     {
@@ -1278,7 +1278,7 @@ class DiceWFRP
   {
     if(game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
     {
-      let whisper = [];
+      let whisper = null;
       let blind = false;
       switch(rollMode)
       {
