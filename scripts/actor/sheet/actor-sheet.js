@@ -458,9 +458,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       item.data["weaponDamage"] = 0;
 
     if (ev.button == 2)
+    {
       item.data.weaponDamage++;
+      WFRP_Audio.PlayContextAudio({item : item, action : "damage", outcome : "weapon"})
+    }
     else if (ev.button == 0)
       item.data.weaponDamage--;
+
 
     if (item.data.weaponDamage < 0)
       item.data.weaponDamage = 0;
@@ -567,7 +571,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     for (let s of shields)
     {
       let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
-      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield"))).split(" ")[1];
+      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())).split(" ")[1];
       
       if (!shield.data.APdamage)
         shield.data.APdamage = 0;
@@ -578,6 +582,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           shield.data.APdamage++
           shieldDamaged = true;
+          WFRP_Audio.PlayContextAudio({item : shield, action : "damage", outcome : "shield"})
         }
       }
       // Left click - repair
@@ -721,6 +726,12 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-delete').click(ev => {
     let li = $(ev.currentTarget).parents(".item"),
       itemId = li.attr("data-item-id");
+      if(this.actor.getEmbeddedEntity("OwnedItem", itemId).name == "Boo")
+      {
+        AudioHelper.play({src : "systems/wfrp4e/sounds/squeek.wav"}, false)
+        return // :^)
+      }
+      
       renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
         new Dialog({
         title: "Delete Confirmation",

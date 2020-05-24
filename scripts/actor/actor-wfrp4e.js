@@ -1116,8 +1116,13 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
+      
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollTest", result)
 
     if (game.user.targets.size)
@@ -1244,8 +1249,12 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollWeaponTest(testData);
     result.postFunction = "weaponOverride";
 
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollWeaponTest", result)
 
 
@@ -1275,8 +1284,12 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
 
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollCastTest", result)
 
 
@@ -1309,8 +1322,12 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
 
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollChannelTest", result)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1339,8 +1356,12 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "prayerOverride";
 
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollPrayerTest", result)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1390,8 +1411,12 @@ class ActorWfrp4e extends Actor {
     if (testData.extra)
       mergeObject(result, testData.extra);
 
+   try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     cardOptions.sound = contextAudio.file || cardOptions.sound
+   }
+   catch 
+   { }
     Hooks.call("wfrp4e:rollTraitTest", result)
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -3031,12 +3056,14 @@ class ActorWfrp4e extends Actor {
     // Get actor/tokens for those in the opposed test
     let actor = WFRP_Utility.getSpeaker(victim);
     let attacker = WFRP_Utility.getSpeaker(opposeData.speakerAttack)
+    let soundContext = {item : {}, action : "hit"};
 
     // Start wound loss at the damage value
     let totalWoundLoss = opposeData.damage.value
     let newWounds = actor.data.data.status.wounds.value;
     let applyAP = (damageType == DAMAGE_TYPE.IGNORE_TB || damageType == DAMAGE_TYPE.NORMAL)
     let applyTB = (damageType == DAMAGE_TYPE.IGNORE_AP || damageType == DAMAGE_TYPE.NORMAL)
+    let AP = {};
 
     // Start message update string
     let updateMsg = `<b>${game.i18n.localize("CHAT.DamageApplied")}</b><span class = 'hide-option'>: @TOTAL`;
@@ -3055,11 +3082,27 @@ class ActorWfrp4e extends Actor {
     // If weapon has Penetrating
     let penetrating = false;
 
+    // if weapon has pummel - only used for audio
+    let pummel = false
+
+    // Reduce damage by TB
+    if (applyTB)
+    {
+      totalWoundLoss -= actor.data.data.characteristics.t.bonus
+      updateMsg += actor.data.data.characteristics.t.bonus + " TB"
+    }
+
+    // If the actor has the Robust talent, reduce damage by times taken
+    totalWoundLoss -= actor.data.flags.robust || 0;
+
+    if (actor.data.flags.robust)
+      updateMsg += ` + ${actor.data.flags.robust} Robust`
+
     if (applyAP)
     {
       // I dislike this solution but I can't think of any other way to do it
       // Prepare the entire actor to get the AP layers at the hitloc
-      let AP = actor.prepareItems().AP[opposeData.hitloc.value]
+      AP = actor.prepareItems().AP[opposeData.hitloc.value]
       AP.ignored = 0;
       if (opposeData.attackerTestResult.weapon) // If the attacker is using a weapon
       {
@@ -3069,6 +3112,7 @@ class ActorWfrp4e extends Actor {
         undamaging = weaponProperties.flaws.includes(game.i18n.localize("PROPERTY.Undamaging"))
         hack = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Hack"))
         impale = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Impale"))
+        pummel = weaponProperties.qualities.includes(game.i18n.localize("PROPERTY.Pummel"))
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
@@ -3093,6 +3137,18 @@ class ActorWfrp4e extends Actor {
         if (opposeData.attackerTestResult.roll % 2 != 0 && layer.impenetrable)
         {
           impenetrable = true;
+          soundContext.outcome = "impenetrable"
+        }
+
+        // Prioritize plate over chain over leather for sound
+        if (layer.value)
+        {
+          if (layer.armourType == "plate")
+            soundContext.item.armourType = layer.armourType
+          else if (!soundContext.item.armourType || (soundContext.item.armourType && (soundContext.item.armourType.includes("leather")) && layer.armourType == "mail")) // set to chain if there isn't an armour type set yet, or the current armor type is leather
+            soundContext.item.armourType = layer.armourType
+          else if(!soundContext.item.armourType)
+            soundContext.item.armourType = "leather"
         }
       }
 
@@ -3103,9 +3159,9 @@ class ActorWfrp4e extends Actor {
 
       // show the AP usage in the updated message
       if (AP.ignored)
-        updateMsg += `${AP.used}/${AP.value} ${game.i18n.localize("AP")}`
+        updateMsg += ` + ${AP.used}/${AP.value} ${game.i18n.localize("AP")}`
       else
-        updateMsg += AP.used + ` ${game.i18n.localize("AP")}`
+        updateMsg += ` + ${AP.used} ${game.i18n.localize("AP")}`
 
       // If using a shield, add that AP as well
       let shieldAP = 0;
@@ -3116,47 +3172,60 @@ class ActorWfrp4e extends Actor {
       }
 
       if (shieldAP)
-        updateMsg += ` + ${shieldAP} ${game.i18n.localize("CHAT.DamageShield")}`
-
-      if (applyTB)
-        updateMsg += " + "
+        updateMsg += ` + ${shieldAP} ${game.i18n.localize("CHAT.DamageShield")})`
       else
         updateMsg += ")"
 
       // Reduce damage done by AP
       totalWoundLoss -= (AP.used + shieldAP)
+
+      // Minimum 1 wound if not undamaging
+      if (!undamaging)
+        totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss
+      else
+        totalWoundLoss = totalWoundLoss <= 0 ? 0 : totalWoundLoss
+
+
+      try {
+        if (opposeData.attackerTestResult.weapon.attackType == "melee")
+        {
+          if ((weaponProperties.qualities.concat(weaponProperties.flaws)).every(p => [game.i18n.localize("PROPERTY.Pummel") , game.i18n.localize("PROPERTY.Slow") , game.i18n.localize("PROPERTY.Damaging")].includes(p)))
+            soundContext.outcome = "warhammer" // special sound for warhammer :^)
+          else if (AP.used)
+          {
+            soundContext.item.type = "armour"
+            if (applyAP && totalWoundLoss <= 1)
+              soundContext.outcome = "blocked"
+            else if (applyAP)
+              soundContext.outcome = "normal"
+            if (impenetrable)
+              soundContext.outcome = "impenetrable"
+            if (hack)
+              soundContext.outcome = "hack"
+          }
+          else 
+          {
+            soundContext.item.type = "hit"
+            soundContext.outcome = "normal"
+            if (impale || penetrating)
+            {
+              soundContext.outcome = "normal_slash"
+            }
+          }
+        }
+      }
+      catch (e) {console.log("wfrp4e | Sound Context Error: " + e)} // Ignore sound errors
     }
-
-    // Reduce damage by TB
-    if (applyTB)
-    {
-      totalWoundLoss -= actor.data.data.characteristics.t.bonus
-      updateMsg += actor.data.data.characteristics.t.bonus + " TB"
-    }
-
-    // If the actor has the Robust talent, reduce damage by times taken
-    totalWoundLoss -= actor.data.flags.robust || 0;
-
-    if (actor.data.flags.robust)
-      updateMsg += ` + ${actor.data.flags.robust} Robust)`
-    else
-      updateMsg += ")"
-
-    // Minimum 1 wound if not undamaging
-    if (!undamaging)
-      totalWoundLoss = totalWoundLoss <= 0 ? 1 : totalWoundLoss
-    else
-      totalWoundLoss = totalWoundLoss <= 0 ? 0 : totalWoundLoss
+    else updateMsg += ")"
 
     newWounds -= totalWoundLoss
 
-    if(totalWoundLoss > 0)
-      WFRP_Audio.PlayContextAudio({item : opposeData.attackerTestResult.weapon, action : "hit", outcome: "normal"})
+    WFRP_Audio.PlayContextAudio(soundContext)
 
     // If damage taken reduces wounds to 0, show Critical
     if (newWounds <= 0 && !impenetrable)
     {
-      WFRP_Audio.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
+      //WFRP_Audio.PlayContextAudio(opposeData.attackerTestResult.weapon, {"type": "hit", "equip": "crit"})
       let critAmnt = game.settings.get("wfrp4e", "dangerousCritsMod")
       if(game.settings.get("wfrp4e", "dangerousCrits") && critAmnt && (Math.abs(newWounds) - actor.data.data.characteristics.t.bonus) > 0)
       {

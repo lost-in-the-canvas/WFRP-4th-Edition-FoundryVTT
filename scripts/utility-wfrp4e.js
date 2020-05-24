@@ -44,7 +44,8 @@ class WFRP_Utility
   static addLayer(AP, armor, loc)
   {
     let layer = {
-      value: armor.data.currentAP[loc]
+      value: armor.data.currentAP[loc],
+      armourType : armor.data.armorType.value // used for sound
     }
     if (armor.properties.qualities.includes("Impenetrable"))
       layer.impenetrable = true;
