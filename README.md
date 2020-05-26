@@ -33,8 +33,6 @@ Please feel free to message us on Discord - Moo Man#7518 or CatoThe1stElder#9725
 ### Notable Features
 - Opposed Test and Damage calculation that takes into account Size, weapons, armor (qualities and flaws), and talents
 
-- Opposed Test and Damage calculation that takes into account Size, weapons, armor (qualities and flaws), and talents
-
 - Complete test result evaluation (everything from miscasting, ingredients, wrath of the gods, blackpowder misfires, overcasts)
 
 - A complete character generation suite
