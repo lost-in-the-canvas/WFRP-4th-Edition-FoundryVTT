@@ -237,7 +237,21 @@
     overflow: hidden;
     background: url(../ui/background.png) repeat;
     font-size: 14px;
+    cursor:url(../ui/cursors/normal.png), default; 
   }
+
+  a{
+    cursor:url(../ui/cursors/pointer.png), pointer; 
+  }
+
+  .draggable{
+    cursor:url(../ui/cursors/drag.png), move; 
+  }
+
+  #hotbar .macro{
+    cursor:url(../ui/cursors/pointer.png), pointer; 
+  }
+
   input[type="text"], input[type="password"] {
     min-width: 20px;
     background: none;
@@ -1764,7 +1778,7 @@
       width: 11px;
       border-radius: 5px;
       background: #212121;
-      cursor: pointer;
+      cursor:url(../ui/cursors/pointer.png), pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     }
@@ -1850,7 +1864,7 @@
       width: 11px;
       border-radius: 5px;
       background: #212121;
-      cursor: pointer;
+      cursor:url(../ui/cursors/pointer.png), pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     }
@@ -3873,7 +3887,7 @@
           padding: 5px 0px 0px 0px;
           text-align: center;
           width: 100%;
-          cursor: pointer;
+          cursor:url(../ui/cursors/pointer.png), pointer;
         }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .main-row .movement.row-section .move-name {
         border: none;
@@ -9802,7 +9816,7 @@
         padding: 5px 0px 0px 0px;
         text-align: center;
         width: 100%;
-        cursor: pointer;
+        cursor:url(../ui/cursors/pointer.png), pointer;
       }
     .app.window-app.sheet.wfrp4e.actor.npc-sheet  .main-row .movement.row-section .move-name {
       border: none;
@@ -11356,7 +11370,7 @@
         padding: 5px 0px 0px 0px;
         text-align: center;
         width: 100%;
-        cursor: pointer;
+        cursor:url(../ui/cursors/pointer.png), pointer;
       }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet  .main-row .movement.row-section .move-name {
       border: none;
@@ -12607,7 +12621,7 @@
 /*=============== X. NAVIGATION BAR =========================*/
 /*************************************************************/
 #navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
-  cursor: default;
+  cursor:url(../ui/cursors/normal.png), default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_red.png) repeat;
   background-origin: padding-box;
@@ -12618,7 +12632,7 @@
 }
 
 #navigation #nav-toggle {
-  cursor: default;
+  cursor:url(../ui/cursors/normal.png), default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12633,7 +12647,7 @@
 }
 
 #navigation #scene-list .scene.nav-item {
-  cursor: default;
+  cursor:url(../ui/cursors/normal.png), default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12676,7 +12690,7 @@
 /*=============== XI. SCENE CONTROLS ========================*/
 /*************************************************************/
 #controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover {
-cursor: default;
+cursor:url(../ui/cursors/normal.png), default; 
 color: #FFF;
 background: url(../ui/sidebar_button-background_red.png) repeat !important;
 background-origin: padding-box !important;
@@ -12699,8 +12713,8 @@ color: #BBB !important;
 text-align: center !important;
 border: 1px solid #000 !important;
 border-radius: 5px !important;
-cursor: pointer !important;
-cursor: default !important;
+cursor:url(../ui/cursors/pointer.png), pointer !important; 
+cursor:url(../ui/cursors/normal.png), default !important; 
 color: #FFF !important;
 background: url(../ui/sidebar_button-background_cyan.png) repeat !important;
 background-origin: padding-box !important;
@@ -13614,7 +13628,7 @@ border-image-outset: 0px !important;
         width: 11px;
         border-radius: 5px;
         background: #212121;
-        cursor: pointer;
+        cursor:url(../ui/cursors/pointer.png), pointer;
         margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
         box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
       } 
@@ -14113,7 +14127,7 @@ border-image-outset: 0px !important;
       width: 11px;
       border-radius: 5px;
       background: #212121;
-      cursor: pointer;
+      cursor:url(../ui/cursors/pointer.png), pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     } 
@@ -14345,7 +14359,7 @@ border-image-outset: 0px !important;
       width: 11px;
       border-radius: 5px;
       background: #212121;
-      cursor: pointer;
+      cursor:url(../ui/cursors/pointer.png), pointer;
       margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
     } 
@@ -15593,7 +15607,7 @@ font-style : normal;
   left: 8px;
   position: relative;
   top: 5px;
-  cursor: pointer;
+  cursor:url(../ui/cursors/pointer.png), pointer;
 }  
 
 .chat-buttons {
@@ -15601,6 +15615,10 @@ font-style : normal;
   width: auto;
   height: auto;
   float: right;
+}
+
+#OneJournalDirectory .window-content{
+  background: url(../ui/frames/parchment-texture.png);
 }
 
 .card-edit {
@@ -15734,7 +15752,7 @@ font-style : normal;
   border-radius: 3px;
   border: 2px ridge #846109;
   display: inline-block;
-  cursor: pointer;
+  cursor:url(../ui/cursors/pointer.png), pointer;
   color: #ffffff;
   font-family: CaslonPro;
   font-size: 14px;
@@ -16437,7 +16455,7 @@ height: 11px;
 width: 11px;
 border-radius: 5px;
 background: #212121;
-cursor: pointer;
+cursor:url(../ui/cursors/pointer.png), pointer;
 margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
 box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
 }
@@ -16903,7 +16921,7 @@ input[name="dd-import.importPath"] {
   border-radius: 3px;
   border: 2px ridge #846109;
   display: inline-block;
-  cursor: pointer;
+  cursor:url(../ui/cursors/pointer.png), pointer;
   color: #ffffff;
   font-family: CaslonPro;
   font-size: 14px;
