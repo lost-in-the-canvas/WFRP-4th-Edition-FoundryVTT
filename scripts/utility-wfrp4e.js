@@ -44,7 +44,8 @@ class WFRP_Utility
   static addLayer(AP, armor, loc)
   {
     let layer = {
-      value: armor.data.currentAP[loc]
+      value: armor.data.currentAP[loc],
+      armourType : armor.data.armorType.value // used for sound
     }
     if (armor.properties.qualities.includes("Impenetrable"))
       layer.impenetrable = true;
@@ -112,9 +113,9 @@ class WFRP_Utility
     let allFlaws = Object.values(this.flawList());
     for (let prop of properties)
     {
-      if (allQualities.includes(prop.split(" ")[0]))
+      if (allQualities.includes(this.parsePropertyName(prop)))
         qualities.push(prop);
-      else if (allFlaws.includes(prop.split(" ")[0]))
+      else if (allFlaws.includes(this.parsePropertyName(prop)))
         flaws.push(prop);
       else
         special.push(prop);
@@ -209,6 +210,10 @@ class WFRP_Utility
    */
   static async findSkill(skillName)
   {
+    // First try world items
+    let worldItem = game.items.entities.filter(i => i.type == "skill" && i.name == skillName)[0];
+    if (worldItem) return worldItem
+
     let skillList = [];
     let packs = game.packs.filter(p => p.metadata.tag == "skill")
     for (let pack of packs)
@@ -227,7 +232,7 @@ class WFRP_Utility
         return dbSkill;
       }
     }
-    throw "Could not find skill (or specialization of) " + skillName + " in compendum"
+    throw "Could not find skill (or specialization of) " + skillName + " in compendum or world"
 
   }
 
@@ -248,6 +253,10 @@ class WFRP_Utility
    */
   static async findTalent(talentName)
   {
+    // First try world items
+    let worldItem = game.items.entities.filter(i => i.type == "talent" && i.name == talentName)[0];
+    if (worldItem) return worldItem
+
     let talentList = [];
     let packs = game.packs.filter(p => p.metadata.tag == "talent")
     for (let pack of packs)
@@ -266,7 +275,7 @@ class WFRP_Utility
         return dbTalent;
       }
     }
-    throw "Could not find talent (or specialization of) " + talentName + " in compendium"
+    throw "Could not find talent (or specialization of) " + talentName + " in compendium or world"
   }
 
 
@@ -551,9 +560,9 @@ class WFRP_Utility
       propertyDescr = Object.assign(duplicate(WFRP4E.qualityDescriptions), WFRP4E.flawDescriptions),
       propertyKey;
 
-    property = property.replace(/,/g, '').trim();
+    property = this.parsePropertyName(property.replace(/,/g, '').trim());
 
-    propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+    propertyKey = WFRP_Utility.findKey(property, properties)
 
     let propertyDescription = `<b>${property}:</b><br>${propertyDescr[propertyKey]}`;
     propertyDescription = propertyDescription.replace("(Rating)", property.split(" ")[1])
@@ -570,13 +579,27 @@ class WFRP_Utility
   }
 
   /**
+   * Helper function to easily find the property name
+   * // Todo: regex?
+   * @param {String} property 
+   */
+  static parsePropertyName(property)
+  {
+      property = property.trim();
+      if (!isNaN(property[property.length-1]))
+         return property.substring(0, property.length-2).trim()
+      else
+        return property;
+  }
+
+  /**
    * Helper function to set up chat data (set roll mode and content).
    * 
    * @param {String} content 
    * @param {String} modeOverride 
    * @param {Boolean} isRoll 
    */
-  static chatDataSetup(content, modeOverride, isRoll = false)
+  static chatDataSetup(content, modeOverride, isRoll = false, forceWhisper)
   {
     let chatData = {
       user: game.user._id,
@@ -589,6 +612,11 @@ class WFRP_Utility
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatData.rollMode === "blindroll") chatData["blind"] = true;
     else if (chatData.rollMode === "selfroll") chatData["whisper"] = [game.user];
+
+    if ( forceWhisper ) { // Final force !
+      chatData["speaker"] = ChatMessage.getSpeaker();
+      chatData["whisper"] = ChatMessage.getWhisperRecipients(forceWhisper);
+    }
 
     return chatData;
   }
@@ -603,15 +631,17 @@ class WFRP_Utility
    */
   static matchClosest(object, query)
   {
+    query = query.toLowerCase();
     let keys = Object.keys(object)
     let match = [];
     for (let key of keys)
     {
       let percentage = 0;
       let matchCounter = 0;
-      for (let i = 0; i < key.length; i++)
+      let myword = object[key].toLowerCase();
+      for (let i = 0; i < myword.length; i++)
       {
-        if (key[i] == query[i])
+        if ( myword[i] == query[i])
         {
           matchCounter++;
         }
@@ -706,6 +736,8 @@ class WFRP_Utility
         return `<a class = "symptom-tag" data-symptom="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
       case "Condition":
         return `<a class = "condition-chat" data-cond="${id}"><i class='fas fa-user-injured'></i> ${name ? name : id}</a>`
+      case "Pay":
+        return `<a class = "pay-link" data-pay="${id}"><i class="fas fa-coins"></i> ${name ? name : id}</a>`
     }
   }
 
@@ -835,6 +867,19 @@ class WFRP_Utility
     })
   }
 
+
+    /**
+   * Handle a payment entity link
+   * 
+   * @param {Object} event clicke event
+   */
+  static handlePayClick(event)
+  {
+    let payString = $(event.currentTarget).attr("data-pay")
+    if (game.user.isGM)
+      MarketWfrp4e.generatePayCard(payString);
+  }
+
   /**
    * Retrieves the item being requested by the macro from the selected actor,
    * sending it to the correct setup____ function to be rolled.
@@ -924,4 +969,15 @@ class WFRP_Utility
         canvas.draw();
       }
     }
-  }
+}
+
+
+  Hooks.on("renderFilePicker", (app, html, data) => {
+    if (data.target.includes("systems") || data.target.includes("modules"))
+    {
+      html.find("input[name='upload']").css("display" , "none")
+      label = html.find(".upload-file label")
+      label.text("Upload Disabled");
+      label.attr("title", "Upload disabled while in system directory. DO NOT put your assets within any system or module folder.");
+    }
+  })  

@@ -184,7 +184,6 @@ class BrowserWfrp4e extends Application
         })
       }
     }
-    this.items.forEach(i => i.compendium = true)
     this.addItems(game.items.entities.filter(i => i.permission > 1));
     this.items = this.items.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1);
     this.lores.push("None");
@@ -447,7 +446,7 @@ class BrowserWfrp4e extends Application
           label: "Yes",
           callback: async html => {
             for(let i of filteredItems)
-              await ItemWfrp4e.create(i.data, {renderSheet : false});
+              await Item.create(i.data, {renderSheet : false});
           }
         },
         cancel: 

@@ -174,6 +174,7 @@ class ItemSheetWfrp4e extends ItemSheet
 
     data.showBorder = data.item.img == "systems/wfrp4e/icons/blank.png" || !data.item.img
     data.isGM = game.user.isGM;
+    data.isOwned = this.item.isOwned;
     return data;
   }
 
@@ -236,7 +237,14 @@ class ItemSheetWfrp4e extends ItemSheet
         this._onSubmit(event);
         let target = $(event.currentTarget).attr("data-target");
         let path = target.split(".");
-        this.item.update({[`data.${target}`]: !this.item.data.data[path[0]][path[1]]})
+        if(path[0]== "flags")
+        {
+          if(!this.item.data.flags.hasOwnProperty(path[1]))
+            this.item.data.flags[path[1]] = false;
+          this.item.update({[`${target}`]: !this.item.data.flags[path[1]]})
+        }
+        else
+          this.item.update({[`data.${target}`]: !this.item.data.data[path[0]][path[1]]})
       }),
 
       // This listener converts comma separated lists in the career section to arrays,
@@ -353,6 +361,10 @@ class ItemSheetWfrp4e extends ItemSheet
     html.on('mousedown', '.table-click', ev =>
     {
       WFRP_Utility.handleTableClick(ev)
+    })
+
+    html.on('mousedown', '.pay-link', ev => {
+      WFRP_Utility.handlePayClick(ev)
     })
 
   }

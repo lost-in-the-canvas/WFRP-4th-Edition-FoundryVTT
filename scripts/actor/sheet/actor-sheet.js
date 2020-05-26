@@ -280,6 +280,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+    WFRP_Audio.PlayContextAudio({item : itemToEdit, action : "load"}) // 'load' is unused
   });
 
 
@@ -457,9 +458,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       item.data["weaponDamage"] = 0;
 
     if (ev.button == 2)
+    {
       item.data.weaponDamage++;
+      WFRP_Audio.PlayContextAudio({item : item, action : "damage", outcome : "weapon"})
+    }
     else if (ev.button == 0)
       item.data.weaponDamage--;
+
 
     if (item.data.weaponDamage < 0)
       item.data.weaponDamage = 0;
@@ -566,7 +571,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     for (let s of shields)
     {
       let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
-      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield"))).split(" ")[1];
+      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())).split(" ")[1];
       
       if (!shield.data.APdamage)
         shield.data.APdamage = 0;
@@ -577,6 +582,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           shield.data.APdamage++
           shieldDamaged = true;
+          WFRP_Audio.PlayContextAudio({item : shield, action : "damage", outcome : "shield"})
         }
       }
       // Left click - repair
@@ -601,6 +607,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
+
+    if (spell.data.memorized.value)
+      WFRP_Audio.PlayContextAudio({item : spell, action: "memorize"})
+    else
+      WFRP_Audio.PlayContextAudio({item : spell, action: "unmemorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
@@ -715,6 +726,12 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-delete').click(ev => {
     let li = $(ev.currentTarget).parents(".item"),
       itemId = li.attr("data-item-id");
+      if(this.actor.getEmbeddedEntity("OwnedItem", itemId).name == "Boo")
+      {
+        AudioHelper.play({src : "systems/wfrp4e/sounds/squeek.wav"}, false)
+        return // :^)
+      }
+      
       renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
         new Dialog({
         title: "Delete Confirmation",
@@ -759,12 +776,24 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-toggle').click(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    let equippedState;
     if (item.type == "armour")
+    {
       item.data.worn.value = !item.data.worn.value;
+      equippedState = item.data.worn.value
+    }
     else if (item.type == "weapon")
+    {
       item.data.equipped = !item.data.equipped;
+      equippedState = item.data.equipped
+    }
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+    {
       item.data.worn = !item.data.worn;
+      equippedState = item.data.worn
+    }
+    
+    WFRP_Audio.PlayContextAudio({item : item, action : "equip", outcome : equippedState})    
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
@@ -805,6 +834,7 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Clicking the 'Qty.' label in an inventory section - aggregates all items with the same name
   html.find(".aggregate").click(async ev => {
     let itemType = $(ev.currentTarget).attr("data-type")
+    if (itemType == "ingredient") itemType = "trapping"
     let items = duplicate(this.actor.data.items.filter(x => x.type == itemType))
     
     for (let i of items)
@@ -1014,6 +1044,9 @@ class ActorSheetWfrp4e extends ActorSheet {
 
   html.on('mousedown', '.table-click', ev => {
     WFRP_Utility.handleTableClick(ev)
+  })
+  html.on('mousedown', '.pay-link', ev => {
+    WFRP_Utility.handlePayClick(ev)
   })
 
   // Consolidate common currencies
@@ -1298,7 +1331,12 @@ class ActorSheetWfrp4e extends ActorSheet {
           ui.notifications.error(game.i18n.localize("SHEET.SkillMissingWarning"))
           return;
         }
-        this.actor.setupSkill(skill.data, {income : career.data.status});
+        if (!career.data.current.value)
+        {
+          ui.notifications.error(game.i18n.localize("SHEET.NonCurrentCareer"))
+          return;
+        }
+        this.actor.setupSkill(skill.data, {income : this.actor.data.data.details.status});
       })
     }
     li.toggleClass("expanded");
@@ -1349,7 +1387,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     else // Otherwise, just lookup the key for the property and use that to lookup the description
     {
-      propertyKey = WFRP_Utility.findKey(property.split(" ")[0], properties)
+      propertyKey = WFRP_Utility.findKey(WFRP_Utility.parsePropertyName(property), properties)
     }
   
     let propertyDescription = "<b>" + property + "</b>" + ": " + propertyDescr[propertyKey];
@@ -1467,12 +1505,20 @@ class ActorSheetWfrp4e extends ActorSheet {
       });
     }
   
-    // Conditional for creating Trappings from the Trapping tab - sets to the correct trapping type
-    if (event.currentTarget.attributes["data-type"].value == "trapping")
+    if (data.type == "trapping")
       data = mergeObject(data,
       {
         "data.trappingType.value": event.currentTarget.attributes["item-section"].value
       })
+
+    if (data.type == "ingredient")
+    {
+      data = mergeObject(data,
+      {
+        "data.trappingType.value": "ingredient"
+      })
+      data.type = "trapping"
+    }
   
     // Conditional for creating spells/prayers from their tabs, create the item with the correct type
     else if (data.type == "spell" || data.type == "prayer")
@@ -1498,6 +1544,9 @@ class ActorSheetWfrp4e extends ActorSheet {
     data["name"] = `New ${data.type.capitalize()}`;
     this.actor.createEmbeddedEntity("OwnedItem", data);
   }
+  
+
+  
   
   /**
    * Duplicates an owned item given its id.

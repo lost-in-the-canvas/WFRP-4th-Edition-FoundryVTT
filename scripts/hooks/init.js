@@ -312,6 +312,16 @@ Hooks.once("init", () => {
         default: false,
         type: Boolean
       });
+
+      // Register Advantage cap
+      game.settings.register("wfrp4e", "soundEffects", {
+        name: "SETTINGS.SoundEffects",
+        hint: "SETTINGS.SoundEffectsHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
    
       game.settings.register("wfrp4e", "dangerousCrits", {
         name: "SETTINGS.DangerousCrits",
@@ -320,6 +330,15 @@ Hooks.once("init", () => {
         config: true,
         default: false,
         type: Boolean
+      });
+
+      game.settings.register("wfrp4e", "dangerousCritsMod", {
+        name: "SETTINGS.DangerousCritsMod",
+        hint: "SETTINGS.DangerousCritsModHint",
+        scope: "world",
+        config: true,
+        default: 10,
+        type: Number
       });
   
     // Pre-load templates
