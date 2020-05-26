@@ -13082,12 +13082,7 @@ border-image-outset: 0px !important;
 /*=============== XIII. ROLL DIALOG =========================*/
 /*************************************************************/
 
-.window-app.dialog.characteristic-roll-dialog,
-.window-app.dialog.skill-roll-dialog,
-.window-app.dialog.weapon-roll-dialog,
-.window-app.dialog.spell-roll-dialog,
-.window-app.dialog.channel-roll-dialog,
-.window-app.dialog.prayer-roll-dialog  {
+.window-app.dialog.skill-roll-dialog {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -13098,6 +13093,7 @@ border-image-outset: 0px !important;
   height: auto !important;
   box-shadow: 3px 4px 10px #000;
 }
+
 .window-app.dialog.characteristic-roll-dialog .roll-dialog-tag,
 .window-app.dialog.skill-roll-dialog .roll-dialog-tag,
 .window-app.dialog.weapon-roll-dialog .roll-dialog-tag,
