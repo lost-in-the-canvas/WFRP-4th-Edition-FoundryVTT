@@ -9087,7 +9087,7 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section > h4 {
     width: 100%;
     height: 24px;
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     padding: 2px 0px 0px 0px;
     border: 1px solid #736953a6;
     font-family: var(--actor-label-font-family);
@@ -9097,19 +9097,17 @@
     background: none;
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    display: inline-block;
     flex-grow: 0;
     overflow-x: hidden;
     overflow-y: hidden;
   }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section #party-ambition {
-    margin-top: 2px;
+    margin-top: 5px;
   }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition {
       width: 100%;
       height: 24px;
       margin: 0px 0px 0px 0px;
-      padding: 2px 0px 0px 0px;
       border: 1px solid #736953a6;
       border-top: none;
       font-family: var(--actor-input-font-family);
@@ -9159,7 +9157,7 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .motivation {
     width: 100%;
     height: 25px;
-    margin: 2px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     border: 1px solid #736953a6;
     font-family: var(--actor-input-font-family);
