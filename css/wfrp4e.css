@@ -6653,7 +6653,8 @@
           padding: 5px 5px 0px 5px;
           border-radius: 5px;
         }
-      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
+      .app.window-app.sheet.wfrp4e.actor .item .content .spell-selector,
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
         min-width: 130px;
         max-width: 130px;
         padding: 7px 0px 0px 5px;
@@ -6663,7 +6664,8 @@
         flex-basis: 0;
         /* background: aqua; */
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
+      .app.window-app.sheet.wfrp4e.actor .item .content .spell-selector > select,
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
           background: none;
           border: 1px solid #737373;
           border-radius: 2px;
@@ -7348,6 +7350,10 @@
         text-align: center;
       }
 
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header .spell.item-toggle {
+        margin-right : 60px
+      }
+
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list {
       overscroll-behavior-x: unset;
       overflow-x: hidden;
@@ -7728,183 +7734,6 @@
           flex-grow: 0;
           /* background: #0066ff; */
           margin-left: 0px;
-        }
-
-  /* ================== 3. INGREDIENTS EQUIPMENT LISTS ======== */
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients {
-      width: 100%;
-      height: 20px;
-      margin: 6px 0px 0px 0px;
-      padding: 0px 6px;
-      border: 1px solid #736953a6;
-      font-family: var(--actor-label-font-family);
-      font-size: var(--actor-label-font-size);
-      font-weight: var(--actor-label-font-weight);
-      color: var(--actor-label-color);
-      background: none;
-      box-shadow: 0 0 10px #6b3a0f87 inset;
-      text-align: left;
-      display: inline-block;
-      flex-grow: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
-    }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .name {
-        position: relative;
-        left: 0px;
-        height: 18px;
-        width: 243px;
-        display: inline-block;
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .item-toggle {
-        position: relative;
-        left: 17px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .quantity {
-        position: relative;
-        left: 86px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .weight {
-        position: relative;
-        left: 109px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .item-controls {
-        position: relative;
-        top: -1px;
-        left: 138px;
-        height: fit-content;
-        width: fit-content;
-        display: inline-block;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: var(--actor-label-color);
-        margin: 0px;
-        padding: 0px;
-      }
-
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients {
-      overscroll-behavior-x: unset;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      border: 1px solid #736953a6;
-      border-top: none;
-      list-style: none;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      height: fit-content;
-      width: 100%;
-      margin: -5px 0px 0px 0px;
-      padding: 0px;
-    }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-name {
-          display: flex;
-          flex-direction: row;
-          min-width: 197px;
-          max-width: 197px;
-          /* background: aqua; */
-        }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .image {
-            background-size: 32px;
-            background-repeat: no-repeat;
-            min-height: 32px;
-            max-height: 32px;
-            min-width: 32px;
-            max-width: 32px;
-          }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .name {
-            text-align: left;
-            vertical-align: middle;
-            padding: 11px 0px 0px 4px;
-            overflow: hidden;
-          }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector {
-          min-width: 150px;
-          max-width: 150px;
-          padding: 7px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          /* background: aqua; */
-        }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector > select {
-            background: none;
-            border: 1px solid #737373;
-            border-radius: 2px;
-            padding: 0px;
-            margin: 0px;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            height: 19px;
-            width: 100%;
-            text-overflow: ellipsis;
-          }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .quantity {
-          min-width: 30px;
-          max-width: 30px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          position: relative;
-          left: -2px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .weight {
-          min-width: 30px;
-          max-width: 30px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          position: relative;
-          left: 7px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
-          padding: 5px 4px 0px 0px;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: #504f48a6;
-          text-align: right;
-          min-width: 30px;
-          max-width: 30px;
-          flex-grow: 0;
         }
 
   /* ================== 4. CONTAINERS EQUIPMENT LISTS ========= */
