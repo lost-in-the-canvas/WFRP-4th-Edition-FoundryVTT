@@ -322,6 +322,15 @@ Hooks.once("init", () => {
         default: true,
         type: Boolean
       });
+
+      game.settings.register("wfrp4e", "customCursor", {
+        name: "SETTINGS.CustomCursor",
+        hint: "SETTINGS.CustomCursorHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
    
       game.settings.register("wfrp4e", "dangerousCrits", {
         name: "SETTINGS.DangerousCrits",
