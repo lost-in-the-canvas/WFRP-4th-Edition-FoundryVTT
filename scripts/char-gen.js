@@ -247,7 +247,6 @@ class GeneratorWfrp4e
     hInches = WFRP4E.speciesHeight[species].inches + heightRoll;
     hFeet += Math.floor(hInches / 12)
     hInches = hInches % 12
-    console.log(hFeet, hInches)
 
     // Setup drag and drop values
     let dataTransfer = {

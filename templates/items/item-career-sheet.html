@@ -88,7 +88,7 @@
       </table>
     </div>
 
-    <div class="form-group">
+    <div class="form-group skills">
       <label class="label-text skills-textarea">{{localize "Skills"}}</label>
       <div class="input-box skills-textarea">
         <textarea class="input-text csv-input" data-dest="skills" type="text" data-dtype="String">{{skills}}</textarea>
@@ -131,8 +131,8 @@
   for (i = 0; i < length; i++) {
     if (textContainer[i].children[1].children[0].className.includes("item-sheet")) {
       new_red = document.getElementsByClassName("app window-app sheet")[i].id;
-      console.log("new_red");
-      console.log(new_red);
+      
+      
       if (document.getElementById(new_red).className.includes("career-sheet")) {
         continue;
       } 
@@ -187,5 +187,5 @@
     } else {}
   }
 
-  // console.log(checkIfToken);
+  
 </script>

@@ -1,6 +1,6 @@
 <div class="characteristics">
   <div class="characteristics-table" cellpadding="0">
-    <!-- <div class="table-header table-row"> -->
+    <div class="table-header table-row">
       <div class="table-header"></div>
       {{#each actor.data.characteristics as |ch c|}}
       <div title="{{localize ch.label}}" class="table-header">
@@ -14,8 +14,8 @@
         </div>
       </div>
       {{/each}}
-    <!-- </div> -->
-    <!-- <div class="table-row"> -->
+    </div>
+    <div class="table-row">
       <div class="row-type table-data">
         <div class="header-block">
           {{localize "Initial"}}
@@ -26,8 +26,8 @@
         <input name="data.characteristics.{{c}}.initial" type="text" value="{{ch.initial}}" data-dtype="Number">
       </div>
       {{/each}}
-    <!-- </div> -->
-    <!-- <div class="table-row"> -->
+    </div>
+    <div class="table-row">
       <div class="row-type table-data">
         <div class="header-block">
           {{localize "Advances"}}
@@ -38,8 +38,8 @@
         <input name="data.characteristics.{{c}}.advances" type="text" value="{{ch.advances}}" data-dtype="Number">
       </div>
       {{/each}}
-    <!-- </div> -->
-    <!-- <div class="table-row bottom"> -->
+    </div>
+    <div class="table-row bottom">
       <div class="row-type table-data">
         <div class="header-block">
           {{localize "Current"}}
@@ -48,7 +48,7 @@
       {{#each actor.data.characteristics as |ch c|}}
       <div class="table-data ch-value" data-char="{{c}}"><a>{{ch.value}}</a></div>
       {{/each}}
-    <!-- </div> -->
+    </div>
   </div>
 </div>
 
