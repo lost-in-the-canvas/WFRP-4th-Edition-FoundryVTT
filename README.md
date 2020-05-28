@@ -1,9 +1,9 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.4.3` 
+**[Current Version]**: `1.5.0` 
 
-**[Compatibility]**: `FoundryVTT 0.5.6+`
+**[Compatibility]**: `FoundryVTT 0.5.7+`
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
@@ -72,3 +72,4 @@ I also wanted to thank the following for the help in continuing to improve the s
 
 - [WFRP Tweaks](https://github.com/DasSauerkraut/wfrp-tweaks) - A small-ish module with optional automation as well as macro support for spells, prayers, and weapons.
 
+- [Eye for an Eye Adventure](https://github.com/CStuartEKerrigan/WFRP-e4e-4e-FVTT) - Converted 3e adventure complete with tokens, maps, audio, and macros!
