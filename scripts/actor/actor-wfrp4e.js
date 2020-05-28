@@ -1123,7 +1123,6 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    console.log(result)
     Hooks.call("wfrp4e:rollTest", result, cardOptions)
 
     if (game.user.targets.size)
