@@ -44,7 +44,8 @@ class WFRP_Utility
   static addLayer(AP, armor, loc)
   {
     let layer = {
-      value: armor.data.currentAP[loc]
+      value: armor.data.currentAP[loc],
+      armourType : armor.data.armorType.value // used for sound
     }
     if (armor.properties.qualities.includes("Impenetrable"))
       layer.impenetrable = true;
@@ -144,7 +145,7 @@ class WFRP_Utility
     catch (error)
     {
       ui.notifications.info("Could not find species " + species)
-      console.log("Could not find species " + species + ": " + error);
+      console.log("wfrp4e | Could not find species " + species + ": " + error);
       throw error
     }
 
@@ -630,15 +631,17 @@ class WFRP_Utility
    */
   static matchClosest(object, query)
   {
+    query = query.toLowerCase();
     let keys = Object.keys(object)
     let match = [];
     for (let key of keys)
     {
       let percentage = 0;
       let matchCounter = 0;
-      for (let i = 0; i < key.length; i++)
+      let myword = object[key].toLowerCase();
+      for (let i = 0; i < myword.length; i++)
       {
-        if (key[i] == query[i])
+        if ( myword[i] == query[i])
         {
           matchCounter++;
         }
@@ -922,7 +925,6 @@ class WFRP_Utility
 
   static async toggleMorrslieb()
   {
-    console.log("toggleMorrslieb()")
     let morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
     morrsliebActive = !morrsliebActive
     await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)
@@ -966,148 +968,6 @@ class WFRP_Utility
         canvas.draw();
       }
     }
-
-  static async PlayContextAudio(item, context)
-  {
-    if (!game.settings.get("wfrp4e", "soundEffects"))
-      return
-      
-    let type = item.type
-    let files
-    await FilePicker.browse("user", `systems/wfrp4e/sounds/${type}`).then(resp => {
-      files = resp.files
-    })
-
-    let globalSound = false;
-    let group;
-    if(context.type == "hit")
-      group = "hit"
-    else if(context.type == "money")
-      group = "money"
-    else 
-    {
-      switch(type)
-      {
-      case "weapon":
-        group = item.data.weaponGroup.value.toLowerCase()
-        if(group == game.i18n.localize("SPEC.Crossbow").toLowerCase())
-          group = context.type == "equip" ? "weapon_bow" : "weapon_xbow"
-        else if(group == game.i18n.localize("SPEC.Bow").toLowerCase())
-          group = "weapon_bow"
-        else if(group == game.i18n.localize("SPEC.Fencing").toLowerCase() || group == game.i18n.localize("SPEC.Parry").toLowerCase() || group == game.i18n.localize("SPEC.TwoHanded").toLowerCase())
-          group = context.equip == "fire" ? "weapon-" : "weapon_sword" 
-        else if(group == game.i18n.localize("SPEC.Flail").toLowerCase() && context.equip == "fire")
-          group = "weapon_flail"
-        else if((group == game.i18n.localize("SPEC.Blackpowder").toLowerCase() || group == game.i18n.localize("SPEC.Engineering").toLowerCase()))
-          group = "weapon_gun"
-        else if((group == game.i18n.localize("SPEC.Explosives").toLowerCase()))
-          group = "weapon_bomb"
-        else
-          group = "weapon-"
-        break;
-      case "armour":
-        group = item.data.armorType.value;
-        group = group.includes("Leather") ? "leather" : group;
-        break;
-      case "trapping":
-        group = item.data.trappingType.value.includes("clothing") ? "cloth" : "item";
-        break;
-      case "spell":
-        group = "spell";
-        break;
-      case "prayer":
-        group = "prayer";
-        break;
-      case "round":
-        group = "round";
-        globalSound = true;
-        break;
-      case "skill":
-        group = "skill";
-        break;
-      }
-    }
-    files = files.filter(f => f.includes(group))
-
-    if(context.type == "weapon")
-    {
-      globalSound = true;
-      if(context.equip == "miss")
-        files = files.filter(f => f.includes("-miss"))
-      else if(context.equip == "misfire")
-        files = files.filter(f => f.includes("-misfire"))
-      else if(context.equip == "fire")
-      {
-        if(group == "weapon_xbow" || group == "weapon_bow" || group == "weapon_gun")
-          files = files.filter(f => f.includes("-fire"))
-        else if(group != "weapon_bomb")
-          files = files.filter(f => f.includes("-swing"))
-      }
-    }
-    if(context.type == "ammo")
-    {
-      files = files.filter(f => f.includes("-load"))
-    }
-    if(context.type == "equip")
-    {
-      if (context.equip || group.includes("weapon") || group == "item")
-      {
-        files = files.filter(f => f.includes("-equip"))
-      }
-      else
-      {
-        files = files.filter(f => f.includes("deequip"))
-      }
-    }
-
-    if(context.type == "spell")
-    {
-      if(context.equip == "memorize")
-        files = files.filter(f => f.includes("-memorize"))
-      else if(context.equip == "unmemorize")
-        files = files.filter(f => f.includes("unmemorize"))
-      else if(context.equip == "cast")
-      {
-        files = files.filter(f => f.includes("-cast"))
-        globalSound = true;
-      }
-      else
-      {
-        files = files.filter(f => f.includes("miscast"))
-        globalSound = true;
-      }
-    }
-
-    if(context.type == "prayer")
-    {
-      globalSound = true;
-      if(context.equip == "cast")
-        files = files.filter(f => f.includes("-cast"))
-      else
-        files = files.filter(f => f.includes("miscast"))
-    }
-
-    if(context.type == "hit")
-    {
-      globalSound = true;
-      if(context.equip == "crit")
-        files = files.filter(f => f.includes("crit"))
-      else
-        files = files.filter(f => f.includes("normal"))
-    }
-
-    if(type == "skill")
-    {
-      if(context.type == "consumeAlcohol")
-        files = files.filter(f => f.includes(`consumeAlcohol-${context.equip == "fail" ? 'fail' : 'success'}`))
-      if(context.type == "stealth")    
-        files = files.filter(f => f.includes(`stealth-${context.equip == "fail" ? 'fail' : 'success'}`))
-    }
-
-    let file = files[new Roll(`1d${files.length}-1`).roll().total]
-    console.log(`wfrp4e | Playing Sound: ${file}`)
-    AudioHelper.play({src : file}, globalSound)
-  }
 }
 
 

@@ -4,16 +4,17 @@
 </div>
 
 <div class="inventory-header item melee-weapon-header">
-  <div id="name">{{localize "SHEET.MeleeWeaponHeader"}}</div>
-  <a class="fist-icon combat-icon" title = "{{localize 'NAME.Unarmed'}}">
-    <i class="fa fa-fist-raised"></i>
-  </a>
-  <a class="dodge-icon combat-icon" title = "{{localize 'NAME.Dodge'}}">
-    <i class="fas fa-reply"></i>
-  </a>
-  <a class="improvised-icon combat-icon" title = "{{localize 'NAME.Improvised'}}">
-    <i class="fas fa-question"></i>
-  </a>
+  <div id="name">{{localize "SHEET.MeleeWeaponHeader"}}
+    <a class="fist-icon combat-icon" title = "{{localize 'NAME.Unarmed'}}">
+      <i class="fa fa-fist-raised"></i>
+    </a>
+    <a class="dodge-icon combat-icon" title = "{{localize 'NAME.Dodge'}}">
+      <i class="fas fa-reply"></i>
+    </a>
+    <a class="improvised-icon combat-icon" title = "{{localize 'NAME.Improvised'}}">
+      <i class="fas fa-question"></i>
+    </a>
+  </div>
   <div id="group">{{localize "Group"}}</div>
   <div id="damage">{{localize "Damage"}}</div>
   <div id="reach">{{localize "Reach"}}</div>
@@ -166,7 +167,7 @@
                 <span class="quality label">Q: </span>
                 {{#each item.properties.qualities as |property p|}}
                 <a class='text armour-quality'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-quality comma'>,</a>
                 {{/each}}
                 {{/if}}
 
@@ -174,7 +175,7 @@
                 <span class="flaw label">F:</span>
                 {{#each item.properties.flaws as |property p|}}
                 <a class='text armour-flaw'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-flaw comma'>,</a>
                 {{/each}}
                 {{/if}}
                 <!-- Copy ends here-->
@@ -333,7 +334,7 @@
                 <span class="quality label">Q: </span>
                 {{#each item.properties.qualities as |property p|}}
                 <a class='text armour-quality'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-quality comma'>,</a>
                 {{/each}}
                 {{/if}}
 
@@ -341,7 +342,7 @@
                 <span class="flaw label">F:</span>
                 {{#each item.properties.flaws as |property p|}}
                 <a class='text armour-flaw'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-flaw comma'>,</a>
                 {{/each}}
                 {{/if}}
                 <!-- Copy ends here-->
@@ -445,7 +446,7 @@
                 <span class="quality label">Q: </span>
                 {{#each item.properties.qualities as |property p|}}
                 <a class='text armour-quality'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-quality comma'>,</a>
                 {{/each}}
                 {{/if}}
 
@@ -453,7 +454,7 @@
                 <span class="flaw label">F:</span>
                 {{#each item.properties.flaws as |property p|}}
                 <a class='text armour-flaw'>{{property}}</a>
-                <a class='comma'>,</a>
+                <a class='armour-flaw comma'>,</a>
                 {{/each}}
                 {{/if}}
                 <!-- Copy ends here-->
