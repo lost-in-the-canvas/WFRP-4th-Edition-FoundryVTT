@@ -72,7 +72,11 @@ class DiceWFRP
       roll = ActorWfrp4e.defaultRoll;
 
     dialogOptions.data.rollMode = rollMode;
-    dialogOptions.data.rollModes = CONFIG.Dice.rollModes;
+    if (CONFIG.Dice.rollModes)
+      dialogOptions.data.rollModes = CONFIG.Dice.rollModes;
+    else 
+      dialogOptions.data.rollModes = CONFIG.rollModes;
+
 
     if (!testData.extra.options.bypass)
     {
