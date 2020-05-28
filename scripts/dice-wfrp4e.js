@@ -46,31 +46,23 @@ class DiceWFRP
     // Sets/overrides default test difficulty (eg, with Income or Rest & Recover tests), based on dialogOptions.data.testDifficulty passed through from skillSetup
     sceneStress = dialogOptions.data.testDifficulty || sceneStress; 
 
+    let advantageBonus = game.settings.get("wfrp4e", "autoFillAdvantage") ? (dialogOptions.data.advantage * 10 || 0) : 0
+
     mergeObject(dialogOptions.data,
     {
       testDifficulty: dialogOptions.data.testDifficulty || sceneStress,
       difficultyLabels: WFRP4E.difficultyLabels,
-      testModifier: (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
+      testModifier: (dialogOptions.data.modifier || 0) + advantageBonus,
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });
     // TODO: Refactor to replace cardOptoins.sound with the sound effect instead of just suppressing
     //Suppresses roll sound if the test has it's own sound associated
-    if(game.settings.get("wfrp4e", "soundEffects") && (cardOptions.title.includes(game.i18n.localize('NAME.ConsumeAlcohol')) || dialogOptions.rollOverride && dialogOptions.rollOverride.name == "weaponOverride"))
+    mergeObject(cardOptions,
     {
-      mergeObject(cardOptions,
-        {
-          user: game.user._id,
-        })
-    } 
-    else 
-    {
-      mergeObject(cardOptions,
-        {
-          user: game.user._id,
-          sound: CONFIG.sounds.dice
-        })
-    }
+      user: game.user._id,
+      sound: CONFIG.sounds.dice
+    })
 
     var roll;
     // If dialogOptions has a rollOverride, use it (spells, weapons, prayers)
@@ -80,7 +72,11 @@ class DiceWFRP
       roll = ActorWfrp4e.defaultRoll;
 
     dialogOptions.data.rollMode = rollMode;
-    dialogOptions.data.rollModes = CONFIG.rollModes;
+    if (CONFIG.Dice.rollModes)
+      dialogOptions.data.rollModes = CONFIG.Dice.rollModes;
+    else 
+      dialogOptions.data.rollModes = CONFIG.rollModes;
+
 
     if (!testData.extra.options.bypass)
     {
@@ -152,8 +148,6 @@ class DiceWFRP
     // ********** Failure **********
     if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
     {
-      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("NAME.ConsumeAlcohol"))
-        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "fail"})
       description = game.i18n.localize("Failure")
       if (roll.total >= 96 && SL > -1)
         SL = -1;
@@ -194,11 +188,6 @@ class DiceWFRP
     // ********** Success **********
     else if (roll.total <= 5 || roll.total <= targetNum)
     {
-      if(testData.extra.skill && testData.extra.skill.name == game.i18n.localize("NAME.ConsumeAlcohol"))
-        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "consumeAlcohol", "equip": "success"})
-      if(testData.extra.skill && testData.extra.skill.name.includes(game.i18n.localize("NAME.Stealth")))
-        WFRP_Utility.PlayContextAudio({type: 'skill'}, {"type": "stealth", "equip": "success"})
-
       description = game.i18n.localize("Success")
       if (game.settings.get("wfrp4e", "fastSL"))
       {
@@ -336,7 +325,6 @@ class DiceWFRP
 
     testData.function = "rollWeaponTest"
 
-    WFRP_Utility.PlayContextAudio(weapon, {"type": "weapon", "equip": "fire"})
 
     if (testResults.description.includes(game.i18n.localize("Failure")))
     {
@@ -349,7 +337,6 @@ class DiceWFRP
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Engineering") ||
             weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Explosives")) && testResults.roll % 2 == 0)
         {
-          WFRP_Utility.PlayContextAudio(weapon, {"type": "weapon", "equip": "misfire"})
           testResults.extra.misfire = game.i18n.localize("Misfire")
           testResults.extra.misfireDamage = eval(parseInt(testResults.roll.toString().split('').pop()) + weapon.data.damage.value)
         }
@@ -381,7 +368,6 @@ class DiceWFRP
     if (testResults.extra.critical)
     {
       testResults.extra.color_green = true;
-      WFRP_Utility.PlayContextAudio(weapon, {"type": "hit", "equip": "crit"})
     }
     if (testResults.extra.fumble)
       testResults.extra.color_red = true;
@@ -473,7 +459,6 @@ class DiceWFRP
         testResults.extra.color_green = true;
         testResults.description = game.i18n.localize("ROLL.CastingSuccess")
         testResults.extra.critical = game.i18n.localize("ROLL.TotalPower")
-        WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "cast"})
 
         if (!testData.extra.ID)
           miscastCounter++;
@@ -487,7 +472,6 @@ class DiceWFRP
       testResults.overcasts = overcasts;
       spell.overcasts.available = overcasts;
       
-      WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "cast"})
 
       if (testResults.roll % 11 == 0)
       {
@@ -509,7 +493,6 @@ class DiceWFRP
         else
         {
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
-          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
         }
         break;
       case 2:
@@ -517,17 +500,14 @@ class DiceWFRP
         {
           testResults.extra.nullmajormis = game.i18n.localize("ROLL.MajorMis")
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
-          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
         }
         else
         {
-          WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
           testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
         }
         break;
       case 3:
         testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
-        WFRP_Utility.PlayContextAudio(spell, {"type": "spell", "equip": "miscast"})
         break;
     }
 
@@ -701,7 +681,6 @@ class DiceWFRP
         if (currentSin < 0)
           currentSin = 0;
 
-        WFRP_Utility.PlayContextAudio(prayer, {"type": "prayer", "equip": "miscast"})
 
 
         actor.update({"data.status.sin.value": currentSin});
@@ -711,7 +690,6 @@ class DiceWFRP
     else
     {
       testResults.description = game.i18n.localize("ROLL.PrayGranted")
-      WFRP_Utility.PlayContextAudio(prayer, {"type": "prayer", "equip": "cast"})
 
       // Wrath of the gads activates if ones digit is equal or less than current sin      
       let unitResult = Number(testResults.roll.toString().split('').pop())
@@ -756,7 +734,6 @@ class DiceWFRP
   static async renderRollCard(chatOptions, testData, rerenderMessage)
   {
 
-    console.log(testData);
     // Blank if manual chat cards
     if (game.settings.get("wfrp4e", "manualChatCards") && !rerenderMessage)
       testData.roll = testData.SL = null;
@@ -815,7 +792,8 @@ class DiceWFRP
         }
 
         chatOptions["content"] = html;
-
+        if (chatOptions.sound)
+          console.log(`wfrp4e | Playing Sound: ${chatOptions.sound}`)
         return ChatMessage.create(chatOptions, false);
       });
     }
@@ -827,6 +805,11 @@ class DiceWFRP
 
         // Emit the HTML as a chat message
         chatOptions["content"] = html;
+        if (chatOptions.sound)
+        { 
+          console.log(`wfrp4e | Playing Sound: ${chatOptions.sound}`)
+          AudioHelper.play({src : chatOptions.sound}, true)
+        }
         return rerenderMessage.update(
         {
           content: html,
@@ -1197,7 +1180,7 @@ class DiceWFRP
             money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"), money);
             if(money)
             {
-              WFRP_Utility.PlayContextAudio(money, {"type": "money", "equip": "lose"})
+              WFRP_Audio.PlayContextAudio({item : {"type": "money"}, action : "lose"})
               actor.updateEmbeddedEntity("OwnedItem", money);
             }
           }
@@ -1211,7 +1194,7 @@ class DiceWFRP
             money = MarketWfrp4e.creditCommand(dataExchange, money);
             if(money)
             {
-              WFRP_Utility.PlayContextAudio(money, {"type": "money", "equip": "gain"})
+              WFRP_Audio.PlayContextAudio({item : {type : "money"}, action : "gain"})
               actor.updateEmbeddedEntity("OwnedItem", money);
             }
           }
@@ -1301,7 +1284,7 @@ class DiceWFRP
   {
     if(game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
     {
-      let whisper = [];
+      let whisper = null;
       let blind = false;
       switch(rollMode)
       {
