@@ -1338,6 +1338,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.setupSkill(skill.data, {income : this.actor.data.data.details.status});
       })
+
+      // Respond to template button clicks
+      div.on("mousedown", '.aoe-template', event =>
+      {
+        AOETemplate.fromString(event.target.text).drawPreview(event);
+        this.minimize();
+      });
     }
     li.toggleClass("expanded");
   }

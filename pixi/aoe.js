@@ -12,7 +12,7 @@ class AOETemplate extends MeasuredTemplate {
   static fromString(aoeString) 
   {
     if (aoeString.toLowerCase().includes(game.i18n.localize("AoE").toLowerCase()))
-      aoeString = aoeString.substring(aoeString.indexOf("(")+1, aoeString-1)
+      aoeString = aoeString.substring(aoeString.indexOf("(")+1, aoeString.length-1)
     
     // Prepare template data
     const templateData = {
