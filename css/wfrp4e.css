@@ -16700,3 +16700,7 @@ a.entity-link, a.inline-roll {
 #navigation #scene-list {
   padding-right: 100px;
 }
+
+.app.window-app .window-header > a {
+  z-index: 5
+}
