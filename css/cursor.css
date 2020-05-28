@@ -88,3 +88,19 @@ a{
 #effects-config .flex2::-webkit-slider-thumb {
     cursor:url(../ui/cursors/pointer.png), pointer;
 }
+
+#client-settings .window-content form .form-group > label,
+#client-settings .window-content form .form-group select,
+#client-settings .form-group input,
+.app.window-app .form-group label,
+#sidebar .sidebar-tab #chat-controls div.roll-type-select select,
+#sidebar .sidebar-tab #chat-controls div.roll-type-select i.fas {
+    cursor:url(../ui/cursors/normal.png), default; 
+}
+
+#client-settings section.content .submenu > button,
+#client-settings .window-content button label,
+form .form-group .form-fields button,
+form button {
+    cursor:url(../ui/cursors/pointer.png), pointer;
+}

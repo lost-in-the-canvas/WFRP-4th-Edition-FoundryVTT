@@ -13073,7 +13073,7 @@ border-image-outset: 0px !important;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 0px 7px 3px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
@@ -13214,7 +13214,6 @@ border-image-outset: 0px !important;
   .app.window-app button[type="submit"],
   .app.window-app button[type="reset"]
    {
-    flex: 1;
     width: -webkit-fill-available;
     margin: 0 3px 4px 3px;
 
@@ -13281,13 +13280,6 @@ border-image-outset: 0px !important;
     padding: 4px 5px;
     border: 1px solid #5d513e;
     background: #1f1f1fb5;
-  }
-
-  .app.window-app .dialog-buttons button i,
-  .app.window-app .sheet-footer button i,
-  .app.window-app .form-group .file-picker i,
-  .app.window-app button[type="submit"] i {
-    display: none
   }
 
   /* ================== 1. UPDATE OR CREATE FOLDER ============ */
@@ -13421,6 +13413,7 @@ border-image-outset: 0px !important;
     }
 
     .app.window-app.sheet.scene-sheet input[type="range"] + .range-value,
+    .token-sheet .range-value,
     #drawing-config .range-value,
     #sound-config .range-value,  
     #light-config .range-value {
@@ -13568,7 +13561,6 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     .token-sheet {
-      max-height: 390px;
       min-height: 390px;
     }
     .token-sheet .window-content {
@@ -13611,8 +13603,6 @@ border-image-outset: 0px !important;
     .token-sheet .sheet-footer {
         width: 446px;
         height: 32px;
-        position: absolute;
-        bottom: -57px;
     }
 
     .token-sheet .tab[data-tab="character"] .notes {
@@ -13659,10 +13649,7 @@ border-image-outset: 0px !important;
       }
     .token-sheet .tab[data-tab="image"] input[type="checkbox"] {
       transform: scale(1);
-      position: absolute;
-      left: 329px;
       opacity: 0.75;
-      margin-top: 7px;
       box-shadow: 0px 0px 4px inset black;
     }
     .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
@@ -13679,7 +13666,7 @@ border-image-outset: 0px !important;
     .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
-    .token-sheet .tab[data-tab="image"] .form-group .scale-value {
+    .token-sheet .tab[data-tab="image"] .form-group .range-value {
       padding: 6px 3px 1px 3px;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
@@ -13689,6 +13676,7 @@ border-image-outset: 0px !important;
       border-radius: 0px;
       box-shadow: 0px 0px 10px inset black;
       background: #352516;
+      padding-top: 11px
     }
     .token-sheet .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
       text-align: center;
@@ -13712,8 +13700,8 @@ border-image-outset: 0px !important;
     .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
       transform: scale(1);
       position: absolute;
-      top: 252px;
-      left: 288px;
+      top: 295px;
+      left: 294px;
       margin-top: 2px;
       opacity: 0.75;
       box-shadow: 0px 0px 4px inset black;
