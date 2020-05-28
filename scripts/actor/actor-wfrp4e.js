@@ -1111,7 +1111,6 @@ class ActorWfrp4e extends Actor {
   static async  defaultRoll(testData, cardOptions, rerenderMessage = null) {
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
-    result['cardOptions'] = cardOptions;
     
     result.postFunction = "defaultRoll";
     if (testData.extra)
@@ -1124,7 +1123,8 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollTest", result)
+    console.log(result)
+    Hooks.call("wfrp4e:rollTest", result, cardOptions)
 
     if (game.user.targets.size)
     {
@@ -1153,9 +1153,8 @@ class ActorWfrp4e extends Actor {
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
-    result['cardOptions'] = cardOptions;
 
-    Hooks.call("wfrp4e:rollIncomeTest", result)
+    Hooks.call("wfrp4e:rollIncomeTest", result, cardOptions)
 
 
     if (game.user.targets.size)
@@ -1249,7 +1248,6 @@ class ActorWfrp4e extends Actor {
     }
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollWeaponTest(testData);
-    result['cardOptions'] = cardOptions;
     result.postFunction = "weaponOverride";
 
    try {
@@ -1258,7 +1256,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollWeaponTest", result)
+    Hooks.call("wfrp4e:rollWeaponTest", result, cardOptions)
 
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1286,7 +1284,6 @@ class ActorWfrp4e extends Actor {
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollCastTest(testData);
     result.postFunction = "castOverride";
-    result['cardOptions'] = cardOptions;
 
    try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
@@ -1294,7 +1291,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollCastTest", result)
+    Hooks.call("wfrp4e:rollCastTest", result, cardOptions)
 
 
     // Update spell to reflect SL from channelling resetting to 0
@@ -1325,7 +1322,6 @@ class ActorWfrp4e extends Actor {
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollChannellTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
     result.postFunction = "channellOverride";
-    result['cardOptions'] = cardOptions;
 
    try {
     let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
@@ -1333,7 +1329,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollChannelTest", result)
+    Hooks.call("wfrp4e:rollChannelTest", result, cardOptions)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1359,7 +1355,6 @@ class ActorWfrp4e extends Actor {
     }
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollPrayTest(testData, WFRP_Utility.getSpeaker(cardOptions.speaker));
-    result['cardOptions'] = cardOptions;
     result.postFunction = "prayerOverride";
 
    try {
@@ -1368,7 +1363,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollPrayerTest", result)
+    Hooks.call("wfrp4e:rollPrayerTest", result, cardOptions)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1394,7 +1389,6 @@ class ActorWfrp4e extends Actor {
     }
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
-    result['cardOptions'] = cardOptions;
     result.postFunction = "traitOverride";
     try
     {
@@ -1424,7 +1418,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollTraitTest", result)
+    Hooks.call("wfrp4e:rollTraitTest", result, cardOptions)
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
