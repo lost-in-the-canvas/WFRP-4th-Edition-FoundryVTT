@@ -1590,7 +1590,7 @@ class ActorWfrp4e extends Actor {
     if (actorData.flags.autoCalcCorruption)
     {
       actorData.data.status.corruption.max = tb + wpb;
-      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase == (game.i18n.localize("NAME.PS")).toLowerCase)
+      let pureSoulTalent = actorData.talents.find(x => x.name.toLowerCase() == (game.i18n.localize("NAME.PS")).toLowerCase())
       if (pureSoulTalent)
         actorData.data.status.corruption.max += pureSoulTalent.data.advances.value;
       this.update({"data.status.corruption.max": actorData.data.status.corruption.max});
