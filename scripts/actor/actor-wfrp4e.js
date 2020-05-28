@@ -3413,10 +3413,11 @@ class ActorWfrp4e extends Actor {
   async _advanceSkill(skillName, advances)
   {
     // Look through items and determine if the actor has the skill
-    let existingSkill = duplicate(this.data.items.find(i => i.name.trim() == skillName && i.type == "skill"))
+    let existingSkill = this.data.items.find(i => i.name.trim() == skillName && i.type == "skill")
     // If so, simply update the skill with the new advancement value. 
     if (existingSkill)
     {
+      existingSkill = duplicate(existingSkill);
       // If the existing skill has a greater amount of advances, use the greater value instead (make no change) - ??? Is this needed? I'm not sure why I did this. TODO: Evaluate.
       existingSkill.data.advances.value = (existingSkill.data.advances.value < advances) ? advances : existingSkill.data.advances.value;
       await this.updateEmbeddedEntity("OwnedItem", existingSkill);
