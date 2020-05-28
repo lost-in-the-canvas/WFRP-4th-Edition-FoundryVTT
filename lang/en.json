@@ -44,6 +44,8 @@
     "SETTINGS.DangerousCritsModHint" : "The amount to modify the crit roll by.",
     "SETTINGS.SoundEffects" : "Sound Effects",
     "SETTINGS.SoundEffectsHint" : "Adds sound effects to various contextual actions.",
+    "SETTINGS.CustomCursor" : "Warhammer Cursor",
+    "SETTINGS.CustomCursorHint" : "Use the warhammer cursor.",
 
 
     "SHEET.Close" : "Close",

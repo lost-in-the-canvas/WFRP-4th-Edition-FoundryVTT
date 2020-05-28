@@ -238,6 +238,7 @@
     background: url(../ui/background.png) repeat;
     font-size: 14px;
   }
+
   input[type="text"], input[type="password"] {
     min-width: 20px;
     background: none;
@@ -12115,7 +12116,7 @@
 /*=============== X. NAVIGATION BAR =========================*/
 /*************************************************************/
 #navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_red.png) repeat;
   background-origin: padding-box;
@@ -12126,7 +12127,7 @@
 }
 
 #navigation #nav-toggle {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12141,7 +12142,7 @@
 }
 
 #navigation #scene-list .scene.nav-item {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12184,7 +12185,7 @@
 /*=============== XI. SCENE CONTROLS ========================*/
 /*************************************************************/
 #controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover {
-cursor: default;
+cursor: default; 
 color: #FFF;
 background: url(../ui/sidebar_button-background_red.png) repeat !important;
 background-origin: padding-box !important;
@@ -12207,8 +12208,8 @@ color: #BBB !important;
 text-align: center !important;
 border: 1px solid #000 !important;
 border-radius: 5px !important;
-cursor: pointer !important;
-cursor: default !important;
+cursor: pointer !important; 
+cursor: default !important; 
 color: #FFF !important;
 background: url(../ui/sidebar_button-background_cyan.png) repeat !important;
 background-origin: padding-box !important;
@@ -15182,6 +15183,10 @@ font-style : normal;
   width: auto;
   height: auto;
   float: right;
+}
+
+#OneJournalDirectory .window-content{
+  background: url(../ui/frames/parchment-texture.png);
 }
 
 .card-edit {
