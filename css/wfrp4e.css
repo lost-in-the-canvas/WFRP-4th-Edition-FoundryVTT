@@ -3337,8 +3337,16 @@
     min-width: 616px;
     min-height: 740px;
   }
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .window-resizable-handle {
+  .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
+    bottom: 20px;
+    right: 26px;
+  }
+
+  .app.window-app.sheet.item-sheet .window-resizable-handle {
+    /* display: none !important; */
+    bottom: 24px;
+    right: 36px;
   }
 
 /* ==================== (B) WINDOW HEADER ===================== */
@@ -3855,8 +3863,9 @@
       display: flex;
     }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header.table-row .table-header:first-of-type {
-      max-width: 63px;
-      min-width: 63px;
+      max-width: 9.09%;
+      width: 9.09%;
+      min-width: max(63px, 9.09%);
     }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row .table-header {
       font-family: var(--actor-label-font-family);
@@ -3892,9 +3901,16 @@
       min-height: 29px;
       max-height: 29px;
       padding: 5px;
-      min-width: 63px;
-      max-width: 63px;
-    }  
+      max-width: 9.09%;
+      width: 9.09%;
+      min-width: max(63px, 9.09%);
+    }
+
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type.table-data .header-block{
+      overflow: hidden;
+      max-height: 29px;
+    }
+    
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
       border-top: 1px solid #736953a6;
       border-right: 1px solid #736953a6;
@@ -4807,7 +4823,7 @@
           text-align: left;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           /* margin: 4px 4px; */
           padding: 2px 5px 0px 5px;
@@ -4887,7 +4903,7 @@
         /* background: #80008057; */
         color: #672323;
         text-shadow: 1px 0px 1px #6e6e716e;
-        box-shadow: 0px 0px 5px inset #5a2d00;
+        box-shadow: 0px 0px 4px inset #5a2d009c;
         /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
         /* margin: 4px 4px; */
         padding: 2px 5px 0px 5px;
@@ -5540,7 +5556,7 @@
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
-            box-shadow: 0px 0px 5px inset #5a2d00;
+            box-shadow: 0px 0px 4px inset #5a2d009c;
             /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
             margin: 4px 4px;
             padding: 5px 5px 0px 5px;
@@ -5706,9 +5722,10 @@
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #damage {
       height: 18px;
-      width: 40px;
+      width: 41px;
       display: inline-block;
       text-align: center;
+      word-break: break-all;
       /* background: aqua; */
       }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #range,
@@ -5798,7 +5815,7 @@
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
-            box-shadow: 0px 0px 5px inset #5a2d00;
+            box-shadow: 0px 0px 4px inset #5a2d009c;
             /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
             margin: 4px 4px;
             padding: 5px 5px 0px 5px;
@@ -6485,7 +6502,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -6648,7 +6665,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -6925,7 +6942,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -7060,7 +7077,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -10406,7 +10423,7 @@
           text-align: left;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           /* margin: 4px 4px; */
           padding: 1px 5px 0px 5px;
@@ -10484,7 +10501,7 @@
         /* background: #80008057; */
         color: #672323;
         text-shadow: 1px 0px 1px #6e6e716e;
-        box-shadow: 0px 0px 5px inset #5a2d00;
+        box-shadow: 0px 0px 4px inset #5a2d009c;
         /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
         /* margin: 4px 4px; */
         padding: 2px 5px 0px 5px;
