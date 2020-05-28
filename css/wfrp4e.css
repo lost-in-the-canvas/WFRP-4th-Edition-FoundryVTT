@@ -14340,13 +14340,15 @@ border-image-outset: 0px !important;
     .app.window-app.filepicker .form-group.current-dir input {
       border-left: 1px solid #736953a6;
     }
+    .app.window-app.filepicker .filepicker-body .directory.files-list.tiles-list,
+    .app.window-app.filepicker .filepicker-body .directory.files-list.images-list,
+    .app.window-app.filepicker .filepicker-body .directory.files-list.thumbs-list,
     .app.window-app.filepicker .filepicker-body .directory.files-list.details-list,
     .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 3px ridge #5d513e;
       border-radius: 0px;
       box-shadow: 0px 0px 33px black inset;
-      max-height: none;
     }
       .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
         min-height: fit-content;
