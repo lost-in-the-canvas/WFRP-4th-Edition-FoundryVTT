@@ -13568,7 +13568,6 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     .token-sheet {
-      max-height: 390px;
       min-height: 390px;
     }
     .token-sheet .window-content {
@@ -13611,8 +13610,6 @@ border-image-outset: 0px !important;
     .token-sheet .sheet-footer {
         width: 446px;
         height: 32px;
-        position: absolute;
-        bottom: -57px;
     }
 
     .token-sheet .tab[data-tab="character"] .notes {
