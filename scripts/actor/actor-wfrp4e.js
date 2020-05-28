@@ -1111,6 +1111,7 @@ class ActorWfrp4e extends Actor {
   static async  defaultRoll(testData, cardOptions, rerenderMessage = null) {
     testData = await DiceWFRP.rollDices(testData, cardOptions);
     let result = DiceWFRP.rollTest(testData);
+    result['token'] = cardOptions.speaker.token
     
     result.postFunction = "defaultRoll";
     if (testData.extra)
