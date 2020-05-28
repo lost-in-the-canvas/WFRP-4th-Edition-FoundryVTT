@@ -19,6 +19,10 @@ class WFRP_Audio
              context = {item : testResult.skill, action : "consumeAlcohol"}
              context.outcome = (testResult.roll <= 5 || testResult.roll <= testResult.target) ? "success" : "fail"
           }
+          if (testResult.skill.name == game.i18n.localize("NAME.PickLock"))
+          {
+             context = {item : testResult.skill, action : "pickLock"}
+          }
           else if (testResult.skill.name == game.i18n.localize("NAME.Stealth"))
           {
             context = {item : testResult.skill, action : "stealth"}
@@ -286,6 +290,9 @@ class WFRP_Audio
             files = files.filter(f => f.includes(`consumeAlcohol-${context.outcome == "fail" ? 'fail' : 'success'}`))
           if(context.action == "stealth")    
             files = files.filter(f => f.includes(`stealth-${context.outcome == "fail" ? 'fail' : 'success'}`))
+          if (context.action == "pickLock")
+            files = files.filter(f => f.includes(context.action))
+          console.log(context)
         }
     
         console.log(context)
