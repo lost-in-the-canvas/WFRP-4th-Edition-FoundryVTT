@@ -16708,3 +16708,7 @@ a.entity-link, a.inline-roll {
   top: 0px;
   right: 0px;
 }
+
+#navigation #scene-list {
+  padding-right: 100px;
+}
