@@ -126,7 +126,7 @@ class ActorWfrp4e extends Actor {
       // For each characteristic, calculate the total and bonus value
       for (let ch of Object.values(data.data.characteristics))
       {
-        ch.value = ch.initial + ch.advances;
+        ch.value = ch.initial + ch.advances + (ch.modifier || 0);
         ch.bonus = Math.floor(ch.value / 10)
         ch.cost = WFRP_Utility._calculateAdvCost(ch.advances, "characteristic")
       }
@@ -1258,8 +1258,9 @@ class ActorWfrp4e extends Actor {
     Hooks.call("wfrp4e:rollWeaponTest", result)
 
 
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    return await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
+      return msg
     })
   }
 

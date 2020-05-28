@@ -9,6 +9,7 @@
             "label": "CHAR.WS",
             "abrev": "CHARAbbrev.WS",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "bs": {
@@ -16,6 +17,7 @@
             "label": "CHAR.BS",
             "abrev": "CHARAbbrev.BS",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "s": {
@@ -23,6 +25,7 @@
             "label": "CHAR.S",
             "abrev": "CHARAbbrev.S",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "t": {
@@ -30,6 +33,7 @@
             "label": "CHAR.T",
             "abrev": "CHARAbbrev.T",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "i": {
@@ -37,6 +41,7 @@
             "label": "CHAR.I",
             "abrev": "CHARAbbrev.I",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "ag": {
@@ -44,6 +49,7 @@
             "label": "CHAR.Ag",
             "abrev": "CHARAbbrev.Ag",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "dex": {
@@ -51,6 +57,7 @@
             "label": "CHAR.Dex",
             "abrev": "CHARAbbrev.Dex",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "int": {
@@ -58,6 +65,7 @@
             "label": "CHAR.Int",
             "abrev": "CHARAbbrev.Int",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "wp": {
@@ -65,6 +73,7 @@
             "label": "CHAR.WP",
             "abrev": "CHARAbbrev.WP",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           },
           "fel": {
@@ -72,6 +81,7 @@
             "label": "CHAR.Fel",
             "abrev": "CHARAbbrev.Fel",
             "initial": 20,
+            "modifier" : 0,
             "advances": 0
           }
         }
