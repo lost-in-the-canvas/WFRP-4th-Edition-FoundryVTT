@@ -145,7 +145,7 @@ class WFRP_Utility
     catch (error)
     {
       ui.notifications.info("Could not find species " + species)
-      console.log("Could not find species " + species + ": " + error);
+      console.log("wfrp4e | Could not find species " + species + ": " + error);
       throw error
     }
 
@@ -925,7 +925,6 @@ class WFRP_Utility
 
   static async toggleMorrslieb()
   {
-    console.log("toggleMorrslieb()")
     let morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
     morrsliebActive = !morrsliebActive
     await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)

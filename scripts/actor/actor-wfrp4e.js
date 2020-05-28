@@ -3306,7 +3306,7 @@ class ActorWfrp4e extends Actor {
     catch(error)
     {
         ui.notifications.info("Could not find species " + this.data.data.details.species.value)
-        console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+        console.log("wfrp4e | Could not find species " + this.data.data.details.species.value + ": " + error);
         throw error
     }
     // The Roll class used to randomly select skills
@@ -3362,7 +3362,7 @@ class ActorWfrp4e extends Actor {
     catch (error)
     {
       ui.notifications.info("Could not find species " + this.data.data.details.species.value)
-      console.log("Could not find species " + this.data.data.details.species.value + ": " + error);
+      console.log("wfrp4e | Could not find species " + this.data.data.details.species.value + ": " + error);
       throw error
     }
     let talentSelector;

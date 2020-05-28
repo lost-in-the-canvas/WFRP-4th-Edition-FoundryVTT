@@ -292,10 +292,8 @@ class WFRP_Audio
             files = files.filter(f => f.includes(`stealth-${context.outcome == "fail" ? 'fail' : 'success'}`))
           if (context.action == "pickLock")
             files = files.filter(f => f.includes(context.action))
-          console.log(context)
         }
     
-        console.log(context)
         return {file : files[new Roll(`1d${files.length}-1`).roll().total], global : globalSound}
       }
       catch (e)

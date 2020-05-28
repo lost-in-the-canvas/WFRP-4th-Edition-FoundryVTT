@@ -46,11 +46,13 @@ class DiceWFRP
     // Sets/overrides default test difficulty (eg, with Income or Rest & Recover tests), based on dialogOptions.data.testDifficulty passed through from skillSetup
     sceneStress = dialogOptions.data.testDifficulty || sceneStress; 
 
+    let advantageBonus = game.settings.get("wfrp4e", "autoFillAdvantage") ? (dialogOptions.data.advantage * 10 || 0) : 0
+
     mergeObject(dialogOptions.data,
     {
       testDifficulty: dialogOptions.data.testDifficulty || sceneStress,
       difficultyLabels: WFRP4E.difficultyLabels,
-      testModifier: (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
+      testModifier: (dialogOptions.data.modifier || 0) + advantageBonus,
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });

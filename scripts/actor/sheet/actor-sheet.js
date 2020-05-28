@@ -1003,7 +1003,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     catch (error)
     {
-      console.log("Could not randomize: " + error)
+      console.log("wfrp4e | Could not randomize: " + error)
     }
 
   });

@@ -45,7 +45,9 @@
     "SETTINGS.SoundEffects" : "Sound Effects",
     "SETTINGS.SoundEffectsHint" : "Adds sound effects to various contextual actions.",
     "SETTINGS.CustomCursor" : "Warhammer Cursor",
-    "SETTINGS.CustomCursorHint" : "Use the warhammer cursor.",
+    "SETTINGS.CustomCursorHint" : "Use a stylized Warhammer cursor (refresh to apply).",
+    "SETTINGS.AutoFillAdv" : "Auto Fill Advantage",
+    "SETTINGS.AutoFillAdvHint" : "Automatically fill the 'modifier' box in the Roll Dialog with the bonus given by Advantage. Disable this if you house rule Advantage being used differently.",
 
 
     "SHEET.Close" : "Close",

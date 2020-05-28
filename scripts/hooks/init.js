@@ -223,6 +223,17 @@ Hooks.once("init", () => {
         type: Boolean
       });
 
+        
+      // Register Test auto-fill
+      game.settings.register("wfrp4e", "autoFillAdvantage", {
+        name: "SETTINGS.AutoFillAdv",
+        hint: "SETTINGS.AutoFillAdvHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
+
       // Register default test difficulty
       game.settings.register("wfrp4e", "testDefaultDifficulty", {
         name: "SETTINGS.TestDialogDefaultDifficulty",

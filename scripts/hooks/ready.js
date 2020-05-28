@@ -102,7 +102,7 @@ Hooks.on("ready", async () => {
   // ***** Change cursor styles if the setting is enabled *****
 
   if(game.settings.get('wfrp4e', 'customCursor')){
-    console.log('Using custom cursor')
+    console.log('wfrp4e | Using custom cursor')
     let link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet')
     link.type = 'text/css'
