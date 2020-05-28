@@ -92,7 +92,7 @@ class DiceWFRP
             rollButton:
             {
               label: game.i18n.localize("Roll"),
-              //callback: html => dialogOptions.callback(html, roll)
+              callback: html => dialogOptions.callback(html, roll)
             }
           },
           default: "rollButton"
