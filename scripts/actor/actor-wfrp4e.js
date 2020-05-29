@@ -341,10 +341,11 @@ class ActorWfrp4e extends Actor {
     let cardOptions = this._setupCardOptions("systems/wfrp4e/templates/chat/skill-card.html", title)
 
     // Provide these 3 objects to prepareTest() to create the dialog and assign the roll function
-    DiceWFRP.prepareTest({
+    let result = DiceWFRP.prepareTest({
       dialogOptions : dialogOptions,
       testData : testData,
       cardOptions : cardOptions});
+    return result;
   }
 
   /**
@@ -1134,6 +1135,7 @@ class ActorWfrp4e extends Actor {
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
+    return result;
   }
 
   /**
@@ -1226,6 +1228,7 @@ class ActorWfrp4e extends Actor {
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
+    return result;
   }
 
   /**
@@ -1262,6 +1265,7 @@ class ActorWfrp4e extends Actor {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
       return msg
     })
+    return result;
   }
 
   /**
@@ -1300,6 +1304,7 @@ class ActorWfrp4e extends Actor {
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
+    return result;
   }
 
   /**
@@ -1334,6 +1339,7 @@ class ActorWfrp4e extends Actor {
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
+    return result;
   }
 
   /**
@@ -1368,6 +1374,7 @@ class ActorWfrp4e extends Actor {
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
+    return result;
   }
 
   /**
@@ -1423,6 +1430,7 @@ class ActorWfrp4e extends Actor {
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
       })
+    return result;
   }
 
 

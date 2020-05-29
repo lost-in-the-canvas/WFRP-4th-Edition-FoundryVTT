@@ -106,7 +106,7 @@ class DiceWFRP
       testData.slBonus = testData.extra.options.slBonus || testData.slBonus
       testData.successBonus = testData.extra.options.successBonus || testData.successBonus
       cardOptions.rollMode = testData.extra.options.rollMode || rollMode      
-      roll(testData, cardOptions)
+      return roll(testData, cardOptions)
     }
   }
 
