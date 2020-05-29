@@ -3831,7 +3831,7 @@
 
   /* ================== 1. CHARACTERISTICS TABLE ============== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics {
-      border-top: none;
+      border: none;
       margin: 6px 0px 0px 0px;
       padding: 0px 0px 0px 0px;
       height: 137px;
@@ -3862,6 +3862,22 @@
       border-right: none;
       display: flex;
     }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom {
+          border-bottom: none;
+          height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom div {
+          border-bottom: none;
+          max-height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom .row-type.table-data {
+          border-bottom: none;
+          max-height: 26px;
+          height: 27px;
+          position: relative;
+          top: -1px;
+          margin-top: 1px;
+        }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header.table-row .table-header:first-of-type {
       max-width: 9.09%;
       width: 9.09%;
@@ -4499,7 +4515,7 @@
   /* ================== 4. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list {
       width: 100%;
-      height: calc(100% - 221px);
+      height: calc(100% - 249px);
       margin: 6px 0px 0px 0px;
       padding: 0px;
       text-align: center;
@@ -5401,8 +5417,9 @@
 
       .app.window-app.sheet.wfrp4e.actor .rest-icon{
         left: 5px;
-        border-radius: 10px;
-        top: -2px;
+        border-radius: 9px;
+        top: 2px;
+        font-family: awesom;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
       .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
@@ -5429,7 +5446,11 @@
         transform: scale(0.85);
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed{
-        left: 0px;
+        left: 5px;
+        /* border: 1px solid #736953a6; */
+        border-radius: 16px;
+        /* height: 27px; */
+        /* padding-top: 4px; */
       }
 
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
