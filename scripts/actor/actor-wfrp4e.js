@@ -1132,7 +1132,7 @@ class ActorWfrp4e extends Actor {
         cardOptions.isOpposedTest = true
     }
 
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
     return result;
@@ -1225,7 +1225,7 @@ class ActorWfrp4e extends Actor {
     // let contextAudio = await WFRP_Audio.MatchContextAudio(WFRP_Audio.FindContext(result))
     // cardOptions.sound = contextAudio.file || cardOptions.sound
     result.moneyEarned = moneyEarned + WFRP_Utility.findKey(status[0], WFRP4E.statusTiers);
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg)
     })
     return result;
@@ -1261,9 +1261,8 @@ class ActorWfrp4e extends Actor {
     Hooks.call("wfrp4e:rollWeaponTest", result, cardOptions)
 
 
-    return await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
-      return msg
     })
     return result;
   }
@@ -1301,7 +1300,8 @@ class ActorWfrp4e extends Actor {
     // Update spell to reflect SL from channelling resetting to 0
     WFRP_Utility.getSpeaker(cardOptions.speaker).updateEmbeddedEntity("OwnedItem", {_id: testData.extra.spell._id, 'data.cn.SL' : 0});
 
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
     return result;
@@ -1336,7 +1336,7 @@ class ActorWfrp4e extends Actor {
    { }
     Hooks.call("wfrp4e:rollChannelTest", result, cardOptions)
 
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
     return result;
@@ -1371,7 +1371,7 @@ class ActorWfrp4e extends Actor {
    { }
     Hooks.call("wfrp4e:rollPrayerTest", result, cardOptions)
 
-    await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
     })
     return result;
@@ -1427,9 +1427,9 @@ class ActorWfrp4e extends Actor {
    { }
     Hooks.call("wfrp4e:rollTraitTest", result, cardOptions)
 
-      await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
-        OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
-      })
+    DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
+      OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
+    })
     return result;
   }
 
