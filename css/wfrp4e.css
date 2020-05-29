@@ -10011,8 +10011,8 @@
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
-    min-height: 26px;
-    max-height: 26px;
+    min-height: 25px;
+    max-height: 25px;
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
@@ -13181,7 +13181,7 @@ border-image-outset: 0px !important;
     border: 1px solid blue;
     border-image: url(../ui/frames/window-app-header-blank.png) 5 repeat;
     border-image-slice: 19 21 19 21 fill;
-    border-image-width: 19px 21px 19px 21px;
+    border-image-width: 19px 21px 21px 21px;
     border-image-outset: 0px;
     align-items: center;
     align-content: center;
@@ -13207,7 +13207,7 @@ border-image-outset: 0px !important;
       opacity: 1;
       z-index: 4;
       height: 27px;
-      margin: 0px;
+      margin: 0px 0px;
       padding: 0px 60px 0px 60px;
       overflow: hidden;
       border: 1px solid blue;
@@ -13238,6 +13238,8 @@ border-image-outset: 0px !important;
     border-image-slice: 10 13 13 13;
     border-image-width: 10px 13px 13px 13px;
     border-image-outset: 0px;
+    height: fit-content;
+    max-height: none;
   }
     .app.window-app h4 {
       font-family: var(--actor-input-font-family);
@@ -13288,7 +13290,7 @@ border-image-outset: 0px !important;
       }
       .app.window-app .form-group input[type="checkbox"] {
         position: relative;
-        top: 7px;
+        top: 3px;
         transform: scale(1);
         min-width: 30px;
       }
@@ -13723,7 +13725,7 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     .token-sheet {
-      max-height: 390px;
+      max-height: none;
       min-height: 390px;
     }
     .token-sheet .window-content {
@@ -13756,21 +13758,7 @@ border-image-outset: 0px !important;
       .token-sheet .sheet-tabs .item i {
         display: none;
       }
-    .token-sheet .tab {
-      max-height: fit-content;
-    }
-    .token-sheet .form-group label span {
-      font-size: 14px;
-      color: #7d7d7d;
-    }
-    .token-sheet .sheet-footer {
-        width: 446px;
-        height: 32px;
-        position: absolute;
-        bottom: -57px;
-    }
-
-    .token-sheet .tab[data-tab="character"] .notes {
+    .token-sheet .tab .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -13781,193 +13769,6 @@ border-image-outset: 0px !important;
       padding: 4px 5px;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
-    }
-    .token-sheet .tab[data-tab="character"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 223px;
-      left: 294px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
-    }
-
-    .token-sheet .tab[data-tab="image"] .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: center;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;    
-    }
-    .token-sheet .tab[data-tab="image"] button {
-      margin: 0 3px 0px 3px !important;
-      box-shadow: 0px 0px 5px black inset;
-    }
-      .token-sheet .tab[data-tab="image"] button i {
-        display: contents;
-        font-size: 16px;
-        color: #b9b9b9;
-      }
-    .token-sheet .tab[data-tab="image"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      left: 329px;
-      opacity: 0.75;
-      margin-top: 7px;
-      box-shadow: 0px 0px 4px inset black;
-    }
-    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      border: 1px solid #7d5900;
-      height: 11px;
-      width: 11px;
-      border-radius: 5px;
-      background: #212121;
-      cursor: pointer;
-      margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-      box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
-    } 
-    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
-      background-image: linear-gradient(to right, #820f0f , #82820d);
-    }
-    .token-sheet .tab[data-tab="image"] .form-group .scale-value {
-      padding: 6px 3px 1px 3px;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      border: 1px solid #736953a6;
-      border-radius: 0px;
-      box-shadow: 0px 0px 10px inset black;
-      background: #352516;
-    }
-    .token-sheet .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
-      text-align: center;
-    }
-
-    .token-sheet .tab[data-tab="position"] .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: center;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
-    }
-    .token-sheet .tab[data-tab="position"] input[type="text"] {
-      text-align: center;
-    }
-    .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 252px;
-      left: 288px;
-      margin-top: 2px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
-    }
-    
-    .token-sheet .tab[data-tab="vision"] .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: center;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
-    }
-    .token-sheet .tab[data-tab="vision"] input[type="text"] {
-      text-align: center;
-    }
-    .token-sheet .tab[data-tab="vision"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 128px;
-      left: 278px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
-      margin-top: 2px;
-    }
-
-    .token-sheet .tab[data-tab="resources"] .notes {
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      text-align: center;
-      margin: 4px 0px 0px 0px;
-      padding: 4px 5px;
-      border: 1px solid #5d513e;
-      background: #1f1f1fb5;
-    }
-    .token-sheet .tab[data-tab="resources"] .form-group label {
-      max-width: 183px;
-      min-width: 183px;
-    }
-    .token-sheet .tab[data-tab="resources"] .form-group .bar1-value {
-      padding: 1px 3px;
-      margin: 0;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      border: 1px solid #736953a6;
-      border-left: none;
-      border-right: none;
-      box-shadow: 0px 0px 10px inset black;
-      background: #352516;
-    }
-    .token-sheet .tab[data-tab="resources"] .form-group .bar2-value {
-      padding: 1px 3px;
-      margin: 0;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      border: 1px solid #736953a6;
-      border-left: none;
-      border-right: none;
-      box-shadow: 0px 0px 10px inset black;
-      background: #352516;
-    }
-    .token-sheet .tab[data-tab="resources"] .form-group .sep {
-      font-family: var(--actor-input-font-family);
-      font-size: 17px;
-      font-weight: var(--actor-input-font-weight);
-      color: #d6d6d6;
-      line-height: normal;
-      margin: 0px;
-      padding: 5px 0px 0px;
-      border: 1px solid #736953a6;
-      border-left: none;
-      border-right: none;
-      box-shadow: 0px 0px 10px inset black;
-      background: #352516;  
-    }
-
-    .token-sheet .range-value {
-      display: block;
-      flex: 0 1 48px;
-      margin-left: 10px;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      line-height: normal;
-      text-align: center;
-      padding: 6px 3px 0px 3px;
-      border: 1px solid #5d513e;
-      background: #080808;
     }
 
   /* ================== 10. DRAWING CONFIG ==================== */
