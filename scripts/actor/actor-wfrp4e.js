@@ -1123,7 +1123,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollTest", result)
+    Hooks.call("wfrp4e:rollTest", result, cardOptions)
 
     if (game.user.targets.size)
     {
@@ -1153,7 +1153,7 @@ class ActorWfrp4e extends Actor {
     let result = DiceWFRP.rollTest(testData);
     result.postFunction = "incomeOverride"
 
-    Hooks.call("wfrp4e:rollIncomeTest", result)
+    Hooks.call("wfrp4e:rollIncomeTest", result, cardOptions)
 
 
     if (game.user.targets.size)
@@ -1255,7 +1255,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollWeaponTest", result)
+    Hooks.call("wfrp4e:rollWeaponTest", result, cardOptions)
 
 
     return await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
@@ -1291,7 +1291,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollCastTest", result)
+    Hooks.call("wfrp4e:rollCastTest", result, cardOptions)
 
 
     // Update spell to reflect SL from channelling resetting to 0
@@ -1329,7 +1329,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollChannelTest", result)
+    Hooks.call("wfrp4e:rollChannelTest", result, cardOptions)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1363,7 +1363,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollPrayerTest", result)
+    Hooks.call("wfrp4e:rollPrayerTest", result, cardOptions)
 
     await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
       OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
@@ -1418,7 +1418,7 @@ class ActorWfrp4e extends Actor {
    }
    catch 
    { }
-    Hooks.call("wfrp4e:rollTraitTest", result)
+    Hooks.call("wfrp4e:rollTraitTest", result, cardOptions)
 
       await DiceWFRP.renderRollCard(cardOptions, result, rerenderMessage).then(msg => {
         OpposedWFRP.handleOpposedTarget(msg) // Send to handleOpposed to determine opposed status, if any.
