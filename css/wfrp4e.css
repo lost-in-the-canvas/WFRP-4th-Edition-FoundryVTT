@@ -1250,6 +1250,7 @@
   }
 
 /* ==================== (C) SIDEBAR (CHAT) ==================== */
+    #sidebar .sidebar-tab .directory-list .folder-header {/*       border-bottom: 2px groove #564d3a; */margin-top: 2px;margin-left: 2px;}
   /* ================== 1. CHAT LOG =========================== */
     #sidebar .sidebar-tab #chat-log {
       flex: none;
@@ -3334,7 +3335,7 @@
     margin: 0px;
     padding: 0px;
     max-height: none !important;
-    min-width: 616px;
+    min-width: 620px;
     min-height: 740px;
   }
   .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
@@ -9016,7 +9017,8 @@
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .input-details {
       height: 23px;
       text-align: center;
-      padding-top: 0px;
+      padding: 0px;
+      padding-top: 2px;
       position: relative;
       /* background: red; */
       /* top: -2px; */
