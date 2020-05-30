@@ -238,6 +238,7 @@
     background: url(../ui/background.png) repeat;
     font-size: 14px;
   }
+
   input[type="text"], input[type="password"] {
     min-width: 20px;
     background: none;
@@ -1249,6 +1250,7 @@
   }
 
 /* ==================== (C) SIDEBAR (CHAT) ==================== */
+    #sidebar .sidebar-tab .directory-list .folder-header {/*       border-bottom: 2px groove #564d3a; */margin-top: 2px;margin-left: 2px;}
   /* ================== 1. CHAT LOG =========================== */
     #sidebar .sidebar-tab #chat-log {
       flex: none;
@@ -3333,11 +3335,19 @@
     margin: 0px;
     padding: 0px;
     max-height: none !important;
-    min-width: 616px;
+    min-width: 620px;
     min-height: 740px;
   }
-  .app.window-app.sheet.wfrp4e.actor.character-sheet .window-resizable-handle {
+  .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
+    bottom: 20px;
+    right: 26px;
+  }
+
+  .app.window-app.sheet.item-sheet .window-resizable-handle {
+    /* display: none !important; */
+    bottom: 24px;
+    right: 36px;
   }
 
 /* ==================== (B) WINDOW HEADER ===================== */
@@ -3822,10 +3832,10 @@
 
   /* ================== 1. CHARACTERISTICS TABLE ============== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics {
-      border-top: none;
+      border: none;
       margin: 6px 0px 0px 0px;
       padding: 0px 0px 0px 0px;
-      height: 109px;
+      height: 137px;
       width: 100%;
       display: flex;
       flex: 1;
@@ -3834,7 +3844,7 @@
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table {
       margin: 0px;
       padding: 0px;
-      height: 109px;
+      height: 137px;
       width: 100%;
       display: block;
       background: none;
@@ -3853,9 +3863,26 @@
       border-right: none;
       display: flex;
     }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom {
+          border-bottom: none;
+          height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom div {
+          border-bottom: none;
+          max-height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom .row-type.table-data {
+          border-bottom: none;
+          max-height: 26px;
+          height: 27px;
+          position: relative;
+          top: -1px;
+          margin-top: 1px;
+        }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header.table-row .table-header:first-of-type {
-      max-width: 63px;
-      min-width: 63px;
+      max-width: 9.09%;
+      width: 9.09%;
+      min-width: max(63px, 9.09%);
     }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row .table-header {
       font-family: var(--actor-label-font-family);
@@ -3891,9 +3918,16 @@
       min-height: 29px;
       max-height: 29px;
       padding: 5px;
-      min-width: 63px;
-      max-width: 63px;
-    }  
+      max-width: 9.09%;
+      width: 9.09%;
+      min-width: max(63px, 9.09%);
+    }
+
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .row-type.table-data .header-block{
+      overflow: hidden;
+      max-height: 29px;
+    }
+    
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-data {
       border-top: 1px solid #736953a6;
       border-right: 1px solid #736953a6;
@@ -4482,7 +4516,7 @@
   /* ================== 4. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list {
       width: 100%;
-      height: calc(100% - 221px);
+      height: calc(100% - 249px);
       margin: 6px 0px 0px 0px;
       padding: 0px;
       text-align: center;
@@ -4806,13 +4840,13 @@
           text-align: left;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           /* margin: 4px 4px; */
-          padding: 1px 5px 0px 5px;
+          padding: 2px 5px 0px 5px;
           border-radius: 5px;
           position: relative;
-          top: -2px;
+          top: 0px;
           /* background: red; */
         }
         .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .skill-name .advancement-indicator {
@@ -4826,7 +4860,7 @@
         min-width: 26px;
         max-width: 26px;
         margin: 1px 0px 0px 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4839,7 +4873,7 @@
         min-width: 30px;
         max-width: 30px;
         margin: 1px 0px 0px 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4852,7 +4886,7 @@
         min-width: 30px;
         max-width: 30px;
         margin: 0px;
-        padding: 0px;
+        padding: 1px 0px 0px 0px;
         text-align: center;
         font-family: var(--actor-input-font-family);
         font-size: var(--actor-input-font-size);
@@ -4886,14 +4920,14 @@
         /* background: #80008057; */
         color: #672323;
         text-shadow: 1px 0px 1px #6e6e716e;
-        box-shadow: 0px 0px 5px inset #5a2d00;
+        box-shadow: 0px 0px 4px inset #5a2d009c;
         /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
         /* margin: 4px 4px; */
         padding: 2px 5px 0px 5px;
         height: 17px;
         border-radius: 5px;
         position: relative;
-        top: -2px;
+        top: 0px;
       }
       .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
         padding: 2px 0px 0px 0px;
@@ -5384,8 +5418,9 @@
 
       .app.window-app.sheet.wfrp4e.actor .rest-icon{
         left: 5px;
-        border-radius: 10px;
-        top: -2px;
+        border-radius: 9px;
+        top: 2px;
+        font-family: awesom;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
       .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
@@ -5412,7 +5447,11 @@
         transform: scale(0.85);
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed{
-        left: 0px;
+        left: 5px;
+        /* border: 1px solid #736953a6; */
+        border-radius: 16px;
+        /* height: 27px; */
+        /* padding-top: 4px; */
       }
 
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
@@ -5539,7 +5578,7 @@
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
-            box-shadow: 0px 0px 5px inset #5a2d00;
+            box-shadow: 0px 0px 4px inset #5a2d009c;
             /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
             margin: 4px 4px;
             padding: 5px 5px 0px 5px;
@@ -5705,9 +5744,10 @@
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #damage,
       .app.window-app.sheet.wfrp4e.actor .tab.combat.active .inventory-header.ranged-weapon-header #damage {
       height: 18px;
-      width: 40px;
+      width: 41px;
       display: inline-block;
       text-align: center;
+      word-break: break-all;
       /* background: aqua; */
       }
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.ranged-weapon-header #range,
@@ -5797,7 +5837,7 @@
             overflow: hidden;
             color: #672323;
             text-shadow: 1px 0px 1px #6e6e716e;
-            box-shadow: 0px 0px 5px inset #5a2d00;
+            box-shadow: 0px 0px 4px inset #5a2d009c;
             /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
             margin: 4px 4px;
             padding: 5px 5px 0px 5px;
@@ -6484,7 +6524,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -6647,13 +6687,14 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
           border-radius: 5px;
         }
-      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
+      .app.window-app.sheet.wfrp4e.actor .item .content .spell-selector,
+        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector {
         min-width: 130px;
         max-width: 130px;
         padding: 7px 0px 0px 5px;
@@ -6663,7 +6704,8 @@
         flex-basis: 0;
         /* background: aqua; */
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
+      .app.window-app.sheet.wfrp4e.actor .item .content .spell-selector > select,
+      .app.window-app.sheet.wfrp4e.actor .tab.magic.active .inventory-list.lore-list .item .content .ingredient-selector > select {
           background: none;
           border: 1px solid #737373;
           border-radius: 2px;
@@ -6922,7 +6964,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -7057,7 +7099,7 @@
           text-shadow: 1px 0px 1px #6e6e716e;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           margin: 4px 4px;
           padding: 5px 5px 0px 5px;
@@ -7346,6 +7388,10 @@
         flex-grow: 0;
         /* background: #00a1ff; */
         text-align: center;
+      }
+
+      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header .spell.item-toggle {
+        margin-right : 60px
       }
 
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list {
@@ -7728,183 +7774,6 @@
           flex-grow: 0;
           /* background: #0066ff; */
           margin-left: 0px;
-        }
-
-  /* ================== 3. INGREDIENTS EQUIPMENT LISTS ======== */
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients {
-      width: 100%;
-      height: 20px;
-      margin: 6px 0px 0px 0px;
-      padding: 0px 6px;
-      border: 1px solid #736953a6;
-      font-family: var(--actor-label-font-family);
-      font-size: var(--actor-label-font-size);
-      font-weight: var(--actor-label-font-weight);
-      color: var(--actor-label-color);
-      background: none;
-      box-shadow: 0 0 10px #6b3a0f87 inset;
-      text-align: left;
-      display: inline-block;
-      flex-grow: 0;
-      overflow-x: hidden;
-      overflow-y: hidden;
-    }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .name {
-        position: relative;
-        left: 0px;
-        height: 18px;
-        width: 243px;
-        display: inline-block;
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .item-toggle {
-        position: relative;
-        left: 17px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .quantity {
-        position: relative;
-        left: 86px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .weight {
-        position: relative;
-        left: 109px;
-        height: 18px;
-        width: fit-content;
-        display: inline-block;
-        /* background: beige; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-header.Ingredients .item-controls {
-        position: relative;
-        top: -1px;
-        left: 138px;
-        height: fit-content;
-        width: fit-content;
-        display: inline-block;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: var(--actor-label-color);
-        margin: 0px;
-        padding: 0px;
-      }
-
-    .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients {
-      overscroll-behavior-x: unset;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      border: 1px solid #736953a6;
-      border-top: none;
-      list-style: none;
-      box-shadow: 0px 0px 1px inset black;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      height: fit-content;
-      width: 100%;
-      margin: -5px 0px 0px 0px;
-      padding: 0px;
-    }
-      .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content {
-        width: 100%;
-        text-align: center;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        margin: 0px 0px;
-        padding: 2px 2px;
-        display: flex;
-        flex-direction: row;
-        font-family: var(--actor-input-font-family);
-        font-size: var(--actor-input-font-size);
-        font-weight: var(--actor-input-font-weight);
-        color: var(--actor-input-color);
-        justify-content: space-between;
-        /* background: var(--debug-background-color-green); */
-      }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-name {
-          display: flex;
-          flex-direction: row;
-          min-width: 197px;
-          max-width: 197px;
-          /* background: aqua; */
-        }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .image {
-            background-size: 32px;
-            background-repeat: no-repeat;
-            min-height: 32px;
-            max-height: 32px;
-            min-width: 32px;
-            max-width: 32px;
-          }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .name {
-            text-align: left;
-            vertical-align: middle;
-            padding: 11px 0px 0px 4px;
-            overflow: hidden;
-          }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector {
-          min-width: 150px;
-          max-width: 150px;
-          padding: 7px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          /* background: aqua; */
-        }
-          .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .spell-selector > select {
-            background: none;
-            border: 1px solid #737373;
-            border-radius: 2px;
-            padding: 0px;
-            margin: 0px;
-            font-family: var(--actor-input-font-family);
-            font-size: var(--actor-input-font-size);
-            font-weight: var(--actor-input-font-weight);
-            color: var(--actor-input-color);
-            height: 19px;
-            width: 100%;
-            text-overflow: ellipsis;
-          }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .quantity {
-          min-width: 30px;
-          max-width: 30px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          position: relative;
-          left: -2px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .weight {
-          min-width: 30px;
-          max-width: 30px;
-          padding: 11px 0px 0px 0px;
-          text-align: center;
-          flex-grow: 0;
-          flex-shrink: 0;
-          flex-basis: 0;
-          position: relative;
-          left: 7px;
-          /* background: aqua; */
-        }
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.Ingredients .item .content .item-controls {
-          padding: 5px 4px 0px 0px;
-          font-family: "Font Awesome 5 Free";
-          font-size: 10px;
-          color: #504f48a6;
-          text-align: right;
-          min-width: 30px;
-          max-width: 30px;
-          flex-grow: 0;
         }
 
   /* ================== 4. CONTAINERS EQUIPMENT LISTS ========= */
@@ -9087,7 +8956,7 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section > h4 {
     width: 100%;
     height: 24px;
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     padding: 2px 0px 0px 0px;
     border: 1px solid #736953a6;
     font-family: var(--actor-label-font-family);
@@ -9097,19 +8966,17 @@
     background: none;
     box-shadow: 0 0 10px #00000052 inset;
     text-align: center;
-    display: inline-block;
     flex-grow: 0;
     overflow-x: hidden;
     overflow-y: hidden;
   }
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section #party-ambition {
-    margin-top: 2px;
+    margin-top: 5px;
   }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition {
       width: 100%;
       height: 24px;
       margin: 0px 0px 0px 0px;
-      padding: 2px 0px 0px 0px;
       border: 1px solid #736953a6;
       border-top: none;
       font-family: var(--actor-input-font-family);
@@ -9150,7 +9017,8 @@
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .input-details {
       height: 23px;
       text-align: center;
-      padding-top: 0px;
+      padding: 0px;
+      padding-top: 2px;
       position: relative;
       /* background: red; */
       /* top: -2px; */
@@ -9159,7 +9027,7 @@
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .motivation {
     width: 100%;
     height: 25px;
-    margin: 2px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     border: 1px solid #736953a6;
     font-family: var(--actor-input-font-family);
@@ -10578,7 +10446,7 @@
           text-align: left;
           color: #672323;
           text-shadow: 1px 0px 1px #6e6e716e;
-          box-shadow: 0px 0px 5px inset #5a2d00;
+          box-shadow: 0px 0px 4px inset #5a2d009c;
           /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
           /* margin: 4px 4px; */
           padding: 1px 5px 0px 5px;
@@ -10656,7 +10524,7 @@
         /* background: #80008057; */
         color: #672323;
         text-shadow: 1px 0px 1px #6e6e716e;
-        box-shadow: 0px 0px 5px inset #5a2d00;
+        box-shadow: 0px 0px 4px inset #5a2d009c;
         /* background: linear-gradient(to bottom, #9280698f 5%, #a7a2082e 100%); */
         /* margin: 4px 4px; */
         padding: 2px 5px 0px 5px;
@@ -12288,7 +12156,7 @@
 /*=============== X. NAVIGATION BAR =========================*/
 /*************************************************************/
 #navigation #scene-list .scene.view, #navigation #scene-list .scene.context {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_red.png) repeat;
   background-origin: padding-box;
@@ -12299,7 +12167,7 @@
 }
 
 #navigation #nav-toggle {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12314,7 +12182,7 @@
 }
 
 #navigation #scene-list .scene.nav-item {
-  cursor: default;
+  cursor: default; 
   color: #FFF;
   background: url(../ui/sidebar_button-background_cyan.png) repeat;
   background-origin: padding-box;
@@ -12357,7 +12225,7 @@
 /*=============== XI. SCENE CONTROLS ========================*/
 /*************************************************************/
 #controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover {
-cursor: default;
+cursor: default; 
 color: #FFF;
 background: url(../ui/sidebar_button-background_red.png) repeat !important;
 background-origin: padding-box !important;
@@ -12380,8 +12248,8 @@ color: #BBB !important;
 text-align: center !important;
 border: 1px solid #000 !important;
 border-radius: 5px !important;
-cursor: pointer !important;
-cursor: default !important;
+cursor: pointer !important; 
+cursor: default !important; 
 color: #FFF !important;
 background: url(../ui/sidebar_button-background_cyan.png) repeat !important;
 background-origin: padding-box !important;
@@ -13228,7 +13096,7 @@ border-image-outset: 0px !important;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    overflow-y: hidden;
+    overflow-y: auto;
     padding: 0px 7px 3px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
@@ -13371,7 +13239,6 @@ border-image-outset: 0px !important;
   .app.window-app button[type="submit"],
   .app.window-app button[type="reset"]
    {
-    flex: 1;
     width: -webkit-fill-available;
     margin: 0 3px 4px 3px;
 
@@ -13438,13 +13305,6 @@ border-image-outset: 0px !important;
     padding: 4px 5px;
     border: 1px solid #5d513e;
     background: #1f1f1fb5;
-  }
-
-  .app.window-app .dialog-buttons button i,
-  .app.window-app .sheet-footer button i,
-  .app.window-app .form-group .file-picker i,
-  .app.window-app button[type="submit"] i {
-    display: none
   }
 
   /* ================== 1. UPDATE OR CREATE FOLDER ============ */
@@ -13578,6 +13438,7 @@ border-image-outset: 0px !important;
     }
 
     .app.window-app.sheet.scene-sheet input[type="range"] + .range-value,
+    .token-sheet .range-value,
     #drawing-config .range-value,
     #sound-config .range-value,  
     #light-config .range-value {
@@ -13725,7 +13586,6 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     .token-sheet {
-      max-height: none;
       min-height: 390px;
     }
     .token-sheet .window-content {
@@ -13758,7 +13618,19 @@ border-image-outset: 0px !important;
       .token-sheet .sheet-tabs .item i {
         display: none;
       }
-    .token-sheet .tab .notes {
+    .token-sheet .tab {
+      max-height: fit-content;
+    }
+    .token-sheet .form-group label span {
+      font-size: 14px;
+      color: #7d7d7d;
+    }
+    .token-sheet .sheet-footer {
+        width: 446px;
+        height: 32px;
+    }
+
+    .token-sheet .tab[data-tab="character"] .notes {
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-size);
       font-weight: var(--actor-input-font-weight);
@@ -13769,6 +13641,191 @@ border-image-outset: 0px !important;
       padding: 4px 5px;
       border: 1px solid #5d513e;
       background: #1f1f1fb5;
+    }
+    .token-sheet .tab[data-tab="character"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 223px;
+      left: 294px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+
+    .token-sheet .tab[data-tab="image"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;    
+    }
+    .token-sheet .tab[data-tab="image"] button {
+      margin: 0 3px 0px 3px !important;
+      box-shadow: 0px 0px 5px black inset;
+    }
+      .token-sheet .tab[data-tab="image"] button i {
+        display: contents;
+        font-size: 16px;
+        color: #b9b9b9;
+      }
+    .token-sheet .tab[data-tab="image"] input[type="checkbox"] {
+      transform: scale(1);
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 1px solid #7d5900;
+      height: 11px;
+      width: 11px;
+      border-radius: 5px;
+      background: #212121;
+      cursor: pointer;
+      margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000 inset, 0px 0px 2px #0d0d0d; /* Add cool effects to your sliders! */
+    } 
+    .token-sheet .tab[data-tab="image"] input[type="range"]::-webkit-slider-runnable-track {
+      background-image: linear-gradient(to right, #820f0f , #82820d);
+    }
+    .token-sheet .tab[data-tab="image"] .form-group .range-value {
+      padding: 6px 3px 1px 3px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-radius: 0px;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+      padding-top: 11px
+    }
+    .token-sheet .tab[data-tab="image"]:not(:first-of-type) input[type="text"] {
+      text-align: center;
+    }
+
+    .token-sheet .tab[data-tab="position"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+    .token-sheet .tab[data-tab="position"] input[type="text"] {
+      text-align: center;
+    }
+    .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 295px;
+      left: 294px;
+      margin-top: 2px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+    }
+    
+    .token-sheet .tab[data-tab="vision"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+    .token-sheet .tab[data-tab="vision"] input[type="text"] {
+      text-align: center;
+    }
+    .token-sheet .tab[data-tab="vision"] input[type="checkbox"] {
+      transform: scale(1);
+      position: absolute;
+      top: 128px;
+      left: 278px;
+      opacity: 0.75;
+      box-shadow: 0px 0px 4px inset black;
+      margin-top: 2px;
+    }
+
+    .token-sheet .tab[data-tab="resources"] .notes {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      text-align: center;
+      margin: 4px 0px 0px 0px;
+      padding: 4px 5px;
+      border: 1px solid #5d513e;
+      background: #1f1f1fb5;
+    }
+    .token-sheet .tab[data-tab="resources"] .form-group label {
+      max-width: 183px;
+      min-width: 183px;
+    }
+    .token-sheet .tab[data-tab="resources"] .form-group .bar1-value {
+      padding: 1px 3px;
+      margin: 0;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+    }
+    .token-sheet .tab[data-tab="resources"] .form-group .bar2-value {
+      padding: 1px 3px;
+      margin: 0;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;
+    }
+    .token-sheet .tab[data-tab="resources"] .form-group .sep {
+      font-family: var(--actor-input-font-family);
+      font-size: 17px;
+      font-weight: var(--actor-input-font-weight);
+      color: #d6d6d6;
+      line-height: normal;
+      margin: 0px;
+      padding: 5px 0px 0px;
+      border: 1px solid #736953a6;
+      border-left: none;
+      border-right: none;
+      box-shadow: 0px 0px 10px inset black;
+      background: #352516;  
+    }
+
+    .token-sheet .range-value {
+      display: block;
+      flex: 0 1 48px;
+      margin-left: 10px;
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      line-height: normal;
+      text-align: center;
+      padding: 6px 3px 0px 3px;
+      border: 1px solid #5d513e;
+      background: #080808;
     }
 
   /* ================== 10. DRAWING CONFIG ==================== */
@@ -14296,13 +14353,15 @@ border-image-outset: 0px !important;
     .app.window-app.filepicker .form-group.current-dir input {
       border-left: 1px solid #736953a6;
     }
+    .app.window-app.filepicker .filepicker-body .directory.files-list.tiles-list,
+    .app.window-app.filepicker .filepicker-body .directory.files-list.images-list,
+    .app.window-app.filepicker .filepicker-body .directory.files-list.thumbs-list,
     .app.window-app.filepicker .filepicker-body .directory.files-list.details-list,
     .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
       background: url(../ui/frames/parchment-texture.png) repeat;
       border: 3px ridge #5d513e;
       border-radius: 0px;
       box-shadow: 0px 0px 33px black inset;
-      max-height: none;
     }
       .app.window-app.filepicker .filepicker-body .directory.folders-list.details-list {
         min-height: fit-content;
@@ -15033,18 +15092,12 @@ font-style : normal;
       .app.window-app.sheet.journal-sheet .import,
       .app.window-app.sheet.item-sheet .configure-sheet,
       .app.window-app.sheet.wfrp4e.actor .window-header .import {
-        /* color: #00e5ff00; */
-        /* text-align: center; */
-        /* background: url(../ui/buttons/button-import.png); */
-        /* height: 30px; */
-        /* width: 30px; */
-        /* position: absolute; */
-        /* top: 25px; */
-        /* right: 56px; */
-        /* margin: 0px; */
-        /* padding: 0px; */
-        /* overflow: hidden; */
-        /* background: var(--debug-background-color-blue); */
+       color: #00e5ff00;
+       text-align: center;
+       background: url(../ui/buttons/button-import.png);
+       overflow: hidden;
+       width: 30px;
+       height: 30px;
       }
       .app.window-app.wfrp-browser .import {
       top: 8px;
@@ -15162,6 +15215,10 @@ font-style : normal;
   width: auto;
   height: auto;
   float: right;
+}
+
+#OneJournalDirectory .window-content{
+  background: url(../ui/frames/parchment-texture.png);
 }
 
 .card-edit {
@@ -16663,4 +16720,12 @@ a.entity-link, a.inline-roll {
   position: relative;
   top: 0px;
   right: 0px;
+}
+
+#navigation #scene-list {
+  padding-right: 100px;
+}
+
+.app.window-app .window-header > a {
+  z-index: 5
 }

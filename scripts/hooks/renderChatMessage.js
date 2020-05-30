@@ -99,7 +99,6 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
             money : $(amount).attr("data-amt")
           }
           ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
-          console.log($(amount).attr("data-amt"))
         })
       })
 

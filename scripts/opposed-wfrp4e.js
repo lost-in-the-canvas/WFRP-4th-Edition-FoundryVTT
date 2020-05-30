@@ -131,6 +131,7 @@ class OpposedWFRP
       opposeResult.speakerDefend = defender.speaker
       opposeResult.attackerTestResult = duplicate(attacker.testResult);
       opposeResult.defenderTestResult = duplicate(defender.testResult);
+      let soundContext = {};
 
       // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
       // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
@@ -204,15 +205,57 @@ class OpposedWFRP
             description: `<b>${game.i18n.localize("ROLL.HitLocation")}</b>: ${opposeResult.attackerTestResult.hitloc.description}`,
             value: opposeResult.attackerTestResult.hitloc.result
           };
+
+          try // SOUND
+          {
+            if (opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Bow") 
+            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Crossbow"))
+            {
+              soundContext = {item : opposeResult.attackerTestResult.weapon, action : "hit"}
+            }
+            if (opposeResult.attackerTestResult.weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
+            {
+              soundContext.item = {type : "throw"}
+              if (opposeResult.attackerTestResult.weapon.properties.qualities.includes(game.i18n.localize("PROPERTY.Hack")))
+              {
+                soundContext.item = {type : "throw_axe"}
+              }
+            }
+          }
+          catch (e) {console.log("wfrp4e | Sound Context Error: " + e)} // Ignore sound errors
       }
       else // Defender won
       {
-        if (opposeResult.attackerTestResult.weapon
-            && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Bow")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Crossbow")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Blackpowder")
-            || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Engineering")))
-          WFRP_Utility.PlayContextAudio(opposeResult.attackerTestResult.weapon, {"type": "weapon", "equip": "miss"})
+        try {
+          if (opposeResult.attackerTestResult.weapon
+              && (opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Bow")
+              || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Crossbow")
+              || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Blackpowder")
+              || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Engineering")))
+            {
+              soundContext = {item : opposeResult.attackerTestResult.weapon, action : "miss"}
+            }
+            if (opposeResult.defenderTestResult.weapon && opposeResult.defenderTestResult.weapon.properties.qualities.find(p => p.includes(game.i18n.localize("PROPERTY.Shield"))))
+            {
+              if (opposeResult.attackerTestResult.weapon.attackType == "melee")
+              {
+                soundContext = {item : {type : "shield" }, action : "miss_melee"}
+              }
+              else 
+              {
+                if (opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Bow") 
+                || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Sling")
+                || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Throwing")
+                || opposeResult.attackerTestResult.weapon.data.weaponGroup.value === game.i18n.localize("SPEC.Crossbow"))
+                {
+                  soundContext = {item : {type : "shield" }, action : "miss_ranged"}
+                }
+              }
+            }
+          }
+          catch (e) {console.log("wfrp4e | Sound Context Error: " + e)} // Ignore sound errors
+
+
         opposeResult.winner = "defender"
         differenceSL = defenderSL - attackerSL; 
         opposeResult.result = game.i18n.format("OPPOSED.DefenderWins", {defender: defender.speaker.alias, attacker : attacker.speaker.alias, SL : differenceSL})
@@ -220,6 +263,7 @@ class OpposedWFRP
       }
 
       Hooks.call("wfrp4e:opposedTestResult", opposeResult)
+      WFRP_Audio.PlayContextAudio(soundContext)
 
       // If targeting, Create a new result message
       if (options.target)
@@ -392,6 +436,7 @@ class OpposedWFRP
         // Ranged weapon opposed tests automatically lose no matter what if the test itself fails
         if (testResult.weapon && testResult.weapon.rangedWeaponType && testResult.roll > testResult.target)
         {
+          // TODO: Sound
           ChatMessage.create({speaker: message.data.speaker, content: game.i18n.localize("OPPOSED.FailedRanged")})
           message.data.flags.data.originalTargets = new Set(game.user.targets);
           

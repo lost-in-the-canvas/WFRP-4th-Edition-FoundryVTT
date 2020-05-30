@@ -389,14 +389,6 @@ class MarketWfrp4e {
             }
             return {gc: gc, ss: ss, bp: bp};
         }
-
-        /**
-         * Get number of active players in the game
-         * @returns {int} number of active players
-         */
-        function getNbOfActivePlayers() {
-            return game.users.players.filter(p => p.data.active).length;
-        }
         
         /**
          *
@@ -436,10 +428,9 @@ class MarketWfrp4e {
         } else //generate a card with a summary and a receive button
         {
             let amount
-            let nbActivePlayers = getNbOfActivePlayers();
+            let nbActivePlayers = Array.from(game.users).filter(u => u.data.role != 4 && u.active).length;
             let forceWhisper
             
-            console.log("This is my option", option);
             let message
             if (nbActivePlayers == 0)
             {
@@ -458,7 +449,6 @@ class MarketWfrp4e {
             else if ( option.toLowerCase() === WFRP4E.creditOptions.EACH.toLowerCase() )  
             {
               amount = parsedPayRequest;
-              console.log("Amount sent : ", amount.gc, amount.ss, amount.bp);
               message = game.i18n.format("MARKET.RequestMessageForEachCredit", {
                   activePlayerNumber: nbActivePlayers,
                   initialAmount: amountToString(parsedPayRequest)
@@ -475,14 +465,12 @@ class MarketWfrp4e {
                     userName: player[0].data.name,
                     initialAmount: amountToString(parsedPayRequest)
                 });              
-                console.log("We have a player TEST :", option, player, player[0].data.name);
               } else {
                 message = game.i18n.localize("MARKET.NoMatchingPlayer");
                 ChatMessage.create({content: message});
                 return
               }              
             }
-            console.log("Amount sent 2: ", amount.gc, amount.ss, amount.bp);   
             let cardData = {
                 digestMessage: message,
                 amount: amountToString(amount),

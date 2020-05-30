@@ -24,15 +24,15 @@
   textContainer = document.querySelectorAll('.app.window-app.dialog');
   length = textContainer.length;
 
-  // console.log("textContainer");
-  // console.log(textContainer);
-  // console.log(textContainer[0].children[1].children[0].children[0].className);
+  
+  
+  
 
   for (i = 0; i < length; i++) {
     if (textContainer[i].children[1].children[0].children[0].className.includes("prayer-test")) {
       new_red = textContainer[i].id;
-      // console.log("new_red");
-      // console.log(new_red);
+      
+      
       if (document.getElementById(new_red).className.includes("prayer-roll-dialog")) {
         continue;
       } 
@@ -42,5 +42,5 @@
     } else {}
   }
 
-  // console.log(checkIfToken);
+  
 </script>
