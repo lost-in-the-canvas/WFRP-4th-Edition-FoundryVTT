@@ -15084,7 +15084,13 @@ font-style : normal;
         flex-direction: row;
         flex-grow: 2;
       }
-
+      .app.window-app.wfrp-browser .window-resizable-handle i.fas {
+          transform: rotate(45deg);
+          transform: scale(0.8) rotate(45deg);
+          position: relative;
+          top: -2px;
+          right: 2px;
+      }
       .app.window-app.wfrp-browser .import,
       .app.window-app.sheet.item-sheet .import,
       .app.window-app.sheet.roll-table-config .import,
@@ -15100,8 +15106,10 @@ font-style : normal;
        height: 30px;
       }
       .app.window-app.wfrp-browser .import {
-      top: 8px;
-      right: 31px;
+      position: absolute;
+      top: 9px;
+      left: auto;
+      right: 34px;
       }
 
       .app.window-app.sheet.item-sheet .configure-sheet,
