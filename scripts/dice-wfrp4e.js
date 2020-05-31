@@ -406,7 +406,7 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static rollCastTest(testData) 
+  static rollCastTest(testData)
   {
     let testResults = this.rollTest(testData);
     let spell = testResults.spell;
@@ -481,7 +481,57 @@ class DiceWFRP
         if (!testData.extra.ID)
           miscastCounter++;
       }
+
     }
+
+    // Use the number of miscasts to determine what miscast it becomes (null<miscast> is from ingredients)
+    switch (miscastCounter)
+    {
+      case 1:
+        if (testData.extra.ingredient)
+          testResults.extra.nullminormis = game.i18n.localize("ROLL.MinorMis")
+        else
+        {
+          testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
+        }
+        break;
+      case 2:
+        if (testData.extra.ingredient)
+        {
+          testResults.extra.nullmajormis = game.i18n.localize("ROLL.MajorMis")
+          testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
+        }
+        else
+        {
+          testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
+        }
+        break;
+      case 3:
+        testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
+        break;
+    }
+
+    if (testData.extra.ingredient)
+      miscastCounter--;
+    if (miscastCounter < 0)
+      miscastCounter = 0;
+    if (miscastCounter > 2)
+      miscastCounter = 2
+
+    // Calculate Damage if the spell has it specified and succeeded in casting
+    try
+    {
+      if (testData.extra.spell.damage && testResults.description.includes(game.i18n.localize("ROLL.CastingSuccess")))
+        testResults.damage = Number(testResults.SL) +
+        Number(testData.extra.spell.damage)
+    }
+    catch (error)
+    {
+		ui.notifications.error(game.i18n.localize("Error.DamageCalc") + ": " + error)
+    } // If something went wrong calculating damage, do nothing and continue
+
+
+    return testResults;
   }
 
   /**
