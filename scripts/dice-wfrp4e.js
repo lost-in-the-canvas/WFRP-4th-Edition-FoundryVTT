@@ -397,92 +397,6 @@ class DiceWFRP
     return testResults;
   }
 
- /**
-   * Extends the basic evaluation of a test to include spell considerations.
-   * 
-   * This function, when given the necessary data (target number, SL bonus, etc.)calls
-   * rollTest to provide the basic evaluation, then extends that to mainly account for
-   * miscasting or critical castings
-   * 
-   * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
-   */
-  static rollCastTest(testData)
-  {
-    let testResults = this.rollTest(testData);
-    let spell = testResults.spell;
-
-    let miscastCounter = 0;
-    testData.function = "rollCastTest"
-
-    let CNtoUse = spell.data.cn.value
-    // Partial channelling - reduce CN by SL so far
-    if (game.settings.get("wfrp4e", "partialChannelling"))
-    {
-      CNtoUse -=  spell.data.cn.SL;
-    }
-    // Normal Channelling - if SL has reached CN, CN is considered 0
-    else if (spell.data.cn.SL >= spell.data.cn.value)
-    {
-      CNtoUse = 0;
-    }
-
-    // If malignant influence AND roll has an 8 in the ones digit, miscast
-    if (testData.extra.malignantInfluence)
-      if (Number(testResults.roll.toString().split('').pop()) == 8)
-        miscastCounter++;
-
-    // Witchcraft automatically miscast
-    if (spell.data.lore.value == "witchcraft")
-      miscastCounter++;
-
-    // slOver is the amount of SL over the CN achieved
-    let slOver = (Number(testResults.SL) - CNtoUse)
-
-    // Test itself was failed
-    if (testResults.description.includes(game.i18n.localize("Failure")))
-    {
-      testResults.description = game.i18n.localize("ROLL.CastingFailed")
-      // Miscast on fumble
-      if (testResults.roll % 11 == 0 || testResults.roll == 100)
-      {
-        testResults.extra.color_red = true;
-        miscastCounter++;
-      }
-    }
-    else if (slOver < 0) // Successful test, but unable to cast due to not enough SL
-    {
-      testResults.description = game.i18n.localize("ROLL.CastingFailed")
-
-      // Critical Casting - succeeds only if the user chooses Total Power option (which is assumed)
-      if (testResults.roll % 11 == 0)
-      {
-        testResults.extra.color_green = true;
-        testResults.description = game.i18n.localize("ROLL.CastingSuccess")
-        testResults.extra.critical = game.i18n.localize("ROLL.TotalPower")
-
-        if (!testData.extra.ID)
-          miscastCounter++;
-      }
-    }
-
-    else // Successful test, casted - determine overcasts
-    {
-      testResults.description = game.i18n.localize("ROLL.CastingSuccess")
-      let overcasts = Math.floor(slOver / 2);
-      testResults.overcasts = overcasts;
-      spell.overcasts.available = overcasts;
-      
-
-      if (testResults.roll % 11 == 0)
-      {
-        testResults.extra.critical = game.i18n.localize("ROLL.CritCast")
-        testResults.extra.color_green = true;
-
-        if (!testData.extra.ID)
-          miscastCounter++;
-      }
-    }
-
   /**
    * Extends the basic evaluation of a test to include spell considerations.
    * 
@@ -492,7 +406,7 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static rollCastTest(testData)
+  static rollCastTest(testData) 
   {
     let testResults = this.rollTest(testData);
     let spell = testResults.spell;
@@ -567,57 +481,7 @@ class DiceWFRP
         if (!testData.extra.ID)
           miscastCounter++;
       }
-
     }
-
-    // Use the number of miscasts to determine what miscast it becomes (null<miscast> is from ingredients)
-    switch (miscastCounter)
-    {
-      case 1:
-        if (testData.extra.ingredient)
-          testResults.extra.nullminormis = game.i18n.localize("ROLL.MinorMis")
-        else
-        {
-          testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
-        }
-        break;
-      case 2:
-        if (testData.extra.ingredient)
-        {
-          testResults.extra.nullmajormis = game.i18n.localize("ROLL.MajorMis")
-          testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
-        }
-        else
-        {
-          testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
-        }
-        break;
-      case 3:
-        testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
-        break;
-    }
-
-    if (testData.extra.ingredient)
-      miscastCounter--;
-    if (miscastCounter < 0)
-      miscastCounter = 0;
-    if (miscastCounter > 2)
-      miscastCounter = 2
-
-    // Calculate Damage if the spell has it specified and succeeded in casting
-    try
-    {
-      if (testData.extra.spell.damage && testResults.description.includes(game.i18n.localize("ROLL.CastingSuccess")))
-        testResults.damage = Number(testResults.SL) +
-        Number(testData.extra.spell.damage)
-    }
-    catch (error)
-    {
-		ui.notifications.error(game.i18n.localize("Error.DamageCalc") + ": " + error)
-    } // If something went wrong calculating damage, do nothing and continue
-
-
-    return testResults;
   }
 
   /**
