@@ -3501,7 +3501,7 @@
     border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
     border-image-width: 4px 7px 4px 7px;
     border-image-outset: 0px;
-    padding: 3px 10px 0px 10px;
+    padding: 2px 10px 0px 10px;
     background: url(../ui/frames/actor-sheet-character-form.png);
     background-position-x: center;
     background-position-y: -16px;
@@ -14189,7 +14189,7 @@ border-image-outset: 0px !important;
     } 
 
     .window-app.app.journal-sheet form.editable .editor {
-      height: calc(100% - 126px);
+      height: calc(100% - 102px);
       border: 1px solid #736953a6;
       padding: 4px;
     }
