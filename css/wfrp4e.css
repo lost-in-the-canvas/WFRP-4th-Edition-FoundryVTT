@@ -1298,6 +1298,7 @@
         margin: 0;
         color: #790000;
         text-shadow: 0px 0px 1px #00000087;
+        vertical-align: middle;
       }
       #chat-log .message .message-header .message-metadata {
         text-align: right;
@@ -5418,9 +5419,10 @@
 
       .app.window-app.sheet.wfrp4e.actor .rest-icon{
         left: 5px;
-        border-radius: 9px;
-        top: 2px;
-        font-family: awesom;
+        border-radius: 16px;
+        top: -3px;
+        height: 20px;
+        width: 20px;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
       .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
@@ -5447,11 +5449,9 @@
         transform: scale(0.85);
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed{
-        left: 5px;
-        /* border: 1px solid #736953a6; */
-        border-radius: 16px;
-        /* height: 27px; */
-        /* padding-top: 4px; */
+        left: 0px;
+        position: relative;
+        top: 3px;
       }
 
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
