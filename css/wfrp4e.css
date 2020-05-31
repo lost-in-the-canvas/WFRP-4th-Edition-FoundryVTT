@@ -19,9 +19,14 @@
 /******************************************************************/
 /******************************************************************/
 
+#tinymce {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
 
-
-
+.editor-content table {
+  background: none;
+}
 
 /******************************************************************/
 /*=============== I. LOCAL FONTS =================================*/
@@ -105,7 +110,7 @@
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
-    height: inherit !important;
+    height: 100% !important;
     width: 100%;
   }
   #tinymce > p > span {
@@ -874,7 +879,7 @@
       border: 2px groove #564d3a;
       border-image: url(../ui/chat-controls-border.png) 4 repeat;
       border-image-width: 4px;
-      border-image-outset: 2px 2px 2px 2px;
+      border-image-outset: 1px;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-family);
       font-weight: var(--actor-input-font-weight);
@@ -3497,7 +3502,7 @@
     border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
     border-image-width: 4px 7px 4px 7px;
     border-image-outset: 0px;
-    padding: 3px 10px 0px 10px;
+    padding: 2px 10px 0px 10px;
     background: url(../ui/frames/actor-sheet-character-form.png);
     background-position-x: center;
     background-position-y: -16px;
@@ -14184,7 +14189,7 @@ border-image-outset: 0px !important;
     } 
 
     .window-app.app.journal-sheet form.editable .editor {
-      height: calc(100% - 126px);
+      height: calc(100% - 102px);
       border: 1px solid #736953a6;
       padding: 4px;
     }
