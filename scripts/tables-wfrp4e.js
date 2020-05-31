@@ -188,10 +188,10 @@ class WFRP_Tables
       case "winds":
         return `<b>${this[table].name}</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b> ${game.i18n.localize("Modifier")} : </b> ${result.modifier}`;
       case "career":
-        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
+        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>${game.i18n.localize("Roll")}:</b> ${result.roll}`;
       case "eyes":
       case "hair":
-        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>${game.i18n.localize("Modifier")}:</b> ${eval(result.roll)}`
+        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>${game.i18n.localize("Roll")}:</b> ${eval(result.roll)}`
 
       // Special scatter table display
       case "scatter":
