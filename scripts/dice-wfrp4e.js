@@ -576,7 +576,7 @@ class DiceWFRP
         testResults.extra.color_red = true;
         miscastCounter += 2;
       }
-    }
+    }      
     else // Successs - add SL to spell for further use
     {
       testResults.description = game.i18n.localize("ROLL.ChannelSuccess")
@@ -661,6 +661,10 @@ class DiceWFRP
     let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
 
+
+    let CNtoUse = 0;
+    let slOver = (Number(testResults.SL) - CNtoUse);
+
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
     {
@@ -690,6 +694,12 @@ class DiceWFRP
     else
     {
       testResults.description = game.i18n.localize("ROLL.PrayGranted")
+
+      let overcasts = Math.floor(slOver / 2);
+      testResults.overcasts = overcasts;
+      prayer.overcasts.available = overcasts;
+
+      // console.log(prayer);
 
       // Wrath of the gads activates if ones digit is equal or less than current sin      
       let unitResult = Number(testResults.roll.toString().split('').pop())
@@ -1082,6 +1092,74 @@ class DiceWFRP
         cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
         msg.update({content : cardContent.html()})
         msg.update({"flags.data.postData.spell" : spell})
+      });
+
+      // Respond to prayer overcast button clicks
+      html.on("mousedown", '.prayer-extension-button', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let prayer = duplicate(msg.data.flags.data.postData.prayer);
+
+        console.log("%c PRAYER.OVERCASTS", "color:green");
+        console.log(prayer.overcasts);
+
+        let overcastData = prayer.overcasts
+        let overcastChoice = $(event.currentTarget).attr("data-overcast")
+
+        console.log("%c OVERCASTDATA", "color:green");
+        console.log(overcastData);
+
+        console.log("%c OVERCASTCHOICE", "color:green");
+        console.log(overcastChoice);
+
+        // if (!overcastData.available && event.button == 0)
+        //   return
+
+        // if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
+        //   return
+
+        overcastData.available = msg.data.flags.data.postData.overcasts
+
+        // data-button tells us what button was clicked
+        switch (overcastChoice)
+        {
+          case "range":
+              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "target":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "duration":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+        }
+        overcastData[overcastChoice].count++
+        let sum = 0;
+        for (let overcastType in overcastData)
+          if (overcastData[overcastType].count)
+            sum += overcastData[overcastType].count
+
+        overcastData.available -= sum;
+
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        
+        if (overcastData[overcastChoice].AoE)
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        else
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = (overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+
+        console.log("%c overcastChoice","color:blue");
+        console.log(overcastChoice);
+        console.log(overcastData[overcastChoice].current);
+
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.prayer" : prayer})
       });
 
     // Respond to template button clicks
