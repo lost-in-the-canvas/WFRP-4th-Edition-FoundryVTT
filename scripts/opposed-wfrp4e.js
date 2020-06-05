@@ -121,7 +121,7 @@ class OpposedWFRP
    */
   static evaluateOpposedTest(attacker, defender, options = {})
   {
-    Hooks.call("wfrp4e:preOpposedTestResult", opposeResult, attacker, defender)
+    Hooks.call("wfrp4e:preOpposedTestResult", attacker, defender)
     try
     {
       let opposeResult = {};
