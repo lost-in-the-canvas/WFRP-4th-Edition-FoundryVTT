@@ -121,6 +121,7 @@ class OpposedWFRP
    */
   static evaluateOpposedTest(attacker, defender, options = {})
   {
+    Hooks.call("wfrp4e:preOpposedTestResult", opposeResult, attacker, defender)
     try
     {
       let opposeResult = {};
@@ -262,7 +263,7 @@ class OpposedWFRP
         opposeResult.img = defender.img
       }
 
-      Hooks.call("wfrp4e:opposedTestResult", opposeResult)
+      Hooks.call("wfrp4e:opposedTestResult", opposeResult, attacker, defender)
       WFRP_Audio.PlayContextAudio(soundContext)
 
       // If targeting, Create a new result message
