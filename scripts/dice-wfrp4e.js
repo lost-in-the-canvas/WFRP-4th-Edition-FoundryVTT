@@ -1094,6 +1094,36 @@ class DiceWFRP
         msg.update({"flags.data.postData.spell" : spell})
       });
 
+      // Button to reset the overcasts
+      html.on("mousedown", '.overcast-reset-prayer', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let prayer = duplicate(msg.data.flags.data.postData.prayer);
+        let overcastData = prayer.overcasts
+        for (let overcastType in overcastData)
+        {
+          if (overcastData[overcastType].count)
+          {
+            overcastData[overcastType].count = 0
+            overcastData[overcastType].current = overcastData[overcastType].initial
+            if (overcastData[overcastType].AoE)
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+            else
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = (overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+          }
+       
+        }
+        overcastData.available = msg.data.flags.data.postData.overcasts;
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.prayer" : prayer})
+      });
+
       // Respond to prayer overcast button clicks
       html.on("mousedown", '.prayer-extension-button', event =>
       {
