@@ -3351,11 +3351,18 @@
     max-height: none !important;
     min-width: 620px;
     min-height: 740px;
+    border: 1px solid;
+    border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat;
+    border-image-slice: 106 106 106 106 fill;
+    border-image-width: 106;
+    border-image-outset: 0px;
+    padding: 0px;
+    margin: 0px;
   }
   .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
-    bottom: 20px;
-    right: 26px;
+    bottom: 29px;
+    right: 29px;
   }
 
   .app.window-app.sheet.item-sheet .window-resizable-handle {
@@ -3457,30 +3464,28 @@
     overflow-y: hidden;
     box-shadow: none;
     background: none;
-    overflow-y: hidden;
-    border: 1px solid;
-    border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat;
-    border-image-slice: 106 106 106 106 fill;
-    border-image-width: 106;
-    border-image-outset: 63px 25px 11px 7px;
-    padding: 0px 0px 0px 0px;
-    margin: 3px 26px 0px 8px;
+    border: none;
+    margin: 2px 25px 64px 7px;
+    padding: 0px;
+    /* border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat; */
+    /* border-image-slice: 106 106 106 106 fill; */
+    /* border-image-width: 106; */
+    /* border-image-outset: 0px; */
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
-    margin: 44px 34px 0px 34px;
-    margin-bottom: 53px;
+    margin: 0px;
+    padding: 44px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    padding: 0px;
     border: 1px solid;
     border-image: url(../ui/frames/actor-sheet-character-form.png) 4 repeat;
     border-image-slice: 250 fill;
     border-image-width: 250;
-    border-image-outset: 44px 34px 0px 34px;
+    border-image-outset: 0px;
     /* background: red; */
     /* box-shadow: var(--debug-box-shadow-red); */
   }
