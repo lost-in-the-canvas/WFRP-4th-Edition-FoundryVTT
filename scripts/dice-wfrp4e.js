@@ -1104,17 +1104,8 @@ class DiceWFRP
 
         let prayer = duplicate(msg.data.flags.data.postData.prayer);
 
-        console.log("%c PRAYER.OVERCASTS", "color:green");
-        console.log(prayer.overcasts);
-
         let overcastData = prayer.overcasts
         let overcastChoice = $(event.currentTarget).attr("data-overcast")
-
-        console.log("%c OVERCASTDATA", "color:green");
-        console.log(overcastData);
-
-        console.log("%c OVERCASTCHOICE", "color:green");
-        console.log(overcastChoice);
 
         // if (!overcastData.available && event.button == 0)
         //   return

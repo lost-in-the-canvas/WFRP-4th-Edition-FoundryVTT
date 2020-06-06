@@ -1262,14 +1262,14 @@
     #sidebar .sidebar-tab .directory-list .folder-header {/*       border-bottom: 2px groove #564d3a; */margin-top: 2px;margin-left: 2px;}
   /* ================== 1. CHAT LOG =========================== */
     #sidebar .sidebar-tab #chat-log {
-      flex: none;
-      height: calc(100% - 199px);
+      flex: 4;
+      height: auto;
       width: 100%;
       margin: 0px 0px 0px -5px;
       padding: 0px 0px 0px 0px;
       overflow-y: auto;
       list-style: none;
-      /* background: pink; */
+      /* background: var(--debug-background-color-red); */
     }
 
     #chat-log .message {
@@ -1339,8 +1339,8 @@
 
   /* ================== 2. CHAT CONTROLS ====================== */
     #sidebar .sidebar-tab #chat-controls {
-      position: absolute;
-      bottom: 154px;
+      position: relative;
+      flex: 1;
       right: 0px;
       min-height: 45px;
       max-height: 45px;
@@ -1348,7 +1348,7 @@
       max-width: 376px;
       margin: 0px;
       padding: 0px;
-      background: none;
+      /* background: var(--debug-background-color-green); */
     }
 
     #sidebar .sidebar-tab #chat-controls label {
@@ -1402,9 +1402,9 @@
   /* ================== 3. CHAT FORM ========================== */
     #sidebar .sidebar-tab #chat-form {
       min-height: 154px;
-      max-height: 154px;
+      flex: 1;
       min-width: 376px;
-      position: absolute;
+      position: relative;
       bottom: 0px;
       right: 0px;
       display: flex;
@@ -3391,8 +3391,8 @@
       height: 51px;
       width: 100%;
       position: absolute;
-      left: -9px;
-      top: 1px;
+      /* left: -9px; */
+      /* top: 1px; */
       /* right: 0px; */
       z-index: 0;
       /* left: 0px; */
@@ -13843,13 +13843,16 @@ border-image-outset: 0px !important;
 
   /* ================== 10. DRAWING CONFIG ==================== */
     #drawing-config {
-      min-height: 393px;
+      height: fit-content !important;
       overflow-y: hidden;
       width: 480px !important;
     }
     #drawing-config .window-content {
       overflow-y: hidden;
       overflow-x: hidden;
+      height: 100%;
+      min-height: fit-content;
+      padding-bottom: 6px;
     }
     #drawing-config .sheet-tabs {
       flex: 0 0 32px;
@@ -15368,6 +15371,7 @@ font-style : normal;
 }
 
 .overcast-button,
+.prayer-extension-button,
 .chargen-button {
   box-shadow: inset 0px 1px 0px 0px #a6827e;
   background: linear-gradient(to bottom, #21374afc 5%, #152833ab 100%);
