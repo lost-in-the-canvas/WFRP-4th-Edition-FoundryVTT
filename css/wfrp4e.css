@@ -3371,8 +3371,8 @@
   }
   .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
-    bottom: 29px;
-    right: 29px;
+    bottom: 9px;
+    right: 14px;
   }
 
   .app.window-app.sheet.item-sheet .window-resizable-handle {
@@ -3407,7 +3407,7 @@
       height: 51px;
       width: 100%;
       position: absolute;
-      top: -9px;
+      top: -18px;
       left: 0px;
       z-index: 0;
       flex-basis: 100%;
@@ -3481,7 +3481,7 @@
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
     margin: 0px;
-    padding: 0px 5.7%;
+    padding: 14px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
@@ -3511,7 +3511,7 @@
 
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form #header-personal-details {
     position: relative;
-    top: 0px;
+    top: -7px;
     height: 24px;
     font-family: var(--tab-header-font-family);
     font-size: var(--tab-header-font-size);
