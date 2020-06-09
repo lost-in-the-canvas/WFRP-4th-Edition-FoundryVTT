@@ -1390,16 +1390,10 @@ class DiceWFRP
         case "blindroll": //GM only
           blind = true;
         case "gmroll": //GM + rolling player
-          let gmList = game.users.filter(user => user.isGM);
-          let gmIDList = [];
-          gmList.forEach(gm => gmIDList.push(gm.data._id));
-          whisper = gmIDList;
+          whisper = game.users.filter(user => user.isGM);
           break;
         case "roll": //everybody
-          let userList = game.users.filter(user => user.active);
-          let userIDList = [];
-          userList.forEach(user => userIDList.push(user.data._id));
-          whisper = userIDList;
+          whisper = game.users.filter(user => user.active);
           break;
       }
       await game.dice3d.showForRoll(roll,whisper,blind);

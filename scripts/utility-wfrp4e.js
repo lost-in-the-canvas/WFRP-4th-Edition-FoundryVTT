@@ -754,12 +754,13 @@ class WFRP_Utility
 
     if (event.button == 0)
     {
-      if (event.target.text.trim() == game.i18n.localize("ROLL.CritCast"))
+      let clickText = event.target.text || event.target.textContent;
+      if (clickText.trim() == game.i18n.localize("ROLL.CritCast"))
       {
         html = WFRP_Tables.criticalCastMenu($(event.currentTarget).attr("data-table"));
       }
 
-      else if (event.target.text.trim() == game.i18n.localize("ROLL.TotalPower"))
+      else if (clickText.trim() == game.i18n.localize("ROLL.TotalPower"))
         html = WFRP_Tables.restrictedCriticalCastMenu();
 
       // Not really a table but whatever
