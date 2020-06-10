@@ -1781,7 +1781,7 @@
       padding: 0;
       width: -webkit-fill-available;
       width: -moz-available;
-      width: available;
+      width: fill-available;
     }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
@@ -1961,7 +1961,7 @@
     padding: 3px 0px;
     width: -webkit-fill-available;
     width: -moz-available;
-    width: available;
+    width: fill-available;
     border: 1px solid black;
     border-image: url(../ui/footer-button.png) 10 repeat;
     border-image-width: 4px;
@@ -2221,7 +2221,7 @@
     height: 25px;
     width: -webkit-fill-available;
     width: -moz-available;
-    width: available;
+    width: fill-available;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -12983,6 +12983,8 @@ border-image-outset: 0px !important;
   .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
     flex-grow: 1;
     min-width: -webkit-fill-available;
+    min-width: -moz-available;
+    min-width: fill-available;
     width: 100%;
     margin: 0px;
     padding: 0px;
@@ -13222,7 +13224,7 @@ border-image-outset: 0px !important;
    {
     width: -webkit-fill-available;
     width: -moz-available;
-    width: available;
+    width: fill-available;
     margin: 0 3px 4px 3px;
 
     border: 1px solid black;
@@ -15803,7 +15805,7 @@ button.capture-position {
   flex: 1;
   width: -webkit-fill-available;
   width: -moz-available;
-  width: available;
+  width: fill-available;
   margin: 0 3px 0px 3px !important;
   border: 1px solid black;
   border-image: url(../ui/footer-button.png) 10 repeat;
@@ -16429,7 +16431,7 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
   #av-config .form-group select {
     width: -webkit-fill-available;
     width: -moz-available;
-    width: available;
+    width: fill-available;
     border: 1px solid #736953a6;
     border-top: none;
     height: 27px;
