@@ -1780,6 +1780,8 @@
       margin: 0;
       padding: 0;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: available;
     }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
@@ -1958,6 +1960,8 @@
     margin: 4px 12px;
     padding: 3px 0px;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: available;
     border: 1px solid black;
     border-image: url(../ui/footer-button.png) 10 repeat;
     border-image-width: 4px;
@@ -2216,6 +2220,8 @@
     padding-left: 0px;
     height: 25px;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: available;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -13215,6 +13221,8 @@ border-image-outset: 0px !important;
   .app.window-app button[type="reset"]
    {
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: available;
     margin: 0 3px 4px 3px;
 
     border: 1px solid black;
@@ -15794,6 +15802,8 @@ button.capture-position {
 .scene-sheet .window-content .form-group.initial-position .form-fields .capture-position {
   flex: 1;
   width: -webkit-fill-available;
+  width: -moz-available;
+  width: available;
   margin: 0 3px 0px 3px !important;
   border: 1px solid black;
   border-image: url(../ui/footer-button.png) 10 repeat;
@@ -16418,6 +16428,8 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
 
   #av-config .form-group select {
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: available;
     border: 1px solid #736953a6;
     border-top: none;
     height: 27px;
