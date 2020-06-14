@@ -15400,6 +15400,13 @@ font-style : normal;
   font-weight: 1000;
 }
 
+.wounds-healed-drag {
+  border: 1px dotted black;
+  width: fit-content;
+  padding: 3px;
+  margin: 5px;
+}
+
 .exp-drag {
   border: 1px dotted black;
   width: fit-content;
