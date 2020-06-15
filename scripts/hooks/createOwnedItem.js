@@ -52,6 +52,10 @@ Hooks.on("createOwnedItem", (actor, item) => {
       }
       actor.update({data : data})
     }  
+    if (item.type == "career" && actor.data.type == "creature")
+    {
+      actor._advanceNPC(item.data);
+    }
 })
 
 // If deleting a talent or trait, if that talent or trait gives a bonus, remove that bonus.
