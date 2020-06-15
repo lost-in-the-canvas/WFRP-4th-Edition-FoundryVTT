@@ -1303,7 +1303,7 @@ class DiceWFRP
           whisper = userIDList;
           break;
       }
-      await game.dice3d.showForRoll(roll,game.user,true,whisper,blind);
+      await game.dice3d.showForRoll(roll,game.user,true,blind,whisper);
     }
   }
 }
