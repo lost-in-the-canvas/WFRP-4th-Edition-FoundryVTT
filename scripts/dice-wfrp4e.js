@@ -1301,7 +1301,7 @@ class DiceWFRP
           whisper = game.users.filter(user => user.active);
           break;
       }
-      await game.dice3d.showForRoll(roll,whisper,blind);
+      await game.dice3d.showForRoll(roll,game.user,true,whisper,blind);
     }
   }
 }
