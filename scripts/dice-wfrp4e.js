@@ -652,18 +652,14 @@ class DiceWFRP
    */
   static rollPrayTest(testData, actor)
   {
-    let prayer = testData.extra.prayer;
 
     let testResults = this.rollTest(testData);
+    let prayer = testResults.prayer;
     testData.function = "rollPrayTest"
 
     let SL = testResults.SL;
-    let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
 
-
-    let CNtoUse = 0;
-    let slOver = (Number(testResults.SL) - CNtoUse);
 
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
@@ -685,8 +681,6 @@ class DiceWFRP
         if (currentSin < 0)
           currentSin = 0;
 
-
-
         actor.update({"data.status.sin.value": currentSin});
       }
     }
@@ -694,12 +688,6 @@ class DiceWFRP
     else
     {
       testResults.description = game.i18n.localize("ROLL.PrayGranted")
-
-      let overcasts = Math.floor(slOver / 2);
-      testResults.overcasts = overcasts;
-      prayer.overcasts.available = overcasts;
-
-      // console.log(prayer);
 
       // Wrath of the gads activates if ones digit is equal or less than current sin      
       let unitResult = Number(testResults.roll.toString().split('').pop())
@@ -714,7 +702,8 @@ class DiceWFRP
           currentSin = 0;
         actor.update({"data.status.sin.value": currentSin});
       }
-      extensions = Math.floor(SL / 2);
+      testResults.overcasts = Math.floor(SL / 2); // For allocatable buttons
+      prayer.overcasts.available = testResults.overcasts;
     }
 
     // Calculate damage if prayer specifies
@@ -729,7 +718,6 @@ class DiceWFRP
       ui.notifications.error(game.i18n.localize("Error.DamageCalc") + ": " + error)
     } // If something went wrong calculating damage, do nothing and still render the card
 
-    testResults.extensions = extensions;
     return testResults;
   }
 
@@ -1018,17 +1006,23 @@ class DiceWFRP
         if (!msg.owner && !msg.isAuthor)
           return ui.notifications.error("You do not have permission to edit this ChatMessage")
 
-        let spell = duplicate(msg.data.flags.data.postData.spell);
+        
+        let spell;
+        if (msg.data.flags.data.postData.spell) 
+          spell = duplicate(msg.data.flags.data.postData.spell);
+        else
+          spell = duplicate(msg.data.flags.data.postData.prayer);
+
         let overcastData = spell.overcasts
         let overcastChoice = $(event.currentTarget).attr("data-overcast")
 
-        if (!overcastData.available && event.button == 0)
-          return
-
-        if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
+        if (!overcastData.available)
           return
 
         overcastData.available = msg.data.flags.data.postData.overcasts
+
+        if (typeof overcastData[overcastChoice].initial != "number")
+          return
 
         // data-button tells us what button was clicked
         switch (overcastChoice)
@@ -1092,95 +1086,6 @@ class DiceWFRP
         cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
         msg.update({content : cardContent.html()})
         msg.update({"flags.data.postData.spell" : spell})
-      });
-
-      // Button to reset the overcasts
-      html.on("mousedown", '.overcast-reset-prayer', event =>
-      {
-        event.preventDefault();
-        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
-        let cardContent =  $(event.currentTarget).parents('.message-content')
-        if (!msg.owner && !msg.isAuthor)
-          return ui.notifications.error("You do not have permission to edit this ChatMessage")
-
-        let prayer = duplicate(msg.data.flags.data.postData.prayer);
-        let overcastData = prayer.overcasts
-        for (let overcastType in overcastData)
-        {
-          if (overcastData[overcastType].count)
-          {
-            overcastData[overcastType].count = 0
-            overcastData[overcastType].current = overcastData[overcastType].initial
-            if (overcastData[overcastType].AoE)
-              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastType].current + " " + overcastData[overcastType].unit)
-            else
-              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = (overcastData[overcastType].current + " " + overcastData[overcastType].unit)
-          }
-       
-        }
-        overcastData.available = msg.data.flags.data.postData.overcasts;
-        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
-        msg.update({content : cardContent.html()})
-        msg.update({"flags.data.postData.prayer" : prayer})
-      });
-
-      // Respond to prayer overcast button clicks
-      html.on("mousedown", '.prayer-extension-button', event =>
-      {
-        event.preventDefault();
-        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
-        if (!msg.owner && !msg.isAuthor)
-          return ui.notifications.error("You do not have permission to edit this ChatMessage")
-
-        let prayer = duplicate(msg.data.flags.data.postData.prayer);
-
-        let overcastData = prayer.overcasts
-        let overcastChoice = $(event.currentTarget).attr("data-overcast")
-
-        // if (!overcastData.available && event.button == 0)
-        //   return
-
-        // if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
-        //   return
-
-        overcastData.available = msg.data.flags.data.postData.overcasts
-
-        // data-button tells us what button was clicked
-        switch (overcastChoice)
-        {
-          case "range":
-              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-            break
-          case "target":
-            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-            break
-          case "duration":
-            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
-            break
-        }
-        overcastData[overcastChoice].count++
-        let sum = 0;
-        for (let overcastType in overcastData)
-          if (overcastData[overcastType].count)
-            sum += overcastData[overcastType].count
-
-        overcastData.available -= sum;
-
-        let cardContent =  $(event.currentTarget).parents('.message-content')
-
-        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
-        
-        if (overcastData[overcastChoice].AoE)
-          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
-        else
-          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = (overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
-
-        console.log("%c overcastChoice","color:blue");
-        console.log(overcastChoice);
-        console.log(overcastData[overcastChoice].current);
-
-        msg.update({content : cardContent.html()})
-        msg.update({"flags.data.postData.prayer" : prayer})
       });
 
     // Respond to template button clicks
