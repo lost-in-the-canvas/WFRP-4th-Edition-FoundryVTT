@@ -39,6 +39,18 @@
       </div>
       {{/each}}
     </div>
+    <div class="table-row">
+      <div class="row-type table-data">
+        <div class="header-block">
+          {{localize "Modifiers"}}
+        </div>
+      </div>
+      {{#each actor.data.characteristics as |ch c|}}
+      <div class="table-data">
+        <input name="data.characteristics.{{c}}.modifier" type="text" value="{{ch.modifier}}" data-dtype="Number">
+      </div>
+      {{/each}}
+    </div>
     <div class="table-row bottom">
       <div class="row-type table-data">
         <div class="header-block">
@@ -119,7 +131,7 @@
 
   <div class="wounds row-section">
     <div class="wounds-section">
-      <span class="top label">{{localize "Wounds"}}<a class = "rest-icon" title="Rest & Recover Wounds"><i class="fas fa-bed"></i></a> </span> 
+      <span class="top label">{{localize "Wounds"}}<a class = "rest-icon" title="{{localize "RestRecover"}}"><i class="fas fa-bed"></i></a> </span> 
       <div class="wounds-value-box">
         <div id="value">
           <input class="wounds-value" data-dtype="{{data.status.wounds.type}}" type="text" value="{{data.status.wounds.value}}">

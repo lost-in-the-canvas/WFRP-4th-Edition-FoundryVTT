@@ -19,9 +19,18 @@
 /******************************************************************/
 /******************************************************************/
 
+#tinymce {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
 
-
-
+.editor-content table {
+  background: none;
+  border: none;
+}
+.editor-content ul {
+  margin: 0px 0px;
+}
 
 /******************************************************************/
 /*=============== I. LOCAL FONTS =================================*/
@@ -105,7 +114,7 @@
   }
   .app.window-app  .tox.tox-tinymce {
     visibility: hidden;
-    height: inherit !important;
+    height: 100% !important;
     width: 100%;
   }
   #tinymce > p > span {
@@ -874,7 +883,7 @@
       border: 2px groove #564d3a;
       border-image: url(../ui/chat-controls-border.png) 4 repeat;
       border-image-width: 4px;
-      border-image-outset: 2px 2px 2px 2px;
+      border-image-outset: 1px;
       font-family: var(--actor-input-font-family);
       font-size: var(--actor-input-font-family);
       font-weight: var(--actor-input-font-weight);
@@ -1250,16 +1259,17 @@
   }
 
 /* ==================== (C) SIDEBAR (CHAT) ==================== */
+    #sidebar .sidebar-tab .directory-list .folder-header {/*       border-bottom: 2px groove #564d3a; */margin-top: 2px;margin-left: 2px;}
   /* ================== 1. CHAT LOG =========================== */
     #sidebar .sidebar-tab #chat-log {
-      flex: none;
-      height: calc(100% - 199px);
+      flex: 4;
+      height: auto;
       width: 100%;
       margin: 0px 0px 0px -5px;
       padding: 0px 0px 0px 0px;
       overflow-y: auto;
       list-style: none;
-      /* background: pink; */
+      /* background: var(--debug-background-color-red); */
     }
 
     #chat-log .message {
@@ -1297,6 +1307,11 @@
         margin: 0;
         color: #790000;
         text-shadow: 0px 0px 1px #00000087;
+        vertical-align: middle;
+        position: relative;
+        top: 0px;
+        height: 100%;
+        /* background: var(--debug-background-color-green); */
       }
       #chat-log .message .message-header .message-metadata {
         text-align: right;
@@ -1324,8 +1339,8 @@
 
   /* ================== 2. CHAT CONTROLS ====================== */
     #sidebar .sidebar-tab #chat-controls {
-      position: absolute;
-      bottom: 154px;
+      position: relative;
+      flex: 1;
       right: 0px;
       min-height: 45px;
       max-height: 45px;
@@ -1333,7 +1348,7 @@
       max-width: 376px;
       margin: 0px;
       padding: 0px;
-      background: none;
+      /* background: var(--debug-background-color-green); */
     }
 
     #sidebar .sidebar-tab #chat-controls label {
@@ -1387,9 +1402,9 @@
   /* ================== 3. CHAT FORM ========================== */
     #sidebar .sidebar-tab #chat-form {
       min-height: 154px;
-      max-height: 154px;
+      flex: 1;
       min-width: 376px;
-      position: absolute;
+      position: relative;
       bottom: 0px;
       right: 0px;
       display: flex;
@@ -1780,6 +1795,8 @@
       margin: 0;
       padding: 0;
       width: -webkit-fill-available;
+      width: -moz-available;
+      width: fill-available;
     }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
@@ -1958,6 +1975,8 @@
     margin: 4px 12px;
     padding: 3px 0px;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     border: 1px solid black;
     border-image: url(../ui/footer-button.png) 10 repeat;
     border-image-width: 4px;
@@ -2216,6 +2235,8 @@
     padding-left: 0px;
     height: 25px;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     vertical-align: top;
     /* background: #0000ff66; */
     position: relative;
@@ -3321,6 +3342,18 @@
 
 
 
+@media screen and (width: 3840px) and (height: 2160px) {
+  .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header {
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 0px 0px;
+  }
+    .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header .window-title {
+      top: -20px;
+    }
+  .app.window-app.sheet.wfrp4e.actor.character-sheet  {
+    padding: 0px 2px 23px 2px;
+  }
+}
 
 
 /******************************************************************/
@@ -3331,16 +3364,21 @@
   .app.window-app.sheet.wfrp4e.actor.character-sheet {
     background: none;
     box-shadow: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 7px 43px 7px;
     max-height: none !important;
-    min-width: 616px;
+    min-width: 620px;
     min-height: 740px;
+    border: 1px solid;
+    border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat;
+    border-image-slice: 106 106 106 106 fill;
+    border-image-width: 106;
+    border-image-outset: 0px;
   }
   .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
-    bottom: 20px;
-    right: 26px;
+    bottom: 9px;
+    right: 14px;
   }
 
   .app.window-app.sheet.item-sheet .window-resizable-handle {
@@ -3351,12 +3389,11 @@
 
 /* ==================== (B) WINDOW HEADER ===================== */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-header {
-    flex: 0 0 61px;
-    line-height: 30px;
+    flex: 0 0 41px;
+    line-height: normal;
     border-bottom: none;
-    /* background: #00ffff33; */
-    margin: 0px 20px 0px 0px;
-    padding: 27px 3px 7px 3px;
+    margin: 0px 0px 3px 0px;
+    padding: 0px 0px 0px 0px;
     border: none;
     z-index: 11;
     display: inline-flex;
@@ -3376,11 +3413,9 @@
       height: 51px;
       width: 100%;
       position: absolute;
-      left: -9px;
-      top: 1px;
-      /* right: 0px; */
+      top: -18px;
+      left: 0px;
       z-index: 0;
-      /* left: 0px; */
       flex-basis: 100%;
       opacity: 3.5;
       order: 3;
@@ -3442,39 +3477,37 @@
     overflow-y: hidden;
     box-shadow: none;
     background: none;
-    overflow-y: hidden;
-    border: 1px solid;
-    border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat;
-    border-image-slice: 106 106 106 106 fill;
-    border-image-width: 106;
-    border-image-outset: 63px 25px 11px 7px;
-    padding: 0px 0px 0px 0px;
-    margin: 3px 26px 0px 8px;
+    border: none;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    /* border-image: url(../ui/frames/actor-sheet-character-window-content.png) 4 repeat; */
+    /* border-image-slice: 106 106 106 106 fill; */
+    /* border-image-width: 106; */
+    /* border-image-outset: 0px; */
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form {
-    margin: 44px 34px 0px 34px;
-    margin-bottom: 53px;
+    margin: 0px;
+    padding: 14px 35px 0px 35px;
     display: inline-block;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: normal;
     overflow-y: hidden;
     overflow-x: hidden;
-    padding: 0px;
     border: 1px solid;
     border-image: url(../ui/frames/actor-sheet-character-form.png) 4 repeat;
     border-image-slice: 250 fill;
     border-image-width: 250;
-    border-image-outset: 44px 34px 0px 34px;
+    border-image-outset: 0px;
     /* background: red; */
     /* box-shadow: var(--debug-box-shadow-red); */
   }
 
 /* ==================== (D) PERSONAL DETAILS ================== */
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form .header.personal {
-  position: absolute;
-  top: 77px;
-  width: calc(100% - 106px);
+  position: relative;
+  top: 0px;
+  width: 100%;
   height: 30px;
   align-items: center;
   display: inline-flex;
@@ -3484,7 +3517,7 @@
 
   .app.window-app.sheet.wfrp4e.actor.character-sheet .window-content form #header-personal-details {
     position: relative;
-    top: -6px;
+    top: -7px;
     height: 24px;
     font-family: var(--tab-header-font-family);
     font-size: var(--tab-header-font-size);
@@ -3495,7 +3528,7 @@
     border-image: url(../ui/actor-sheet-tab-border.png) 4 repeat;
     border-image-width: 4px 7px 4px 7px;
     border-image-outset: 0px;
-    padding: 3px 10px 0px 10px;
+    padding: 2px 10px 0px 10px;
     background: url(../ui/frames/actor-sheet-character-form.png);
     background-position-x: center;
     background-position-y: -16px;
@@ -3772,7 +3805,7 @@
 /* ==================== (E) TAB SELECTIONS ==================== */
   .app.window-app.sheet.wfrp4e.actor #tab-sections {
     width: inherit;
-    height: calc(100% - 180px);
+    height: calc(100% - 195px);
     padding: 0px;
     margin: 0px;
     /* background: var(--debug-background-color-green); */
@@ -3831,10 +3864,10 @@
 
   /* ================== 1. CHARACTERISTICS TABLE ============== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics {
-      border-top: none;
+      border: none;
       margin: 6px 0px 0px 0px;
       padding: 0px 0px 0px 0px;
-      height: 109px;
+      height: 137px;
       width: 100%;
       display: flex;
       flex: 1;
@@ -3843,7 +3876,7 @@
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table {
       margin: 0px;
       padding: 0px;
-      height: 109px;
+      height: 137px;
       width: 100%;
       display: block;
       background: none;
@@ -3862,6 +3895,22 @@
       border-right: none;
       display: flex;
     }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom {
+          border-bottom: none;
+          height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom div {
+          border-bottom: none;
+          max-height: 28px;
+        }  
+        .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-row.bottom .row-type.table-data {
+          border-bottom: none;
+          max-height: 26px;
+          height: 27px;
+          position: relative;
+          top: -1px;
+          margin-top: 1px;
+        }  
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .characteristics-table .table-header.table-row .table-header:first-of-type {
       max-width: 9.09%;
       width: 9.09%;
@@ -4499,7 +4548,7 @@
   /* ================== 4. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list {
       width: 100%;
-      height: calc(100% - 221px);
+      height: calc(100% - 249px);
       margin: 6px 0px 0px 0px;
       padding: 0px;
       text-align: center;
@@ -5401,8 +5450,10 @@
 
       .app.window-app.sheet.wfrp4e.actor .rest-icon{
         left: 5px;
-        border-radius: 10px;
-        top: -2px;
+        border-radius: 16px;
+        top: -3px;
+        height: 20px;
+        width: 20px;
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed,
       .app.window-app.sheet.wfrp4e.creature-sheet .combat-icon > *,
@@ -5430,6 +5481,8 @@
       }
       .app.window-app.sheet.wfrp4e.actor .fa-bed{
         left: 0px;
+        position: relative;
+        top: 3px;
       }
 
     .app.window-app.sheet.wfrp4e.creature-sheet .inventory-header.melee-weapon-header #group,
@@ -8995,7 +9048,8 @@
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .ambition-section .ambition .input-details {
       height: 23px;
       text-align: center;
-      padding-top: 0px;
+      padding: 0px;
+      padding-top: 2px;
       position: relative;
       /* background: red; */
       /* top: -2px; */
@@ -9856,8 +9910,8 @@
   .app.window-app.sheet.wfrp4e.actor.npc-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
-    min-height: 26px;
-    max-height: 26px;
+    min-height: 25px;
+    max-height: 25px;
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
@@ -12977,6 +13031,8 @@ border-image-outset: 0px !important;
   .window-app.dialog.prayer-roll-dialog .dialog-buttons button {
     flex-grow: 1;
     min-width: -webkit-fill-available;
+    min-width: -moz-available;
+    min-width: fill-available;
     width: 100%;
     margin: 0px;
     padding: 0px;
@@ -13026,7 +13082,7 @@ border-image-outset: 0px !important;
     border: 1px solid blue;
     border-image: url(../ui/frames/window-app-header-blank.png) 5 repeat;
     border-image-slice: 19 21 19 21 fill;
-    border-image-width: 19px 21px 19px 21px;
+    border-image-width: 19px 21px 21px 21px;
     border-image-outset: 0px;
     align-items: center;
     align-content: center;
@@ -13052,7 +13108,7 @@ border-image-outset: 0px !important;
       opacity: 1;
       z-index: 1;
       height: 27px;
-      margin: 0px;
+      margin: 0px 0px;
       padding: 0px 60px 0px 60px;
       overflow: hidden;
       border: 1px solid blue;
@@ -13083,6 +13139,8 @@ border-image-outset: 0px !important;
     border-image-slice: 10 13 13 13;
     border-image-width: 10px 13px 13px 13px;
     border-image-outset: 0px;
+    height: fit-content;
+    max-height: none;
   }
     .app.window-app h4 {
       font-family: var(--actor-input-font-family);
@@ -13133,7 +13191,7 @@ border-image-outset: 0px !important;
       }
       .app.window-app .form-group input[type="checkbox"] {
         position: relative;
-        top: 7px;
+        top: 3px;
         transform: scale(1);
         min-width: 30px;
       }
@@ -13215,6 +13273,8 @@ border-image-outset: 0px !important;
   .app.window-app button[type="reset"]
    {
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     margin: 0 3px 4px 3px;
 
     border: 1px solid black;
@@ -13805,13 +13865,16 @@ border-image-outset: 0px !important;
 
   /* ================== 10. DRAWING CONFIG ==================== */
     #drawing-config {
-      min-height: 393px;
+      height: fit-content !important;
       overflow-y: hidden;
       width: 480px !important;
     }
     #drawing-config .window-content {
       overflow-y: hidden;
       overflow-x: hidden;
+      height: 100%;
+      min-height: fit-content;
+      padding-bottom: 6px;
     }
     #drawing-config .sheet-tabs {
       flex: 0 0 32px;
@@ -14159,7 +14222,7 @@ border-image-outset: 0px !important;
     } 
 
     .window-app.app.journal-sheet form.editable .editor {
-      height: calc(100% - 126px);
+      height: calc(100% - 102px);
       border: 1px solid #736953a6;
       padding: 4px;
     }
@@ -14734,8 +14797,9 @@ font-style : normal;
   }
 
   h4.message-sender.sender-image {
-    position: relative;
-    top: 13px;
+    /* position: relative; */
+    /* top: -4px; */
+    /* background: var(--debug-background-color-green); */
 }
 
   #chat-log .message .fumble-roll {
@@ -15059,7 +15123,13 @@ font-style : normal;
         flex-direction: row;
         flex-grow: 2;
       }
-
+      .app.window-app.wfrp-browser .window-resizable-handle i.fas {
+          transform: rotate(45deg);
+          transform: scale(0.8) rotate(45deg);
+          position: relative;
+          top: -2px;
+          right: 2px;
+      }
       .app.window-app.wfrp-browser .import,
       .app.window-app.sheet.item-sheet .import,
       .app.window-app.sheet.roll-table-config .import,
@@ -15075,8 +15145,10 @@ font-style : normal;
        height: 30px;
       }
       .app.window-app.wfrp-browser .import {
-      top: 8px;
-      right: 31px;
+      position: absolute;
+      top: 9px;
+      left: auto;
+      right: 34px;
       }
 
       .app.window-app.sheet.item-sheet .configure-sheet,
@@ -15321,6 +15393,7 @@ font-style : normal;
 }
 
 .overcast-button,
+.prayer-extension-button,
 .chargen-button {
   box-shadow: inset 0px 1px 0px 0px #a6827e;
   background: linear-gradient(to bottom, #21374afc 5%, #152833ab 100%);
@@ -15388,6 +15461,13 @@ font-style : normal;
 
 .species-select {
   font-weight: 1000;
+}
+
+.wounds-healed-drag {
+  border: 1px dotted black;
+  width: fit-content;
+  padding: 3px;
+  margin: 5px;
 }
 
 .exp-drag {
@@ -15794,6 +15874,8 @@ button.capture-position {
 .scene-sheet .window-content .form-group.initial-position .form-fields .capture-position {
   flex: 1;
   width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill-available;
   margin: 0 3px 0px 3px !important;
   border: 1px solid black;
   border-image: url(../ui/footer-button.png) 10 repeat;
@@ -16418,6 +16500,8 @@ background-image: linear-gradient(to right, #820f0f , #82820d);
 
   #av-config .form-group select {
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     border: 1px solid #736953a6;
     border-top: none;
     height: 27px;
@@ -16630,7 +16714,7 @@ a.entity-link, a.inline-roll {
 }
 
 .app.window-app.sheet.wfrp4e.actor .window-content .editable .content  {
-  height: calc(100% - 30px);
+  height: calc(100% - 10.55%);
   /* background: #ff000047; */
 }
 
@@ -16695,4 +16779,12 @@ a.entity-link, a.inline-roll {
   position: relative;
   top: 0px;
   right: 0px;
+}
+
+#navigation #scene-list {
+  padding-right: 100px;
+}
+
+.app.window-app .window-header > a {
+  z-index: 5
 }

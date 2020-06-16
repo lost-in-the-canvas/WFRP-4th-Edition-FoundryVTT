@@ -106,7 +106,7 @@ class DiceWFRP
       testData.slBonus = testData.extra.options.slBonus || testData.slBonus
       testData.successBonus = testData.extra.options.successBonus || testData.successBonus
       cardOptions.rollMode = testData.extra.options.rollMode || rollMode      
-      roll(testData, cardOptions)
+      return roll(testData, cardOptions)
     }
   }
 
@@ -576,7 +576,7 @@ class DiceWFRP
         testResults.extra.color_red = true;
         miscastCounter += 2;
       }
-    }
+    }      
     else // Successs - add SL to spell for further use
     {
       testResults.description = game.i18n.localize("ROLL.ChannelSuccess")
@@ -652,14 +652,14 @@ class DiceWFRP
    */
   static rollPrayTest(testData, actor)
   {
-    let prayer = testData.extra.prayer;
 
     let testResults = this.rollTest(testData);
+    let prayer = testResults.prayer;
     testData.function = "rollPrayTest"
 
     let SL = testResults.SL;
-    let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
+
 
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
@@ -680,8 +680,6 @@ class DiceWFRP
         currentSin--;
         if (currentSin < 0)
           currentSin = 0;
-
-
 
         actor.update({"data.status.sin.value": currentSin});
       }
@@ -704,7 +702,8 @@ class DiceWFRP
           currentSin = 0;
         actor.update({"data.status.sin.value": currentSin});
       }
-      extensions = Math.floor(SL / 2);
+      testResults.overcasts = Math.floor(SL / 2); // For allocatable buttons
+      prayer.overcasts.available = testResults.overcasts;
     }
 
     // Calculate damage if prayer specifies
@@ -719,7 +718,6 @@ class DiceWFRP
       ui.notifications.error(game.i18n.localize("Error.DamageCalc") + ": " + error)
     } // If something went wrong calculating damage, do nothing and still render the card
 
-    testResults.extensions = extensions;
     return testResults;
   }
 
@@ -1008,17 +1006,23 @@ class DiceWFRP
         if (!msg.owner && !msg.isAuthor)
           return ui.notifications.error("You do not have permission to edit this ChatMessage")
 
-        let spell = duplicate(msg.data.flags.data.postData.spell);
+        
+        let spell;
+        if (msg.data.flags.data.postData.spell) 
+          spell = duplicate(msg.data.flags.data.postData.spell);
+        else
+          spell = duplicate(msg.data.flags.data.postData.prayer);
+
         let overcastData = spell.overcasts
         let overcastChoice = $(event.currentTarget).attr("data-overcast")
 
-        if (!overcastData.available && event.button == 0)
-          return
-
-        if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
+        if (!overcastData.available)
           return
 
         overcastData.available = msg.data.flags.data.postData.overcasts
+
+        if (typeof overcastData[overcastChoice].initial != "number")
+          return
 
         // data-button tells us what button was clicked
         switch (overcastChoice)
