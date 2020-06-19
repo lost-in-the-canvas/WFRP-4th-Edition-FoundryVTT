@@ -2818,8 +2818,8 @@ class ActorWfrp4e extends Actor {
         label : "Target",
         count : 0,
         AoE: false,
-        initial : parseInt(item.target),
-        current : parseInt(item.target),
+        initial : parseInt(item.target) || item.target,
+        current : parseInt(item.target) || item.target,
         unit : ""
       }
     }
@@ -2830,8 +2830,8 @@ class ActorWfrp4e extends Actor {
         label : "AoE",
         count : 0,
         AoE: true,
-        initial : parseInt(aoeValue),
-        current : parseInt(aoeValue),
+        initial : parseInt(aoeValue) || aoeValue,
+        current : parseInt(aoeValue) || aoeValue,
         unit : aoeValue.split(" ")[1]
       }
     }
@@ -2840,8 +2840,8 @@ class ActorWfrp4e extends Actor {
       item.overcasts.duration = {
         label : "Duration",
         count : 0,
-        initial : parseInt(item.duration),
-        current : parseInt(item.duration),
+        initial : parseInt(item.duration) || item.duration,
+        current : parseInt(item.duration) || item.duration,
         unit : item.duration.split(" ")[1]
       }
     }
@@ -2850,8 +2850,8 @@ class ActorWfrp4e extends Actor {
       item.overcasts.range = {
         label : "Range",
         count : 0,
-        initial : parseInt(item.range),
-        current : parseInt(item.range),
+        initial : parseInt(item.range) || aoeValue,
+        current : parseInt(item.range) || aoeValue,
         unit : item.range.split(" ")[1]
       }
     }

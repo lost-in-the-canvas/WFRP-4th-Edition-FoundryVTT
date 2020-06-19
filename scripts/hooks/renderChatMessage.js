@@ -5,7 +5,7 @@
 Hooks.on("renderChatMessage", async (app, html, msg) => {
   
   // Hide test data from players (35 vs 50) so they don't know the enemy stats
-  if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && html.find(".chat-card").attr("data-hide") == "true")
+  if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && html.find(".chat-card").attr("data-hide") === "true")
   {
     html.find(".hide-option").remove();
   }
@@ -15,7 +15,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-button-gm").remove();
     html.find(".unopposed-button").remove();
     //hide tooltip contextuamneu if not their roll
-    if(msg.message.user != game.userId)
+    if(msg.message.user !== game.userId)
       html.find(".chat-button-player").remove();
   }
   else
@@ -38,6 +38,19 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 
     postedItem.addEventListener('dragstart', ev => {
       ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
+    })
+  }
+
+  // Add drag and drop to character generation results
+  let woundsHealed = html.find(".wounds-healed-drag")[0]
+  if (woundsHealed)
+  {
+    woundsHealed.setAttribute("draggable", true);
+    woundsHealed.addEventListener('dragstart', ev => {
+      let dataTransfer = {
+        woundsHealed : app.data.flags.data.postData.woundsHealed
+      }
+      ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
     })
   }
 

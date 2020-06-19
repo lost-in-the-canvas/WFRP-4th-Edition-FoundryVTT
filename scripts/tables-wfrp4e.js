@@ -178,20 +178,20 @@ class WFRP_Tables
         return `<b>${this[table].name}</b><br><a class = "item-lookup" data-type = "critical"><b>${result.name}</b></a><br>(${result.roll})`;
 
       case "doom":
-        return `<b>The Prophet Speaketh</b><br>${result.description} (${result.roll})`;
+        return `<b>${this[table].name}</b><br>${result.description} (${result.roll})`;
       case "species":
-        return `<b>Random Species</b><br>${result.name} (${result.roll})`;
+        return `<b>${this[table].name}</b><br>${result.name} (${result.roll})`;
 
       case "oops":
         return `<b>Oops!</b><br>${result.description} (${result.roll})`;
 
       case "winds":
-        return `<b>The Swirling Winds</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b>Modifier: </b> ${result.modifier}`;
+        return `<b>${this[table].name}</b><br> <b>Roll:</b> ${eval(result.roll)} <br> <b> ${game.i18n.localize("Modifier")} : </b> ${result.modifier}`;
       case "career":
-        return `<b>Random Career - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>Roll:</b> ${result.roll}`;
+        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br> <a class = "item-lookup">${result.name}</a> <br> <b>${game.i18n.localize("Roll")}:</b> ${result.roll}`;
       case "eyes":
       case "hair":
-        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>Roll:</b> ${eval(result.roll)}`
+        return `<b>${this[table].name} - ${WFRP4E.species[column]}</b><br>${result.name}<br><b>${game.i18n.localize("Roll")}:</b> ${eval(result.roll)}`
 
       // Special scatter table display
       case "scatter":
@@ -234,7 +234,7 @@ class WFRP_Tables
         return tableHtml;
 
       case "talents":
-        return `<b>Random Talent</b><br> <a class="talent-drag"><i class="fas fa-suitcase"></i> ${result.name}</a>`
+        return `<b>${this[table].name}</b><br> <a class="talent-drag"><i class="fas fa-suitcase"></i> ${result.name}</a>`
 
 
       // Non-system table display. Display everything associated with that row.
