@@ -3135,8 +3135,7 @@ class ActorWfrp4e extends Actor {
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-      let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-                              && impale
+      let ignoreWeakpoints = opposeData.attackerTestResult.extra.critical && impale
 
       // Mitigate damage with armor one layer at a time
       for (let layer of AP.layers)
