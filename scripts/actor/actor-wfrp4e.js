@@ -3556,6 +3556,7 @@ class ActorWfrp4e extends Actor {
           cardOptions.startMessagesList = data.startMessagesList;
         }
         delete data.preData.roll;
+        delete data.preData.SL;
         ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
         //We also set fortuneUsedAddSL to force the player to use it on the new roll
         message.update({
@@ -3616,6 +3617,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.startMessagesList = data.startMessagesList;
     }
     delete message.data.flags.data.preData.roll;
+    delete message.data.flags.data.preData.SL;
     ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }
 
