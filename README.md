@@ -56,6 +56,7 @@ I also wanted to thank the following for the help in continuing to improve the s
 - LeRatierBretonnian
 - HerveDarritchon
 - DasSauerkraut
+- Forien
 
 
 ## Modules
