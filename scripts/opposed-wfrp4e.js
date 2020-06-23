@@ -49,7 +49,7 @@ class OpposedWFRP
    * @param {Object} attackerRollMessage 
    * @param {Object} defenderRollMessage 
    */
-  static opposedRerolled(attackerRollMessage,defenderRollMessage)
+  static opposedRerolled(attackerRollMessage, defenderRollMessage)
   {
     let attacker = {
       testResult: attackerRollMessage.data.flags.data.postData,
@@ -94,7 +94,8 @@ class OpposedWFRP
     // Store defender in object member
     this.defender = {
       testResult: testResult,
-      speaker: message.data.speaker
+      speaker: message.data.speaker,
+      messageId: message.data._id
     }
     //Edit the attacker message to give it a ref to the defender message (used for rerolling)
     game.messages.get(this.attacker.messageId).update(
@@ -109,6 +110,95 @@ class OpposedWFRP
     this.evaluateOpposedTest(this.attacker, this.defender);
   }
 
+  static async checkPostModifiers(attacker, defender){
+    console.log(attacker)
+    console.log(defender)
+
+    let attackerMessage = game.messages.get(attacker.messageId)
+    let defenderMessage = game.messages.get(defender.messageId)
+
+    if(attackerMessage == null || attackerMessage.data.flags.data.hasBeenCalculated || defenderMessage.data.flags.data.hasBeenCalculated)
+      return false;
+
+    let didModifyAttacker, didModifyDefender = false;
+
+    let modifiers = {
+      attackerTarget: 0,
+      defenderTarget: 0,
+      attackerSL: 0,
+      defenderSL: 0,
+      message: "",
+    }
+
+    //Checks if defender has longer weapon NEEDS OPTION
+
+    let attackerReach = WFRP_Utility.evalWeaponLength(attacker.testResult.weapon.data.reach.value);
+    let defenderReach = WFRP_Utility.evalWeaponLength(defender.testResult.weapon.data.reach.value);
+
+    if(defenderReach > attackerReach){
+      didModifyAttacker = true;
+      modifiers.message += `Defender has the longer weapon! Attacker Target: ${attackerMessage.data.flags.data.preData.target - modifiers.attackerTarget} -> ${attackerMessage.data.flags.data.preData.target - modifiers.attackerTarget - 10} <br>`
+      modifiers.attackerTarget -= 10;
+    }
+
+    if(didModifyAttacker || didModifyDefender)
+    {
+      let chatData = {
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker(),
+        content: modifiers.message
+      };
+      ChatMessage.create(chatData, {});
+      if(didModifyAttacker)
+      {
+        let chatOptions = {
+          template: attackerMessage.data.flags.data.template,
+          rollMode: attackerMessage.data.flags.data.rollMode,
+          title: attackerMessage.data.flags.data.title,
+          fortuneUsedReroll: attackerMessage.data.flags.data.fortuneUsedReroll,
+          fortuneUsedAddSL: attackerMessage.data.flags.data.fortuneUsedAddSL,
+          isOpposedTest: attackerMessage.data.flags.data.isOpposedTest,
+          attackerMessage: attackerMessage.data.flags.data.attackerMessage,
+          defenderMessage: attackerMessage.data.flags.data.defenderMessage,
+          unopposedStartMessage: attackerMessage.data.flags.data.unopposedStartMessage,
+          startMessagesList: attackerMessage.data.flags.data.startMessagesList,
+          hasBeenCalculated: true
+        }
+        
+        attackerMessage.data.flags.data.preData.target = attackerMessage.data.flags.data.preData.target - 10;
+        attackerMessage.data.flags.data.preData.roll = attackerMessage.data.flags.data.postData.roll
+        let updatedAttackerRoll = await DiceWFRP.rollWeaponTest(attackerMessage.data.flags.data.preData)
+        
+        console.log(updatedAttackerRoll)
+        await DiceWFRP.renderRollCard(chatOptions, updatedAttackerRoll, attackerMessage)
+      } 
+      if(didModifyDefender) {
+        let chatOptions = {
+          template: defenderMessage.data.flags.data.template,
+          rollMode: defenderMessage.data.flags.data.rollMode,
+          title: defenderMessage.data.flags.data.title,
+          fortuneUsedReroll: defenderMessage.data.flags.data.fortuneUsedReroll,
+          fortuneUsedAddSL: defenderMessage.data.flags.data.fortuneUsedAddSL,
+          isOpposedTest: defenderMessage.data.flags.data.isOpposedTest,
+          attackerMessage: defenderMessage.data.flags.data.attackerMessage,
+          defenderMessage: defenderMessage.data.flags.data.defenderMessage,
+          unopposedStartMessage: defenderMessage.data.flags.data.unopposedStartMessage,
+          startMessagesList: defenderMessage.data.flags.data.startMessagesList,
+          hasBeenCalculated: true
+        }
+        
+        defenderMessage.data.flags.data.preData.target = defenderMessage.data.flags.data.preData.target - 10;
+        defenderMessage.data.flags.data.preData.roll = defenderMessage.data.flags.data.postData.roll
+        let updatedDefenderRoll = await DiceWFRP.rollWeaponTest(defenderMessage.data.flags.data.preData)
+        
+        console.log(updatedDefenderRoll)
+        await DiceWFRP.renderRollCard(chatOptions, updatedDefenderRoll, defenderMessage)
+      }
+      this.opposedRerolled(attackerMessage, defenderMessage)
+    }
+    return didModifyAttacker || didModifyDefender;
+  }
+
   /**
    * Main Opposed test evaluation logic. Takes attacker and defender test data and 
    * determines who won, by how much, etc. Displays who won accordingly, with different
@@ -118,7 +208,7 @@ class OpposedWFRP
    * @param {Object} defender Defender Data
    * @param {Object} options Targeted?
    */
-  static evaluateOpposedTest(attacker, defender, options = {})
+  static async evaluateOpposedTest(attacker, defender, options = {})
   {
     try
     {
@@ -131,6 +221,9 @@ class OpposedWFRP
       opposeResult.attackerTestResult = duplicate(attacker.testResult);
       opposeResult.defenderTestResult = duplicate(defender.testResult);
 
+      if(await this.checkPostModifiers(attacker, defender))
+        return;
+      
       // If attacker has more SL OR the SLs are equal and the attacker's target number is greater than the defender's, then attacker wins. 
       // Note: I know this isn't technically correct by the book, where it states you use the tested characteristic/skill, not the target number, i'll be honest, I don't really care.
       if (attackerSL > defenderSL || (attackerSL == defenderSL && attacker.testResult.target > defender.testResult.target))

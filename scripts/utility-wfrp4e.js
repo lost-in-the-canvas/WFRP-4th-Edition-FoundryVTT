@@ -872,6 +872,44 @@ class WFRP_Utility
       MarketWfrp4e.generatePayCard(payString);
   }
 
+   /**
+   * Convert's a weapons length to an integer
+   * 
+   * @param {String} weaponLength the weapon's length
+   */
+  static evalWeaponLength(weaponLength)
+  {
+    let reach = 0
+    switch(weaponLength)
+    {
+      case game.i18n.localize('WFRP4E.Reach.Personal'):
+        reach = 1;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.VShort'):
+        reach = 2;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Short'):
+        reach = 3;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Average'):
+        reach = 4;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Long'):
+        reach = 5;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.VLong'):
+        reach = 6;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Massive'):
+        reach = 7;
+        break;
+      default:
+        break;
+    }
+
+    return reach
+  }
+
   /**
    * Retrieves the item being requested by the macro from the selected actor,
    * sending it to the correct setup____ function to be rolled.
