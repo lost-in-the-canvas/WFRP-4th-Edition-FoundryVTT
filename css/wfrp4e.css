@@ -16814,7 +16814,7 @@ a.entity-link, a.inline-roll {
     padding: 0.4em;
   }
   #calendar-settings .window-content form {
-    padding: 0 0.5em 0 0;
+    padding: 0 0.4em 0 0;
     font-family: CaslonPro;
   }
   #calendar-settings .window-content form ol li {
@@ -16871,7 +16871,8 @@ a.entity-link, a.inline-roll {
   }
   #calendar-form-add-month,
   #calendar-form-load-default,
-  #calendar-form-add-weekday {
+  #calendar-form-add-weekday,
+  .app.window-app .window-content footer button {
     width: -webkit-fill-available;
     width: -moz-available;
     width: fill-available;
@@ -16889,7 +16890,8 @@ a.entity-link, a.inline-roll {
     color: var(--major-button-color);
   }
  #calendar-settings .window-content form select,
- #calendar-settings .window-content form input {
+ #calendar-settings .window-content form input,
+ {
     background: #352516;
     color: #e2e2e2;
     border: 1px solid #736953a6;
@@ -16966,6 +16968,7 @@ a.entity-link, a.inline-roll {
 #calendar-weather-container {
   bottom: 173px !important;
   left: 240px !important;
+  top: unset !important;
   box-shadow: 0 0 4px black;
   border-radius: 16px !important;
   border: 2px solid #540e0ec2 !important;
@@ -16989,8 +16992,44 @@ a.entity-link, a.inline-roll {
 
 
 button .far.fa-save,
-button .fas.fa-plus
+button .fas.fa-plus,
+button .far.fa-trash-alt,
+button .fas.fa-undo
  {
   position: relative;
   top: 2px
+}
+
+input[type="range"] + .range-value {
+  border: 1px solid #b5b3a499;
+}
+
+
+/* FORIEN'S QUEST LOG */
+#forien-quest-log .window-header .help {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-help.png);
+  height: 30px;
+  width: 30px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  order: 5;
+  position: absolute;
+  top: 9px;
+  right: 37px;
+}
+
+#forien-quest-log .window-content,
+#forien-quest-log-form .window-content {
+  background-image: url(../ui/frames/parchment-texture.png);
+  font-family: CaslonPro;
+  padding: 0.4em;
+  overflow-y: hidden;
+}
+#forien-quest-log .window-content form,
+#forien-quest-log-form .window-content form {
+  overflow-y: scroll;
+  padding: 0.4em;
 }
