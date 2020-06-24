@@ -42,6 +42,8 @@
     "SETTINGS.DangerousCritsHint" : "If an actor is reduced to below 0 wounds, if the number of negative wounds is greater than the actor's TB, the crit roll is made with a modifier equal to the Dangerous Crit Modifier for each negative wound greater than the actor's TB.",
     "SETTINGS.DangerousCritsMod" : "Dangerous Crit Modifier",
     "SETTINGS.DangerousCritsModHint" : "The amount to modify the crit roll by.",
+    "SETTINGS.WeaponLength" : "Weapon Length",
+    "SETTINGS.WeaponLengthHint" : "Use weapon length to apply modifiers as described by the rule on page 297.",
 
 
     "SHEET.Close" : "Close",
@@ -356,6 +358,11 @@
     "CHAT.ContextualMenu" : "A contextual menu could be available on this card (right click)",
     "CHAT.EditTest" : "Edit Test",
     "CHAT.OpposedTest" : "Opposed Test",
+    "CHAT.TestModifiers.WeaponLength" : "Defender has the longer weapon! Attacker Target:",
+    "CHAT.TestModifiers.FastWeapon" : "Attacker has a Fast weapon! Defender Target:",
+    "CHAT.TestModifiers.DefendingLarger" : "Defending against a larger target with a melee weapon! Defender SL:",
+    "CHAT.TestModifiers.AttackingLarger" : "Attacking a larger target! Attacker Target:",
+    "CHAT.TestModifiers.ShootingLarger" : "Shooting a larger target! Attacker Target:",
     "CHAT.CommandLine.Help.Commands" : "Tables,Conditions,CharacterGeneration,NameGeneration,AvailabilityTest,Pay,Credit",
     "CHAT.CommandLine.Help.Label.Command" : "Command",
     "CHAT.CommandLine.Help.Label.Example": "Example",

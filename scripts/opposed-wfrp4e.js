@@ -130,17 +130,59 @@ class OpposedWFRP
       message: "",
     }
 
-    //Checks if defender has longer weapon NEEDS OPTION
+    // Things to Check:
+    // Weapon Length DONE
+    // Fast Weapon Property DONE
+    // Size 
+    // Done - Weapon Defending: You suﬀer a penalty of –2 SL for each step larger your opponent is when using Melee to defend an Opposed Test
+    // Done - To Hit Modifiers: +10 Bonus if smaller
+    // Done - Ranged to Hit Modifiers : You gain a hefty bonus when shooting at larger targets, 
+    //   but for every +10 you receive, you subtract 1 from your damage. (Ex. +40 to hit Enormous, -4 Damage).
 
-    let attackerReach = WFRP_Utility.evalWeaponLength(attacker.testResult.weapon.data.reach.value);
-    let defenderReach = WFRP_Utility.evalWeaponLength(defender.testResult.weapon.data.reach.value);
-
-    if(defenderReach > attackerReach){
-      didModifyAttacker = true;
-      modifiers.message += `Defender has the longer weapon! Attacker Target: ${attackerMessage.data.flags.data.preData.target - modifiers.attackerTarget} -> ${attackerMessage.data.flags.data.preData.target - modifiers.attackerTarget - 10} <br>`
-      modifiers.attackerTarget -= 10;
+    if (game.settings.get("wfrp4e", "weaponLength") && attacker.testResult.postFunction == "weaponOverride" && defender.testResult.postFunction == "weaponOverride" && attacker.testResult.weapon.attackType == "melee" && defender.testResult.weapon.attackType == "melee"){
+      let attackerReach = WFRP_Utility.evalWeaponLength(attacker.testResult.weapon.data.reach.value);
+      let defenderReach = WFRP_Utility.evalWeaponLength(defender.testResult.weapon.data.reach.value);
+      if(defenderReach > attackerReach){
+        didModifyAttacker = true;
+        modifiers.message += `${game.i18n.localize('CHAT.TestModifiers.WeaponLength')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget - 10} <br>`
+        modifiers.attackerTarget += -10;
+      }
+    }
+    //Fast Weapon Property
+    if(attacker.testResult.postFunction == "weaponOverride" && attacker.testResult.weapon.attackType == "melee" && attacker.testResult.weapon.data.qualities.value.includes(game.i18n.localize('PROPERTY.Fast'))) 
+    {
+      if(!(defender.testResult.postFunction == "weaponOverride" && defender.testResult.weapon.data.qualities.value.includes(game.i18n.localize('PROPERTY.Fast')))){
+        didModifyDefender = true;
+        modifiers.message += `${game.i18n.localize('CHAT.TestModifiers.FastWeapon')} ${defenderMessage.data.flags.data.preData.target + modifiers.defenderTarget} → ${defenderMessage.data.flags.data.preData.target + modifiers.defenderTarget - 10} <br>`
+        modifiers.defenderTarget += -10;
+      }
     }
 
+    //Size Differences
+    let sizeDiff = WFRP4E.actorSizeNums[attacker.testResult.size] - WFRP4E.actorSizeNums[defender.testResult.size]
+    //Positive means attacker is larger, negative means defender is larger
+    if(sizeDiff >= 1){
+      //Defending against a larger target with a weapon
+      if(defender.testResult.postFunction == "weaponOverride" && defender.testResult.weapon.attackType == "melee"){
+        didModifyDefender = true;
+        modifiers.message += `${game.i18n.localize('CHAT.TestModifiers.DefendingLarger')} ${parseInt(defenderMessage.data.flags.data.postData.SL) + modifiers.defenderSL} → ${parseInt(defenderMessage.data.flags.data.postData.SL) + modifiers.defenderSL + (-2 * sizeDiff)} <br>`
+        modifiers.defenderSL += (-2 * sizeDiff);
+      }
+    } else if (sizeDiff <= -1) {
+      if(attacker.testResult.postFunction == "weaponOverride"){
+        if(attacker.testResult.weapon.attackType == "melee"){
+          didModifyAttacker = true;
+          modifiers.message += `${game.i18n.localize('CHAT.TestModifiers.AttackingLarger')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget + 10} <br>`
+          modifiers.attackerTarget += 10;
+        } else if(attacker.testResult.weapon.attackType == "ranged"){
+          didModifyAttacker = true;
+          modifiers.message += `${game.i18n.localize('CHAT.TestModifiers.ShootingLarger')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget + (10 * -sizeDiff)} <br>`
+          modifiers.attackerTarget += (10 * -sizeDiff);
+        }
+      }
+    }
+
+    //Apply the modifiers
     if(didModifyAttacker || didModifyDefender)
     {
       let chatData = {
@@ -165,11 +207,14 @@ class OpposedWFRP
           hasBeenCalculated: true
         }
         
-        attackerMessage.data.flags.data.preData.target = attackerMessage.data.flags.data.preData.target - 10;
+        attackerMessage.data.flags.data.preData.target = attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget;
+        attackerMessage.data.flags.data.preData.slBonus = attackerMessage.data.flags.data.preData.slBonus + modifiers.attackerSL;
         attackerMessage.data.flags.data.preData.roll = attackerMessage.data.flags.data.postData.roll
-        let updatedAttackerRoll = await DiceWFRP.rollWeaponTest(attackerMessage.data.flags.data.preData)
-        
-        console.log(updatedAttackerRoll)
+        let updatedAttackerRoll;
+        if(attacker.testResult.postFunction == "weaponOverride")
+          updatedAttackerRoll = await DiceWFRP.rollWeaponTest(attackerMessage.data.flags.data.preData)
+        else
+          updatedAttackerRoll = await DiceWFRP.rollTest(attackerMessage.data.flags.data.preData)        
         await DiceWFRP.renderRollCard(chatOptions, updatedAttackerRoll, attackerMessage)
       } 
       if(didModifyDefender) {
@@ -187,11 +232,14 @@ class OpposedWFRP
           hasBeenCalculated: true
         }
         
-        defenderMessage.data.flags.data.preData.target = defenderMessage.data.flags.data.preData.target - 10;
+        defenderMessage.data.flags.data.preData.target = defenderMessage.data.flags.data.preData.target + modifiers.defenderTarget;
+        defenderMessage.data.flags.data.preData.slBonus = defenderMessage.data.flags.data.preData.slBonus + modifiers.defenderSL;
         defenderMessage.data.flags.data.preData.roll = defenderMessage.data.flags.data.postData.roll
-        let updatedDefenderRoll = await DiceWFRP.rollWeaponTest(defenderMessage.data.flags.data.preData)
-        
-        console.log(updatedDefenderRoll)
+        let updatedDefenderRoll;
+        if(defender.testResult.postFunction == "weaponOverride")
+          updatedDefenderRoll = await DiceWFRP.rollWeaponTest(defenderMessage.data.flags.data.preData)
+        else
+          updatedDefenderRoll = await DiceWFRP.rollTest(defenderMessage.data.flags.data.preData)
         await DiceWFRP.renderRollCard(chatOptions, updatedDefenderRoll, defenderMessage)
       }
       this.opposedRerolled(attackerMessage, defenderMessage)

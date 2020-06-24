@@ -304,6 +304,15 @@ Hooks.once("init", () => {
         type: Boolean
       });
 
+      game.settings.register("wfrp4e", "weaponLength", {
+        name: "SETTINGS.WeaponLength",
+        hint: "SETTINGS.WeaponLengthHint",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+
       game.settings.register("wfrp4e", "playerBrowser", {
         name: "SETTINGS.PlayerBrowser",
         hint: "SETTINGS.PlayerBrowserHint",
