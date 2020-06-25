@@ -151,7 +151,7 @@ class OpposedWFRP
       let defenderReach = WFRP_Utility.evalWeaponLength(defender.testResult.weapon.data.reach.value);
       if(defenderReach > attackerReach){
         didModifyAttacker = true;
-        modifiers.message.push(`${game.i18n.localize('CHAT.TestModifiers.WeaponLength')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget - 10} \n`)
+        modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.WeaponLength'), {defender: defenderMessage.data.speaker.alias, attacker: attackerMessage.data.speaker.alias}))
         modifiers.attackerTarget += -10;
       }
     }
@@ -160,7 +160,7 @@ class OpposedWFRP
     {
       if(!(defender.testResult.postFunction == "weaponOverride" && defender.testResult.weapon.data.qualities.value.includes(game.i18n.localize('PROPERTY.Fast')))){
         didModifyDefender = true;
-        modifiers.message.push(`${game.i18n.localize('CHAT.TestModifiers.FastWeapon')} ${defenderMessage.data.flags.data.preData.target + modifiers.defenderTarget} → ${defenderMessage.data.flags.data.preData.target + modifiers.defenderTarget - 10} \n`)
+        modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.FastWeapon'), {attacker: attackerMessage.data.speaker.alias, defender: defenderMessage.data.speaker.alias}))
         modifiers.defenderTarget += -10;
       }
     }
@@ -172,18 +172,18 @@ class OpposedWFRP
       //Defending against a larger target with a weapon
       if(defender.testResult.postFunction == "weaponOverride" && defender.testResult.weapon.attackType == "melee"){
         didModifyDefender = true;
-        modifiers.message.push(`${game.i18n.localize('CHAT.TestModifiers.DefendingLarger')} ${parseInt(defenderMessage.data.flags.data.postData.SL) + modifiers.defenderSL} → ${parseInt(defenderMessage.data.flags.data.postData.SL) + modifiers.defenderSL + (-2 * sizeDiff)} \n`)
+        modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.DefendingLarger'), {defender: defenderMessage.data.speaker.alias, sl: (-2 * sizeDiff)}))
         modifiers.defenderSL += (-2 * sizeDiff);
       }
     } else if (sizeDiff <= -1) {
       if(attacker.testResult.postFunction == "weaponOverride"){
         if(attacker.testResult.weapon.attackType == "melee"){
           didModifyAttacker = true;
-          modifiers.message.push(`${game.i18n.localize('CHAT.TestModifiers.AttackingLarger')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget + 10} \n`)
+          modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.AttackingLarger'), {attacker: attackerMessage.data.speaker.alias}))
           modifiers.attackerTarget += 10;
         } else if(attacker.testResult.weapon.attackType == "ranged"){
           didModifyAttacker = true;
-          modifiers.message.push(`${game.i18n.localize('CHAT.TestModifiers.ShootingLarger')} ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget} → ${attackerMessage.data.flags.data.preData.target + modifiers.attackerTarget + (10 * -sizeDiff)} \n`)
+          modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.ShootingLarger'), {attacker: attackerMessage.data.speaker.alias, bonus: (10 * -sizeDiff)}))
           modifiers.attackerTarget += (10 * -sizeDiff);
         }
       }
@@ -192,8 +192,10 @@ class OpposedWFRP
     //Apply the modifiers
     if(didModifyAttacker || didModifyDefender)
     {
+      modifiers.message.push(game.i18n.localize('CHAT.TestModifiers.FinalModifiersTitle'))
       if(didModifyAttacker)
       {
+        modifiers.message.push(`${game.i18n.format(game.i18n.localize('CHAT.TestModifiers.FinalModifiers'), {target: modifiers.attackerTarget, sl: modifiers.attackerSL, name: attackerMessage.data.speaker.alias})}`)
         let chatOptions = {
           template: attackerMessage.data.flags.data.template,
           rollMode: attackerMessage.data.flags.data.rollMode,
@@ -223,6 +225,7 @@ class OpposedWFRP
         await DiceWFRP.renderRollCard(chatOptions, updatedAttackerRoll, attackerMessage)
       } 
       if(didModifyDefender) {
+        modifiers.message.push(`${game.i18n.format(game.i18n.localize('CHAT.TestModifiers.FinalModifiers'), {target: modifiers.defenderTarget, sl: modifiers.defenderSL, name: defenderMessage.data.speaker.alias})}`)
         let chatOptions = {
           template: defenderMessage.data.flags.data.template,
           rollMode: defenderMessage.data.flags.data.rollMode,

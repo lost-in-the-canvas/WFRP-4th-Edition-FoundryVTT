@@ -3380,6 +3380,8 @@ class ActorWfrp4e extends Actor {
       if(type=="reroll")
       {
         cardOptions.fortuneUsedReroll = true;
+        cardOptions.hasBeenCalculated = false;
+        cardOptions.calculatedMessage = [];
         //It was an unopposed targeted test who failed
         if(data.originalTargets && data.originalTargets.size>0)
         {
@@ -3442,6 +3444,8 @@ class ActorWfrp4e extends Actor {
     let data = message.data.flags.data;
     cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
     cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    cardOptions.hasBeenCalculated = false;
+    cardOptions.calculatedMessage = [];
 
     if(message.data.flags.data.hasBeenCalculated)
       message.update({"flags.data.hasBeenCalculated" : false})
