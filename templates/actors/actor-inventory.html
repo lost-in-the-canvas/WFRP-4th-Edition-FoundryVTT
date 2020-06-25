@@ -275,7 +275,7 @@
   <!-- CONTAINERS (LEVEL 2) -->
   <!-- Packs Inside (Copy from Here)-->
   {{#each rootPack.packsInside as |pack p|}}
-  <ol style="margin-left: 10px" class="inventory-list container-lists">
+  <ol style="padding-left: 10px" class="inventory-list container-lists">
     <li class="inventory-header item inventory-container level-two" inventory-type="container" root="{{rootPack._id}}" data-item-id="{{pack._id}}">
       <div class="item-name" data-item-id="{{pack._id}}">
         <div class="image item-image" style="background-image: url({{pack.img}})"></div>
@@ -344,7 +344,7 @@
     <!-- CONTAINERS (LEVEL 3) -->
     <!-- Packs Inside (Copy from Here)-->
     {{#each pack.packsInside as |pack p|}}
-    <ol style="margin-left: 10px" class="inventory-list container-lists">
+    <ol style="padding-left: 10px" class="inventory-list container-lists">
       <li class="inventory-header item inventory-container level-three" inventory-type="container" root="{{rootPack._id}}" data-item-id="{{pack._id}}">
         <div class="item-name" data-item-id="{{pack._id}}">
           <div class="image item-image" style="background-image: url({{pack.img}})"></div>
@@ -412,7 +412,7 @@
       <!-- CONTAINERS (LEVEL 4) -->
       <!-- Packs Inside (Copy from Here)-->
       {{#each pack.packsInside as |pack p|}}
-      <ol style="margin-left: 10px" class="inventory-list container-lists">
+      <ol style="padding-left: 10px" class="inventory-list container-lists">
         <li class="inventory-header item inventory-container level-four" inventory-type="container" root="{{rootPack._id}}" data-item-id="{{pack._id}}">
           <div class="item-name" data-item-id="{{pack._id}}">
             <div class="image item-image" style="background-image: url({{pack.img}})"></div>
@@ -479,7 +479,7 @@
         <!-- CONTAINERS (LEVEL 5) -->
         <!-- Packs Inside (Copy from Here)-->
         {{#each pack.packsInside as |pack p|}}
-        <ol style="margin-left: 10px" class="inventory-list container-lists">
+        <ol style="padding-left: 10px" class="inventory-list container-lists">
           <li class="inventory-header item inventory-container level-five" inventory-type="container" root="{{rootPack._id}}" data-item-id="{{pack._id}}">
             <div class="item-name" data-item-id="{{pack._id}}">
               <div class="image item-image" style="background-image: url({{pack.img}})"></div>

@@ -122,8 +122,11 @@ class ActorSheetWfrp4e extends ActorSheet {
   {
     let sign = value.split('')[0] // Sign is the first character entered
     let wounds;
-    if (sign == "+" || sign == "-") // Relative
-      wounds = eval(this.actor.data.data.status.wounds.value + parseInt(value))
+    if (sign === "+" || sign === "-") // Relative
+      {
+        let possibleWounds = eval(this.actor.data.data.status.wounds.value + parseInt(value));
+        wounds =  possibleWounds > this.actor.data.data.status.wounds.max ? this.actor.data.data.status.wounds.max : possibleWounds;
+      }
     else                            // Absolute
       wounds = parseInt(value);
     
@@ -280,6 +283,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     const itemToEdit = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     itemToEdit.data.currentAmmo.value = event.target.value;
     this.actor.updateEmbeddedEntity("OwnedItem", itemToEdit);
+    WFRP_Audio.PlayContextAudio({item : itemToEdit, action : "load"}) // 'load' is unused
   });
 
 
@@ -457,9 +461,13 @@ class ActorSheetWfrp4e extends ActorSheet {
       item.data["weaponDamage"] = 0;
 
     if (ev.button == 2)
+    {
       item.data.weaponDamage++;
+      WFRP_Audio.PlayContextAudio({item : item, action : "damage", outcome : "weapon"})
+    }
     else if (ev.button == 0)
       item.data.weaponDamage--;
+
 
     if (item.data.weaponDamage < 0)
       item.data.weaponDamage = 0;
@@ -566,7 +574,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     for (let s of shields)
     {
       let shield = duplicate(this.actor.getEmbeddedEntity("OwnedItem", s._id));
-      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield"))).split(" ")[1];
+      let shieldQualityValue = s.properties.qualities.find(p => p.toLowerCase().includes(game.i18n.localize("PROPERTY.Shield").toLowerCase())).split(" ")[1];
       
       if (!shield.data.APdamage)
         shield.data.APdamage = 0;
@@ -577,6 +585,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         {
           shield.data.APdamage++
           shieldDamaged = true;
+          WFRP_Audio.PlayContextAudio({item : shield, action : "damage", outcome : "shield"})
         }
       }
       // Left click - repair
@@ -601,6 +610,11 @@ class ActorSheetWfrp4e extends ActorSheet {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     const spell = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
     spell.data.memorized.value = !spell.data.memorized.value;
+
+    if (spell.data.memorized.value)
+      WFRP_Audio.PlayContextAudio({item : spell, action: "memorize"})
+    else
+      WFRP_Audio.PlayContextAudio({item : spell, action: "unmemorize"})
     await this.actor.updateEmbeddedEntity("OwnedItem", spell);
   });
 
@@ -715,6 +729,12 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-delete').click(ev => {
     let li = $(ev.currentTarget).parents(".item"),
       itemId = li.attr("data-item-id");
+      if(this.actor.getEmbeddedEntity("OwnedItem", itemId).name == "Boo")
+      {
+        AudioHelper.play({src : "systems/wfrp4e/sounds/squeek.wav"}, false)
+        return // :^)
+      }
+      
       renderTemplate('systems/wfrp4e/templates/chat/delete-item-dialog.html').then(html => {
         new Dialog({
         title: "Delete Confirmation",
@@ -759,12 +779,24 @@ class ActorSheetWfrp4e extends ActorSheet {
   html.find('.item-toggle').click(ev => {
     let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
     let item = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId))
+    let equippedState;
     if (item.type == "armour")
+    {
       item.data.worn.value = !item.data.worn.value;
+      equippedState = item.data.worn.value
+    }
     else if (item.type == "weapon")
+    {
       item.data.equipped = !item.data.equipped;
+      equippedState = item.data.equipped
+    }
     else if (item.type == "trapping" && item.data.trappingType.value == "clothingAccessories")
+    {
       item.data.worn = !item.data.worn;
+      equippedState = item.data.worn
+    }
+    
+    WFRP_Audio.PlayContextAudio({item : item, action : "equip", outcome : equippedState})    
     this.actor.updateEmbeddedEntity("OwnedItem", item);
   });
 
@@ -974,7 +1006,7 @@ class ActorSheetWfrp4e extends ActorSheet {
     }
     catch (error)
     {
-      console.log("Could not randomize: " + error)
+      console.log("wfrp4e | Could not randomize: " + error)
     }
 
   });
@@ -1144,7 +1176,7 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         await this.actor.update({"data" : data})
       }
-      else if (transfer.type == "details") // hair, name, eyes
+      else if (transfer.type === "details") // hair, name, eyes
       {
         data.details.eyecolour.value = transfer.payload.eyes
         data.details.haircolour.value = transfer.payload.hair
@@ -1163,12 +1195,12 @@ class ActorSheetWfrp4e extends ActorSheet {
     {
       let transfer = JSON.parse(dragData)
       let item;
-      if (transfer.lookupType == "skill")
+      if (transfer.lookupType === "skill")
       {
         // Advanced find function, returns the skill the user expects it to return, even with skills not included in the compendium (Lore (whatever))
         item = await WFRP_Utility.findSkill(transfer.name)
       }
-      else if (transfer.lookupType == "talent")
+      else if (transfer.lookupType === "talent")
       {
         // Advanced find function, returns the talent the user expects it to return, even with talents not included in the compendium (Etiquette (whatever))
         item = await WFRP_Utility.findTalent(transfer.name)
@@ -1196,33 +1228,33 @@ class ActorSheetWfrp4e extends ActorSheet {
       let amt;
       // Failure means divide by two, so mark whether we should add half a gold or half a silver, just round pennies
       let halfS = false, halfG = false
-      if (type == "b")
+      if (type === "b")
         amt = Math.round(moneyString.slice(0, -1));
-      else if (type == "s")
+      else if (type === "s")
       {
         if (moneyString.slice(0, -1).includes("."))
           halfS = true;
         amt = Math.floor(moneyString.slice(0, -1))
       }
-      else if (type == "g")
+      else if (type === "g")
       {
         if (moneyString.slice(0, -1).includes("."))
           halfG = true;
         amt = Math.floor(moneyString.slice(0, -1))
       }
-      let money = duplicate(this.actor.data.items.filter(i => i.type == "money"));
+      let money = duplicate(this.actor.data.items.filter(i => i.type === "money"));
 
       let moneyItem;
       switch(type)
       {
         case 'b' : 
-        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.BP"));
+        moneyItem = money.find(i => i.name === game.i18n.localize("NAME.BP"));
         break;
         case 's' : 
-        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.SS"));
+        moneyItem = money.find(i => i.name === game.i18n.localize("NAME.SS"));
         break;
         case 'g' : 
-        moneyItem = money.find(i => i.name == game.i18n.localize("NAME.GC"));
+        moneyItem = money.find(i => i.name === game.i18n.localize("NAME.GC"));
         break;
       }
 
@@ -1234,11 +1266,14 @@ class ActorSheetWfrp4e extends ActorSheet {
 
       // add halves
       if (halfS)
-         money.find(i => i.name == game.i18n.localize("NAME.BP")).data.quantity.value += 6;
+         money.find(i => i.name === game.i18n.localize("NAME.BP")).data.quantity.value += 6;
       if (halfG)
-        money.find(i => i.name == game.i18n.localize("NAME.SS")).data.quantity.value += 10;
+        money.find(i => i.name === game.i18n.localize("NAME.SS")).data.quantity.value += 10;
 
       await this.actor.updateEmbeddedEntity("OwnedItem", money);
+    }
+    else if (JSON.parse(dragData).woundsHealed){
+      this._modifyWounds(`+${JSON.parse(dragData).woundsHealed}`)
     }
     else // If none of the above, just process whatever was dropped upstream
     {
@@ -1309,6 +1344,13 @@ class ActorSheetWfrp4e extends ActorSheet {
         }
         this.actor.setupSkill(skill.data, {income : this.actor.data.data.details.status});
       })
+
+      // Respond to template button clicks
+      div.on("mousedown", '.aoe-template', event =>
+      {
+        AOETemplate.fromString(event.target.text).drawPreview(event);
+        this.minimize();
+      });
     }
     li.toggleClass("expanded");
   }

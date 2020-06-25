@@ -44,7 +44,8 @@ class WFRP_Utility
   static addLayer(AP, armor, loc)
   {
     let layer = {
-      value: armor.data.currentAP[loc]
+      value: armor.data.currentAP[loc],
+      armourType : armor.data.armorType.value // used for sound
     }
     if (armor.properties.qualities.includes("Impenetrable"))
       layer.impenetrable = true;
@@ -144,7 +145,7 @@ class WFRP_Utility
     catch (error)
     {
       ui.notifications.info("Could not find species " + species)
-      console.log("Could not find species " + species + ": " + error);
+      console.log("wfrp4e | Could not find species " + species + ": " + error);
       throw error
     }
 
@@ -598,7 +599,7 @@ class WFRP_Utility
    * @param {String} modeOverride 
    * @param {Boolean} isRoll 
    */
-  static chatDataSetup(content, modeOverride, isRoll = false)
+  static chatDataSetup(content, modeOverride, isRoll = false, forceWhisper)
   {
     let chatData = {
       user: game.user._id,
@@ -611,6 +612,11 @@ class WFRP_Utility
     if (["gmroll", "blindroll"].includes(chatData.rollMode)) chatData["whisper"] = ChatMessage.getWhisperIDs("GM");
     if (chatData.rollMode === "blindroll") chatData["blind"] = true;
     else if (chatData.rollMode === "selfroll") chatData["whisper"] = [game.user];
+
+    if ( forceWhisper ) { // Final force !
+      chatData["speaker"] = ChatMessage.getSpeaker();
+      chatData["whisper"] = ChatMessage.getWhisperRecipients(forceWhisper);
+    }
 
     return chatData;
   }
@@ -625,15 +631,17 @@ class WFRP_Utility
    */
   static matchClosest(object, query)
   {
+    query = query.toLowerCase();
     let keys = Object.keys(object)
     let match = [];
     for (let key of keys)
     {
       let percentage = 0;
       let matchCounter = 0;
-      for (let i = 0; i < key.length; i++)
+      let myword = object[key].toLowerCase();
+      for (let i = 0; i < myword.length; i++)
       {
-        if (key[i] == query[i])
+        if ( myword[i] == query[i])
         {
           matchCounter++;
         }
@@ -746,12 +754,13 @@ class WFRP_Utility
 
     if (event.button == 0)
     {
-      if (event.target.text.trim() == game.i18n.localize("ROLL.CritCast"))
+      let clickText = event.target.text || event.target.textContent;
+      if (clickText.trim() == game.i18n.localize("ROLL.CritCast"))
       {
         html = WFRP_Tables.criticalCastMenu($(event.currentTarget).attr("data-table"));
       }
 
-      else if (event.target.text.trim() == game.i18n.localize("ROLL.TotalPower"))
+      else if (clickText.trim() == game.i18n.localize("ROLL.TotalPower"))
         html = WFRP_Tables.restrictedCriticalCastMenu();
 
       // Not really a table but whatever
@@ -955,7 +964,6 @@ class WFRP_Utility
 
   static async toggleMorrslieb()
   {
-    console.log("toggleMorrslieb()")
     let morrsliebActive = canvas.scene.getFlag("wfrp4e", "morrslieb")
     morrsliebActive = !morrsliebActive
     await canvas.scene.setFlag("wfrp4e", "morrslieb", morrsliebActive)
@@ -999,7 +1007,7 @@ class WFRP_Utility
         canvas.draw();
       }
     }
-  }
+}
 
 
   Hooks.on("renderFilePicker", (app, html, data) => {

@@ -223,6 +223,17 @@ Hooks.once("init", () => {
         type: Boolean
       });
 
+        
+      // Register Test auto-fill
+      game.settings.register("wfrp4e", "autoFillAdvantage", {
+        name: "SETTINGS.AutoFillAdv",
+        hint: "SETTINGS.AutoFillAdvHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
+
       // Register default test difficulty
       game.settings.register("wfrp4e", "testDefaultDifficulty", {
         name: "SETTINGS.TestDialogDefaultDifficulty",
@@ -319,6 +330,25 @@ Hooks.once("init", () => {
         scope: "world",
         config: true,
         default: false,
+        type: Boolean
+      });
+
+      // Register Advantage cap
+      game.settings.register("wfrp4e", "soundEffects", {
+        name: "SETTINGS.SoundEffects",
+        hint: "SETTINGS.SoundEffectsHint",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean
+      });
+
+      game.settings.register("wfrp4e", "customCursor", {
+        name: "SETTINGS.CustomCursor",
+        hint: "SETTINGS.CustomCursorHint",
+        scope: "world",
+        config: true,
+        default: true,
         type: Boolean
       });
    
