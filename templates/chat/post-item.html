@@ -12,7 +12,7 @@
     {{#if hasPrice}}
     <span class="chat-card-button-area">
         <a class='chat-card-button market-button' data-button='rollAvailability' data-rarity="{{data.availability.value}}">{{localize "MARKET.RollForAvailability"}}</a>
-        <a class='chat-card-button market-button' data-button='payItem' data-pay="{{data.price.gc}}gc{{data.price.ss}}ss{{data.price.bp}}bp">{{localize "MARKET.PayForItem"}}</a>
+        <a class='chat-card-button market-button' data-button='payItem' data-pay="{{data.price.gc}}{{localize 'MARKET.Abbrev.GC'}}{{data.price.ss}}{{localize 'MARKET.Abbrev.SS'}}{{data.price.bp}}{{localize 'MARKET.Abbrev.BP'}}">{{localize "MARKET.PayForItem"}}</a>
     </span>
     {{/if}}
 </div>

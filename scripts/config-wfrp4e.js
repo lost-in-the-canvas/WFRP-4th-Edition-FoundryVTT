@@ -617,6 +617,7 @@ WFRP4E.qualityDescriptions = {
     "pistol": "WFRP4E.Properties.Pistol",
     "precise": "WFRP4E.Properties.Precise",
     "pummel": "WFRP4E.Properties.Pummel",
+    "distract": "PROPERTY.Distract",
     "repeater": "WFRP4E.Properties.Repeater",
     "shield": "WFRP4E.Properties.Shield",
     "trapblade": "WFRP4E.Properties.Trapblade",
