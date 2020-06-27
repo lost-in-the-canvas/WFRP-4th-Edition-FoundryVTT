@@ -955,6 +955,16 @@ WFRP4E.randomExp = {
     statsReorder: 25
 }
 
+WFRP4E.reachNum = {
+    "personal": 1,
+    "vshort": 2,
+    "short": 3,
+    "average": 4,
+    "long": 5,
+    "vLong": 6,
+    "massive": 7,
+}
+
 WFRP4E.traitBonuses = {
     "big": {
         "s": 10,
