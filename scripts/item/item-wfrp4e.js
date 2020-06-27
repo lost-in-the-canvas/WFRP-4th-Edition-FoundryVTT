@@ -145,7 +145,10 @@ class ItemWfrp4e extends Item
     data.description = preparedSpell.data.description
     data.properties = [];
     data.properties.push(`${game.i18n.localize("Range")}: ${preparedSpell.range}`);
-    data.properties.push(`${game.i18n.localize("Target")}: ${preparedSpell.target}`);
+    let target = preparedSpell.target;
+    if (target.includes("AoE"))
+      target = `<a class='aoe-template'><i class="fas fa-ruler-combined"></i>${target}</a>`
+    data.properties.push(`${game.i18n.localize("Target")}: ${target}`);
     data.properties.push(`${game.i18n.localize("Duration")}: ${preparedSpell.duration}`);
     if (data.magicMissile.value)
       data.properties.push(`${game.i18n.localize("Magic Missile")}: +${preparedSpell.damage}`);

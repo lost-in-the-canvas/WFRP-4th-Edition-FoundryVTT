@@ -33,7 +33,7 @@ class DiceWFRP
       sceneStress = game.combat.started ? "challenging" : "average";
     else if (game.settings.get("wfrp4e", "testDefaultDifficulty"))
       sceneStress = "average";
-      
+
     // Merge input with generic properties constant between all tests
     mergeObject(testData,
     {
@@ -43,17 +43,21 @@ class DiceWFRP
       successBonus: 0,
     });
 
-    // Sets/overrides default test diffficulty to Average if Income test
-    sceneStress = testData.income ? "average" : sceneStress;
+    // Sets/overrides default test difficulty (eg, with Income or Rest & Recover tests), based on dialogOptions.data.testDifficulty passed through from skillSetup
+    sceneStress = dialogOptions.data.testDifficulty || sceneStress; 
+
+    let advantageBonus = game.settings.get("wfrp4e", "autoFillAdvantage") ? (dialogOptions.data.advantage * 10 || 0) : 0
 
     mergeObject(dialogOptions.data,
     {
       testDifficulty: dialogOptions.data.testDifficulty || sceneStress,
       difficultyLabels: WFRP4E.difficultyLabels,
-      testModifier: (dialogOptions.data.modifier || 0) + dialogOptions.data.advantage * 10 || 0,
+      testModifier: (dialogOptions.data.modifier || 0) + advantageBonus,
       slBonus: dialogOptions.data.slBonus || 0,
       successBonus: dialogOptions.data.successBonus || 0,
     });
+    // TODO: Refactor to replace cardOptoins.sound with the sound effect instead of just suppressing
+    //Suppresses roll sound if the test has it's own sound associated
     mergeObject(cardOptions,
     {
       user: game.user._id,
@@ -68,7 +72,11 @@ class DiceWFRP
       roll = ActorWfrp4e.defaultRoll;
 
     dialogOptions.data.rollMode = rollMode;
-    dialogOptions.data.rollModes = CONFIG.rollModes;
+    if (CONFIG.Dice.rollModes)
+      dialogOptions.data.rollModes = CONFIG.Dice.rollModes;
+    else 
+      dialogOptions.data.rollModes = CONFIG.rollModes;
+
 
     if (!testData.extra.options.bypass)
     {
@@ -97,7 +105,8 @@ class DiceWFRP
       testData.target = testData.target + testData.testModifier;
       testData.slBonus = testData.extra.options.slBonus || testData.slBonus
       testData.successBonus = testData.extra.options.successBonus || testData.successBonus
-      roll(testData, cardOptions)
+      cardOptions.rollMode = testData.extra.options.rollMode || rollMode      
+      return roll(testData, cardOptions)
     }
   }
 
@@ -106,11 +115,11 @@ class DiceWFRP
    * Provides the basic evaluation of a test.
    * 
    * This function, when given the necessary data (target number, SL bonus, etc.) provides the
-   * basic test evaluation - rolling the test, determining SL, success, description, critical/fumble if needed.
+   * basic test evaluation - rolling the test (if not already given), determining SL, success, description, critical/fumble if needed.
    * 
-   * @param {Object} testData  Test info: target number, SL bonus, success bonus, etc
+   * @param {Object} testData  Test info: target number, SL bonus, success bonus, (opt) roll, etc
    */
-  static async rollTest(testData)
+  static rollTest(testData)
   {
     let roll;
     testData.function = "rollTest"
@@ -121,10 +130,6 @@ class DiceWFRP
       }
     else
       roll = new Roll("1d100").roll(); // Use input roll if exists, otherwise, roll randomly (used for editing a test result)
-    if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
-    {
-      await game.dice3d.showForRoll(roll);
-    }
 
     let successBonus = testData.successBonus;
     let slBonus = testData.slBonus;
@@ -140,7 +145,6 @@ class DiceWFRP
     // SLBonus is always applied, but doesn't change a failure to a success or vice versa
     // Therefore, in this case, a positive SL can be a failure and a negative SL can be a success
     // Additionally, the auto-success/failure range can complicate things even more.
-
     // ********** Failure **********
     if (roll.total >= 96 || roll.total > targetNum && roll.total > 5)
     {
@@ -313,13 +317,14 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: weapon, target number, SL bonus, success bonus, etc
    */
-  static async rollWeaponTest(testData)
+  static rollWeaponTest(testData)
   {
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     let weapon = testResults.weapon;
 
     testData.function = "rollWeaponTest"
+
 
     if (testResults.description.includes(game.i18n.localize("Failure")))
     {
@@ -344,8 +349,14 @@ class DiceWFRP
       if (weapon.data.weaponGroup.value == game.i18n.localize("SPEC.Throwing"))
         testResults.extra.scatter = game.i18n.localize("Scatter");
     }
-    else
+    else // if success
     {
+      if (weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast"))))
+      {
+        let property = weapon.properties.qualities.find(q => q.includes(game.i18n.localize("PROPERTY.Blast")))
+        testResults.other.push(`<a class='aoe-template'><i class="fas fa-ruler-combined"></i>${property[property.length-1]} yard Blast</a>`)
+      }
+
       if (testResults.roll % 11 == 0)
         testResults.extra.critical = game.i18n.localize("Critical")
 
@@ -355,7 +366,9 @@ class DiceWFRP
     }
 
     if (testResults.extra.critical)
+    {
       testResults.extra.color_green = true;
+    }
     if (testResults.extra.fumble)
       testResults.extra.color_red = true;
 
@@ -393,10 +406,10 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static async rollCastTest(testData)
+  static rollCastTest(testData)
   {
-    let spell = testData.extra.spell;
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
+    let spell = testResults.spell;
 
     let miscastCounter = 0;
     testData.function = "rollCastTest"
@@ -457,6 +470,8 @@ class DiceWFRP
       testResults.description = game.i18n.localize("ROLL.CastingSuccess")
       let overcasts = Math.floor(slOver / 2);
       testResults.overcasts = overcasts;
+      spell.overcasts.available = overcasts;
+      
 
       if (testResults.roll % 11 == 0)
       {
@@ -476,7 +491,9 @@ class DiceWFRP
         if (testData.extra.ingredient)
           testResults.extra.nullminormis = game.i18n.localize("ROLL.MinorMis")
         else
+        {
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
+        }
         break;
       case 2:
         if (testData.extra.ingredient)
@@ -485,7 +502,9 @@ class DiceWFRP
           testResults.extra.minormis = game.i18n.localize("ROLL.MinorMis")
         }
         else
+        {
           testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
+        }
         break;
       case 3:
         testResults.extra.majormis = game.i18n.localize("ROLL.MajorMis")
@@ -524,12 +543,12 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: spell, target number, SL bonus, success bonus, etc
    */
-  static async rollChannellTest(testData, actor)
+  static rollChannellTest(testData, actor)
   {
     let spell = testData.extra.spell;
     let miscastCounter = 0;
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     testData.function = "rollChannellTest"
 
     let SL = testResults.SL;
@@ -557,7 +576,7 @@ class DiceWFRP
         testResults.extra.color_red = true;
         miscastCounter += 2;
       }
-    }
+    }      
     else // Successs - add SL to spell for further use
     {
       testResults.description = game.i18n.localize("ROLL.ChannelSuccess")
@@ -631,16 +650,20 @@ class DiceWFRP
    * 
    * @param {Object} testData  Test info: prayer, target number, SL bonus, success bonus, etc
    */
-  static async rollPrayTest(testData, actor)
+  static rollPrayTest(testData, actor)
   {
     let prayer = testData.extra.prayer;
 
-    let testResults = await this.rollTest(testData);
+    let testResults = this.rollTest(testData);
     testData.function = "rollPrayTest"
 
     let SL = testResults.SL;
     let extensions = 0;
     let currentSin = actor.data.data.status.sin.value;
+
+
+    let CNtoUse = 0;
+    let slOver = (Number(testResults.SL) - CNtoUse);
 
     // Test itself failed
     if (testResults.description.includes(game.i18n.localize("Failure")))
@@ -657,10 +680,12 @@ class DiceWFRP
           testResults.extra.color_red = true;
 
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
+        testResults.extra.wrathModifier = Number(currentSin) * 10;
         currentSin--;
-
         if (currentSin < 0)
           currentSin = 0;
+
+
 
         actor.update({"data.status.sin.value": currentSin});
       }
@@ -670,6 +695,12 @@ class DiceWFRP
     {
       testResults.description = game.i18n.localize("ROLL.PrayGranted")
 
+      let overcasts = Math.floor(slOver / 2);
+      testResults.overcasts = overcasts;
+      prayer.overcasts.available = overcasts;
+
+      // console.log(prayer);
+
       // Wrath of the gads activates if ones digit is equal or less than current sin      
       let unitResult = Number(testResults.roll.toString().split('').pop())
       if (unitResult == 0)
@@ -677,7 +708,7 @@ class DiceWFRP
       if (unitResult <= currentSin)
       {
         testResults.extra.wrath = game.i18n.localize("ROLL.Wrath")
-        testResults.extra.wrathModifier = currentSin * 10;
+        testResults.extra.wrathModifier = Number(currentSin) * 10;
         currentSin--;
         if (currentSin < 0)
           currentSin = 0;
@@ -771,7 +802,8 @@ class DiceWFRP
         }
 
         chatOptions["content"] = html;
-
+        if (chatOptions.sound)
+          console.log(`wfrp4e | Playing Sound: ${chatOptions.sound}`)
         return ChatMessage.create(chatOptions, false);
       });
     }
@@ -783,6 +815,11 @@ class DiceWFRP
 
         // Emit the HTML as a chat message
         chatOptions["content"] = html;
+        if (chatOptions.sound)
+        { 
+          console.log(`wfrp4e | Playing Sound: ${chatOptions.sound}`)
+          AudioHelper.play({src : chatOptions.sound}, true)
+        }
         return rerenderMessage.update(
         {
           content: html,
@@ -870,7 +907,7 @@ class DiceWFRP
     })
 
     // Respond to editing chat cards - take all inputs and call the same function used with the data filled out
-    html.on('change focusout', '.card-edit', ev =>
+    html.on('change', '.card-edit', ev =>
     {
       let button = $(ev.currentTarget),
         messageId = button.parents('.message').attr("data-message-id"),
@@ -973,6 +1010,185 @@ class DiceWFRP
       }
     });
 
+      // Respond to overcast button clicks
+      html.on("mousedown", '.overcast-button', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let spell = duplicate(msg.data.flags.data.postData.spell);
+        let overcastData = spell.overcasts
+        let overcastChoice = $(event.currentTarget).attr("data-overcast")
+
+        if (!overcastData.available && event.button == 0)
+          return
+
+        if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
+          return
+
+        overcastData.available = msg.data.flags.data.postData.overcasts
+
+        // data-button tells us what button was clicked
+        switch (overcastChoice)
+        {
+          case "range":
+              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "target":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "duration":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+        }
+        overcastData[overcastChoice].count++
+        let sum = 0;
+        for (let overcastType in overcastData)
+          if (overcastData[overcastType].count)
+            sum += overcastData[overcastType].count
+
+        overcastData.available -= sum;
+
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        
+        if (overcastData[overcastChoice].AoE)
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        else
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = (overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.spell" : spell})
+      });
+
+      // Button to reset the overcasts
+      html.on("mousedown", '.overcast-reset', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let spell = duplicate(msg.data.flags.data.postData.spell);
+        let overcastData = spell.overcasts
+        for (let overcastType in overcastData)
+        {
+          if (overcastData[overcastType].count)
+          {
+            overcastData[overcastType].count = 0
+            overcastData[overcastType].current = overcastData[overcastType].initial
+            if (overcastData[overcastType].AoE)
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+            else
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = (overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+          }
+       
+        }
+        overcastData.available = msg.data.flags.data.postData.overcasts;
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.spell" : spell})
+      });
+
+      // Button to reset the overcasts
+      html.on("mousedown", '.overcast-reset-prayer', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let prayer = duplicate(msg.data.flags.data.postData.prayer);
+        let overcastData = prayer.overcasts
+        for (let overcastType in overcastData)
+        {
+          if (overcastData[overcastType].count)
+          {
+            overcastData[overcastType].count = 0
+            overcastData[overcastType].current = overcastData[overcastType].initial
+            if (overcastData[overcastType].AoE)
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+            else
+              cardContent.find(`.overcast-value.${overcastType}`)[0].innerHTML = (overcastData[overcastType].current + " " + overcastData[overcastType].unit)
+          }
+       
+        }
+        overcastData.available = msg.data.flags.data.postData.overcasts;
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.prayer" : prayer})
+      });
+
+      // Respond to prayer overcast button clicks
+      html.on("mousedown", '.prayer-extension-button', event =>
+      {
+        event.preventDefault();
+        let msg = game.messages.get($(event.currentTarget).parents('.message').attr("data-message-id"));
+        if (!msg.owner && !msg.isAuthor)
+          return ui.notifications.error("You do not have permission to edit this ChatMessage")
+
+        let prayer = duplicate(msg.data.flags.data.postData.prayer);
+
+        let overcastData = prayer.overcasts
+        let overcastChoice = $(event.currentTarget).attr("data-overcast")
+
+        // if (!overcastData.available && event.button == 0)
+        //   return
+
+        // if (overcastData.available == msg.data.flags.data.postData.overcasts && event.button == 2)
+        //   return
+
+        overcastData.available = msg.data.flags.data.postData.overcasts
+
+        // data-button tells us what button was clicked
+        switch (overcastChoice)
+        {
+          case "range":
+              overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "target":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+          case "duration":
+            overcastData[overcastChoice].current += overcastData[overcastChoice].initial
+            break
+        }
+        overcastData[overcastChoice].count++
+        let sum = 0;
+        for (let overcastType in overcastData)
+          if (overcastData[overcastType].count)
+            sum += overcastData[overcastType].count
+
+        overcastData.available -= sum;
+
+        let cardContent =  $(event.currentTarget).parents('.message-content')
+
+        cardContent.find(".overcast-count").text(`${overcastData.available}/${msg.data.flags.data.postData.overcasts}`)
+        
+        if (overcastData[overcastChoice].AoE)
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = ('<i class="fas fa-ruler-combined"></i> ' + overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+        else
+          cardContent.find(`.overcast-value.${overcastChoice}`)[0].innerHTML = (overcastData[overcastChoice].current + " " + overcastData[overcastChoice].unit)
+
+        console.log("%c overcastChoice","color:blue");
+        console.log(overcastChoice);
+        console.log(overcastData[overcastChoice].current);
+
+        msg.update({content : cardContent.html()})
+        msg.update({"flags.data.postData.prayer" : prayer})
+      });
+
+    // Respond to template button clicks
+    html.on("mousedown", '.aoe-template', event =>
+    {
+      AOETemplate.fromString(event.target.text).drawPreview(event);
+    });
+
     // Character generation - select specific career
     html.on("click", '.career-select', event =>
     {
@@ -1062,7 +1278,10 @@ class DiceWFRP
             let money = duplicate(actor.data.items.filter(i => i.type === "money"));
             money = MarketWfrp4e.payCommand($(event.currentTarget).attr("data-pay"), money);
             if(money)
+            {
+              WFRP_Audio.PlayContextAudio({item : {"type": "money"}, action : "lose"})
               actor.updateEmbeddedEntity("OwnedItem", money);
+            }
           }
           break;
         case "creditItem":
@@ -1073,7 +1292,10 @@ class DiceWFRP
             let dataExchange=$(event.currentTarget).attr("data-amount");
             money = MarketWfrp4e.creditCommand(dataExchange, money);
             if(money)
+            {
+              WFRP_Audio.PlayContextAudio({item : {type : "money"}, action : "gain"})
               actor.updateEmbeddedEntity("OwnedItem", money);
+            }
           }
           break;
         case "rollAvailabilityTest":
@@ -1105,6 +1327,76 @@ class DiceWFRP
         elem.style.display = ""
       else
         elem.style.display = "none"
+    }
+  }
+
+
+  // /**
+  //  * Extracts the necessary data from a message to send it back to renderRollCard for rerendering
+  //  */
+  // static getMessageData(messageId)
+  // {
+  //   let message = game.messages.get(messageId)
+  //   let msgdata = message.data.flags.data
+  //   let testData = msgdata.preData;
+  //   let chatOptions = {
+  //     template: msgdata.template,
+  //     rollMode: msgdata.rollMode,
+  //     title: msgdata.title,
+  //     speaker: message.data.speaker,
+  //     user: message.user.data._id
+  //   }
+
+  //   if (["gmroll", "blindroll"].includes(chatOptions.rollMode)) chatOptions["whisper"] = ChatMessage.getWhisperIDs("GM");
+  //   if (chatOptions.rollMode === "blindroll") chatOptions["blind"] = true;
+
+  //   let data = {
+  //     testData,
+  //     chatOptions,
+  //     message
+  //   }
+  //   return data
+  // }
+
+  /**
+   * Start a dice roll
+   * Used by the rollTest method and its overrides
+   * @param {Object} testData
+   */
+  static async rollDices(testData, cardOptions)
+  {
+    if(!testData.roll)
+    {
+      let roll = new Roll("1d100").roll();
+      await DiceWFRP.showDiceSoNice(roll,cardOptions.rollMode);
+      testData.roll = roll.total;
+    }
+    return testData;
+  }
+
+  /**
+   * Add support for the Dice So Nice module
+   * @param {Object} roll 
+   * @param {String} rollMode 
+   */
+  static async showDiceSoNice(roll,rollMode)
+  {
+    if(game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active)
+    {
+      let whisper = null;
+      let blind = false;
+      switch(rollMode)
+      {
+        case "blindroll": //GM only
+          blind = true;
+        case "gmroll": //GM + rolling player
+          whisper = game.users.filter(user => user.isGM);
+          break;
+        case "roll": //everybody
+          whisper = game.users.filter(user => user.active);
+          break;
+      }
+      await game.dice3d.showForRoll(roll,whisper,blind);
     }
   }
 }

@@ -59,6 +59,17 @@
       </select>
     </div>
 
+    {{#if isOwned}}
+    <div class="form-group" title='{{localize "TooltipAllowXPSpending"}}'>
+      <label class="label-text">{{localize "AllowXPSpending"}}</label>
+      {{#if item.flags.forceAdvIndicator}}
+      <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-check-circle"></i></a>
+      {{else}}
+      <a class="item-checkbox" data-target="flags.forceAdvIndicator"><i class="far fa-circle"></i></a>
+      {{/if}}
+    </div>
+    {{/if}}
+
   </div>
   </section>
 </form>
@@ -70,8 +81,8 @@
     for (i = 0; i < length; i++) {
       if (textContainer[i].children[1].children[0].className.includes("item-sheet")) {
         new_red = document.getElementsByClassName("app window-app sheet")[i].id;
-        console.log("new_red");
-        console.log(new_red);
+        
+        
         if (document.getElementById(new_red).className.includes("career-sheet")) {
           continue;
         } 
@@ -126,5 +137,5 @@
       } else {}
     }
   
-    // console.log(checkIfToken);
+    
   </script>

@@ -78,8 +78,11 @@
         {{/if}}
 
         {{#if testData.other}}
-        <div class="card-content">
+            {{#if testData.woundsHealed}}
+            <div class="card-content wounds-healed-drag">
+            {{else}}
+            <div class="card-content">
+            {{/if}}
             <b>{{localize "Other"}}</b>: {{{testData.other}}}
-        </div>
+            </div>
         {{/if}}
-    

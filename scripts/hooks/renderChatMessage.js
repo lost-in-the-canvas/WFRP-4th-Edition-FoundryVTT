@@ -5,7 +5,7 @@
 Hooks.on("renderChatMessage", async (app, html, msg) => {
   
   // Hide test data from players (35 vs 50) so they don't know the enemy stats
-  if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && html.find(".chat-card").attr("data-hide") == "true")
+  if (game.settings.get("wfrp4e", "hideTestData") && !game.user.isGM && html.find(".chat-card").attr("data-hide") === "true")
   {
     html.find(".hide-option").remove();
   }
@@ -15,7 +15,7 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
     html.find(".chat-button-gm").remove();
     html.find(".unopposed-button").remove();
     //hide tooltip contextuamneu if not their roll
-    if(msg.message.user != game.userId)
+    if(msg.message.user !== game.userId)
       html.find(".chat-button-player").remove();
   }
   else
@@ -25,7 +25,10 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 
   // Do not display "Blind" chat cards to non-gm
   if (html.hasClass("blind") && !game.user.isGM)
+  {
+    html.find(".message-header").remove(); // Remove header so Foundry does not attempt to update its timestamp
     html.html("").css("display", "none");
+  }
 
   // Add drag and drop functonality to posted items
   let postedItem = html.find(".post-item")[0]
@@ -35,6 +38,19 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
 
     postedItem.addEventListener('dragstart', ev => {
       ev.dataTransfer.setData("text/plain", app.data.flags.transfer);
+    })
+  }
+
+  // Add drag and drop to character generation results
+  let woundsHealed = html.find(".wounds-healed-drag")[0]
+  if (woundsHealed)
+  {
+    woundsHealed.setAttribute("draggable", true);
+    woundsHealed.addEventListener('dragstart', ev => {
+      let dataTransfer = {
+        woundsHealed : app.data.flags.data.postData.woundsHealed
+      }
+      ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
     })
   }
 
@@ -96,7 +112,6 @@ Hooks.on("renderChatMessage", async (app, html, msg) => {
             money : $(amount).attr("data-amt")
           }
           ev.dataTransfer.setData("text/plain", JSON.stringify(dataTransfer));
-          console.log($(amount).attr("data-amt"))
         })
       })
 

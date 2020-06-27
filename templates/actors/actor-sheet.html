@@ -1,6 +1,7 @@
 <form class="{{cssClass}}" autocomplete="off">
-
-  <span id="header-personal-details">{{localize "Personal Details"}}</span>
+  <div class="header personal">
+    <span id="header-personal-details">{{localize "Personal Details"}}</span>
+  </div> 
 
   <header class="sheet-header" ondragstart="return false;" ondrop="return false;">
     <h1 class="charname item">
@@ -26,7 +27,6 @@
 
     <div class="items">
       <div class="row">
-
         <div id="field-class" class="item">
           <input class="input-details" style="box-shadow: none !important;" type="text" value="{{actor.currentClass}}"
             placeholder="{{localize 'Class'}}" readonly title = "{{localize 'SHEET.CareerToolTip'}}"/>
@@ -44,7 +44,9 @@
             placeholder="{{localize 'Career Level'}}" readonly title = "{{localize 'SHEET.CareerToolTip'}}" />
           <span class="label-details">{{localize "Career"}}</span>
         </div>
+      </div>
 
+      <div class="row">
         <div id="field-status" class="item">
           <input id="input-status" class="input-details" style="box-shadow: none !important;" type="text" value="{{actor.data.details.status.value}}"
             placeholder="{{localize 'Status'}}" readonly title = "{{localize 'SHEET.CareerToolTip'}}" />
@@ -74,7 +76,9 @@
             value="{{data.details.haircolour.value}}" placeholder="{{localize 'Hair Colour'}}" />
           <span class="label-details">{{localize "Hair Colour"}}</span>
         </div>
+      </div>
 
+      <div class="row">
         <div id="field-eyecolour" class="item">
           <input class="input-details" style="box-shadow: none !important;" name="data.details.eyecolour.value" type="text"
             value="{{data.details.eyecolour.value}}" placeholder="{{localize 'Eye Colour'}}" />
@@ -155,5 +159,5 @@
       } else {}
     } else {}
   }
-  // console.log(checkIfToken);
+  
 </script>

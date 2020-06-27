@@ -219,59 +219,57 @@
   {{/if}}
 
   <div class="armour-section">
-    <div class="row">
-      <div class="head column" data-location="head">
-        <div class="armour-header">
-          <span class="armour-label">{{localize "Head"}}</span>
-          <a class="armour-total" title="{{localize 'SHEET.ArmourAP'}}">{{actor.AP.head.value}}</a>
-          <a class="shield-total" title="{{localize 'SHEET.ShieldAP'}}{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} {{localize 'Damage'}}{{/if}}">{{actor.AP.shield}}</a>
-          <span class="toughness-total" title="{{localize 'SHEET.TB'}}">{{actor.data.characteristics.t.bonus}}</span>
-        </div>
+    <div class="head column" data-location="head">
+      <div class="armour-header">
+        <span class="armour-label">{{localize "Head"}}</span>
+        <a class="armour-total" title="{{localize 'SHEET.ArmourAP'}}">{{actor.AP.head.value}}</a>
+        <a class="shield-total" title="{{localize 'SHEET.ShieldAP'}}{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} {{localize 'Damage'}}{{/if}}">{{actor.AP.shield}}</a>
+        <span class="toughness-total" title="{{localize 'SHEET.TB'}}">{{actor.data.characteristics.t.bonus}}</span>
       </div>
+    </div>
 
-      <div class="body column" data-location="body">
+    <div class="body column" data-location="body">
+      <div class="armour-header">
+        <span class="armour-label">{{localize "Body"}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.body.value}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
+        <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+      </div>
+    </div>
+
+    <div class="larm column" data-location="lArm">
+      <div class="armour-header">
+        <span class="armour-label">{{localize "Left Arm"}}</span>
+          <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
+          <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
+          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+      </div>
+    </div>
+        
+    <div class="rarm column" data-location="rArm">
+      <div class="armour-header">
+        <span class="armour-label">{{localize "Right Arm"}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
+        <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
+      </div>
+    </div>
+
+    <div class="lleg column" data-location="lLeg">
         <div class="armour-header">
-          <span class="armour-label">{{localize "Body"}}</span>
-          <a class="armour-total" title="Armour AP">{{actor.AP.body.value}}</a>
+          <span class="armour-label">{{localize "Left Leg"}}</span>
+          <a class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</a>
           <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
           <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
         </div>
-      </div>
+    </div>
 
-      <div class="larm column" data-location="lArm">
-        <div class="armour-header">
-          <span class="armour-label">{{localize "Left Arm"}}</span>
-            <a class="armour-total" title="Armour AP">{{actor.AP.lArm.value}}</a>
-            <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
-            <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-        </div>
-      </div>
-          
-      <div class="rarm column" data-location="rArm">
-        <div class="armour-header">
-          <span class="armour-label">{{localize "Right Arm"}}</span>
-          <a class="armour-total" title="Armour AP">{{actor.AP.rArm.value}}</a>
-          <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
-          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-        </div>
-      </div>
-
-      <div class="lleg column" data-location="lLeg">
-          <div class="armour-header">
-            <span class="armour-label">{{localize "Left Leg"}}</span>
-            <a class="armour-total" title="Armour AP">{{actor.AP.lLeg.value}}</a>
-            <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
-            <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-          </div>
-      </div>
-
-      <div class="rleg column" data-location="rLeg">
-        <div class="armour-header rLeg">
-          <span class="armour-label">{{localize "Right Leg"}}</span>
-          <a class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</a>
-          <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
-          <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
-        </div>
+    <div class="rleg column" data-location="rLeg">
+      <div class="armour-header rLeg">
+        <span class="armour-label">{{localize "Right Leg"}}</span>
+        <a class="armour-total" title="Armour AP">{{actor.AP.rLeg.value}}</a>
+        <a class="shield-total" title="Shield AP{{#if actor.totalShieldDamage}} - {{actor.totalShieldDamage}} Damage{{/if}}">{{actor.AP.shield}}</a>
+        <span class="toughness-total" title="Toughness Bonus">{{actor.data.characteristics.t.bonus}}</span>
       </div>
     </div>
   </div>
