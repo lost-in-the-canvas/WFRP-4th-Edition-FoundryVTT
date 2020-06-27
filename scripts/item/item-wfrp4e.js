@@ -258,11 +258,11 @@ class ItemWfrp4e extends Item
     chatData.hasPrice = "price" in chatData.data;
     if(chatData.hasPrice)
     {
-      if(isNaN(chatData.data.price.gc))
+      if(!chatData.data.price.gc || isNaN(chatData.data.price.gc || 0))
         chatData.data.price.gc = 0;
-      if(isNaN(chatData.data.price.ss))
+      if(!chatData.data.price.ss || isNaN(chatData.data.price.ss || 0))
         chatData.data.price.ss = 0;
-      if(isNaN(chatData.data.price.bp))
+      if(!chatData.data.price.bp || isNaN(chatData.data.price.bp))
         chatData.data.price.bp = 0;
     }
 

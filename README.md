@@ -1,9 +1,9 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.5.5` 
+**[Current Version]**: `1.6.2`
 
-**[Compatibility]**: `FoundryVTT 0.5.7+`
+**[Compatibility]**: `FoundryVTT 0.6.0+`
 
 This system is intended for use with [Foundry Virtual Tabletop](http://foundryvtt.com/) to play in the grim and perilous world of Warhammer.
 
@@ -56,6 +56,7 @@ I also wanted to thank the following for the help in continuing to improve the s
 - LeRatierBretonnian
 - HerveDarritchon
 - DasSauerkraut
+- Forien
 
 
 ## Modules
@@ -66,10 +67,14 @@ I also wanted to thank the following for the help in continuing to improve the s
 
 - [Enemy in Shadows](https://github.com/moo-man/EiS-FVTT) - A wealth of content, tables, talents, spells. Also the new Dhar spellcasting mechanics! Still a WIP.
 
-- [Gerwin Waffenhalter’s Magnificent Weapons Gallery](https://github.com/DasSauerkraut/wfrp-gwmwg) - Adds new weapons and weapon traits from the Ratter Vol. 1 Issue 2.
+- [Forien's Armoury](https://github.com/Forien/foundryvtt-forien-armoury) - A comprehensive, all-in-one Armoury with tons of custom community made weapons, armour, ammunition and other trappings.
 
 - [The GM Tool Kit](https://github.com/Jagusti/fvtt-wfrp4e-gmtoolkit) - Extends to the Token HUD for more information and adds useful macros!
 
 - [WFRP Tweaks](https://github.com/DasSauerkraut/wfrp-tweaks) - A small-ish module with optional automation as well as macro support for spells, prayers, and weapons.
 
 - [Eye for an Eye Adventure](https://github.com/CStuartEKerrigan/WFRP-e4e-4e-FVTT) - Converted 3e adventure complete with tokens, maps, audio, and macros!
+
+- [Night of Blood](https://github.com/CStuartEKerrigan/WFRP-Night-of-Blood-4e-FVTT) - The classic Night of Blood Adventure ready to go!
+
+

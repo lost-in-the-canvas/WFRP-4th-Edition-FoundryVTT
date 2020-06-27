@@ -2818,8 +2818,8 @@ class ActorWfrp4e extends Actor {
         label : "Target",
         count : 0,
         AoE: false,
-        initial : parseInt(item.target),
-        current : parseInt(item.target),
+        initial : parseInt(item.target) || item.target,
+        current : parseInt(item.target) || item.target,
         unit : ""
       }
     }
@@ -2830,8 +2830,8 @@ class ActorWfrp4e extends Actor {
         label : "AoE",
         count : 0,
         AoE: true,
-        initial : parseInt(aoeValue),
-        current : parseInt(aoeValue),
+        initial : parseInt(aoeValue) || aoeValue,
+        current : parseInt(aoeValue) || aoeValue,
         unit : aoeValue.split(" ")[1]
       }
     }
@@ -2840,8 +2840,8 @@ class ActorWfrp4e extends Actor {
       item.overcasts.duration = {
         label : "Duration",
         count : 0,
-        initial : parseInt(item.duration),
-        current : parseInt(item.duration),
+        initial : parseInt(item.duration) || item.duration,
+        current : parseInt(item.duration) || item.duration,
         unit : item.duration.split(" ")[1]
       }
     }
@@ -2850,8 +2850,8 @@ class ActorWfrp4e extends Actor {
       item.overcasts.range = {
         label : "Range",
         count : 0,
-        initial : parseInt(item.range),
-        current : parseInt(item.range),
+        initial : parseInt(item.range) || aoeValue,
+        current : parseInt(item.range) || aoeValue,
         unit : item.range.split(" ")[1]
       }
     }
@@ -3135,8 +3135,7 @@ class ActorWfrp4e extends Actor {
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-      let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-                              && impale
+      let ignoreWeakpoints = opposeData.attackerTestResult.extra.critical && impale
 
       // Mitigate damage with armor one layer at a time
       for (let layer of AP.layers)
@@ -3560,6 +3559,7 @@ class ActorWfrp4e extends Actor {
           cardOptions.startMessagesList = data.startMessagesList;
         }
         delete data.preData.roll;
+        delete data.preData.SL;
         ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
         //We also set fortuneUsedAddSL to force the player to use it on the new roll
         message.update({
@@ -3626,6 +3626,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.startMessagesList = data.startMessagesList;
     }
     delete message.data.flags.data.preData.roll;
+    delete message.data.flags.data.preData.SL;
     ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }
 

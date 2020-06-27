@@ -6,54 +6,69 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
   let canApply = li => li.find(".opposed-card").length && game.user.isGM;
   let canApplyFortuneReroll = function(li){
     //Condition to have the fortune contextual options:
-    //Have a selected character
-    //Have fortune point
+    //Be owner of the actor
+    //actor have fortune point
     //Own the roll
     //Once per roll (or at least, not on a reroll card)
     //Test must be failed 
     let result = false;
-    if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
+    let message = game.messages.get(li.attr("data-message-id"));
+    
+    if(message.data.speaker.actor)
     {
-      let testcard = li.find(".test-data");
-      let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedReroll)
+      let actor = game.actors.get(message.data.speaker.actor);
+      if(actor.permission == ENTITY_PERMISSIONS.OWNER && actor.data.type == "character" && actor.data.data.status.fortune.value > 0)
       {
-        //If the test was failed
-        if(message.data.flags.data.postData.roll > message.data.flags.data.postData.target)
-          result = true;
+        let testcard = li.find(".test-data");
+        if(testcard.length && !message.data.flags.data.fortuneUsedReroll)
+        {
+          //If the test was failed
+          if(message.data.flags.data.postData.roll > message.data.flags.data.postData.target)
+            result = true;
+        }
       }
     }
     return result;
   };
   let canApplyFortuneAddSL = function(li){
     //Condition to have the fortune contextual options:
-    //Have a selected character
+    //Be owner of the actor
     //Have fortune point
     //Own the roll
     //Once per roll (or at least, not on a reroll card)
     let result = false;
-    if(game.user.character && game.user.character.data.data.status.fortune.value > 0)
+    let message = game.messages.get(li.attr("data-message-id"));
+    if(message.data.speaker.actor)
     {
-      let testcard = li.find(".test-data");
-      let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.data.speaker.actor == game.user.character._id && !message.data.flags.data.fortuneUsedAddSL)
-          result = true;
+      let actor = game.actors.get(message.data.speaker.actor);
+      if(actor.permission == ENTITY_PERMISSIONS.OWNER && actor.data.type == "character" && actor.data.data.status.fortune.value > 0)
+      {
+        let testcard = li.find(".test-data");
+        
+        if(testcard.length && !message.data.flags.data.fortuneUsedAddSL)
+            result = true;
+      }
     }
-     return result;
+    return result;
   };
   let canApplyDarkDeals = function(li){
     //Condition to have the darkdeak contextual options:
-    //Have a selected character
+    //Be owner of character
     //Own the roll
     let result = false;
-    if(game.user.character)
+    let message = game.messages.get(li.attr("data-message-id"));
+    if(message.data.speaker.actor)
     {
-      let testcard = li.find(".test-data");
-      let message = game.messages.get(li.attr("data-message-id"));
-      if(testcard.length && message.user.data.character == game.user.character._id)
-        result = true;
+      let actor = game.actors.get(message.data.speaker.actor);
+      if(actor.permission == ENTITY_PERMISSIONS.OWNER && actor.data.type == "character")
+      {
+        let testcard = li.find(".test-data");
+        
+        if(testcard.length)
+          result = true;
+      }
     }
-     return result;
+    return result;
   };
   options.push(
     {
@@ -106,7 +121,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       condition: canApplyFortuneReroll,   
       callback: li =>  {
         let message = game.messages.get(li.attr("data-message-id"));
-        game.user.character.useFortuneOnRoll(message,"reroll");
+        game.actors.get(message.data.speaker.actor).useFortuneOnRoll(message,"reroll");
       }
     },
     {
@@ -115,7 +130,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       condition: canApplyFortuneAddSL,   
       callback: li =>  {
         let message = game.messages.get(li.attr("data-message-id"));
-        game.user.character.useFortuneOnRoll(message,"addSL");
+        game.actors.get(message.data.speaker.actor).useFortuneOnRoll(message,"addSL");
       }
     },
     {
@@ -124,7 +139,7 @@ Hooks.on("getChatLogEntryContext", (html, options) => {
       condition: canApplyDarkDeals,   
       callback: li =>  {
         let message = game.messages.get(li.attr("data-message-id"));
-        game.user.character.useDarkDeal(message);
+        game.actors.get(message.data.speaker.actor).useDarkDeal(message);
       }
     })
   })
