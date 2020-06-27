@@ -151,6 +151,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
     else if (command === "/pay") {
         //The parameter is a string that will be exploded by a regular expression
         let amount = commands[1];
+        let player = commands[2];
         //If the user isnt a GM, he pays a price
         if (!game.user.isGM) {
             let actor = WFRP_Utility.getSpeaker(msg.speaker);
@@ -159,7 +160,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
             if (money)
                 actor.updateEmbeddedEntity("OwnedItem", money);
         } else //If hes a gm, it generate a "Pay" card
-            MarketWfrp4e.generatePayCard(amount);
+            MarketWfrp4e.generatePayCard(amount, player);
         return false;
     }
     // Credit commands
