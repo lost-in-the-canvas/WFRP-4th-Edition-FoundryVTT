@@ -210,6 +210,7 @@ class WFRP_Utility
    */
   static async findSkill(skillName)
   {
+    skillName = skillName.trim();
     // First try world items
     let worldItem = game.items.entities.filter(i => i.type == "skill" && i.name == skillName)[0];
     if (worldItem) return worldItem
@@ -253,6 +254,7 @@ class WFRP_Utility
    */
   static async findTalent(talentName)
   {
+    talentName = talentName.trim();
     // First try world items
     let worldItem = game.items.entities.filter(i => i.type == "talent" && i.name == talentName)[0];
     if (worldItem) return worldItem
@@ -287,6 +289,7 @@ class WFRP_Utility
    */
   static async findItem(itemName, itemType, location = null)
   {
+    itemName = itemName.trim();
     let items = game.items.entities.filter(i => i.type == itemType)
 
     // Search imported items first
@@ -673,7 +676,7 @@ class WFRP_Utility
   {
     let returnSkills = [];
 
-    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    const pack = game.packs.find(p => p.metadata.name == "skills")
 
     if (!pack)
       return ui.notifications.error("No content found")
@@ -706,7 +709,7 @@ class WFRP_Utility
   static async allMoneyItems()
   {
     let moneyItems = []
-    const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+    const trappings = game.packs.find(p => p.metadata.name == "trappings")
     
     if (!pack)
       return ui.notifications.error("No content found")

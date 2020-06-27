@@ -338,11 +338,35 @@ class ActorSheetWfrp4e extends ActorSheet {
   // Unarmed attack button (fist in the combat tab)
   html.find('.fist-icon').click(async event => {
     event.preventDefault();
-    let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
-    let weapons;
-    await pack.getIndex().then(index => weapons = index);
-    let unarmedId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Unarmed").toLowerCase());
-    let unarmed = await pack.getEntity(unarmedId._id);
+    let pack = game.packs.find(p => p.metadata.name == "trappings");
+    let unarmed
+    if (!pack)
+    {
+        unarmed = {
+          data : {
+            name : "Unarmed",
+            type : "weapon",
+            data: {
+              damage :  {value : "SB + 0"},
+              reach : {value : "personal"},
+              weaponGroup : {value : "brawling"},
+              twohanded : {value : false},
+              qualities : {value : ""},
+              flaws : {value : "Undamaging"},
+              special : {value : ""},
+              range : {value : ""},
+              ammunitionGroup : {value : ""},
+            }
+        }
+      }
+    }
+    else {
+
+      let weapons;
+      await pack.getIndex().then(index => weapons = index);
+      let unarmedId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Unarmed").toLowerCase());
+      unarmed = await pack.getEntity(unarmedId._id);
+    }
     this.actor.setupWeapon(unarmed.data)
     // Roll Fist Attack
   })
@@ -359,24 +383,64 @@ class ActorSheetWfrp4e extends ActorSheet {
     // Dodge (Arrow in the combat tab)
     html.find('.improvised-icon').click(async event => {
       event.preventDefault();
-      let pack = game.packs.find(p => p.collection == "wfrp4e.trappings");
-      let weapons;
-      await pack.getIndex().then(index => weapons = index);
-      let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised").toLowerCase());
-      let improv = await pack.getEntity(improvId._id);
+      let pack = game.packs.find(p => p.metadata.name == "trappings");
+      let improv;
+      if (!pack)
+      {
+          improv = {
+            data : {
+              name : "Improvised Weapon",
+              type : "weapon",
+              data: {
+                damage :  {value : "SB + 2"},
+                reach : {value : "personal"},
+                weaponGroup : {value : "basic"},
+                twohanded : {value : false},
+                qualities : {value : ""},
+                flaws : {value : "Undamaging"},
+                special : {value : ""},
+                range : {value : ""},
+                ammunitionGroup : {value : ""},
+              }
+          }
+        }
+      }
+      else {
+        let weapons;
+        await pack.getIndex().then(index => weapons = index);
+        let improvId = weapons.find(w => w.name.toLowerCase() == game.i18n.localize("NAME.Improvised").toLowerCase());
+        improv = await pack.getEntity(improvId._id);
+      }
       this.actor.setupWeapon(improv.data)
     })
 
     // Stomp (Creature)
     html.find('.stomp-icon').click(async event => {
       event.preventDefault();
-      let pack = game.packs.find(p => p.collection == "wfrp4e.traits");
-      let traits;
-      await pack.getIndex().then(index => traits = index);
-      let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
-      let stomp = await pack.getEntity(stompId._id);
-      stomp.data.name = game.i18n.localize("NAME.Stomp")
-      stomp.data.data.specification.value = 0;
+      let pack = game.packs.find(p => p.metadata.name == "traits");
+      let stomp;
+      if (!pack)
+      {
+          stomp = {
+            data : {
+              name : "Stomp",
+              type : "trait",
+              data: {
+                specification : {value : "4"},
+                rollable : {value : true, rollCharacteristic: "ws", bonusCharacteristic: "s", defaultDifficulty : "challenging"},
+            }
+          }
+        }
+      }
+      else 
+      {
+        let traits;
+        await pack.getIndex().then(index => traits = index);
+        let stompId = traits.find(w => w.name.toLowerCase() == "weapon");
+        stomp = await pack.getEntity(stompId._id);
+        stomp.data.name = game.i18n.localize("NAME.Stomp")
+        stomp.data.data.specification.value = 0;
+      }
       this.actor.setupTrait(stomp.data)
     })
 

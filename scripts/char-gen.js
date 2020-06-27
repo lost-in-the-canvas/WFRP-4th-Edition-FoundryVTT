@@ -14,7 +14,7 @@ class GeneratorWfrp4e
   {
     if (!WFRP4E.species)
       return ui.notifications.error("No content found")
-      
+
     renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", {species : WFRP4E.species}).then(html => {
       let chatData = WFRP_Utility.chatDataSetup(html)
       ChatMessage.create(chatData);
@@ -199,7 +199,7 @@ class GeneratorWfrp4e
    */
   static async displayCareer(careerName, species, exp, isReroll, isChosen)
   {
-    let pack = game.packs.find(p => p.collection == "wfrp4e.careers")
+    let pack = game.packs.find(p => p.metadata.name == "careers")
     let careers =  await pack.getContent();
     let careerFound;
     // Find the tier 1 rank that corresponds with the career name
