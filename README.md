@@ -1,7 +1,7 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.6.2`
+**[Current Version]**: `1.7.0`
 
 **[Compatibility]**: `FoundryVTT 0.6.0+`
 
@@ -62,10 +62,6 @@ I also wanted to thank the following for the help in continuing to improve the s
 ## Modules
 
 - [Arcane Marks & Careers](https://github.com/moo-man/Arcane-Marks-Careers-FVTT) - I've made a module out of my [homebrew supplement](https://drive.google.com/file/d/1uTy2r0EDMdcISFqqyxeIOSadtzz-OTAg/view) which can also serve as an example for others to build off of. It includes a compendium pack of all the careers as well as tables to roll for marks. 
-
-- [Rough Nights & Hard Days](https://github.com/Jagusti/fvtt-wfrp4e-rnhd) - Spearheaded by @Jagusti, namely adds gnomes to character generation!
-
-- [Enemy in Shadows](https://github.com/moo-man/EiS-FVTT) - A wealth of content, tables, talents, spells. Also the new Dhar spellcasting mechanics! Still a WIP.
 
 - [Forien's Armoury](https://github.com/Forien/foundryvtt-forien-armoury) - A comprehensive, all-in-one Armoury with tons of custom community made weapons, armour, ammunition and other trappings.
 
