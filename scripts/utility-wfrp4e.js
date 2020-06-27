@@ -674,6 +674,10 @@ class WFRP_Utility
     let returnSkills = [];
 
     const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+
+    if (!pack)
+      return ui.notifications.error("No content found")
+
     let skills = [];
     await pack.getIndex().then(index => skills = index);
     for (let sk of skills)
@@ -703,6 +707,10 @@ class WFRP_Utility
   {
     let moneyItems = []
     const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+    
+    if (!pack)
+      return ui.notifications.error("No content found")
+      
     let trappingsIndex = [];
     await trappings.getIndex().then(index => trappingsIndex = index);
 

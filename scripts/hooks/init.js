@@ -109,7 +109,7 @@ Hooks.once("init", () => {
       name: "System Migration Version",
       scope: "world",
       config: false,
-      type: Number,
+      type: String,
       default: 0
     });
 

@@ -103,6 +103,11 @@ Hooks.on("chatMessage", (html, content, msg) => {
         let conditionInput = commands[1].toLowerCase();
         // Don't require spelling, match the closest condition to the input
         let closest = WFRP_Utility.matchClosest(WFRP4E.conditions, conditionInput);
+        if (!WFRP4E.conditionDescriptions)
+        {
+            ui.notifications.error("No content found")
+            return false
+        }
         let description = WFRP4E.conditionDescriptions[closest];
         let name = WFRP4E.conditions[closest];
 

@@ -236,11 +236,11 @@ Combat.prototype._getInitiativeFormula = function(combatant) {
    game.settings.set("core", "permissions", permissions);
  }
 
- const NEEDS_MIGRATION_VERSION = 1.0;
+ const NEEDS_MIGRATION_VERSION = "1.6.2";
  let needMigration
  try 
  {
-  needMigration = game.settings.get("wfrp4e", "systemMigrationVersion") < NEEDS_MIGRATION_VERSION;
+  needMigration = !isNewerVersion(game.settings.get("wfrp4e", "systemMigrationVersion"), NEEDS_MIGRATION_VERSION)
  }
  catch 
  {
@@ -249,24 +249,16 @@ Combat.prototype._getInitiativeFormula = function(combatant) {
  if (needMigration && game.user.isGM ) 
  {
   new Dialog({
-    title: "Migration",
-    content: `<p style="color:#CCC;">A migration process is recommended for version ${game.system.data.version}. Before you do so, <b>please backup your world folder</b>. You will be reprompted for migration upon reload.<br><br>
-    Migration Details:<br>
-    - Changes Weapon data structure. Weapon damage will have to be reentered if migration is skipped.<br>
-    - Upon migration, check to verify if any existing unlinked tokens in scenes have their appropriate weapon damage values<br><br><br></p>`,
+    title: "The End Times",
+    content: `<p>Regretfully, Ranald's Blessing has run dry and 1.7 loses more than it gains.<br><br>All compendia, tables, icons, tokens, have been stripped due to the higher scrutiny towards the system.<br><br>But all is not lost, all the mechanics remain, and the same level of automation can still be achieved. I hope this doesn't ruin the premium experience Foundry offers for Warhammer Fantasy 4e. <br><br> Please contact me if you need assistance in creating items that the system can recognize and provide automation with.<br><br>- Moo Man</p>`,
     buttons: {
       migrate: {
-        label : "Begin Migration",
-        callback : html => Migration.migrateWorld()
-      },
-      skip : {
-        label : "Skip Migration",
-        callback: html => {}
+        label : "Sigmar Endures",
+        callback : () => {game.settings.set("wfrp4e", "systemMigrationVersion", game.system.data.version)}
       }
     }
   }).render(true)
- }
-})
+}
 
 Hooks.on("closePermissionConfig", () => {
   if (game.permissions["FILES_BROWSE"].length < 4)
@@ -453,6 +445,6 @@ Hooks.once('diceSoNiceReady', (dice3d) => {
     ],
     system:"wfrp-red"
   });
-});
 
-   
+});
+});

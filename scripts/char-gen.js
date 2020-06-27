@@ -12,6 +12,9 @@ class GeneratorWfrp4e
    */
   static speciesStage()
   {
+    if (!WFRP4E.species)
+      return ui.notifications.error("No content found")
+      
     renderTemplate("systems/wfrp4e/templates/chat/chargen/species-select.html", {species : WFRP4E.species}).then(html => {
       let chatData = WFRP_Utility.chatDataSetup(html)
       ChatMessage.create(chatData);
