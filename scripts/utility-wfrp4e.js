@@ -28,7 +28,7 @@ class WFRP_Utility
     if (spell.data.lore.effect)
       description += "\n\n <b>Lore:</b> " + spell.data.lore.effect;
     // Otherwise, use config value for lore effect
-    else if (WFRP4E.loreEffect[spell.data.lore.value])
+    else if (WFRP4E.loreEffect && WFRP4E.loreEffect[spell.data.lore.value])
       description += "\n\n <b>Lore:</b> " + WFRP4E.loreEffect[spell.data.lore.value];
     return description;
   }
@@ -710,7 +710,7 @@ class WFRP_Utility
     
     if (!pack)
       return ui.notifications.error("No content found")
-      
+
     let trappingsIndex = [];
     await trappings.getIndex().then(index => trappingsIndex = index);
 
