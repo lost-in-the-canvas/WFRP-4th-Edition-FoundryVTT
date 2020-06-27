@@ -322,6 +322,7 @@
     "CHARGEN.RerollCareer" : "Reroll Career",
     "CHARGEN.SpeciesInstructions" : "Choose 6 skills and drag them to your character sheet if they are not already included. Put 5 advancements in 3 of them, and 3 advancements in the other 3. These do not cost experience so avoid clicking the advancement buttons.",
     "CHARGEN.RerollInstructions" : "You may reroll any duplicate Talent.",
+    "CHARGEN.Or" : "OR",
 
     "DIALOG.CastChannel" : "Cast or Channel this spell?",
     "DIALOG.ChannelSkill" : "Channel Skill",
