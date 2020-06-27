@@ -250,7 +250,7 @@ Combat.prototype._getInitiativeFormula = function(combatant) {
  {
   new Dialog({
     title: "The End Times",
-    content: `<p>Regretfully, Ranald's Blessing has run dry and 1.7 loses more than it gains.<br><br>All compendia, tables, icons, tokens, have been stripped due to the higher scrutiny towards the system.<br><br>But all is not lost, all the mechanics remain, and the same level of automation can still be achieved. I hope this doesn't ruin the premium experience Foundry offers for Warhammer Fantasy 4e. <br><br> Please contact me if you need assistance in creating items that the system can recognize and provide automation with.<br><br>- Moo Man</p>`,
+    content: `<p>Regretfully, Ranald's Blessing has run dry and 1.7 loses more than it gains.<br><br>All compendia, tables, icons, tokens, have been stripped due to the higher scrutiny towards the system.<br><br>But all is not lost, all the mechanics remain, and the same level of automation can still be achieved. I hope this doesn't ruin the premium experience Foundry offers for Warhammer Fantasy 4e. <br><br> Please contact me if you need assistance in creating items that the system can recognize and provide automation with.<br><br>- Moo Man<br><br>PS. If you feel as I do and want to see an open avenue to include the 4e content officially, perhaps respectably reach out to Cubicle 7 and describe how important Foundry and the Warhammer system are to you. Please be amicable.</p>`,
     buttons: {
       migrate: {
         label : "Sigmar Endures",
