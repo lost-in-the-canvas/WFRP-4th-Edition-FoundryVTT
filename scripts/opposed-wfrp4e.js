@@ -148,8 +148,9 @@ class OpposedWFRP
     //Shooting at smaller targets?
 
     if (game.settings.get("wfrp4e", "weaponLength") && attacker.testResult.postFunction == "weaponOverride" && defender.testResult.postFunction == "weaponOverride" && attacker.testResult.weapon.attackType == "melee" && defender.testResult.weapon.attackType == "melee"){
-      let attackerReach = WFRP4E.reachNum[attacker.testResult.weapon.data.reach.value];
-      let defenderReach = WFRP4E.reachNum[defender.testResult.weapon.data.reach.value];
+      WFRP_Utility.findKey(attacker.testResult.weapon.data.reach.value, WFRP4E.weaponReaches)
+      let attackerReach = WFRP4E.reachNum[WFRP_Utility.findKey(attacker.testResult.weapon.data.reach.value, WFRP4E.weaponReaches)];
+      let defenderReach = WFRP4E.reachNum[WFRP_Utility.findKey(defender.testResult.weapon.data.reach.value, WFRP4E.weaponReaches)];
       if(defenderReach > attackerReach){
         didModifyAttacker = true;
         modifiers.message.push(game.i18n.format(game.i18n.localize('CHAT.TestModifiers.WeaponLength'), {defender: defenderMessage.data.speaker.alias, attacker: attackerMessage.data.speaker.alias}))
