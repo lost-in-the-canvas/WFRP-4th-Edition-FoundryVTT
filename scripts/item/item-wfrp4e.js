@@ -343,7 +343,7 @@ class ItemWfrp4e extends Item
   {
     const data = duplicate(this.data.data);
     let properties = [];
-    properties.push(`<b>${game.i18n.localize("Contraction")}:</b> data.contraction.value`);
+    properties.push(`<b>${game.i18n.localize("Contraction")}:</b> ${data.contraction.value}`);
     properties.push(`<b>${game.i18n.localize("Incubation")}:</b> <a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.incubation.value}</a>`);
     properties.push(`<b>${game.i18n.localize("Duration")}:</b> <a class = 'chat-roll'><i class='fas fa-dice'></i> ${data.duration.value}</a>`);
     properties.push(`<b>${game.i18n.localize("Symptoms")}:</b> ${(data.symptoms.value.split(",").map(i => i = "<a class ='symptom-tag'><i class='fas fa-user-injured'></i> " + i.trim() + "</a>")).join(", ")}`);
