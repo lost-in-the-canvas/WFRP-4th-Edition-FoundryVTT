@@ -47,11 +47,11 @@ class WFRP_Utility
       value: armor.data.currentAP[loc],
       armourType : armor.data.armorType.value // used for sound
     }
-    if (armor.properties.qualities.includes("Impenetrable"))
+    if (armor.properties.qualities.includes(game.i18n.localize("WFRP4E.Properties.Impenetrable")))
       layer.impenetrable = true;
-    if (armor.properties.flaws.includes("Partial"))
+    if (armor.properties.flaws.includes(game.i18n.localize("WFRP4E.Properties.Partial")))
       layer.partial = true;
-    if (armor.properties.flaws.includes("Weakpoints"))
+    if (armor.properties.flaws.includes(game.i18n.localize("WFRP4E.Properties.Weakpoints")))
       layer.weakpoints = true;
     if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
       layer.metal = true;
