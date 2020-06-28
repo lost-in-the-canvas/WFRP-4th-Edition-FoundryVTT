@@ -711,7 +711,7 @@ class WFRP_Utility
     let moneyItems = []
     const trappings = game.packs.find(p => p.metadata.name == "trappings")
     
-    if (!pack)
+    if (!trappings)
       return ui.notifications.error("No content found")
 
     let trappingsIndex = [];
