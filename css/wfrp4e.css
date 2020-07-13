@@ -838,8 +838,8 @@
     border-image-width: 9px;
     border-image-outset: 0px 0px 0px 0px;
     border-image-repeat: repeat;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     box-shadow: -2px 0px 8px #000;
   }
   #sidebar.collapsed #sidebar-tabs {
@@ -932,8 +932,8 @@
   .sidebar-popout.sidebar-directory .directory-list,
   .sidebar-tab.sidebar-directory .directory-list {
     height: auto;
-    margin: 0px 5px 0px 0px;
-    padding-right: 5px;
+    margin: 0px 0px 0px 0px;
+    padding-right: 0px;
   }
   .sidebar-popout.sidebar-directory .directory-list header,
     .sidebar-tab.sidebar-directory .directory-list header {
@@ -951,7 +951,7 @@
   .sidebar-popout.sidebar-directory .directory-list li,
     .sidebar-tab.sidebar-directory .directory-list li {
     border-bottom: 2px groove #333;
-    margin-right: 1px;
+    margin-right: 0px;
   }  
   .sidebar-popout.sidebar-directory .directory-list .subdirectory li,
     .sidebar-tab.sidebar-directory .directory-list .subdirectory li {
@@ -1402,8 +1402,8 @@
   /* ================== 3. CHAT FORM ========================== */
     #sidebar .sidebar-tab #chat-form {
       min-height: 154px;
+      width: calc(100% + 5px);
       flex: 1;
-      min-width: 376px;
       position: relative;
       bottom: 0px;
       right: 0px;
@@ -1651,7 +1651,16 @@
 
 /* ==================== (E) SIDEBAR (SCENES) ================== */
   #sidebar #scenes .directory-list .directory-item {
+    padding: 1px 3px;
     border: 3px groove #564d3a;
+    box-shadow: 0 0 6px #000 inset;
+    line-height: normal;
+    background: #000000b5;
+    font-family: var(--actor-input-font-family);
+    font-size: 16px;
+    font-weight: var(--actor-input-font-weight);
+    color: #dadada;
+    text-shadow: 1px 1px 2px black;
   }
    #scenes-popout .directory-list .directory-item .entity-name a,
     #sidebar #scenes .directory-list .directory-item .entity-name a {
@@ -1790,13 +1799,11 @@
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
     #playlists li.playlist .playlist-sounds {
-      flex: 0 0;
+      flex: 1 0;
       list-style: none;
       margin: 0;
       padding: 0;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      width: fill-available;
+      width: 100%;
     }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
@@ -1844,7 +1851,6 @@
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
-    width: 360px
   }
      #playlists-popout li.playlist:not(:first-of-type) li.sound i,
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
@@ -1887,14 +1893,14 @@
     flex: 1;
     height: calc(100% - 50px);
     list-style: none;
-    margin: 0px 5px 0px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 0;
     overflow-y: auto;
   }
    #compendium-popout .directory-list .compendium-entity h3,
     #sidebar #compendium .directory-list .compendium-entity h3 {
     padding: 9px 6px 4px 6px;
-    margin: 0px 5px;
+    margin: 0px 0px;
     border: 3px double #564d3a;
     box-shadow: 0 0 6px #000 inset;
     line-height: normal;
@@ -1917,6 +1923,7 @@
     font-weight: var(--actor-input-font-weight);
     color: #dadada;
     text-shadow: 1px 1px 2px black;
+    margin: 5px 0px 5px 0px;
   }
      #compendium-popout .directory-list .compendium-list .compendium-pack a,
       #sidebar #compendium .directory-list .compendium-list .compendium-pack a {
@@ -13193,9 +13200,9 @@ border-image-outset: 0px !important;
       }
       .app.window-app .form-group input[type="checkbox"] {
         position: relative;
-        top: 3px;
         transform: scale(1);
-        vertical-align: middle;
+        opacity: 0.75;
+        box-shadow: 0px 0px 4px inset black;
         min-width: 30px;
       }
 
@@ -13681,12 +13688,6 @@ border-image-outset: 0px !important;
       background: #1f1f1fb5;
     }
     .token-sheet .tab[data-tab="character"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 223px;
-      left: 294px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
     }
 
     .token-sheet .tab[data-tab="image"] .notes {
@@ -13761,13 +13762,6 @@ border-image-outset: 0px !important;
       text-align: center;
     }
     .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 295px;
-      left: 294px;
-      margin-top: 2px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
     }
     
     .token-sheet .tab[data-tab="vision"] .notes {
@@ -13786,13 +13780,6 @@ border-image-outset: 0px !important;
       text-align: center;
     }
     .token-sheet .tab[data-tab="vision"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 128px;
-      left: 278px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
-      margin-top: 2px;
     }
 
     .token-sheet .tab[data-tab="resources"] .notes {
@@ -16717,7 +16704,7 @@ a.entity-link, a.inline-roll {
 }
 
 .app.window-app.sheet.wfrp4e.actor .window-content .editable .content  {
-  height: calc(100% - 10.55%);
+  height: calc(100% - 4.55%);
   /* background: #ff000047; */
 }
 
@@ -16890,7 +16877,7 @@ a.entity-link, a.inline-roll {
     color: var(--major-button-color);
   }
  #calendar-settings .window-content form select,
- #calendar-settings .window-content form input,
+ #calendar-settings .window-content form input
  {
     background: #352516;
     color: #e2e2e2;
@@ -16917,9 +16904,11 @@ a.entity-link, a.inline-roll {
 }
 #calendar-time-container {
     left: 240px !important;
+    bottom: 70px !important;
 }
 #calendar {
     box-shadow: 0 0 4px black;
+    background: rgba(0, 0, 0, 0.88) !important;
     border-radius: 16px !important;
     border: 2px solid #540e0ec2 !important;
     font-family: CaslonPro;
@@ -16970,6 +16959,7 @@ a.entity-link, a.inline-roll {
   left: 240px !important;
   top: unset !important;
   box-shadow: 0 0 4px black;
+  background: rgba(0, 0, 0, 0.88) !important;
   border-radius: 16px !important;
   border: 2px solid #540e0ec2 !important;
   font-family: CaslonPro;
@@ -17002,6 +16992,7 @@ button .fas.fa-undo
 
 input[type="range"] + .range-value {
   border: 1px solid #b5b3a499;
+  padding: 6px 3px 0px 3px;
 }
 
 
