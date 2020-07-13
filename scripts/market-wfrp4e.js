@@ -342,7 +342,7 @@ class MarketWfrp4e {
      * GM Only
      * @param {String} payRequest
      */
-    static generatePayCard(payRequest) {
+    static generatePayCard(payRequest, player ) {
         let parsedPayRequest = this.parseMoneyTransactionString(payRequest);
         //If the /pay command has a syntax error, we display an error message to the gm
         if (!parsedPayRequest) {
@@ -358,7 +358,7 @@ class MarketWfrp4e {
                 QtBP: parsedPayRequest.bp
             };
             renderTemplate("systems/wfrp4e/templates/chat/market-pay.html", cardData).then(html => {
-                let chatData = WFRP_Utility.chatDataSetup(html, "roll");
+                let chatData = WFRP_Utility.chatDataSetup(html, "roll", false, player);
                 ChatMessage.create(chatData);
             });
         }

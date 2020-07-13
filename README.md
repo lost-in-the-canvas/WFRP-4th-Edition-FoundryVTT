@@ -1,7 +1,7 @@
 # Warhammer Fantasy Role-Play 4th Ed. (FoundryVTT)
 
 ![](https://i.imgur.com/esCwB7f.png)
-**[Current Version]**: `1.6.1` 
+**[Current Version]**: `1.6.2`
 
 **[Compatibility]**: `FoundryVTT 0.6.0+`
 
@@ -56,6 +56,7 @@ I also wanted to thank the following for the help in continuing to improve the s
 - LeRatierBretonnian
 - HerveDarritchon
 - DasSauerkraut
+- Forien
 
 
 ## Modules

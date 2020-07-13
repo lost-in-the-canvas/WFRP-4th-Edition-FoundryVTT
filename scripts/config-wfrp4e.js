@@ -617,6 +617,7 @@ WFRP4E.qualityDescriptions = {
     "pistol": "WFRP4E.Properties.Pistol",
     "precise": "WFRP4E.Properties.Precise",
     "pummel": "WFRP4E.Properties.Pummel",
+    "distract": "PROPERTY.Distract",
     "repeater": "WFRP4E.Properties.Repeater",
     "shield": "WFRP4E.Properties.Shield",
     "trapblade": "WFRP4E.Properties.Trapblade",
@@ -952,6 +953,16 @@ WFRP4E.randomExp = {
     careerReroll: 25,
     statsRand: 50,
     statsReorder: 25
+}
+
+WFRP4E.reachNum = {
+    "personal": 1,
+    "vshort": 2,
+    "short": 3,
+    "average": 4,
+    "long": 5,
+    "vLong": 6,
+    "massive": 7,
 }
 
 WFRP4E.traitBonuses = {

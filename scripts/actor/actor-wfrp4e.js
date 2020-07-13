@@ -3135,8 +3135,7 @@ class ActorWfrp4e extends Actor {
       }
       // see if armor flaws should be triggered
       let ignorePartial = opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical
-      let ignoreWeakpoints = (opposeData.attackerTestResult.roll % 2 == 0 || opposeData.attackerTestResult.extra.critical)
-                              && impale
+      let ignoreWeakpoints = opposeData.attackerTestResult.extra.critical && impale
 
       // Mitigate damage with armor one layer at a time
       for (let layer of AP.layers)
@@ -3528,6 +3527,7 @@ class ActorWfrp4e extends Actor {
   {
     if(this.data.data.status.fortune.value > 0)
     {
+      message.data.flags.data.preData.roll = undefined;
       let data = message.data.flags.data;
       let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
       //First we send a message to the chat
@@ -3544,6 +3544,8 @@ class ActorWfrp4e extends Actor {
       if(type=="reroll")
       {
         cardOptions.fortuneUsedReroll = true;
+        cardOptions.hasBeenCalculated = false;
+        cardOptions.calculatedMessage = [];
         //It was an unopposed targeted test who failed
         if(data.originalTargets && data.originalTargets.size>0)
         {
@@ -3557,12 +3559,14 @@ class ActorWfrp4e extends Actor {
           cardOptions.startMessagesList = data.startMessagesList;
         }
         delete data.preData.roll;
+        delete data.preData.SL;
         ActorWfrp4e[data.postData.postFunction](data.preData,cardOptions);
         //We also set fortuneUsedAddSL to force the player to use it on the new roll
         message.update({
           "flags.data.fortuneUsedReroll" : true,
           "flags.data.fortuneUsedAddSL" : true
         });
+
       }
       else //addSL
       {
@@ -3600,10 +3604,15 @@ class ActorWfrp4e extends Actor {
     html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
     ChatMessage.create(WFRP_Utility.chatDataSetup(html));
     this.update({"data.status.corruption.value" : corruption});
+
+    message.data.flags.data.preData.roll = undefined;
     let cardOptions = this.preparePostRollAction(message);
     let data = message.data.flags.data;
     cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
     cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    cardOptions.hasBeenCalculated = false;
+    cardOptions.calculatedMessage = [];
+
     //It was an unopposed targeted test who failed
     if(data.originalTargets && data.originalTargets.size>0)
     {
@@ -3617,6 +3626,7 @@ class ActorWfrp4e extends Actor {
       cardOptions.startMessagesList = data.startMessagesList;
     }
     delete message.data.flags.data.preData.roll;
+    delete message.data.flags.data.preData.SL;
     ActorWfrp4e[message.data.flags.data.postData.postFunction](message.data.flags.data.preData,cardOptions);
   }
 
