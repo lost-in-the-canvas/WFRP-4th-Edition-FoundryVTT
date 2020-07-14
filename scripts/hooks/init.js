@@ -109,7 +109,7 @@ Hooks.once("init", () => {
       name: "System Migration Version",
       scope: "world",
       config: false,
-      type: Number,
+      type: String,
       default: 0
     });
 
@@ -309,6 +309,15 @@ Hooks.once("init", () => {
       game.settings.register("wfrp4e", "manualChatCards", {
         name: "SETTINGS.ManualChatCards",
         hint: "SETTINGS.ManualChatCardsHint",
+        scope: "client",
+        config: true,
+        default: false,
+        type: Boolean
+      });
+
+      game.settings.register("wfrp4e", "weaponLength", {
+        name: "SETTINGS.WeaponLength",
+        hint: "SETTINGS.WeaponLengthHint",
         scope: "client",
         config: true,
         default: false,

@@ -2,7 +2,7 @@
   "name": "wfrp4e",
   "title": "Warhammer Fantasy Roleplay 4th Edition",
   "description": "A comprehensive system for running grim and perilious games of Warhammer Fantasy Role-play in the Foundry VTT environment.",
-  "version": "1.6.2",
+  "version": "2.0.3",
   "author": "CatoThe1stElder, Moo Man",
   "scripts": [
     "./scripts/config-wfrp4e.js",
@@ -47,126 +47,7 @@
     "./pixi/aoe.js"
   ],
   "styles": ["./css/wfrp4e.css"],
-  "packs": [
-  	{
-      "name": "bestiary",
-      "label": "Bestiary",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/bestiary.db",
-      "entity": "Actor",
-      "tag" : "actor"
-    },
-    {
-      "name": "careers",
-      "label": "Careers",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/careers.db",
-      "entity": "Item",
-      "tag" : "career"
-    },
-    {
-      "name": "criticals",
-      "label": "Criticals",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/criticals.db",
-      "entity": "Item",
-      "tag" : "critical"
-
-    },
-  	 {
-      "name": "skills",
-      "label": "Skills",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/skills.db",
-      "entity": "Item",
-      "tag" : "skill"
-    },
-    {
-      "name": "talents",
-      "label": "Talents",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/talents.db",
-      "entity": "Item",
-      "tag" : "talent"
-    },
-    {
-      "name": "traits",
-      "label": "Traits",
-      "system": "wfrp4e",
-      "module": "wfrp4e",
-      "path": "./packs/traits.db",
-      "entity": "Item",
-      "tag" : "trait"
-    },
-    {
-      "name": "psychologies",
-      "label": "Psychologies",
-      "path": "./packs/psychologies.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "pyschology"
-    },
-    {
-      "name": "mutations",
-      "label": "Mutations",
-      "path": "./packs/mutations.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "mutation"
-    },
-    {
-      "name": "injuries",
-      "label": "Injuries",
-      "path": "./packs/injuries.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "injury"
-    },
-    {
-      "name": "diseases",
-      "label": "Diseases",
-      "path": "./packs/diseases.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "disease"
-    },
-    {
-      "name": "spells",
-      "label": "Spells",
-      "path": "./packs/spells.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "spell"
-    },
-	{
-      "name": "prayers",
-      "label": "Prayers",
-      "path": "./packs/prayers.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "prayer"
-    },
-    {
-      "name": "trappings",
-      "label": "Trappings",
-      "path": "./packs/trappings.db",
-      "entity": "Item",
-      "module": "wfrp4e",
-      "system": "wfrp4e",
-      "tag" : "trapping"
-    }
-  ],
+  "packs": [],
   "languages": [
     {
       "lang": "en",
@@ -183,7 +64,7 @@
   "compatibleCoreVersion" : "0.6.2",
   "templateVersion":2,
   "socket": true,
-  "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
-  "download" :  "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/archive/stable.zip",
-  "url" : "https://github.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT"
+  "manifest" :  "https://raw.githubusercontent.com/moo-man/WFRP4e-FoundryVTT/master/system.json",
+  "download" :  "https://github.com/moo-man/WFRP4e-FoundryVTT/archive/master.zip",
+  "url" : "https://github.com/moo-man/WFRP4e-FoundryVTT"
 }

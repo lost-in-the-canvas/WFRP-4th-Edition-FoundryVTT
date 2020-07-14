@@ -13130,7 +13130,7 @@ border-image-outset: 0px !important;
     flex-direction: column;
     flex-wrap: nowrap;
     overflow-y: auto;
-    padding: 0px 7px 3px 7px;
+    padding: 0px 7px 7px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
     border: 1px solid blue;
@@ -13140,7 +13140,8 @@ border-image-outset: 0px !important;
     border-image-width: 10px 13px 13px 13px;
     border-image-outset: 0px;
     height: fit-content;
-    max-height: none;
+    max-height: fit-content;
+    min-height: auto;
   }
     .app.window-app h4 {
       font-family: var(--actor-input-font-family);

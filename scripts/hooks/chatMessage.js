@@ -103,6 +103,11 @@ Hooks.on("chatMessage", (html, content, msg) => {
         let conditionInput = commands[1].toLowerCase();
         // Don't require spelling, match the closest condition to the input
         let closest = WFRP_Utility.matchClosest(WFRP4E.conditions, conditionInput);
+        if (!WFRP4E.conditionDescriptions)
+        {
+            ui.notifications.error("No content found")
+            return false
+        }
         let description = WFRP4E.conditionDescriptions[closest];
         let name = WFRP4E.conditions[closest];
 
@@ -146,6 +151,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
     else if (command === "/pay") {
         //The parameter is a string that will be exploded by a regular expression
         let amount = commands[1];
+        let player = commands[2];
         //If the user isnt a GM, he pays a price
         if (!game.user.isGM) {
             let actor = WFRP_Utility.getSpeaker(msg.speaker);
@@ -154,7 +160,7 @@ Hooks.on("chatMessage", (html, content, msg) => {
             if (money)
                 actor.updateEmbeddedEntity("OwnedItem", money);
         } else //If hes a gm, it generate a "Pay" card
-            MarketWfrp4e.generatePayCard(amount);
+            MarketWfrp4e.generatePayCard(amount, player);
         return false;
     }
     // Credit commands

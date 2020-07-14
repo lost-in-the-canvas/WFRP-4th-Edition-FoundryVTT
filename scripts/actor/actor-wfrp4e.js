@@ -50,8 +50,8 @@ class ActorWfrp4e extends Actor {
       autoCalcCorruption :  true,
       autoCalcEnc :  true
     }
-    let basicSkills = await WFRP_Utility.allBasicSkills();
-    let moneyItems = await WFRP_Utility.allMoneyItems()
+    let basicSkills = await WFRP_Utility.allBasicSkills() || [];
+    let moneyItems = await WFRP_Utility.allMoneyItems() || [];
     moneyItems = moneyItems.sort((a, b) => (a.data.coinValue.value > b.data.coinValue.value) ? -1 : 1);
 
     // If character, automatically add basic skills and money items
@@ -3527,6 +3527,7 @@ class ActorWfrp4e extends Actor {
   {
     if(this.data.data.status.fortune.value > 0)
     {
+      message.data.flags.data.preData.roll = undefined;
       let data = message.data.flags.data;
       let html = `<h3 class="center"><b>${game.i18n.localize("FORTUNE.Use")}</b></h3>`;
       //First we send a message to the chat
@@ -3543,6 +3544,8 @@ class ActorWfrp4e extends Actor {
       if(type=="reroll")
       {
         cardOptions.fortuneUsedReroll = true;
+        cardOptions.hasBeenCalculated = false;
+        cardOptions.calculatedMessage = [];
         //It was an unopposed targeted test who failed
         if(data.originalTargets && data.originalTargets.size>0)
         {
@@ -3563,6 +3566,7 @@ class ActorWfrp4e extends Actor {
           "flags.data.fortuneUsedReroll" : true,
           "flags.data.fortuneUsedAddSL" : true
         });
+
       }
       else //addSL
       {
@@ -3600,10 +3604,15 @@ class ActorWfrp4e extends Actor {
     html += `<b>${game.i18n.localize("Corruption")}: </b>${corruption}/${this.data.data.status.corruption.max}`;
     ChatMessage.create(WFRP_Utility.chatDataSetup(html));
     this.update({"data.status.corruption.value" : corruption});
+
+    message.data.flags.data.preData.roll = undefined;
     let cardOptions = this.preparePostRollAction(message);
     let data = message.data.flags.data;
     cardOptions.fortuneUsedReroll = data.fortuneUsedReroll;
     cardOptions.fortuneUsedAddSL = data.fortuneUsedAddSL;
+    cardOptions.hasBeenCalculated = false;
+    cardOptions.calculatedMessage = [];
+
     //It was an unopposed targeted test who failed
     if(data.originalTargets && data.originalTargets.size>0)
     {

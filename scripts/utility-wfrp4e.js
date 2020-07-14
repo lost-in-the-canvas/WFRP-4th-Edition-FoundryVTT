@@ -28,7 +28,7 @@ class WFRP_Utility
     if (spell.data.lore.effect)
       description += "\n\n <b>Lore:</b> " + spell.data.lore.effect;
     // Otherwise, use config value for lore effect
-    else if (WFRP4E.loreEffect[spell.data.lore.value])
+    else if (WFRP4E.loreEffect && WFRP4E.loreEffect[spell.data.lore.value])
       description += "\n\n <b>Lore:</b> " + WFRP4E.loreEffect[spell.data.lore.value];
     return description;
   }
@@ -47,11 +47,11 @@ class WFRP_Utility
       value: armor.data.currentAP[loc],
       armourType : armor.data.armorType.value // used for sound
     }
-    if (armor.properties.qualities.includes("Impenetrable"))
+    if (armor.properties.qualities.includes(game.i18n.localize("WFRP4E.Properties.Impenetrable")))
       layer.impenetrable = true;
-    if (armor.properties.flaws.includes("Partial"))
+    if (armor.properties.flaws.includes(game.i18n.localize("WFRP4E.Properties.Partial")))
       layer.partial = true;
-    if (armor.properties.flaws.includes("Weakpoints"))
+    if (armor.properties.flaws.includes(game.i18n.localize("WFRP4E.Properties.Weakpoints")))
       layer.weakpoints = true;
     if (armor.data.armorType.value == "plate" || armor.data.armorType.value == "mail")
       layer.metal = true;
@@ -210,6 +210,7 @@ class WFRP_Utility
    */
   static async findSkill(skillName)
   {
+    skillName = skillName.trim();
     // First try world items
     let worldItem = game.items.entities.filter(i => i.type == "skill" && i.name == skillName)[0];
     if (worldItem) return worldItem
@@ -253,6 +254,7 @@ class WFRP_Utility
    */
   static async findTalent(talentName)
   {
+    talentName = talentName.trim();
     // First try world items
     let worldItem = game.items.entities.filter(i => i.type == "talent" && i.name == talentName)[0];
     if (worldItem) return worldItem
@@ -287,6 +289,7 @@ class WFRP_Utility
    */
   static async findItem(itemName, itemType, location = null)
   {
+    itemName = itemName.trim();
     let items = game.items.entities.filter(i => i.type == itemType)
 
     // Search imported items first
@@ -673,7 +676,11 @@ class WFRP_Utility
   {
     let returnSkills = [];
 
-    const pack = game.packs.find(p => p.collection == "wfrp4e.skills")
+    const pack = game.packs.find(p => p.metadata.name == "skills")
+
+    if (!pack)
+      return ui.notifications.error("No content found")
+
     let skills = [];
     await pack.getIndex().then(index => skills = index);
     for (let sk of skills)
@@ -702,7 +709,11 @@ class WFRP_Utility
   static async allMoneyItems()
   {
     let moneyItems = []
-    const trappings = game.packs.find(p => p.collection == "wfrp4e.trappings")
+    const trappings = game.packs.find(p => p.metadata.name == "trappings")
+    
+    if (!trappings)
+      return ui.notifications.error("No content found")
+
     let trappingsIndex = [];
     await trappings.getIndex().then(index => trappingsIndex = index);
 
@@ -879,6 +890,44 @@ class WFRP_Utility
     let payString = $(event.currentTarget).attr("data-pay")
     if (game.user.isGM)
       MarketWfrp4e.generatePayCard(payString);
+  }
+
+   /**
+   * Convert's a weapons length to an integer
+   * 
+   * @param {String} weaponLength the weapon's length
+   */
+  static evalWeaponLength(weaponLength)
+  {
+    let reach = 0
+    switch(weaponLength)
+    {
+      case game.i18n.localize('WFRP4E.Reach.Personal'):
+        reach = 1;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.VShort'):
+        reach = 2;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Short'):
+        reach = 3;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Average'):
+        reach = 4;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Long'):
+        reach = 5;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.VLong'):
+        reach = 6;
+        break;
+      case game.i18n.localize('WFRP4E.Reach.Massive'):
+        reach = 7;
+        break;
+      default:
+        break;
+    }
+
+    return reach
   }
 
   /**
