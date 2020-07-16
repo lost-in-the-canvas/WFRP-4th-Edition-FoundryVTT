@@ -821,7 +821,7 @@
     flex: 1;
     height: calc(100vh - 54px);
     margin: 0px 0px 0px 80px;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 3px 0px 0px;
   }
 
   #sidebar.collapsed {
@@ -838,8 +838,8 @@
     border-image-width: 9px;
     border-image-outset: 0px 0px 0px 0px;
     border-image-repeat: repeat;
-    border-top-left-radius: 7px;
-    border-bottom-left-radius: 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     box-shadow: -2px 0px 8px #000;
   }
   #sidebar.collapsed #sidebar-tabs {
@@ -932,8 +932,8 @@
   .sidebar-popout.sidebar-directory .directory-list,
   .sidebar-tab.sidebar-directory .directory-list {
     height: auto;
-    margin: 0px 5px 0px 0px;
-    padding-right: 5px;
+    margin: 0px 0px 0px 0px;
+    padding-right: 0px;
   }
   .sidebar-popout.sidebar-directory .directory-list header,
     .sidebar-tab.sidebar-directory .directory-list header {
@@ -951,7 +951,7 @@
   .sidebar-popout.sidebar-directory .directory-list li,
     .sidebar-tab.sidebar-directory .directory-list li {
     border-bottom: 2px groove #333;
-    margin-right: 1px;
+    margin-right: 0px;
   }  
   .sidebar-popout.sidebar-directory .directory-list .subdirectory li,
     .sidebar-tab.sidebar-directory .directory-list .subdirectory li {
@@ -1402,8 +1402,8 @@
   /* ================== 3. CHAT FORM ========================== */
     #sidebar .sidebar-tab #chat-form {
       min-height: 154px;
+      width: calc(100% + 5px);
       flex: 1;
-      min-width: 376px;
       position: relative;
       bottom: 0px;
       right: 0px;
@@ -1651,7 +1651,16 @@
 
 /* ==================== (E) SIDEBAR (SCENES) ================== */
   #sidebar #scenes .directory-list .directory-item {
+    padding: 1px 3px;
     border: 3px groove #564d3a;
+    box-shadow: 0 0 6px #000 inset;
+    line-height: normal;
+    background: #000000b5;
+    font-family: var(--actor-input-font-family);
+    font-size: 16px;
+    font-weight: var(--actor-input-font-weight);
+    color: #dadada;
+    text-shadow: 1px 1px 2px black;
   }
    #scenes-popout .directory-list .directory-item .entity-name a,
     #sidebar #scenes .directory-list .directory-item .entity-name a {
@@ -1790,13 +1799,11 @@
       background-image: linear-gradient(to right, #820f0f , #82820d);
     }
     #playlists li.playlist .playlist-sounds {
-      flex: 0 0;
+      flex: 1 0;
       list-style: none;
       margin: 0;
       padding: 0;
-      width: -webkit-fill-available;
-      width: -moz-available;
-      width: fill-available;
+      width: 100%;
     }
 
   #playlists-popout li.playlist:not(:first-of-type) .playlist-header,
@@ -1844,7 +1851,6 @@
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
     color: #d6d6d6;
-    width: 360px
   }
      #playlists-popout li.playlist:not(:first-of-type) li.sound i,
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound i {
@@ -1877,7 +1883,9 @@
       #sidebar #playlists li.playlist:not(:first-of-type) li.sound .sound-volume::-webkit-slider-runnable-track {
       background-image: linear-gradient(to right, #230da5 , #076d1c);
     }
-
+    .app.window-app #playlist-create .form-group input[type="checkbox"] {
+        top: 7px;
+    }
 
 /* ==================== (J) SIDEBAR (COMPENDIUM) ============== */
    #compendium-popout .directory-list,
@@ -1885,14 +1893,14 @@
     flex: 1;
     height: calc(100% - 50px);
     list-style: none;
-    margin: 0px 5px 0px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 0;
     overflow-y: auto;
   }
    #compendium-popout .directory-list .compendium-entity h3,
     #sidebar #compendium .directory-list .compendium-entity h3 {
     padding: 9px 6px 4px 6px;
-    margin: 0px 5px;
+    margin: 0px 0px;
     border: 3px double #564d3a;
     box-shadow: 0 0 6px #000 inset;
     line-height: normal;
@@ -1915,6 +1923,7 @@
     font-weight: var(--actor-input-font-weight);
     color: #dadada;
     text-shadow: 1px 1px 2px black;
+    margin: 5px 0px 5px 0px;
   }
      #compendium-popout .directory-list .compendium-list .compendium-pack a,
       #sidebar #compendium .directory-list .compendium-list .compendium-pack a {
@@ -3805,14 +3814,14 @@
 /* ==================== (E) TAB SELECTIONS ==================== */
   .app.window-app.sheet.wfrp4e.actor #tab-sections {
     width: inherit;
-    height: calc(100% - 195px);
+    height: calc(100% - 210px);
     padding: 0px;
     margin: 0px;
-    /* background: var(--debug-background-color-green); */
+    background: var(--debug-background-color-green);
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet #tab-sections .content .tab.main.save-scroll.active {
     display: block;
-    height: 100%;
+    height: calc(100% - 22px);
   }
     .app.window-app.sheet.wfrp4e.actor.character-sheet .sheet-tabs > .item {
       line-height: 20px;
@@ -4548,7 +4557,7 @@
   /* ================== 4. CAREER LIST ======================== */
     .app.window-app.sheet.wfrp4e.actor.character-sheet .tab.main.active .career-list {
       width: 100%;
-      height: calc(100% - 249px);
+      height: calc(100% - 227px);
       margin: 6px 0px 0px 0px;
       padding: 0px;
       text-align: center;
@@ -7151,14 +7160,12 @@
 
 /* ==================== (L) TRAPPING TAB ====================== */    
   .app.window-app.sheet.wfrp4e.actor .tab.inventory.active {
-    /* display: block; */
     height: 100%;
     width: 100%;
     margin: 6px 0px 0px 0px;
     padding: 0px 3px 0px 0px;
     overflow-x: hidden;
     overflow-y: scroll;
-    /* background: blue; */
   }
 
   /* ================== 1. ENCUMBRANCE COUNTER ================ */
@@ -7210,7 +7217,7 @@
     .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .encumbrance-header {
       width: 100%;
       height: 20px;
-      margin: 6px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
       padding: 0px 2px 0px 6px;
       border: 1px solid #736953a6;
       font-family: var(--actor-label-font-family);
@@ -8914,7 +8921,6 @@
 
 /* ==================== (M) NOTES TAB ========================= */  
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active {
-    display: inline-block;
     height: 100%;
     width: 100%;
     margin: 6px 0px 0px 0px;
@@ -13130,7 +13136,7 @@ border-image-outset: 0px !important;
     flex-direction: column;
     flex-wrap: nowrap;
     overflow-y: auto;
-    padding: 0px 7px 3px 7px;
+    padding: 4px 7px 3px 7px;
     margin: 0px;
     box-shadow: 0px 0px 20px black inset;
     border: 1px solid blue;
@@ -13175,7 +13181,7 @@ border-image-outset: 0px !important;
         color: #d6d6d6;
         line-height: normal;
         text-align: center;
-        padding: 4px 3px;
+        padding: 3px 3px;
         border: 1px solid #5d513e;
         background: #080808;
       }
@@ -13191,8 +13197,9 @@ border-image-outset: 0px !important;
       }
       .app.window-app .form-group input[type="checkbox"] {
         position: relative;
-        top: 3px;
         transform: scale(1);
+        opacity: 0.75;
+        box-shadow: 0px 0px 4px inset black;
         min-width: 30px;
       }
 
@@ -13621,7 +13628,7 @@ border-image-outset: 0px !important;
 
   /* ================== 9. TOKEN CONFIG ======================= */
     .token-sheet {
-      min-height: 390px;
+      min-height: fit-content;
     }
     .token-sheet .window-content {
       min-height: 424px;
@@ -13678,12 +13685,6 @@ border-image-outset: 0px !important;
       background: #1f1f1fb5;
     }
     .token-sheet .tab[data-tab="character"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 223px;
-      left: 294px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
     }
 
     .token-sheet .tab[data-tab="image"] .notes {
@@ -13758,13 +13759,6 @@ border-image-outset: 0px !important;
       text-align: center;
     }
     .token-sheet .tab[data-tab="position"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 295px;
-      left: 294px;
-      margin-top: 2px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
     }
     
     .token-sheet .tab[data-tab="vision"] .notes {
@@ -13783,13 +13777,6 @@ border-image-outset: 0px !important;
       text-align: center;
     }
     .token-sheet .tab[data-tab="vision"] input[type="checkbox"] {
-      transform: scale(1);
-      position: absolute;
-      top: 128px;
-      left: 278px;
-      opacity: 0.75;
-      box-shadow: 0px 0px 4px inset black;
-      margin-top: 2px;
     }
 
     .token-sheet .tab[data-tab="resources"] .notes {
@@ -15444,11 +15431,12 @@ font-style : normal;
 
 .overcast-options {
   display: flex;
+  justify-content: space-around;
 }
 
 .overcast-section {
   flex: 0.35;
-  margin-right: 25px;
+  margin: 0px 0% 0px 0%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -16657,12 +16645,12 @@ input[name="dd-import.importPath"] {
 }
 a.entity-link, a.inline-roll {
     border-radius: 2px;
-    border: 1px solid #b9935e99;
+    border: 1px solid #ffa93087;
     white-space: nowrap;
     word-break: break-all;
     padding: 2px 2px 0px 2px;
-    box-shadow: inset 0px 0px 4px #b932ae;
-    background: #9e009e1f;
+    box-shadow: inset 0px 0px 4px #e02b11;
+    background: #ce731640;
     color: black;
 }
 .sidebar-tab.compendium.flexcol .directory-list {
@@ -16714,8 +16702,8 @@ a.entity-link, a.inline-roll {
 }
 
 .app.window-app.sheet.wfrp4e.actor .window-content .editable .content  {
-  height: calc(100% - 10.55%);
-  /* background: #ff000047; */
+  height: calc(100% - 30px);
+  background: #ff000047;
 }
 
 
@@ -16787,4 +16775,250 @@ a.entity-link, a.inline-roll {
 
 .app.window-app .window-header > a {
   z-index: 5
+}
+
+
+/* Calendar */
+#calendar-settings ul,
+#calendar-settings ol {
+    margin: 0.5em 0;
+    padding: 0 0 0 0;
+}
+#calendar-settings button[class="calendar-form-weekday-del"],
+#calendar-settings button[class="calendar-form-month-del"] {
+  background: rgba(95, 3, 3, 0.7);
+  border: 2px ridge #a5a5a5;
+  color: #a5a5a5;
+  box-shadow: 0px 0px 4px black inset;
+  margin: 0.2em 0px 0.2em 0px;
+  padding: 0px 0px;
+}
+  #calendar-settings .window-content {
+    background-image: url(../ui/frames/window-app-background-calendar.png) !important;
+    background-size: cover;
+    padding: 0.4em;
+  }
+  #calendar-settings .window-content form {
+    padding: 0 0.4em 0 0;
+    font-family: CaslonPro;
+  }
+  #calendar-settings .window-content form ol li {
+    background: #312e2966;
+    border-radius: 5px;
+    border: none;
+  }
+  #calendar-settings .window-content form ol li(odd) {
+    background: #7d5211d1;
+  }
+  #calendar-settings .window-content h1 {
+    width: 100%;
+      margin: 0px;
+      padding: 0px;
+      color: #ccc6c6;
+      font-family: CaslonAntique;
+      font-size: 24px;
+      font-weight: 500;
+      text-shadow: 1px 1px 5px #000000;
+      text-align: center;
+      border: 3px double #736953a6;
+      background: #310a0a91;
+      box-shadow: inset 0px 0px 5px black;
+  }
+  #calendar-settings .window-content h2 {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    color: #ccc6c6;
+    font-family: CaslonAntique;
+    font-size: 20px;
+    font-weight: 500;
+    text-shadow: 1px 1px 5px #000000;
+    text-align: center;
+    border: 3px double #736953a6;
+    background: #0a2c3191;
+    box-shadow: inset 0px 0px 5px black;
+  }
+  #calendar-settings .window-content form > div {
+    margin: 0.5em 0px;
+    flex: 2;
+    line-height: normal;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    background: #000000e8;
+    border-radius: 0px;
+    opacity: 0.9;
+    color: #efefef;
+    padding: 6px;
+    font-family: CaslonPro;
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+  }
+  #calendar-form-add-month,
+  #calendar-form-load-default,
+  #calendar-form-add-weekday,
+  .app.window-app .window-content footer button {
+    width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
+    margin: 0 3px 4px 3px;
+    border: 1px solid black;
+    border-image: url(../ui/footer-button.png) 10 repeat;
+    border-image-width: 4px;
+    border-image-outset: 0px;
+    box-shadow: none;
+    background: url(../ui/sidebar_button-background_red.png) repeat;
+    background-origin: padding-box;
+    font-family: var(--major-button-font-family);
+    font-size: var(--major-button-font-size);
+    font-weight: var(--major-button-font-weight);
+    color: var(--major-button-color);
+  }
+ #calendar-settings .window-content form select,
+ #calendar-settings .window-content form input
+ {
+    background: #352516;
+    color: #e2e2e2;
+    border: 1px solid #736953a6;
+    box-shadow: 0px 0px 10px inset black;
+    border-radius: 4px;
+    padding: 0.2em 0.1em 0.1em 0.1em;
+    text-overflow: ellipsis;
+    font-family: CaslonPro;
+    font-weight: 500;
+    font-size: 14px;
+ }
+
+.calendar-form-container {
+  background: none !important;
+}
+#calendar-hdr {
+  color: #CCC !important;
+   opacity: 0.85;
+}
+#calendar-weather {
+  color: #CCC !important;
+   opacity: 0.85;
+}
+#calendar-time-container {
+    left: 240px !important;
+    bottom: 70px !important;
+}
+#calendar {
+    box-shadow: 0 0 4px black;
+    background: rgba(0, 0, 0, 0.88) !important;
+    border-radius: 16px !important;
+    border: 2px solid #540e0ec2 !important;
+    font-family: CaslonPro;
+}
+  .calendar-container {
+      padding-top: 0px !important;
+  }
+
+.calendar-btn-container-left {
+  color: #CCC !important;
+  opacity: 0.85;
+}
+  #calendar-btn-sec {
+    color: #CCC !important;
+    opacity: 0.85;
+  }
+  #calendar-btn-halfMin {
+    color: #CCC !important;
+    opacity: 0.85;
+  }
+.calendar-weekday-time {
+  color: #CCC !important;
+  opacity: 0.85;
+}
+.calendar-btn-container-right {
+  color: #CCC !important;
+  opacity: 0.85;
+}
+#calendar-btn-min,
+#calendar-btn-fiveMin {
+  transform: scale(0.75);
+}
+#calender-time-running {
+  position: relative;
+  top: -4px;
+  left: 2px;
+}
+
+.calendar-form-weekday-container,
+.calendar-form-month-container {
+  margin: 4px 0 !important;
+  border: none !important;
+}
+
+/* Calendar Weather Window */
+#calendar-weather-container {
+  bottom: 173px !important;
+  left: 240px !important;
+  top: unset !important;
+  box-shadow: 0 0 4px black;
+  background: rgba(0, 0, 0, 0.88) !important;
+  border-radius: 16px !important;
+  border: 2px solid #540e0ec2 !important;
+  font-family: CaslonPro;
+}
+#calendar-weather-precip {
+  margin-top: 0.1em;
+}
+#calendar-weather-climate {
+  margin-left: 0.4em;
+  font-family: CaslonPro;
+  color: #ffffffb8;
+  box-shadow: 0px 0px 6px black inset;
+  border: 1px solid #540e0ec2 !important;
+  background: rgb(45, 22, 9) !important;
+}
+
+
+
+
+
+
+button .far.fa-save,
+button .fas.fa-plus,
+button .far.fa-trash-alt,
+button .fas.fa-undo
+ {
+  position: relative;
+  top: 2px
+}
+
+input[type="range"] + .range-value {
+  border: 1px solid #b5b3a499;
+  padding: 6px 3px 0px 3px;
+}
+
+
+/* FORIEN'S QUEST LOG */
+#forien-quest-log .window-header .help {
+  color: #00e5ff00;
+  text-align: center;
+  background: url(../ui/buttons/button-help.png);
+  height: 30px;
+  width: 30px;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  order: 5;
+  position: absolute;
+  top: 9px;
+  right: 37px;
+}
+
+#forien-quest-log .window-content,
+#forien-quest-log-form .window-content {
+  background-image: url(../ui/frames/parchment-texture.png);
+  font-family: CaslonPro;
+  padding: 0.4em;
+  overflow-y: hidden;
+}
+#forien-quest-log .window-content form,
+#forien-quest-log-form .window-content form {
+  overflow-y: scroll;
+  padding: 0.4em;
 }
