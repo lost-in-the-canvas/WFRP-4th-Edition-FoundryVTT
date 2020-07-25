@@ -3386,7 +3386,7 @@
   }
   .app.window-app.sheet.wfrp4e.actor .window-resizable-handle {
     /* display: none !important; */
-    bottom: 9px;
+    bottom: 8px;
     right: 14px;
   }
 
@@ -3817,7 +3817,7 @@
     height: calc(100% - 210px);
     padding: 0px;
     margin: 0px;
-    background: var(--debug-background-color-green);
+    /* background: var(--debug-background-color-green); */
   }
   .app.window-app.sheet.wfrp4e.actor.character-sheet #tab-sections .content .tab.main.save-scroll.active {
     display: block;
@@ -8935,7 +8935,7 @@
     width: 100%;
     height: 20px;
     margin: 0px;
-    padding: 0px 6px;
+    padding: 1px 6px;
     border: 1px solid #736953a6;
     font-family: var(--actor-label-font-family);
     font-size: var(--actor-label-font-size);
@@ -8959,11 +8959,11 @@
     margin: 6px 0px 0px 0px;
   }
   
-.limited .tab.notes.active .note-section.biography .editor {
-  height: 100%;
-  width: 100%;
-  margin: 0px 0px 0px 0px;
-}
+  .limited .tab.notes.active .note-section.biography .editor {
+    height: 100%;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+  }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .limited-note-section.biography {
       height: 100%;
       width: 100%;
@@ -9127,11 +9127,12 @@
   }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.psychology-header #name {
       position: relative;
+      top: 1px;
       left: 0px;
       height: 18px;
       width: fit-content;
       display: inline-flex;
-/*       background: red; */
+      /*       background: red; */
       flex: 1;
     }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.psychology-header .item-controls {
@@ -9146,7 +9147,8 @@
       /* background: red; */
       text-align: center;
     } 
-  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list {
+  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list,
+  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list {
     overscroll-behavior-x: unset;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -9163,30 +9165,19 @@
     margin: 0px 0px 0px 0px;
     padding: 0px;
   }
-  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item {
-    width: 100%;
-    text-align: left;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    margin: 0px 0px;
-    padding: 2px 2px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    justify-content: space-between;
-    /* background: var(--debug-background-color-green); */
+  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item,
+  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item {
+
   }
-    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content {
+    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content,
+    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content  {
       width: 100%;
+      max-height: 36px;
       text-align: center;
       overflow-x: hidden;
       overflow-y: hidden;
       margin: 0px 0px;
-      padding: 0px 0px;
+      padding: 2px 2px;
       display: flex;
       flex-direction: row;
       font-family: var(--actor-input-font-family);
@@ -9194,18 +9185,22 @@
       font-weight: var(--actor-input-font-weight);
       color: var(--actor-input-color);
       justify-content: space-between;
+      box-shadow: 0px 0px 1px inset black;
       /* background: var(--debug-background-color-green); */
     }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-name {
+      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-name,
+      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-name {
         display: flex;
         flex-direction: row;
         min-width: 180px;
         /* max-width: 180px; */
+        max-height: 32px;
         flex: 1;
         flex-grow: 1;
-/*         background: red; */
+        /* background: red; */
       }
-        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .image {
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .image,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .image {
           background-size: 32px;
           background-repeat: no-repeat;
           min-height: 32px;
@@ -9213,33 +9208,15 @@
           min-width: 32px;
           max-width: 32px;
         }
-        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .name {
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .name,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .name {
           text-align: left;
           vertical-align: middle;
           padding: 11px 0px 0px 4px;
           overflow: hidden;
         }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-max {
-        min-width: 50px;
-        max-width: 50px;
-        padding: 11px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-tests {
-        min-width: 185px;
-        max-width: 185px;
-        padding: 11px 0px 0px 0px;
-        text-align: left;
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls {
+      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls,
+      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -9248,9 +9225,24 @@
         min-width: 30px;
         max-width: 30px;
         flex-grow: 0;
+        max-height: 32px;
         /* background: #0066ff; */
-        margin-left: 0px;
+        /* margin-left: 0px; */
       }
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls .item-post,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls .item-control.item-edit,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls .item-post,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls .item-control.item-edit  {
+          position: relative;
+          top: -3px;
+        }
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls .item-dropdown,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.psychology-list .item .content .item-controls .item-control.item-delete,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls .item-dropdown,
+        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls .item-control.item-delete {
+          position: relative;
+          top: -6px;
+        }
 
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.mutation-header {
     width: 100%;
@@ -9272,11 +9264,12 @@
   }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.mutation-header #name {
       position: relative;
+      top: 1px;
       left: 0px;
       height: 18px;
       width: fit-content;
       display: inline-flex;
-/*       background: red; */
+      /*       background: red; */
       flex: 1;
     }
     .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.mutation-header .item-controls {
@@ -9291,111 +9284,7 @@
       /* background: red; */
       text-align: center;
     }
-  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list {
-    overscroll-behavior-x: unset;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border: 1px solid #736953a6;
-    border-top: none;
-    list-style: none;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    height: fit-content;
-    width: 100%;
-    margin: 0px 0px 0px 0px;
-    padding: 0px;
-  }
-  .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item {
-    width: 100%;
-    text-align: left;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    margin: 0px 0px;
-    padding: 2px 2px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 0px 1px inset black;
-    font-family: var(--actor-input-font-family);
-    font-size: var(--actor-input-font-size);
-    font-weight: var(--actor-input-font-weight);
-    color: var(--actor-input-color);
-    justify-content: space-between;
-    /* background: var(--debug-background-color-green); */
-  }
-    .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content {
-      width: 100%;
-      text-align: center;
-      overflow-x: hidden;
-      overflow-y: hidden;
-      margin: 0px 0px;
-      padding: 0px 0px;
-      display: flex;
-      flex-direction: row;
-      font-family: var(--actor-input-font-family);
-      font-size: var(--actor-input-font-size);
-      font-weight: var(--actor-input-font-weight);
-      color: var(--actor-input-color);
-      justify-content: space-between;
-      /* background: var(--debug-background-color-green); */
-    }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-name {
-        display: flex;
-        flex-direction: row;
-        min-width: 180px;
-        /* max-width: 180px; */
-        flex: 1;
-        flex-grow: 1;
-/*         background: red; */
-      }
-        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .image {
-          background-size: 32px;
-          background-repeat: no-repeat;
-          min-height: 32px;
-          max-height: 32px;
-          min-width: 32px;
-          max-width: 32px;
-        }
-        .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .name {
-          text-align: left;
-          vertical-align: middle;
-          padding: 11px 0px 0px 4px;
-          overflow: hidden;
-        }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-max {
-        min-width: 50px;
-        max-width: 50px;
-        padding: 11px 0px 0px 0px;
-        text-align: center;
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-tests {
-        min-width: 185px;
-        max-width: 185px;
-        padding: 11px 0px 0px 0px;
-        text-align: left;
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 0;
-        /* background: aqua; */
-      }
-      .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-list.mutation-list .item .content .item-controls {
-        padding: 5px 0px 0px 0px;
-        font-family: "Font Awesome 5 Free";
-        font-size: 10px;
-        color: #504f48a6;
-        text-align: center;
-        min-width: 30px;
-        max-width: 30px;
-        flex-grow: 0;
-        /* background: #0066ff; */
-        margin-left: 0px;
-      }
+
        
   .app.window-app.sheet.wfrp4e.actor .tab.notes.active .inventory-header.disease-header {
     width: 100%;
@@ -15209,7 +15098,7 @@ font-style : normal;
         }
 
         .item .content .item-controls {
-          margin-left: 10px;
+          /* margin-left: 10px; */
         }
 
         .post-item img {
@@ -16703,7 +16592,7 @@ a.entity-link, a.inline-roll {
 
 .app.window-app.sheet.wfrp4e.actor .window-content .editable .content  {
   height: calc(100% - 30px);
-  background: #ff000047;
+  /* background: #ff000047; */
 }
 
 
@@ -16902,7 +16791,8 @@ a.entity-link, a.inline-roll {
 }
 #calendar-time-container {
     left: 240px !important;
-    bottom: 70px !important;
+    top: auto !important;
+    bottom: 69px !important;
 }
 #calendar {
     box-shadow: 0 0 4px black;
