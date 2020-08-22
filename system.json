@@ -180,7 +180,7 @@
   "primaryTokenAttribute": "status.wounds",
   "secondaryTokenAttribute": "status.advantage",
   "minimumCoreVersion" : "0.6.0",
-  "compatibleCoreVersion" : "0.6.2",
+  "compatibleCoreVersion" : "0.7.1",
   "templateVersion":2,
   "socket": true,
   "manifest" :  "https://raw.githubusercontent.com/CatoThe1stElder/WFRP-4th-Edition-FoundryVTT/stable/system.json",
