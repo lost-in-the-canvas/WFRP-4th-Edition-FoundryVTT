@@ -2,3 +2,6 @@ css/
 icons/
 packs/
 ui/
+packs/bestiary.db
+packs/careers.db
+*.db
