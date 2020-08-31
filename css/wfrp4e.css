@@ -30,6 +30,7 @@
 }
 .editor-content ul {
   margin: 0px 0px;
+  padding-left: 1.5em;
 }
 
 /******************************************************************/
@@ -140,13 +141,15 @@
       border-bottom: 2px groove #782e22;
     }
   .app.window-app .editor .editor-content h2 {
-    margin: 0 0 0.5rem;
-    padding: 0;
+    margin: 0 0 0.2rem;
+    padding: 0 0 3px 0px;
     font-family: var( --actor-input-font-family);
     font-size: 1.5em;
     font-weight: normal;
     color: var(--actor-input-color);
-    border-bottom: 1px solid #782e22;
+    /* border-bottom: none; */
+    /* text-decoration: underline; */
+    /* text-decoration-color: #ab1f1f; */
   }
   .app.window-app .editor .editor-content h3 {
     margin: 0 0 0.5rem;
@@ -234,7 +237,7 @@
   } 
 
   .app.sheet .editor-content {
-    padding:5px;
+    padding: 1px;
   }
 
 /* ==================== (D) APPLICATION BODY ================== */
@@ -1402,7 +1405,7 @@
   /* ================== 3. CHAT FORM ========================== */
     #sidebar .sidebar-tab #chat-form {
       min-height: 154px;
-      width: calc(100% + 5px);
+      width: calc(100% + 2px);
       flex: 1;
       position: relative;
       bottom: 0px;
@@ -1678,6 +1681,8 @@
 
 /* ==================== (F) SIDEBAR (ACTORS) ================== */
   #sidebar #actors .directory-list .directory-item {
+    flex: auto;
+    height: fit-content;
     padding: 1px 3px;
     border: 3px groove #564d3a;
     box-shadow: 0 0 6px #000 inset;
@@ -1690,8 +1695,9 @@
     text-shadow: 1px 1px 2px black;
   }
   #sidebar #actors .directory-list .directory-item h4 {
-    top: 17px;
-    position: relative;
+    padding-top: 17px;
+    white-space: normal;
+    overflow: visible;
   }
   
 /* ==================== (G) SIDEBAR (ITEMS) =================== */
@@ -2384,7 +2390,7 @@
     .app.window-app.sheet.item-sheet .tab.details.active {
       display: flex;
       flex-flow: column;
-      height: calc(100% - 129px);
+      height: calc(100% - 136px);
       overflow-y: scroll;
       margin-top: 6px;
     }
@@ -7801,7 +7807,8 @@
         }
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.armor .item .content .item-controls,
         .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.weapons .item .content .item-controls,
-        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-controls {
+        .app.window-app.sheet.wfrp4e.actor .tab.inventory.active .inventory-list.clothingAccessories .item .content .item-controls,
+        .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.active .inventory-list .item .content .item-controls {
           padding: 5px 0px 0px 0px;
           font-family: "Font Awesome 5 Free";
           font-size: 10px;
@@ -10803,6 +10810,11 @@
     border: 1px dotted #463a3a;
     box-shadow: none;
   }
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.combat.active,
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.inventory.active,
+  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active {
+    height: calc(100% - -30px);
+  }
 
 /* ==================== (D) PERSONAL DETAILS ================== */
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .window-content form #header-personal-details {
@@ -11059,8 +11071,8 @@
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .general .characteristics-table .table-data input {
     min-width: unset;
     width: 100%;
-    min-height: 26px;
-    max-height: 26px;
+    min-height: 25px;
+    max-height: 25px;
     font-family: var(--actor-input-font-family);
     font-size: var(--actor-input-font-size);
     font-weight: var(--actor-input-font-weight);
@@ -11467,8 +11479,8 @@
     padding: 0px 3px 0px 0px;
     flex: 1;
     flex-direction: column;
-    display: block;
-    height: calc(100% - 77px);
+    display: inline-flex;
+    height: calc(100% - 47px);
     overflow-x: hidden;
     overflow-y: scroll;
     /* background: antiquewhite; */
@@ -11864,7 +11876,7 @@
   }
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.biography,
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .note-section.gmnotes {
-      height: 125px;
+      height: 150px;
       width: 100%;
       margin: -5px 0px 0px 0px;
       padding: 4px;
@@ -11936,7 +11948,7 @@
     margin: -5px 0px 0px 0px;
     padding: 0px;
   }
-  .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item {
+/*   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item {
     width: 100%;
     text-align: left;
     overflow-x: hidden;
@@ -11951,8 +11963,8 @@
     font-weight: var(--actor-input-font-weight);
     color: var(--actor-input-color);
     justify-content: space-between;
-    /* background: var(--debug-background-color-green); */
-  }
+    background: var(--debug-background-color-green);
+  } */
     .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content {
       width: 100%;
       text-align: center;
@@ -11994,7 +12006,7 @@
           padding: 11px 0px 0px 4px;
           overflow: hidden;
         }
-      .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
+/*       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.notes.active .inventory-list.trait-list .item .content .item-controls {
         padding: 5px 0px 0px 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
@@ -12003,9 +12015,9 @@
         min-width: 30px;
         max-width: 30px;
         flex-grow: 0;
-        /* background: #0066ff; */
+        background: #0066ff;
         margin-left: 0px;
-      }      
+      }       */
 /*************************************************************/
 /*************************************************************/
 
@@ -13015,6 +13027,7 @@ border-image-outset: 0px !important;
       -webkit-font-smoothing: subpixel-antialiased;
       background: none;
       position: absolute;
+      text-shadow: 0px 0px 14px black;
     }
 
   .app.window-app .window-content {
@@ -13069,7 +13082,8 @@ border-image-outset: 0px !important;
         font-weight: var(--actor-input-font-weight);
         color: #d6d6d6;
         line-height: normal;
-        text-align: center;
+        /* text-shadow: 0px 0px 4px black; */
+        /* text-align: center; */
         padding: 3px 3px;
         border: 1px solid #5d513e;
         background: #080808;
@@ -13100,7 +13114,7 @@ border-image-outset: 0px !important;
         font-weight: var(--actor-input-font-weight);
         color: #d6d6d6;
         border: 1px solid #736953a6;
-        border-left: none;
+        /* border-left: none; */
         box-shadow: 0px 0px 10px inset black;
         background: #352516;
         height: auto;
@@ -13114,7 +13128,7 @@ border-image-outset: 0px !important;
         font-weight: var(--actor-input-font-weight);
         color: #d6d6d6;
         border: 1px solid #736953a6;
-        border-left: none;
+        /* border-left: none; */
         border-radius: 0px;
         box-shadow: 0px 0px 10px inset black;
         background: #352516;
@@ -13463,10 +13477,10 @@ border-image-outset: 0px !important;
 
   /* ================== 7. SHEET CONFIG ======================= */
     #sheet-config .form-group:first-of-type label {
-      max-height: 28px;
-      white-space: nowrap;
+      white-space: normal;
       overflow: hidden;
       overflow-wrap: unset;
+      flex: auto;
     }
     #sheet-config .window-content .notes {
       font-family: var(--actor-input-font-family);
@@ -14696,7 +14710,7 @@ font-style : normal;
   .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active {
     /* display: flex; */
     /* flex-direction: column; */
-    /* height: 358px; */
+    height: calc(100% - -30px);
     /* width: 100%; */
     /* margin: 0px; */
     /* padding: 0px; */
@@ -15961,8 +15975,8 @@ our-box[data-location="lArm"] .armour-property .armour-flaw.comma:last-of-type {
 
 
   #effects-config.app.window-app {
-    min-height: 484px !important;
     min-width: 410px;
+    height: auto !important;
   }
   #filter-config.app.window-app {
     min-height: 175px !important;
@@ -16912,3 +16926,40 @@ input[type="range"] + .range-value {
   overflow-y: scroll;
   padding: 0.4em;
 }
+
+/* POLYGOT */
+.polyglot-lang-select {
+    margin: 2px 3px 8px 3px !important;
+    padding: 0px 1px 0px 0px;
+    border: 1px solid gold;
+    border-image: url(../ui/chat-controls-border.png) 4 repeat;
+    border-image-width: 4px;
+    border-image-outset: 3px 2px 2px 2px;
+    background: url(../ui/frames/parchment-texture.png) repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-position: initial;
+    box-shadow: inset 0 0 10px #000000;
+}
+
+  #polyglot label {
+      font-family: var(--actor-input-font-family);
+      font-size: var(--actor-input-font-size);
+      font-weight: var(--actor-input-font-weight);
+      color: #520000;
+      line-height: normal;
+      text-align: center;
+      padding: 5px 7px 0px 7px;
+      width: fit-content;
+      flex: initial;
+  }
+  .polyglot-lang-select select {
+    height: 25px !important;
+    font-family: var(--actor-input-font-family);
+    font-size: var(--actor-input-font-size);
+    font-weight: var(--actor-input-font-weight);
+    color: black;
+    padding: 3px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    background: none !important;
+  }
