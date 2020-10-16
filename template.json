@@ -159,6 +159,12 @@
             "label": "God",
             "value": ""
           },
+          "status": {
+            "type": "String",
+            "value" : "",
+            "standing": "",
+            "tier": 0
+          },
           "hitLocationTable": {
             "value": "hitloc",
             "type": "String",
@@ -237,12 +243,6 @@
           "label": "Career Level",
           "value": ""
         },
-        "status": {
-          "type": "String",
-          "value" : "",
-          "standing": "",
-          "tier": 0
-        },
         "age": {
           "type": "String",
           "label": "Age",
@@ -306,7 +306,8 @@
       "skill",
       "spell",
       "trait",
-      "weapon"
+      "weapon",
+      "extendedTest"
     ],
     "templates": {
       "quantity": {
@@ -450,7 +451,10 @@
         "label": "Special",
         "value": ""
       },
-      "equipped": false
+      "equipped": false,
+      "offhand":  {
+        "value" : false
+      }
     },
     "armour": {
       "templates": ["description", "quantity", "encumbrance", "price", "availability", "location"],      
@@ -619,6 +623,11 @@
         "value": "ws"
       },
       "advances": {
+        "type": "Number",
+        "label": "Advances",
+        "value": 0
+      },
+      "modifier" : {
         "type": "Number",
         "label": "Advances",
         "value": 0
@@ -825,6 +834,26 @@
         "label": "Value (in d)",
         "type": "Number",
         "value": 1
+      }
+    },
+    "extendedTest": {
+      "templates": ["description"],
+      "SL" : {
+        "current" : 0,
+        "target" : 1
+      },
+      "test" : {
+        "value" : ""
+      },
+      "negativePossible" : {
+        "value" : false
+      },
+      "failingDecreases" : {
+        "value" : true
+      },
+      "hide" : {
+        "test" : false,
+        "progress" : false
       }
     }
   }
