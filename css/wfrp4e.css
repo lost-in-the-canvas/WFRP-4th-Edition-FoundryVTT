@@ -14928,7 +14928,7 @@ font-style : normal;
         /* text-shadow: 1px 0px 1px #6e6e716e; */
       }
       .app.window-app.sheet.wfrp4e.actor.creature-sheet .tab.skills.active .skill-section .inventory-list .item .item-controls {
-        padding: 2px 2px 0px 0px;
+        padding: 4px 2px 0px 0px;
         margin: 0px;
         font-family: "Font Awesome 5 Free";
         font-size: 10px;
